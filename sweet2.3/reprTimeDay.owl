@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+
+  <!ENTITY root "http://sweet.jpl.nasa.gov/2.3/">
+  <!ENTITY trela "&root;relaTime.owl#">
+  <!ENTITY day "&root;reprTimeDay.owl#">
+  <!ENTITY owlt "http://www.w3.org/2006/time#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&day;"
+         xmlns:trela="&trela;"
+         xmlns:day="&day;"
+         xmlns:owlt="&owlt;"
+         xmlns:xsd="&xsd;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&root;relaTime.owl"/>
+  </owl:Ontology>
+
+<!-- Diurnal definitions -->
+  <owl:Class rdf:about="#Noon">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Day">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Daytime">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Midnight">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Nighttime">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+    <owl:equivalentClass rdf:resource="#Nocturnal"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Nocturnal"/>
+
+  <owl:Class rdf:about="#Evening">
+    <rdfs:subClassOf rdf:resource="#Nighttime"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Morning">
+    <rdfs:subClassOf rdf:resource="#Daytime"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sunset">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Evening"/>
+        <owl:onProperty rdf:resource="&trela;startOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sunrise">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Morning"/>
+        <owl:onProperty rdf:resource="&trela;startOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Dawn">
+    <rdfs:subClassOf rdf:resource="#Twilight"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Dusk">
+    <rdfs:subClassOf rdf:resource="#Twilight"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Twilight">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+  </owl:Class>
+
+</rdf:RDF>

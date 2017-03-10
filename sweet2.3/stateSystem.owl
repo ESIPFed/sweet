@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+   <!ENTITY sstate "http://sweet.jpl.nasa.gov/2.3/stateSystem.owl#">   
+   <!ENTITY ordi "http://sweet.jpl.nasa.gov/2.3/propOrdinal.owl#">   
+   <!ENTITY state "http://sweet.jpl.nasa.gov/2.3/state.owl#">   
+   <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl#">   
+   <!ENTITY screla "http://sweet.jpl.nasa.gov/2.3/relaSci.owl#">   
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF
+    xml:base = "&sstate;"
+    xmlns:ordi = "&ordi;"
+    xmlns:state = "&state;"
+    xmlns:sstate = "&sstate;"
+    xmlns:rela = "&rela;"
+    xmlns:screla = "&screla;"
+    xmlns:owl = "&owl;"
+    xmlns:rdf = "&rdf;"
+    xmlns:rdfs = "&rdfs;"
+    xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+    <owl:imports rdf:resource = "http://sweet.jpl.nasa.gov/2.3/relaSci.owl"/>
+    <owl:imports rdf:resource = "http://sweet.jpl.nasa.gov/2.3/rela.owl"/>
+    <owl:imports rdf:resource = "http://sweet.jpl.nasa.gov/2.3/propOrdinal.owl"/>
+    <owl:imports rdf:resource = "http://sweet.jpl.nasa.gov/2.3/state.owl"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#SystemState">
+    <rdfs:subClassOf rdf:resource="&state;State"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EquilibriumState">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#Equilibrium"/>
+        <owl:onProperty rdf:resource="&rela;hasState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Activity levels -->
+  <ordi:ActivityLevel rdf:about="#Active">
+    <screla:moreActiveThan rdf:resource="#Inactive"/>
+  </ordi:ActivityLevel>
+
+  <ordi:ActivityLevel rdf:about="#Dormant">
+    <screla:moreActiveThan rdf:resource="#Inactive"/>
+  </ordi:ActivityLevel>
+
+  <ordi:ActivityLevel rdf:about="#Eruptive">
+    <screla:moreActiveThan rdf:resource="#Inactive"/>
+  </ordi:ActivityLevel>
+
+  <ordi:ActivityLevel rdf:about="#Extinct">
+  </ordi:ActivityLevel>
+
+  <ordi:ActivityLevel rdf:about="#Hyperactive">
+    <screla:moreActiveThan rdf:resource="#Active"/>
+  </ordi:ActivityLevel>
+
+  <ordi:ActivityLevel rdf:about="#Quiet">
+    <screla:moreActiveThan rdf:resource="#Extinct"/>
+  </ordi:ActivityLevel>
+
+  <ordi:ActivityLevel rdf:about="#Inactive">
+  </ordi:ActivityLevel>
+
+<!-- other states -->
+  <sstate:SystemState rdf:about="#Artificial">
+    <owl:differentFrom rdf:resource="#Natural" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Balanced">
+    <owl:sameAs rdf:resource="#Balance"/>
+  </sstate:SystemState>
+  <sstate:SystemState rdf:about="#Balance"/>
+
+  <sstate:SystemState rdf:about="#Broken">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Chaotic">
+    <owl:sameAs rdf:resource="#Chaos"/>
+  </sstate:SystemState>
+  <sstate:SystemState rdf:about="#Chaos"/>
+
+  <sstate:SystemState rdf:about="#Closed">
+    <owl:differentFrom rdf:resource="#Open" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Critical">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Deterministic">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Disturbed">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Dynamic">
+    <owl:sameAs rdf:resource="#TimeVarying"/>
+    <owl:sameAs rdf:resource="#TimeDependent"/>
+  </sstate:SystemState>
+  <sstate:SystemState rdf:about="#TimeVarying"/>
+  <sstate:SystemState rdf:about="#TimeDependent"/>
+
+  <sstate:SystemState rdf:about="#Equilibrium">
+    <rdfs:comment>In mechanics, a state in which the vector sum of all forces, that is, the acceleration vector, is zero. 
+In hydrodynamics, it is usually further required that a steady state exist throughout the atmospheric or fluid model. The equilibrium may be stable or unstable with respect to displacements therefrom. See also hydrostatic equilibrium, geostrophic equilibrium, instability. 2. In thermodynamics, any state of a system that would not undergo change if the system were to be isolated.</rdfs:comment>
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Intermittent">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Native">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Natural">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#NonEquilibrium">
+    <owl:differentFrom rdf:resource="#Equilibrium" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#NonLinear">
+<!-- not supported
+     <func:hasFunction rdf:resource="&func;Nonlinear"/>
+-->
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Open">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Random">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Static">
+    <owl:differentFrom rdf:resource="#Dynamic" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Stochastic">
+    <owl:differentFrom rdf:resource="#Deterministic"/>
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Endogenous">
+    <owl:differentFrom rdf:resource="#Exogenous" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Exogenous">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Heterogeneous">
+    <owl:differentFrom rdf:resource="#Inhomogeneous" />
+  </sstate:SystemState>
+  <sstate:SystemState rdf:about="#Inhomogeneous"/>
+
+  <sstate:SystemState rdf:about="#Homogeneous">
+    <owl:differentFrom rdf:resource="#Heterogeneous" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Reversible">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Irreversible">
+    <owl:differentFrom rdf:resource="#Reversible"/>
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Hysteresis">
+  </sstate:SystemState>
+
+  <owl:Class rdf:about="#Unstable">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+    <owl:equivalentClass rdf:resource="#Instability"/>
+    <owl:disjointWith rdf:resource="#Stability"/>
+    <rdfs:comment>property describing unstable conditions, such as in the atmosphere</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Instability"/>
+
+  <owl:Class rdf:about="#Stable">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+    <owl:equivalentClass rdf:resource="#Stability"/>
+    <rdfs:comment xml:lang="en">The characteristic of a system if sufficiently small disturbances have only small effects, either decreasing in amplitude or oscillating periodically; it is asymptotically stable if the effect of small disturbances vanishes for long time periods.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Stability"/>
+
+  <owl:Class rdf:about="#Complex">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+    <rdfs:comment>A complex system is a system composed of interconnected parts that as a whole exhibit one or more properties (behavior among the possible properties) not obvious from the properties</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Coherent">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Resilient">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Homeostasis">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Deficit">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+    <owl:disjointWith rdf:resource="#Excess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Excess">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Overflow">
+    <rdfs:subClassOf rdf:resource="#SystemState"/>
+  </owl:Class>
+
+  <sstate:SystemState rdf:about="#Complete">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Incomplete">
+    <owl:differentFrom rdf:resource="#Complete" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Dependent">
+    <owl:differentFrom rdf:resource="#Independent" />
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Independent">
+  </sstate:SystemState>
+
+  <sstate:SystemState rdf:about="#Coupled">
+  </sstate:SystemState>
+
+</rdf:RDF>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.3/propSpaceDistance.owl">
+  <!ENTITY volc "http://sweet.jpl.nasa.gov/2.3/realmLandVolcanic.owl">
+  <!ENTITY land "http://sweet.jpl.nasa.gov/2.3/realmLandform.owl">
+  <!ENTITY fluv "http://sweet.jpl.nasa.gov/2.3/realmLandFluvial.owl">
+  <!ENTITY orog "http://sweet.jpl.nasa.gov/2.3/realmLandOrographic.owl">
+  <!ENTITY body "http://sweet.jpl.nasa.gov/2.3/realmHydroBody.owl">
+  <!ENTITY fail "http://sweet.jpl.nasa.gov/2.3/phenSolid.owl">
+  <!ENTITY floor "http://sweet.jpl.nasa.gov/2.3/realmOceanFloor.owl">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&floor;"
+         xmlns:land="&land;"
+         xmlns:fluv="&fluv;"
+         xmlns:orog="&orog;"
+         xmlns:body="&body;"
+         xmlns:fail="&fail;"
+         xmlns:floor="&floor;"
+         xmlns:volc="&volc;"
+         xmlns:xten="&xten;"
+         xmlns:rela="&rela;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&land;"/>
+     <owl:imports rdf:resource="&fluv;"/>
+     <owl:imports rdf:resource="&orog;"/>
+     <owl:imports rdf:resource="&body;"/>
+     <owl:imports rdf:resource="&volc;"/>
+     <owl:imports rdf:resource="&fail;"/>
+     <owl:imports rdf:resource="&xten;"/>
+     <owl:imports rdf:resource="&rela;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+ <owl:Class rdf:about="#AbyssalPlain">
+    <rdfs:subClassOf rdf:resource="&land;#Plain"/>
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+ <owl:Class rdf:about="#AbyssalHill">
+    <rdfs:subClassOf rdf:resource="&orog;#Hill"/>
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+ <owl:Class rdf:about="#AlgalFlat">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ColdSeep">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+    <rdfs:subClassOf rdf:resource="&fail;#Fissure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalRise">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalShelf">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalSlope">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DeepOceanBasin">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DeepSeaTrench">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+    <rdfs:subClassOf rdf:resource="&fluv;#Trench"/>
+    <owl:equivalentClass rdf:resource="#AbyssalTrench"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AbyssalTrench"/>
+
+  <owl:Class rdf:about="#Guyot">
+    <rdfs:subClassOf rdf:resource="#Seamount"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HydrothermalVent">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+    <rdfs:subClassOf rdf:resource="&volc;#Geyser"/>
+    <rdfs:comment xml:lang="en">A hydrothermal vent is a fissure in a planet's surface from which geothermally heated water issues. Hydrothermal vents are commonly found near volcanically active places, areas where tectonic plates are moving apart, ocean basins, and hotspots.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MidOceanRidge">
+    <rdfs:subClassOf rdf:resource="#OceanRidge"/>
+    <rdfs:comment xml:lang="en">A mid-ocean ridge or mid-oceanic ridge is an underwater mountain range, formed by plate tectonics. This uplifting of the ocean floor occurs when convection currents rise in the mantle beneath the oceanic crust and create magma where two tectonic plates meet at a divergent boundary. The mid-ocean ridges of the world are connected and form a single global mid-oceanic ridge system that is part of every ocean, making the mid-oceanic ridge system the longest mountain range in the world. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OceanRidge">
+    <rdfs:subClassOf rdf:resource="#SeaFloor"/>
+    <rdfs:subClassOf rdf:resource="&orog;#Ridge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OceanicPlateau">
+    <rdfs:subClassOf rdf:resource="#OceanRidge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Seamount">
+    <rdfs:subClassOf rdf:resource="&orog;#Mountain"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasRealm" />
+        <owl:allValuesFrom rdf:resource="#SeaFloor" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+<rdfs:comment xml:lang="en">A seamount is a mountain rising from the ocean seafloor that does not reach to the water's surface (sea level), and thus is not an island. These are typically formed from extinct volcanoes, that rise abruptly and are usually found rising from a seafloor of 1,000 - 4,000 meters depth. They are defined by oceanographers as independent features that rise to at least 1,000 meters above the seafloor. The peaks are often found hundreds to thousands of meters below the surface, and are therefore considered to be within the deep sea.[1] An estimated 30,000 seamounts occur across the globe, with only a few having been studied. However, some seamounts are also unusual.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reef">
+    <rdfs:subClassOf rdf:resource="#OceanRidge"/>
+    <rdfs:comment xml:lang="en">In nautical terminology, a reef is a rock, sandbar, or other feature lying beneath the surface of the water yet shallow enough to be a hazard to ships. Many reefs result from abiotic processes—deposition of sand, wave erosion planning down rock outcrops, and other natural processes—but the best-known reefs are the coral reefs of tropical waters developed through biotic processes dominated by corals and calcareous algae </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SubmarineCanyon">
+    <rdfs:subClassOf rdf:resource="&fluv;#Canyon"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasRealm" />
+        <owl:allValuesFrom rdf:resource="#SeaFloor" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A submarine canyon is a steep-sided valley on the sea floor of the continental slope. Many submarine canyons are found as extensions to large rivers; however there are many that have no such association. Canyons cutting the continental slopes have been found at depths greater than 2 km below sea level. They are formed by powerful turbidity currents, volcanic and earthquake activity. Many submarine canyons continue as submarine channels across continental rise areas and may extend for hundreds of kilometers.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeaFloor">
+    <rdfs:subClassOf rdf:resource="&body;#WaterBodyBoundary"/>
+    <owl:equivalentClass rdf:resource="#Seabed"/>
+    <owl:equivalentClass rdf:resource="#OceanFloor"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Seabed"/>
+  <owl:Class rdf:about="#OceanFloor"/>
+
+</rdf:RDF>

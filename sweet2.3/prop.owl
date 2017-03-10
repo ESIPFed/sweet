@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY prop  "http://sweet.jpl.nasa.gov/2.3/prop.owl#">
+  <!ENTITY proc  "http://sweet.jpl.nasa.gov/2.3/procPhysical.owl">
+  <!ENTITY know "http://sweet.jpl.nasa.gov/2.3/humanKnowledgeDomain.owl"> 
+  <!ENTITY hrela "http://sweet.jpl.nasa.gov/2.3/relaHuman.owl"> 
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl"> 
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&prop;"
+         xmlns:prop="&prop;"
+         xmlns:proc="&proc;"
+         xmlns:know="&know;"
+         xmlns:hrela="&hrela;"
+         xmlns:rela="&rela;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&know;"/>
+     <owl:imports rdf:resource="&hrela;"/>
+     <owl:imports rdf:resource="&rela;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Property"/>
+
+  <owl:Class rdf:about="#Role">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+  </owl:Class>
+
+<!-- Container Properties -->
+  <owl:Class rdf:about="#PhysicalProperty">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Physics" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectromagneticRadiationProperty">
+    <rdfs:subClassOf rdf:resource="#PhysicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasProcess" />
+        <owl:allValuesFrom rdf:resource="&proc;#RadiativeTransfer" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RadiationMediumInteractionProperty">
+    <rdfs:subClassOf rdf:resource="#ElectromagneticRadiationProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BiologicalProperty">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Biology" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ThermodynamicProperty">
+    <rdfs:subClassOf rdf:resource="#PhysicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Thermodynamics" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HydrogeologicalProperty">
+    <rdfs:subClassOf rdf:resource="#GeologicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Hydrology" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MotionProperty">
+    <rdfs:subClassOf rdf:resource="#PhysicalProperty" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Dynamics" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AngularMotionProperty">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#ReactionProperty">
+    <rdfs:subClassOf rdf:resource="#ChemicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ChemicalProperty">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Chemistry" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectromagneticProperty">
+    <rdfs:subClassOf rdf:resource="#PhysicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeologicalProperty">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hrela;#studyOf" />
+        <owl:someValuesFrom rdf:resource="&know;#Geology" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaveProperty">
+    <rdfs:subClassOf rdf:resource="#PhysicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SystemProperty">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StockProperty">
+    <rdfs:subClassOf rdf:resource="#SystemProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FlowProperty">
+    <rdfs:subClassOf rdf:resource="#SystemProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FluidProperty">
+    <rdfs:subClassOf rdf:resource="#PhysicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Measure">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Metric">
+    <rdfs:subClassOf rdf:resource="#Measure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Efficiency">
+    <rdfs:subClassOf rdf:resource="#Measure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sensitivity">
+    <rdfs:subClassOf rdf:resource="#Measure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fideltiy">
+    <rdfs:subClassOf rdf:resource="#Measure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StatisticalSummary">
+    <rdfs:subClassOf rdf:resource="#Property"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Accuracy">
+    <rdfs:subClassOf rdf:resource="#Metric"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Precision">
+    <rdfs:subClassOf rdf:resource="#Metric"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Distortion">
+    <rdfs:subClassOf rdf:resource="#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Error">
+    <rdfs:subClassOf rdf:resource="#Metric" />
+  </owl:Class>
+
+</rdf:RDF>

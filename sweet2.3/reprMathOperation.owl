@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.3/reprMath.owl">
+  <!ENTITY mrela "http://sweet.jpl.nasa.gov/2.3/relaMath.owl">
+  <!ENTITY func "http://sweet.jpl.nasa.gov/2.3/reprMathFunction.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.3/proc.owl">
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.3/reprMathOperation.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF 
+   xml:base = "&oper;"
+   xmlns:math = "&math;"
+   xmlns:mrela= "&mrela;"
+   xmlns:func = "&func;"
+   xmlns:oper = "&oper;"
+   xmlns:proc = "&proc;"
+   xmlns:owl = "&owl;"
+   xmlns:rdf = "&rdf;"
+   xmlns:rdfs = "&rdfs;"
+   xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&mrela;"/>
+     <owl:imports rdf:resource="&func;"/>
+     <owl:imports rdf:resource="&proc;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#MathematicalProcess">
+    <rdfs:subClassOf rdf:resource="&proc;#Process"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Normalization">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Operation">
+    <rdfs:subClassOf rdf:resource="#MathematicalProcess"/>
+    <rdfs:comment xml:lang="en">An operation is an action or procedure which produces a new value from one or more input values.  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OperationOnFunction">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Function"/>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VectorValuedOperation">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#VectorField"/>
+        <owl:onProperty rdf:resource="&mrela;#hasOutput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TensorFieldOperation">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#TensorField"/>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ScalarFieldOperation">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#ScalarField"/>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ScalarValuedOperation">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#ScalarField"/>
+        <owl:onProperty rdf:resource="&mrela;#hasOutput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TernaryOperation">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+        <owl:allValuesFrom rdf:resource="&math;#OrderedTriple"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Binary Operators -->
+  <owl:Class rdf:about="#BinaryOperation">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+        <owl:allValuesFrom rdf:resource="&math;#OrderedPair"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subtraction">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+    <owl:equivalentClass rdf:resource="#Difference"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Difference"/>
+
+  <owl:Class rdf:about="#Summation">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+    <owl:equivalentClass rdf:resource="#Sum"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Sum"/>
+
+  <owl:Class rdf:about="#Multiplication">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+    <owl:equivalentClass rdf:resource="#Product"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Product"/>
+
+  <owl:Class rdf:about="#Division">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+    <owl:equivalentClass rdf:resource="#Quotient"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Quotient"/>
+
+  <owl:Class rdf:about="#Fraction">
+    <rdfs:subClassOf rdf:resource="#Division"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ratio">
+    <rdfs:subClassOf rdf:resource="#Division"/>
+  </owl:Class>
+
+<!-- Unary -->
+  <owl:Class rdf:about="#UnaryOperation">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+        <owl:allValuesFrom rdf:resource="&math;#Scalar"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Half">
+    <rdfs:subClassOf rdf:resource="#UnaryOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Double">
+    <rdfs:subClassOf rdf:resource="#UnaryOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Square">
+    <rdfs:subClassOf rdf:resource="#UnaryOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SquareRoot">
+    <rdfs:subClassOf rdf:resource="#UnaryOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Logarithm">
+    <rdfs:subClassOf rdf:resource="#UnaryOperation"/>
+  </owl:Class>
+
+<!-- Operations on functions -->
+  <owl:Class rdf:about="#InflectionPoint">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaddlePoint">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+  </owl:Class>
+
+<!-- Vector Field operators -->
+  <owl:Class rdf:about="#VectorFieldOperation">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#VectorField"/>
+        <owl:onProperty rdf:resource="&mrela;#hasInput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CrossProduct">
+    <rdfs:subClassOf rdf:resource="#Product"/>
+    <rdfs:subClassOf rdf:resource="#VectorFieldOperation"/>
+    <rdfs:subClassOf rdf:resource="#VectorValuedOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DotProduct">
+    <rdfs:subClassOf rdf:resource="#Product"/>
+    <rdfs:subClassOf rdf:resource="#VectorFieldOperation"/>
+    <rdfs:subClassOf rdf:resource="#ScalarValuedOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Laplacian">
+    <rdfs:subClassOf rdf:resource="#VectorFieldOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Biharmonic">
+    <rdfs:subClassOf rdf:resource="#VectorFieldOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PartialDerivative">
+    <rdfs:subClassOf rdf:resource="#Derivative"/>
+    <rdfs:subClassOf rdf:resource="#VectorFieldOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Gradient">
+    <rdfs:subClassOf rdf:resource="#Derivative"/>
+    <rdfs:subClassOf rdf:resource="#VectorValuedOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SurfaceIntegral">
+    <rdfs:subClassOf rdf:resource="#MultipleIntegral"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#AreaIntegral">
+    <rdfs:subClassOf rdf:resource="#MultipleIntegral"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VolumeIntegral">
+    <rdfs:subClassOf rdf:resource="#MultipleIntegral"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MultipleIntegral">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasFunction"/>
+        <owl:someValuesFrom rdf:resource="#Integral"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Calculus -->
+  <owl:Class rdf:about="#Derivative">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <owl:equivalentClass rdf:resource="#Differentiation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&math;#Variable"/>
+        <owl:onProperty rdf:resource="&mrela;#derivativeWithRespectTo"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Function"/>
+        <owl:onProperty rdf:resource="&mrela;#isDerivativeOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Function"/>
+        <owl:onProperty rdf:resource="&mrela;#hasOutput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Differentiation"/>
+
+  <owl:Class rdf:about="#Slope">
+    <rdfs:subClassOf rdf:resource="#Derivative"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LineIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Integral">
+    <rdfs:subClassOf rdf:resource="#OperationOnFunction"/>
+    <owl:equivalentClass rdf:resource="#Integration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasFunction"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#withRespectTo"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Integration"/>
+
+  <owl:Class rdf:about="#IndefiniteIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasInterval"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DefiniteIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasInterval"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

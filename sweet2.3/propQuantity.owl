@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY prop  "http://sweet.jpl.nasa.gov/2.3/prop.owl">
+  <!ENTITY quan  "http://sweet.jpl.nasa.gov/2.3/propQuantity.owl#">
+  <!ENTITY screla  "http://sweet.jpl.nasa.gov/2.3/relaSci.owl">
+  <!ENTITY math  "http://sweet.jpl.nasa.gov/2.3/reprMath.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.3/reprSciUnits.owl">    
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&quan;"
+         xmlns:prop="&prop;"
+         xmlns:quan="&quan;"
+         xmlns:screla="&screla;"
+         xmlns:math="&math;"
+         xmlns:units = "&units;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&prop;"/>
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&screla;"/>
+     <owl:imports rdf:resource="&units;"/>
+  </owl:Ontology>
+
+<!-- Quantitative properties are Quantities -->
+  <owl:Class rdf:about="#ScientificQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasUnit"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Quantity">
+    <rdfs:subClassOf rdf:resource="#ScientificQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasNumericValue"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#QuantitativeProperty" />
+  </owl:Class>
+  <owl:Class rdf:about="#QuantitativeProperty"/>
+
+  <owl:Class rdf:about="#PhysicalQuantity">
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+    <rdfs:subClassOf rdf:resource="&prop;#PhysicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhysicalConstant">
+    <rdfs:subClassOf rdf:resource="&math;#Constant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConservedQuantity">
+    <rdfs:subClassOf rdf:resource="&math;#Constant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ExtensiveProperty">
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+    <owl:disjointWith rdf:resource="#IntensiveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IntensiveProperty">
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+<!-- Vector quantities -->
+  <owl:Class rdf:about="#VectorQuantity">
+    <rdfs:subClassOf rdf:resource="#ScientificQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasVector"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Flux">
+    <rdfs:subClassOf rdf:resource="#VectorQuantity"/>
+    <rdfs:comment>The rate of flow of some quantity, often used in reference to the flow of some form of energy.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VectorPotential">
+    <rdfs:subClassOf rdf:resource="#VectorQuantity"/>
+    <rdfs:subClassOf rdf:resource="#Potential"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StokesParameters">
+    <rdfs:subClassOf rdf:resource="#VectorQuantity" />
+  </owl:Class>
+
+<!-- Interval Quantities -->
+  <owl:Class rdf:about="#IntervalQuantity">
+    <rdfs:subClassOf rdf:resource="#ScientificQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasInterval"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Container Quantities -->
+  <owl:Class rdf:about="#BiologicalQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#BiologicalProperty"/>
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectromagneticRadiationQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticRadiationProperty"/>
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectromagneticQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticRadiationProperty"/>
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RadiationMediumInteractionQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticRadiationProperty"/>
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ThermodynamicQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#ThermodynamicProperty"/>
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ChemicalQuantity">
+    <rdfs:subClassOf rdf:resource="&prop;#ChemicalProperty"/>
+    <rdfs:subClassOf rdf:resource="#Quantity"/>
+  </owl:Class>
+
+<!-- other -->
+  <owl:Class rdf:about="#BudgetEquation">
+    <owl:equivalentClass rdf:resource="#BalanceEquation"/>
+    <owl:equivalentClass rdf:resource="#Budget"/>
+    <rdfs:subClassOf rdf:resource="&math;#Equation" />
+    <rdfs:comment xml:lang="en">In general, an equation expressing a balance of quantities in the sense that the local or individual rates of change are zero.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#BalanceEquation"/>
+  <owl:Class rdf:about="#Budget"/>
+
+  <owl:Class rdf:about="#Force">
+    <rdfs:subClassOf rdf:resource="#IntensiveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#newton"/>
+        <owl:onProperty rdf:resource="&screla;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Field quantities -->
+  <owl:Class rdf:about="#FieldStrength">
+    <rdfs:subClassOf rdf:resource="#PhysicalQuantity" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Potential">
+    <rdfs:subClassOf rdf:resource="#PhysicalQuantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ScalarPotential">
+    <rdfs:subClassOf rdf:resource="#Potential"/>
+  </owl:Class>
+
+</rdf:RDF>

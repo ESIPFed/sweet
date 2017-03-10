@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY oce "http://sweet.jpl.nasa.gov/2.3/realmGeolOceanic.owl">
+  <!ENTITY ocean "http://sweet.jpl.nasa.gov/2.3/realmOcean.owl">
+  <!ENTITY petr "http://sweet.jpl.nasa.gov/2.3/matrRock.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.3/matr.owl">
+  <!ENTITY geol "http://sweet.jpl.nasa.gov/2.3/realmGeol.owl">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl">
+  <!ENTITY crela "http://sweet.jpl.nasa.gov/2.3/relaChemical.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&oce;"
+         xmlns:owl="&owl;"
+         xmlns:petr="&petr;"
+         xmlns:geol="&geol;"
+         xmlns:chem="&chem;"
+         xmlns:oce="&oce;"
+         xmlns:ocean="&ocean;"
+         xmlns:rela="&rela;"
+         xmlns:crela="&crela;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&petr;"/>
+     <owl:imports rdf:resource="&geol;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&rela;"/>
+     <owl:imports rdf:resource="&crela;"/>
+     <owl:imports rdf:resource="&ocean;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+  <owl:Class rdf:about="#AccretionaryPrism">
+    <rdfs:subClassOf rdf:resource="&chem;#Mixture"/>
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicStructure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&petr;#Melange"/>
+        <owl:onProperty rdf:resource="&crela;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An accretionary wedge or accretionary prism is formed from sediments that are accreted onto the non-subducting tectonic plate at a convergent plate boundary. Most of the material in the accretionary wedge consists of marine sediments scraped off from the downgoing slab of oceanic crust but in some cases includes the erosional products of volcanic island arcs formed on the overriding plate. [Wikipedia]
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="OceanicLithosphere">
+    <rdfs:subClassOf rdf:resource="&geol;#Lithosphere"/>
+    <rdfs:subClassOf rdf:resource="&ocean;#OceanRegion"/>
+    <owl:equivalentClass rdf:resource="#Submarine"/>
+    <rdfs:comment>Oceanic lithosphere is typically about 50-100 km thick (but beneath the mid-ocean ridges is no thicker than the crust). Oceanic lithosphere consists mainly of mafic crust and ultramafic mantle and is denser than continental lithosphere, for which the mantle is associated with crust made of felsic rocks. The crust is distinguished from the upper mantle by the change in chemical composition that takes place at the Moho discontinuity. Oceanic lithosphere thickens as it ages and moves away from the mid-ocean ridge. This thickening occurs by conductive cooling, which converts hot asthenosphere into lithospheric mantle, and causes the oceanic lithosphere to become increasingly dense with age. Oceanic lithosphere is less dense than asthenosphere for a few tens of millions of years, but after this becomes increasingly denser than asthenosphere. The gravitational instability of mature oceanic lithosphere has the effect that at subduction zones the oceanic lithosphere invariably sinks underneath the overriding lithosphere, which can be oceanic or continental. New oceanic lithosphere is constantly being produced at mid-ocean ridges and is recycled back to the mantle at subduction zones. As a result, oceanic lithosphere is much younger than continental lithosphere: the oldest oceanic lithosphere is about 170 million years old, while parts of the continental lithosphere are billions of years old.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Submarine"/>
+
+  <owl:Class rdf:ID="OceanicCrust">
+    <rdfs:subClassOf rdf:resource="&geol;#Crust"/>
+    <rdfs:subClassOf rdf:resource="&ocean;#OceanRegion"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#OceanicLithosphere"/>
+        <owl:onProperty rdf:resource="&rela;#partOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The oceanic crust is 5 km (3 mi) to 10 km (6 mi) thick and is composed primarily of basalt, diabase, and gabbro. [Wikipedia]
+    </rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

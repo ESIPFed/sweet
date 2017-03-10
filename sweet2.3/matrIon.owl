@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.3/matr.owl#">
+  <!ENTITY elem "http://sweet.jpl.nasa.gov/2.3/matrElement.owl#">
+  <!ENTITY allo "http://sweet.jpl.nasa.gov/2.3/matrElementalMolecule.owl#">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.3/matrCompound.owl#">
+  <!ENTITY crela "http://sweet.jpl.nasa.gov/2.3/relaChemical.owl#">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl#">
+  <!ENTITY prela "http://sweet.jpl.nasa.gov/2.3/relaPhysical.owl#">
+  <!ENTITY pstate "http://sweet.jpl.nasa.gov/2.3/statePhysical.owl#">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.3/state.owl#">
+  <!ENTITY ion "http://sweet.jpl.nasa.gov/2.3/matrIon.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&ion;"
+         xmlns:owl="&owl;"
+         xmlns:chem="&chem;"
+         xmlns:elem="&elem;"
+         xmlns:rela="&rela;"
+         xmlns:comp="&comp;"
+         xmlns:prela="&prela;"
+         xmlns:crela="&crela;"
+         xmlns:state="&state;"
+         xmlns:pstate="&pstate;"
+         xmlns:ion="&ion;"
+         xmlns:allo="&allo;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matrCompound.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaPhysical.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matrElement.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaChemical.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matrElementalMolecule.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/statePhysical.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/state.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matr.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/rela.owl"/>
+  </owl:Ontology>
+
+<!-- temporarily not set to neg integer -->
+  <owl:Class rdf:about="#Anion">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:comment xml:lang="en">An anion is an ion that has more electrons than protons such that the atom or molecule is negatively charged. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cation">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:comment xml:lang="en">An cation is an ion that has more protons than electrons such that the atom or molecule is positively charged. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HeavyIon">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ion">
+    <rdfs:subClassOf rdf:resource="&chem;Substance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasState"/>
+        <owl:hasValue rdf:resource="&pstate;Ionized"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An ion is an atom or molecule where the total number of electrons is not equal to the total number of protons, giving it a net positive or negative electrical charge. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaltIon">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+  </owl:Class>
+
+<!-- Individuals -->
+  <ion:Ion rdf:about="#HCO3minus">
+    <rdf:type rdf:resource="&comp;InorganicCompound"/>
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;C"/>
+    <crela:hasChemical_3 rdf:resource="#O3minus"/>
+    <owl:sameAs rdf:resource="#Bicarbonite"/>
+    <owl:sameAs rdf:resource="#HydrogenCarbonate"/>
+  </ion:Ion>
+  <ion:Ion rdf:about="#Bicarbonite"/>
+  <ion:Ion rdf:about="#HydrogenCarbonate"/>
+
+  <ion:Ion rdf:about="#CO3minusminus">
+    <rdf:type rdf:resource="&comp;InorganicCompound"/>
+    <crela:hasChemical_1 rdf:resource="&elem;C"/>
+    <crela:hasChemical_2 rdf:resource="#O3minusminus"/>
+    <owl:sameAs rdf:resource="#Carbonate"/>
+  </ion:Ion>
+  <ion:Ion rdf:about="#Carbonate"/>
+
+  <ion:Ion rdf:about="#NO2minus">
+    <rdf:type rdf:resource="&comp;InorganicCompound"/>
+    <crela:hasChemical_1 rdf:resource="&elem;N"/>
+    <crela:hasChemical_2 rdf:resource="#O2minus"/>
+    <owl:sameAs rdf:resource="#Nitrite"/>
+  </ion:Ion>
+  <ion:Ion rdf:about="#Nitrite"/>
+
+  <ion:Ion rdf:about="#NO3minus">
+    <rdf:type rdf:resource="&comp;InorganicCompound"/>
+    <crela:hasChemical_1 rdf:resource="&elem;N"/>
+    <crela:hasChemical_2 rdf:resource="#O3minus"/>
+    <owl:sameAs rdf:resource="#Nitrate"/>
+  </ion:Ion>
+  <ion:Ion rdf:about="#Nitrate"/>
+
+  <ion:Ion rdf:about="#NH4plus">
+    <rdf:type rdf:resource="&comp;InorganicCompound"/>
+    <crela:hasChemical_1 rdf:resource="&elem;N"/>
+    <crela:hasChemical_2 rdf:resource="#H4plus"/>
+    <owl:sameAs rdf:resource="#Ammonium"/>
+  </ion:Ion>
+  <ion:Ion rdf:about="#Ammonium"/>
+
+  <ion:Ion rdf:about="#Hplus">
+    <crela:hasChemical rdf:resource="&elem;H"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">1</prela:hasCharge>
+  </ion:Ion>
+
+  <ion:Ion rdf:about="#H4plus">
+    <crela:hasChemical rdf:resource="&allo;H4"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">1</prela:hasCharge>
+  </ion:Ion>
+
+  <ion:Ion rdf:about="#Ominus">
+    <crela:hasChemical rdf:resource="&elem;O"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">-1</prela:hasCharge>
+  </ion:Ion>
+
+  <ion:Ion rdf:about="#O2minus">
+    <crela:hasChemical rdf:resource="&allo;O2"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">-1</prela:hasCharge>
+  </ion:Ion>
+
+  <ion:Ion rdf:about="#O3minus">
+    <crela:hasChemical rdf:resource="&allo;O3"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">-1</prela:hasCharge>
+  </ion:Ion>
+
+  <ion:Ion rdf:about="#Oplus">
+    <crela:hasChemical rdf:resource="&elem;O"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">1</prela:hasCharge>
+  </ion:Ion>
+
+  <ion:Ion rdf:about="#O3minusminus">
+    <crela:hasChemical rdf:resource="&allo;O3"/>
+    <prela:hasCharge rdf:datatype="&xsd;integer">-2</prela:hasCharge>
+  </ion:Ion>
+
+</rdf:RDF>

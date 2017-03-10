@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [ 
+   <!ENTITY diff "http://sweet.jpl.nasa.gov/2.3/propDifference.owl#">    
+   <!ENTITY mrela "http://sweet.jpl.nasa.gov/2.3/relaMath.owl">
+   <!ENTITY chem "http://sweet.jpl.nasa.gov/2.3/propChemical.owl">
+   <!ENTITY prop "http://sweet.jpl.nasa.gov/2.3/prop.owl">
+   <!ENTITY ht "http://sweet.jpl.nasa.gov/2.3/propSpaceHeight.owl">
+   <!ENTITY oper "http://sweet.jpl.nasa.gov/2.3/reprMathOperation.owl">
+   <!ENTITY obj3d "http://sweet.jpl.nasa.gov/2.3/reprSpaceGeometry3D.owl">
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">    
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#"> 
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">    
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#"> 
+]>
+
+<rdf:RDF 
+   xml:base = "&diff;"
+   xmlns:diff = "&diff;"
+   xmlns:mrela="&mrela;"
+   xmlns:prop="&prop;"
+   xmlns:chem="&chem;"
+   xmlns:ht="&ht;"
+   xmlns:oper="&oper;"
+   xmlns:obj3d="&obj3d;"
+   xmlns:owl = "&owl;"
+   xmlns:rdf = "&rdf;"
+   xmlns:rdfs = "&rdfs;"
+   xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&mrela;"/>
+     <owl:imports rdf:resource="&prop;"/>
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&ht;"/>
+     <owl:imports rdf:resource="&obj3d;"/>
+  </owl:Ontology>
+
+<!-- Metrics -->
+  <owl:Class rdf:about="#Difference">
+    <rdfs:subClassOf rdf:resource="&oper;#Difference" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Deviation">
+    <rdfs:subClassOf rdf:resource="&prop;#Error" />
+    <rdfs:subClassOf rdf:resource="#Difference" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Tolerance">
+    <rdfs:subClassOf rdf:resource="#Deviation" />
+    <rdfs:subClassOf rdf:resource="&prop;#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Bias">
+    <rdfs:subClassOf rdf:resource="#Deviation" />
+    <rdfs:subClassOf rdf:resource="&prop;#Error" />
+  </owl:Class>
+
+
+  <diff:Difference rdf:about="#NormalizedDifferenceVegetationIndex">
+     <owl:sameAs rdf:resource="#NDVI" />
+  </diff:Difference>
+  <diff:Difference rdf:about="#NDVI"/>
+
+  <owl:Class rdf:about="#Undulation">
+    <rdfs:subClassOf rdf:resource="&oper;#Difference"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ht;#Geoid"/>
+        <owl:onProperty rdf:resource="&mrela;#hasFirstOperand"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&obj3d;#ReferenceEllipsoid"/>
+        <owl:onProperty rdf:resource="&mrela;#hasSecondOperand"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Anomaly">
+    <rdfs:subClassOf rdf:resource="#Deviation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Amplitude">
+    <rdfs:subClassOf rdf:resource="#Deviation"/>
+    <rdfs:subClassOf rdf:resource="&prop;#WaveProperty"/>
+    <rdfs:comment xml:lang="en">Often the greatest magnitude at a given point of any spatially and temporally varying physical quantity governed by a wave equation; can also mean the spatial part of a time-harmonic wave function.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaturationDeficit">
+    <rdfs:subClassOf rdf:resource="&chem;#SaturationProperty"/>
+    <rdfs:comment xml:lang="en">The amount by which the water vapor in the air must be increased to achieve saturation without changing the environmental temperature and pressure.</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+
+  <!ENTITY root "http://sweet.jpl.nasa.gov/2.3/">
+  <!ENTITY trela "&root;relaTime.owl#">
+  <!ENTITY mrela "&root;relaMath.owl#">
+  <!ENTITY screla "&root;relaSci.owl#">
+  <!ENTITY units "&root;reprSciUnits.owl#">
+  <!ENTITY temp "&root;propTemperature.owl#">
+  <!ENTITY time "&root;propTime.owl#">
+  <!ENTITY rela "&root;rela.owl#">
+  <!ENTITY repr "&root;repr.owl#">
+  <!ENTITY phys "&root;statePhysical.owl#">
+  <!ENTITY seas "&root;reprTimeSeason.owl#">
+  <!ENTITY owlt "http://www.w3.org/2006/time#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&seas;"
+         xmlns:trela="&trela;"
+         xmlns:mrela="&mrela;"
+         xmlns:screla="&screla;"
+         xmlns:units="&units;"
+         xmlns:temp="&temp;"
+         xmlns:time="&time;"
+         xmlns:rela="&rela;"
+         xmlns:repr="&repr;"
+         xmlns:phys="&phys;"
+         xmlns:seas="&seas;"
+         xmlns:owlt="&owlt;"
+         xmlns:xsd="&xsd;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&root;relaTime.owl"/>
+     <owl:imports rdf:resource="&root;relaMath.owl"/>
+     <owl:imports rdf:resource="&root;reprSciUnits.owl"/>
+     <owl:imports rdf:resource="&root;relaSci.owl"/>
+     <owl:imports rdf:resource="&root;propTemperature.owl"/>
+     <owl:imports rdf:resource="&root;propTime.owl"/>
+     <owl:imports rdf:resource="&root;rela.owl"/>
+     <owl:imports rdf:resource="&root;repr.owl"/>
+     <owl:imports rdf:resource="&root;statePhysical.owl"/>
+  </owl:Ontology>
+
+<!-- Season definitions -->
+  <owl:Class rdf:about="#Equinox">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Season">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Solstice">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DrySeason">
+    <rdfs:subClassOf rdf:resource="#Season"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasState"/>
+        <owl:hasValue rdf:resource="&phys;Dry"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WetSeason">
+    <rdfs:subClassOf rdf:resource="#Season"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasState"/>
+        <owl:hasValue rdf:resource="&phys;Wet"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WarmestMonth">
+    <rdfs:subClassOf rdf:resource="&time;Time"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;hasUnit"/>
+        <owl:hasValue rdf:resource="&units;month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;hasMaximum"/>
+        <owl:someValuesFrom rdf:resource="&temp;Temperature"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ColdestMonth">
+    <rdfs:subClassOf rdf:resource="&time;Time"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;hasUnit"/>
+        <owl:hasValue rdf:resource="&units;month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;hasMinimum"/>
+        <owl:someValuesFrom rdf:resource="&temp;Temperature"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <seas:Season rdf:about="#Autumn">
+    <owl:sameAs rdf:resource="#Fall"/>
+    <owlt:hasBeginning rdf:resource="#AutumnalEquinox"/>
+    <owlt:hasEnd rdf:resource="#WinterSolstice"/>
+  </seas:Season>
+  <seas:Season rdf:about="#Fall"/>
+
+  <seas:Season rdf:about="#Spring">
+    <owlt:hasBeginning rdf:resource="#SpringEquinox"/>
+    <owlt:hasEnd rdf:resource="#SummerSolstice"/>
+  </seas:Season>
+
+  <seas:Equinox rdf:about="#AutumnalEquinox">
+    <owl:sameAs rdf:resource="#FallEquinox"/>
+  </seas:Equinox>
+  <seas:Equinox rdf:about="#FallEquinox"/>
+
+  <seas:Equinox rdf:about="#SpringEquinox">
+    <owl:differentFrom rdf:resource="#FallEquinox"/>
+  </seas:Equinox>
+
+  <seas:Season rdf:about="#Summer">
+    <owlt:hasBeginning rdf:resource="#SummerSolstice"/>
+    <owlt:hasEnd rdf:resource="#FallEquinox"/>
+  </seas:Season>
+
+  <seas:Solstice rdf:about="#SummerSolstice">
+    <trela:hasNHTime rdf:resource="#JuneSolstice"/>
+    <trela:hasSHTime rdf:resource="#DecemberSolstice"/>
+  </seas:Solstice>
+
+  <seas:Solstice rdf:about="#WinterSolstice">
+    <trela:hasSHTime rdf:resource="#JuneSolstice"/>
+    <trela:hasNHTime rdf:resource="#DecemberSolstice"/>
+  </seas:Solstice>
+        
+  <seas:Solstice rdf:about="#JuneSolstice">
+    <trela:dayOfYear rdf:datatype="&xsd;nonNegativeInteger">172</trela:dayOfYear>
+  </seas:Solstice>
+
+  <seas:Solstice rdf:about="#DecemberSolstice">
+    <trela:dayOfYear rdf:datatype="&xsd;nonNegativeInteger">355</trela:dayOfYear>
+  </seas:Solstice>
+
+  <seas:Season rdf:about="#Winter">
+    <owlt:hasBeginning rdf:resource="#WinterSolstice"/>
+    <owlt:hasEnd rdf:resource="#SpringEquinox"/>
+  </seas:Season>
+
+</rdf:RDF>

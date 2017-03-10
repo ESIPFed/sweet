@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.3/realm.owl#">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl#">
+  <!ENTITY crela "http://sweet.jpl.nasa.gov/2.3/relaClimate.owl#">
+  <!ENTITY mrela "http://sweet.jpl.nasa.gov/2.3/relaMath.owl#">
+  <!ENTITY srela "http://sweet.jpl.nasa.gov/2.3/relaSci.owl#">
+  <!ENTITY sreg "http://sweet.jpl.nasa.gov/2.3/realmRegion.owl#">
+  <!ENTITY climate "http://sweet.jpl.nasa.gov/2.3/phenPlanetClimate.owl#">
+  <!ENTITY thic "http://sweet.jpl.nasa.gov/2.3/propSpaceThickness.owl#">
+  <!ENTITY zone "http://sweet.jpl.nasa.gov/2.3/realmClimateZone.owl#">
+  <!ENTITY time "http://sweet.jpl.nasa.gov/2.3/reprTimeSeason.owl#">
+  <!ENTITY ptime "http://sweet.jpl.nasa.gov/2.3/propTime.owl#">
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.3/reprMath.owl#">
+  <!ENTITY cate "http://sweet.jpl.nasa.gov/2.3/propCategorical.owl#">
+  <!ENTITY temp "http://sweet.jpl.nasa.gov/2.3/propTemperature.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&zone;"
+         xmlns:planet="&planet;"
+         xmlns:climate="&climate;"
+         xmlns:time="&time;"
+         xmlns:ptime="&ptime;"
+         xmlns:math="&math;"
+         xmlns:temp="&temp;"
+         xmlns:thic="&thic;"
+         xmlns:cate="&cate;"
+         xmlns:rela="&rela;"
+         xmlns:crela="&crela;"
+         xmlns:mrela="&mrela;"
+         xmlns:srela="&srela;"
+         xmlns:sreg="&sreg;"
+         xmlns:zone="&zone;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/reprTimeSeason.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/propTime.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/reprMath.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/propTemperature.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/realmRegion.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/realm.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/rela.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaClimate.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaMath.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaSci.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/propCategorical.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/phenPlanetClimate.owl"/>
+  </owl:Ontology>
+
+<!-- Annotation Properties -->
+  <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+
+<!-- Climate Zone Types -->
+
+  <owl:Class rdf:ID="ClimateClassification">
+    <rdfs:subClassOf rdf:resource="&cate;Category"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimateZoneType">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MarineClimate">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasRealm" />
+        <owl:someValuesFrom rdf:resource="&planet;Ocean" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">(Also called maritime climate, oceanic climate.) A regional climate under the predominant influence of the sea, characterized by relatively small seasonal variations and high atmospheric moisture content; the antithesis of a continental climate.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RainShadow">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+    <rdfs:comment xml:lang="en">A region of sharply reduced precipitation on the lee side of an orographic barrier, as compared with regions upwind of the barrier.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Doldrums">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasRealm" />
+        <owl:hasValue rdf:resource="&sreg;LowLatitude" />
+        </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A nautical term for the equatorial trough, with special reference to the light and variable nature of the winds.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DesertClimateZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IntertropicalConvergenceZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+    <owl:equivalentClass rdf:resource="#ITCZ"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasRealm" />
+        <owl:allValuesFrom rdf:resource="#Equator" />
+        </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#ITCZ"/>
+
+  <owl:Class rdf:about="#SubtropicalClimateZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TropicalClimateZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DryWinterClimate">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasDrySeason"/>
+        <owl:hasValue rdf:resource="&time;Winter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="WetSummerClimate">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasWetSeason"/>
+        <owl:hasValue rdf:resource="&time;Summer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="WetSummerDryWinterClimate">
+    <rdfs:subClassOf rdf:resource="#DryWinterClimate"/>
+    <rdfs:subClassOf rdf:resource="#WetSummerClimate"/>
+  </owl:Class>
+
+<!-- Climate zones -->
+  <owl:Class rdf:ID="A">
+    <owl:equivalentClass rdf:resource="#TropicalClimate"/>
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <rdfs:comment xml:lang="en">The A climate classification, also known as the Tropical climate classification, is characterized as being consistently warm with all months averaging above 18 degrees C and having annual precipitation exceeds potential evapotranspiration (POTET).</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageAnnualPrecipitation"/>
+        <owl:hasValue>
+          <thic:PrecipitationRange>
+            <srela:hasLowerQuantity rdf:resource="&thic;AnnualPotentialEvapotranspiration"/>
+          </thic:PrecipitationRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageMonthlyTemperature"/>
+        <owl:hasValue>
+          <temp:TemperatureRange>
+            <mrela:hasLowerBound rdf:datatype="&xsd;integer">18</mrela:hasLowerBound>
+          </temp:TemperatureRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TropicalClimate"/>
+
+  <owl:Class rdf:ID="B">
+    <owl:equivalentClass rdf:resource="#DryClimate"/>
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <rdfs:comment xml:lang="en">Potential evapotranspiration (POTET) exceeds precipitation in all B climates. Subdivisions are based on precipitation timing and amount and mean annual temperature.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageAnnualPrecipitation"/>
+        <owl:hasValue>
+          <thic:PrecipitationRange>
+            <srela:hasLowerQuantity rdf:resource="&thic;AnnualPotentialEvapotranspiration"/>
+          </thic:PrecipitationRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DryClimate"/>
+
+  <owl:Class rdf:ID="C">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <owl:equivalentClass rdf:resource="#TemperateClimate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageColdestMonthTemperature"/>
+        <owl:hasValue>
+          <temp:TemperatureRange>
+            <mrela:hasLowerBound rdf:datatype="&xsd;integer">0</mrela:hasLowerBound>
+            <mrela:hasUpperBound rdf:datatype="&xsd;integer">18</mrela:hasUpperBound>
+          </temp:TemperatureRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageWarmestMonthTemperature"/>
+        <owl:hasValue>
+          <temp:TemperatureRange>
+            <mrela:hasLowerBound rdf:datatype="&xsd;integer">10</mrela:hasLowerBound>
+            <mrela:hasUpperBound rdf:datatype="&xsd;integer">22</mrela:hasUpperBound>
+          </temp:TemperatureRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TemperateClimate"/>
+
+  <owl:Class rdf:ID="D">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageColdestMonthTemperature"/>
+        <owl:hasValue>
+          <temp:TemperatureRange>
+            <mrela:hasUpperBound rdf:datatype="&xsd;integer">0</mrela:hasUpperBound>
+          </temp:TemperatureRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;hasAverageWarmestMonthTemperature"/>
+        <owl:hasValue>
+          <temp:TemperatureRange>
+            <mrela:hasLowerBound rdf:datatype="&xsd;integer">10</mrela:hasLowerBound>
+          </temp:TemperatureRange>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The D climate classification, also known as the microthermal climate classification,  is characterized by by having the warmest month of the year above 10 degree C and the coldest below 0 degree C.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="E">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+  </owl:Class>
+
+<!-- Individuals -->
+  <zone:A rdf:ID="Af">
+    <owl:sameAs rdf:resource="#TropicalRainForestClimate"/>
+    <crela:hasAverageMonthlyPrecipitation>
+      <thic:PrecipitationRange_cm>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">6</mrela:hasLowerBound>
+      </thic:PrecipitationRange_cm>
+    </crela:hasAverageMonthlyPrecipitation>
+    <rdfs:comment xml:lang="en">The Af climate classification, also known as the tropical rain forest climate classification, is characterized by monthly precipitation in excess of 6 cm all months out of year.</rdfs:comment>
+  </zone:A>
+  <zone:A rdf:ID="TropicalRainForestClimate"/>
+
+  <zone:A rdf:ID="Am">
+    <owl:sameAs rdf:resource="#TropicalMonsoonClimate"/>
+    <crela:hasAverageDrySeasonPrecipitation>
+      <thic:PrecipitationRange_cm>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">6</mrela:hasUpperBound>
+      </thic:PrecipitationRange_cm>
+    </crela:hasAverageDrySeasonPrecipitation>
+    <crela:hasAverageITCZDominanceDuration>
+      <ptime:MonthRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">6</mrela:hasLowerBound>
+      </ptime:MonthRange>
+    </crela:hasAverageITCZDominanceDuration>
+    <rdfs:comment xml:lang="en">The Am climate classification, also known as Tropical Monsoon Climate, is characterized by a short marked dry season with 1 or more months receiving less than 6 cm of precipitation, an otherwise excessively wet rainy season, and ITCZ dominance for 6 - 12 months out of the year.</rdfs:comment>
+  </zone:A>
+  <zone:A rdf:ID="TropicalMonsoonClimate"/>
+
+  <zone:A rdf:ID="Aw">
+    <owl:sameAs rdf:resource="#TropicalSavannaClimate"/>
+    <rdf:type rdf:resource="#WetSummerDryWinterClimate"/>
+    <crela:hasAverageITCZDominanceDuration>
+      <ptime:MonthRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">6</mrela:hasUpperBound>
+      </ptime:MonthRange>
+    </crela:hasAverageITCZDominanceDuration>
+    <rdfs:comment xml:lang="en">The Aw climate classification, also known as Tropical Savanna climate classification, is characterized by a summer wet season, winter dry season, and ITCZ dominance for 6 months or less.</rdfs:comment>
+  </zone:A>
+  <zone:A rdf:ID="TropicalSavannaClimate"/>
+
+  <zone:B rdf:ID="BS">
+    <owl:sameAs rdf:resource="#SemiAridClimate"/>
+        <crela:hasAverageAnnualPrecipitation>
+          <thic:PrecipitationRange>
+            <srela:hasLowerQuantity rdf:resource="&thic;AnnualHalfPotentialEvapotranspiration"/>
+            <srela:hasUpperQuantity rdf:resource="&thic;AnnualPotentialEvapotranspiration"/>
+          </thic:PrecipitationRange>
+        </crela:hasAverageAnnualPrecipitation>
+    <rdfs:comment xml:lang="en">The BS climate classification, also known as semiarid climate classification, is characterized by having precipitation amounts greater than 1/2 potential evapotranspiration (POTET), but not equal to it.</rdfs:comment>
+  </zone:B>
+  <zone:B rdf:ID="SemiAridClimate"/>
+
+  <zone:B rdf:ID="BSh">
+    <owl:sameAs rdf:resource="#HotLowLatitudeSteppeClimate"/>
+    <rdfs:comment xml:lang="en">The BSh climate classification, also known as the hot low-latitude steppe, is characterized by having mean annual temperatures greater than 18 degree C.</rdfs:comment>
+    <crela:hasAverageAnnualTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">18</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageAnnualTemperature>
+  </zone:B>
+  <zone:B rdf:ID="HotLowLatitudeSteppeClimate"/>
+
+  <zone:B rdf:ID="BSk">
+    <owl:sameAs rdf:resource="#ColdMidlatitudeSteppeClimate"/>
+    <crela:hasAverageAnnualTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">18</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageAnnualTemperature>
+    <rdfs:comment xml:lang="en">The BSk climate classification, also known as cold midlatitude steppe climate classification, is characterized by having mean annual temperatures less than 18 degree C.</rdfs:comment>
+  </zone:B>
+  <zone:B rdf:ID="ColdMidlatitudeSteppeClimate"/>
+
+  <zone:B rdf:ID="BW">
+    <owl:sameAs rdf:resource="#AridClimate"/>
+    <owl:sameAs rdf:resource="#Arid"/>
+    <rdfs:comment xml:lang="en">The BW climate classification, also known as the arid climate classification, is characterized by having precipitation amounts less than 1/2 potential evapotranspiration (POTET).</rdfs:comment>
+        <crela:hasAverageAnnualPrecipitation>
+          <thic:PrecipitationRange>
+            <srela:hasUpperQuantity rdf:resource="&thic;AnnualHalfPotentialEvapotranspiration"/>
+          </thic:PrecipitationRange>
+        </crela:hasAverageAnnualPrecipitation>
+  </zone:B>
+  <zone:B rdf:ID="AridClimate"/>
+  <zone:B rdf:ID="Arid"/>
+
+  <zone:B rdf:ID="BWh">
+    <owl:sameAs rdf:resource="#HotLowLatitudeDesertClimate"/>
+    <rdfs:comment xml:lang="en">the BWh climate classification, also known as the hot low-latitude desert, is characterized by having mean annual temperatures greater than 18 degree C.</rdfs:comment>
+    <crela:hasAverageAnnualTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">18</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageAnnualTemperature>
+  </zone:B>
+  <zone:B rdf:ID="HotLowLatitudeDesertClimate"/>
+
+  <zone:B rdf:ID="BWk">
+    <owl:sameAs rdf:resource="#ColdMidlatitudeDesertClimate"/>
+    <rdfs:comment xml:lang="en">The BWk climate classification, also known as the cold midlatitude desert, is characterized by having mean annual temperatures less than 18 degree C.</rdfs:comment>
+    <crela:hasAverageAnnualTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">18</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageAnnualTemperature>
+  </zone:B>
+  <zone:B rdf:ID="ColdMidlatitudeDesertClimate"/>
+
+  <zone:C rdf:ID="Cfa">
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">22</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <rdfs:comment xml:lang="en">The Cfa climate classification is characterized by year-round precipitation, hot summers, and having the warmest month above 22 degree C.</rdfs:comment>
+  </zone:C>
+
+  <zone:C rdf:ID="Cfb">
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">22</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <crela:hasAverageWinterDuration>
+      <ptime:MonthRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">4</mrela:hasLowerBound>
+      </ptime:MonthRange>
+    </crela:hasAverageWinterDuration>
+    <rdfs:comment xml:lang="en">The Cfb climate classfication receives year-round precipitation, its warmest month is below 22 degree C and has 4 months above 10 degree C.</rdfs:comment>
+  </zone:C>
+
+  <zone:C rdf:ID="Cfc">
+    <crela:hasAverageWinterDuration>
+      <ptime:MonthRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">1</mrela:hasLowerBound>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">3</mrela:hasUpperBound>
+      </ptime:MonthRange>
+    </crela:hasAverageWinterDuration>
+    <rdfs:comment xml:lang="en">The Cfc climate classification is charactericized by year-round precipitation and having 1 - 3 months with temperatures above 10 degree C.</rdfs:comment>
+  </zone:C>
+
+  <zone:C rdf:ID="Csa">
+    <crela:hasWetSeason rdf:resource="&time;Winter"/>
+    <crela:hasDrySeason rdf:resource="&time;Summer"/>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">22</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <rdfs:comment xml:lang="en">The Csa climate classification is characterized by pronounced summer droughts with 70% of precipitation in the winter and hot summers with its warmest month above 22 degree C.</rdfs:comment>
+  </zone:C>
+
+  <zone:C rdf:ID="Csb">
+    <rdf:type rdf:resource="#WetSummerDryWinterClimate"/>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">10</mrela:hasLowerBound>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">22</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+  </zone:C>
+
+  <zone:C rdf:ID="Cwa">
+    <rdf:type rdf:resource="#WetSummerDryWinterClimate"/>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">22</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <rdfs:comment xml:lang="en">the Cwa climate classification is characterized by winter drought, summer's wettest month getting 10 times more precipitation than driest winter month, and the warmest month being above 22 degree C.</rdfs:comment>
+  </zone:C>
+
+  <zone:D rdf:ID="Dfa">
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">22</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <rdfs:comment xml:lang="en">The Dfa climate classification is characterized by having year-round precipitation and warmest month temperatures above 22 degree C.</rdfs:comment>
+  </zone:D>
+
+  <zone:D rdf:ID="Dfb">
+    <rdfs:comment xml:lang="en">The Dfb climate classifcation is characterized by having year-round precipitation and warmest month temperatures below 22 degree C.</rdfs:comment>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">22</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+  </zone:D>
+
+  <zone:D rdf:ID="Dfc">
+    <crela:hasAverageWinterDuration>
+      <ptime:MonthRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">1</mrela:hasLowerBound>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">4</mrela:hasUpperBound>
+      </ptime:MonthRange>
+    </crela:hasAverageWinterDuration>
+    <rdfs:comment xml:lang="en">The Dfc climate classification is characterized by having year-round precipitation and having 1 - 4 months above 10 degree C.</rdfs:comment>
+  </zone:D>
+
+  <zone:D rdf:ID="Dwa">
+    <rdf:type rdf:resource="#DryWinterClimate"/>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">22</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <rdfs:comment xml:lang="en">The Dwa climate classification is characterized by winter drought and warmest month temperatures above 22 degree C.</rdfs:comment>
+  </zone:D>
+
+  <zone:D rdf:ID="Dwb">
+    <rdf:type rdf:resource="#DryWinterClimate"/>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">22</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <rdfs:comment xml:lang="en">The Dwb climate classification is characterized by winter drought and warmest month temperatures below 22 degree C.</rdfs:comment>
+  </zone:D>
+
+  <zone:D rdf:ID="Dwc">
+    <rdf:type rdf:resource="#DryWinterClimate"/>
+    <rdfs:comment xml:lang="en">The Dwc climate classification is characterized by winter drought and haviong 1 - 4 months with temperatures above 10 degrees C.</rdfs:comment>
+    <crela:hasAverageWinterDuration>
+      <ptime:MonthRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">1</mrela:hasLowerBound>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">4</mrela:hasUpperBound>
+      </ptime:MonthRange>
+    </crela:hasAverageWinterDuration>
+  </zone:D>
+
+  <zone:D rdf:ID="Dwd">
+    <rdf:type rdf:resource="#DryWinterClimate"/>
+    <rdfs:comment xml:lang="en">The Dwd climate classification is characterized by winter drought and having coldest month temperatures below -38 degree C (in Siberia only).</rdfs:comment>
+    <crela:hasAverageColdestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">-38</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageColdestMonthTemperature>
+  </zone:D>
+
+  <zone:E rdf:ID="EF">
+    <owl:sameAs rdf:resource="#IceCapClimate"/>
+    <rdfs:comment xml:lang="en">The EF climate classification, also known as the Ice Cap climate classification, is characterized by having warmest month temperatures below 0 degrees C and having precipitation exceeding very small potential evapotranspiration (POTET).</rdfs:comment>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">0</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+        <crela:hasAverageAnnualPrecipitation>
+          <thic:PrecipitationRange>
+            <srela:hasLowerQuantity rdf:resource="&thic;AnnualPotentialEvapotranspiration"/>
+          </thic:PrecipitationRange>
+        </crela:hasAverageAnnualPrecipitation>
+  </zone:E>
+  <zone:E rdf:ID="IceCapClimate"/>
+
+  <zone:E rdf:ID="EM">
+    <owl:sameAs rdf:resource="#PolarMarineClimate"/>
+    <rdfs:comment xml:lang="en">The EM climate classification, also known as the polar marine climate classification, is characterized by all months having temperatures above -7 degree C, warmest month above 0 degree C, and annual temperatures less than 17 degree C.</rdfs:comment>
+    <crela:hasAverageMonthlyTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">-7</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageMonthlyTemperature>
+    <crela:hasAverageWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">0</mrela:hasLowerBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageWarmestMonthTemperature>
+    <crela:hasAverageAnnualTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">17</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasAverageAnnualTemperature>
+  </zone:E>
+  <zone:E rdf:ID="PolarMarineClimate"/>
+
+  <zone:E rdf:ID="ET">
+    <owl:sameAs rdf:resource="#TundraClimate"/>
+    <crela:hasAverageSnowCoverDuration>
+      <ptime:MonthRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">8</mrela:hasLowerBound>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">10</mrela:hasUpperBound>
+      </ptime:MonthRange>
+    </crela:hasAverageSnowCoverDuration>
+    <crela:hasWarmestMonthTemperature>
+      <temp:TemperatureRange>
+        <mrela:hasLowerBound rdf:datatype="&xsd;integer">0</mrela:hasLowerBound>
+        <mrela:hasUpperBound rdf:datatype="&xsd;integer">10</mrela:hasUpperBound>
+      </temp:TemperatureRange>
+    </crela:hasWarmestMonthTemperature>
+    <crela:hasAverageAnnualPrecipitation>
+      <thic:PrecipitationRange>
+        <srela:hasLowerQuantity rdf:resource="&thic;AnnualPotentialEvapotranspiration"/>
+      </thic:PrecipitationRange>
+    </crela:hasAverageAnnualPrecipitation>
+    <rdfs:comment xml:lang="en">The ET climate classification, also known as the tundra climate classification, is characterizex by warmest month temperatures between 0 - 10 degree C, precipitation exceeds small potential evapotranspiration demand, and has snow cover 8 - 10 months out of the year.</rdfs:comment>
+  </zone:E>
+  <zone:E rdf:ID="TundraClimate"/>
+
+  <owl:Class rdf:about="#Equator">
+    <rdfs:subClassOf rdf:resource="#TropicalClimateZone" />
+  </owl:Class>
+
+</rdf:RDF>

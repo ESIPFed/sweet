@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+
+  <!ENTITY root "http://sweet.jpl.nasa.gov/2.3/">
+  <!ENTITY math "&root;reprMath.owl#">
+  <!ENTITY rela "&root;rela.owl#">
+  <!ENTITY trela "&root;relaTime.owl#">
+  <!ENTITY screla "&root;relaSci.owl#">
+  <!ENTITY time "&root;reprTime.owl#">
+  <!ENTITY hydr "&root;phenHydro.owl#">
+  <!ENTITY zone "&root;realmClimateZone.owl#">
+  <!ENTITY seas "&root;reprTimeSeason.owl#">
+  <!ENTITY quan "&root;propQuantity.owl#">
+  <!ENTITY func "&root;propFunction.owl#">
+  <!ENTITY units "&root;reprSciUnits.owl#">
+  <!ENTITY ext "&root;propTime.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY owlt "http://www.w3.org/2006/time#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&ext;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:ext="&ext;"
+         xmlns:time="&time;"
+         xmlns:func="&func;"
+         xmlns:quan="&quan;"
+         xmlns:seas="&seas;"
+         xmlns:zone="&zone;"
+         xmlns:hydr="&hydr;"
+         xmlns:units="&units;"
+         xmlns:owlt="&owlt;"
+         xmlns:math="&math;"
+         xmlns:rela="&rela;"
+         xmlns:trela="&trela;"
+         xmlns:screla="&screla;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&root;reprMath.owl"/>
+     <owl:imports rdf:resource="&root;relaTime.owl"/>
+     <owl:imports rdf:resource="&root;relaSci.owl"/>
+     <owl:imports rdf:resource="&root;rela.owl"/>
+     <owl:imports rdf:resource="&root;propQuantity.owl"/>
+     <owl:imports rdf:resource="&root;propFunction.owl"/>
+     <owl:imports rdf:resource="&root;reprSciUnits.owl"/>
+     <owl:imports rdf:resource="&root;reprTime.owl"/>
+     <owl:imports rdf:resource="&root;reprTimeSeason.owl"/>
+     <owl:imports rdf:resource="&root;phenHydro.owl"/>
+     <owl:imports rdf:resource="&root;realmClimateZone.owl"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Time">
+    <rdfs:subClassOf rdf:resource="&quan;PhysicalQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;second"/>
+        <owl:onProperty rdf:resource="&screla;hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">This is a reference to time as a dependent variable</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Age">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cycle">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Period"/>
+        <owl:onProperty rdf:resource="&trela;hasTime"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Delay">
+    <rdfs:subClassOf rdf:resource="&owlt;Interval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Latency">
+    <rdfs:subClassOf rdf:resource="#Delay"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Period">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ResidenceTime">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DoublingTime">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EFoldingTime">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Timestamp">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Duration">
+    <rdfs:subClassOf rdf:resource="#TemporalRange"/>
+    <rdfs:subClassOf rdf:resource="&math;Interval"/>
+    <owl:equivalentClass rdf:resource="#DurationDescription"/>
+    <owl:equivalentClass rdf:resource="#TimeInterval"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DurationDescription"/>
+  <owl:Class rdf:about="#TimeInterval"/>
+
+  <owl:Class rdf:about="#TemporalRange">
+    <rdfs:subClassOf rdf:resource="&quan;IntervalQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;rangeOf"/>
+        <owl:allValuesFrom rdf:resource="#Time"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#TimeRange"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TimeRange"/>
+
+  <owl:Class rdf:about="#TemporalExtent">
+    <rdfs:subClassOf rdf:resource="&time;TemporalEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TimePeriod">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Time"/>
+        <owl:onProperty rdf:resource="&trela;hasStartTime"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&time;Time"/>
+        <owl:onProperty rdf:resource="&trela;hasEndTime"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Repose">
+    <rdfs:subClassOf rdf:resource="&owlt;Interval"/>
+    <rdfs:comment xml:lang="en">The interval of time between volcanic eruptions.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hydroperiod">
+    <rdfs:subClassOf rdf:resource="#Period"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Episode">
+    <rdfs:subClassOf rdf:resource="#Exposure"/>
+    <owl:equivalentClass rdf:resource="#Episodic"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Episodic"/>
+
+  <owl:Class rdf:about="#Exposure">
+    <rdfs:subClassOf rdf:resource="&owlt;Interval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CurrentTime">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StartTime">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EndTime">
+    <rdfs:subClassOf rdf:resource="&owlt;Instant"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="MonthRange">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;month"/>
+        <owl:onProperty rdf:resource="&screla;hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TimeStep">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+  </owl:Class>
+
+<!-- Time references -->
+  <owl:Class rdf:about="#GeologicTime">
+    <rdfs:subClassOf rdf:resource="&time;TimeReference"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;hasUnit" />
+        <owl:hasValue rdf:resource="&units;MYA" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The geologic time scale is a chronologic schema (or idealized model) relating stratigraphy to time that is used by geologists, paleontologists and other earth scientists to describe the timing and relationships between events that have occurred during the history of the Earth.  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="AverageSnowCoverDuration">
+    <rdfs:subClassOf rdf:resource="&func;AnnualAverage"/>
+    <rdfs:subClassOf rdf:resource="#SnowCoverDuration"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="AverageWinterDuration">
+    <rdfs:subClassOf rdf:resource="&func;AnnualAverage"/>
+    <rdfs:subClassOf rdf:resource="#WinterDuration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AverageITCZDominanceDuration">
+    <rdfs:subClassOf rdf:resource="&func;AnnualAverage"/>
+    <rdfs:subClassOf rdf:resource="#ITCZDominanceDuration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SnowCoverDuration">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasPhenomena"/>
+        <owl:someValuesFrom rdf:resource="&hydr;SnowCover"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WinterDuration">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&trela;hasTime"/>
+        <owl:hasValue rdf:resource="&seas;Winter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ITCZDominanceDuration">
+    <rdfs:subClassOf rdf:resource="#Duration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;hasPhenomena"/>
+        <owl:someValuesFrom rdf:resource="&zone;ITCZ"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- owl-time extensions -->
+  <owl:Class rdf:about="&owlt;ProperInterval">
+    <rdfs:subClassOf rdf:resource="#TimeRange"/>
+  </owl:Class>
+  <owl:Class rdf:about="&owlt;Interval">
+    <rdfs:subClassOf rdf:resource="#TimeRange"/>
+  </owl:Class>
+
+</rdf:RDF>

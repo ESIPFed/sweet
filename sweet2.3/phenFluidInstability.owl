@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY instab "http://sweet.jpl.nasa.gov/2.3/phenFluidInstability.owl">
+  <!ENTITY fluid "http://sweet.jpl.nasa.gov/2.3/phenFluidDynamics.owl">
+  <!ENTITY tempg "http://sweet.jpl.nasa.gov/2.3/propTemperatureGradient.owl">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl">
+  <!ENTITY screla "http://sweet.jpl.nasa.gov/2.3/relaSci.owl">
+  <!ENTITY front "http://sweet.jpl.nasa.gov/2.3/phenAtmoFront.owl">
+  <!ENTITY pstate "http://sweet.jpl.nasa.gov/2.3/statePhysical.owl">
+  <!ENTITY sstate "http://sweet.jpl.nasa.gov/2.3/stateSystem.owl">
+  <!ENTITY tstate "http://sweet.jpl.nasa.gov/2.3/stateThermodynamic.owl">
+  <!ENTITY scale "http://sweet.jpl.nasa.gov/2.3/stateSpaceScale.owl">
+  <!ENTITY sys "http://sweet.jpl.nasa.gov/2.3/phenSystem.owl">
+  <!ENTITY sysc "http://sweet.jpl.nasa.gov/2.3/phenSystemComplexity.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&instab;"
+         xmlns:owl="&owl;"
+         xmlns:scale="&scale;"
+         xmlns:front="&front;"
+         xmlns:tempg="&tempg;"
+         xmlns:rela="&rela;"
+         xmlns:screla="&screla;"
+         xmlns:sstate="&sstate;"
+         xmlns:pstate="&pstate;"
+         xmlns:tstate="&tstate;"
+         xmlns:sys="&sys;"
+         xmlns:sysc="&sysc;"
+         xmlns:instab="&instab;"
+         xmlns:fluid="&fluid;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&sstate;"/>
+     <owl:imports rdf:resource="&pstate;"/>
+     <owl:imports rdf:resource="&tstate;"/>
+     <owl:imports rdf:resource="&scale;"/>
+     <owl:imports rdf:resource="&tempg;"/>
+     <owl:imports rdf:resource="&rela;"/>
+     <owl:imports rdf:resource="&screla;"/>
+     <owl:imports rdf:resource="&fluid;"/>
+     <owl:imports rdf:resource="&front;"/>
+     <owl:imports rdf:resource="&sys;"/>
+     <owl:imports rdf:resource="&sysc;"/>
+  </owl:Ontology>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#Wake">
+    <rdfs:subClassOf rdf:resource="#Turbulence" />
+    <rdfs:comment xml:lang="en">The region of turbulence immediately to the rear of a solid body in motion relative to a fluid</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ZombieTurbulence">
+    <rdfs:subClassOf rdf:resource="&sys;#Perturbation" />
+    <rdfs:subClassOf rdf:resource="#Turbulence" />
+    <rdfs:comment xml:lang="en">The turbulent perturbations of temperature remaining in a stable boundary layer after all turbulent motions have died out.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Turbulence">
+    <rdfs:subClassOf rdf:resource="&sysc;#Fluctuation" />
+    <rdfs:subClassOf rdf:resource="&fluid;#FluidPhenomena" />
+    <rdfs:comment xml:lang="en">Irregular fluctuations occurring in fluid motions.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MechanicalTurbulence">
+    <rdfs:subClassOf rdf:resource="#Turbulence" />
+    <rdfs:comment xml:lang="en">Turbulence produced by shear flow.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LargeReynoldsNumberFlow">
+    <rdfs:subClassOf rdf:resource="&fluid;#Flow" />
+    <rdfs:comment xml:lang="en">The behavior of a fluid with a Reynolds number typically greater than 1E4 to 1E6, which usually occurs within the atmosphere. The main property of such flows is a constant friction stress within the surface layer that depends only on relative roughness but not on the Reynolds number itself. Thus, molecular viscosity and qualities occurring in flow descriptions that are dependent on the Reynolds number may be totally ignored.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Lift">
+    <rdfs:subClassOf rdf:resource="&fluid;#FluidPhenomena" />
+    <owl:equivalentClass rdf:resource="#Lifting"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Lifting"/>
+
+  <owl:Class rdf:about="#FrontalInversion">
+    <rdfs:subClassOf rdf:resource="#Inversion" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&front;#Front" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A temperature inversion (temperature rising with height) in the atmosphere, encountered upon vertical ascent through a sloping front (or frontal zone).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Inversion">
+    <rdfs:subClassOf rdf:resource="&fluid;#FluidPhenomena" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasQuantity" />
+        <owl:allValuesFrom rdf:resource="&tempg;#TemperatureGradient" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">In meteorology, a departure from the usual decrease or increase with altitude of the value of an atmospheric quantity; also, the layer through which this departure occurs (the inversion layer), or the lowest altitude at which the departure is found (the base of the inversion).</rdfs:comment>
+  </owl:Class>
+
+<!-- Instability states -->
+  <owl:Class rdf:about="#KelvinHelmholtzInstability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+    <rdfs:comment xml:lang="en">An instability of the basic flow of an incompressible inviscid fluid in two parallel infinite streams of different velocities and densities.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RayleighTaylorInstability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#TearingMode">
+    <rdfs:subClassOf rdf:resource="&sstate;#Instability" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasState" />
+        <owl:hasValue rdf:resource="&pstate;#Plasma" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AbsoluteInstability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasState" />
+        <owl:hasValue rdf:resource="&tstate;#Superadiabatic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment>state of a layer of atmosphere when it has superadiabatic lapse rate of temperature</rdfs:comment>
+    <rdfs:label>Absolute Instability</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConvectiveInstability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+    <rdfs:comment xml:lang="en">An instability due to the buoyancy force of heavy fluid over light fluid overcoming the stabilizing influence of viscous forces.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConditionalInstability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+    <rdfs:comment xml:lang="en">The state of a layer of unsaturated air when its lapse rate of temperature is less than the dry-adiabatic lapse rate but greater than the moist-adiabatic lapse rate.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FreeInstability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+    <rdfs:comment xml:lang="en">The state of a layer of unsaturated air when its lapse rate of temperature is less than the dry-adiabatic lapse rate but greater than the moist-adiabatic lapse rate.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StaticStability">
+    <rdfs:subClassOf rdf:resource="#FluidInstability" />
+    <rdfs:comment xml:lang="en">The ability of a fluid at rest to become turbulent or laminar due to the effects of buoyancy.</rdfs:comment>
+  </owl:Class> 
+
+  <owl:Class rdf:about="#FluidInstability">
+    <rdfs:subClassOf rdf:resource="&fluid;#FluidPhenomena" />
+    <rdfs:subClassOf rdf:resource="&sstate;#Instability" />
+  </owl:Class>
+</rdf:RDF>

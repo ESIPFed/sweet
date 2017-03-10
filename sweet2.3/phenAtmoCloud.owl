@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY phen "http://sweet.jpl.nasa.gov/2.3/phen.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.3/matr.owl">
+  <!ENTITY circ "http://sweet.jpl.nasa.gov/2.3/phenAtmoWindMesoscale.owl">
+  <!ENTITY orog "http://sweet.jpl.nasa.gov/2.3/realmLandOrographic.owl">
+  <!ENTITY water "http://sweet.jpl.nasa.gov/2.3/matrWater.owl">
+  <!ENTITY poll "http://sweet.jpl.nasa.gov/2.3/matrAerosol.owl">
+  <!ENTITY srela "http://sweet.jpl.nasa.gov/2.3/relaSpace.owl">
+  <!ENTITY crela "http://sweet.jpl.nasa.gov/2.3/relaChemical.owl">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.3/state.owl">
+  <!ENTITY aphen "http://sweet.jpl.nasa.gov/2.3/phenAtmo.owl">
+  <!ENTITY mix "http://sweet.jpl.nasa.gov/2.3/phenMixing.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.3/procPhysical.owl">
+  <!ENTITY cloud "http://sweet.jpl.nasa.gov/2.3/phenAtmoCloud.owl">
+  <!ENTITY inst "http://sweet.jpl.nasa.gov/2.3/phenFluidInstability.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.3/phenFluidTransport.owl">
+  <!ENTITY press "http://sweet.jpl.nasa.gov/2.3/phenAtmoPressure.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&cloud;"
+         xmlns:phen="&phen;"
+         xmlns:orog="&orog;"
+         xmlns:water="&water;"
+         xmlns:circ="&circ;"
+         xmlns:poll="&poll;"
+         xmlns:proc="&proc;"
+         xmlns:srela="&srela;"
+         xmlns:crela="&crela;"
+         xmlns:rela="&rela;"
+         xmlns:state="&state;"
+         xmlns:mix="&mix;"
+         xmlns:aphen="&aphen;"
+         xmlns:press="&press;"
+         xmlns:inst="&inst;"
+         xmlns:trans="&trans;"
+         xmlns:chem="&chem;"
+         xmlns:cloud="&cloud;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&water;"/>
+     <owl:imports rdf:resource="&circ;"/>
+     <owl:imports rdf:resource="&aphen;"/>
+     <owl:imports rdf:resource="&srela;"/>
+     <owl:imports rdf:resource="&crela;"/>
+     <owl:imports rdf:resource="&rela;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&poll;"/>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&mix;"/>
+     <owl:imports rdf:resource="&inst;"/>
+     <owl:imports rdf:resource="&trans;"/>
+     <owl:imports rdf:resource="&press;"/>
+     <owl:imports rdf:resource="&orog;"/>
+  </owl:Ontology>
+
+<!-- Cloud Types -->
+  <owl:Class rdf:about="#AnvilCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#upperPartOf" />
+        <owl:allValuesFrom rdf:resource="#Cumulonimbus" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:label>Anvil Cloud</rdfs:label>
+    <rdfs:comment xml:lang="en">The anvil-shaped cloud that comprises the upper portion of mature cumulonimbus clouds</rdfs:comment>
+    <rdfs:comment>a type of cloud</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BannerCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A cloud plume often observed to extend downwind from isolated, sharp, often pyramid-shaped mountain peaks, even on otherwise cloud-free days.
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BaroclinicLeaf">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&press;#Cyclogenesis" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A synoptic-scale cloud pattern frequently observed in satellite imagery just prior to the onset of cyclogenesis
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BillowCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A cloud variety composed of merged or separate elements that are elongated and parallel, either suggestive of ocean waves or arranged in ranks and files.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cirrostratus">
+    <rdfs:subClassOf rdf:resource="#Stratiform"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cirrus">
+    <rdfs:subClassOf rdf:resource="#Cloud"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cloud">
+    <rdfs:subClassOf rdf:resource="&aphen;#MeteorologicalPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;#hasSubstance" />
+        <owl:someValuesFrom rdf:resource="&poll;#CloudCondensationNuclei" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;#hasSubstance" />
+        <owl:someValuesFrom rdf:resource="&water;#Ice" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment>A visible aggregate of minute water droplets and/or ice particles in the atmosphere above the earth's surface.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cumulonimbus">
+    <rdfs:subClassOf rdf:resource="#Cloud"/>
+    <rdfs:comment>A principal cloud type (cloud genus), exceptionally dense and vertically developed, occurring either as isolated clouds or as a line or wall of clouds with separated upper portions.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cumulus">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&trans;#Convection" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment>A principal cloud type (cloud genus) in the form of individual, detached elements that are generally dense and posses sharp nonfibrous outlines.</rdfs:comment>
+    <rdfs:label>Cumulus</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FoehnCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&circ;#Foehn" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Any cloudform associated with the foehn, usually referring to standing clouds of two types, orographic clouds and mountain wave clouds. Orographic clouds may include crest clouds and the foehn wall. Wave clouds may consist of lenticular (including altocumulus standing lenticular, or ACSL) clouds, lee-wave clouds and cloud bands, and rotors. See also Bishop wave, chinook arch, contessa di vento, Moazagotl.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FoehnWall">
+    <owl:equivalentClass rdf:resource="#FoehnCloud" />
+    <rdfs:comment xml:lang="en">The leeward edge of the orographic stratiform cap cloud as seen from the lee side of a mountain barrier, preceding or during a foehn or chinook event. The edge is generally abrupt and resembles a wall of cloud (?foehnwand? in German). This cloud often signifies the occurrence of orographic precipitation, especially snowfall in the cold season, over the peaks. See foehn cloud.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ForcedCloud">
+    <rdfs:subClassOf rdf:resource="#Cumulus"/>
+    <rdfs:comment>Small cumulus clouds that are everywhere negatively buoyant compared to the surrounding environment, but that exist because the inertia of the rising thermals feeding them from underneath is sufficient to penetrate the lifting condensation level (LCL). Morphologically, these are often cumulus humilis clouds and are typically found at the top of the convective boundary layer during daytime over land, when a strong temperature inversion aloft prevents the clouds from growing deeper. Compare active cloud, passive cloud.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FunnelCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&proc;#Rotation"/>
+        <owl:onProperty rdf:resource="&rela;#hasProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A condensation cloud, typically funnel-shaped and extending outward from a cumuliform cloud, associated with a rotating column of air (a vortex) that may or may not be in contact with the ground. If the rotation is violent and in contact with the ground, the vortex is a tornado. Funnel clouds can occur through a variety of processes in association with convection. For example, small funnel clouds are infrequently seen extending from small, dissipating cumulus clouds in environments with significant vertical wind shear in the cloud-bearing layer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#KelvinHelmholtzBillows">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasState" />
+        <owl:allValuesFrom rdf:resource="&inst;#KelvinHelmholtzInstability" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">1. Cloud forms that arise from Kelvin?Helmholtz waves. 2. Vortical structures that result from the growth and nonlinear development of unstable waves in a shear flow. The billows get their name from the instability responsible for the growth of the unstable waves, Kelvin?Helmholtz instability.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LayerCloud">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&aphen;#CappingInversion" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">Stratus cloud; a continuous cloud sheet capped by an inversion.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LenticularCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A commonly used term for clouds of the species lenticularis.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mamma">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">(Also called mammatus.) Hanging protuberances, like pouches, on the undersurface of a cloud. This supplementary cloud feature occurs mostly with cirrus, cirrocumulus, altocumulus, altostratus, stratocumulus, and cumulonimbus; in the case of cumulonimbus, mamma generally appear on the underside of the anvil (incus). See cloud classification.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MaritimeCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A cloud forming in maritime air containing relatively low concentrations of cloud condensation nuclei. These clouds are characterized by a broader droplet size distribution and low droplet concentrations (some 100 cm-3). See continental cloud.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MixedCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A cloud containing both water drops (supercooled at temperatures below 0?C) and ice crystals, hence a cloud with a composition between that of a water cloud and that of an ice- crystal cloud.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MixingCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:someValuesFrom rdf:resource="&mix;#Mixing" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A cloud formed when two subsaturated volumes of moist air with different temperatures and vapor pressures mix isobarically and adiabatically to form a volume of moist air with an intermediate temperature and vapor pressure above the saturation value at that temperature.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MountainWaveCloud">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&aphen;#MountainWave" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A cloud that forms in the rising branches of mountain waves and occupies the crests of the waves. The most distinctive are the sharp-edged, lens-, or almond-shaped lenticular clouds, but a variety of stratocumulus, altocumulus, and cirrocumulus forms appear in both the main, vertically propagating waves and in the lee waves. See mountain wave, foehn cloud.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Nacreous">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Nimbostratus">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A principal cloud type (cloud genus), gray colored and often dark, rendered diffuse by more or less continuously falling rain, snow, sleet, etc., of the ordinary varieties and not accompanied by lightning, thunder, or hail.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NoctilueentCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">(Rarely called luminous clouds.) Thin silvery-blue cirrus-like clouds frequently seen during summer twilight conditions at high latitudes (above 50?) in both hemispheres. They are the highest visible clouds in the atmosphere, occurring in the upper mesosphere at heights of about 85 km, and are closely related to the polar mesospheric clouds seen in satellite observations at similar altitudes over the summer polar cap. Noctilucent clouds are now known to consist of tiny ice particles with dimensions of the order of tens of nanometers, growing in the extreme cold of the summer polar mesopause region. The condensation nuclei on which the particles grow are thought to be either smoke and dust particles of meteoric origin or large hydrated positive ions. Strong upwelling of air from below, associated with a pole-to-pole meridional circulation in the upper mesosphere, is responsible for both the extreme cold and the upward flux of water vapor. Although water-vapor mixing ratios are very low (less than 10 parts per million by volume) in the region, the temperatures are also low enough to produce a high degree of supersaturation at times. Anomalously strong radar echoes from the region, known as polar summer mesospheric echoes, are also associated with the clouds. Compare nacreous clouds, polar stratospheric clouds.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OrographicCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&orog;#Orographic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Mountain clouds produced by orographic lifting of moist air to saturation.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OvershootingTop">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#upperPartOf" />
+        <owl:allValuesFrom rdf:resource="#AnvilCloud" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A domelike protrusion above a cumulonimbus anvil, representing the intrusion of an updraft through its equilibrium level.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PassiveCloud">
+    <rdfs:subClassOf rdf:resource="#Cumulus" />
+    <rdfs:comment xml:lang="en">A cumulus cloud that is no longer dynamically connected with the atmospheric boundary layer via updrafts or downdrafts.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RollCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A low-level, horizontal, tube-shaped arcus cloud associated with a gust front of a convective storm or occasionally a cold front.</rdfs:comment>
+  </owl:Class>
+
+ <owl:Class rdf:about="#SelfCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A low-level, horizontal, wedge-shaped arcus cloud associated with a convective storm's gust front.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Altostratus">
+    <rdfs:subClassOf rdf:resource="#Stratiform"/>
+    <rdfs:comment xml:lang="en">A principal cloud type (cloud genus) in the form of a gray or bluish (never white) sheet or layer of striated, fibrous, or uniform appearance.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Stratiform">
+    <rdfs:subClassOf rdf:resource="#Cloud"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Stratocumulus">
+    <rdfs:subClassOf rdf:resource="#Stratiform"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Stratus">
+    <rdfs:subClassOf rdf:resource="#Stratiform"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WallCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A local, often abrupt lowering from a cumulonimbus cloud base into a low-hanging accessory cloud, normally a kilometer or more in diameter.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BlackShearedAnvil">
+    <rdfs:subClassOf rdf:resource="#Cumulonimbus" />
+    <rdfs:comment xml:lang="en">Colloquial expression for a cumulonimbus anvil that spreads upwind into relatively strong winds aloft.
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WallCloud">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A local, often abrupt lowering from a cumulonimbus cloud base into a low-hanging accessory cloud, normally a kilometer or more in diameter.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LaSerpe">
+    <rdfs:subClassOf rdf:resource="#Cloud" />
+    <rdfs:comment xml:lang="en">A long strip of cloud that sometimes lies against the southern base of Mount Etna in Sicily.  It is said to herald rain.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Moazagotl">
+    <owl:equivalentClass rdf:resource="#FoehnCloud" />
+    <rdfs:subClassOf rdf:resource="#LenticularCloud" />
+    <rdfs:comment xml:lang="en">A stationary bank of cirriform cloud marking the upper portion of the system of lenticular clouds formed in the lee wave produced by flow across the Sudeten Mountains in southeastern Germany; a type of foehn cloud.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FlankingLine">
+    <rdfs:subClassOf rdf:resource="&aphen;#MeteorologicalPhenomena" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#Cumulonimbus" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#Cumulus" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An organized lifting zone of cumulus and towering cumulus clouds, connected to and extending outward from the mature updraft tower of a supercell or strong multicell convective storm.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Towering">
+    <rdfs:subClassOf rdf:resource="&aphen;#MeteorologicalPhenomena" />
+  </owl:Class>
+
+</rdf:RDF>

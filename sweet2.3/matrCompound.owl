@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.3/matr.owl#">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.3/rela.owl#">
+  <!ENTITY crela "http://sweet.jpl.nasa.gov/2.3/relaChemical.owl#">
+  <!ENTITY elem "http://sweet.jpl.nasa.gov/2.3/matrElement.owl#">
+  <!ENTITY allo "http://sweet.jpl.nasa.gov/2.3/matrElementalMolecule.owl#">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.3/matrCompound.owl#">
+  <!ENTITY cstate "http://sweet.jpl.nasa.gov/2.3/stateChemical.owl#">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.3/state.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&comp;"
+         xmlns:owl="&owl;"
+         xmlns:chem="&chem;"
+         xmlns:rela="&rela;"
+         xmlns:crela="&crela;"
+         xmlns:cstate="&cstate;"
+         xmlns:comp="&comp;"
+         xmlns:elem="&elem;"
+         xmlns:state="&state;"
+         xmlns:allo="&allo;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matrElement.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/stateChemical.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/state.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matrElementalMolecule.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/matr.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/rela.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.3/relaChemical.owl"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#Compound">
+    <rdfs:subClassOf rdf:resource="&chem;Chemical"/>
+    <owl:equivalentClass rdf:resource="#ChemicalCompound"/>
+    <rdfs:comment xml:lang="en">A chemical compound is a pure chemical substance consisting of two or more different chemical elements[1][2][3] that can be separated into simpler substances by chemical reactions[4] and that have a unique and defined chemical structure. Chemical compounds consist of a fixed ratio of atoms[3] that are hold together in a defined spatial arrangement by chemical bonds. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#ChemicalCompound"/>
+
+  <owl:Class rdf:about="#InorganicCompound">
+    <rdfs:subClassOf rdf:resource="#Compound"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Clathrate">
+    <rdfs:subClassOf rdf:resource="#InorganicCompound"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Peroxide">
+    <rdfs:subClassOf rdf:resource="#InorganicCompound"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#InorganicAcid">
+    <rdfs:subClassOf rdf:resource="#InorganicCompound"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&cstate;Acid"/>
+        <owl:onProperty rdf:resource="&rela;hasState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Perchlorate">
+    <rdfs:subClassOf rdf:resource="#InorganicAcid"/>
+  </owl:Class>
+
+<!-- Compounds -->
+  <comp:InorganicCompound rdf:about="#BrCl">
+    <crela:hasChemical_1  rdf:resource="&elem;Br"/>
+    <crela:hasChemical_2  rdf:resource="&elem;Cl"/>
+    <owl:sameAs rdf:resource="#BromineChloride"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#BromineChloride"/>
+
+  <comp:InorganicCompound rdf:about="#BrNO3">
+    <crela:hasChemical_1  rdf:resource="&elem;Br"/>
+    <crela:hasChemical_2 rdf:resource="&elem;N"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O3"/>
+    <owl:sameAs rdf:resource="#BromineNitrate"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#BromineNitrate"/>
+
+  <comp:InorganicCompound rdf:about="#BrO">
+    <crela:hasChemical_1 rdf:resource="&elem;Br"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#BromineMonoxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#BromineMonoxide"/>
+
+  <comp:InorganicCompound rdf:about="#BrOx">
+    <crela:hasChemical_1 rdf:resource="&elem;Br"/>
+    <crela:hasChemical_2 rdf:resource="&allo;Ox"/>
+  </comp:InorganicCompound>
+  
+  <comp:InorganicCompound rdf:about="#COS">
+    <crela:hasChemical_1 rdf:resource="&elem;C"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <crela:hasChemical_3 rdf:resource="&elem;S"/>
+    <owl:sameAs rdf:resource="#CarbonylSulfide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#CarbonylSulfide"/>
+
+  <comp:InorganicCompound rdf:about="#Carbonate">
+  </comp:InorganicCompound>
+
+  <comp:InorganicCompound rdf:about="#CO">
+    <crela:hasChemical_1 rdf:resource="&elem;C"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#CarbonMonoxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#CarbonMonoxide"/>
+
+  <comp:InorganicCompound rdf:about="#CO2">
+    <crela:hasChemical_1 rdf:resource="&elem;C"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#CarbonDioxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#CarbonDioxide"/>
+
+  <comp:InorganicCompound rdf:about="#DryIce">
+    <crela:hasChemical_1 rdf:resource="&elem;C"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+  </comp:InorganicCompound>
+
+  <comp:InorganicCompound rdf:about="#ClO">
+    <crela:hasChemical_1 rdf:resource="&elem;Cl"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#ChlorineMonoxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#ChlorineMonoxide"/>
+
+  <comp:InorganicCompound rdf:about="#ClO2">
+    <crela:hasChemical_1 rdf:resource="&elem;Cl"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#ChlorineDioxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#ChlorineDioxide"/>
+
+  <comp:InorganicCompound rdf:about="#ClOx">
+    <crela:hasChemical_1 rdf:resource="&elem;Cl"/>
+    <crela:hasChemical_2 rdf:resource="&allo;Ox"/>
+  </comp:InorganicCompound>
+
+  <comp:InorganicCompound rdf:about="#ClONO2">
+    <crela:hasChemical_1 rdf:resource="&elem;Cl"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <crela:hasChemical_3 rdf:resource="&elem;N"/>
+    <crela:hasChemical_4 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#ChlorineNitrate"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#ChlorineNitrate"/>
+
+  <comp:InorganicCompound rdf:about="#Cl2O2">
+    <crela:hasChemical_1 rdf:resource="&allo;Cl2"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <rdf:type rdf:resource="#Peroxide"/>
+    <owl:sameAs rdf:resource="#DichlorinePeroxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#DichlorinePeroxide"/>
+
+
+  <comp:InorganicCompound rdf:about="#Fe2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+    <crela:hasChemical_1 rdf:resource="&allo;Fe2"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O3"/>
+    <owl:sameAs rdf:resource="#Hematite"/>
+    <owl:sameAs rdf:resource="#IronOxide"/>
+    <owl:sameAs rdf:resource="#Rust"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Hematite"/>
+  <comp:InorganicCompound rdf:about="#IronOxide"/>
+  <comp:InorganicCompound rdf:about="#Rust"/>
+
+  <comp:InorganicCompound rdf:about="#Fe3O4">
+    <crela:hasChemical_1 rdf:resource="&allo;Fe3"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O4"/>
+    <owl:sameAs rdf:resource="#Magnetite"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Magnetite"/>
+
+  <comp:InorganicCompound rdf:about="#H2O">
+    <crela:hasChemical_1 rdf:resource="&allo;H2"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#Water"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Water"/>
+
+  <comp:InorganicCompound rdf:about="#HBr">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Br"/>
+    <owl:sameAs rdf:resource="#HydrogenBromide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#HydrogenBromide"/> 
+
+  <comp:InorganicCompound rdf:about="#HCl">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Cl"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#HydrogenChloride"/>
+
+  <comp:InorganicCompound rdf:about="#HF">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;F"/>
+    <owl:sameAs rdf:resource="#HydrogenFluoride"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#HydrogenFluoride"/>
+
+  <comp:InorganicCompound rdf:about="#HO2">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#Hydroperoxyl"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Hydroperoxyl"/>
+
+  <comp:InorganicCompound rdf:about="#PeroxyRadical"> 
+  </comp:InorganicCompound>
+
+  <comp:InorganicCompound rdf:about="#HOx">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&allo;Ox"/>
+    <owl:sameAs rdf:resource="#HydrogenOxides"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#HydrogenOxides"/> 
+
+  <comp:InorganicCompound rdf:about="#H2O2">
+    <crela:hasChemical_1 rdf:resource="&allo;H2"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#HydrogenPeroxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#HydrogenPeroxide"/> 
+
+  <comp:InorganicCompound rdf:about="#N2O">
+    <crela:hasChemical_1 rdf:resource="&allo;N2"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#NitrousOxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#NitrousOxide"/>
+
+  <comp:InorganicCompound rdf:about="#N2O5">
+    <crela:hasChemical_1 rdf:resource="&allo;N2"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O5"/>
+    <owl:sameAs rdf:resource="#DinitrogenPentoxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#DinitrogenPentoxide"/>
+
+  <comp:InorganicCompound rdf:about="#NH3">
+    <crela:hasChemical_1 rdf:resource="&elem;Br"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Cl"/>
+    <owl:sameAs rdf:resource="#Ammonia"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Ammonia"/>
+
+  <comp:InorganicCompound rdf:about="#NO">
+    <crela:hasChemical_1 rdf:resource="&elem;Br"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Cl"/>
+    <owl:sameAs rdf:resource="#NitricOxide"/>
+    <owl:sameAs rdf:resource="#NitrogenMonoxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#NitricOxide"/>
+  <comp:InorganicCompound rdf:about="#NitrogenMonoxide"/>
+
+  <comp:InorganicCompound rdf:about="#NO2">
+    <crela:hasChemical_1 rdf:resource="&elem;N"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#NitrogenDioxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#NitrogenDioxide"/>
+
+  <comp:InorganicCompound rdf:about="#NO3">
+    <crela:hasChemical_1 rdf:resource="&elem;N"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#NitrateRadical"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#NitrateRadical"/>
+
+  <comp:InorganicCompound rdf:about="#NOx">
+    <crela:hasChemical_1 rdf:resource="&elem;N"/>
+    <crela:hasChemical_2 rdf:resource="&allo;Ox"/>
+    <owl:sameAs rdf:resource="#NitrogenOxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#NitrogenOxide"/>
+
+  <comp:InorganicCompound rdf:about="#NOy">
+  </comp:InorganicCompound>
+
+  <comp:InorganicCompound rdf:about="#NaCl">
+    <crela:hasChemical_1 rdf:resource="&elem;Na"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Cl"/>
+    <owl:sameAs rdf:resource="#Salt"/>
+    <rdfs:comment xml:lang="en">A salt is defined as the product formed from the neutralization reaction of acids and bases. Salts are ionic compounds composed of cations (positively charged ions) and anions (negative ions) so that the product is electrically neutral (without a net charge). [Wikipedia]</rdfs:comment>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Salt"/>
+
+  <comp:InorganicCompound rdf:about="#OH">
+    <crela:hasChemical_1 rdf:resource="&elem;O"/>
+    <crela:hasChemical_2 rdf:resource="&elem;H"/>
+    <owl:sameAs rdf:resource="#Hydroxyl"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Hydroxyl"/>
+
+  <comp:InorganicCompound rdf:about="#PO">
+    <crela:hasChemical_1 rdf:resource="&elem;P"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#Phosphate"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Phosphate"/>
+
+  <comp:InorganicCompound rdf:about="#SO2">
+    <crela:hasChemical_1 rdf:resource="&elem;S"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#SulfurDioxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#SulfurDioxide"/>
+
+  <comp:InorganicCompound rdf:about="#SO4">
+    <crela:hasChemical_1 rdf:resource="&elem;S"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O4"/>
+    <owl:sameAs rdf:resource="#Sulfate"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Sulfate"/>
+
+  <comp:InorganicCompound rdf:about="#SOx">
+    <crela:hasChemical_1 rdf:resource="&elem;S"/>
+    <crela:hasChemical_2 rdf:resource="&allo;Ox"/>
+    <owl:sameAs rdf:resource="#SulfurOxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#SulfurOxide"/>
+
+  <comp:InorganicCompound rdf:about="#SiO2">
+    <crela:hasChemical_1 rdf:resource="&elem;Si"/>
+    <crela:hasChemical_2 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#Silica"/>
+    <owl:sameAs rdf:resource="#SiliconDioxide"/>
+  </comp:InorganicCompound>
+  <comp:InorganicCompound rdf:about="#Silica"/>
+  <comp:InorganicCompound rdf:about="#SiliconDioxide"/>
+
+  <comp:InorganicCompound rdf:about="#Silicate">
+    <crela:hasChemical_1 rdf:resource="&elem;Si"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+  </comp:InorganicCompound>
+
+  <comp:InorganicCompound rdf:about="#HypochlorousMonoxide">
+  </comp:InorganicCompound>
+
+<!-- Acids -->
+
+  <comp:InorganicAcid rdf:about="#H2CO3">
+    <crela:hasChemical_1 rdf:resource="&allo;H2"/>
+    <crela:hasChemical_2 rdf:resource="&elem;C"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O3"/>
+    <owl:sameAs rdf:resource="#CarbonicAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#CarbonicAcid"/>
+
+  <comp:InorganicAcid rdf:about="#H2SO4">
+    <crela:hasChemical_1 rdf:resource="&allo;H2"/>
+    <crela:hasChemical_2 rdf:resource="&elem;S"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O4"/>
+    <owl:sameAs rdf:resource="#SulfuricAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#SulfuricAcid"/>
+
+  <comp:InorganicAcid rdf:about="#HNO2">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;N"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O2"/>
+    <owl:sameAs rdf:resource="#NitrousAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#NitrousAcid"/> 
+
+  <comp:InorganicAcid rdf:about="#HNO3">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;N"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O3"/>
+    <owl:sameAs rdf:resource="#NitricAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#NitricAcid"/>
+
+  <comp:InorganicAcid rdf:about="#HNO4">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;N"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O4"/>
+    <rdf:type rdf:resource="#Peroxide"/>
+    <owl:sameAs rdf:resource="#PeroxynitricAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#PeroxynitricAcid"/> 
+
+  <comp:InorganicAcid rdf:about="#NitricAcidTrihydrate">
+    <owl:sameAs rdf:resource="#NAT"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#NAT"/> 
+
+  <comp:InorganicAcid rdf:about="#HOCl">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;O"/>
+    <crela:hasChemical_3 rdf:resource="&elem;Cl"/>
+    <owl:sameAs rdf:resource="#HydrochlorousAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#HydrochlorousAcid"/>
+
+  <comp:InorganicAcid rdf:about="#HBrO">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Br"/>
+    <crela:hasChemical_3 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#HydrobromousAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#HydrobromousAcid"/>
+
+  <comp:InorganicAcid rdf:about="#HClO">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Cl"/>
+    <crela:hasChemical_3 rdf:resource="&elem;O"/>
+    <owl:sameAs rdf:resource="#HypochlorousAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#HypochlorousAcid"/>
+
+  <comp:InorganicAcid rdf:about="#HClO4">
+    <crela:hasChemical_1 rdf:resource="&elem;H"/>
+    <crela:hasChemical_2 rdf:resource="&elem;Cl"/>
+    <crela:hasChemical_3 rdf:resource="&allo;O4"/>
+    <rdf:type rdf:resource="#Perchlorate"/>
+    <owl:sameAs rdf:resource="#PerchloricAcid"/>
+  </comp:InorganicAcid>
+  <comp:InorganicAcid rdf:about="#PerchloricAcid"/>
+
+</rdf:RDF>
