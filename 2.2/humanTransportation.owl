@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY hum "http://sweet.jpl.nasa.gov/2.2/human.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.2/humanTransportation.owl">
+  <!ENTITY comm "http://sweet.jpl.nasa.gov/2.2/humanCommerce.owl">
+  <!ENTITY equi "http://sweet.jpl.nasa.gov/2.2/matrEquipment.owl">
+  <!ENTITY time "http://sweet.jpl.nasa.gov/2.2/quanTime.owl">
+  <!ENTITY jur "http://sweet.jpl.nasa.gov/2.2/humanJurisdiction.owl">
+  <!ENTITY jur2 "http://sweet.jpl.nasa.gov/2.2/humanJurisdiction.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&trans;"
+         xmlns:hum="&hum;"
+         xmlns:trans="&trans;"
+         xmlns:comm="&comm;"
+         xmlns:equi="&equi;"
+         xmlns:jur="&jur;"
+         xmlns:jur2="&jur2;"
+         xmlns:time="&time;"
+         xmlns:owl="&owl;"
+         xmlns:xsd="&xsd;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&hum;"/>   
+     <owl:imports rdf:resource="&comm;"/>   
+     <owl:imports rdf:resource="&time;"/>   
+     <owl:imports rdf:resource="&jur;"/>
+     <owl:imports rdf:resource="&equi;"/>   
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Evacuation">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transit">
+    <rdfs:subClassOf rdf:resource="#Transportation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transport">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transportation">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GroundTransportation">
+    <rdfs:subClassOf rdf:resource="#Transportation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AirTransportation">
+    <rdfs:subClassOf rdf:resource="#Transportation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Arrival">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;#hasEndTime" />
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Departure">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;#hasStartTime" />
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+  </owl:Class>
+
+<!-- Human activities / phenomena -->
+  <owl:Class rdf:about="#Aviation">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#CivilAviation">
+    <rdfs:subClassOf rdf:resource="#Aviation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&jur;#hasJurisdiction" />
+        <owl:allValuesFrom rdf:resource="&jur;#Civil" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MilitaryAviation">
+    <rdfs:subClassOf rdf:resource="#Aviation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&jur;#hasJurisdiction" />
+        <owl:allValuesFrom rdf:resource="&jur;#Military" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AirTraffic">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AirTrafficControl">
+    <rdfs:subClassOf rdf:resource="&comm;#Management"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&hum;#hasHumanActivity" />
+        <owl:allValuesFrom rdf:resource="#AirTraffic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Flight">
+    <rdfs:subClassOf rdf:resource="#AirTransportation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Landing">
+    <rdfs:subClassOf rdf:resource="#Arrival"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Takeoff">
+    <rdfs:subClassOf rdf:resource="#Departure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Liftoff">
+    <rdfs:subClassOf rdf:resource="#Departure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ascent">
+    <rdfs:subClassOf rdf:resource="#Departure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Descent">
+    <rdfs:subClassOf rdf:resource="#Arrival"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpaceProgram">
+    <rdfs:subClassOf rdf:resource="&hum;#HumanActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpaceTravel">
+    <rdfs:subClassOf rdf:resource="#SpaceProgram"/>
+  </owl:Class>
+
+  <jur2:FederalGoverningBody rdf:about="#FAA">
+    <owl:sameAs rdf:resource="#FederalAviationAdministration" />
+  </jur2:FederalGoverningBody>
+  <jur2:FederalGoverningBody rdf:about="#FederalAviationAdministration"/>
+
+</rdf:RDF>

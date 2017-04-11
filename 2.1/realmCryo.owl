@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [ 
+   <!ENTITY cryo "http://sweet.jpl.nasa.gov/2.1/realmCryo.owl">    
+   <!ENTITY res "http://sweet.jpl.nasa.gov/2.1/humanResearch.owl">    
+   <!ENTITY water "http://sweet.jpl.nasa.gov/2.1/matrWater.owl">    
+   <!ENTITY planet "http://sweet.jpl.nasa.gov/2.1/realm.owl">    
+   <!ENTITY state "http://sweet.jpl.nasa.gov/2.1/statePhysical.owl">    
+   <!ENTITY srela "http://sweet.jpl.nasa.gov/2.1/reprSpaceRelation.owl">    
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">    
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#"> 
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">    
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#"> 
+]>
+
+<rdf:RDF 
+   xml:base="&cryo;"
+   xmlns:srela = "&srela;"
+   xmlns:planet = "&planet;"
+   xmlns:water = "&water;"
+   xmlns:state = "&state;"
+   xmlns:cryo = "&cryo;"
+   xmlns:res = "&res;"
+   xmlns:owl = "&owl;"
+   xmlns:rdf = "&rdf;"
+   xmlns:rdfs = "&rdfs;"
+   xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&srela;"/>
+     <owl:imports rdf:resource="&water;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&res;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+  <owl:Class rdf:about="#AlpineTundra">
+    <rdfs:subClassOf rdf:resource="#Tundra"/>
+    <rdfs:comment xml:lang="en">Alpine tundra is an ecozone that does not contain trees because it has high altitude. Alpine tundra occurs at high enough altitude at any latitude on Earth. Alpine tundra also lacks trees, but the lower part does not have permafrost, and alpine soils are generally better drained than permafrost soils. Alpine tundra transitions to subalpine forests below the tree line; stunted forests occurring at the forest-tundra ecotone are known as Krummholz. Alpine tundra occurs in an alpine zone</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Glacier">
+    <rdfs:subClassOf rdf:resource="&water;#Ice" />
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceCap">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryRealm" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#IceSheet">
+    <rdfs:subClassOf rdf:resource="#Glacier" />
+    <rdfs:comment>An ice sheet is a mass of glacier ice that covers surrounding terrain and is greater than 50,000 square km (19,305 square mile).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceSnowInterface">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary" />
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceBase">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary" />
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceStream">
+    <rdfs:subClassOf rdf:resource="&water;#Ice" />
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceSurface">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary" />
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceCore">
+    <rdfs:subClassOf rdf:resource="&res;#Sample" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#inside"/>
+        <owl:someValuesFrom rdf:resource="&water;#Ice"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#IceShelf">
+    <rdfs:subClassOf rdf:resource="&water;#Ice" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#LandIce">
+    <rdfs:subClassOf rdf:resource="&water;#Ice" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="&planet;#Land"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Tundra">
+    <rdfs:subClassOf rdf:resource="&planet;#Land"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#FrozenGround"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">In physical geography, tundra is an area where the tree growth is hindered by low temperatures and short growing seasons. There are two types of tundra: Arctic tundra (which also occurs in Antarctica), and alpine tundra. In tundra, the vegetation is composed of dwarf shrubs, sedges and grasses, mosses, and lichens. Scattered trees grow in some tundra. The ecotone (or ecological boundary region) between the tundra and the forest is known as the tree line or timberline.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FrozenGround">
+    <rdfs:subClassOf rdf:resource="&planet;#Land"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter" />
+        <owl:hasValue rdf:resource="&state;#Frozen" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Soil within which the moisture has predominantly changed to ice, the unfrozen portion being in vapor phase. Ice within the soil bonds (adfreezes) adjacent soil particles and renders frozen ground very hard. Permanently frozen ground is called permafrost. Dry frozen ground is relatively loose and crumbly because of the lack of bonding ice. Frozen ground is sometimes inadvisedly called frost or ground frost. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GlacierTerminus">
+    <rdfs:subClassOf rdf:resource="#GlacialRegion"/>
+    <owl:equivalentClass rdf:resource="#Snout"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Snout"/>
+
+  <owl:Class rdf:about="#AblationZone">
+    <rdfs:subClassOf rdf:resource="#GlacialRegion"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AccumulationZone">
+    <rdfs:subClassOf rdf:resource="#GlacialRegion"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Calf">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#GlacialRegion">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryRealm" />
+<!--
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="#Glacier"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+-->
+  </owl:Class>
+
+  <owl:Class rdf:about="#CongelationIce">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#DriftIce">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#FastIce">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+    <owl:disjointWith rdf:resource="#DriftIce"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Floe">
+    <rdfs:subClassOf rdf:resource="#SeaIce"/>
+    <owl:equivalentClass rdf:resource="#IceFloe"/>
+  </owl:Class>
+  <owl:Class rdf:about="#IceFloe"/>
+
+  <owl:Class rdf:about="#FrazilIce">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Iceberg">
+    <rdfs:subClassOf rdf:resource="#LandIce" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&planet;#Ocean"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+
+  <owl:Class rdf:about="#Lead">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#TabularIceberg">
+    <rdfs:subClassOf rdf:resource="#Iceberg" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#IceField">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#PackIce">
+    <rdfs:subClassOf rdf:resource="#DriftIce" />
+  </owl:Class>
+  
+  <owl:Class rdf:about="#SeaIce">
+    <rdfs:subClassOf rdf:resource="&water;#Ice" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="&planet;#Ocean"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Specifically, ice formed by the freezing of seawater; as opposed, principally, to land ice.  Generally, any ice floating in the sea.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeasonalIce">
+    <rdfs:subClassOf rdf:resource="#SeaIce" />
+  </owl:Class>
+
+</rdf:RDF>

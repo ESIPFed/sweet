@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.2/statePhysical.owl">
+  <!ENTITY statec "http://sweet.jpl.nasa.gov/2.2/procStateChange.owl">
+  <!ENTITY mix "http://sweet.jpl.nasa.gov/2.2/phenMixing.owl">
+  <!ENTITY phen "http://sweet.jpl.nasa.gov/2.2/phen.owl">
+  <!ENTITY sed "http://sweet.jpl.nasa.gov/2.2/matrSediment.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.2/matr.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.2/procPhysical.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&mix;"
+         xmlns:proc="&proc;"
+         xmlns:chem="&chem;"
+         xmlns:state="&state;"
+         xmlns:statec="&statec;"
+         xmlns:mix="&mix;"
+         xmlns:sed="&sed;"
+         xmlns:phen="&phen;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&sed;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&statec;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Mixing">
+    <rdfs:subClassOf rdf:resource="&phen;#DynamicalPhenomena" />
+    <owl:equivalentClass rdf:resource="#Mix"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Mix"/>
+
+  <owl:Class rdf:about="#Separation">
+    <rdfs:subClassOf rdf:resource="&phen;#DynamicalPhenomena" />
+    <owl:disjointWith rdf:resource="#Mixing"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Settling">
+    <rdfs:subClassOf rdf:resource="&phen;#DynamicalPhenomena" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cryoturbation">
+    <rdfs:subClassOf rdf:resource="#Mixing" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&statec;#hasStateChange" />
+        <owl:allValuesFrom rdf:resource="&statec;#Freezing" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Cryoturbation (frost churning) refers to the mixing of materials from various horizons of the soil right down to the parent rock due to freezing and thawing. Cryoturbation occurs to varying degrees in most Gelisols (permafrost soils). The cause of crytoturbation lies in the way in which the repeated freezing of the soil during autumn causes the formation of ice wedges at the most easily erodible parts of the parent rock. If the parent rock is hard, this can cause quite deep erosion of the rock over many years. As this process continues, during the summer when an active layer forms in the soil this eroded material can easily move both from the soil surface downward and from the permafrost table upward. As this process occurs, the upper soil material gradually dries out (because the soil moisture moves from the warm surface layer to the colder layer at the phen of the permafrost) so that it forms a granular structure with many very distinctive crystalline shapes (such as ice lenses). Separation of coarse from fine soil materials produces distinctive patterned ground with different types of soil.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Aeration">
+    <rdfs:subClassOf rdf:resource="#Mixing"/>
+    <rdfs:comment xml:lang="en">Aeration (also called aerification) is the process by which air is circulated through, mixed with or dissolved in a liquid or substance. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Bioturbation">
+    <rdfs:subClassOf rdf:resource="#Mixing" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+         <owl:onProperty rdf:resource="&chem;#hasSubstance" />
+         <owl:allValuesFrom rdf:resource="&sed;#Sediment" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Bioturbation is the displacement and mixing of sediment particles by benthic fauna (animals) or flora (plants). The mediators of bioturbation are typically annelid worms (e.g. polychaetes, oligochaetes), bivalves (e.g. mussels, clams), gastropods, holothurians, or any other infaunal or epifaunal organisms. Faunal activities, such as burrowing, ingestion and defecation of sediment grains, construction and maintenance of galleries, and infilling of abandoned dwellings, displace sediment grains and mix the sediment matrix. In soil science, bioturbation is the physical rearrangement of the soil profile by soil life. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Entrainment">
+    <rdfs:subClassOf rdf:resource="&proc;#PhysicalProcess"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#Mixing" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Diffusion -->
+  <owl:Class rdf:about="#Diffusion">
+    <rdfs:subClassOf rdf:resource="&proc;#PhysicalProcess"/>
+    <owl:equivalentClass rdf:resource="#Diffuse"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Diffuse"/>
+
+  <owl:Class rdf:about="#EddyDiffusion">
+    <rdfs:subClassOf rdf:resource="#Diffusion" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#FickianDiffusion">
+    <rdfs:subClassOf rdf:resource="#Diffusion" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#TurbulentDiffusion">
+    <rdfs:subClassOf rdf:resource="#Diffusion" />
+    <rdfs:comment xml:lang="en">Diffusion or dispersion due to the effects of turbulent motions.</rdfs:comment>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#mix">
+    <rdfs:subPropertyOf rdf:resource="&proc;#physicalProcess"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#separate">
+    <rdfs:subPropertyOf rdf:resource="&proc;#physicalProcess"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#settle">
+    <rdfs:subPropertyOf rdf:resource="&proc;#physicalProcess"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

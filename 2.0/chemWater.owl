@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY top  "http://sweet.jpl.nasa.gov/2.0/top.owl">
+  <!ENTITY res  "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">
+  <!ENTITY hc  "http://sweet.jpl.nasa.gov/2.0/chemCompoundHydrocarbon.owl">
+  <!ENTITY conc  "http://sweet.jpl.nasa.gov/2.0/chemConcentration.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.0/chemCompound.owl">
+  <!ENTITY water "http://sweet.jpl.nasa.gov/2.0/chemWater.owl">
+  <!ENTITY human "http://sweet.jpl.nasa.gov/2.0/human.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&water;"
+         xmlns:units="&units;"
+         xmlns:state="&state;"
+         xmlns:human="&human;"
+         xmlns:phys="&phys;"
+         xmlns:chem="&chem;"
+         xmlns:comp="&comp;"
+         xmlns:hc="&hc;"
+         xmlns:water="&water;"
+         xmlns:conc="&conc;"
+         xmlns:owl="&owl;"
+         xmlns:top="&top;"
+         xmlns:res="&res;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&top;"/>
+     <owl:imports rdf:resource="&res;"/>
+     <owl:imports rdf:resource="&hc;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&human;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&conc;"/>
+     <owl:imports rdf:resource="&comp;"/>
+  </owl:Ontology>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#Humidity">
+    <rdfs:subClassOf rdf:resource="#WaterConcentration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#percent"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">1. Generally, some measure of the water vapor content of air. The multiplicity of humidity measures is partly due to different methods of measurement and partly because the conservative measures (mixing ratio, specific humidity) cover an extremely wide dynamic range, as a result of the rapid variation of saturation vapor pressure with temperature. 2. Popularly, same as relative humidity.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LiquidWaterEquivalent">
+    <rdfs:subClassOf rdf:resource="#WaterContent"/>
+    <owl:equivalentClass rdf:resource="#LWE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#LWE"/>
+
+  <owl:Class rdf:about="#Moisture">
+    <rdfs:subClassOf rdf:resource="#WaterConcentration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PrecipitableWater">
+    <rdfs:subClassOf rdf:resource="#WaterContent"/>
+    <rdfs:comment xml:lang="en">The total atmospheric water vapor contained in a vertical column of unit cross-sectional area extending between any two specified levels.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RelativeHumidity">
+    <rdfs:subClassOf rdf:resource="#Humidity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpecificHumidity">
+    <rdfs:subClassOf rdf:resource="#Humidity"/>
+    <rdfs:comment xml:lang="en">In a system of moist air, the (dimensionless) ratio of the mass of water vapor to the total mass of the system.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterConcentration">
+    <rdfs:subClassOf rdf:resource="&conc;#MassConcentration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance" />
+        <owl:allValuesFrom rdf:resource="&comp;#Water" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterContent">
+    <rdfs:subClassOf rdf:resource="&conc;#MassContent" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance" />
+        <owl:allValuesFrom rdf:resource="&comp;#Water" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The liquid water present within a sample, usually expressed in percent by weight.</rdfs:comment>
+  </owl:Class>
+
+<!-- States -->
+  <owl:Class rdf:about="#Brackish">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Dry">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Euhaline">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fresh">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hard">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <owl:equivalentClass rdf:resource="#Hardness"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Hardness"/>
+
+  <owl:Class rdf:about="#Humid">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hydrolyzable">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hygroscopic">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Moist">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Potable">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <owl:equivalentClass rdf:resource="#Potability"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Potability"/>
+
+  <owl:Class rdf:about="#Saline">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&comp;#Salt"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Water Substances -->
+  <owl:Class rdf:about="#BrackishWater">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Brackish"/>
+        <owl:onProperty rdf:resource="&state;#hasChemicalState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Brackish water is water that has more salinity than fresh water, but not as much as seawater. It may result from mixing of seawater with fresh water, as in estuaries, or it may occur in brackish fossil aquifers.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Brine">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+    <owl:disjointWith rdf:resource="#SalineWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DrinkingWater">
+    <rdfs:subClassOf rdf:resource="#WaterMixture"/>
+    <rdfs:subClassOf rdf:resource="&human;#HumanNeed"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FreshWater">
+    <rdfs:subClassOf rdf:resource="&comp;#Water"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hydrate">
+    <rdfs:subClassOf rdf:resource="&comp;#Water"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClathrateHydrate">
+    <rdfs:subClassOf rdf:resource="&state;#Clathrate"/>
+    <rdfs:subClassOf rdf:resource="#Hydrate"/>
+    <owl:equivalentClass rdf:resource="#GasHydrate"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GasHydrate"/>
+
+  <owl:Class rdf:about="#MethaneClathrate">
+    <rdfs:subClassOf rdf:resource="#ClathrateHydrate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&hc;#Methane"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#MethaneHydrate"/>
+    <owl:equivalentClass rdf:resource="#MethaneIce"/>
+  </owl:Class>
+  <owl:Class rdf:about="#MethaneHydrate"/>
+  <owl:Class rdf:about="#MethaneIce"/>
+
+  <owl:Class rdf:about="#Ice">
+    <rdfs:subClassOf rdf:resource="&comp;#Water"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Solid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LiquidWater">
+    <rdfs:subClassOf rdf:resource="&comp;#Water"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Liquid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PotableWater">
+    <rdfs:subClassOf rdf:resource="#WaterMixture"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Potable"/>
+        <owl:onProperty rdf:resource="&state;#hasChemicalState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SalineWater">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaltWater">
+    <rdfs:subClassOf rdf:resource="&comp;#Water"/>
+    <owl:disjointWith rdf:resource="#FreshWater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Saline"/>
+        <owl:onProperty rdf:resource="&state;#hasChemicalState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeaWater">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterMixture">
+    <rdfs:subClassOf rdf:resource="&chem;#Mixture"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&comp;#H2O"/>
+        <owl:onProperty rdf:resource="&chem;#hasChemical_1"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterVapor">
+    <rdfs:subClassOf rdf:resource="&comp;#Water"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Gas"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#Steam"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Steam"/>
+
+</rdf:RDF>
+

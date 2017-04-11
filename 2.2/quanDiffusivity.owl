@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY phen "http://sweet.jpl.nasa.gov/2.2/phen.owl">
+  <!ENTITY func "http://sweet.jpl.nasa.gov/2.2/reprMathFunction.owl">
+  <!ENTITY rate "http://sweet.jpl.nasa.gov/2.2/quanTimeFrequency.owl">
+  <!ENTITY diff "http://sweet.jpl.nasa.gov/2.2/quanDiffusivity.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.2/procPhysical.owl">
+  <!ENTITY prop "http://sweet.jpl.nasa.gov/2.2/quan.owl">
+  <!ENTITY wave "http://sweet.jpl.nasa.gov/2.2/phenFluidDynamics.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.2/stateFluid.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.2/reprSciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&diff;"
+         xmlns:owl="&owl;"
+         xmlns:units="&units;"
+         xmlns:diff="&diff;"
+         xmlns:wave="&wave;"
+         xmlns:prop="&prop;"
+         xmlns:proc="&proc;"
+         xmlns:rate="&rate;"
+         xmlns:state="&state;"
+         xmlns:func="&func;"
+         xmlns:phen="&phen;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&prop;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&func;"/>
+     <owl:imports rdf:resource="&wave;"/>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&prop;"/>
+     <owl:imports rdf:resource="&rate;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Transmissivity">
+    <rdfs:subClassOf rdf:resource="#DiffusivityProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DiffusivityProperty">
+    <rdfs:subClassOf rdf:resource="&prop;#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meterSquaredPerSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Diffusivity">
+    <rdfs:subClassOf rdf:resource="#DiffusivityProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EddyDiffusivity">
+    <rdfs:subClassOf rdf:resource="#Diffusivity" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:someValuesFrom rdf:resource="&wave;#Eddy" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The exchange coefficient for the diffusion of a conservative property by eddies in a turbulent flow.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#KinematicViscosity">
+    <rdfs:subClassOf rdf:resource="#DiffusivityProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&proc;#ViscousForce"/>
+        <owl:onProperty rdf:resource="&prop;#measureOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ThermalDiffusivity">
+    <rdfs:subClassOf rdf:resource="#Diffusivity" />
+    <rdfs:subClassOf rdf:resource="&prop;#ThermodynamicProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MeridionalOvertuningStreamfunction">
+    <rdfs:subClassOf rdf:resource="#Streamfunction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BarotropicStreamfunction">
+    <rdfs:subClassOf rdf:resource="#Streamfunction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:hasValue rdf:resource="&state;#Barotropic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Streamfunction">
+    <rdfs:subClassOf rdf:resource="&func;#VectorQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meterCubedPerSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VelocityPotential">
+    <rdfs:subClassOf rdf:resource="#DiffusivityProperty"/>
+    <rdfs:subClassOf rdf:resource="&func;#VectorQuantity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Diffluence">
+    <rdfs:subClassOf rdf:resource="#DiffusivityProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:someValuesFrom rdf:resource="&rate;#Divergence" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The rate at which adjacent flow diverges along an axis oriented normal to the flow at the point in question; the opposite of confluence.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Confluence">
+    <rdfs:subClassOf rdf:resource="#DiffusivityProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:someValuesFrom rdf:resource="&rate;#Convergence" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The rate at which adjacent flow is converging along an axis oriented normal to the flow at the point in question.</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

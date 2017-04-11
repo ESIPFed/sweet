@@ -1,0 +1,1880 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY climate "http://sweet.jpl.nasa.gov/2.0/climate.owl">
+  <!ENTITY zone "http://sweet.jpl.nasa.gov/2.0/climateClassification.owl">
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl"> 
+  <!ENTITY time "http://sweet.jpl.nasa.gov/2.0/time.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&zone;"
+         xmlns:climate="&climate;"
+         xmlns:units="&units;"
+         xmlns:time="&time;"
+         xmlns:math="&math;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&time;"/>
+     <owl:imports rdf:resource="&climate;"/>
+     <owl:imports rdf:resource="&units;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+
+  <owl:Class rdf:ID="ClimateClassification">
+  </owl:Class>
+
+  <owl:Class rdf:ID="A">
+    <rdfs:subClassOf rdf:resource="#ClimateClassification"/>
+    <rdfs:comment xml:lang="en">The A climate classification, also known as the Tropical climate classification, is characterized as being consistently warm with all months averaging above 18 degrees C and having annual precipitation exceeds potential evapotranspiration (POTET).</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#AMeanAnnualTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasMeanAnnualTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Af">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasAverageMonthlyPrecipitationRange"/>
+        <owl:allValuesFrom rdf:resource="#AfAverageMonthlyPrecipitationRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Af climate classification, also known as the tropical rain forest climate classification, is characterized by monthly precipitation in excess of 6 cm all months out of year.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Am">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasITCZDominanceDuration"/>
+        <owl:allValuesFrom rdf:resource="#AmITCZDominanceDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWetSeason"/>
+        <owl:allValuesFrom rdf:resource="#AmWetSeason"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasDrySeason"/>
+        <owl:allValuesFrom rdf:resource="#AmDrySeason"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Am climate classification, also known as Tropical Monsoon Climate, is characterized by a short marked dry season with 1 oe more months receiving less than 6 cm of precipitation, an otherwise excessively wet rainy season, and ITCZ dominance for 6 - 12 months out of the year.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AmDrySeason">
+    <rdfs:subClassOf rdf:resource="#DrySeason"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#AmDrySeasonDuration"/>
+        <owl:onProperty rdf:resource="#hasDrySeasonDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>        
+        <owl:allValuesFrom rdf:resource="#AmDrySeasonPrecipitationRange"/>        
+        <owl:onProperty rdf:resource="#hasPrecipitationRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="AmDrySeasonPrecipitationRange">
+    <rdfs:subClassOf rdf:resource="#DrySeasonPrecipitationRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double">6</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;centi_meter"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AmWetSeason">
+    <rdfs:subClassOf rdf:resource="#WetSeason"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="AridClimate">
+    <rdfs:comment xml:lang="en">The BW climate classification, also known as the arid climate classification, is characterized by having precipitation amounts less than 1/2 potential evapotranspiration (POTET).</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#HalfPotentialEvapotranspiration"/>
+        <owl:onProperty rdf:resource="#hasAnnualPrecipitationRangeUpperBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AverageMonthlyPrecipitationRange">
+    <rdfs:subClassOf rdf:resource="#PrecipitationRange"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Aw">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#AwITCZDominanceDuration"/>
+        <owl:onProperty rdf:resource="#hasITCZDominanceDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMajorityOfPrecipitationInTheWinter"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&time;#Summer"/>
+        <owl:onProperty rdf:resource="#hasWetSeasonDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasDrySeasonDuration"/>
+        <owl:allValuesFrom rdf:resource="&time;#Winter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasMajorityOfPrecipitationInTheSummer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Aw climate classification, also known as Tropical Savanna climate classification, is characterized by a summer wet season, winter dry season, and ITCZ dominance for 6 months or less.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="B">
+    <rdfs:comment xml:lang="en">Potential evapotranspiration (POTET) exceeds precipitation in all B climates. Subdivisions are based on precipitation timing and amount and mean annual temperature.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasAnnualPrecipitationRangeLowerBound"/>
+        <owl:allValuesFrom rdf:resource="#PotentialEvapotranspiration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="BS">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasAnnualPrecipitationRangeUpperBound"/>
+        <owl:allValuesFrom rdf:resource="#PotentialEvapotranspiration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasAnnualPrecipitationRangeLowerBound"/>
+        <owl:allValuesFrom rdf:resource="#HalfPotentialEvapotranspiration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The BS climate classification, also known as semiarid climate classification, is characterized by having precipitation amounts greater than 1/2 potential evapotranspiration (POTET), but not equal to it.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="BSh">
+    <rdfs:comment xml:lang="en">The BSh climate classification, also known as the hot low-latitude steppe, is characterized by having mean annual temperatures greater than 18 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMeanAnnualTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#BShMeanAnnualTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="BSk">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMeanAnnualTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#BSkMeanAnnualTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The BSk climate classification, also known as cold midlatitude steppe climate classification, is characterized by having mean annual temperatures less than 18 degree C.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="BWh">
+    <rdfs:comment xml:lang="en">the BWh climate classification, also known as the hot low-latitude desert, is characterized by having mean annual temperatures greater than 18 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMeanAnnualTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#BWhMeanAnnualTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="BWk">
+    <rdfs:comment xml:lang="en">The BWk climate classification, also known as the cold midlatitude desert, is characterized by having mean annual temperatures less than 18 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMeanAnnualTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#BWkMeanAnnualTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="C">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#CColdestMonthTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasColdestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#CWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Cfa">
+    <rdfs:comment xml:lang="en">The Cfa climate classification is characterized by year-round precipitation, hot summers, and having the warmest month above 22 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasYearRoundPrecipitation"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#CfaWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CfaWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#CWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Csb">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#CsbWarmestMonthTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMajorityOfPrecipitationInTheSummer"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMajorityOfPrecipitationInTheWinter"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Cfb">
+    <rdfs:comment xml:lang="en">The Cfb climate classfication receives year-round precipitation, its warmest month is below 22 degree C and has 4 months above 10 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasTemperatureCharacteristic"/>
+        <owl:allValuesFrom rdf:resource="#CfbTemperatureCharacteristic"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasYearRoundPrecipitation"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#CfbWarmestMonthTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CfbTemperatureCharacteristic">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristic"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#CfbTemperatureCharacteristicDuration"/>
+        <owl:onProperty rdf:resource="&time;#hasDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >10</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CfbTemperatureCharacteristicDuration">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristicDuration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >4</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="&time;#Month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >4</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CfbWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#CWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Cfc">
+    <rdfs:comment xml:lang="en">The Cfc climate classification is charactericized by year-round precipitation and having 1 - 3 months with temperatures above 10 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasYearRoundPrecipitation"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasTemperatureCharacteristic"/>
+        <owl:allValuesFrom rdf:resource="#CfcTemperatureCharacteristic"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CfcTemperatureCharacteristic">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristic"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+         <owl:allValuesFrom rdf:resource="#CfcTemperatureCharacteristicDuration"/>
+         <owl:onProperty rdf:resource="&time;#hasDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >10</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CfcTemperatureCharacteristicDuration">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristicDuration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >3</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="&time;#Month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >1</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="ColdMidlatitudeDesertMeanAnnualTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="BWkMeanAnnualTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >18</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:ID="ColdMidlatitudeSteppeMeanAnnualTemperatureRange">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="BSkMeanAnnualTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:ID="MeanAnnualTemperatureRange"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >18</owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue>
+              <owl:Thing rdf:about="&units;#degreeC"/>
+            </owl:hasValue>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Csa">
+    <rdfs:comment xml:lang="en">The Csa climate classification is characterized by pronounced summer droughts with 70% of precipitation in the winter and hot summers with its warmest month above 22 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMajorityOfPrecipitationInTheSummer"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasMajorityOfPrecipitationInTheWinter"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#CsaWarmestMonthTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CsaWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#CWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CsbWarmestMonthTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CWarmestMonthTemperatureRange">
+        <owl:equivalentClass rdf:resource="#MesothermalClimateWarmestMonthTemperatureRange"/>
+        <rdfs:subClassOf rdf:resource="#WarmestMonthTemperatureRange"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+            <owl:onProperty rdf:resource="&units;#hasUnit"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >10</owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Cwa">
+    <rdfs:comment xml:lang="en">the Cwa climate classification is characterized by winter drought, summer's wettest month getting 10 times more precipitation than driest winter month, and the warmest month being above 22 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#CwaWarmestMonthTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="CwaWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#CWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="D">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasColdestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DColdestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The D climate classification, also known as the microthermal climate classification,  is characterized by by having the warmest month of the year above 10 degree C and the coldest below 0 degree C.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DColdestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#ColdestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >0</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+
+  <owl:Class rdf:ID="Dfa">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasYearRoundPrecipitation"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DfaWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Dfa climate classification is characterized by having year-round precipitation and warmest month temperatures above 22 degree C.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DfaWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#DWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Dfb">
+    <rdfs:comment xml:lang="en">The Dfb climate classifcation is characterized by having year-round precipitation and warmest month temperatures below 22 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasYearRoundPrecipitation"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DfbWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DfbWarmestMonthTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DWarmestMonthTemperatureRange">
+        <rdfs:subClassOf rdf:resource="#WarmestMonthTemperatureRange"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty rdf:resource="&units;#hasUnit"/>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >10</owl:hasValue>
+            <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Dfc">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasTemperatureCharacteristic"/>
+        <owl:allValuesFrom rdf:resource="#DfcTemperatureCharacteristic"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasYearRoundPrecipitation"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Dfc climate classification is characterized by having year-round precipitation and having 1 - 4 months above 10 degree C.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DfcTemperatureCharacteristic">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristic"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double">10</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#DfcTemperatureCharacterDuration"/>
+        <owl:onProperty rdf:resource="&time;#hasDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DfcTemperatureCharacterDuration">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristicDuration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >1</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="&time;#Month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >4</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Dwa">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DwaWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Dwa climate classification is characterized by winter drought and warmest month temperatures above 22 degree C.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DwaWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#DWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Dwb">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DwbWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The Dwb climate classification is characterized by winter drought and warmest month temperatures below 22 degree c.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DwbWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#DWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >22</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Dwc">
+    <rdfs:comment xml:lang="en">The Dwc climate classification is characterized by winter drought and haviong 1 - 4 months with temperatures above 10 degrees C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasTemperatureCharacteristic"/>
+        <owl:allValuesFrom rdf:resource="#DwcTemperatureCharacteristic"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DwcTemperatureCharacteristic">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristic"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >10</owl:hasValue>
+        <owl:onProperty rdf:resource="&math;#hasLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#DwcTemperatureCharacteristicDuration"/>
+        <owl:onProperty rdf:resource="&time;#hasDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DwcTemperatureCharacteristicDuration">
+    <rdfs:subClassOf rdf:resource="#TemperatureCharacteristicDuration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="&time;#Month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >1</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >4</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="Dwd">
+    <rdfs:comment xml:lang="en">The Dwd climate classification is characterized by winter drought and having coldest month temperatures below -38 degree C (in Siberia only).</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWinterDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >true</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSummerDrought"/>
+        <owl:hasValue rdf:datatype="&xsd;boolean"
+        >false</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasColdestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#DwdColdestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DwdColdestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#ColdestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&units;#hasUnit"/>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#hasUpperBound"/>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >-38</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="EF">
+    <rdfs:comment xml:lang="en">The EF climate classification, also known as the Ice Cap climate classification, is characterized by having warmest month temperatures below 0 degrees C and having precipitation exceeding very small potential evapotranspiration (POTET).</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#EFWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#PotentialEvapotranspiration"/>
+        <owl:onProperty rdf:resource="#hasAnnualPrecipitationRangeLowerBound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="EM">
+    <rdfs:comment xml:lang="en">The EM climate classification, also known as the polar marine climate classification, is characterized by all months having temperatures above -7 degree C, warmest month above 0 degree C, and annual temperatures less than 17 degree C.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#EMWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#EMAnnualTemperatureRange"/>
+        <owl:onProperty rdf:resource="#hasAnnualTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="ET">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasWarmestMonthTemperatureRange"/>
+        <owl:allValuesFrom rdf:resource="#ETWarmestMonthTemperatureRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasAnnualPrecipitationRangeLowerBound"/>
+        <owl:allValuesFrom rdf:resource="#PotentialEvapotranspiration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSnowCoverDuration"/>
+        <owl:allValuesFrom rdf:resource="#ETSnowCoverDuration"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The ET climate classification, also known as the tundra climate classification, is characterizex by warmest month temperatures between 0 - 10 degree C, precipitation exceeds small potential evapotranspiration demand, and has snow cover 8 - 10 months out of the year.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="EWarmestMonthTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="WarmestMonthTemperatureRange"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >10</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+
+ <owl:Class rdf:ID="HotLowLatitudeDesertMeanAnnualTemperatureRange">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="BWhMeanAnnualTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >18</owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="HotLowLatitudeSteppeMeanAnnualTemperatureRange">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="BShMeanAnnualTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >18</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="IceCapClimateWarmestMonthTemperatureRange">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="EFWarmestMonthTemperatureRange">
+        <rdfs:subClassOf rdf:resource="#EWarmestMonthTemperatureRange"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >0</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#EWarmestMonthTemperatureRange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ITCZDominanceDuration">
+    <rdfs:subClassOf rdf:resource="#ClimatologicalData"/>
+    <rdfs:subClassOf rdf:resource="&time;#Duration"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="MesothermalColdestMonthTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ColdestMonthTemperatureRange"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >18</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >0</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="CColdestMonthTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#ColdestMonthTemperatureRange"/>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:ID="MesothermalClimateWarmestMonthTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#WarmestMonthTemperatureRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="PolarMarineClimateAnnualTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AnnualTemperatureRange"/>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="EMAnnualTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#AnnualTemperatureRange"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >-7</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >17</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:ID="PolarMarineClimateWarmestMonthTemperatureRange">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="EMWarmestMonthTemperatureRange">
+        <rdfs:subClassOf rdf:resource="#EWarmestMonthTemperatureRange"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >0</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#EWarmestMonthTemperatureRange"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="PolarWarmestMonthTemperatureRange">
+    <owl:equivalentClass rdf:resource="#EWarmestMonthTemperatureRange"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#WarmestMonthTemperatureRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TropicalClimateMeanAnnualTemperatureRange">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="AMeanAnnualTemperatureRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MeanAnnualTemperatureRange"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:resource="&units;#degreeC"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >18</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TropicalMonsoonClimateDrySeason">
+    <owl:equivalentClass rdf:resource="#AmDrySeason"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TropicalMonsoonClimatePrecipitationRange">
+    <owl:equivalentClass rdf:resource="#AmDrySeasonPrecipitationRange"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TropicalMonsoonDrySeasonDuration">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DrySeasonDuration"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >12</owl:hasValue>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+        </owl:onProperty>
+        <owl:hasValue rdf:datatype="&xsd;double"
+        >1</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+        </owl:onProperty>
+        <owl:allValuesFrom rdf:resource="&time;#Month"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="AmDrySeasonDuration">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#DrySeasonDuration"/>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TropicalMonsoonClimateITCZDominanceDuration">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="AmITCZDominanceDuration">
+        <rdfs:subClassOf>
+          <owl:Class rdf:ID="ITCZDominanceDuration"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >12</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:allValuesFrom>
+              <owl:Class rdf:about="&time;#Month"/>
+            </owl:allValuesFrom>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >6</owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ITCZDominanceDuration"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TropicalMonsoonClimateWetSeason">
+    <owl:equivalentClass rdf:resource="#AmWetSeason"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TropicalRainForestAverageMonthlyPrecipitationRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AverageMonthlyPrecipitationRange"/>
+    </rdfs:subClassOf>
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="AfAverageMonthlyPrecipitationRange">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#AverageMonthlyPrecipitationRange"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+            <owl:hasValue>
+              <owl:Thing rdf:about="&units;centi_meter"/>
+            </owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >6</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TropicalSavannaITCZDominanceDuration">
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="AwITCZDominanceDuration">
+        <rdfs:subClassOf>
+          <owl:Class rdf:about="#ITCZDominanceDuration"/>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >12</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:allValuesFrom rdf:resource="&time;#Month"/>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >6</owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ITCZDominanceDuration"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Tundra">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasClimateClassification" />
+        <owl:allValuesFrom rdf:resource="#ET" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TundraClimateSnowCoverDuration">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ETSnowCoverDuration">
+        <rdfs:subClassOf rdf:resource="#SnowCoverDuration"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+            <owl:allValuesFrom rdf:resource="&time;#Month"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >8</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >10</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TundraClimateWarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#EWarmestMonthTemperatureRange"/>
+    <owl:equivalentClass>
+      <owl:Class rdf:ID="ETWarmestMonthTemperatureRange">
+        <rdfs:subClassOf rdf:resource="#EWarmestMonthTemperatureRange"/>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:ObjectProperty rdf:about="&units;#hasUnit"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:resource="&units;#degreeC"/>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasLowerBound"/>
+            </owl:onProperty>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >0</owl:hasValue>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;double"
+            >10</owl:hasValue>
+            <owl:onProperty>
+              <owl:DatatypeProperty rdf:about="&math;#hasUpperBound"/>
+            </owl:onProperty>
+          </owl:Restriction>
+        </rdfs:subClassOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+
+<!-- Annotation Properties -->
+  <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+
+<!-- Datatype Properties -->
+
+  <owl:DatatypeProperty rdf:about="#hasMajorityOfPrecipitationInTheSummer">
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+
+ <owl:DatatypeProperty rdf:about="#hasMajorityOfPrecipitationInTheWinter">
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasSummerDrought">
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasWinterDrought">
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasYearRoundPrecipitation">
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+
+<!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="#hasClimatePhenomena">
+    <rdfs:range rdf:resource="#ClimatePhenomena"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalPhenomena"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasDrySeason">
+    <rdfs:range rdf:resource="#DrySeason"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatePhenomena"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasWetSeason">
+    <rdfs:range rdf:resource="#WetSeason"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatePhenomena"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasAnnualTemperatureRange">
+    <rdfs:range rdf:resource="#AnnualTemperatureRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasTemperatureRange"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasAverageMonthlyPrecipitationRange">
+    <rdfs:range rdf:resource="#AverageMonthlyPrecipitationRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasPrecipitationRange"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasClimatologicalPhenomena" />
+
+  <owl:ObjectProperty rdf:about="#hasClimate" />
+  
+  <owl:ObjectProperty rdf:about="#hasClimateClassification" />
+
+  <owl:ObjectProperty rdf:about="#hasColdestMonthTemperatureRange">
+    <rdfs:range rdf:resource="#ColdestMonthTemperatureRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasTemperatureRange"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasDrySeasonDuration">
+    <rdfs:range rdf:resource="#DrySeasonDuration"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+    <rdfs:subPropertyOf rdf:resource="&time;#hasDuration"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasITCZDominanceDuration">
+    <rdfs:range rdf:resource="#ITCZDominanceDuration"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+    <rdfs:subPropertyOf rdf:resource="&time;#hasDuration"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasMeanAnnualTemperatureRange">
+    <rdfs:range rdf:resource="#MeanAnnualTemperatureRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasTemperatureRange"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasPrecipitationRange">
+    <rdfs:range rdf:resource="#PrecipitationRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasSnowCoverDuration">
+    <rdfs:range rdf:resource="#SnowCoverDuration"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+    <rdfs:subPropertyOf rdf:resource="&time;#hasDuration"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="#hasTemperatureCharacteristic">
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasTemperatureRange">
+    <rdfs:range rdf:resource="#TemperatureRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasThreshold"/>
+
+ <owl:ObjectProperty rdf:about="#hasWarmestMonthTemperatureRange">
+    <rdfs:range rdf:resource="#WarmestMonthTemperatureRange"/>
+    <rdfs:subPropertyOf rdf:resource="#hasTemperatureRange"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasWetSeasonDuration">
+    <rdfs:range rdf:resource="#WetSeasonDuration"/>
+    <rdfs:subPropertyOf rdf:resource="#hasClimatologicalData"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasAnnualPrecipitationRangeLowerBound"/>
+  <owl:ObjectProperty rdf:about="#hasAnnualPrecipitationRangeUpperBound"/>
+  <owl:ObjectProperty rdf:ID="hasClimatologicalData">
+    <rdfs:range rdf:resource="#ClimatologicalData"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#MeanAnnualTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#TemperatureRange"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="PrecipitationRange">
+    <rdfs:subClassOf rdf:resource="#ClimatologicalData"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="SnowCoverDuration">
+    <rdfs:subClassOf rdf:resource="#ClimatologicalData"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TemperatureCharacteristic">
+    <rdfs:subClassOf rdf:resource="#ClimatologicalData"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TemperatureCharacteristicDuration">
+    <rdfs:subClassOf rdf:resource="#ClimatologicalData"/>
+    <rdfs:subClassOf rdf:resource="&time;#Duration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TemperatureRange">
+    <rdfs:subClassOf rdf:resource="#ClimatologicalData"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WarmestMonthTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#TemperatureRange"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="WetSeasonDuration">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ClimatologicalData"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="WetSeasonPrecipitationRange">
+    <rdfs:subClassOf rdf:resource="#PrecipitationRange"/>
+  </owl:Class>  
+
+  <owl:Class rdf:about="#HalfPotentialEvapotranspiration">
+    <rdfs:subClassOf rdf:resource="#PotentialEvapotranspiration"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SunshineDuration">
+    <rdfs:subClassOf rdf:resource="&time;#TimeInterval"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ColdestMonthTemperatureRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TemperatureRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AnnualTemperatureRange">
+    <rdfs:subClassOf rdf:resource="#TemperatureRange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DrySeasonDuration">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ClimatologicalData"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="&time;#Duration"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DrySeasonPrecipitationRange">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PrecipitationRange"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>   
+  <owl:Class rdf:about="#MarineClimate">
+    <rdfs:subClassOf rdf:resource="#Climate" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:someValuesFrom rdf:resource="&planet;#Atmosphere" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:someValuesFrom rdf:resource="&planet;#Ocean" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">(Also called maritime climate, oceanic climate.) A regional climate under the predominant influence of the sea, characterized by relatively small seasonal variations and high atmospheric moisture content; the antithesis of a continental climate.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RainShadow">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryPhenomena" />
+        <owl:allValuesFrom rdf:resource="&precip;#Precipitation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A region of sharply reduced precipitation on the lee side of an orographic barrier, as compared with regions upwind of the barrier.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Doldrums">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="#Equator" />
+        </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&press;#LowPressure" />
+    <rdfs:comment xml:lang="en">A nautical term for the equatorial trough, with special reference to the light and variable nature of the winds.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimateZoneType">
+  </owl:Class>
+
+  <owl:Class rdf:about="#DesertClimateZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Midlatitude">
+    <rdfs:subClassOf rdf:resource="#SubtropicalClimateZone" />
+    <rdfs:label>Midlatitude</rdfs:label>
+    <rdfs:comment>geophysical region that is often referred to as mid-latitude ranging from 25-55 degree in both hemisphere
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PermafrostZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SubtropicalClimateZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TropicalClimateZone">
+    <rdfs:subClassOf rdf:resource="#ClimateZoneType"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasClimateZoneType">
+    <rdfs:range rdf:resource="#ClimateZoneType"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Equator">
+    <rdfs:subClassOf rdf:resource="#TropicalClimateZone" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#WetSeason">
+    <rdfs:subClassOf rdf:resource="#ClimatePhenomena"/>
+  </owl:Class>
+

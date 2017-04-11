@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+   <!ENTITY prop "http://sweet.jpl.nasa.gov/2.2/quan.owl">   
+   <!ENTITY time "http://sweet.jpl.nasa.gov/2.2/reprTime.owl">   
+   <!ENTITY spac "http://sweet.jpl.nasa.gov/2.2/reprSpace.owl">   
+   <!ENTITY serv "http://sweet.jpl.nasa.gov/2.2/reprDataService.owl">   
+   <!ENTITY redu "http://sweet.jpl.nasa.gov/2.2/reprDataServiceReduction.owl#">   
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF
+    xmlns = "&redu;"
+    xml:base = "&redu;"
+    xmlns:serv = "&serv;"
+    xmlns:redu = "&redu;"
+    xmlns:prop = "&prop;"
+    xmlns:time = "&time;"
+    xmlns:spac = "&spac;"
+    xmlns:owl = "&owl;"
+    xmlns:rdf = "&rdf;"
+    xmlns:rdfs = "&rdfs;"
+    xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+    <owl:imports rdf:resource = "&prop;"/>
+    <owl:imports rdf:resource = "&time;"/>
+    <owl:imports rdf:resource = "&spac;"/>
+    <owl:imports rdf:resource = "&serv;"/>
+  </owl:Ontology>
+
+<!-- Data reduction services -->
+  <owl:Class rdf:about="#DataReductionService">
+    <rdfs:subClassOf rdf:resource="&serv;#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Binning">
+    <rdfs:subClassOf rdf:resource="#DataReductionService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subset">
+    <rdfs:subClassOf rdf:resource="#DataReductionService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ParameterSubset">
+    <rdfs:subClassOf rdf:resource="#Subset"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&prop;#PhysicalProperty"/>
+        <owl:onProperty rdf:resource="#reductionIn"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpatialSubset">
+    <rdfs:subClassOf rdf:resource="#Subset"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&spac;#Space"/>
+        <owl:onProperty rdf:resource="#reductionIn"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TemporalSubset">
+    <rdfs:subClassOf rdf:resource="#Subset"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&time;#Time"/>
+        <owl:onProperty rdf:resource="#reductionIn"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#reductionIn">
+    <rdfs:range rdf:resource="&prop;#Property"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Normalize">
+    <rdfs:subClassOf rdf:resource="#DataReductionService"/>
+    <owl:equivalentClass rdf:resource="#Normalization"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Normalization"/>
+
+  <owl:Class rdf:about="#Subsample">
+    <rdfs:subClassOf rdf:resource="#DataReductionService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataMining">
+    <rdfs:subClassOf rdf:resource="#Subset" />
+    <owl:equivalentClass rdf:resource="#Mining"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Mining"/>
+
+</rdf:RDF>

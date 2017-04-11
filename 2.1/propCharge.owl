@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY prop "http://sweet.jpl.nasa.gov/2.1/prop.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.1/procPhysical.owl">
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.1/reprMath.owl">
+  <!ENTITY spac "http://sweet.jpl.nasa.gov/2.1/propSpace.owl">
+  <!ENTITY charge "http://sweet.jpl.nasa.gov/2.1/propCharge.owl">
+  <!ENTITY ion   "http://sweet.jpl.nasa.gov/2.1/matrIon.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.1/matr.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.1/reprSciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&charge;"
+         xmlns:owl="&owl;"
+         xmlns:units="&units;"
+         xmlns:charge="&charge;"
+         xmlns:ion="&ion;"
+         xmlns:math="&math;"
+         xmlns:chem="&chem;"
+         xmlns:prop="&prop;"
+         xmlns:proc="&proc;"
+         xmlns:spac="&spac;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&ion;"/>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&spac;"/>
+     <owl:imports rdf:resource="&prop;"/>
+     <owl:imports rdf:resource="&chem;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Charge">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+  </owl:Class>
+ 
+  <owl:Class rdf:about="#ChargeDistribution">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf rdf:resource="&spac;#SpatialDistribution" />
+  </owl:Class>
+
+  <owl:DatatypeProperty rdf:about="#hasCharge">
+    <rdfs:range rdf:resource="&xsd;integer"/>
+  </owl:DatatypeProperty>
+
+<!-- Scalars -->
+  <owl:Class rdf:about="#ElectricPotential">
+    <rdfs:subClassOf rdf:resource="&prop;#ScalarPotential"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&prop;#measureOf" />
+        <owl:allValuesFrom rdf:resource="#ChargeDistribution" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#volt"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectricCurrentDensity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#amperePerMeterSquared"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+
+  <owl:Class rdf:about="#ElectricFieldStrength">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#voltPerMeter"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectricCurrent">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#ampere"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectricCharge">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#coulomb"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectricFluxDensity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf rdf:resource="&prop;#Flux"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#coulombPerMeterSquared"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectricChargeDensity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#coulombPerMeterCubed"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Vectors -->
+  <owl:Class rdf:about="#ElectricDipoleMoment">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf rdf:resource="&prop;#VectorQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#coulombMeter"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticMoment">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf rdf:resource="&prop;#VectorQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#joulePerTesla"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DielectricConstant">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf rdf:resource="&prop;#PhysicalConstant"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#dimensionlessUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Permittivity">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#faradPerMeter"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Magnetic -->
+  <owl:Class rdf:about="#Inductance">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&proc;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&proc;#Magnetism" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#henry"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagnetiGradient">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Permeability">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#henryPerMeter"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticFluxDensity">
+    <rdfs:subClassOf rdf:resource="&prop;#Flux"/>
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#tesla"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticFieldStrength">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#amperePerMeter"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticDipoleMoment">
+    <rdfs:subClassOf rdf:resource="#MagneticMoment" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticFlux">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf rdf:resource="&prop;#Flux"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#weber"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ExchangeCapacity">
+    <rdfs:subClassOf rdf:resource="&prop;#ReactionProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#perKilogramMole"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CationExchangeCapacity">
+    <rdfs:subClassOf rdf:resource="#ExchangeCapacity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+        <owl:allValuesFrom rdf:resource="&ion;#Cation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Capacity  -->
+  <owl:Class rdf:about="#Capacitance">
+    <rdfs:subClassOf rdf:resource="&prop;#ElectromagneticProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#farad"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

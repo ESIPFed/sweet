@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl">
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.0/mathOperation.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF 
+   xml:base = "&oper;"
+   xmlns:math = "&math;"
+   xmlns:oper = "&oper;"
+   xmlns:owl = "&owl;"
+   xmlns:rdf = "&rdf;"
+   xmlns:rdfs = "&rdfs;"
+   xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&math;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#BinaryOperation">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasFirstOperand"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasSecondOperand"/>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Division">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fraction">
+    <rdfs:subClassOf rdf:resource="#Division"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Multiplication">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Normalization">
+    <rdfs:subClassOf rdf:resource="#Operation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Operation">
+    <rdfs:subClassOf rdf:resource="&math;#MathematicalProcess"/>
+    <rdfs:comment xml:lang="en">An operation is an action or procedure which produces a new value from one or more input values.  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ratio">
+    <rdfs:subClassOf rdf:resource="#Division"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subtraction">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+    <owl:equivalentClass rdf:resource="#Difference"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Difference"/>
+
+  <owl:Class rdf:about="#Sum"/>
+  <owl:Class rdf:about="#Summation">
+    <rdfs:subClassOf rdf:resource="#BinaryOperation"/>
+    <owl:equivalentClass rdf:resource="#Sum"/>
+  </owl:Class>
+
+  <owl:DatatypeProperty rdf:about="#unaryOperation">
+    <rdfs:domain rdf:resource="&math;#NumericalEntity"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#half">
+    <rdfs:subPropertyOf rdf:resource="#unaryOperation"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#square">
+    <rdfs:subPropertyOf rdf:resource="#unaryOperation"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#squareRoot">
+    <rdfs:subPropertyOf rdf:resource="#unaryOperation"/>
+  </owl:DatatypeProperty>
+
+  <owl:ObjectProperty rdf:about="#hasFirstOperand">
+    <rdfs:domain rdf:resource="#Operation"/>
+    <rdfs:range rdf:resource="&math;#NumericalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasSecondOperand">
+    <rdfs:domain rdf:resource="#Operation"/>
+    <rdfs:range rdf:resource="&math;#NumericalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasInput">
+    <rdfs:domain rdf:resource="#Operation"/>
+    <rdfs:range rdf:resource="&math;#NumericalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasOutput">
+    <rdfs:domain rdf:resource="#Operation"/>
+    <rdfs:range rdf:resource="&math;#NumericalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#decreaseIn"/>
+  <owl:ObjectProperty rdf:about="#increaseIn"/>
+  <owl:ObjectProperty rdf:about="#productOf"/>
+
+  <owl:DatatypeProperty rdf:ID="hasPower">
+    <rdfs:range rdf:resource="&xsd;double"/>
+  </owl:DatatypeProperty>
+  
+</rdf:RDF>

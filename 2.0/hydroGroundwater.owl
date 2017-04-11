@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY vect "http://sweet.jpl.nasa.gov/2.0/mathVector.owl">
+  <!ENTITY sub "http://sweet.jpl.nasa.gov/2.0/hydroGroundwater.owl">
+  <!ENTITY obj "http://sweet.jpl.nasa.gov/2.0/spaceObject.owl">
+  <!ENTITY srela "http://sweet.jpl.nasa.gov/2.0/spaceRelation.owl">
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl">
+  <!ENTITY water "http://sweet.jpl.nasa.gov/2.0/chemWater.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.0/physTransport.owl">
+  <!ENTITY dist "http://sweet.jpl.nasa.gov/2.0/spaceDistribution.owl">
+  <!ENTITY dyna "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">
+  <!ENTITY cons "http://sweet.jpl.nasa.gov/2.0/physSolidConsistence.owl">
+  <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY surf "http://sweet.jpl.nasa.gov/2.0/hydroSurface.owl">
+  <!ENTITY static "http://sweet.jpl.nasa.gov/2.0/physFluid.owl">
+  <!ENTITY hydr "http://sweet.jpl.nasa.gov/2.0/hydro.owl">
+  <!ENTITY inst "http://sweet.jpl.nasa.gov/2.0/sciInstrument.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&sub;"
+         xmlns:owl="&owl;"
+         xmlns:sub="&sub;"
+         xmlns:top="&top;"
+         xmlns:obj="&obj;"
+         xmlns:phys="&phys;"
+         xmlns:srela="&srela;"
+         xmlns:xten="&xten;"
+         xmlns:inst="&inst;"
+         xmlns:cons="&cons;"
+         xmlns:water="&water;"
+         xmlns:trans="&trans;"
+         xmlns:dist="&dist;"
+         xmlns:dyna="&dyna;"
+         xmlns:planet="&planet;"
+         xmlns:static="&static;"
+         xmlns:vect="&vect;"
+         xmlns:surf="&surf;"
+         xmlns:hydr="&hydr;"
+         xmlns:chem="&chem;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&vect;"/>
+     <owl:imports rdf:resource="&surf;"/>
+     <owl:imports rdf:resource="&hydr;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&inst;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&dist;"/>
+     <owl:imports rdf:resource="&cons;"/>
+     <owl:imports rdf:resource="&obj;"/>
+     <owl:imports rdf:resource="&dyna;"/>
+     <owl:imports rdf:resource="&trans;"/>
+     <owl:imports rdf:resource="&srela;"/>
+     <owl:imports rdf:resource="&xten;"/>
+     <owl:imports rdf:resource="&water;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&static;"/>
+  </owl:Ontology>
+
+<!-- Realm -->
+  <owl:Class rdf:ID="Aquifer">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+        <owl:allValuesFrom rdf:resource="#SaturatedZone"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CascadingWater">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf rdf:resource="#Groundwater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConeOfDepression"> 
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf rdf:resource="&obj;#Trough"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConeOfImpression"> 
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf rdf:resource="&obj;#Ridge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Confined"> 
+    <rdfs:subClassOf rdf:resource="&dist;#Confined"/>
+  <rdfs:comment xml:lang="en">A condition in which the upper surface of the zone of saturation forms a water table under atmospheric pressure.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConfinedAquifer"> 
+    <rdfs:subClassOf rdf:resource="#Aquifer"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#hasSpatialExtent"/>
+        <owl:allValuesFrom rdf:resource="#Confined"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConfinedBed"> 
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#hasSpatialExtent"/>
+        <owl:allValuesFrom rdf:resource="#Confined"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConfinedUnit"> 
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#hasSpatialExtent"/>
+        <owl:allValuesFrom rdf:resource="#Confined"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConfinedZone"> 
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#hasSpatialExtent"/>
+        <owl:allValuesFrom rdf:resource="#Confined"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConnateWater"> 
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf rdf:resource="#Groundwater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#UndergroundWater">
+    <rdfs:subClassOf rdf:resource="#Groundwater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#inside"/>
+        <owl:allValuesFrom rdf:resource="#VadoseZone"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaturatedZone">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+        <owl:allValuesFrom rdf:resource="#Aquifer"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeepageFace"> 
+    <rdfs:subClassOf rdf:resource="&obj;#Boundary"/>
+  <rdfs:comment xml:lang="en"> A boundary between the saturated flow field and the atmosphere along which groundwater discharges, either by evaporation or movement "downhill" along the land surface or in a well as a thin film in response to the force of gravity.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Semiconfined"> 
+    <rdfs:subClassOf rdf:resource="&dist;#Semiconfined"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Unconfined"> 
+    <rdfs:subClassOf rdf:resource="&dist;#Unconfined"/>
+  <rdfs:comment xml:lang="en">A condition in which the upper surface of the zone of saturation forms a water table under atmospheric pressure.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#UnconfinedAquifer"> 
+    <rdfs:subClassOf rdf:resource="#Aquifer"/>
+    <owl:equivalentClass rdf:resource="#WaterTableAquifer"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#hasSpatialExtent"/>
+        <owl:allValuesFrom rdf:resource="#Unconfined"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#WaterTableAquifer"/> 
+
+  <owl:Class rdf:about="#WaterTable">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+  <rdfs:comment xml:lang="en">The water table or phreatic surface is the surface where the water pressure is equal to atmospheric pressure. A sustainable amount of water within a unit of sediment or rock, below the water table, in the phreatic zone is called an aquifer. The ability of the aquifer to store groundwater is dependent on the primary and secondary porosity and permeability </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Aquiclude">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Aquifuge">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Aquitard">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WarmPool">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VadoseZone">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrosphereFeature"/>
+    <owl:equivalentClass rdf:resource="#UnsaturatedZone"/>
+  </owl:Class>
+  <owl:Class rdf:about="#UnsaturatedZone"/>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#HydrothermalAlteration">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrospherePhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Infiltration">
+    <rdfs:subClassOf rdf:resource="#LandWaterCirculation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Intrusion">
+    <rdfs:subClassOf rdf:resource="#LandWaterCirculation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LandWaterCirculation">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrospherePhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#UndergroundWater"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&trans;#Transport"/>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RadionucleiRetardation">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrospherePhenomena"/>
+    <rdfs:comment xml:lang="en">The process or processes that cause the time required for a given radionuclide to move between two locations to be greater than the groundwater travel time, because of physical and chemical interactions between the radionuclide and the geohydrologic unit through which the radionuclide travels.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Recharge">
+    <rdfs:subClassOf rdf:resource="&trans;#Transport"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Aquifer"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DeepPercolation">
+    <rdfs:subClassOf rdf:resource="&cons;#Percolation"/>
+  </owl:Class>
+
+<!-- Substances -->
+  <owl:Class rdf:about="#PellicularWater">
+    <rdfs:subClassOf rdf:resource="&hydr;#HydrospherePhenomena"/>
+    <rdfs:comment xml:lang="en">The film of water left around each grain or fracture surface of water-bearing material after gravity drainage (after APHA, 1981). Water of adhesion; (after APHA, 1981). Water that can be extracted by root absorption and evaporation but cannot be moved by gravity or by the unbalanced film forces resulting from localized evaporation and transpiration (after APHA, 1981).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Groundwater">
+    <rdfs:subClassOf rdf:resource="&water;#LiquidWater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#inside"/>
+        <owl:allValuesFrom rdf:resource="&planet;#Geosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PerchedGroundwater">
+    <rdfs:subClassOf rdf:resource="#Groundwater"/>
+  <rdfs:comment xml:lang="en"> Groundwater separated from an underlying body of groundwater by an unsaturated zone (ASCE, 1985). Unconfined groundwater separated from an underlying body of ground water by an unsaturated zone. Its water table is a perched water table. Perched groundwater is held up by a perching bed whose permeability is so low that water percolating downward through it is not able to bring water in the underlying unsaturated zone above atmospheric pressure.</rdfs:comment>
+  </owl:Class>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#Drawdown">
+    <rdfs:subClassOf rdf:resource="&xten;#Height"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GroundwaterLevel">
+    <rdfs:subClassOf rdf:resource="&xten;#Height"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fetch">
+    <rdfs:subClassOf rdf:resource="&xten;#Distance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PotentialDensity">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">The density of a unit of water after it is raised by an adiabatic process to the surface, i.e., determined from in-situ salinity and potential temperature (AGI, 1980). Density that would be reached by a compressible fluid if it were adiabatically compressed or expanded to a standard pressure.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PotentiometricSurface">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">An imaginary surface representing the static head of groundwater and defined by the level to which water will rise in a tightly cased well.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RetardationFactor">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">The ratio of the average linear velocity of groundwater to the velocity of the retarded constituent at C/Co=0.5.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeepageVelocity">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+    <rdfs:subClassOf rdf:resource="&dyna;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpecificCapacity">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">The rate of discharge of water from the well divided by the drawdown of the water level within the well.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpecificDischarge">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en"> The rate of discharge of groundwater per unit area of a porous medium measured at right angle to the direction of flow.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpecificRetention">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">The ratio of the Volume of water which the porous medium, after being saturated, will retain against the pull of gravity to the volume of the porous medium.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpecificStorage">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">The volume of water released from or taken into storage per unit volume of the porous medium per unit change in head.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpecificYield">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en">The ratio of the volume of water which the porous medium after being saturated, will yield by gravity to the volume of the porous medium.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StorageCoefficient">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+    <owl:equivalentClass rdf:resource="#Storativity"/>
+  <rdfs:comment xml:lang="en">The volume of water an aquifer releases from or takes into storage per unit surface area of the aquifer per unit change in head (virtually equal to the specific yield in an unconfined aquifer).</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Storativity"/>
+
+  <owl:Class rdf:about="#TotalSoilWaterPotential">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  <rdfs:comment xml:lang="en"> The sum of the energy-related components of a soil-water system; i.e., the sum of the gravitational, matric, and osmotic components.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transmissibility">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transmissivity">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HydrogeologicalProperty">
+    <rdfs:subClassOf rdf:resource="&static;#FluidProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HydraulicGradient">
+    <rdfs:subClassOf rdf:resource="#HydrogeologicalProperty"/>
+    <rdfs:subClassOf rdf:resource="&vect;#Gradient"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DarcySlope">
+    <owl:equivalentClass rdf:resource="#HydraulicGradient"/>
+  </owl:Class>
+
+<!-- Instruments -->
+  <owl:Class rdf:about="#Piezometer">
+    <rdfs:subClassOf rdf:resource="&inst;#Instrument"/>
+  <rdfs:comment xml:lang="en"> A devise used to measure groundwater pressure head at a point in the subsurface.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Tensiometer">
+    <rdfs:subClassOf rdf:resource="&inst;#Instrument"/>
+  <rdfs:comment xml:lang="en">A device used to measure the moisture tension in the unsaturated zone.</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

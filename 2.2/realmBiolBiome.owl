@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY zone "http://sweet.jpl.nasa.gov/2.2/realmClimateZone.owl">
+  <!ENTITY anim "http://sweet.jpl.nasa.gov/2.2/matrAnimal.owl">
+  <!ENTITY biome "http://sweet.jpl.nasa.gov/2.2/realmBiolBiome.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.2/state.owl">
+  <!ENTITY bstate "http://sweet.jpl.nasa.gov/2.2/stateBiological.owl">
+  <!ENTITY biol "http://sweet.jpl.nasa.gov/2.2/matrBiomass.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.2/matr.owl">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.2/reprSciComponent.owl">
+  <!ENTITY org "http://sweet.jpl.nasa.gov/2.2/matrOrganicCompound.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.2/realm.owl">
+  <!ENTITY plant "http://sweet.jpl.nasa.gov/2.2/matrPlant.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&biome;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:org="&org;"
+         xmlns:zone="&zone;"
+         xmlns:anim="&anim;"
+         xmlns:planet="&planet;"
+         xmlns:plant="&plant;"
+         xmlns:state="&state;"
+         xmlns:bstate="&bstate;"
+         xmlns:biol="&biol;"
+         xmlns:biome="&biome;"
+         xmlns:chem="&chem;"
+         xmlns:comp="&comp;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&comp;"/>
+     <owl:imports rdf:resource="&org;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&plant;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&bstate;"/>
+     <owl:imports rdf:resource="&biol;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&anim;"/>
+     <owl:imports rdf:resource="&zone;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+  <owl:Class rdf:about="#AquaticEcosystem">
+    <rdfs:subClassOf rdf:resource="#Ecosystem"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&planet;#Ocean" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An aquatic ecosystem is an ecosystem located in a body of water. Communities of organisms that are dependent on each other and on their environment live in aquatic ecosystems. The two main types of aquatic ecosystems are marine ecosystems and freshwater ecosystems. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Biome">
+    <rdfs:subClassOf rdf:resource="&comp;#Environment"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CoralReef">
+    <rdfs:subClassOf rdf:resource="#MarineEcosystem"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance" />
+        <owl:hasValue rdf:resource="&org;#CalciumCarbonate" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&biol;#hasOrganism" />
+        <owl:allValuesFrom rdf:resource="&anim;#Coral" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The term coral reef generally refers to a marine ecosystem in which the main organisms are corals that house algal symbionts within their tissues. These ecosystems require: 1) fully marine waters; 2) warm temperatures; and 3) ample sunlight. They are therefore restricted to shallow waters of tropical and subtropical regions. Corals that do not have algal symbionts can also form significant reef communities in deeper, darker, and colder waters, but these communities are distinguished as cold-water coral bioherms. The more technical definition of coral reef includes an additional geological requirement that the reef organisms produce enough calcium carbonate to build the physical reef structure. The coral reef community lives only on the surface veneer of the reef, on top of already existing skeletal material left behind by previous reef-builders. Many processes act to break down the skeletal material and reef as soon it is laid down by organisms. These include mechanical processes such as waves and currents, and a wide array of biological processes (e.g., bioerosion). Some of the best known bioeroders are large organisms such as parrotfish and sponges, but much of the bioerosion occurs at the microscopic scale by organisms such as algae and fungi. A coral reef is produced only if the coral reef community produces more calcium carbonate than is removed. Indeed, some coral reef communities grow too slowly to build a reef.</rdfs:comment>
+  </owl:Class> 
+
+  <owl:Class rdf:about="#Ecosystem">
+    <rdfs:subClassOf rdf:resource="&comp;#Environment"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FreshwaterEcosystem">
+    <rdfs:subClassOf rdf:resource="#AquaticEcosystem"/>
+    <owl:disjointWith rdf:resource="#MarineEcosystem" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MarineEcosystem">
+    <rdfs:subClassOf rdf:resource="#AquaticEcosystem"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fishery">
+    <rdfs:subClassOf rdf:resource="#AquaticEcosystem"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeaGrass">
+    <rdfs:subClassOf rdf:resource="#AquaticEcosystem"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TerrestrialBiome">
+    <rdfs:subClassOf rdf:resource="#Biome"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&planet;#Land" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TerrestrialEcosystem">
+    <rdfs:subClassOf rdf:resource="#Ecosystem"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&planet;#Land" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CaveEcosystem">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Anthromes">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasLandUse" />
+        <owl:hasValue rdf:resource="&bstate;#Anthropogenic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Biota">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Croplands">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DenseSettlements">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Forested">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Rangelands">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Terrain">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Villages">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Wildlands">
+    <rdfs:subClassOf rdf:resource="#TerrestrialBiome"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Barren">
+    <rdfs:subClassOf rdf:resource="#Wildlands"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SparseTrees">
+    <rdfs:subClassOf rdf:resource="#Wildlands"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Scrubland">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&biol;#hasOrganism" />
+        <owl:allValuesFrom rdf:resource="&plant;#Scrub" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Scrubland is plant community characterized by scrub vegetation. Scrub consists of low shrubs, mixed with grasses, herbs, and geophytes. Scrublands are sometimes known as heathlands. Scrublands may be either naturally occurring or the result of human activity. They may be the mature vegetation type in a particular region and remain stable over time, or a transitional community that occurs temporarily as the result of a disturbance, such as a major fire. Many people do not live in scrubland because of the fires that can easily occur. </rdfs:comment>
+  </owl:Class>
+
+ <owl:Class rdf:about="#EmergentLayer">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+    <rdfs:comment xml:lang="en">An irregular zone of extremely tall trees, rising above the mean canopy </rdfs:comment>
+  </owl:Class>
+
+ <owl:Class rdf:about="#Grassland">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&plant;#hasVegetation" />
+        <owl:allValuesFrom rdf:resource="&plant;#Grass" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Grasslands are areas where the vegetation is dominated by grasses (Poaceae) and other herbaceous (non-woody) plants (forbs). Plants of the sedge (Cyperacae) and rush (Juncaceae) families can also be frequent in grasslands. Grasslands occur naturally on all continents except Antarctica, and in many other areas they have replaced the natural vegetation due to human influence. In temperate latitudes, such as north-west Europe, grasslands are dominated by perennial species, whereas in warmer climates annual species form a greater component of the vegetation. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Montane">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+    <rdfs:comment xml:lang="en">Montane is a biogeographic term which refers to highland areas located below the subalpine zone.[1] Montane regions generally have cooler temperatures and often have higher rainfall than the adjacent lowland regions, and are frequently home to distinct communities of plants and animals. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Savanna">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+    <rdfs:comment xml:lang="en">A savanna or savannah is a tropical or subtropical woodland ecosystem. Savannas are characterised by the trees being sufficiently small or widely spaced so that the canopy does not close. It is often believed that savannas are characterized by widely spaced, scattered trees, however in many savanna communities tree densities are higher and trees are more regularly spaced than in forest communities. The open canopy allows sufficient light to reach the ground to support an unbroken herbaceous layer consisting primarily of C4 grasses. Savannas are also characterised by seasonal water availability, with the majority of rainfall being confined to one season of the year. Savannas can be associated with several types of biomes. Savannas are frequently seen as a transitional zone, occurring between forest regions and desert regions. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Steppe">
+    <rdfs:subClassOf rdf:resource="#Grassland"/>
+  </owl:Class>
+
+   <owl:Class rdf:about="#Forest">
+    <rdfs:subClassOf rdf:resource="#TerrestrialEcosystem"/>
+     <rdfs:subClassOf>
+       <owl:Restriction>
+         <owl:onProperty rdf:resource="&biol;#hasOrganism"/>
+         <owl:allValuesFrom rdf:resource="&plant;#Vegetation"/>
+       </owl:Restriction>
+     </rdfs:subClassOf>
+     <rdfs:comment>A forest is an area with a high density of trees. There are many definitions of a forest, based on various criteria. These plant communities cover large areas of the globe and function as habitats for organisms, hydrologic flow modulators, and soil conservers, constituting one of the most important aspects of the Earth's biosphere.</rdfs:comment>
+   </owl:Class>
+
+ <owl:Class rdf:about="#BorealForest">
+    <rdfs:subClassOf rdf:resource="#Taiga"/>
+  </owl:Class>
+
+ <owl:Class rdf:about="#Taiga">
+    <rdfs:subClassOf rdf:resource="#Forest"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&zone;#hasClimateZone" />
+        <owl:hasValue rdf:resource="&zone;#Cfc" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&zone;#hasClimateZone" />
+        <owl:hasValue rdf:resource="&zone;#Dfc" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&zone;#hasClimateZone" />
+        <owl:hasValue rdf:resource="&zone;#Dfb" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">biome characterized by coniferous forests</rdfs:comment>
+  </owl:Class>
+
+ <owl:Class rdf:about="#TemperateForest">
+    <rdfs:subClassOf rdf:resource="#Forest"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&zone;#hasClimateZone" />
+        <owl:allValuesFrom rdf:resource="&zone;#C" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+ <owl:Class rdf:about="#TropicalForest">
+    <rdfs:subClassOf rdf:resource="#Forest"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&zone;#hasClimateZone" />
+        <owl:hasValue rdf:resource="&zone;#TropicalRainForestClimate" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+ <owl:Class rdf:about="#Woodland">
+    <rdfs:subClassOf rdf:resource="#Forest"/>
+  </owl:Class>
+
+</rdf:RDF>

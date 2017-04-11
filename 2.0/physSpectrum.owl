@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl">
+  <!ENTITY math2 "http://sweet.jpl.nasa.gov/2.0/math.owl#">
+  <!ENTITY spec "http://sweet.jpl.nasa.gov/2.0/physSpectrum.owl">
+  <!ENTITY spec2 "http://sweet.jpl.nasa.gov/2.0/physSpectrum.owl#">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY units2 "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl#">
+  <!ENTITY waves "http://sweet.jpl.nasa.gov/2.0/physWaves.owl">
+  <!ENTITY waves2 "http://sweet.jpl.nasa.gov/2.0/physWaves.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&spec;"
+         xmlns:owl="&owl;"
+         xmlns:phys="&phys;"
+         xmlns:math2="&math2;"
+         xmlns:units2="&units2;"
+         xmlns:waves="&waves;"
+         xmlns:units="&units;"
+         xmlns:waves2="&waves2;"
+         xmlns:spec="&spec;"
+         xmlns:spec2="&spec2;"
+         xmlns:math="&math;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&waves;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Bolometric">
+    <rdfs:subClassOf rdf:resource="#BroadSpectrum"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BroadSpectrum">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <owl:equivalentClass rdf:resource="#BroadBand"/>
+    <owl:equivalentClass rdf:resource="#WhiteLight"/>
+    <owl:disjointWith rdf:resource="#SpectralLine"/>
+  </owl:Class>
+  <owl:Class rdf:about="#BroadBand"/>
+  <owl:Class rdf:about="#WhiteLight"/>
+
+  <owl:Class rdf:about="#GammaWave">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#0to3hundnm"/>
+        <owl:onProperty rdf:resource="&waves;#hasWavelength"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#0to3hundnm">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">0</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">0.03</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#nanometer"/>
+  </waves2:WavelengthBand>
+
+  <owl:Class rdf:about="#HardXRay">
+    <rdfs:subClassOf rdf:resource="#XRay"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Monochromatic">
+    <rdfs:subClassOf rdf:resource="#NarrowSpectrum"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NarrowSpectrum">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <owl:equivalentClass rdf:resource="#NarrowBand"/>
+    <owl:equivalentClass rdf:resource="#BandLimited"/>
+  </owl:Class>
+  <owl:Class rdf:about="#NarrowBand"/>
+  <owl:Class rdf:about="#BandLimited"/>
+
+  <owl:Class rdf:about="#Polychromatic">
+    <rdfs:subClassOf rdf:resource="#BroadSpectrum"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SoftXRay">
+    <rdfs:subClassOf rdf:resource="#XRay"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpectralLine">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpectralBand">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#XRay">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#3hundto5nm"/>
+        <owl:onProperty rdf:resource="&waves;#hasWavelength"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#3hundto5nm">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">0.03</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">5</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#nanometer"/>
+  </waves2:WavelengthBand>
+
+
+<!-- Radio -->
+  <owl:Class rdf:about="#FM">
+    <rdfs:subClassOf rdf:resource="#RadioWave"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#87to108MHz"/>
+        <owl:onProperty rdf:resource="&waves;#hasFrequency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#87to108MHz">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">87.5</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">108.</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#megahertz"/>
+  </waves2:WavelengthBand>
+
+  <spec2:SpectralLine rdf:about="#H1">
+    <rdf:type rdf:resource="#RadioWave"/>
+    <waves2:hasWavelength rdf:resource="#21cm"/>
+  </spec2:SpectralLine>
+  <waves2:WavelengthBand rdf:about="#21cm">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">21.1061</math2:hasNumericValue>
+     <units2:hasUnit rdf:resource="&units;#centimeter"/>
+  </waves2:WavelengthBand>
+
+  <spec2:SpectralLine rdf:about="#10point7">
+    <rdf:type rdf:resource="#RadioWave"/>
+    <waves2:hasWavelength rdf:resource="#10point7cm"/>
+  </spec2:SpectralLine>
+  <waves2:WavelengthBand rdf:about="#10point7cm">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">10.7</math2:hasNumericValue>
+     <units2:hasUnit rdf:resource="&units;#centimeter"/>
+  </waves2:WavelengthBand>
+
+  <owl:Class rdf:about="#RadioWave">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#upto300GHz"/>
+        <owl:onProperty rdf:resource="&waves;#hasFrequency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#upto300GHz">
+     <math2:hasUpperBound rdf:datatype="&xsd;double">300</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#gigahertz"/>
+  </waves2:WavelengthBand>
+
+  <owl:Class rdf:about="#VLF">
+    <rdfs:subClassOf rdf:resource="#RadioWave"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#3to30kHz"/>
+        <owl:onProperty rdf:resource="&waves;#hasFrequency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#3to30kHz">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">3.</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">30.</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#kilohertz"/>
+  </waves2:WavelengthBand>
+
+<!-- Microwave -->
+  <owl:Class rdf:about="#CBand">
+    <rdfs:subClassOf rdf:resource="#Microwave"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#4to8GHz"/>
+        <owl:onProperty rdf:resource="&waves;#hasFrequency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#4to8GHz">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">4</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">8</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#gigahertz"/>
+  </waves2:WavelengthBand>
+
+  <owl:Class rdf:about="#KBand">
+    <rdfs:subClassOf rdf:resource="#Microwave"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#18to26GHz"/>
+        <owl:onProperty rdf:resource="&waves;#hasFrequency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#18to26GHz">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">18</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">26.5</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#gigahertz"/>
+  </waves2:WavelengthBand>
+
+  <owl:Class rdf:about="#Microwave">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#300MHzto300GHz"/>
+        <owl:onProperty rdf:resource="&waves;#hasFrequency"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#300MHzto300GHz">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">0.3</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">300</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#gigahertz"/>
+  </waves2:WavelengthBand>
+
+<!-- IR -->
+  <spec2:SpectralLine rdf:about="#He1083">
+    <rdf:type rdf:resource="#Infrared"/>
+    <waves2:hasWavelength rdf:resource="#1083"/>
+  </spec2:SpectralLine>
+  <waves2:WavelengthBand rdf:about="#1083">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1083.</math2:hasNumericValue>
+     <units2:hasUnit rdf:resource="&units;#nanometer"/>
+  </waves2:WavelengthBand>
+
+  <owl:Class rdf:about="#Infrared">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <owl:equivalentClass rdf:resource="#LongWave"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#780to1E6nm"/>
+        <owl:onProperty rdf:resource="&waves;#hasWavelength"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#780to1E6nm">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">780</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">1.E6</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#nanometer"/>
+  </waves2:WavelengthBand>
+  <owl:Class rdf:about="#LongWave"/>
+
+  <owl:Class rdf:about="#ThermalInfrared">
+    <rdfs:subClassOf rdf:resource="#SpectralBand"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#780to6000nm"/>
+        <owl:onProperty rdf:resource="&waves;#hasWavelength"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <waves2:WavelengthBand rdf:about="#780to6000nm">
+     <math2:hasLowerBound rdf:datatype="&xsd;double">780</math2:hasLowerBound>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">6000</math2:hasUpperBound>
+     <units2:hasUnit rdf:resource="&units;#nanometer"/>
+  </waves2:WavelengthBand>
+
+</rdf:RDF>

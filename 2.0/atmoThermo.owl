@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.0/mathOperation.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY ener "http://sweet.jpl.nasa.gov/2.0/physEnergy.owl">
+  <!ENTITY time "http://sweet.jpl.nasa.gov/2.0/time.owl">
+  <!ENTITY wind "http://sweet.jpl.nasa.gov/2.0/atmoWind.owl">
+  <!ENTITY day "http://sweet.jpl.nasa.gov/2.0/timeDiurnal.owl">
+  <!ENTITY rad "http://sweet.jpl.nasa.gov/2.0/physRadiation.owl">
+  <!ENTITY thermo "http://sweet.jpl.nasa.gov/2.0/physThermo.owl">
+  <!ENTITY atherm "http://sweet.jpl.nasa.gov/2.0/atmoThermo.owl">
+  <!ENTITY sol "http://sweet.jpl.nasa.gov/2.0/mathSolution.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&atherm;"
+         xmlns:owl="&owl;"
+         xmlns:phys="&phys;"
+         xmlns:ener="&ener;"
+         xmlns:time="&time;"
+         xmlns:wind="&wind;"
+         xmlns:day="&day;"
+         xmlns:units="&units;"
+         xmlns:sol="&sol;"
+         xmlns:thermo="&thermo;"
+         xmlns:atherm="&atherm;"
+         xmlns:rad="&rad;"
+         xmlns:oper="&oper;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&time;"/>
+     <owl:imports rdf:resource="&day;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&ener;"/>
+     <owl:imports rdf:resource="&wind;"/>
+     <owl:imports rdf:resource="&thermo;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&sol;"/>
+     <owl:imports rdf:resource="&rad;"/>
+  </owl:Ontology>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#HeatBudget">
+    <rdfs:subClassOf rdf:resource="&ener;#EnergyBudget"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&thermo;#Heat" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NocturnalCooling">
+    <rdfs:subClassOf rdf:resource="#RadiationalCooling" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;#hasTime" />
+        <owl:allValuesFrom rdf:resource="&day;#Nocturnal" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The lowering of temperature during night time, due to a net loss of radiant energy.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RadiativeHeating">
+    <rdfs:subClassOf rdf:resource="&thermo;#Heating" />
+    <rdfs:subClassOf rdf:resource="&rad;#RadiativeForcing"/>
+    <owl:equivalentClass rdf:resource="#RadiationalHeating"/>
+  </owl:Class>
+  <owl:Class rdf:about="#RadiationalHeating"/>
+
+  <owl:Class rdf:about="#RadiativeCooling">
+    <rdfs:subClassOf rdf:resource="&thermo;#Cooling" />
+    <owl:equivalentClass rdf:resource="#RadiationalCooling"/>
+    <rdfs:subClassOf rdf:resource="&rad;#RadiativeForcing"/>
+    <owl:disjointWith rdf:resource="#RadiativeHeating"/>
+    <rdfs:comment xml:lang="en">In meteorology, the result of radiative cooling of the earth's surface and adjacent air.  Radiational cooling occurs, as is typical on calm, clear nights</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#RadiationalCooling"/>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#BowenRatio">
+    <rdfs:subClassOf rdf:resource="&oper;#Ratio"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#dimensionlessUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&thermo;#SensibleHeat"/>
+        <owl:onProperty rdf:resource="&oper;#hasFirstOperand"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&thermo;#LatentHeat"/>
+        <owl:onProperty rdf:resource="&oper;#hasSecondOperand"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Temperature -->
+  <owl:Class rdf:about="#DeicedTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DewPoint">
+    <owl:equivalentClass rdf:resource="#DewPointTemperature"/>
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:comment xml:lang="en">The temperature to which a given air parcel must be cooled at constant pressure and constant water vapor content in order for saturation to occur.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#DewPointTemperature"/>
+
+  <owl:Class rdf:about="#DewPointDepression">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:subClassOf rdf:resource="&oper;#Subtraction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#DewPointTemperature"/>
+        <owl:onProperty rdf:resource="&oper;#hasSecondOperand"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#DryBulbTemperature"/>
+        <owl:onProperty rdf:resource="&oper;#hasFirstOperand"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DryBulbTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EffectiveTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:comment xml:lang="en">The temperature at which motionless saturated air would induce, in a sedentary worker wearing ordinary indoor clothing, the same sensation of comfort as that induced by the actual conditions of temperature, humidity, and air movement. Effective temperature is used as a guide in air-conditioning practice, and, on the comfort chart (American Society of Heating and Air Conditioning Engineers), it appears as a family of curves that serves as one coordinate in defining comfort zones.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EquivalentTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PseudoEquivalentTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&sol;#approximates" />
+        <owl:allValuesFrom rdf:resource="#EquivalentTemperature" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WetBulbTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WindChillIndex">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <owl:equivalentClass rdf:resource="#WindChill" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&wind;#Wind"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A means of quantifying the threat of rapid cooling during breezy or windy conditions that may result in hypothermia in cold conditions.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#WindChill"/>
+
+</rdf:RDF>

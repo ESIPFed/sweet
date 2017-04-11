@@ -1,0 +1,340 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+   <!ENTITY info "http://sweet.jpl.nasa.gov/2.0/info.owl">   
+   <!ENTITY time "http://sweet.jpl.nasa.gov/2.0/time.owl">   
+   <!ENTITY space "http://sweet.jpl.nasa.gov/2.0/space.owl">   
+   <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">   
+   <!ENTITY mod "http://sweet.jpl.nasa.gov/2.0/sciModel.owl">   
+   <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">   
+   <!ENTITY obj "http://sweet.jpl.nasa.gov/2.0/spaceObject.owl">
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF
+    xmlns = "&info;"
+    xml:base = "&info;"
+    xmlns:info = "&info;"
+    xmlns:obj = "&obj;"
+    xmlns:res = "&res;"
+    xmlns:mod = "&mod;"
+    xmlns:top = "&top;"
+    xmlns:time = "&time;"
+    xmlns:spacei = "&space;"
+    xmlns:owl = "&owl;"
+    xmlns:rdf = "&rdf;"
+    xmlns:rdfs = "&rdfs;"
+    xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+    <owl:imports rdf:resource = "&obj;"/>
+    <owl:imports rdf:resource = "&res;"/>
+    <owl:imports rdf:resource = "&mod;"/>
+    <owl:imports rdf:resource = "&top;"/>
+    <owl:imports rdf:resource = "&space;"/>
+    <owl:imports rdf:resource = "&time;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#Array">
+    <rdfs:subClassOf rdf:resource="#DataStructure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cell">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Collection">
+    <rdfs:subClassOf rdf:resource="#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Column">
+    <rdfs:subClassOf rdf:resource="&res;#Dimension"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Data">
+    <rdfs:subClassOf rdf:resource="&res;#Realization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataModel">
+    <rdfs:subClassOf rdf:resource="&mod;#Model" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mod;#representationOf" />
+        <owl:allValuesFrom rdf:resource="#Data" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataProduct">
+    <rdfs:subClassOf rdf:resource="#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Dataset">
+    <rdfs:subClassOf rdf:resource="#DataProduct" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataStructure">
+    <rdfs:subClassOf rdf:resource="&mod;#Representation" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ensemble">
+    <rdfs:subClassOf rdf:resource="#Collection" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Field">
+    <rdfs:subClassOf rdf:resource="#DataModel" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#FillValue">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Grid">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+    <rdfs:subClassOf rdf:resource="#Raster"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&obj;#hasGeometricalObject" />
+        <owl:allValuesFrom rdf:resource="&obj;#Rectangle" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Increment">
+    <rdfs:subClassOf rdf:resource="&res;#Scale"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Layer">
+    <rdfs:subClassOf rdf:resource="#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Level1">
+    <rdfs:subClassOf rdf:resource="#ProcessingLevel"/>
+    <owl:equivalentClass rdf:resource="#L1" />
+  </owl:Class>
+  <owl:Class rdf:about="#L1" />
+
+  <owl:Class rdf:about="#Level2">
+    <owl:equivalentClass rdf:resource="#L2" />
+    <rdfs:subClassOf rdf:resource="#ProcessingLevel" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasDataModel" />
+        <owl:allValuesFrom rdf:resource="#Swath" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#L2" />
+
+  <owl:Class rdf:about="#Level3">
+    <rdfs:subClassOf rdf:resource="#ProcessingLevel"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasDataModel"/>
+        <owl:allValuesFrom rdf:resource="#Grid"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#L3"/>
+  </owl:Class>
+  <owl:Class rdf:about="#L3" />
+
+  <owl:Class rdf:about="#Level4">
+    <rdfs:subClassOf rdf:resource="#ProcessingLevel"/>
+    <owl:equivalentClass rdf:resource="#L4"/>
+  </owl:Class>
+  <owl:Class rdf:about="#L4" />
+
+  <owl:Class rdf:about="#MaximumValid">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Metadata">
+    <rdfs:subClassOf rdf:resource="&mod;#Representation" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MinimumValid">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MissingValue">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Offset">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Point">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&obj;#hasGeometricalObject" />
+        <owl:allValuesFrom rdf:resource="&obj;#Point" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ProcessingLevel">
+    <rdfs:subClassOf rdf:resource="&mod;#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Profile">
+    <rdfs:subClassOf rdf:resource="#DataProduct"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Raster">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ReducedGrid">
+    <rdfs:subClassOf rdf:resource="#Grid"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#Resolution">
+    <rdfs:subClassOf rdf:resource="#Increment"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpatialRepresentation">
+    <rdfs:subClassOf rdf:resource="&mod;#Representation" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mod;#representationOf" />
+        <owl:allValuesFrom rdf:resource="&space;#Space" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Row">
+    <rdfs:subClassOf rdf:resource="&res;#Dimension"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ScaleFactor">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Series">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TimeSeries">
+    <rdfs:subClassOf rdf:resource="#Series"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Structure">
+    <rdfs:subClassOf rdf:resource="#DataStructure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Survey">
+    <rdfs:subClassOf rdf:resource="#DataProduct"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Swath">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Swath_2D">
+    <rdfs:subClassOf rdf:resource="#Swath"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&obj;#hasGeometricalObject" />
+        <owl:allValuesFrom rdf:resource="&obj;#GeometricalObject_2D" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Swath_3D">
+    <rdfs:subClassOf rdf:resource="#Swath"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&obj;#hasGeometricalObject" />
+        <owl:allValuesFrom rdf:resource="&obj;#GeometricalObject_3D" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TemporalRepresentation">
+    <rdfs:subClassOf rdf:resource="&mod;#Representation" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mod;#representationOf" />
+        <owl:allValuesFrom rdf:resource="&time;#Time" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Trajectory">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Value">
+    <rdfs:subClassOf rdf:resource="#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Variable">
+    <owl:equivalentClass rdf:resource="#Layer"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Vector">
+    <rdfs:subClassOf rdf:resource="#DataModel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Version">
+    <rdfs:subClassOf rdf:resource="&res;#Realization" />
+  </owl:Class>
+
+<!-- Object Properties -->
+
+  <owl:ObjectProperty rdf:about="#bgcolor"/>
+
+  <owl:ObjectProperty rdf:about="#hasData">
+    <rdfs:range rdf:resource="#Data"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasDataModel">
+    <rdfs:subPropertyOf rdf:resource="&mod;#representationOf"/>
+    <rdfs:range rdf:resource="#DataModel"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasDatatype">
+    <rdfs:subPropertyOf rdf:resource="#hasDataModel"/>
+    <owl:equivalentProperty rdf:resource="#hasDataType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#hasDataType"/>
+
+  <owl:ObjectProperty rdf:about="#hasFillValue">
+    <rdfs:range rdf:resource="#FillValue"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasProcessingLevel">
+    <rdfs:range rdf:resource="#ProcessingLevel"/>
+    <rdfs:domain rdf:resource="#Dataset"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasProfile">
+    <rdfs:range rdf:resource="#Profile"/>
+    <rdfs:subPropertyOf rdf:resource="#hasDataModel"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasResolution">
+    <rdfs:domain rdf:resource="&res;#Dimension"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasSpatialProjection">
+    <rdfs:domain rdf:resource="#DataModel"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#transparent"/>
+
+  <owl:ObjectProperty rdf:about="#hasVersion">
+    <rdfs:domain rdf:resource="#Dataset"/>
+    <rdfs:range rdf:resource="#Version"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

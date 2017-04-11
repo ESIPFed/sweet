@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY tec "http://sweet.jpl.nasa.gov/2.0/geolTectonics.owl">  
+  <!ENTITY tecl "http://sweet.jpl.nasa.gov/2.0/landTectonic.owl">  
+  <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">  
+  <!ENTITY oro "http://sweet.jpl.nasa.gov/2.0/geolOrogen.owl">  
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">  
+  <!ENTITY land "http://sweet.jpl.nasa.gov/2.0/landLandform.owl">  
+  <!ENTITY geol "http://sweet.jpl.nasa.gov/2.0/geol.owl">  
+  <!ENTITY petr "http://sweet.jpl.nasa.gov/2.0/geolPetrology.owl">  
+  <!ENTITY ign "http://sweet.jpl.nasa.gov/2.0/geolPetrologyIgneous.owl">  
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">  
+  <!ENTITY time "http://sweet.jpl.nasa.gov/2.0/time.owl">  
+  <!ENTITY rate "http://sweet.jpl.nasa.gov/2.0/timeScale.owl">  
+  <!ENTITY gtime "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl">  
+  <!ENTITY basin "http://sweet.jpl.nasa.gov/2.0/geolBasin.owl">
+  <!ENTITY fluid "http://sweet.jpl.nasa.gov/2.0/physFluidDynamics.owl">
+  <!ENTITY solid "http://sweet.jpl.nasa.gov/2.0/physSolid.owl">
+  <!ENTITY def "http://sweet.jpl.nasa.gov/2.0/physSolidDeformation.owl">
+  <!ENTITY fail "http://sweet.jpl.nasa.gov/2.0/physSolidFailure.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&tec;"
+         xmlns:tec="&tec;"
+         xmlns:tecl="&tecl;"
+         xmlns:top="&top;"
+         xmlns:oro="&oro;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:def="&def;"
+	 xmlns:solid="&solid;"
+	 xmlns:fluid="&fluid;"
+         xmlns:land="&land;"
+         xmlns:fail="&fail;"
+         xmlns:phys="&phys;"
+         xmlns:petr="&petr;"
+         xmlns:ign="&ign;"
+         xmlns:time="&time;"
+         xmlns:rate="&rate;"
+         xmlns:gtime="&gtime;"
+         xmlns:chem="&chem;"
+         xmlns:geol="&geol;"
+         xmlns:planet="&planet;"
+         xmlns:basin="&basin;"
+>
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&basin;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&petr;"/>
+     <owl:imports rdf:resource="&ign;"/>
+     <owl:imports rdf:resource="&geol;"/>
+     <owl:imports rdf:resource="&tecl;"/>
+     <owl:imports rdf:resource="&time;"/>
+     <owl:imports rdf:resource="&rate;"/>
+     <owl:imports rdf:resource="&gtime;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&fail;"/>
+     <owl:imports rdf:resource="&land;"/>
+     <owl:imports rdf:resource="&top;"/>
+     <owl:imports rdf:resource="&def;"/>
+     <owl:imports rdf:resource="&oro;"/>
+     <owl:imports rdf:resource="&solid;"/>
+     <owl:imports rdf:resource="&fluid;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+  <owl:Class rdf:ID="Plate">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&geol;#Lithosphere"/>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#ContinentalBreakup">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalCollision">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PlateConvergence">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+    <owl:disjointWith rdf:resource="#PlateDivergence" />
+    <rdfs:comment xml:lang="en">Plate convergence is the phenomena of two plates moving toward one another. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PlateDivergence">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+    <rdfs:comment xml:lang="en">Plate divergence is the phenomena of plates drifting apart [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TectonicUplift">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TectonicAssemblage">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicFeature"/>
+     <rdfs:comment xml:lang="en">A tectonic ssemblage is a geological term for an accreted terrane of heterogeneous rocks. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Terrane">
+    <rdfs:subClassOf rdf:resource="#TectonicAssemblage"/>
+    <rdfs:comment xml:lang="en">A terrane in geology is a fragment of crustal material formed on, or broken off from, one tectonic plate and accreted — "sutured" — to crust lying on another plate.  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AsymmetricHeatFlow">
+    <rdfs:subClassOf rdf:resource="&fluid;#Flow"/>
+    <rdfs:comment xml:lang="en">Asymmetric heat flow in geology is an observation that the heat from upwelling mantle does not spread symmetrically away from the hot spot or rift due to differences in crust composition. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinenetalDrift">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+<rdfs:comment xml:lang="en">Continental drift is the movement of the Earth's continents relative to each other. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ExtensionEvent">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+    <rdfs:comment xml:lang="en">An extension event occurs when a seismic event causes an extension in the crust.   [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IsostaticRebound">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+    <owl:equivalentClass rdf:resource="#IsostaticAdjustment"/>
+    <rdfs:comment xml:lang="en">Post-glacial rebound (sometimes called continental rebound, isostatic rebound, isostatic adjustment or post-ice-age isostatic recovery) is the rise of land masses that were depressed by the huge weight of ice sheets during the last glacial period, through a process known as isostatic depression. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#IsostaticAdjustment"/>
+
+  <owl:Class rdf:about="#Spreading">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+    <rdfs:comment xml:lang="en">A spreading event occurs whenever plates drift apart (Plate Divergence). [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subduction">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TectonicForce">
+    <rdfs:subClassOf rdf:resource="&phys;#Force"/>
+    <owl:equivalentClass rdf:resource="#TectonicProcess"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalPhenomena"/>
+        <owl:allValuesFrom rdf:resource="#TectonicPhenomena"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The tectonic force is the force created by one tectonic plate pushing against another due to upwellings of the mantle, [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#TectonicProcess"/>
+
+  <owl:Class rdf:about="#TectonicPhenomena">
+    <rdfs:subClassOf rdf:resource="&geol;#GeospherePhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&def;#Deformation"/>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&geol;#Crust"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The tectonic phenomena is the observable motions of the tectonic plates in the Earth's Lithosphere. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TransformFaulting">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#TransformFault"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Creep">
+    <rdfs:subClassOf rdf:resource="#TectonicPhenomena"/>
+  </owl:Class>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#SpreadingRate">
+    <rdfs:subClassOf rdf:resource="&rate;#Rate"/>
+    <rdfs:comment xml:lang="en">The spreading rate is a measure of how fast plate divergence is occurring. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasSpreadingRate">
+    <rdfs:range rdf:resource="#SpreadingRate"/>
+  </owl:ObjectProperty>
+
+<!-- Knowledge -->
+  <owl:Class rdf:about="#Seismology">
+    <rdfs:subClassOf rdf:resource="&geol;#Geology"/>
+    <rdfs:comment xml:lang="en">Seismology (from the Greek seismos = earthquake and λόγος,logos = knowledge ) is the scientific study of earthquakes and the propagation of elastic waves through the Earth. The field also includes studies of earthquake effects, such as tsunamis as well as diverse seismic sources such as volcanic, tectonic, oceanic, atmospheric, and artificial processes (such as explosions).
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Tectonics">
+    <rdfs:subClassOf rdf:resource="&geol;#Geology"/>
+    <rdfs:comment>Tectonics is a field of study within geology concerned generally with the structures within the crust of the Earth (or other planets) and particularly with the forces and movements that have operated in a region to create these structures. Tectonics is concerned with the orogenies and tectonic development of cratons and tectonic terranes as well as the earthquake and volcanic belts which directly affect much of the global population. Tectonic studies are also important for understanding erosion patterns in geomorphology and as guides for the economic geologist searching for petroleum and metallic ores. A subfield of tectonics that deals with tectonic phenomena in the geologically recent period is called neotectonics. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Neotectonics">
+    <rdfs:subClassOf rdf:resource="#Tectonics"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&gtime;#NeotectonicPeriod"/>
+        <owl:onProperty rdf:resource="&time;#hasTimeReference"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment>Neotectonics is a subdiscipline of tectonics. It is the study of the motions and deformations of the Earth's crust (geological and geomorphological processes) which are current or recent in geologic time.[1] The term may also refer to the motions/deformations in question themselves. The corresponding time frame is referred to as the neotectonic period.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PlateTectonics">
+    <rdfs:subClassOf rdf:resource="#Tectonics"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&geol;#Lithosphere"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">In plate tectonic theory earth history, at its simplest, is one of plates rifting into pieces diverging apart and new ocean basins being born, followed by motion reversal, convergence back together, subduction of the oceanic crust, plate collision, and mountain building. This cycle of opening and closing ocean basins is the Wilson Cycle . [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+<!-- Realms : Boundaries -->
+  <owl:Class rdf:ID="ConvergentBoundary">
+    <rdfs:subClassOf rdf:resource="#PlateBoundary"/>
+    <owl:equivalentClass rdf:resource="#ConvergentPlateBoundary"/>
+    <owl:equivalentClass rdf:resource="#ConvergentMargin"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&geol;#hasGeologicProvince"/>
+        <owl:someValuesFrom rdf:resource="&oro;#Orogen"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess"/>
+        <owl:someValuesFrom rdf:resource="#AsymmetricHeatFlow"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess"/>
+        <owl:someValuesFrom rdf:resource="&solid;#Subsidence"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">In plate tectonics, a convergent boundary or convergent plate boundary, also known as a destructive plate boundary (because of subduction), is an actively deforming region where two (or more) tectonic plates or fragments of lithosphere move toward one another and collide and where crust is being destroyed. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#ConvergentPlateBoundary"/>
+  <owl:Class rdf:about="#ConvergentMargin"/>
+
+  <owl:Class rdf:about="#DivergentBoundary">
+    <rdfs:subClassOf rdf:resource="#PlateBoundary"/>
+    <owl:equivalentClass rdf:resource="#DivergentPlateBoundary"/>
+    <rdfs:comment xml:lang="en">In plate tectonics, a divergent boundary or divergent plate boundary (also known as a constructive boundary or an extensional boundary) is a linear feature that exists between two tectonic plates that are moving away from each other and new crust is being formed. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#DivergentPlateBoundary"/>
+
+  <owl:Class rdf:about="#FossilPlateBoundary">
+    <rdfs:subClassOf rdf:resource="#PlateBoundary"/>
+    <rdfs:comment xml:lang="en">Are where similar plant and animal fossils are found around different continent shores, suggesting that they were once joined. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FaultZone"/>
+  <owl:Class rdf:about="#FractureZone">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicBoundary"/>
+    <owl:equivalentClass rdf:resource="#FaultZone"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&fail;#Fracture" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A fracture zone is a linear oceanic feature--often hundreds, even thousands of kilometers long--resulting from the action of offset mid-ocean ridge axis segments. They are a consequence of plate tectonics. Lithospheric plates on either side of an active transform fault move in opposite directions; here, strike-slip activity is possible. Fracture zones extend past the transform faults, away from the ridge axis; seismically inactive (because both plate segments are moving in the same direction), they display evidence of past transform fault activity. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="PlateBoundary">
+   <rdfs:subClassOf rdf:resource="&geol;#GeologicBoundary"/>
+   <rdfs:subClassOf>
+     <owl:Restriction>
+       <owl:onProperty rdf:resource="&land;#hasGeomorphologicalType"/>
+       <owl:someValuesFrom rdf:resource="&tecl;#TectonicLandform"/>
+     </owl:Restriction>
+   </rdfs:subClassOf>
+   <rdfs:subClassOf>
+     <owl:Restriction>
+       <owl:onProperty rdf:resource="&planet;#hasPlanetaryStructure"/>
+       <owl:allValuesFrom rdf:resource="#TripleJunction"/>
+     </owl:Restriction>
+   </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The location where two plates meet is called a plate boundary. it is often a broad zone where the plate interactions are not well understood. [Wikipedia]</rdfs:comment>
+ </owl:Class>
+
+  <owl:Class rdf:ID="Rift">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicBoundary"/>
+    <rdfs:subClassOf rdf:resource="#FractureZone"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ign;#AnorogenicIgneousRock"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A rift is a place where the Earth's crust and lithosphere are being pulled apart[1] and is an example of extensional tectonics. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StressRegime">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicBoundary"/>
+    <rdfs:comment xml:lang="en">Stress regimes are shear zones. A shear zone or shear is a wide zone of distributed shearing in rock. Typically this is a type of fault but it may be difficult to place a distinct fault plane into the shear zone. Shear zones may form zones of much more intense foliation, deformation, and folding. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="SubductionZone">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:comment xml:lang="en">A subduction zone is an area on Earth where two tectonic plates move towards one another and subduction occurs.  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SupraSubductionZoneComplex">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:comment xml:lang="en">There is increasing evidence that most ophiolites are generated when subduction begins and thus represent fragments of fore-arc lithosphere. This led to introduction of the term "supra-subduction zone" (SSZ) ophiolite in the 1980s to acknowledge that some ophiolites are more closely related to island arcs than ocean ridges. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Suture">
+    <rdfs:subClassOf rdf:resource="#FractureZone"/>
+    <rdfs:subClassOf rdf:resource="#FossilPlateBoundary"/>
+<rdfs:comment xml:lang="en">A suture is where a fragment of crustal material is accreted to crust lying on another plate. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TranspressionalStressRegime">
+    <rdfs:subClassOf rdf:resource="#StressRegime"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&petr;#Melange"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Transpression regimes are formed during oblique collision of tectonic plates and during non-orthogonal subduction. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TranstensionalStressRegime">
+    <rdfs:subClassOf rdf:resource="#StressRegime"/>
+    <rdfs:comment xml:lang="en">Transtension regimes are oblique tensional environments where stretching takes place. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:ID="TransformBoundary">
+    <rdfs:subClassOf rdf:resource="#PlateBoundary"/>
+    <owl:equivalentClass rdf:resource="#TransformPlateBoundary"/>
+    <owl:equivalentClass rdf:resource="#TransformMargin"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&basin;#TranspressionalBasin"/>
+        <owl:onProperty rdf:resource="&basin;#hasBasin"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A transform plate boundary is where two lithospheric plates slide past each other and where crust is neither produced or destroyed. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="TransformMargin"/>
+  <owl:Class rdf:about="#TransformPlateBoundary"/>
+
+  <owl:Class rdf:about="#ThrustSystem">
+    <rdfs:subClassOf rdf:resource="#FractureZone"/>
+    <rdfs:comment xml:lang="en">A thrust fault system is one in which the higher side of the fault moves upward. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TransformFault">
+    <rdfs:subClassOf rdf:resource="&fail;#Fault"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TripleJunction">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicBoundary"/>
+    <rdfs:comment xml:lang="en">The Galapagos Triple Junction is a geological area in the eastern Pacific Ocean several hundred miles west of the Galapagos Islands where three tectonic plates - the Cocos Plate, the Nazca Plate and the Pacific Plate - meet. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+ 
+</rdf:RDF>

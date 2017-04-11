@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY therm "http://sweet.jpl.nasa.gov/2.1/stateThermodynamic.owl#"> 
+  <!ENTITY pstate "http://sweet.jpl.nasa.gov/2.1/statePhysical.owl#"> 
+  <!ENTITY temp "http://sweet.jpl.nasa.gov/2.1/propTemperature.owl#"> 
+  <!ENTITY tempg "http://sweet.jpl.nasa.gov/2.1/propTemperatureiGradient.owl#"> 
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.1/reprMathRelation.owl#"> 
+  <!ENTITY solu  "http://sweet.jpl.nasa.gov/2.1/reprMathSolution.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&therm;"
+         xmlns:rela="&rela;"
+         xmlns:therm="&therm;"
+         xmlns:pstate="&pstate;"
+         xmlns:temp="&temp;"
+         xmlns:tempg="&tempg;"
+         xmlns:solu="&solu;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.1/reprMathRelation.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.1/propTemperature.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.1/propTemperatureGradient.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.1/statePhysical.owl"/>
+     <owl:imports rdf:resource="http://sweet.jpl.nasa.gov/2.1/reprMathSolution.owl"/>
+  </owl:Ontology>
+
+<!-- Thermodynamic states -->
+  <owl:Class rdf:about="#ThermodynamicState">
+    <rdfs:subClassOf rdf:resource="&pstate;PhysicalState"/>
+  </owl:Class>
+
+  <therm:ThermodynamicState rdf:about="#Diabatic">
+    <owl:differentFrom rdf:resource="#Adiabatic"/>
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#Isentropic">
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#Inversion">
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#DryAdiabatic">
+    <owl:sameAs rdf:resource="#DryAdiabat"/>
+  </therm:ThermodynamicState>
+  <therm:ThermodynamicState rdf:about="#DryAdiabat"/>
+
+  <therm:ThermodynamicState rdf:about="#Pseudoadiabatic">
+    <solu:approximates rdf:resource="#Adiabatic"/>
+    <rdfs:comment xml:lang="en">A moist-adiabatic process in which the liquid water that condenses is assumed to be removed as soon as it is formed, by idealized instantaneous precipitation.</rdfs:comment>
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#Adiabatic">
+<!--
+        <owl:onProperty rdf:resource="&prop;#hasConservedQuantity" />
+        <owl:allValuesFrom rdf:resource="&ener;#Entropy" />
+-->
+    <rdfs:comment>A process in which a system does not interact with its surroundings by virtue of a temperature difference between them.</rdfs:comment>
+    <rdfs:label>Adiabatic Process</rdfs:label>
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#Superadiabatic">
+    <owl:differentFrom rdf:resource="#Adiabatic"/>
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#BlackBody">
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#Isothermal">
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#ThermodynamicEquilibrium">
+    <rdf:type rdf:resource="&pstate;EquilibriumState"/>
+  </therm:ThermodynamicState>
+
+  <therm:ThermodynamicState rdf:about="#LocalThermodynamicEquilibrium">
+    <rdf:type rdf:resource="&pstate;EquilibriumState"/>
+    <owl:sameAs rdf:resource="#LTE"/>
+  </therm:ThermodynamicState>
+  <therm:ThermodynamicState rdf:about="#LTE"/>
+
+  <therm:ThermodynamicState rdf:about="#MaximumEntropy">
+    <rdf:type rdf:resource="&pstate;EquilibriumState"/>
+  </therm:ThermodynamicState>
+
+<!-- Temperature states -->
+  <temp:Temperature rdf:about="#FreezingCold">
+  </temp:Temperature>
+
+  <temp:Temperature rdf:about="#Cold">
+  </temp:Temperature>
+
+  <temp:Temperature rdf:about="#Cool">
+    <therm:warmerThan rdf:resource="#Cold"/>
+    <therm:warmerThan rdf:resource="#FreezingCold"/>
+  </temp:Temperature>
+
+  <temp:Temperature rdf:about="#Lukewarm">
+    <therm:warmerThan rdf:resource="#Cool"/>
+    <owl:sameAs rdf:resource="#Tepid"/>
+  </temp:Temperature>
+  <temp:Temperature rdf:about="#Tepid"/>
+
+  <temp:Temperature rdf:about="#Warm">
+    <therm:warmerThan rdf:resource="#Lukewarm"/>
+  </temp:Temperature>
+
+  <temp:Temperature rdf:about="#Hot">
+    <therm:warmerThan rdf:resource="#Warm"/>
+  </temp:Temperature>
+
+  <temp:Temperature rdf:about="#BoilingHot">
+    <therm:warmerThan rdf:resource="#Warm"/>
+  </temp:Temperature>
+
+  <owl:ObjectProperty rdf:about="#warmerThan">
+    <rdfs:domain rdf:resource="&temp;Temperature"/>
+    <rdfs:range rdf:resource="&temp;Temperature"/>
+    <rdfs:subPropertyOf rdf:resource="&rela;greaterThan"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

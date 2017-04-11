@@ -1,0 +1,1453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl">
+  <!ENTITY math2 "http://sweet.jpl.nasa.gov/2.0/math.owl#">
+  <!ENTITY time "http://sweet.jpl.nasa.gov/2.0/time.owl">
+  <!ENTITY time2 "http://sweet.jpl.nasa.gov/2.0/time.owl#">
+  <!ENTITY gtime "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl">
+  <!ENTITY gtime2 "http://sweet.jpl.nasa.gov/2.0/timeGeologic.owl#">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY units2 "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&gtime;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:time2="&time2;"
+         xmlns:time="&time;"
+         xmlns:gtime="&gtime;"
+         xmlns:gtime2="&gtime2;"
+         xmlns:math2="&math2;"
+         xmlns:math="&math;"
+         xmlns:units2="&units2;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&time;"/>
+     <owl:imports rdf:resource="&units;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+
+  <owl:Class rdf:about="#Age">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#subsetOf" />
+        <owl:allValuesFrom rdf:resource="#Epoch" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Epochs are divided into ages [millions of years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Eon">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#subsetOf" />
+        <owl:allValuesFrom rdf:resource="#Supereon" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Supereons are divided into eons.  [billions of years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Epoch">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#subsetOf" />
+        <owl:allValuesFrom rdf:resource="#Period" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Periods are divided into epochs [tens of millions of years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Era">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#subsetOf" />
+        <owl:allValuesFrom rdf:resource="#Eon" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Eons are divided into eras [several hundred million years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeologicTime">
+    <rdfs:subClassOf rdf:resource="&time;#Time"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&units;#hasUnit" />
+        <owl:hasValue rdf:resource="#MYA" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The geologic time scale is a chronologic schema (or idealized model) relating stratigraphy to time that is used by geologists, paleontologists and other earth scientists to describe the timing and relationships between events that have occurred during the history of the Earth.  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeologicTimeUnit">
+    <rdfs:subClassOf rdf:resource="&time;#TimeStep"/>
+    <rdfs:comment xml:lang="en">The subdivisions of geologic time. The table of geologic time spans are dates and nomenclature proposed by the International Commission on Stratigraphy. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Period">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#subsetOf" />
+        <owl:allValuesFrom rdf:resource="#Era" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Eras are divided into periods. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Supereon">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:comment xml:lang="en">The largest defined unit of time is the supereon, composed of eons.] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <units2:Unit rdf:about="#MYA">
+  </units2:Unit>
+
+  <owl:ObjectProperty rdf:about="#hasGeologicTime">
+    <rdfs:range rdf:resource="#GeologicTime"/>
+  </owl:ObjectProperty>
+
+
+<!-- Supereons -->
+
+  <gtime2:Supereon rdf:about="#Precambrian">
+     <time2:hasEndTime rdf:resource="#542MYA" />
+  </gtime2:Supereon>
+
+<!-- Eons -->
+
+  <gtime2:Eon rdf:about="#Phanerozoic">
+     <time2:hasEndTime rdf:resource="#0MYA" />
+     <time2:hasStartTime rdf:resource="#542MYA" />
+  </gtime2:Eon>
+  <gtime2:Eon rdf:about="#Proterozoic">
+     <time2:hasEndTime rdf:resource="#542MYA" />
+     <time2:hasStartTime rdf:resource="#2500MYA" />
+     <math2:subsetOf rdf:resource="#Precambrian" />
+  </gtime2:Eon>
+  <gtime2:Eon rdf:about="#Archean">
+     <time2:hasEndTime rdf:resource="#2500MYA" />
+     <time2:hasStartTime rdf:resource="#4000MYA" />
+     <math2:subsetOf rdf:resource="#Precambrian" />
+  </gtime2:Eon>
+  <gtime2:Eon rdf:about="#Hadean">
+     <time2:hasEndTime rdf:resource="#4000MYA" />
+     <math2:subsetOf rdf:resource="#Precambrian" />
+  </gtime2:Eon>
+
+<!-- Eras -->
+
+  <gtime2:Era rdf:about="#Cenozoic">
+     <time2:hasEndTime rdf:resource="#0MYA" />
+     <time2:hasStartTime rdf:resource="#65.5MYA" />
+     <math2:subsetOf rdf:resource="#Phanerozoic" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Mesozoic">
+     <time2:hasEndTime rdf:resource="#65.5MYA" />
+     <time2:hasStartTime rdf:resource="#251.0MYA" />
+     <math2:subsetOf rdf:resource="#Phanerozoic" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Paleozoic">
+     <time2:hasEndTime rdf:resource="#251.0MYA" />
+     <time2:hasStartTime rdf:resource="#542MYA" />
+     <math2:subsetOf rdf:resource="#Phanerozoic" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Neoproterozoic">
+     <time2:hasEndTime rdf:resource="#542MYA" />
+     <time2:hasStartTime rdf:resource="#1000MYA" />
+     <math2:subsetOf rdf:resource="#Proterozoic" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Mesoproterozoic">
+     <time2:hasEndTime rdf:resource="#1000MYA" />
+     <time2:hasStartTime rdf:resource="#1600MYA" />
+     <math2:subsetOf rdf:resource="#Proterozoic" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Paleoproterozoic">
+     <time2:hasEndTime rdf:resource="#1600MYA" />
+     <time2:hasStartTime rdf:resource="#2500MYA" />
+     <math2:subsetOf rdf:resource="#Proterozoic" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Neoarchean">
+     <time2:hasEndTime rdf:resource="#2500MYA" />
+     <time2:hasStartTime rdf:resource="#2800MYA" />
+     <math2:subsetOf rdf:resource="#Archean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Mesoarchean">
+     <time2:hasEndTime rdf:resource="#2800MYA" />
+     <time2:hasStartTime rdf:resource="#3200MYA" />
+     <math2:subsetOf rdf:resource="#Archean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Paleoarchean">
+     <time2:hasEndTime rdf:resource="#3200MYA" />
+     <time2:hasStartTime rdf:resource="#3600MYA" />
+     <math2:subsetOf rdf:resource="#Archean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Eoarchean">
+     <time2:hasEndTime rdf:resource="#3600MYA" />
+     <time2:hasStartTime rdf:resource="#4000MYA" />
+     <math2:subsetOf rdf:resource="#Archean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Nectarian">
+     <math2:subsetOf rdf:resource="#Hadean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#LowerImbrian">
+     <math2:subsetOf rdf:resource="#Hadean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#BasinGroups">
+     <math2:subsetOf rdf:resource="#Hadean" />
+  </gtime2:Era>
+  <gtime2:Era rdf:about="#Cryptic">
+     <math2:subsetOf rdf:resource="#Hadean" />
+  </gtime2:Era>
+
+
+<!-- Periods -->
+
+  <gtime2:Period rdf:about="#Quaternary">
+     <time2:hasEndTime rdf:resource="#0MYA" />
+     <time2:hasStartTime rdf:resource="#2.588MYA" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Neogene">
+     <time2:hasEndTime rdf:resource="#2.588MYA" />
+     <time2:hasStartTime rdf:resource="#23.03MYA" />
+     <math2:subsetOf rdf:resource="#Cenozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Paleogene">
+     <time2:hasEndTime rdf:resource="#23.03MYA" />
+     <time2:hasStartTime rdf:resource="#65.5MYA" />
+     <math2:subsetOf rdf:resource="#Cenozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Cretaceous">
+     <time2:hasEndTime rdf:resource="#65.5MYA" />
+     <time2:hasStartTime rdf:resource="#145.5MYA" />
+     <math2:subsetOf rdf:resource="#Mesozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Jurassic">
+     <time2:hasEndTime rdf:resource="#145.5MYA" />
+     <time2:hasStartTime rdf:resource="#199.6MYA" />
+     <math2:subsetOf rdf:resource="#Mesozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Triassic">
+     <time2:hasEndTime rdf:resource="#199.6MYA" />
+     <time2:hasStartTime rdf:resource="#251.0MYA" />
+     <math2:subsetOf rdf:resource="#Mesozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Permian">
+     <time2:hasEndTime rdf:resource="#251.0MYA" />
+     <time2:hasStartTime rdf:resource="#299.0MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Pennsylvanian">
+     <time2:hasEndTime rdf:resource="#299.0MYA" />
+     <time2:hasStartTime rdf:resource="#318.1MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Mississippian">
+     <time2:hasEndTime rdf:resource="#318.1MYA" />
+     <time2:hasStartTime rdf:resource="#359.2MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Devonian">
+     <time2:hasEndTime rdf:resource="#359.2MYA" />
+     <time2:hasStartTime rdf:resource="#416.0MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Silurian">
+     <time2:hasEndTime rdf:resource="#416.0MYA" />
+     <time2:hasStartTime rdf:resource="#443.7MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Ordovician">
+     <time2:hasEndTime rdf:resource="#443.7MYA" />
+     <time2:hasStartTime rdf:resource="#488.3MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Cambrian">
+     <time2:hasEndTime rdf:resource="#488.3MYA" />
+     <time2:hasStartTime rdf:resource="#542MYA" />
+     <math2:subsetOf rdf:resource="#Paleozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Ediacaran">
+     <time2:hasEndTime rdf:resource="#542MYA" />
+     <time2:hasStartTime rdf:resource="#635MYA" />
+     <math2:subsetOf rdf:resource="#Neoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Cryogenian">
+     <time2:hasEndTime rdf:resource="#635MYA" />
+     <time2:hasStartTime rdf:resource="#850MYA" />
+     <math2:subsetOf rdf:resource="#Neoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Tonian">
+     <time2:hasEndTime rdf:resource="#850MYA" />
+     <time2:hasStartTime rdf:resource="#1000MYA" />
+     <math2:subsetOf rdf:resource="#Neoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Stenian">
+     <time2:hasEndTime rdf:resource="#1000MYA" />
+     <time2:hasStartTime rdf:resource="#1200MYA" />
+     <math2:subsetOf rdf:resource="#Mesoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Ectasian">
+     <time2:hasEndTime rdf:resource="#1200MYA" />
+     <time2:hasStartTime rdf:resource="#1400MYA" />
+     <math2:subsetOf rdf:resource="#Mesoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Calymmian">
+     <time2:hasEndTime rdf:resource="#1400MYA" />
+     <time2:hasStartTime rdf:resource="#1600MYA" />
+     <math2:subsetOf rdf:resource="#Mesoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Statherian">
+     <time2:hasEndTime rdf:resource="#1600MYA" />
+     <time2:hasStartTime rdf:resource="#1800MYA" />
+     <math2:subsetOf rdf:resource="#Paleoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Orosirian">
+     <time2:hasEndTime rdf:resource="#1800MYA" />
+     <time2:hasStartTime rdf:resource="#2050MYA" />
+     <math2:subsetOf rdf:resource="#Paleoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Rhyacian">
+     <time2:hasEndTime rdf:resource="#2050MYA" />
+     <time2:hasStartTime rdf:resource="#2300MYA" />
+     <math2:subsetOf rdf:resource="#Paleoproterozoic" />
+  </gtime2:Period>
+  <gtime2:Period rdf:about="#Siderian">
+     <time2:hasEndTime rdf:resource="#2300MYA" />
+     <time2:hasStartTime rdf:resource="#2500MYA" />
+     <math2:subsetOf rdf:resource="#Paleoproterozoic" />
+  </gtime2:Period>
+
+<!-- Epochs -->
+
+  <gtime2:Epoch rdf:about="#Holocene">
+     <time2:hasEndTime rdf:resource="#0MYA" />
+     <time2:hasStartTime rdf:resource="#0.0117MYA" />
+     <math2:subsetOf rdf:resource="#Quaternary" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Pleistocene">
+     <time2:hasEndTime rdf:resource="#0.0117MYA" />
+     <time2:hasStartTime rdf:resource="#2.588MYA" />
+     <math2:subsetOf rdf:resource="#Quaternary" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Pliocene">
+     <time2:hasEndTime rdf:resource="#2.588MYA" />
+     <time2:hasStartTime rdf:resource="#5.332MYA" />
+     <math2:subsetOf rdf:resource="#Neogene" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Miocene">
+     <time2:hasEndTime rdf:resource="#5.332MYA" />
+     <time2:hasStartTime rdf:resource="#23.03MYA" />
+     <math2:subsetOf rdf:resource="#Neogene" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Oligocene">
+     <time2:hasEndTime rdf:resource="#23.03MYA" />
+     <time2:hasStartTime rdf:resource="#33.9MYA" />
+     <math2:subsetOf rdf:resource="#Paleogene" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Eocene">
+     <time2:hasEndTime rdf:resource="#33.9MYA" />
+     <time2:hasStartTime rdf:resource="#55.8MYA" />
+     <math2:subsetOf rdf:resource="#Paleogene" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Paleocene">
+     <time2:hasEndTime rdf:resource="#55.8MYA" />
+     <time2:hasStartTime rdf:resource="#65.5MYA" />
+     <math2:subsetOf rdf:resource="#Paleogene" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperCretaceous">
+     <time2:hasEndTime rdf:resource="#65.5MYA" />
+     <time2:hasStartTime rdf:resource="#99.6MYA" />
+     <math2:subsetOf rdf:resource="#Cretaceous" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerCretaceous">
+     <time2:hasEndTime rdf:resource="#99.6MYA" />
+     <time2:hasStartTime rdf:resource="#145.5MYA" />
+     <math2:subsetOf rdf:resource="#Cretaceous" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperJurassic">
+     <time2:hasEndTime rdf:resource="#145.5MYA" />
+     <time2:hasStartTime rdf:resource="#161.2MYA" />
+     <math2:subsetOf rdf:resource="#Jurassic" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#MiddleJurassic">
+     <time2:hasEndTime rdf:resource="#161.2MYA" />
+     <time2:hasStartTime rdf:resource="#175.6MYA" />
+     <math2:subsetOf rdf:resource="#Jurassic" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerJurassic">
+     <time2:hasEndTime rdf:resource="#175.6MYA" />
+     <time2:hasStartTime rdf:resource="#199.6MYA" />
+     <math2:subsetOf rdf:resource="#Jurassic" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperTriassic">
+     <time2:hasEndTime rdf:resource="#199.6MYA" />
+     <time2:hasStartTime rdf:resource="#228.7MYA" />
+     <math2:subsetOf rdf:resource="#Triassic" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#MiddleTriassic">
+     <time2:hasEndTime rdf:resource="#228.7MYA" />
+     <time2:hasStartTime rdf:resource="#245.9MYA" />
+     <math2:subsetOf rdf:resource="#Triassic" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerTriassic">
+     <time2:hasEndTime rdf:resource="#245.9MYA" />
+     <time2:hasStartTime rdf:resource="#251.0MYA" />
+     <math2:subsetOf rdf:resource="#Triassic" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Lopingian">
+     <time2:hasEndTime rdf:resource="#251.0MYA" />
+     <time2:hasStartTime rdf:resource="#260.4MYA" />
+     <math2:subsetOf rdf:resource="#Permian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Guadalupian">
+     <time2:hasEndTime rdf:resource="#260.4MYA" />
+     <time2:hasStartTime rdf:resource="#270.6MYA" />
+     <math2:subsetOf rdf:resource="#Permian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Cisuralian">
+     <time2:hasEndTime rdf:resource="#270.6MYA" />
+     <time2:hasStartTime rdf:resource="#299.0MYA" />
+     <math2:subsetOf rdf:resource="#Permian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperPennsylvanian">
+     <time2:hasEndTime rdf:resource="#299.0MYA" />
+     <time2:hasStartTime rdf:resource="#307.2MYA" />
+     <math2:subsetOf rdf:resource="#Pennsylvanian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#MiddlePennsylvanian">
+     <time2:hasEndTime rdf:resource="#307.2MYA" />
+     <time2:hasStartTime rdf:resource="#311.7MYA" />
+     <math2:subsetOf rdf:resource="#Pennsylvanian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerPennsylvanian">
+     <time2:hasEndTime rdf:resource="#311.7MYA" />
+     <time2:hasStartTime rdf:resource="#318.1MYA" />
+     <math2:subsetOf rdf:resource="#Pennsylvanian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperMississippian">
+     <time2:hasEndTime rdf:resource="#318.1MYA" />
+     <time2:hasStartTime rdf:resource="#328.3MYA" />
+     <math2:subsetOf rdf:resource="#Mississippian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#MiddleMississippian">
+     <time2:hasEndTime rdf:resource="#328.3MYA" />
+     <time2:hasStartTime rdf:resource="#345.3MYA" />
+     <math2:subsetOf rdf:resource="#Mississippian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerMississippian">
+     <time2:hasEndTime rdf:resource="#345.3MYA" />
+     <time2:hasStartTime rdf:resource="#359.2MYA" />
+     <math2:subsetOf rdf:resource="#Mississippian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperDevonian">
+     <time2:hasEndTime rdf:resource="#359.2MYA" />
+     <time2:hasStartTime rdf:resource="#385.3MYA" />
+     <math2:subsetOf rdf:resource="#Devonian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#MiddleDevonian">
+     <time2:hasEndTime rdf:resource="#385.3MYA" />
+     <time2:hasStartTime rdf:resource="#397.5MYA" />
+     <math2:subsetOf rdf:resource="#Devonian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerDevonian">
+     <time2:hasEndTime rdf:resource="#397.5MYA" />
+     <time2:hasStartTime rdf:resource="#416.0MYA" />
+     <math2:subsetOf rdf:resource="#Devonian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Pridoli">
+     <time2:hasEndTime rdf:resource="#416.0MYA" />
+     <time2:hasStartTime rdf:resource="#418.7MYA" />
+     <math2:subsetOf rdf:resource="#Silurian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Ludlow">
+     <time2:hasEndTime rdf:resource="#418.7MYA" />
+     <time2:hasStartTime rdf:resource="#422.9MYA" />
+     <math2:subsetOf rdf:resource="#Silurian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Wenlock">
+     <time2:hasEndTime rdf:resource="#422.9MYA" />
+     <time2:hasStartTime rdf:resource="#428.2MYA" />
+     <math2:subsetOf rdf:resource="#Silurian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Llandovery">
+     <time2:hasEndTime rdf:resource="#428.2MYA" />
+     <time2:hasStartTime rdf:resource="#443.7MYA" />
+     <math2:subsetOf rdf:resource="#Silurian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#UpperOrdovician">
+     <time2:hasEndTime rdf:resource="#443.7MYA" />
+     <time2:hasStartTime rdf:resource="#460.9MYA" />
+     <math2:subsetOf rdf:resource="#Ordovician" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#MiddleOrdovician">
+     <time2:hasEndTime rdf:resource="#460.9MYA" />
+     <time2:hasStartTime rdf:resource="#471.8MYA" />
+     <math2:subsetOf rdf:resource="#Ordovician" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#LowerOrdovician">
+     <time2:hasEndTime rdf:resource="#471.8MYA" />
+     <time2:hasStartTime rdf:resource="#488.3MYA" />
+     <math2:subsetOf rdf:resource="#Ordovician" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Furongian">
+     <time2:hasEndTime rdf:resource="#488.3MYA" />
+     <time2:hasStartTime rdf:resource="#499MYA" />
+     <math2:subsetOf rdf:resource="#Cambrian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#CambrianSeries3">
+     <time2:hasEndTime rdf:resource="#499MYA" />
+     <time2:hasStartTime rdf:resource="#510MYA" />
+     <math2:subsetOf rdf:resource="#Cambrian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#CambrianSeries2">
+     <time2:hasEndTime rdf:resource="#510MYA" />
+     <time2:hasStartTime rdf:resource="#521MYA" />
+     <math2:subsetOf rdf:resource="#Cambrian" />
+  </gtime2:Epoch>
+  <gtime2:Epoch rdf:about="#Terreneuvian">
+     <time2:hasEndTime rdf:resource="#521MYA" />
+     <time2:hasStartTime rdf:resource="#542MYA" />
+     <math2:subsetOf rdf:resource="#Cambrian" />
+  </gtime2:Epoch>
+
+
+<!-- Ages (to be completed)-->
+  <gtime2:Age rdf:about="#UpperPleistocene">
+     <time2:hasEndTime rdf:resource="#0.0117MYA" />
+     <time2:hasStartTime rdf:resource="#0.126MYA" />
+     <math2:subsetOf rdf:resource="#Pleistocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Ionian">
+     <time2:hasEndTime rdf:resource="#0.126MYA" />
+     <time2:hasStartTime rdf:resource="#0.781MYA" />
+     <math2:subsetOf rdf:resource="#Pleistocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Calabrian">
+     <time2:hasEndTime rdf:resource="#0.781MYA" />
+     <time2:hasStartTime rdf:resource="#1.806MYA" />
+     <math2:subsetOf rdf:resource="#Pleistocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Gelasian">
+     <time2:hasEndTime rdf:resource="#1.806MYA" />
+     <time2:hasStartTime rdf:resource="#2.588MYA" />
+     <math2:subsetOf rdf:resource="#Pleistocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Piacenzian">
+     <time2:hasEndTime rdf:resource="#2.588MYA" />
+     <time2:hasStartTime rdf:resource="#3.600MYA" />
+     <math2:subsetOf rdf:resource="#Pliocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Zanclean">
+     <time2:hasEndTime rdf:resource="#3.600MYA" />
+     <time2:hasStartTime rdf:resource="#5.332MYA" />
+     <math2:subsetOf rdf:resource="#Pliocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Messinian">
+     <time2:hasEndTime rdf:resource="#5.332MYA" />
+     <time2:hasStartTime rdf:resource="#7.246MYA" />
+     <math2:subsetOf rdf:resource="#Miocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Tortonian">
+     <time2:hasEndTime rdf:resource="#7.246MYA" />
+     <time2:hasStartTime rdf:resource="#11.608MYA" />
+     <math2:subsetOf rdf:resource="#Miocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Serravallian">
+     <time2:hasEndTime rdf:resource="#11.608MYA" />
+     <time2:hasStartTime rdf:resource="#13.82MYA" />
+     <math2:subsetOf rdf:resource="#Miocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Langhian">
+     <time2:hasEndTime rdf:resource="#13.82MYA" />
+     <time2:hasStartTime rdf:resource="#15.97MYA" />
+     <math2:subsetOf rdf:resource="#Miocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Burdigalian">
+     <time2:hasEndTime rdf:resource="#15.97MYA" />
+     <time2:hasStartTime rdf:resource="#20.43MYA" />
+     <math2:subsetOf rdf:resource="#Miocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Aquitanian">
+     <time2:hasEndTime rdf:resource="#20.43MYA" />
+     <time2:hasStartTime rdf:resource="#23.03MYA" />
+     <math2:subsetOf rdf:resource="#Miocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Chattian">
+     <time2:hasEndTime rdf:resource="#23.03MYA" />
+     <time2:hasStartTime rdf:resource="#28.4MYA" />
+     <math2:subsetOf rdf:resource="#Oligocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Rupelian">
+     <time2:hasEndTime rdf:resource="#28.4MYA" />
+     <time2:hasStartTime rdf:resource="#33.9MYA" />
+     <math2:subsetOf rdf:resource="#Oligocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Priabonian">
+     <time2:hasEndTime rdf:resource="#33.9MYA" />
+     <time2:hasStartTime rdf:resource="#37.2MYA" />
+     <math2:subsetOf rdf:resource="#Eocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Bartonian">
+     <time2:hasEndTime rdf:resource="#37.2MYA" />
+     <time2:hasStartTime rdf:resource="#40.4MYA" />
+     <math2:subsetOf rdf:resource="#Eocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Lutetian">
+     <time2:hasEndTime rdf:resource="#40.4MYA" />
+     <time2:hasStartTime rdf:resource="#48.6MYA" />
+     <math2:subsetOf rdf:resource="#Eocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Ypresian">
+     <time2:hasEndTime rdf:resource="#48.6MYA" />
+     <time2:hasStartTime rdf:resource="#55.8MYA" />
+     <math2:subsetOf rdf:resource="#Eocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Thanetian">
+     <time2:hasEndTime rdf:resource="#55.8MYA" />
+     <time2:hasStartTime rdf:resource="#58.7MYA" />
+     <math2:subsetOf rdf:resource="#Paleocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Selandian">
+     <time2:hasEndTime rdf:resource="#58.7MYA" />
+     <time2:hasStartTime rdf:resource="#61.1MYA" />
+     <math2:subsetOf rdf:resource="#Paleocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Danian">
+     <time2:hasEndTime rdf:resource="#61.1MYA" />
+     <time2:hasStartTime rdf:resource="#65.5MYA" />
+     <math2:subsetOf rdf:resource="#Paleocene" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Maastrichtian">
+     <time2:hasEndTime rdf:resource="#65.5MYA" />
+     <time2:hasStartTime rdf:resource="#70.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Campanian">
+     <time2:hasEndTime rdf:resource="#70.6MYA" />
+     <time2:hasStartTime rdf:resource="#83.5MYA" />
+     <math2:subsetOf rdf:resource="#UpperCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Santonian">
+     <time2:hasEndTime rdf:resource="#83.5MYA" />
+     <time2:hasStartTime rdf:resource="#85.8MYA" />
+     <math2:subsetOf rdf:resource="#UpperCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Coniacian">
+     <time2:hasEndTime rdf:resource="#85.8MYA" />
+     <time2:hasStartTime rdf:resource="#88.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Turonian">
+     <time2:hasEndTime rdf:resource="#88.6MYA" />
+     <time2:hasStartTime rdf:resource="#93.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Cenomanian">
+     <time2:hasEndTime rdf:resource="#93.6MYA" />
+     <time2:hasStartTime rdf:resource="#99.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Albian">
+     <time2:hasEndTime rdf:resource="#99.6MYA" />
+     <time2:hasStartTime rdf:resource="#112.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Aptian">
+     <time2:hasEndTime rdf:resource="#112.0MYA" />
+     <time2:hasStartTime rdf:resource="#125.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Barremian">
+     <time2:hasEndTime rdf:resource="#125.0MYA" />
+     <time2:hasStartTime rdf:resource="#130.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Hauterivian">
+     <time2:hasEndTime rdf:resource="#130.0MYA" />
+     <time2:hasStartTime rdf:resource="#133.9MYA" />
+     <math2:subsetOf rdf:resource="#LowerCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Valanginian">
+     <time2:hasEndTime rdf:resource="#133.9MYA" />
+     <time2:hasStartTime rdf:resource="#140.2MYA" />
+     <math2:subsetOf rdf:resource="#LowerCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Berriasian">
+     <time2:hasEndTime rdf:resource="#140.2MYA" />
+     <time2:hasStartTime rdf:resource="#145.5MYA" />
+     <math2:subsetOf rdf:resource="#LowerCretaceous" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Tithonian">
+     <time2:hasEndTime rdf:resource="#145.5MYA" />
+     <time2:hasStartTime rdf:resource="#150.8MYA" />
+     <math2:subsetOf rdf:resource="#UpperJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Kimmeridgian">
+     <time2:hasEndTime rdf:resource="#150.8MYA" />
+     <time2:hasStartTime rdf:resource="#155.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Oxfordian">
+     <time2:hasEndTime rdf:resource="#155.6MYA" />
+     <time2:hasStartTime rdf:resource="#161.2MYA" />
+     <math2:subsetOf rdf:resource="#UpperJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Callovian">
+     <time2:hasEndTime rdf:resource="#161.2MYA" />
+     <time2:hasStartTime rdf:resource="#164.7MYA" />
+     <math2:subsetOf rdf:resource="#MiddleJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Bathonian">
+     <time2:hasEndTime rdf:resource="#164.7MYA" />
+     <time2:hasStartTime rdf:resource="#167.7MYA" />
+     <math2:subsetOf rdf:resource="#MiddleJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Bajocian">
+     <time2:hasEndTime rdf:resource="#167.7MYA" />
+     <time2:hasStartTime rdf:resource="#171.6MYA" />
+     <math2:subsetOf rdf:resource="#MiddleJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Aalenian">
+     <time2:hasEndTime rdf:resource="#171.6MYA" />
+     <time2:hasStartTime rdf:resource="#175.6MYA" />
+     <math2:subsetOf rdf:resource="#MiddleJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Toarcian">
+     <time2:hasEndTime rdf:resource="#175.6MYA" />
+     <time2:hasStartTime rdf:resource="#183.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Pliensbachian">
+     <time2:hasEndTime rdf:resource="#183.0MYA" />
+     <time2:hasStartTime rdf:resource="#189.6MYA" />
+     <math2:subsetOf rdf:resource="#LowerJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Sinemurian">
+     <time2:hasEndTime rdf:resource="#189.6MYA" />
+     <time2:hasStartTime rdf:resource="#196.5MYA" />
+     <math2:subsetOf rdf:resource="#LowerJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Hettangian">
+     <time2:hasEndTime rdf:resource="#196.5MYA" />
+     <time2:hasStartTime rdf:resource="#199.6MYA" />
+     <math2:subsetOf rdf:resource="#LowerJurassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Rhaetian">
+     <time2:hasEndTime rdf:resource="#199.6MYA" />
+     <time2:hasStartTime rdf:resource="#203.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Norian">
+     <time2:hasEndTime rdf:resource="#203.6MYA" />
+     <time2:hasStartTime rdf:resource="#216.5MYA" />
+     <math2:subsetOf rdf:resource="#UpperTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Carnian">
+     <time2:hasEndTime rdf:resource="#216.5MYA" />
+     <time2:hasStartTime rdf:resource="#228.7MYA" />
+     <math2:subsetOf rdf:resource="#UpperTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Ladinian">
+     <time2:hasEndTime rdf:resource="#228.7MYA" />
+     <time2:hasStartTime rdf:resource="#237.0MYA" />
+     <math2:subsetOf rdf:resource="#MiddleTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Anisian">
+     <time2:hasEndTime rdf:resource="#237.0MYA" />
+     <time2:hasStartTime rdf:resource="#245.9MYA" />
+     <math2:subsetOf rdf:resource="#MiddleTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Olenekian">
+     <time2:hasEndTime rdf:resource="#245.9MYA" />
+     <time2:hasStartTime rdf:resource="#249.5MYA" />
+     <math2:subsetOf rdf:resource="#LowerTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Induan">
+     <time2:hasEndTime rdf:resource="#249.5MYA" />
+     <time2:hasStartTime rdf:resource="#251.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerTriassic" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Changhsingian">
+     <time2:hasEndTime rdf:resource="#251.0MYA" />
+     <time2:hasStartTime rdf:resource="#253.8MYA" />
+     <math2:subsetOf rdf:resource="#Lopingian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Wuchiapingian">
+     <time2:hasEndTime rdf:resource="#253.8MYA" />
+     <time2:hasStartTime rdf:resource="#260.4MYA" />
+     <math2:subsetOf rdf:resource="#Lopingian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Capitanian">
+     <time2:hasEndTime rdf:resource="#260.4MYA" />
+     <time2:hasStartTime rdf:resource="#265.8MYA" />
+     <math2:subsetOf rdf:resource="#Guadalupian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Wordian">
+     <time2:hasEndTime rdf:resource="#265.8MYA" />
+     <time2:hasStartTime rdf:resource="#268.0MYA" />
+     <math2:subsetOf rdf:resource="#Guadalupian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Roadian">
+     <time2:hasEndTime rdf:resource="#268.0MYA" />
+     <time2:hasStartTime rdf:resource="#270.6MYA" />
+     <math2:subsetOf rdf:resource="#Guadalupian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Kungurian">
+     <time2:hasEndTime rdf:resource="#270.6MYA" />
+     <time2:hasStartTime rdf:resource="#275.6MYA" />
+     <math2:subsetOf rdf:resource="#Cisuralian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Artinskian">
+     <time2:hasEndTime rdf:resource="#275.6MYA" />
+     <time2:hasStartTime rdf:resource="#284.4MYA" />
+     <math2:subsetOf rdf:resource="#Cisuralian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Artinskian">
+     <time2:hasEndTime rdf:resource="#284.4MYA" />
+     <time2:hasStartTime rdf:resource="#294.6MYA" />
+     <math2:subsetOf rdf:resource="#Cisuralian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Sakmarian">
+     <time2:hasEndTime rdf:resource="#284.4MYA" />
+     <time2:hasStartTime rdf:resource="#294.6MYA" />
+     <math2:subsetOf rdf:resource="#Cisuralian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Asselian">
+     <time2:hasEndTime rdf:resource="#294.6MYA" />
+     <time2:hasStartTime rdf:resource="#299.0MYA" />
+     <math2:subsetOf rdf:resource="#Cisuralian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Gzhelian">
+     <time2:hasEndTime rdf:resource="#299.0MYA" />
+     <time2:hasStartTime rdf:resource="#303.4MYA" />
+     <math2:subsetOf rdf:resource="#UpperPennsylvanian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Kasimovian">
+     <time2:hasEndTime rdf:resource="#303.4MYA" />
+     <time2:hasStartTime rdf:resource="#307.2MYA" />
+     <math2:subsetOf rdf:resource="#UpperPennsylvanian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Moscovian">
+     <time2:hasEndTime rdf:resource="#307.2MYA" />
+     <time2:hasStartTime rdf:resource="#311.7MYA" />
+     <math2:subsetOf rdf:resource="#MiddlePennsylvanian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Bashkirian">
+     <time2:hasEndTime rdf:resource="#311.7MYA" />
+     <time2:hasStartTime rdf:resource="#318.1MYA" />
+     <math2:subsetOf rdf:resource="#LowerPennsylvanian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Serpukhovian">
+     <time2:hasEndTime rdf:resource="#318.1MYA" />
+     <time2:hasStartTime rdf:resource="#328.3MYA" />
+     <math2:subsetOf rdf:resource="#UpperMississippian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Visean">
+     <time2:hasEndTime rdf:resource="#328.3MYA" />
+     <time2:hasStartTime rdf:resource="#345.3MYA" />
+     <math2:subsetOf rdf:resource="#MiddleMississippian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Tournaisian">
+     <time2:hasEndTime rdf:resource="#345.3MYA" />
+     <time2:hasStartTime rdf:resource="#359.2MYA" />
+     <math2:subsetOf rdf:resource="#LowerMississippian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Famennian">
+     <time2:hasEndTime rdf:resource="#359.2MYA" />
+     <time2:hasStartTime rdf:resource="#374.5MYA" />
+     <math2:subsetOf rdf:resource="#UpperDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Frasnian">
+     <time2:hasEndTime rdf:resource="#374.5MYA" />
+     <time2:hasStartTime rdf:resource="#385.3MYA" />
+     <math2:subsetOf rdf:resource="#UpperDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Givetian">
+     <time2:hasEndTime rdf:resource="#385.3MYA" />
+     <time2:hasStartTime rdf:resource="#391.8MYA" />
+     <math2:subsetOf rdf:resource="#MiddleDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Eifelian">
+     <time2:hasEndTime rdf:resource="#391.8MYA" />
+     <time2:hasStartTime rdf:resource="#397.5MYA" />
+     <math2:subsetOf rdf:resource="#MiddleDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Emsian">
+     <time2:hasEndTime rdf:resource="#397.5MYA" />
+     <time2:hasStartTime rdf:resource="#407.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Pragian">
+     <time2:hasEndTime rdf:resource="#407.0MYA" />
+     <time2:hasStartTime rdf:resource="#411.2MYA" />
+     <math2:subsetOf rdf:resource="#LowerDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Lochkovian">
+     <time2:hasEndTime rdf:resource="#411.2MYA" />
+     <time2:hasStartTime rdf:resource="#416.0MYA" />
+     <math2:subsetOf rdf:resource="#LowerDevonian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Ludfordian">
+     <time2:hasEndTime rdf:resource="#418.7MYA" />
+     <time2:hasStartTime rdf:resource="#421.3MYA" />
+     <math2:subsetOf rdf:resource="#Ludlow" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Gorstian">
+     <time2:hasEndTime rdf:resource="#421.3MYA" />
+     <time2:hasStartTime rdf:resource="#422.9MYA" />
+     <math2:subsetOf rdf:resource="#Ludlow" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Homerian">
+     <time2:hasEndTime rdf:resource="#422.9MYA" />
+     <time2:hasStartTime rdf:resource="#426.2MYA" />
+     <math2:subsetOf rdf:resource="#Wenlock" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Sheinwoodian">
+     <time2:hasEndTime rdf:resource="#426.2MYA" />
+     <time2:hasStartTime rdf:resource="#428.2MYA" />
+     <math2:subsetOf rdf:resource="#Wenlock" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Telychian">
+     <time2:hasEndTime rdf:resource="#428.2MYA" />
+     <time2:hasStartTime rdf:resource="#436.0MYA" />
+     <math2:subsetOf rdf:resource="#Llandovery" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Aeronhian">
+     <time2:hasEndTime rdf:resource="#436.0MYA" />
+     <time2:hasStartTime rdf:resource="#439.0MYA" />
+     <math2:subsetOf rdf:resource="#Llandovery" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Rhuddanian">
+     <time2:hasEndTime rdf:resource="#439.0MYA" />
+     <time2:hasStartTime rdf:resource="#443.7MYA" />
+     <math2:subsetOf rdf:resource="#Llandovery" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Himantian">
+     <time2:hasEndTime rdf:resource="#443.7MYA" />
+     <time2:hasStartTime rdf:resource="#445.6MYA" />
+     <math2:subsetOf rdf:resource="#UpperOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Katian">
+     <time2:hasEndTime rdf:resource="#445.6MYA" />
+     <time2:hasStartTime rdf:resource="#455.8MYA" />
+     <math2:subsetOf rdf:resource="#UpperOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Sandbian">
+     <time2:hasEndTime rdf:resource="#455.8MYA" />
+     <time2:hasStartTime rdf:resource="#460.9MYA" />
+     <math2:subsetOf rdf:resource="#UpperOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Darriwilian">
+     <time2:hasEndTime rdf:resource="#460.9MYA" />
+     <time2:hasStartTime rdf:resource="#468.1MYA" />
+     <math2:subsetOf rdf:resource="#MiddleOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Dapingian">
+     <time2:hasEndTime rdf:resource="#468.1MYA" />
+     <time2:hasStartTime rdf:resource="#471.8MYA" />
+     <math2:subsetOf rdf:resource="#MiddleOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Floian">
+     <time2:hasEndTime rdf:resource="#471.8MYA" />
+     <time2:hasStartTime rdf:resource="#478.6MYA" />
+     <math2:subsetOf rdf:resource="#LowerOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Tremadocian">
+     <time2:hasEndTime rdf:resource="#478.6MYA" />
+     <time2:hasStartTime rdf:resource="#488.3MYA" />
+     <math2:subsetOf rdf:resource="#LowerOrdovician" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#FurongianStage10">
+     <time2:hasEndTime rdf:resource="#488.3MYA" />
+     <time2:hasStartTime rdf:resource="#492MYA" />
+     <math2:subsetOf rdf:resource="#Furongian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#FurongianStage9">
+     <time2:hasEndTime rdf:resource="#492MYA" />
+     <time2:hasStartTime rdf:resource="#496MYA" />
+     <math2:subsetOf rdf:resource="#Furongian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Paibian">
+     <time2:hasEndTime rdf:resource="#496MYA" />
+     <time2:hasStartTime rdf:resource="#499MYA" />
+     <math2:subsetOf rdf:resource="#Furongian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Guzhangian">
+     <time2:hasEndTime rdf:resource="#499MYA" />
+     <time2:hasStartTime rdf:resource="#503MYA" />
+     <math2:subsetOf rdf:resource="#CambrianSeries3" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Drumian">
+     <time2:hasEndTime rdf:resource="#503MYA" />
+     <time2:hasStartTime rdf:resource="#506.5MYA" />
+     <math2:subsetOf rdf:resource="#CambrianSeries3" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#CambrianStage5">
+     <time2:hasEndTime rdf:resource="#506.5MYA" />
+     <time2:hasStartTime rdf:resource="#510MYA" />
+     <math2:subsetOf rdf:resource="#CambrianSeries3" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#CambrianStage4">
+     <time2:hasEndTime rdf:resource="#510MYA" />
+     <time2:hasStartTime rdf:resource="#515MYA" />
+     <math2:subsetOf rdf:resource="#CambrianSeries2" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#CambrianStage3">
+     <time2:hasEndTime rdf:resource="#515MYA" />
+     <time2:hasStartTime rdf:resource="#521MYA" />
+     <math2:subsetOf rdf:resource="#CambrianSeries2" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#CambrianStage2">
+     <time2:hasEndTime rdf:resource="#521MYA" />
+     <time2:hasStartTime rdf:resource="#528MYA" />
+     <math2:subsetOf rdf:resource="#Terreneuvian" />
+  </gtime2:Age>
+  <gtime2:Age rdf:about="#Fortunian">
+     <time2:hasEndTime rdf:resource="#528MYA" />
+     <time2:hasStartTime rdf:resource="#542MYA" />
+     <math2:subsetOf rdf:resource="#Terreneuvian" />
+  </gtime2:Age>
+
+
+<!-- Numerics -->
+
+  <gtime2:GeologicTime rdf:about="#0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#0.0117MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">0.0117</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#0.126MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">0.126</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#0.781MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">0.781</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#1.806MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1.806</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#2.588MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">2.588</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#3.600MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">3.600</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#5.332MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">5.332</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#7.246MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">7.246</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#11.608MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">11.608</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#13.82MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">13.82</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#15.97MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">15.97</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#20.43MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">20.43</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#23.03MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">23.03</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#28.4MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">28.4</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.1</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#33.9MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">33.9</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.1</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#37.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">37.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.1</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#40.4MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">40.4</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.2</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#48.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">48.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.2</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#55.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">55.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.2</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#58.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">58.7</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.2</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#61.1MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">61.1</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#65.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">65.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.3</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#70.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">70.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#83.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">83.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#85.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">85.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#88.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">88.6</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#93.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">93.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#99.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">99.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.9</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#112.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">112.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#125.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">125.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#130.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">130.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#133.9MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">133.9</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#140.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">140.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">3.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#145.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">145.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">4.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#150.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">150.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">4.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#155.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">155.6</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#161.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">161.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">4.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#164.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">164.7</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">4.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#167.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">167.7</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">3.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#171.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">171.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">3.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#175.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">175.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#183.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">183.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#189.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">189.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#196.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">196.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#199.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">199.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#203.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">203.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#203.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">203.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#216.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">216.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#228.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">228.7</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#237.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">237.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#245.9MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">245.9</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#249.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">249.5</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#251.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">251.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.4</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#253.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">253.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#260.4MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">260.4</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#265.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">265.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#268.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">268.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#270.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">270.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#275.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">275.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#284.4MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">284.4</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#294.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">294.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#299.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">299.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#303.4MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">303.4</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">0.9</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#307.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">307.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#311.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">311.7</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.1</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#318.1MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">318.1</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.3</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#328.3MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">328.3</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#345.3MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">345.3</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.1</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#359.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">359.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#374.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">374.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#385.3MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">385.3</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#391.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">391.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#397.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">397.5</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#407.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">407.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#411.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">411.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#416.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">416.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#418.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">418.7</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#421.3MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">421.3</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#422.9MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">422.9</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#426.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">426.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.4</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#428.2MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">428.2</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">2.3</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#436.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">436.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.9</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#439.0MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">439.0</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.8</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#443.7MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">443.7</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#445.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">445.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.5</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#455.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">455.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#460.9MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">460.9</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#468.1MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">468.1</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#471.8MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">471.8</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.6</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#478.6MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">478.6</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#488.3MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">488.3</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.7</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#492MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">492</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#496MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">496</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#499MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">499</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#503MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">503</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#506.5MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">506.5</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#510MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">510</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#515MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">515</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#521MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">521</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#528MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">528</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#542MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">542</math2:hasNumericValue>
+     <math2:hasError rdf:datatype="&xsd;double">1.0</math2:hasError>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#635MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">635</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#850MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">850</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#1000MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1000</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#1200MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1200</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#1400MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1400</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#1600MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1600</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#1800MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">1800</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#2050MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">2050</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#2300MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">2300</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#2500MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">2500</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#2800MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">2800</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#3200MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">3200</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#3600MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">3600</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#4000MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">4000</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+  <gtime2:GeologicTime rdf:about="#4600MYA">
+     <math2:hasNumericValue rdf:datatype="&xsd;double">4600</math2:hasNumericValue>
+  </gtime2:GeologicTime>
+</rdf:RDF>

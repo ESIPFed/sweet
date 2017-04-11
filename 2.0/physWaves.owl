@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl">
+  <!ENTITY vect "http://sweet.jpl.nasa.gov/2.0/mathVector.owl">
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">
+  <!ENTITY sys "http://sweet.jpl.nasa.gov/2.0/sciSystem.owl">
+  <!ENTITY sysd "http://sweet.jpl.nasa.gov/2.0/sciSystemDynamics.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/sciSystemState.owl">
+  <!ENTITY dir "http://sweet.jpl.nasa.gov/2.0/spaceDirection.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY dyna "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">
+  <!ENTITY pres "http://sweet.jpl.nasa.gov/2.0/physPressure.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.0/physTransport.owl">
+  <!ENTITY waves "http://sweet.jpl.nasa.gov/2.0/physWaves.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&waves;"
+         xmlns:owl="&owl;"
+         xmlns:res="&res;"
+         xmlns:sys="&sys;"
+         xmlns:sysd="&sysd;"
+         xmlns:vect="&vect;"
+         xmlns:dir="&dir;"
+         xmlns:phys="&phys;"
+         xmlns:dyna="&dyna;"
+         xmlns:pres="&pres;"
+         xmlns:units="&units;"
+         xmlns:state="&state;"
+         xmlns:trans="&trans;"
+         xmlns:math="&math;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&dyna;"/>
+     <owl:imports rdf:resource="&pres;"/>
+     <owl:imports rdf:resource="&vect;"/>
+     <owl:imports rdf:resource="&res;"/>
+     <owl:imports rdf:resource="&sys;"/>
+     <owl:imports rdf:resource="&sysd;"/>
+     <owl:imports rdf:resource="&dir;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&trans;"/>
+  </owl:Ontology>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#Amplitude">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meter"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Often the greatest magnitude at a given point of any spatially and temporally varying physical quantity governed by a wave equation; can also mean the spatial part of a time-harmonic wave function.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Bandwidth">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Trough">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf rdf:resource="&state;#State"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Peak">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf rdf:resource="&state;#State"/>
+    <owl:disjointWith rdf:resource="#Trough"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StokesParameters">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf rdf:resource="&vect;#Vector"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaveProperty">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="#Wave" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Wavelength">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WavelengthBand">
+    <rdfs:subClassOf rdf:resource="&res;#IntervalQuantity"/>
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaveNumber">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Period">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Frequency">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#hertz"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The rate of recurrence of any periodic phenomenon, often associated with waves of all kinds. Without qualification frequency often means temporal frequency, the rate of recurrence of a time-varying function, but could mean spatial frequency, the rate of recurrence of a space-varying function. Spatial frequency is the reciprocal of the repeat distance (sometimes the wavelength). The dimensions of (temporal) frequency are inverse time. A common unit for frequency is cycle per second, formerly abbreviated cps, but superseded by hertz, abbreviated as Hz.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GroupVelocity">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf rdf:resource="&dyna;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Phase">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#radian"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhaseVelocity">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf rdf:resource="&dyna;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Spectrum">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <owl:equivalentClass rdf:resource="#PowerSpectrum"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PowerSpectrum"/>
+
+  <owl:Class rdf:about="#Absorptance">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#normalizedUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reflectance">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf rdf:resource="#Scattering" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="#Wavelength" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A general term referring to the radiation reflected from, or scattered back through, a given surface in response to radiation incident on the surface with the same wavelength or wavelength range.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reflective">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Absorptivity">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#normalizedUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reflectivity">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#normalizedUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Refractivity">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#normalizedUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transmittance">
+    <rdfs:subClassOf rdf:resource="#WaveProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#normalizedUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasWavelength">
+    <rdfs:domain rdf:resource="#Wave"/>
+    <rdfs:range rdf:resource="#Wavelength"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasFrequency">
+    <rdfs:domain rdf:resource="#Wave"/>
+    <rdfs:range rdf:resource="#Frequency"/>
+  </owl:ObjectProperty>
+
+<!-- Processes -->
+  <owl:Class rdf:about="#WaveAbsorption">
+    <rdfs:subClassOf rdf:resource="#Absorption"/>
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Backscattering">
+    <rdfs:subClassOf rdf:resource="#Scattering" />
+    <rdfs:comment>scattering of waves (photons) that reverse the direction of propagation</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Damping">
+    <rdfs:subClassOf rdf:resource="#WaveProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Emission">
+    <rdfs:subClassOf rdf:resource="#WaveProcess"/>
+    <owl:equivalentClass rdf:resource="#Emit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Emit"/>
+
+  <owl:Class rdf:about="#WaveDrag">
+    <rdfs:subClassOf rdf:resource="#WaveProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WavePropagation">
+    <rdfs:subClassOf rdf:resource="#WaveProcess"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="#Wave" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Wave propagation is any of the ways in which waves travel through a medium (waveguide). With respect to the direction of the oscillation relative to the propagation direction, we can distinguish between longitudinal wave and transverse waves. Another useful parameter for describing the propagation is the wave velocity that mostly depends on some kind of density of the medium. For electromagnetic waves, propagation may occur in a vacuum as well as in a material medium.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Attenuate">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <owl:equivalentClass rdf:resource="#Attenuation"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Attenuation"/>
+
+
+  <owl:Class rdf:about="#MediumWaveInteractionProcess">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Disperse">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <owl:equivalentClass rdf:resource="#Dispersion"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Dispersion"/>
+
+  <owl:Class rdf:about="#Dissipate">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <rdfs:subClassOf rdf:resource="&trans;#FluxDensity"/>
+    <owl:equivalentClass rdf:resource="#Dissipation"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Dissipation"/>
+
+  <owl:Class rdf:about="#Diffract">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <owl:equivalentClass rdf:resource="#Diffraction"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Diffraction"/>
+
+  <owl:Class rdf:about="#Backscatter">
+    <owl:equivalentClass rdf:resource="#Backscattering"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Interference">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MediumWaveInteractionProcess">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Excite">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <owl:equivalentClass rdf:resource="#Excitation"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Excitation"/>
+
+  <owl:Class rdf:about="#Polarization">
+    <rdfs:subClassOf rdf:resource="#WaveProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reflect">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <owl:equivalentClass rdf:resource="#Reflection"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Reflection"/>
+
+  <owl:Class rdf:about="#Refraction">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <rdfs:comment xml:lang="en">A change of direction and possibly amplitude of an electromagnetic, acoustic, or any other wave propagating in a material medium, homogeneous on the scale of the wavelength, as a consequence of spatial variation in the properties of the medium.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Chorus">
+    <rdfs:subClassOf rdf:resource="#Resonance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Resonance">
+    <rdfs:subClassOf rdf:resource="#WaveProcess"/>
+    <owl:equivalentClass rdf:resource="#Resonant"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Resonant"/>
+
+  <owl:Class rdf:about="#Scattering">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <owl:equivalentClass rdf:resource="#Scatter"/>
+    <rdfs:comment xml:lang="en">In a broad sense, the process by which matter is excited to radiate by an external source of electromagnetic radiation, as distinguished from emission of radiation by matter, which occurs even in the absence of such a source.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Scatter"/>
+
+  <owl:Class rdf:about="#Transmission">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Transmit">
+    <owl:equivalentClass rdf:resource="#Transmission"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Anisotropy">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Absorption">
+    <rdfs:subClassOf rdf:resource="#MediumWaveInteractionProcess"/>
+    <rdfs:label>Absorption</rdfs:label>
+    <rdfs:comment>The process in which incident radiant energy is retained by a substance.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Extinction">
+    <owl:equivalentClass rdf:resource="#Attenuation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaveProcess">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#LongitudinalWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasOscillationDirection" />
+        <owl:allValuesFrom rdf:resource="&dir;#Parallel" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Longitudinal waves are waves that have vibrations along or parallel to their direction of travel. They include waves in which the motion of the medium is in the same direction as the motion of the wave. Mechanical longitudinal waves have been also referred to as compressional waves or pressure waves </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SurfaceWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#TransverseWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasOscillationDirection" />
+        <owl:allValuesFrom rdf:resource="&dir;#Perpendicular" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A transverse wave is a wave that causes vibration in the medium in a perpendicular direction to its own motion. For example: if a wave moves along the x-axis, its disturbances are in the yz-plane. In other words, it causes medium disturbances across the two-dimensional plane that it is travelling in. Contrary to popular belief, transversal waves do not necessarily move up and down.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ShortWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+    <rdfs:comment xml:lang="en">With regard to atmospheric circulation, a progressive wave in the horizontal pattern of air motion with dimensions of cyclonic scale, as distinguished from a long wave.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StandingWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+    <rdfs:comment xml:lang="en">A wave that is stationary with respect to the medium in which it is embedded, for example, two equal gravity waves moving in opposite directions.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Wave">
+    <rdfs:subClassOf rdf:resource="&sysd;#Oscillation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RayleighWave">
+    <rdfs:subClassOf rdf:resource="#SurfaceWave" />
+    <rdfs:comment xml:lang="en">Rayleigh waves, also called ground roll, are surface waves that travel as ripples similar to those on the surface of water. The existence of these waves was predicted by John William Strutt, Lord Rayleigh, in 1885. They are slower than body waves, roughly 70% of the velocity of S waves, and have been asserted to be visible during an earthquake in an open space like a parking lot where the cars move up and down with the waves. Reports among seismologists suggest that the apparent motion may be due to distortion of the human eye during shaking. Anecdotally, placing people on shake tables causes the room to appear to ripple. In any case, waves of the reported amplitude, wavelength, and velocity of the visible waves have never been recorded instrumentally.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BodyWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#CompressionWave">
+    <rdfs:subClassOf rdf:resource="#LongitudinalWave"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PressureWave">
+    <rdfs:subClassOf rdf:resource="#LongitudinalWave"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ShockWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&sysd;#Shock" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BarometricWave">
+    <rdfs:subClassOf rdf:resource="#Wave" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&pres;#Pressure" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">wave in pressure field.</rdfs:comment>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasRestoringForce">
+    <rdfs:domain rdf:resource="#Wave"/>
+    <rdfs:range rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasOscillationDirection">
+    <rdfs:domain rdf:resource="#Wave"/>
+    <rdfs:range rdf:resource="&dir;#Direction"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

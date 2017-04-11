@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+   <!ENTITY prod "http://sweet.jpl.nasa.gov/2.2/reprDataProduct.owl">   
+   <!ENTITY res "http://sweet.jpl.nasa.gov/2.2/humanResearch.owl">   
+   <!ENTITY repr "http://sweet.jpl.nasa.gov/2.2/repr.owl">   
+   <!ENTITY func "http://sweet.jpl.nasa.gov/2.2/quanFunction.owl">   
+   <!ENTITY solu "http://sweet.jpl.nasa.gov/2.2/reprMathSolution.owl">   
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF
+    xmlns = "&prod;"
+    xml:base = "&prod;"
+    xmlns:prod = "&prod;"
+    xmlns:solu = "&solu;"
+    xmlns:func = "&func;"
+    xmlns:res = "&res;"
+    xmlns:repr = "&repr;"
+    xmlns:owl = "&owl;"
+    xmlns:rdf = "&rdf;"
+    xmlns:rdfs = "&rdfs;"
+    xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+    <owl:imports rdf:resource = "&res;"/>
+    <owl:imports rdf:resource = "&repr;"/>
+    <owl:imports rdf:resource = "&solu;"/>
+    <owl:imports rdf:resource = "&func;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Data">
+    <rdfs:subClassOf rdf:resource="&res;#Realization"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasData">
+    <rdfs:range rdf:resource="#Data"/>
+  </owl:ObjectProperty>
+
+<!-- Products -->
+  <owl:Class rdf:about="#DataProduct">
+    <rdfs:subClassOf rdf:resource="#Collection"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Layer">
+    <rdfs:subClassOf rdf:resource="#DataProduct"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Dataset">
+    <rdfs:subClassOf rdf:resource="#DataProduct" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ensemble">
+    <rdfs:subClassOf rdf:resource="#Collection"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FillValue">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Image">
+    <rdfs:subClassOf rdf:resource="&repr;#Representation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Profile">
+    <rdfs:subClassOf rdf:resource="&repr;#Representation"/>
+    <rdfs:subClassOf rdf:resource="&func;#Profile"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#fillValue">
+    <rdfs:range rdf:resource="#FillValue"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#bgcolor"/>
+
+  <owl:ObjectProperty rdf:about="#transparent"/>
+
+<!-- Collections -->
+  <owl:Class rdf:about="#ClimateDataRecord">
+    <rdfs:subClassOf rdf:resource="#Collection"/>
+    <owl:equivalentClass rdf:resource="#CDR" />
+  </owl:Class>
+  <owl:Class rdf:about="#CDR"/>
+
+  <owl:Class rdf:about="#Collection">
+    <rdfs:subClassOf rdf:resource="&prod;#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Granule">
+    <rdfs:subClassOf rdf:resource="&prod;#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EarthScienceDataRecord">
+    <rdfs:subClassOf rdf:resource="#Collection"/>
+    <owl:equivalentClass rdf:resource="#ESDR" />
+  </owl:Class>
+  <owl:Class rdf:about="#ESDR"/>
+
+<!-- Values -->
+  <owl:Class rdf:about="#MissingValue">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Offset">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Value">
+    <rdfs:subClassOf rdf:resource="#Data"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Data">
+    <rdfs:subClassOf rdf:resource="&res;#Realization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MaximumValid">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MinimumValid">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ScaleFactor">
+    <rdfs:subClassOf rdf:resource="#Value"/>
+    <owl:equivalentClass rdf:resource="#Scaling"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Scaling"/>
+
+<!-- Stewardship -->
+  <owl:Class rdf:about="#Archive">
+    <rdfs:subClassOf rdf:resource="#Collection"/>
+    <owl:equivalentClass rdf:resource="#Archiving"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Archiving"/>
+
+  <owl:Class rdf:about="#Curate">
+    <rdfs:subClassOf rdf:resource="#Collection"/>
+    <owl:equivalentClass rdf:resource="#Curation"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Curation"/>
+
+  <owl:Class rdf:about="#Version">
+    <rdfs:subClassOf rdf:resource="&solu;#Iteration" />
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasVersion">
+    <rdfs:range rdf:resource="#Version"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY geol "http://sweet.jpl.nasa.gov/2.1/phenGeol.owl">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.1/matrCompound.owl">
+  <!ENTITY impa "http://sweet.jpl.nasa.gov/2.1/stateRoleImpact.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.1/matr.owl">
+  <!ENTITY petr "http://sweet.jpl.nasa.gov/2.1/matrRock.owl">
+  <!ENTITY solid "http://sweet.jpl.nasa.gov/2.1/phenSolid.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.1/realm.owl">
+  <!ENTITY geomor "http://sweet.jpl.nasa.gov/2.1/phenGeolGeomorphology.owl">
+  <!ENTITY phen "http://sweet.jpl.nasa.gov/2.1/phen.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.1/phenFluidTransport.owl">
+  <!ENTITY sys "http://sweet.jpl.nasa.gov/2.1/phenSystem.owl">
+  <!ENTITY sed "http://sweet.jpl.nasa.gov/2.1/matrSediment.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&geomor;"
+         xmlns:owl="&owl;"
+         xmlns:geol="&geol;"
+         xmlns:comp="&comp;"
+         xmlns:chem="&chem;"
+         xmlns:petr="&petr;"
+         xmlns:impa="&impa;"
+         xmlns:geomor="&geomor;"
+         xmlns:planet="&planet;"
+         xmlns:solid="&solid;"
+         xmlns:trans="&trans;"
+         xmlns:sys="&sys;"
+         xmlns:phen="&phen;"
+         xmlns:sed="&sed;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&geol;"/>
+     <owl:imports rdf:resource="&comp;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&petr;"/>
+     <owl:imports rdf:resource="&impa;"/>
+     <owl:imports rdf:resource="&sys;"/>
+     <owl:imports rdf:resource="&sed;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&solid;"/>
+     <owl:imports rdf:resource="&trans;"/>
+  </owl:Ontology>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#Abrasion">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Avalanche">
+    <rdfs:subClassOf rdf:resource="#Slide"/>
+    <rdfs:subClassOf rdf:resource="&sys;#Collapse"/>
+    <rdfs:comment> A mass of snow, ice or rocks moving rapidly down a steep mountain slope. Avalanches may be characterized as loose and turbulent, or slab; either type may be dry or wet according to the nature of the snow forming it, although dry snow usually forms loose avalanches and wet snow forms slabs. A large avalanche sweeps a current of air along with and in front of it as an avalanche wind, which supplements its already tremendous destructive force. </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Creep">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+    <owl:equivalentClass rdf:resource="#Reptation"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Reptation"/>
+
+  <owl:Class rdf:about="#Denundation">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Exfoliation">
+    <rdfs:subClassOf rdf:resource="#Weathering"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Haloclasty">
+    <rdfs:subClassOf rdf:resource="#Weathering"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:hasValue rdf:resource="&comp;#Salt" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Landslide">
+    <rdfs:subClassOf rdf:resource="#Slide"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&planet;#Land" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A landslide (or landslip) is a geological phenomenon which includes a wide range of ground movement, such as rock falls, deep solidure of slopes and shallow debris flows, which can occur in offshore, coastal and onshore environments. [Wikpedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mudslide">
+    <rdfs:subClassOf rdf:resource="#Slide"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MassWasting">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Slide">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+    <rdfs:subClassOf rdf:resource="&phen;#Phenomena" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&impa;#hasImpact" />
+        <owl:hasValue rdf:resource="&impa;#Hazard" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Slump">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Solifluction">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subsidence">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+    <rdfs:comment xml:lang="en">Subsidence is the motion of a surface (usually, the Earth's surface) as it shifts downward relative to a datum such as sea-level. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Weathering">
+    <owl:disjointWith rdf:resource="&solid;#Erosion"/>
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+         <owl:onProperty rdf:resource="&chem;#hasSubstance" />
+         <owl:allValuesFrom rdf:resource="&petr;#Rock" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Weathering is the decomposition of rocks, soils and their minerals through direct contact with the Earth's atmosphere. Weathering occurs in situ, or with no movement, and thus should not to be confused with erosion, which involves the movement and disintegration of rocks and minerals by agents such as water, ice, wind and gravity.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Compaction">
+    <rdfs:comment xml:lang="en">Compaction, part of the process of lithification involving mechanical dewatering of a sediment by progressive loading under several km of geomaterial [Wikipedia]</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#SedimentFormation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Diagenesis">
+    <rdfs:subClassOf rdf:resource="#SedimentFormation"/>
+    <rdfs:comment xml:lang="en">In geology and oceanography, diagenesis is any chemical, physical, or biological change undergone by a sediment after its initial deposition and during and after its lithification, exclusive of surface alteration (weathering) and metamorphism. These changes happen at relatively low temperatures and pressures and result in changes to the rock's original mineralogy and texture. The boundary between diagenesis and metamorphism, which occurs under conditions of higher temperature and pressure, is gradational. After deposition, sediments are compacted as they are buried beneath successive layers of sediment and cemented by minerals that precipitate from solution. Grains of sediment, rock fragments and fossils can be replaced by other minerals during diagenesis. Porosity usually decreases during diagenesis, except in rare cases such as dissolution of minerals and dolomitization.</rdfs:comment>
+  </owl:Class>
+    
+  <owl:Class rdf:about="#Karst">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicalPhenomena"/>
+    <rdfs:comment xml:lang="en">Karst topography is a landscape shaped by the dissolution of a layer or layers of soluble bedrock, usually carbonate rock such as limestone or dolomite. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MaterialDisplacement">
+    <rdfs:subClassOf rdf:resource="&phen;#PlanetaryPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RockSlopeFailure">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sedimentation">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicalPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&trans;#Deposition" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The process of depositing material by water, wind, or glaciers.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Saltation">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SedimentFormation">
+    <rdfs:subClassOf rdf:resource="#MaterialDisplacement"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&sed;#Sediment"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

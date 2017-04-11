@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+
+  <!ENTITY root "http://sweet.jpl.nasa.gov/2.1/">
+  <!ENTITY rela "&root;reprMathRelation.owl#">
+  <!ENTITY mtime "&root;reprTime.owl#">
+  <!ENTITY gtime "&root;reprTimeGeologic.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY owlt "http://www.w3.org/2006/time#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&gtime;"
+         xmlns:owlt="&owlt;"
+         xmlns:gtime="&gtime;"
+         xmlns:mtime="&mtime;"
+         xmlns:rela="&rela;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&root;reprMathRelation.owl"/>
+     <owl:imports rdf:resource="&root;reprTime.owl"/>
+  </owl:Ontology>
+
+<!-- Geologic -->
+  <owl:Class rdf:about="#Age">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;subsetOf" />
+        <owl:someValuesFrom rdf:resource="#Epoch" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Epochs are divided into ages [millions of years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Epoch">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;subsetOf" />
+        <owl:someValuesFrom rdf:resource="#Period" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Periods are divided into epochs [tens of millions of years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Period">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;subsetOf" />
+        <owl:someValuesFrom rdf:resource="#Era" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Eras are divided into periods. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Era">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;subsetOf" />
+        <owl:someValuesFrom rdf:resource="#Eon" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Eons are divided into eras [several hundred million years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Eon">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;subsetOf" />
+        <owl:someValuesFrom rdf:resource="#Supereon" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Supereons are divided into eons.  [billions of years] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Supereon">
+    <rdfs:subClassOf rdf:resource="#GeologicTimeUnit"/>
+    <rdfs:comment xml:lang="en">The largest defined unit of time is the supereon, composed of eons.] [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeologicTimeUnit">
+    <rdfs:subClassOf rdf:resource="&owlt;ProperInterval"/>
+    <rdfs:comment xml:lang="en">The subdivisions of geologic time. The table of geologic time spans are dates and nomenclature defined by the International Commission on Stratigraphy. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeotectonicPeriod">
+    <rdfs:subClassOf rdf:resource="&mtime;TimeReference"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IceAge">
+    <rdfs:subClassOf rdf:resource="&mtime;TimeReference"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Interglacial">
+    <rdfs:subClassOf rdf:resource="&mtime;TimeReference"/>
+    <owl:disjointWith rdf:resource="#IceAge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Prehistoric">
+    <rdfs:subClassOf rdf:resource="&mtime;TimeReference"/>
+  </owl:Class>
+
+</rdf:RDF>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [ 
+   <!ENTITY proc "http://sweet.jpl.nasa.gov/2.1/procPhysical.owl">    
+   <!ENTITY phen "http://sweet.jpl.nasa.gov/2.1/phen.owl">    
+   <!ENTITY spac "http://sweet.jpl.nasa.gov/2.1/propSpace.owl">    
+   <!ENTITY char "http://sweet.jpl.nasa.gov/2.1/propCharge.owl">    
+   <!ENTITY emf "http://sweet.jpl.nasa.gov/2.1/phenElecMag.owl">    
+   <!ENTITY func "http://sweet.jpl.nasa.gov/2.1/reprMathFunction.owl">    
+   <!ENTITY obj3d "http://sweet.jpl.nasa.gov/2.1/reprSpaceGeometry3D.owl">    
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">    
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#"> 
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">    
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#"> 
+]>
+
+<rdf:RDF 
+   xml:base = "&emf;"
+   xmlns:proc = "&proc;"
+   xmlns:spac = "&spac;"
+   xmlns:func = "&func;"
+   xmlns:char = "&char;"
+   xmlns:emf = "&emf;"
+   xmlns:phen = "&phen;"
+   xmlns:obj3d = "&obj3d;"
+   xmlns:owl = "&owl;"
+   xmlns:rdf = "&rdf;"
+   xmlns:rdfs = "&rdfs;"
+   xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&func;"/>
+     <owl:imports rdf:resource="&spac;"/>
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&obj3d;"/>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&char;"/>
+  </owl:Ontology>
+
+<!-- Fields -->
+  <owl:Class rdf:about="#ElectricDipole">
+    <rdfs:subClassOf rdf:resource="&obj3d;#Dipole"/>
+    <rdfs:subClassOf rdf:resource="#ElectricField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticDipole">
+    <rdfs:subClassOf rdf:resource="&obj3d;#Dipole"/>
+    <rdfs:subClassOf rdf:resource="#MagneticField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeomagneticField">
+    <rdfs:subClassOf rdf:resource="#MagneticField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CurrentSheet">
+    <rdfs:subClassOf rdf:resource="#ElectricField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticField">
+    <rdfs:subClassOf rdf:resource="&func;#VectorField"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&proc;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&proc;#Magnetism" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectricField">
+    <rdfs:subClassOf rdf:resource="&func;#VectorField"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&spac;#hasSpatialDistribution" />
+        <owl:allValuesFrom rdf:resource="&char;#ChargeDistribution" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FieldPhenomena">
+    <rdfs:subClassOf rdf:resource="&phen;#Phenomena" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MagneticMirror">
+    <rdfs:subClassOf rdf:resource="#FieldPhenomena" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&func;#hasField" />
+        <owl:allValuesFrom rdf:resource="#MagneticField" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Gyroresonance">
+    <rdfs:subClassOf rdf:resource="#FieldPhenomena" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&func;#hasField" />
+        <owl:allValuesFrom rdf:resource="#MagneticField" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

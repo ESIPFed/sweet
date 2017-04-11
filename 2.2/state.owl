@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.2/state.owl#">
+  <!ENTITY prop "http://sweet.jpl.nasa.gov/2.2/quan.owl">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.2/reprMathRelation.owl">  
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&state;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:state="&state;"
+         xmlns:rela="&rela;"
+         xmlns:prop="&prop;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&rela;"/>
+     <owl:imports rdf:resource="&prop;"/>
+  </owl:Ontology>
+  
+  <owl:Class rdf:about="#State" />
+
+  <owl:ObjectProperty rdf:about="#hasState">
+    <rdfs:range rdf:resource="#State"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Condition">
+    <rdfs:subClassOf rdf:resource="#State"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasCondition">
+    <rdfs:range rdf:resource="#Condition"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Category">
+    <rdfs:subClassOf rdf:resource="#State"/>
+    <owl:equivalentClass rdf:resource="#Classification"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Classification"/>
+
+  <owl:Class rdf:about="#OrderCategory">
+    <rdfs:subClassOf rdf:resource="#Category"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Qualifier">
+    <rdfs:subClassOf rdf:resource="#OrderCategory"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Industry">
+    <rdfs:subClassOf rdf:resource="#Category"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LandUse">
+    <rdfs:subClassOf rdf:resource="#Category"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasLandUse">
+    <rdfs:range rdf:resource="#LandUse"/>
+    <rdfs:subPropertyOf rdf:resource="#hasState"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#moreExtensiveThan">
+    <rdfs:domain rdf:resource="#Qualifier"/>
+    <rdfs:range rdf:resource="#Qualifier"/>
+    <rdfs:subPropertyOf rdf:resource="&rela;#greaterThan"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Name">
+    <rdfs:subClassOf rdf:resource="#CategoricalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StandarIndustrialClassification">
+    <rdfs:subClassOf rdf:resource="#CategoricalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Group">
+    <rdfs:subClassOf rdf:resource="#CategoricalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Type">
+    <rdfs:subClassOf rdf:resource="#Characteristics"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Characteristics">
+    <rdfs:subClassOf rdf:resource="#CategoricalProperty"/>
+    <owl:equivalentClass rdf:resource="#Description"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Description"/>
+
+   <owl:Class rdf:about="#Community">
+     <rdfs:subClassOf rdf:resource="#Group"/>
+     <rdfs:comment>A community is a social group of organisms sharing an environment, normally with shared interests.</rdfs:comment>
+   </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#categoryOf"/>
+
+  <owl:Class rdf:about="#CategoricalProperty">
+    <rdfs:subClassOf rdf:resource="&prop;#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#OrderCategory"/>
+        <owl:onProperty rdf:resource="#hasState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Ordinal properties -->
+  <owl:Class rdf:about="#OrdinalProperty">
+    <rdfs:subClassOf rdf:resource="&prop;#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#OrderCategory"/>
+        <owl:onProperty rdf:resource="#hasState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Gradation">
+    <rdfs:subClassOf rdf:resource="#OrdinalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Quality">
+    <rdfs:subClassOf rdf:resource="#OrdinalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Condition">
+    <rdfs:subClassOf rdf:resource="#OrdinalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Level">
+    <rdfs:subClassOf rdf:resource="#OrdinalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MineralAssessment">
+    <rdfs:subClassOf rdf:resource="#Level"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EducationalLevel">
+    <rdfs:subClassOf rdf:resource="#Level"/>
+  </owl:Class>
+
+<!-- Values -->
+
+  <state:LandUse rdf:about="#Industrial"/>
+
+  <state:LandUse rdf:about="#Commercial"/>
+
+  <state:LandUse rdf:about="#Residential"/>
+
+  <state:LandUse rdf:about="#Populated"/>
+
+  <state:LandUse rdf:about="#Wild"/>
+
+  <state:LandUse rdf:about="#Irrigated"/>
+
+  <state:LandUse rdf:about="#Rainfed"/>
+
+  <state:LandUse rdf:about="#Cropped"/>
+
+  <state:LandUse rdf:about="#Pastoral"/>
+
+  <state:LandUse rdf:about="#Remote"/>
+
+  <state:MineralAssessment rdf:about="#Recoverable"/>
+
+  <state:MineralAssessment rdf:about="#Paramarginal"/>
+
+  <state:MineralAssessment rdf:about="#Submarginal"/>
+
+<!-- Qualifiers -->
+  <state:Qualifier rdf:about="#Acute">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Almost">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Extremely">
+    <state:moreExtensiveThan rdf:resource="#Very"/>
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Middle">
+    <owl:sameAs rdf:resource="#Medium"/>
+    <owl:sameAs rdf:resource="#Intermediate"/>
+  </state:Qualifier>
+  <state:Qualifier rdf:about="#Medium"/>
+  <state:Qualifier rdf:about="#Intermediate"/>
+
+  <state:Qualifier rdf:about="#Optimal">
+    <state:moreExtensiveThan rdf:resource="#Slightly"/>
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Semi">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Slight">
+    <owl:sameAs rdf:resource="#Slightly"/>
+  </state:Qualifier>
+  <state:Qualifier rdf:about="#Slightly"/>
+
+  <state:Qualifier rdf:about="#Suboptimal">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Total">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Transitional">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Well">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Ultra">
+  </state:Qualifier>
+  
+  <state:Qualifier rdf:about="#Very">
+  </state:Qualifier>
+
+</rdf:RDF>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY vect "http://sweet.jpl.nasa.gov/2.0/mathVector.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">  
+  <!ENTITY dyna "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">  
+  <!ENTITY rot "http://sweet.jpl.nasa.gov/2.0/physDynamicsRotational.owl">  
+  <!ENTITY obj "http://sweet.jpl.nasa.gov/2.0/spaceObject.owl">  
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/sciSystemState.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&rot;"
+         xmlns:phys="&phys;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:state="&state;"
+         xmlns:obj="&obj;"
+         xmlns:vect="&vect;"
+         xmlns:dyna="&dyna;"
+         xmlns:rot="&rot;"
+         xmlns:units="&units;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&vect;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&obj;"/>
+     <owl:imports rdf:resource="&dyna;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&phys;"/>
+  </owl:Ontology>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#AngularMomentum">
+    <rdfs:subClassOf rdf:resource="&dyna;#Momentum"/>
+    <rdfs:comment xml:lang="en">In physics, the angular momentum of an object rotating about some reference point is the measure of the extent to which the object will continue to rotate about that point unless acted upon by an external torque. In particular, if a point mass rotates about an axis, then the angular momentum with respect to a point on the axis is related to the mass of the object, the velocity and the distance of the mass to the axis. While the motion associated with linear momentum has no absolute frame of reference, the rotation associated with angular momentum is sometimes spoken of as being measured relative to the fixed stars.</rdfs:comment> 
+  </owl:Class>
+
+  <owl:Class rdf:about="#AngularMotionProperty">
+    <rdfs:subClassOf rdf:resource="&dyna;#MotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#CentrifugalForce">
+    <rdfs:subClassOf rdf:resource="&phys;#Force" />
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+    <rdfs:label>CentrifugalForce</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CentripetalForce">
+    <rdfs:subClassOf rdf:resource="&phys;#Force" />
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#CoriolisParameter">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalConstant"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#perSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CoriolisEffect">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Geosynchronous">
+    <rdfs:subClassOf rdf:resource="#Orbit" />
+    <rdfs:subClassOf rdf:resource="&state;#State" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#LagrangianPoint">
+    <rdfs:subClassOf rdf:resource="#Orbit" />
+    <rdfs:subClassOf rdf:resource="&state;#State" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MomentOfInertia">
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Obliquity">
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Orbit">
+    <rdfs:subClassOf rdf:resource="&obj;#Path" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Precession">
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Revolution">
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Rotation">
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Spin">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#TangentialAcceleration">
+    <rdfs:subClassOf rdf:resource="&dyna;#Acceleration" />
+    <rdfs:comment xml:lang="en">The component of the acceleration directed along the velocity vector (streamline), with magnitude equal to the rate of change of speed of the parcel dV/dt, where V is the speed.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Torque">
+    <rdfs:subClassOf rdf:resource="#AngularMotionProperty" />
+    <rdfs:subClassOf rdf:resource="&vect;#Vector" />
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasRotationPeriod">
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#revolvesAround">
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasRevolutionPeriod">
+  </owl:ObjectProperty>
+
+</rdf:RDF>

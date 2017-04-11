@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.2/realm.owl">
+  <!ENTITY helio "http://sweet.jpl.nasa.gov/2.2/realmAstroHelio.owl">
+  <!ENTITY srela "http://sweet.jpl.nasa.gov/2.2/reprSpaceRelation.owl">
+  <!ENTITY band "http://sweet.jpl.nasa.gov/2.2/stateSpectralBand.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.2/statePhysical.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&helio;"
+	 xmlns:planet="&planet;"
+	 xmlns:helio="&helio;"
+	 xmlns:srela="&srela;"
+	 xmlns:band="&band;"
+	 xmlns:state="&state;"
+	 xmlns:owl="&owl;"
+	 xmlns:rdf="&rdf;"
+	 xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+		owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&srela;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&band;"/>
+  </owl:Ontology>
+
+  <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+
+<!-- Realms -->
+  <owl:Class rdf:ID="UpperHeliosphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:allValuesFrom rdf:resource="#Heliosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Heliosphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Exosphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Magnetosphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ionosphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer"/>
+  </owl:Class>
+
+  <owl:Class rdf:ID="DLayer">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="#Ionosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&band;#hasSpectralBand"/>
+        <owl:hasValue rdf:resource="&band;#HardXRay"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="ELayer">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="#Ionosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&band;#hasSpectralBand"/>
+        <owl:hasValue rdf:resource="&band;#SoftXRay"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="FLayer">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="#Ionosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&band;#hasSpectralBand"/>
+        <owl:hasValue rdf:resource="&band;#EUV"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:ID="LowerHeliosphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="#Heliosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Plasmasphere">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:someValuesFrom rdf:resource="#LowerHeliosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+        <owl:hasValue rdf:resource="&state;#Plasma"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#hasUpperBoundary"/>
+        <owl:allValuesFrom rdf:resource="#Plasmapause"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RadiationBelt">
+    <owl:equivalentClass rdf:resource="#VanAllenBelt"/>
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:allValuesFrom rdf:resource="#Heliosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#VanAllenBelt"/>
+
+  <owl:Class rdf:about="#Plasmapause">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Heliopause">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+  </owl:Class>
+
+</rdf:RDF>

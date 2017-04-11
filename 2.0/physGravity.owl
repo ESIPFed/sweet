@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY ener "http://sweet.jpl.nasa.gov/2.0/physEnergy.owl">
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl">
+  <!ENTITY vect "http://sweet.jpl.nasa.gov/2.0/mathVector.owl">
+  <!ENTITY gravity "http://sweet.jpl.nasa.gov/2.0/physGravity.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&gravity;"
+         xmlns:owl="&owl;"
+         xmlns:phys="&phys;"
+         xmlns:ener="&ener;"
+         xmlns:units="&units;"
+         xmlns:xten="&xten;"
+         xmlns:vect="&vect;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&ener;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&vect;"/>
+     <owl:imports rdf:resource="&xten;"/>
+  </owl:Ontology>
+
+<!-- Process -->
+  <owl:Class rdf:about="#Gravity">
+    <owl:equivalentClass rdf:resource="#GravityForce"/>
+    <rdfs:subClassOf rdf:resource="&phys;#Force"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GravityForce"/>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#Geopotential">
+    <rdfs:subClassOf rdf:resource="&phys;#ScalarPotential"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Gravity" />
+        <owl:onProperty rdf:resource="&phys;#hasForce"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meterSquared_perSecondSquared"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeopotentialHeight">
+    <rdfs:subClassOf rdf:resource="&xten;#Height"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Gravity" />
+        <owl:onProperty rdf:resource="&phys;#hasForce"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#ArtificialGravity">
+    <rdfs:subClassOf rdf:resource="#GravityField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GravityField">
+    <rdfs:subClassOf rdf:resource="&vect;#VectorField"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasForce" />
+        <owl:allValuesFrom rdf:resource="#Gravity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hypergravity">
+    <rdfs:subClassOf rdf:resource="#GravityField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hypogravity">
+    <rdfs:subClassOf rdf:resource="#GravityField"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ZeroG">
+    <rdfs:subClassOf rdf:resource="#Hypergravity"/>
+  </owl:Class>
+
+<!-- Forms of Energy -->
+  <owl:Class rdf:about="#GravitationalPotentialEnergy">
+    <rdfs:subClassOf rdf:resource="&ener;#PotentialEnergy"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasForce" />
+        <owl:allValuesFrom rdf:resource="#Gravity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

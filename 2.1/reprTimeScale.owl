@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+
+  <!ENTITY root "http://sweet.jpl.nasa.gov/2.1/">
+  <!ENTITY math "&root;reprMath.owl#">
+  <!ENTITY repr "&root;repr.owl#">
+  <!ENTITY time "&root;propTime.owl#">
+  <!ENTITY units "&root;reprSciUnits.owl#">
+  <!ENTITY scale "&root;reprTimeScale.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&scale;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:repr="&repr;"
+         xmlns:time="&time;"
+         xmlns:units="&units;"
+         xmlns:scale="&scale;"
+         xmlns:math="&math;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&root;reprMath.owl"/>
+     <owl:imports rdf:resource="&root;repr.owl"/>
+     <owl:imports rdf:resource="&root;propTime.owl"/>
+     <owl:imports rdf:resource="&root;reprSciUnits.owl"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#TimeStep">
+    <rdfs:subClassOf rdf:resource="#Frequency"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Frequency">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cadence">
+    <rdfs:subClassOf rdf:resource="#Frequency" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#TemporalScale">
+    <rdfs:subClassOf rdf:resource="&repr;Scale" />
+    <owl:equivalentClass rdf:resource="#TimeScale"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TimeScale"/>
+
+  <owl:ObjectProperty rdf:about="#hasTemporalScale">
+    <rdfs:subPropertyOf rdf:resource="&repr;hasScale"/>
+    <rdfs:range rdf:resource="#TemporalScale"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Hourly">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#1hour" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Diurnal">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#1day" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Pentad">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#5day" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Weekly">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#1week" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Biweekly">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#2week" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <time:Duration rdf:about="#1hour">
+     <math:hasNumericValue rdf:datatype="&xsd;double">1</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;hour"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#1day">
+     <math:hasNumericValue rdf:datatype="&xsd;double">1</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;day"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#5day">
+     <math:hasNumericValue rdf:datatype="&xsd;double">5</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;day"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#1week">
+     <math:hasNumericValue rdf:datatype="&xsd;double">1</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;week"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#2week">
+     <math:hasNumericValue rdf:datatype="&xsd;double">2</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;week"/>
+  </time:Duration>
+
+<!-- Annual -->
+  <owl:Class rdf:about="#Monthly">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#1month" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Seasonal">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#3month" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SemiAnnual">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#6month" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Annual">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#1year" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Biannual">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#2year" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Decadal">
+    <rdfs:subClassOf rdf:resource="#TemporalScale" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&time;hasDuration" />
+        <owl:hasValue rdf:resource="#10year" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <time:Duration rdf:about="#1month">
+     <math:hasNumericValue rdf:datatype="&xsd;double">1</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;month"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#3month">
+     <math:hasNumericValue rdf:datatype="&xsd;double">3</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;month"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#6month">
+     <math:hasNumericValue rdf:datatype="&xsd;double">6</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;month"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#1year">
+     <math:hasNumericValue rdf:datatype="&xsd;double">1</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;year"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#2year">
+     <math:hasNumericValue rdf:datatype="&xsd;double">2</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;year"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#10year">
+     <math:hasNumericValue rdf:datatype="&xsd;double">10</math:hasNumericValue>
+     <units:hasUnit rdf:resource="&units;year"/>
+  </time:Duration>
+
+  <time:Duration rdf:about="#ShortLived">
+  </time:Duration>
+
+</rdf:RDF>

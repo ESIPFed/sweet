@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.1/state.owl#">
+  <!ENTITY rela "http://sweet.jpl.nasa.gov/2.1/reprMathRelation.owl">  
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&state;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:state="&state;"
+         xmlns:rela="&rela;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&rela;"/>
+  </owl:Ontology>
+  
+  <owl:Class rdf:about="#State" />
+
+  <owl:ObjectProperty rdf:about="#hasState">
+    <rdfs:range rdf:resource="#State"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Condition">
+    <rdfs:subClassOf rdf:resource="#State"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasCondition">
+    <rdfs:range rdf:resource="#Condition"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Discrepancy">
+    <rdfs:subClassOf rdf:resource="#State"/>
+  </owl:Class>
+
+<!-- Categorical -->
+  <owl:Class rdf:about="#Category">
+    <rdfs:subClassOf rdf:resource="#State"/>
+    <owl:equivalentClass rdf:resource="#Classification"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Classification"/>
+
+  <owl:Class rdf:about="#OrderCategory">
+    <rdfs:subClassOf rdf:resource="#Category"/>
+  </owl:Class>
+
+  <state:OrderCategory rdf:about="#Unknown">
+  </state:OrderCategory>
+
+  <state:OrderCategory rdf:about="#Known">
+    <owl:differentFrom rdf:resource="#Unknown"/>
+  </state:OrderCategory>
+
+<!-- Qualifiers -->
+  <owl:Class rdf:about="#Qualifier">
+    <rdfs:subClassOf rdf:resource="#OrderCategory"/>
+  </owl:Class>
+
+  <state:Qualifier rdf:about="#Acute">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Almost">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Extremely">
+    <state:moreExtensiveThan rdf:resource="#Very"/>
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Middle">
+    <owl:sameAs rdf:resource="#Medium"/>
+    <owl:sameAs rdf:resource="#Intermediate"/>
+  </state:Qualifier>
+  <state:Qualifier rdf:about="#Medium"/>
+  <state:Qualifier rdf:about="#Intermediate"/>
+
+  <state:Qualifier rdf:about="#Optimal">
+    <state:moreExtensiveThan rdf:resource="#Slightly"/>
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Semi">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Slight">
+    <owl:sameAs rdf:resource="#Slightly"/>
+  </state:Qualifier>
+  <state:Qualifier rdf:about="#Slightly"/>
+
+  <state:Qualifier rdf:about="#Suboptimal">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Total">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Transitional">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Well">
+  </state:Qualifier>
+
+  <state:Qualifier rdf:about="#Ultra">
+  </state:Qualifier>
+  
+  <state:Qualifier rdf:about="#Very">
+  </state:Qualifier>
+
+  <owl:ObjectProperty rdf:about="#moreExtensiveThan">
+    <rdfs:domain rdf:resource="#Qualifier"/>
+    <rdfs:range rdf:resource="#Qualifier"/>
+    <rdfs:subPropertyOf rdf:resource="&rela;#greaterThan"/>
+  </owl:ObjectProperty>
+
+<!-- Mineral recovery states -->
+  <owl:Class rdf:about="#MineralState">
+    <rdfs:subClassOf rdf:resource="#State"/>
+  </owl:Class>
+
+  <state:MineralState rdf:about="#Recoverable"/>
+
+  <state:MineralState rdf:about="#Paramarginal"/>
+
+  <state:MineralState rdf:about="#Submarginal"/>
+
+  <owl:Class rdf:about="#Industry">
+    <rdfs:subClassOf rdf:resource="#Category"/>
+  </owl:Class>
+
+<!-- Land uses -->
+  <owl:Class rdf:about="#LandUseCategory">
+    <rdfs:subClassOf rdf:resource="#Category"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasLandUse">
+    <rdfs:range rdf:resource="#LandUseCategory"/>
+    <rdfs:subPropertyOf rdf:resource="#hasState"/>
+  </owl:ObjectProperty>
+
+  <state:LandUseCategory rdf:about="#Industrial"/>
+
+  <state:LandUseCategory rdf:about="#Commercial"/>
+
+  <state:LandUseCategory rdf:about="#Residential"/>
+
+  <state:LandUseCategory rdf:about="#Populated"/>
+
+  <state:LandUseCategory rdf:about="#Wild"/>
+
+  <state:LandUseCategory rdf:about="#Irrigated"/>
+
+  <state:LandUseCategory rdf:about="#Rainfed"/>
+
+  <state:LandUseCategory rdf:about="#Cropped"/>
+
+  <state:LandUseCategory rdf:about="#Pastoral"/>
+
+  <state:LandUseCategory rdf:about="#Remote"/>
+
+</rdf:RDF>

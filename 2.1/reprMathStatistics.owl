@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.1/reprMath.owl"> 
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.1/reprMathOperation.owl"> 
+  <!ENTITY func "http://sweet.jpl.nasa.gov/2.1/reprMathFunction.owl"> 
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.1/humanResearch.owl"> 
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.1/stateSystem.owl">
+  <!ENTITY stat "http://sweet.jpl.nasa.gov/2.1/reprMathStatistics.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&stat;"
+         xmlns:math="&math;"
+         xmlns:state="&state;"
+         xmlns:stat="&stat;"
+         xmlns:oper="&oper;"
+         xmlns:func="&func;"
+         xmlns:res="&res;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&func;"/>
+     <owl:imports rdf:resource="&res;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#StatisticalSample">
+    <rdfs:subClassOf rdf:resource="&res;#Sample"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasSystemState"/>
+        <owl:hasValue rdf:resource="&state;#Random"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Regression">
+    <rdfs:subClassOf rdf:resource="#StatisticalOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sampling">
+    <rdfs:subClassOf rdf:resource="#StatisticalOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StatisticalInference">
+    <rdfs:subClassOf rdf:resource="#StatisticalOperation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Statistics">
+    <rdfs:subClassOf rdf:resource="&math;#NumericalEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#tTest">
+    <rdfs:subClassOf rdf:resource="#HypothesisTest"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeneralLinearModel">
+    <rdfs:subClassOf rdf:resource="#Regression"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GoodnessOfFit">
+    <rdfs:subClassOf rdf:resource="#Statistics"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HypothesisTest">
+    <rdfs:subClassOf rdf:resource="#StatisticalInference"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasTest">
+    <rdfs:range rdf:resource="#HypothesisTest"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#ZTest">
+    <rdfs:subClassOf rdf:resource="#HypothesisTest"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Normal"/>
+        <owl:onProperty rdf:resource="#hasStatisticalDistribution"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AnalysisOfVariance">
+    <rdfs:subClassOf rdf:resource="#HypothesisTest"/>
+    <owl:equivalentClass rdf:resource="#ANOVA"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ANOVA"/>
+
+  <owl:Class rdf:about="#ChiSquareTest">
+    <rdfs:subClassOf rdf:resource="#HypothesisTest"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#ChiSquare"/>
+        <owl:onProperty rdf:resource="#hasStatisticalDistribution"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OrdinaryLeastSquares">
+    <rdfs:subClassOf rdf:resource="#Regression"/>
+    <owl:equivalentClass rdf:resource="#OLS"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OLS"/>
+
+  <owl:Class rdf:about="#SampleStatistics">
+    <rdfs:subClassOf rdf:resource="#Statistics"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StatisticalOperation">
+    <rdfs:subClassOf rdf:resource="&oper;#Operation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StatisticalDistribution">
+    <rdfs:subClassOf rdf:resource="&func;#DistributionFunction"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#hasStatisticalDistribution">
+    <rdfs:range rdf:resource="#StatisticalDistribution"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

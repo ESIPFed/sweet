@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY climate "http://sweet.jpl.nasa.gov/2.0/clim.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY scale "http://sweet.jpl.nasa.gov/2.0/spaceScale.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY mod "http://sweet.jpl.nasa.gov/2.0/sciModel.owl"> 
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl"> 
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&climate;"
+         xmlns:planet="&planet;"
+         xmlns:state="&state;"
+         xmlns:climate="&climate;"
+         xmlns:phys="&phys;"
+         xmlns:scale="&scale;"
+         xmlns:res="&res;"
+         xmlns:mod="&mod;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&scale;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&res;"/>
+     <owl:imports rdf:resource="&mod;"/>
+     <owl:imports rdf:resource="&planet;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Arid">
+    <rdfs:subClassOf rdf:resource="#ClimatePhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Climate">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&phys;#FarFieldForce"/>
+        <owl:onProperty rdf:resource="&phys;#hasForce"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimateAnomaly">
+    <rdfs:subClassOf rdf:resource="#ClimateChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimateModel">
+    <rdfs:subClassOf rdf:resource="&mod;#Model"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalPhenomena" />
+        <owl:someValuesFrom rdf:resource="#Climate" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimatePhenomena">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Drought">
+    <rdfs:subClassOf rdf:resource="#ClimateAnomaly"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeneralCirculationModel">
+    <rdfs:subClassOf rdf:resource="#ClimateModel"/>
+    <owl:equivalentClass rdf:resource="#GCM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GCM"/>
+
+  <owl:Class rdf:about="#GreenhouseGas">
+    <rdfs:subClassOf rdf:resource="&state;#Gas"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mod;#hasEffect" />
+        <owl:allValuesFrom rdf:resource="#GreenhouseEffect" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GlobalClimate">
+    <rdfs:subClassOf rdf:resource="#Climate"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GreenhouseEffect">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LocalClimate">
+    <rdfs:subClassOf rdf:resource="#Climate"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mesoclimate">
+    <rdfs:subClassOf rdf:resource="#Climate" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&scale;#hasSpatialScale" />
+        <owl:allValuesFrom rdf:resource="&scale;#Mesoscale" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The climate of a natural region of small extent, for example, valley, forest, plantation, and park. Because of subtle differences in elevation and exposure, the climate may not be representative of the general climate of the region.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Microclimate">
+    <rdfs:subClassOf rdf:resource="#Climate"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Paleoclimate">
+    <rdfs:subClassOf rdf:resource="#Climate"/>
+    <rdfs:comment xml:lang="en">Climate for periods prior to the development of measuring instruments, including historic and geologic time, for which only proxy climate records are available.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RegionalClimate">
+    <rdfs:subClassOf rdf:resource="#Climate"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Teleconnection">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimateChange">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryPhenomena"/>
+  </owl:Class>
+
+<!-- Knowledge domains -->
+  <owl:Class rdf:about="#Climatology">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryScience"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Paleoclimatology">
+    <rdfs:subClassOf rdf:resource="#Climatology"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Phenology">
+    <rdfs:subClassOf rdf:resource="#Climatology"/>
+  </owl:Class>
+
+</rdf:RDF>

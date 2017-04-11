@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.1/reprMath.owl"> 
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.1/reprMathOperation.owl"> 
+  <!ENTITY mod "http://sweet.jpl.nasa.gov/2.1/reprSciModel.owl"> 
+  <!ENTITY stat "http://sweet.jpl.nasa.gov/2.1/propStatistics.owl">
+  <!ENTITY func "http://sweet.jpl.nasa.gov/2.1/propFunction.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.1/state.owl">
+  <!ENTITY mstat "http://sweet.jpl.nasa.gov/2.1/reprMathStatistics.owl">
+  <!ENTITY prop "http://sweet.jpl.nasa.gov/2.1/prop.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&stat;"
+         xmlns:math="&math;"
+         xmlns:oper="&oper;"
+         xmlns:func="&func;"
+         xmlns:mod="&mod;"
+         xmlns:prop="&prop;"
+         xmlns:stat="&stat;"
+         xmlns:mstat="&mstat;"
+         xmlns:state="&state;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&func;"/>
+     <owl:imports rdf:resource="&mstat;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&mod;"/>
+     <owl:imports rdf:resource="&prop;"/>
+  </owl:Ontology>
+
+<!-- Properties with values -1 to 1 -->
+  <owl:Class rdf:about="#BivariateStatisticalSummary">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Coherence">
+    <rdfs:subClassOf rdf:resource="#BivariateStatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Correlation">
+    <rdfs:subClassOf rdf:resource="#BivariateStatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Covariance">
+    <rdfs:subClassOf rdf:resource="#BivariateStatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CrossCorrelation">
+    <rdfs:subClassOf rdf:resource="#Correlation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PartialCorrelation">
+    <rdfs:subClassOf rdf:resource="#Correlation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PearsonProductMomentCorrelation">
+    <rdfs:subClassOf rdf:resource="#Correlation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RankCorrelation">
+    <rdfs:subClassOf rdf:resource="#Correlation"/>
+  </owl:Class>
+
+<!-- Statistical scores -->
+  <owl:Class rdf:about="#pValue">
+    <rdfs:subClassOf rdf:resource="#StatisticalScore"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ChiSquareValue">
+    <rdfs:subClassOf rdf:resource="#StatisticalScore"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ReducedChiSquareValue">
+    <rdfs:subClassOf rdf:resource="#ChiSquareValue"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ZScore">
+    <rdfs:subClassOf rdf:resource="#StatisticalScore"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&mstat;#ZTest"/>
+        <owl:onProperty rdf:resource="&mstat;#hasTest"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#tScore">
+    <rdfs:subClassOf rdf:resource="#StatisticalScore"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&mstat;#tTest"/>
+        <owl:onProperty rdf:resource="&mstat;#hasTest"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StatisticalScore">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+<!-- Probabilities -->
+  <owl:Class rdf:about="#Probability">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConditionalProbability">
+    <rdfs:subClassOf rdf:resource="#Probability"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasCondition" />
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#JointProbability">
+    <rdfs:subClassOf rdf:resource="#Probability"/>
+  </owl:Class>
+
+  <owl:DatatypeProperty rdf:about="#hasProbability">
+  </owl:DatatypeProperty>
+
+  <owl:Class rdf:about="#Tolerance">
+    <rdfs:subClassOf rdf:resource="#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Bias">
+    <rdfs:subClassOf rdf:resource="#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Deviation">
+    <rdfs:subClassOf rdf:resource="#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Distortion">
+    <rdfs:subClassOf rdf:resource="#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Disturbance">
+    <rdfs:subClassOf rdf:resource="#Error" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Error">
+    <rdfs:subClassOf rdf:resource="&prop;#Metric" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Accuracy">
+    <rdfs:subClassOf rdf:resource="&prop;#Metric"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Precision">
+    <rdfs:subClassOf rdf:resource="&prop;#Metric"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Estimate">
+    <rdfs:subClassOf rdf:resource="&mod;#Prediction"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#estimateOf">
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#StatisticalSummary">
+    <rdfs:subClassOf rdf:resource="&prop;#Property"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&oper;#hasOutput"/>
+        <owl:someValuesFrom rdf:resource="&math;#Seq"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&oper;#hasInput"/>
+        <owl:someValuesFrom rdf:resource="&math;#Seq"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StandardError">
+    <rdfs:subClassOf rdf:resource="#Estimate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#StandardDeviation"/>
+        <owl:onProperty rdf:resource="#estimateOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ErrorBar">
+    <rdfs:subClassOf rdf:resource="&prop;#IntervalQuantity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&prop;#rangeOf"/>
+        <owl:allValuesFrom rdf:resource="#Error"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Distribution Summaries -->
+  <owl:Class rdf:about="#Moment">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Kurtosis">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Skewness">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Variance">
+    <rdfs:subClassOf rdf:resource="#Moment"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mean">
+    <rdfs:subClassOf rdf:resource="#Moment"/>
+    <owl:equivalentClass rdf:resource="#Average"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Average"/>
+
+  <owl:Class rdf:about="#Median">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MidRange">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mode">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StandardDeviation">
+    <rdfs:subClassOf rdf:resource="#Deviation"/>
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Percentile">
+    <rdfs:subClassOf rdf:resource="#StatisticalSummary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Quartile">
+    <rdfs:subClassOf rdf:resource="#Percentile"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Quintile">
+    <rdfs:subClassOf rdf:resource="#Percentile"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Decile">
+    <rdfs:subClassOf rdf:resource="#Percentile"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#averageOver">
+    <rdfs:domain rdf:resource="#Average"/>
+    <rdfs:range rdf:resource="&prop;#Property"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasAverage">
+    <rdfs:domain rdf:resource="&math;#Seq"/>
+    <rdfs:range rdf:resource="#Average"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#deviationFrom">
+  </owl:ObjectProperty>
+
+</rdf:RDF>

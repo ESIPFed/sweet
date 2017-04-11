@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.1/matr.owl">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.1/matrCompound.owl">
+  <!ENTITY cstate "http://sweet.jpl.nasa.gov/2.1/stateChemical.owl">
+  <!ENTITY human "http://sweet.jpl.nasa.gov/2.1/human.owl">
+  <!ENTITY math  "http://sweet.jpl.nasa.gov/2.1/reprMath.owl">
+  <!ENTITY math2 "http://sweet.jpl.nasa.gov/2.1/reprMath.owl#">
+  <!ENTITY org  "http://sweet.jpl.nasa.gov/2.1/matrOrganicCompound.owl">
+  <!ENTITY realm "http://sweet.jpl.nasa.gov/2.1/realm.owl">
+  <!ENTITY srela "http://sweet.jpl.nasa.gov/2.1/reprSpaceRelation.owl">
+  <!ENTITY sstate "http://sweet.jpl.nasa.gov/2.1/stateSolid.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.1/statePhysical.owl">
+  <!ENTITY water "http://sweet.jpl.nasa.gov/2.1/matrWater.owl">
+  <!ENTITY xten  "http://sweet.jpl.nasa.gov/2.1/propSpaceDistance.owl">
+  <!ENTITY xten2 "http://sweet.jpl.nasa.gov/2.1/propSpaceDistance.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&water;"
+         xmlns:chem="&chem;"
+         xmlns:comp="&comp;"
+         xmlns:cstate="&cstate;"
+         xmlns:human="&human;"
+         xmlns:math="&math;"
+         xmlns:math2="&math2;"
+         xmlns:realm="&realm;"
+         xmlns:srela="&srela;"
+         xmlns:sstate="&sstate;"
+         xmlns:state="&state;"
+         xmlns:water="&water;"
+         xmlns:xten="&xten;"
+         xmlns:xten2="&xten2;"
+         xmlns:org="&org;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&comp;"/>
+     <owl:imports rdf:resource="&cstate;"/>
+     <owl:imports rdf:resource="&human;"/>
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&org;"/>
+     <owl:imports rdf:resource="&realm;"/>
+     <owl:imports rdf:resource="&srela;"/>
+     <owl:imports rdf:resource="&sstate;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&xten;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Ice">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&state;#Solid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LiquidWater">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&state;#Liquid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterVapor">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&state;#Gas"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#Steam"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Steam"/>
+
+  <owl:Class rdf:about="#Dew">
+    <rdfs:subClassOf rdf:resource="#LiquidWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Drop">
+    <rdfs:subClassOf rdf:resource="#LiquidWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CloudDrop">
+    <rdfs:subClassOf rdf:resource="#Drop"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#diameter"/>
+        <owl:hasValue>
+          <xten2:SizeRange_micron>
+            <math2:hasLowerBound rdf:datatype="&xsd;double">200</math2:hasLowerBound>
+            <math2:hasUpperBound rdf:datatype="&xsd;double">500</math2:hasUpperBound>
+          </xten2:SizeRange_micron>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RainDrop">
+    <rdfs:subClassOf rdf:resource="#Drop"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#diameter"/>
+        <owl:hasValue>
+          <xten2:SizeRange_micron>
+            <math2:hasLowerBound rdf:datatype="&xsd;double">500</math2:hasLowerBound>
+          </xten2:SizeRange_micron>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DrizzleDrop">
+    <rdfs:subClassOf rdf:resource="#Drop"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&xten;#diameter"/>
+        <owl:hasValue>
+          <xten2:SizeRange_micron>
+            <math2:hasUpperBound rdf:datatype="&xsd;double">200</math2:hasUpperBound>
+          </xten2:SizeRange_micron>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Groundwater">
+    <rdfs:subClassOf rdf:resource="#LiquidWater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#below"/>
+        <owl:allValuesFrom rdf:resource="&realm;#PlanetarySurface"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterSubstance">
+    <rdfs:subClassOf rdf:resource="&chem;#Substance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&comp;#Water"/>
+        <owl:onProperty rdf:resource="&comp;#hasCompound"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Water Mixtures -->
+  <owl:Class rdf:about="#FreshWater">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hydrate">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BrackishWater">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&cstate;#Brackish"/>
+        <owl:onProperty rdf:resource="&cstate;#hasChemicalState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Brackish water is water that has more salinity than fresh water, but not as much as seawater. It may result from mixing of seawater with fresh water, as in estuaries, or it may occur in brackish fossil aquifers.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Brine">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+    <owl:disjointWith rdf:resource="#SalineWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DrinkingWater">
+    <rdfs:subClassOf rdf:resource="#WaterMixture"/>
+    <rdfs:subClassOf rdf:resource="&human;#HumanNeed"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClathrateHydrate">
+    <rdfs:subClassOf rdf:resource="&comp;#Clathrate"/>
+    <rdfs:subClassOf rdf:resource="#Hydrate"/>
+    <owl:equivalentClass rdf:resource="#GasHydrate"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GasHydrate"/>
+
+  <owl:Class rdf:about="#MethaneClathrate">
+    <rdfs:subClassOf rdf:resource="#ClathrateHydrate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&org;#Methane"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#MethaneHydrate"/>
+    <owl:equivalentClass rdf:resource="#MethaneIce"/>
+  </owl:Class>
+  <owl:Class rdf:about="#MethaneHydrate"/>
+  <owl:Class rdf:about="#MethaneIce"/>
+
+  <owl:Class rdf:about="#SalineWater">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaltWater">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+    <owl:disjointWith rdf:resource="#FreshWater"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&cstate;#Saline"/>
+        <owl:onProperty rdf:resource="&cstate;#hasChemicalState"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SeaWater">
+    <rdfs:subClassOf rdf:resource="#SaltWater"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterMixture">
+    <rdfs:subClassOf rdf:resource="&chem;#Mixture"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&comp;#H2O"/>
+        <owl:onProperty rdf:resource="&chem;#hasChemical_1"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Effluent">
+    <rdfs:subClassOf rdf:resource="#WaterMixture"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Wastewater">
+    <rdfs:subClassOf rdf:resource="#Effluent"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GrayWater">
+    <rdfs:subClassOf rdf:resource="#WaterMixture"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sewage">
+    <rdfs:subClassOf rdf:resource="#Effluent"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BlackWater">
+    <rdfs:subClassOf rdf:resource="#WaterMixture"/>
+  </owl:Class>
+
+<!-- Forms of ice -->
+  <owl:Class rdf:about="#Frost">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&state;#Frozen"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Snow">
+    <rdfs:subClassOf rdf:resource="#WaterSubstance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&state;#Solid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DepthHoar">
+    <rdfs:subClassOf rdf:resource="#IceCrystal"/>
+    <rdfs:comment xml:lang="en">Depth hoares are large crystals occurring at the base of a snowpack that form due to the fact that a snow crystal can grow over time as moisture freezes onto the crystal from vapor that is rising in the snowpack.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Firn">
+    <rdfs:subClassOf rdf:resource="#IceCrystal"/>
+    <rdfs:comment xml:lang="en">Firn is partially-compacted névé, a type of snow that has been left over from past seasons and has been recrystallized into a substance denser than névé. It is ice that is at an intermediate stage between snow and glacial ice. Firn has the appearance of wet sugar, but has a hardness that makes it extremely resistant to shovelling. It generally has a density greater than 550 kg/m³ and is often found underneath the snow that accumulates at the head of a glacier.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GranularIce">
+    <rdfs:subClassOf rdf:resource="#Ice"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HoarCrystal">
+    <rdfs:subClassOf rdf:resource="#IceCrystal"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IceCrystal">
+    <rdfs:subClassOf rdf:resource="#Ice"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasPhysicalState"/>
+        <owl:hasValue rdf:resource="&sstate;#Crystal"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IceParticle">
+    <owl:equivalentClass rdf:resource="#IceCrystal" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Rime">
+    <rdfs:subClassOf rdf:resource="#Ice" />
+    <rdfs:comment xml:lang="en">A white or milky and opaque granular deposit of ice formed by the rapid freezing of supercooled water drops as they impinge upon an exposed object.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SnowFacies">
+    <rdfs:subClassOf rdf:resource="#IceCrystal"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SnowGrain">
+    <rdfs:subClassOf rdf:resource="#Snow"/>
+  </owl:Class>
+
+</rdf:RDF>

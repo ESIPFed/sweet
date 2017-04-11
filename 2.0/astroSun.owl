@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY astro "http://sweet.jpl.nasa.gov/2.0/astroBody.owl">
+  <!ENTITY astro2 "http://sweet.jpl.nasa.gov/2.0/astroBody.owl#">
+  <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">
+  <!ENTITY rad "http://sweet.jpl.nasa.gov/2.0/physRadiation.owl">
+  <!ENTITY sysd "http://sweet.jpl.nasa.gov/2.0/sciSystemDynamics.owl">
+  <!ENTITY uv "http://sweet.jpl.nasa.gov/2.0/physSpectrumUV.owl">
+  <!ENTITY star "http://sweet.jpl.nasa.gov/2.0/astroStar.owl">
+  <!ENTITY sun "http://sweet.jpl.nasa.gov/2.0/astroSun.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&sun;"
+         xmlns:owl="&owl;"
+         xmlns:astro="&astro;"
+         xmlns:astro2="&astro2;"
+         xmlns:star="&star;"
+         xmlns:rad="&rad;"
+         xmlns:top="&top;"
+         xmlns:sysd="&sysd;"
+         xmlns:uv="&uv;"
+         xmlns:sun="&sun;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&astro;"/>
+     <owl:imports rdf:resource="&top;"/>
+     <owl:imports rdf:resource="&rad;"/>
+     <owl:imports rdf:resource="&uv;"/>
+     <owl:imports rdf:resource="&star;"/>
+     <owl:imports rdf:resource="&sysd;"/>
+  </owl:Ontology>
+
+  <astro2:Star rdf:ID="Sun"/>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#MaunderMinimum">
+    <rdfs:subClassOf rdf:resource="&sysd;#Cycle"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#SolarActivity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarActivity">
+    <rdfs:subClassOf rdf:resource="#SolarPhenomena"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarCycle">
+    <rdfs:subClassOf rdf:resource="&sysd;#Cycle"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#SolarActivity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarMaximum">
+    <rdfs:subClassOf rdf:resource="#SolarPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf" />
+        <owl:someValuesFrom rdf:resource="#SolarCycle" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarMinimum">
+    <rdfs:subClassOf rdf:resource="#SolarPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf" />
+        <owl:someValuesFrom rdf:resource="#SolarCycle" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarPhenomena">
+    <rdfs:subClassOf rdf:resource="&star;#StellarPhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&star;#hasStar" />
+        <owl:hasValue rdf:resource="#Sun" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sunspot">
+    <rdfs:subClassOf rdf:resource="#SolarPhenomena"/>
+  </owl:Class>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#SolarFlux">
+    <rdfs:subClassOf rdf:resource="&rad;#RadiativeFlux"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarForcing">
+    <rdfs:subClassOf rdf:resource="&rad;#RadiativeForcing"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SolarRadiation">
+    <rdfs:subClassOf rdf:resource="&uv;#ShortWave" />
+    <rdfs:comment xml:lang="en">The total electromagnetic radiation emitted by the sun.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SunspotNumber">
+    <rdfs:subClassOf rdf:resource="#SolarActivity"/>
+  </owl:Class>
+
+</rdf:RDF>

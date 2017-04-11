@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.1/statePhysical.owl">
+  <!ENTITY fstate "http://sweet.jpl.nasa.gov/2.1/stateFluid.owl">
+  <!ENTITY space "http://sweet.jpl.nasa.gov/2.1/reprSpaceGeometry.owl">
+  <!ENTITY fldy "http://sweet.jpl.nasa.gov/2.1/phenFluidDynamics.owl">
+  <!ENTITY pres "http://sweet.jpl.nasa.gov/2.1/propPressure.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.1/procPhysical.owl">
+  <!ENTITY prop "http://sweet.jpl.nasa.gov/2.1/prop.owl">
+  <!ENTITY phen "http://sweet.jpl.nasa.gov/2.1/phen.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&fldy;"
+         xmlns:owl="&owl;"
+         xmlns:phen="&phen;"
+         xmlns:state="&state;"
+         xmlns:fstate="&fstate;"
+         xmlns:space="&space;"
+         xmlns:fldy="&fldy;"
+         xmlns:pres="&pres;"
+         xmlns:prop="&prop;"
+         xmlns:proc="&proc;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&fstate;"/>
+     <owl:imports rdf:resource="&space;"/>
+     <owl:imports rdf:resource="&pres;"/>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&prop;"/>
+  </owl:Ontology>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#Overturning">
+    <rdfs:subClassOf rdf:resource="#Circulation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BaroclinicCirculation">
+    <rdfs:subClassOf rdf:resource="#Circulation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasPhysicalState" />
+        <owl:hasValue rdf:resource="&fstate;#Baroclinic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BarotropicCirculation">
+    <rdfs:subClassOf rdf:resource="#Circulation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasPhysicalState" />
+        <owl:hasValue rdf:resource="&fstate;#Barotropic" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Recirculation">
+    <rdfs:subClassOf rdf:resource="#Circulation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Circulation">
+    <rdfs:subClassOf rdf:resource="#Flow"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Flow">
+    <rdfs:subClassOf rdf:resource="#FluidPhenomena"/>
+    <rdfs:subClassOf rdf:resource="&proc;#Motion"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Jet">
+    <rdfs:subClassOf rdf:resource="#Flow"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&pres;#Pressure"/>
+        <owl:onProperty rdf:resource="&prop;#hasProperty"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FluidPhenomena">
+    <rdfs:subClassOf rdf:resource="&phen;#Phenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter" />
+        <owl:hasValue rdf:resource="&state;#Fluid" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Eddy">
+    <rdfs:subClassOf rdf:resource="#FluidPhenomena"/>
+  <rdfs:comment>In fluid dynamics, an eddy is the swirling of a fluid and the reverse current created when the fluid flows past an obstacle. The moving fluid creates a space devoid of downstream-flowing water on the downstream side of the object. Fluid behind the obstacle flows into the void creating a swirl of fluid on each edge of the obstacle, followed by a short reverse flow of fluid behind the obstacle flowing upstream, toward the back of the obstacle. This phenomenon is most visible behind large emergent rocks in swift-flowing rivers.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LaminarFlow">
+    <rdfs:subClassOf rdf:resource="#Flow"/>
+    <rdfs:comment xml:lang="en">(Also called sheet flow, streamline flow.) A flow regime in which fluid motion is smooth and orderly, and in which adjacent layers or laminas slip past each other with little mixing between them. Exchange of material across laminar layers occurs by molecular diffusion, a process about 106 times less effective than turbulence. Laminar flow can be easily predicted as velocity increases at a steady rate from a boundary. This contrasts with the chaotic and random nature of turbulent flow. Laminar flow is not a common occurrence in the statically neutral and unstable atmosphere and is confined to a very thin layer (1 mm) adjacent to very smooth surfaces such as snow and ice. However, in strongly statically stable regions such as the the nocturnal boundary layer, the Richardson number can be large enough that turbulence is suppressed, and the flow is laminar over a layer many tens of meters thick.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ViscousFlow">
+    <rdfs:subClassOf rdf:resource="#Flow"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StationaryEddy">
+    <rdfs:subClassOf rdf:resource="#Eddy" />
+    <rdfs:comment xml:lang="en">In studies of the general circulation, the eddies are the departures of a field from the zonal mean of that field; the stationary eddies are the time-averaged, or time-invariant, component of the eddy field.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Vortex">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&proc;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&proc;#Rotation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Flow" />
+    <rdfs:comment xml:lang="en">More often the term refers to a flow with closed streamlines or to the idealized case in which all vorticity is concentrated in a vortex filament.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PointVortex">
+    <rdfs:subClassOf rdf:resource="#Vortex" />
+    <rdfs:comment xml:lang="en">A straight line vortex, the flow of which can be modeled in two dimensions, with a point concentration of vorticity surrounded by irrotational flow.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BoundaryLayer">
+    <rdfs:subClassOf rdf:resource="&space;#Region" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#LaminarBoundaryLayer">
+    <rdfs:subClassOf rdf:resource="#BoundaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phen;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#LaminarFlow" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An interfacial region in which flow is smooth and nonturbulent. Above a surface, a laminar layer will develop and fluid velocity will increase with distance from the surface, but not indefinitely. At some point, flow will become turbulent, with the laminar sublayer separating the turbulent layer from the surface. In the real world, most laminar boundary layers are extremely thin (order of 1 mm), but can be of biological importance, for example, next to plant leaves or as invertebrate refuges in streams.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LaminarSublayer">
+    <rdfs:subClassOf rdf:resource="#LaminarBoundaryLayer" />
+    <rdfs:comment xml:lang="en">A layer in which the fluid undergoes smooth, nonturbulent flow. It is found between any surface and a turbulent layer above. See laminar boundary layer, laminar flow.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CapillaryAction">
+    <rdfs:subClassOf rdf:resource="#FluidPhenomena"/>
+    <owl:equivalentClass rdf:resource="#Capillary"/>
+  </owl:Class> 
+  <owl:Class rdf:about="#Capillary"/>
+
+  <owl:Class rdf:about="#OilSpill">
+    <rdfs:subClassOf rdf:resource="#Spill"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Spill">
+    <rdfs:subClassOf rdf:resource="#Flow"/>
+  </owl:Class>
+
+</rdf:RDF>

@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+   <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">   
+   <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/sciSystemState.owl">   
+   <!ENTITY serv "http://sweet.jpl.nasa.gov/2.0/infoService.owl">   
+   <!ENTITY human "http://sweet.jpl.nasa.gov/2.0/human.owl">
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF
+    xmlns = "&serv;"
+    xml:base = "&serv;"
+    xmlns:serv = "&serv;"
+    xmlns:human = "&human;"
+    xmlns:res = "&res;"
+    xmlns:state = "&state;"
+    xmlns:owl = "&owl;"
+    xmlns:rdf = "&rdf;"
+    xmlns:rdfs = "&rdfs;"
+    xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+    
+    <owl:imports rdf:resource = "&human;"/>
+    <owl:imports rdf:resource = "&res;"/>
+    <owl:imports rdf:resource = "&state;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#Access">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Archive">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Archived">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Archive"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataService">
+    <rdfs:subClassOf rdf:resource="&human;#Service" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataState">
+    <rdfs:subClassOf rdf:resource="&state;#State" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataSynchronization">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Discover">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+    <owl:equivalentClass rdf:resource="#Discovery"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Discovery"/>
+
+  <owl:Class rdf:about="#Georeference">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+    <owl:equivalentClass rdf:resource="#Georeferencing"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Georeferencing"/>
+
+  <owl:Class rdf:about="#Georeferenced">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Georeferencing"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Input">
+    <rdfs:subClassOf rdf:resource="#Parameter"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#InterfaceProtocol">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#KnowledgeDiscovery">
+    <rdfs:subClassOf rdf:resource="#Discovery"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Normalization">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Normalized">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Normalization"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OPeNDAP">
+    <rdfs:subClassOf rdf:resource="#InterfaceProtocol"/>
+    <owl:equivalentClass rdf:resource="#DODS"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DODS"/>
+
+  <owl:Class rdf:about="#Output">
+    <rdfs:subClassOf rdf:resource="#Parameter"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Parameter">
+    <rdfs:subClassOf rdf:resource="&res;#Dimension"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PostProcessing">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PreProcessing">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Processed">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reanalysis">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reanalyzed">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Reanalysis"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reconstruction">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reconstructed">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Reconstruction"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Reformat">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+    <owl:equivalentClass rdf:resource="#FormatConversion"/>
+  </owl:Class>
+  <owl:Class rdf:about="#FormatConversion"/>
+
+  <owl:Class rdf:about="#Reformatted">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Reformat"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Scaled">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Scaling"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Scaling">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WebCoverageServer">
+    <rdfs:subClassOf rdf:resource="#InterfaceProtocol"/>
+    <owl:equivalentClass rdf:resource="#WCS"/>
+  </owl:Class>
+  <owl:Class rdf:about="#WCS" />
+
+  <owl:Class rdf:about="#WebFeatureServer">
+    <owl:equivalentClass rdf:resource="#WFS"/>
+    <rdfs:subClassOf rdf:resource="#InterfaceProtocol"/>
+  </owl:Class>
+  <owl:Class rdf:about="#WFS"/>
+
+ <owl:Class rdf:about="#WebMapServer">
+    <owl:equivalentClass rdf:resource="#WMS"/>
+    <rdfs:subClassOf rdf:resource="#InterfaceProtocol"/>
+  </owl:Class>
+  <owl:Class rdf:about="#WMS"/>
+
+  <owl:ObjectProperty rdf:about="#hasParameter">
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hadProcess">
+    <rdfs:range rdf:resource="#DataService"/>
+  </owl:ObjectProperty>
+
+<!-- Parameterize -->
+  <owl:Class rdf:about="#AssociationRuleLearning">
+    <rdfs:subClassOf rdf:resource="#Parameterize"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Calibration">
+    <rdfs:subClassOf rdf:resource="#Parameterize"/>
+    <owl:equivalentClass rdf:resource="#Calibrate"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Calibrate"/>
+
+  <owl:Class rdf:about="#Calibrated">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Calibration"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataAssimilation">
+    <rdfs:subClassOf rdf:resource="#Parameterize"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fit">
+    <rdfs:subClassOf rdf:resource="#Parameterize"/>
+    <owl:equivalentClass rdf:resource="#Fitting"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Fitting"/>
+
+  <owl:Class rdf:about="#Gazetteer">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Geocode">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Parameterize">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Parameterized">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Parameterize"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Train">
+    <rdfs:subClassOf rdf:resource="#Parameterize"/>
+    <owl:equivalentClass rdf:resource="#Training"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Training"/>
+
+  <owl:Class rdf:about="#Trained">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Training"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Gridding -->
+  <owl:Class rdf:about="#CoordinateTransformation">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+    <rdfs:comment>A conversion from one system to another, to describe the same space.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Gridded">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Gridding"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Gridding">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Interpolated">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Interpolation"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Interpolation">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NearestNeighbor">
+    <rdfs:subClassOf rdf:resource="#Interpolation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Regridding">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Regridded">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Regridding"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Quality Control-->
+  <owl:Class rdf:about="#BinaryMask">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataCleaning">
+    <rdfs:subClassOf rdf:resource="#Verification"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PixelScreening">
+    <rdfs:subClassOf rdf:resource="#QualityScreening"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#QualityScreening">
+    <rdfs:subClassOf rdf:resource="#Verification"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Validated">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Validation"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Validation">
+    <rdfs:subClassOf rdf:resource="#Verification"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Verified">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Verification"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Verify">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+    <owl:equivalentClass rdf:resource="#Verification"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Verification" />
+
+<!-- Imaging -->
+  <owl:Class rdf:about="#Image">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Map">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+    <owl:equivalentClass rdf:resource="#Mapping"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Mapping"/>
+
+  <owl:Class rdf:about="#Mapped">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Map"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Plot">
+    <rdfs:subClassOf rdf:resource="#Visualization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Plotted">
+    <rdfs:subClassOf rdf:resource="#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Plot"/>
+        <owl:onProperty rdf:resource="#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SynopticMap">
+    <rdfs:subClassOf rdf:resource="#Map"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Visualization">
+    <rdfs:subClassOf rdf:resource="#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Generalization">
+    <rdfs:subClassOf rdf:resource="#Scaling"/>
+  </owl:Class>
+
+  <owl:DatatypeProperty rdf:about="#scale">
+    <rdfs:domain rdf:resource="#Map"/>
+  </owl:DatatypeProperty>
+
+</rdf:RDF>

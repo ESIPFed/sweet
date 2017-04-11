@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY elem "http://sweet.jpl.nasa.gov/2.0/chemElement.owl">
+  <!ENTITY part "http://sweet.jpl.nasa.gov/2.0/physParticle.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY allo "http://sweet.jpl.nasa.gov/2.0/chemElementalMolecule.owl">
+  <!ENTITY comp "http://sweet.jpl.nasa.gov/2.0/chemCompound.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY ion "http://sweet.jpl.nasa.gov/2.0/chemCharge.owl">
+  <!ENTITY sstate "http://sweet.jpl.nasa.gov/2.0/sciSystemState.owl">
+  <!ENTITY sysd "http://sweet.jpl.nasa.gov/2.0/sciSystemDynamics.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.0/chemProcess.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY sun "http://sweet.jpl.nasa.gov/2.0/astroSun.owl">
+  <!ENTITY ener "http://sweet.jpl.nasa.gov/2.0/physEnergy.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&ion;"
+         xmlns:part="&part;"
+         xmlns:chem="&chem;"
+         xmlns:phys="&phys;"
+         xmlns:ener="&ener;"
+         xmlns:comp="&comp;"
+         xmlns:sun="&sun;"
+         xmlns:allo="&allo;"
+         xmlns:elem="&elem;"
+         xmlns:state="&state;"
+         xmlns:units="&units;"
+         xmlns:ion="&ion;"
+         xmlns:sstate="&sstate;"
+         xmlns:sysd="&sysd;"
+         xmlns:proc="&proc;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&part;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&ener;"/>
+     <owl:imports rdf:resource="&sun;"/>
+     <owl:imports rdf:resource="&sun;"/>
+     <owl:imports rdf:resource="&allo;"/>
+     <owl:imports rdf:resource="&sstate;"/>
+     <owl:imports rdf:resource="&sysd;"/>
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&elem;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&units;"/>
+  </owl:Ontology>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#CationExchangeCapacity">
+    <rdfs:subClassOf rdf:resource="&proc;#ExchangeCapacity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+        <owl:allValuesFrom rdf:resource="#Cation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Electronegativity">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#dimensionlessUnit"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IonizationEnergy">
+    <rdfs:subClassOf rdf:resource="&chem;#ChemicalProperty"/>
+    <rdfs:subClassOf rdf:resource="&ener;#PotentialEnergy"/>
+    <owl:equivalentClass rdf:resource="#IonizationPotential"/>
+  </owl:Class>
+  <owl:Class rdf:about="#IonizationPotential"/>
+
+  <owl:Class rdf:about="#Polarity">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Charge">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+  </owl:Class>
+ 
+  <owl:DatatypeProperty rdf:about="#hasCharge">
+    <rdfs:domain rdf:resource="&chem;#Chemical"/>
+    <rdfs:range rdf:resource="&xsd;integer"/>
+  </owl:DatatypeProperty>
+
+<!-- Processes -->
+  <owl:Class rdf:about="#ChargeExchange">
+    <rdfs:subClassOf rdf:resource="&proc;#ChemicalProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Deionize">
+    <rdfs:subClassOf rdf:resource="&proc;#ChemicalProcess"/>
+    <owl:equivalentClass rdf:resource="#Deionization"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&sstate;#from"/>
+        <owl:allValuesFrom rdf:resource="#IonizedSubstance" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&sstate;#to"/>
+        <owl:allValuesFrom rdf:resource="&ion;#NeutralSubstance" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Deionization" />
+
+  <owl:Class rdf:about="#Ionize">
+    <rdfs:subClassOf rdf:resource="&proc;#ChemicalProcess"/>
+    <owl:equivalentClass rdf:resource="#Ionization"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&sstate;#to"/>
+        <owl:allValuesFrom rdf:resource="#IonizedSubstance" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Ionization is the physical process of converting an atom or molecule into an ion by changing the difference between the number of protons and electrons. This process works slightly differently depending on whether an ion with a positive or a negative electric charge is being produced. A positive electric charge is produced when an electron bond to an atom or molecule absorbs enough energy from an external source to escape from the electric potential barrier that originally confined it, where the amount of energy required is called the Ionization potential. A negative electric charge is produced when a free electron collides with an atom and is subsequently caught inside the electric potential barrier, releasing any excess energy.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Ionization" />
+
+  <owl:Class rdf:about="#Photoionization">
+    <rdfs:subClassOf rdf:resource="#Ionization"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasSource"/>
+        <owl:hasValue rdf:resource="&sun;#Sun" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+ 
+<!-- Substances -->
+  <owl:Class rdf:about="#Anion">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+        <owl:hasValue rdf:datatype="&xsd;negativeInteger"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An anion is an ion that has more electrons than protons such that the atom or molecule is negatively charged. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Cation">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <owl:disjointWith rdf:resource="#Anion"/>
+    <rdfs:comment xml:lang="en">An cation is an ion that has more protons than electrons such that the atom or molecule is positively charged. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HeavyIon">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ion">
+    <rdfs:subClassOf rdf:resource="&chem;#Substance"/>
+    <rdfs:comment xml:lang="en">An ion is an atom or molecule where the total number of electrons is not equal to the total number of protons, giving it a net positive or negative electrical charge. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IonizedSubstance">
+    <rdfs:subClassOf rdf:resource="&chem;#Substance"/>
+    <owl:disjointWith rdf:resource="#NeutralSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralSubstance">
+    <rdfs:subClassOf rdf:resource="&chem;#Substance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasState"/>
+        <owl:allValuesFrom rdf:resource="#Neutral" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hplus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&elem;#H"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#H4plus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&allo;#H4"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ominus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&elem;#O"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">-1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#O2minus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&allo;#O2"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">-1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#O3minus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&allo;#O3"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">-1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Oplus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&elem;#O"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#O3minusminus">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+    <rdfs:subClassOf rdf:resource="&allo;#O3"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">-2</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SaltIon">
+    <rdfs:subClassOf rdf:resource="#Ion"/>
+  </owl:Class>
+
+<!-- States -->
+  <owl:Class rdf:about="#Ionized">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NonPolar">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <owl:disjointWith rdf:resource="#Polar"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Polar">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Neutral">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">0</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasCharge"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#QuasiNeutral">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+  </owl:Class>
+
+</rdf:RDF>

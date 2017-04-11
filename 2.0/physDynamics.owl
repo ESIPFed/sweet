@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY vect "http://sweet.jpl.nasa.gov/2.0/mathVector.owl">
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl">
+  <!ENTITY mod "http://sweet.jpl.nasa.gov/2.0/sciModel.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">  
+  <!ENTITY ener "http://sweet.jpl.nasa.gov/2.0/physEnergy.owl">  
+  <!ENTITY pres "http://sweet.jpl.nasa.gov/2.0/physPressure.owl">  
+  <!ENTITY dyna "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">  
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&dyna;"
+         xmlns:phys="&phys;"
+         xmlns:ener="&ener;"
+         xmlns:pres="&pres;"
+         xmlns:dyna="&dyna;"
+         xmlns:mod="&mod;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:vect="&vect;"
+         xmlns:xten="&xten;"
+         xmlns:units="&units;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&mod;"/>
+     <owl:imports rdf:resource="&vect;"/>
+     <owl:imports rdf:resource="&xten;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&ener;"/>
+     <owl:imports rdf:resource="&pres;"/>
+  </owl:Ontology>
+
+<!-- Physical Properties -->
+  <owl:Class rdf:about="#Acceleration">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meter_perSecondSquared"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment>The rate of change with time of the velocity vector of a particle.</rdfs:comment>
+    <rdfs:label>Acceleration</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Inertia">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#KineticEnergy">
+    <rdfs:subClassOf rdf:resource="&ener;#Energy"/>
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MotionProperty">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Momentum">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#kilogram_meter_perSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MomentumFlux">
+    <rdfs:subClassOf rdf:resource="&pres;#Pressure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Speed">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meter_perSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TerminalVelocity">
+    <rdfs:subClassOf rdf:resource="#Velocity" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Velocity">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+    <rdfs:subClassOf rdf:resource="&vect;#Vector" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meter_perSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The time rate of change of a position vector; that is, a change of position expressed in terms of speed and direction.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MeanFreePath">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+    <rdfs:subClassOf rdf:resource="&xten;#Distance" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Collision"/>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TrappingRate">
+    <rdfs:subClassOf rdf:resource="#MotionProperty" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#Trapping"/>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#perSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Physical Processes -->
+  <owl:Class rdf:about="#Collision">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#Motion">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mixing">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Separation">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess" />
+    <owl:disjointWith rdf:resource="#Mixing"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Settling">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Translation">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Trapping">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProcess"/>
+  </owl:Class>
+
+<!-- Knowledge -->
+  <owl:Class rdf:about="#Invariant">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalConstant" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#AdiabaticInvariant">
+    <rdfs:subClassOf rdf:resource="#Invariant" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Eulerian">
+    <rdfs:subClassOf rdf:resource="&mod;#Model" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Lagrangian">
+    <rdfs:subClassOf rdf:resource="&mod;#Model" />
+    <owl:disjointWith rdf:resource="#Eulerian"/>
+  </owl:Class>
+
+<!-- Knowledge domains -->
+  <owl:Class rdf:about="#Dynamics">
+    <rdfs:subClassOf rdf:resource="&phys;#Physics"/>
+  </owl:Class>
+
+</rdf:RDF>

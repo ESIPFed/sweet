@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY atmo "http://sweet.jpl.nasa.gov/2.0/atmo.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY sysd "http://sweet.jpl.nasa.gov/2.0/sciSystemDynamics.owl">
+  <!ENTITY dynam "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">
+  <!ENTITY scale "http://sweet.jpl.nasa.gov/2.0/spaceScale.owl">
+  <!ENTITY cont "http://sweet.jpl.nasa.gov/2.0/physContinuumMechanics.owl">
+  <!ENTITY inst "http://sweet.jpl.nasa.gov/2.0/physFluidInstability.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.0/physTransport.owl">
+  <!ENTITY front "http://sweet.jpl.nasa.gov/2.0/atmoFront.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY astab "http://sweet.jpl.nasa.gov/2.0/atmoStability.owl">
+  <!ENTITY atherm "http://sweet.jpl.nasa.gov/2.0/atmoThermo.owl">
+  <!ENTITY boun "http://sweet.jpl.nasa.gov/2.0/atmoBoundary.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&boun;"
+         xmlns:owl="&owl;"
+         xmlns:phys="&phys;"
+         xmlns:boun="&boun;"
+         xmlns:sysd="&sysd;"
+         xmlns:chem="&chem;"
+         xmlns:scale="&scale;"
+         xmlns:inst="&inst;"
+         xmlns:trans="&trans;"
+         xmlns:cont="&cont;"
+         xmlns:front="&front;"
+         xmlns:astab="&astab;"
+         xmlns:atherm="&atherm;"
+         xmlns:planet="&planet;"
+         xmlns:dynam="&dynam;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&scale;"/>
+     <owl:imports rdf:resource="&atmo;"/>
+     <owl:imports rdf:resource="&sysd;"/>
+     <owl:imports rdf:resource="&inst;"/>
+     <owl:imports rdf:resource="&trans;"/>
+     <owl:imports rdf:resource="&cont;"/>
+     <owl:imports rdf:resource="&front;"/>
+     <owl:imports rdf:resource="&dynam;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&astab;"/>
+     <owl:imports rdf:resource="&atherm;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+  <owl:Class rdf:about="#AtmosphericBoundaryLayer">
+    <rdfs:subClassOf rdf:resource="&atmo;#AtmosphereLayer" />
+    <owl:equivalentClass rdf:resource="#BoundaryLayer" />
+    <rdfs:comment xml:lang="en">The bottom layer of the troposphere that is in contact with the surface of the earth.
+    </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#BoundaryLayer"/>
+
+  <owl:Class rdf:about="#ConstantFluxLayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer" />
+    <rdfs:comment xml:lang="en">A layer of air tens of meters thick at the bottom of the atmosphere where the variation of vertical turbulent flux with altitude is less than 10% of its magnitude.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#InternalBoundaryLayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer" />
+    <rdfs:comment xml:lang="en">A layer within the atmosphere bounded below by the surface, and above by a more or less sharp discontinuity in some atmospheric property. Internal boundary layers are associated with the horizontal advection of air across a discontinuity in some property of the surface (e.g., aerodynamic roughness length or surface heat flux) and can be viewed as layers in which the atmosphere is adjusting to new surface properties. See thermal internal boundary layer, mechanical internal boundary layer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MechanicalInternalBoundaryLayer">
+    <rdfs:subClassOf rdf:resource="#InternalBoundaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&trans;#Advection" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">(Abbreviated MIBL.) An internal boundary layer caused by advection of air across a discontinuity in surface roughness. When the new surface is rougher than the old one, the MIBL depth grows roughly as the 0.8 power of the ratio of the two roughness lengths. In this example, the MIBL grows to include the whole surface layer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MixedLayer">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&inst;#Turbulence" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#BoundaryLayer" />
+    <rdfs:comment xml:lang="en">A type of atmospheric boundary layer characterized by vigorous turbulence tending to stir and uniformly mix, primarily in the vertical, quantities such as conservative tracer concentrations, potential temperature, and momentum or wind speed.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NocturnalBoundaryLayer">
+    <rdfs:subClassOf rdf:resource="#BoundaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&atmo;#hasMeteorologicalPhenomena" />
+        <owl:allValuesFrom rdf:resource="&atherm;#NocturnalCooling" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The cool layer of air adjacent to the ground that forms at night. At night under clear skies, radiation to space cools the land surface, which in turn cools the adjacent air through processes of molecular conduction, turbulence, and radiative transfer. This causes a stable boundary layer to form and grow to depths of a few hundreds of meters, depending on the season. Many interacting processes can occur within the statically stable nocturnal boundary layer: patchy sporadic turbulence, internal gravity waves, drainage flows, inertial oscillations, and nocturnal jets.</rdfs:comment>
+  </owl:Class>
+
+ <owl:Class rdf:about="#OuterLayer">
+    <rdfs:subClassOf rdf:resource="#BoundaryLayer" />
+    <rdfs:comment xml:lang="en">For flow over a hill, the top layer in the boundary layer that accelerates relative to its upstream value due to the Bernoulli effect.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PlanetaryBoundaryLayer">
+    <owl:equivalentClass rdf:resource="#BoundaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:someValuesFrom rdf:resource="&planet;#Atmosphere" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The bottom layer of the troposphere that is in contact with the surface of the earth.   It is often turbulent and is capped by a statically stable layer of air or temperature inversion.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ResidualLayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer" />
+    <rdfs:comment xml:lang="en">The middle portion of the nocturnal atmospheric boundary layer characterized by weak sporadic turbulence and initially uniformly mixed potential temperature and pollutants remaining from the mixed layer of the previous day.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RoughnessSublayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&cont;#Roughness" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Same as transition layer. The lowest atmospheric layer immediately adjacent to a surface covered with relatively large roughness elements such as stones, vegetation, trees, or buildings.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SkinLayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#StableBoundaryLayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#WellMixedLayer">
+    <rdfs:subClassOf rdf:resource="#AtmosphericBoundaryLayer"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&dynam;#Mixing" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A type of atmospheric boundary layer characterized by vigorous turbulence tending to stir and uniformly mix, primarily in the vertical, quantities such as conservative tracer concentrations, potential temperature, and momentum or wind speed.</rdfs:comment>
+  </owl:Class>
+
+<!-- Phenomena-->
+  <owl:Class rdf:about="#MixedLayerCappingInversion">
+    <rdfs:subClassOf rdf:resource="#CappingInversion" />
+    <rdfs:comment xml:lang="en">The statically stable layer of air at the top of the atmospheric boundary layer. Because the troposphere is statically stable on the average (i.e., potential temperature increases with height), and because turbulence in the boundary layer causes potential temperatures to become somewhat well mixed there, conservation of heat requires that there be a potential temperature increase (i.e., a temperature step or inversion) at the top of the boundary layer. It is this inversion that separates the boundary layer from the rest of the troposphere by limiting the domain of turbulence. It is also responsible for trapping pollutants near the ground during fair weather.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CappingInversion">
+    <rdfs:subClassOf rdf:resource="&astab;#InversionLayer" />
+    <rdfs:comment xml:lang="en">A statically stable layer at the top of the atmospheric boundary layer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GroundInversion">
+    <rdfs:subClassOf rdf:resource="&astab;#InversionLayer" />
+    <rdfs:comment xml:lang="en">An air layer with its base at the ground surface and in which temperature increases with height. These often form at night over land under clear skies and are statically stable. See inversion, lapse rate.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Microfront">
+    <rdfs:subClassOf rdf:resource="&front;#Front" />
+    <rdfs:comment xml:lang="en">A sharp horizontal temperature contrast of a few degrees Celsius within a width of tens of centimeters to a few meters along the trailing edge of a thermal plume in the surface layer of the atmospheric boundary layer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MoisturePooling">
+    <rdfs:subClassOf rdf:resource="&atmo;#MeteorologicalPhenomena" />
+    <rdfs:comment xml:lang="en">The development of an area in the boundary layer (e.g., often observed on surface or 850-mb charts) where moisture values become higher than in the surrounding region. Moisture pooling typically occurs in an area of low-level convergence during the warm (growing) season, and can have a significant effect on convection initiation and evolution.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MixedLayerEvolution">
+    <rdfs:subClassOf rdf:resource="&sysd;#Evolution" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&atmo;#hasMeteorologicalPhenomena" />
+        <owl:allValuesFrom rdf:resource="#MixedLayer" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The three-part change of the atmospheric boundary layer that typically occurs during fair weather over land on sunny days. In the early morning, the mixed layer is shallow, slowly deepening, cool (in a potential temperature sense), and is capped by the remains of the stable boundary layer from the previous night. In mid- to late morning, the top of the mixed layer exhibits rapid rise as heating eliminates the nocturnal inversion, and the mixed layer grows through the residual layer. The third stage in late morning and afternoon is that of a deep (order of 1?2 km) convective boundary layer of relatively constant depth.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Thermal">
+    <rdfs:subClassOf rdf:resource="&trans;#Convection" />
+  </owl:Class>
+
+<!-- Properties-->
+  <owl:Class rdf:about="#VonKarmansConstant">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalConstant"/>
+    <owl:equivalentClass rdf:resource="#VonKarmanConstant" />
+  </owl:Class>
+  <owl:Class rdf:about="#VonKarmanConstant"/>
+
+  <owl:Class rdf:about="#MixingHeight">
+    <rdfs:subClassOf rdf:resource="#MixingLengthScale" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MixingLengthScale">
+    <rdfs:subClassOf rdf:resource="&scale;#SpatialScale" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MaximumWindSpeedLevel">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+  </owl:Class>
+
+</rdf:RDF>

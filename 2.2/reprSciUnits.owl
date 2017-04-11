@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.2/reprSciUnits.owl#">
+  <!ENTITY repr "http://sweet.jpl.nasa.gov/2.2/repr.owl">
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.2/reprMathOperation.owl">
+  <!ENTITY oper2 "http://sweet.jpl.nasa.gov/2.2/reprMathOperation.owl#">
+  <!ENTITY func "http://sweet.jpl.nasa.gov/2.2/reprMathFunction.owl">
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.2/reprMath.owl">
+  <!ENTITY math2 "http://sweet.jpl.nasa.gov/2.2/reprMath.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&units;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:oper="&oper;"
+         xmlns:oper2="&oper2;"
+         xmlns:func="&func;"
+         xmlns:math="&math;"
+         xmlns:math2="&math2;"
+         xmlns:repr="&repr;"
+         xmlns:units="&units;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&repr;"/>
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&func;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#UnitDerivedByShifting">
+    <rdfs:subClassOf rdf:resource="#ComplexUnit"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#UnitDerivedByScaling">
+    <rdfs:subClassOf rdf:resource="#ComplexUnit"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#UnitDefinedByProduct">
+    <rdfs:subClassOf rdf:resource="#ComplexUnit"/>
+    <rdfs:subClassOf rdf:resource="&oper;#Product"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#UnitDerivedByRaisingToPower">
+    <rdfs:subClassOf rdf:resource="#ComplexUnit"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#BaseUnit">
+    <rdfs:subClassOf rdf:resource="#Unit"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#ComplexUnit">
+    <rdfs:subClassOf rdf:resource="#Unit"/>
+    <owl:disjointWith rdf:resource="#BaseUnit"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#Unit">
+    <rdfs:subClassOf rdf:resource="&repr;#Measurement"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#Prefix">
+    <rdfs:subClassOf rdf:resource="&repr;#Measurement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LogarithmicUnit">
+    <rdfs:subClassOf rdf:resource="#Unit"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&repr;#hasScale" />
+        <owl:allValuesFrom rdf:resource="&repr;#LogarithmicScale" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  
+<!-- Object Properties -->
+  <owl:ObjectProperty rdf:ID="hasBaseUnit">
+    <rdfs:domain rdf:resource="#Unit"/>
+    <rdfs:range rdf:resource="#Unit"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="hasPrefix">
+    <rdfs:domain rdf:resource="#Unit"/>
+    <rdfs:range rdf:resource="#Prefix"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:ID="hasUnit">
+    <rdfs:range rdf:resource="#Unit"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasDefaultUnit">
+    <rdfs:range rdf:resource="#Unit"/>
+  </owl:ObjectProperty>
+
+<!-- Datatype Properties -->
+  <owl:DatatypeProperty rdf:ID="hasScalingNumber">
+    <rdfs:range rdf:resource="&xsd;double"/>
+    <rdfs:domain rdf:resource="#UnitDerivedByScaling"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:ID="hasSymbol">
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:ID="hasShiftingNumber">
+    <rdfs:domain rdf:resource="#UnitDerivedByShifting"/>
+    <rdfs:range rdf:resource="&xsd;double"/>
+  </owl:DatatypeProperty>
+
+<!-- Modifiers -->
+  <units:Prefix rdf:ID="kilo">
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e3</math2:hasNumericValue>
+    <units:hasSymbol rdf:datatype="&xsd;string">k</units:hasSymbol>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="giga">
+    <units:hasSymbol rdf:datatype="&xsd;string">G</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e9</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="tera">
+    <units:hasSymbol rdf:datatype="&xsd;string">T</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e12</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="peta">
+    <units:hasSymbol rdf:datatype="&xsd;string">P</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e15</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="exa">
+    <units:hasSymbol rdf:datatype="&xsd;string">E</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e18</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="micro">
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1E-6</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="milli">
+    <units:hasSymbol rdf:datatype="&xsd;string">m</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1E-3</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="centi">
+    <units:hasSymbol rdf:datatype="&xsd;string">c</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1E-2</math2:hasNumericValue>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="hecto">
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e2</math2:hasNumericValue>
+    <units:hasSymbol rdf:datatype="&xsd;string">h</units:hasSymbol>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="nano">
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1E-9</math2:hasNumericValue>
+    <units:hasSymbol rdf:datatype="&xsd;string">n</units:hasSymbol>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="deca">
+    <math2:hasNumericValue rdf:datatype="&xsd;double">10</math2:hasNumericValue>
+    <units:hasSymbol rdf:datatype="&xsd;string">da</units:hasSymbol>
+  </units:Prefix>
+
+  <units:Prefix rdf:ID="mega">
+    <units:hasSymbol rdf:datatype="&xsd;string">M</units:hasSymbol>
+    <math2:hasNumericValue rdf:datatype="&xsd;double">1e6</math2:hasNumericValue>
+  </units:Prefix>
+
+<!-- Base units -->
+  <units:BaseUnit rdf:ID="meter">
+    <units:hasSymbol rdf:datatype="&xsd;string">m</units:hasSymbol>
+    <owl:sameAs rdf:resource="#metre"/>
+  </units:BaseUnit>
+  <units:BaseUnit rdf:ID="metre"/>
+
+  <units:BaseUnit rdf:ID="kilogram">
+    <units:hasSymbol rdf:datatype="&xsd;string">kg</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="ampere">
+    <units:hasSymbol rdf:datatype="&xsd;string">a</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="steridian">
+    <units:hasSymbol rdf:datatype="&xsd;string">sr</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="second">
+    <units:hasSymbol rdf:datatype="&xsd;string">s</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="radian">
+    <units:hasSymbol rdf:datatype="&xsd;string">rad</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="candela">
+    <units:hasSymbol rdf:datatype="&xsd;string">cd</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="kelvin">
+    <units:hasSymbol rdf:datatype="&xsd;string">K</units:hasSymbol>
+  </units:BaseUnit>
+
+  <units:BaseUnit rdf:ID="dimensionlessUnit"/>
+
+  <units:BaseUnit rdf:ID="normalizedUnit"/>
+
+  <units:BaseUnit rdf:ID="ratio"/>
+
+  <units:BaseUnit rdf:ID="volumeRatio"/>
+
+  <units:BaseUnit rdf:ID="mole">
+    <units:hasSymbol rdf:datatype="&xsd;string">mol</units:hasSymbol>
+  </units:BaseUnit>
+
+<!-- Derived by Raising to Power -->
+  <units:UnitDerivedByRaisingToPower rdf:ID="perMeterSquared">
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-2</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+  
+  <units:UnitDerivedByRaisingToPower rdf:ID="perMeterCubed">
+    <oper2:toThePower rdf:datatype="&xsd;double">-3</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#meter"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perMeter">
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="meterSquared">
+    <oper2:toThePower rdf:datatype="&xsd;double">2</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#meter"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="meterCubed">
+    <oper2:toThePower rdf:datatype="&xsd;double">3</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#meter"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perKilogram">
+    <units:hasBaseUnit rdf:resource="#kilogram"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perAmpere">
+    <units:hasBaseUnit rdf:resource="#ampere"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="siemens">
+    <units:hasSymbol rdf:datatype="&xsd;string">G</units:hasSymbol>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#ohm"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perTesla">
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#tesla"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="ampereSquared">
+    <oper2:toThePower rdf:datatype="&xsd;double">2</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#ampere"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perAmpereSquared">
+    <units:hasBaseUnit rdf:resource="#ampere"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-2</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perVolt">
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#volt"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perSecond">
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#second"/>
+    <owl:sameAs rdf:resource="#hertz"/>
+    <units:hasSymbol rdf:datatype="&xsd;string">Hz</units:hasSymbol>
+  </units:UnitDerivedByRaisingToPower>
+  <units:UnitDerivedByRaisingToPower rdf:ID="hertz"/>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perSecondSquared">
+    <oper2:toThePower rdf:datatype="&xsd;double">-2</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#second"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perSecondCubed">
+    <oper2:toThePower rdf:datatype="&xsd;double">-3</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#second"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="secondSquared">
+    <oper2:toThePower rdf:datatype="&xsd;double">2</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#second"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perCandela">
+    <units:hasBaseUnit rdf:resource="#candela"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perSteradian">
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#steridian"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perKelvin">
+    <units:hasBaseUnit rdf:resource="#kelvin"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perRadian">
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+    <units:hasBaseUnit rdf:resource="#radian"/>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perPascal">
+    <units:hasBaseUnit rdf:resource="#pascal"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+  <units:UnitDerivedByRaisingToPower rdf:ID="perMole">
+    <units:hasBaseUnit rdf:resource="#mole"/>
+    <oper2:toThePower rdf:datatype="&xsd;double">-1</oper2:toThePower>
+  </units:UnitDerivedByRaisingToPower>
+
+<!-- Defined by Scaling -->
+  <units:UnitDerivedByScaling rdf:ID="millimeter">
+    <units:hasPrefix rdf:resource="#milli"/>
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1.E-3</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="micrometer">
+    <units:hasPrefix rdf:resource="#micro"/>
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1.E-6</units:hasScalingNumber>
+    <owl:sameAs rdf:resource="#micron" />
+  </units:UnitDerivedByScaling>
+  <units:UnitDerivedByScaling rdf:ID="micron"/>
+
+  <units:UnitDerivedByScaling rdf:ID="nanometer">
+    <units:hasPrefix rdf:resource="#nano"/>
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1.E-9</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="kilometer">
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <units:hasPrefix rdf:resource="#kilo"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1000.</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="centimeter">
+    <units:hasBaseUnit rdf:resource="#meter"/>
+    <units:hasPrefix rdf:resource="#centi"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1.E-2</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="permil">
+    <units:hasScalingNumber rdf:datatype="&xsd;double" >0.001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#ratio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="kilohertz">
+    <units:hasBaseUnit rdf:resource="#hertz"/>
+    <units:hasPrefix rdf:resource="#kilo"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double" >1000.</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="megahertz">
+    <units:hasBaseUnit rdf:resource="#hertz"/>
+    <units:hasPrefix rdf:resource="#mega"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double" >1.E6</units:hasScalingNumber>
+    <owl:sameAs rdf:resource="#MHz" />
+  </units:UnitDerivedByScaling>
+  <units:UnitDerivedByScaling rdf:ID="MHz"/>
+
+  <units:UnitDerivedByScaling rdf:ID="gigahertz">
+    <units:hasBaseUnit rdf:resource="#hertz"/>
+    <units:hasPrefix rdf:resource="#giga"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double" >1.E9</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="terahertz">
+    <units:hasBaseUnit rdf:resource="#hertz"/>
+    <units:hasPrefix rdf:resource="#tera"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double" >1.E12</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="degrees">
+    <units:hasBaseUnit rdf:resource="#radian"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >57.2957795</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="kilometerPerHour">
+    <units:hasBaseUnit rdf:resource="#meterPerSecond"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >0.27777777</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="percent">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.01</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#ratio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="perMil">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#ratio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="ppb">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.000000001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#ratio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="ppt">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.000000000001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#ratio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="ppm">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.000001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#ratio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="minute">
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">60</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="hour">
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">3600</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="day">
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">86400</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="week">
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >604800</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="month">
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >2629744</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="season">
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >7889232</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="year">
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >31556926</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="decade">
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >315569260</units:hasScalingNumber>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="century">
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >3.1556926E09</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="&units;second"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="millenium">
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >1000</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#year"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="arcsecond">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">4.848E-6</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#radian"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="arcminute">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">2.909E-4</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#radian"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="ppbv">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.000000001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#volumeRatio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="pptv">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.000000000001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#volumeRatio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="ppmv">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">0.000001</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#volumeRatio"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="MYA">
+    <units:hasScalingNumber rdf:datatype="&xsd;double"
+    >1000</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#year"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="million_km2">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1e-12</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#meterSquared"/>
+  </units:UnitDerivedByScaling>
+
+  <units:UnitDerivedByScaling rdf:ID="million_km3">
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1e-15</units:hasScalingNumber>
+    <units:hasBaseUnit rdf:resource="#meterCubed"/>
+  </units:UnitDerivedByScaling>
+
+<!-- Defined by Shifting -->
+  <units:UnitDerivedByShifting rdf:ID="degreeF">
+    <units:hasBaseUnit rdf:resource="#degreeC"/>
+    <units:hasShiftingNumber rdf:datatype="&xsd;double">32</units:hasShiftingNumber>
+    <units:hasScalingNumber rdf:datatype="&xsd;double">1.8</units:hasScalingNumber>
+  </units:UnitDerivedByShifting>
+
+  <units:UnitDerivedByShifting rdf:ID="degreeC">
+    <units:hasSymbol rdf:datatype="&xsd;string">C</units:hasSymbol>
+    <units:hasBaseUnit rdf:resource="#kelvin"/>
+    <units:hasShiftingNumber rdf:datatype="&xsd;double">-273</units:hasShiftingNumber>
+  </units:UnitDerivedByShifting>
+
+<!-- Products -->
+  <units:UnitDefinedByProduct rdf:ID="kilogramPerMeterSquared">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="kilogramPerMeterCubed">
+    <math2:hasOperand rdf:resource="#perMeterCubed"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="farad">
+    <math2:hasOperand rdf:resource="#perVolt"/>
+    <math2:hasOperand rdf:resource="#coulomb"/>
+    <units:hasSymbol rdf:datatype="&xsd;string" >F</units:hasSymbol>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="coulomb">
+    <units:hasSymbol rdf:datatype="&xsd;string">C</units:hasSymbol>
+    <math2:hasOperand rdf:resource="#second"/>
+    <math2:hasOperand rdf:resource="#ampere"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="coulombMeter">
+    <math2:hasOperand rdf:resource="#coulomb"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="coulombPerMeterSquared">
+    <math2:hasOperand rdf:resource="#coulomb"/>
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="coulombPerMeterCubed">
+    <math2:hasOperand rdf:resource="#coulomb"/>
+    <math2:hasOperand rdf:resource="#perMeterCubed"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="voltPerMeter">
+    <math2:hasOperand rdf:resource="#volt"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="tesla">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#weber"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerTesla">
+    <math2:hasOperand rdf:resource="#joule"/>
+    <math2:hasOperand rdf:resource="#perTesla"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="siemensPerMeter">
+    <math2:hasOperand rdf:resource="#siemens"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="siemensPerKilogram">
+    <math2:hasOperand rdf:resource="#siemens"/>
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="henry">
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+    <math2:hasOperand rdf:resource="#perAmpereSquared"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="henryPerMeter">
+    <math2:hasOperand rdf:resource="#henry"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="faradPerMeter">
+    <math2:hasOperand rdf:resource="#farad"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="ohm">
+    <math2:hasOperand rdf:resource="#perSecondCubed"/>
+    <math2:hasOperand rdf:resource="#perAmpereSquared"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="ohmMeter">
+    <math2:hasOperand rdf:resource="#ohm"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="amperePerMeter">
+    <math2:hasOperand rdf:resource="#perMeter"/>
+    <math2:hasOperand rdf:resource="#ampere"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="amperePerMeterSquared">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#ampere"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="lumen">
+    <math2:hasOperand rdf:resource="#steridian"/>
+    <math2:hasOperand rdf:resource="#candela"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="volt">
+    <math2:hasOperand rdf:resource="#perSecondCubed"/>
+    <math2:hasOperand rdf:resource="#perAmpere"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+    <units:hasSymbol rdf:datatype="&xsd;string">V</units:hasSymbol>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="weber">
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+    <math2:hasOperand rdf:resource="#perAmpere"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="lux">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#candela"/>
+    <units:hasSymbol rdf:datatype="&xsd;string">Lx</units:hasSymbol>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="radianPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#radian"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="kilogramRadianPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#radian"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="radianPerSecondSquared">
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+    <math2:hasOperand rdf:resource="#radian"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="wattPerMeterSquaredPerSteradian">
+    <math2:hasOperand rdf:resource="#perSteradian"/>
+    <math2:hasOperand rdf:resource="#wattPerMeterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="wattPerMeterSquaredPerKelvin">
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+    <math2:hasOperand rdf:resource="#wattPerMeterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="candelaPerMeterSquared">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#candela"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterPerKelvin">
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="lux">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#lumen"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="kelvinPerMeter">
+    <math2:hasOperand rdf:resource="#kelvin"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="wattPerMeterPerKelvin">
+    <math2:hasOperand rdf:resource="#watt"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterCubedPerKelvin">
+    <math2:hasOperand rdf:resource="#meterCubed"/>
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterCubedPerKilogram">
+    <math2:hasOperand rdf:resource="#meterCubed"/>
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="newtonMeter">
+    <math2:hasOperand rdf:resource="#meter"/>
+    <math2:hasOperand rdf:resource="#newton"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="perKilogramMeterSquaredPerSecondKelvin">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+    <math2:hasOperand rdf:resource="#kelvin"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerKelvin">
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerKilogramPerKelvin">
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerMeterCubedPerKelvin">
+    <math2:hasOperand rdf:resource="#perMeterCubed"/>
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="jouleSecond">
+    <math2:hasOperand rdf:resource="#second"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterPerSecondSquared">
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="watt">
+    <math2:hasOperand rdf:resource="#joule"/>
+    <math2:hasOperand rdf:resource="#perSecond"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joule">
+    <units:hasSymbol rdf:datatype="&xsd;string">J</units:hasSymbol>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="wattPerMeterSquared">
+    <math2:hasOperand rdf:resource="#watt"/>
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="kilogramMeterPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="newton">
+    <units:hasSymbol rdf:datatype="&xsd;string">N</units:hasSymbol>
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+    <math2:hasOperand rdf:resource="#meter"/>
+    <math2:hasOperand rdf:resource="#kilogram"/>
+  </units:UnitDefinedByProduct>
+  
+  <units:UnitDefinedByProduct rdf:ID="pascal">
+    <units:hasSymbol rdf:datatype="&xsd;string">Pa</units:hasSymbol>
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#newton"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="pascalPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#pascal"/>
+    <units:hasSymbol rdf:datatype="&xsd;string">pa/s</units:hasSymbol>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="newtonPerMeter">
+    <math2:hasOperand rdf:resource="#newton"/>
+    <math2:hasOperand rdf:resource="#perMeter"/>
+  </units:UnitDefinedByProduct>
+  
+  <units:UnitDefinedByProduct rdf:ID="meterSquaredPerSecondSquared">
+    <math2:hasOperand rdf:resource="#perSecondSquared"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterSquaredPerKilogram">
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerKilogram">
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct> 
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerMeterSquared">
+    <math2:hasOperand rdf:resource="#perMeterSquared"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct> 
+
+  <units:UnitDefinedByProduct rdf:ID="pascalSecond">
+    <math2:hasOperand rdf:resource="#second"/>
+    <math2:hasOperand rdf:resource="#pascal"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterSquaredPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#meterSquared"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="meterCubedPerSecond">
+    <math2:hasOperand rdf:resource="#perSecond"/>
+    <math2:hasOperand rdf:resource="#meterCubed"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="perKilogramMole">
+    <math2:hasOperand rdf:resource="#perKilogram"/>
+    <math2:hasOperand rdf:resource="#mole"/>
+  </units:UnitDefinedByProduct>
+
+  <units:UnitDefinedByProduct rdf:ID="joulePerMolePerKelvin">
+    <math2:hasOperand rdf:resource="#perKelvin"/>
+    <math2:hasOperand rdf:resource="#perMole"/>
+    <math2:hasOperand rdf:resource="#joule"/>
+  </units:UnitDefinedByProduct>
+
+<!-- Other units -->
+  <units:Unit rdf:ID="FTU">
+    <owl:sameAs rdf:resource="#FormazinTurbidityUnit" />
+    <owl:sameAs rdf:resource="#FNU" />
+  </units:Unit>
+  <units:Unit rdf:ID="FormazinTurbidityUnit"/>
+  <units:Unit rdf:ID="FNU"/>
+
+  <units:LogarithmicUnit rdf:ID="db">
+  </units:LogarithmicUnit>
+
+</rdf:RDF>

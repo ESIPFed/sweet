@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY proc "http://sweet.jpl.nasa.gov/2.0/chemProcess.owl">
+  <!ENTITY acid "http://sweet.jpl.nasa.gov/2.0/chemAcidity.owl">
+  <!ENTITY conc "http://sweet.jpl.nasa.gov/2.0/chemConcentration.owl">
+  <!ENTITY ion "http://sweet.jpl.nasa.gov/2.0/chemCharge.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&acid;"
+         xmlns:acid="&acid;"
+         xmlns:chem="&chem;"
+         xmlns:state="&state;"
+         xmlns:proc="&proc;"
+         xmlns:conc="&conc;"
+         xmlns:ion="&ion;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&proc;"/>
+     <owl:imports rdf:resource="&conc;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&ion;"/>
+  </owl:Ontology>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#Acidity">
+    <rdfs:subClassOf rdf:resource="&chem;#ChemicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Alkalinity">
+    <rdfs:subClassOf rdf:resource="&chem;#ChemicalProperty"/>
+    <owl:equivalentClass rdf:resource="#Basicity"/>
+    <owl:equivalentClass rdf:resource="#Basic"/>
+    <owl:equivalentClass rdf:resource="#Alkalic"/>
+    <owl:equivalentClass rdf:resource="#Alkaline"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Basicity"/>
+  <owl:Class rdf:about="#Basic"/>
+  <owl:Class rdf:about="#Alkalic"/>
+  <owl:Class rdf:about="#Alkaline"/>
+
+  <owl:Class rdf:about="#CarbonateAlkalinity">
+    <rdfs:subClassOf rdf:resource="#Alkalinity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HplusConcentration">
+    <rdfs:subClassOf rdf:resource="&conc;#MolarConcentration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+        <owl:allValuesFrom rdf:resource="&ion;#Hplus" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#pH">
+    <rdfs:subClassOf rdf:resource="&chem;#ChemicalProperty"/>
+    <rdfs:comment xml:lang="en">pH is a measure of the acidity or basicity of a solution. It is defined as the cologarithm of the activity of dissolved hydrogen ions (H+). Hydrogen ion activity coefficients cannot be measured experimentally, so they are based on theoretical calculations. The pH scale is not an absolute scale; it is relative to a set of standard solutions whose pH is established by international agreement. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TotalAlkalinity">
+    <rdfs:subClassOf rdf:resource="#Alkalinity"/>
+  </owl:Class>
+
+<!-- Processes -->
+  <owl:Class rdf:about="#Acidify">
+    <rdfs:subClassOf rdf:resource="&proc;#ChemicalProcess"/>
+    <owl:equivalentClass rdf:resource="#Acidification"/>
+    <rdfs:comment xml:lang="en">Any process that decreases the pH value of a subtance.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Acidification"/>
+
+  <owl:Class rdf:about="#Neutralize">
+    <rdfs:subClassOf rdf:resource="&proc;#ChemicalProcess"/>
+    <owl:equivalentClass rdf:resource="#Neutralization"/>
+    <rdfs:comment xml:lang="en">In chemistry, neutralization is a chemical reaction (also called a water forming reaction since a water molecule is formed during the process) in which an acid and a base or alkali (soluble base) react to produce salt and water (H2O). During the process, hydrogen ions H+ (a bare proton) from the acid (proton donor) or a hydronium ion H3O+ and hydroxide ions OH_ or oxide ions O2_ from the base (proton acceptor) react together to form a water molecule H2O. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Neutralization"/>
+
+<!-- States -->
+  <owl:Class rdf:about="#Acid">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <rdfs:comment xml:lang="en">An acid as a compound which donates a hydrogen ion (H+) to another compound (called a base). [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Base">
+    <rdfs:subClassOf rdf:resource="&state;#ChemicalState"/>
+    <owl:disjointWith rdf:resource="#Acid"/>
+     <rdfs:comment xml:lang="en">A base is most commonly thought of as an aqueous substance that can accept hydrogen ions. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

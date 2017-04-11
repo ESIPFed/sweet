@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl"> 
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.0/mathOperation.owl"> 
+  <!ENTITY func "http://sweet.jpl.nasa.gov/2.0/mathFunction.owl"> 
+  <!ENTITY calc "http://sweet.jpl.nasa.gov/2.0/mathCalculus.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&calc;"
+         xmlns:math="&math;"
+         xmlns:calc="&calc;"
+         xmlns:oper="&oper;"
+         xmlns:func="&func;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&func;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#Derivative">
+    <rdfs:subClassOf rdf:resource="&func;#OperationOnFunction"/>
+    <owl:equivalentClass rdf:resource="#Differentiation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&math;#Variable"/>
+        <owl:onProperty rdf:resource="#derivativeWithRespectTo"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Function"/>
+        <owl:onProperty rdf:resource="#isDerivativeOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Function"/>
+        <owl:onProperty rdf:resource="&oper;#hasOutput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Differentiation"/>
+
+  <owl:Class rdf:about="#PartialDerivative">
+    <rdfs:subClassOf rdf:resource="#Derivative"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Integral">
+    <rdfs:subClassOf rdf:resource="&func;#OperationOnFunction"/>
+    <owl:equivalentClass rdf:resource="#Integration"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&func;#Function"/>
+        <owl:onProperty rdf:resource="&oper;#hasInput"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&math;#Variable"/>
+        <owl:onProperty rdf:resource="#integralWithRespectTo"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Integration"/>
+
+  <owl:Class rdf:about="#DefiniteIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&math;#hasInterval"/>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LineIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SurfaceIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#VolumeIntegral">
+    <rdfs:subClassOf rdf:resource="#Integral"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#derivativeWithRespectTo">
+    <rdfs:domain rdf:resource="#Derivative"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#isDerivativeOf">
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#integralWithRespectTo">
+    <rdfs:domain rdf:resource="#Integral"/>
+    <rdfs:range rdf:resource="&math;#Variable"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

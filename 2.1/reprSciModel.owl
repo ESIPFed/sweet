@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.1/humanResearch.owl">
+  <!ENTITY repr "http://sweet.jpl.nasa.gov/2.1/repr.owl">
+  <!ENTITY atmo "http://sweet.jpl.nasa.gov/2.1/phenAtmo.owl">
+  <!ENTITY mod "http://sweet.jpl.nasa.gov/2.1/reprSciModel.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&mod;"
+         xmlns:res="&res;"
+         xmlns:repr="&repr;"
+         xmlns:atmo="&atmo;"
+         xmlns:mod="&mod;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&res;"/>
+     <owl:imports rdf:resource="&repr;"/>
+     <owl:imports rdf:resource="&atmo;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#BoussinesqApproximation">
+    <rdfs:subClassOf rdf:resource="#PhysicalApproximation" />
+    <rdfs:comment xml:lang="en">An approximation to the dynamical equations of motion whereby density is assumed to be constant except in the buoyancy term of the vertical velocity equation.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FluxCorrection">
+    <rdfs:subClassOf rdf:resource="#PhysicalApproximation" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#RigidLidApproximation">
+    <rdfs:subClassOf rdf:resource="#PhysicalApproximation" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#EnsembleForecast">
+    <rdfs:subClassOf rdf:resource="#Forecast" />
+    <rdfs:comment xml:lang="en">A set of different forecasts all valid at the same forecast time(s).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Forecast">
+    <rdfs:subClassOf rdf:resource="#Prediction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hypothesis">
+    <rdfs:subClassOf rdf:resource="&res;#ExperimentActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MixingScheme">
+    <rdfs:subClassOf rdf:resource="#Parameterization"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Model">
+    <rdfs:subClassOf rdf:resource="&repr;#Representation"/>
+    <owl:equivalentClass rdf:resource="#ScientificModel"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ScientificModel"/>
+
+  <owl:Class rdf:about="#FiniteElement">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpectralElement">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Spectral">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Parameterization">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Parcel">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+    <rdfs:comment xml:lang="en">An imaginary volume of fluid to which may be assigned various thermodynamic and kinematic quantities.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhysicalApproximation">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Predict">
+    <rdfs:subClassOf rdf:resource="&res;#ExperimentActivity"/>
+    <owl:equivalentClass rdf:resource="#Prediction"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Prediction"/>
+
+  <owl:Class rdf:about="#Theory">
+    <rdfs:subClassOf rdf:resource="&res;#ExperimentActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ReactionPathModel">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+    <rdfs:comment xml:lang="en">A simulation approach to studying the chemical evolution of a (natural) system.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ClimateModel">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GeneralCirculationModel">
+    <rdfs:subClassOf rdf:resource="#Model"/>
+    <owl:equivalentClass rdf:resource="#GCM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GCM"/>
+
+  <owl:Class rdf:about="#WeatherForecast">
+    <rdfs:subClassOf rdf:resource="#Forecast"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&atmo;#hasMeteorologicalPhenomena"/>
+        <owl:allValuesFrom rdf:resource="&atmo;#Weather"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ExtendedForecast">
+    <rdfs:subClassOf rdf:resource="#WeatherForecast" />
+    <rdfs:comment xml:lang="en">A forecast of weather conditions for a period extending beyond three or more days from the day of issuance.</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

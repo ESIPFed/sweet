@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl">
+  <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF 
+   xml:base = "&math;"
+   xmlns:math = "&math;"
+   xmlns:top = "&top;"
+   xmlns:res = "&res;"
+   xmlns:owl = "&owl;"
+   xmlns:rdf = "&rdf;"
+   xmlns:rdfs = "&rdfs;"
+   xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&top;"/>
+     <owl:imports rdf:resource="&res;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#Constant">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Continuous">
+    <rdfs:subClassOf rdf:resource="#MathematicalProperty"/>
+    <owl:equivalentClass rdf:resource="#Continuity"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Continuity"/>
+
+  <owl:Class rdf:about="#Count">
+    <rdfs:subClassOf rdf:resource="#Discrete"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Discrete">
+    <rdfs:subClassOf rdf:resource="#MathematicalProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Discontinuous">
+    <rdfs:subClassOf rdf:resource="#MathematicalProperty"/>
+    <owl:equivalentClass rdf:resource="#Discontinuity"/>
+    <owl:disjointWith rdf:resource="#Continuous" />
+    <rdfs:comment xml:lang="en">A point in the range of a function at which it is undefined or not continuous [Wiktionary]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Discontinuity"/>
+
+  <owl:Class rdf:about="#Interval">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+    <owl:disjointWith rdf:resource="#Point" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">1</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasDimension"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MathematicalProcess">
+    <rdfs:subClassOf rdf:resource="&top;#Process"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MathematicalProperty">
+    <rdfs:subClassOf rdf:resource="&top;#Property"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Neighborhood">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NumericalEntity">
+    <rdfs:subClassOf rdf:resource="&res;#Measurement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Point">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;integer">0</owl:hasValue>
+        <owl:onProperty rdf:resource="#hasDimension"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ReferenceSystem">
+    <rdfs:subClassOf rdf:resource="&res;#Measurement"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Scalar">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Set">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+        <owl:onProperty rdf:resource="#eachElementUnique"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MathematicalTheorem">
+    <rdfs:subClassOf rdf:resource="&top;#Knowledge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Variable">
+    <rdfs:subClassOf rdf:resource="#NumericalEntity"/>
+  </owl:Class>
+
+<!-- Datatype Properties -->
+  <owl:DatatypeProperty rdf:about="#eachElementUnique">
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasDimension">
+    <rdfs:range rdf:resource="&xsd;integer"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasLowerBound">
+    <owl:equivalentProperty rdf:resource="#lowerBound"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#lowerBound"/>
+
+  <owl:DatatypeProperty rdf:about="#hasUpperBound">
+    <owl:equivalentProperty rdf:resource="#upperBound"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="#upperBound"/>
+
+  <owl:DatatypeProperty rdf:ID="hasNumericValue">
+    <rdfs:range rdf:resource="&xsd;double"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasLowerLimit">
+    <rdfs:domain rdf:resource="#Interval"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#hasUpperLimit">
+    <rdfs:domain rdf:resource="#Interval"/>
+  </owl:DatatypeProperty>
+
+<!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="#hasInterval">
+    <rdfs:range rdf:resource="#Interval"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasCenter">
+    <rdfs:range rdf:resource="#Point"/>
+  </owl:ObjectProperty>
+
+</rdf:RDF>

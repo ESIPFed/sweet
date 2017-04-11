@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl">
+  <!ENTITY static "http://sweet.jpl.nasa.gov/2.0/physFluid.owl">
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY ener "http://sweet.jpl.nasa.gov/2.0/physEnergy.owl">
+  <!ENTITY cont "http://sweet.jpl.nasa.gov/2.0/physContinuumMechanics.owl">
+  <!ENTITY pres "http://sweet.jpl.nasa.gov/2.0/physPressure.owl">
+  <!ENTITY dynam "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.0/physTransport.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">
+  <!ENTITY sstate "http://sweet.jpl.nasa.gov/2.0/sciSystemState.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&static;"
+         xmlns:owl="&owl;"
+         xmlns:phys="&phys;"
+         xmlns:ener="&ener;"
+         xmlns:cont="&cont;"
+         xmlns:pres="&pres;"
+         xmlns:dynam="&dynam;"
+         xmlns:state="&state;"
+         xmlns:xten="&xten;"
+         xmlns:trans="&trans;"
+         xmlns:static="&static;"
+         xmlns:sstate="&sstate;"
+         xmlns:res="&res;"
+         xmlns:units="&units;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&ener;"/>
+     <owl:imports rdf:resource="&cont;"/>
+     <owl:imports rdf:resource="&pres;"/>
+     <owl:imports rdf:resource="&res;"/>
+     <owl:imports rdf:resource="&dynam;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&trans;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&sstate;"/>
+     <owl:imports rdf:resource="&xten;"/>
+  </owl:Ontology>
+
+<!-- Forms of Energy -->
+  <owl:Class rdf:about="#AvailablePotentialEnergy">
+    <rdfs:subClassOf rdf:resource="&ener;#PotentialEnergy" />
+    <rdfs:comment xml:lang="en">That portion of the total potential energy that may be converted to kinetic energy in an adiabatically enclosed system.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConvectiveAvailablePotentialEnergy">
+    <rdfs:subClassOf rdf:resource="#AvailablePotentialEnergy" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProcess" />
+        <owl:allValuesFrom rdf:resource="&trans;#Convection" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter" />
+        <owl:allValuesFrom rdf:resource="&state;#Fluid" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The maximum energy available to an ascending parcel, according to parcel theory.
+    </rdfs:comment>
+  </owl:Class>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#FluidProperty">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#GasProperty"/>
+      <rdf:Description rdf:about="#LiquidProperty"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GasProperty">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Gas"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LiquidProperty">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Liquid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ScaleHeight">
+    <rdfs:subClassOf rdf:resource="#FluidProperty"/>
+    <rdfs:subClassOf rdf:resource="&xten;#Height" />
+    <rdfs:comment xml:lang="en">The height within which some parameter, such as pressure or density, decreases by a factor 1/e.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Viscosity">
+    <rdfs:subClassOf rdf:resource="#FluidProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#ViscousForce"/>
+        <owl:onProperty rdf:resource="&res;#measureOf"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meterSquared_perSecond"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DynamicViscosity">
+    <rdfs:subClassOf rdf:resource="#Viscosity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#KinematicViscosity">
+    <rdfs:subClassOf rdf:resource="#Viscosity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EquilibriumVaporPressure">
+    <rdfs:subClassOf rdf:resource="#VaporPressure" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&sstate;#Equilibrium" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The pressure of a vapor in equilibrium with its condensed phase (liquid or solid).
+    </rdfs:comment>
+  </owl:Class>
+
+ <owl:Class rdf:about="#SaturationVaporPressure">
+    <rdfs:subClassOf rdf:resource="#VaporPressure" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:someValuesFrom rdf:resource="&sstate;#Saturation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The vapor pressure of a system, at a given temperature, for which the vapor of a substance is in equilibrium with a plane surface of that substance's pure liquid or solid phase; that is, the vapor pressure of a system that has attained saturation but not supersaturation.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VaporPressure">
+    <rdfs:subClassOf rdf:resource="&pres;#Pressure"/>
+    <rdfs:subClassOf rdf:resource="#GasProperty"/>
+    <rdfs:comment xml:lang="en">The pressure exerted by the molecules of a given vapor.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DifferentialPressure">
+    <rdfs:subClassOf rdf:resource="&pres;#Pressure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FluidHead">
+    <rdfs:subClassOf rdf:resource="#FluidProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FluidPressure">
+    <rdfs:subClassOf rdf:resource="&pres;#Pressure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Fluid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SurfaceTension">
+    <rdfs:subClassOf rdf:resource="#LiquidProperty"/>
+    <rdfs:subClassOf rdf:resource="&cont;#Tension"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HydraulicHead">
+    <rdfs:subClassOf rdf:resource="#FluidHead"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&state;#Liquid"/>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HydrostaticPressure">
+    <rdfs:subClassOf rdf:resource="#FluidPressure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StaticPressure">
+    <rdfs:subClassOf rdf:resource="&pres;#Pressure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StaticHead">
+    <rdfs:subClassOf rdf:resource="#FluidHead"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Suction">
+    <rdfs:subClassOf rdf:resource="&pres;#Pressure"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TotalHead">
+    <rdfs:subClassOf rdf:resource="#FluidHead"/>
+  </owl:Class>
+
+<!-- Processes -->
+  <owl:Class rdf:about="#ViscousForce">
+    <rdfs:subClassOf rdf:resource="&cont;#Friction"/>
+    <rdfs:comment xml:lang="en">The transport of mass motion momentum solely by the random motions of individual molecules not moving together in coherent groups.</rdfs:comment>
+  </owl:Class>
+
+<!-- Laws -->
+  <owl:Class rdf:about="#QuasiHydrostaticApproximation">
+    <rdfs:subClassOf rdf:resource="&res;#PhysicalApproximation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&dynam;#Velocity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter" />
+        <owl:allValuesFrom rdf:resource="&state;#Fluid" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The use of the hydrostatic equation as the vertical equation of motion, thus implying that the vertical accelerations are small without constraining them to be zero.</rdfs:comment>
+  </owl:Class>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#ConvectiveInstability">
+    <rdfs:subClassOf rdf:resource="&sstate;#Stability" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter" />
+        <owl:allValuesFrom rdf:resource="&state;#Fluid" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">An instability due to the buoyancy force of heavy fluid over light fluid overcoming the stabilizing influence of viscous forces.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StaticStability">
+    <rdfs:subClassOf rdf:resource="&sstate;#Stability" />
+    <rdfs:comment xml:lang="en">The ability of a fluid at rest to become turbulent or laminar due to the effects of buoyancy.</rdfs:comment>
+  </owl:Class> 
+
+  <owl:Class rdf:about="#CapillaryAction">
+    <rdfs:subClassOf rdf:resource="#LiquidProperty"/>
+  </owl:Class> 
+
+<!-- States -->
+  <owl:Class rdf:about="#FluidState">
+    <rdfs:subClassOf rdf:resource="&phys;#PhysicalState" />
+    <rdfs:subClassOf rdf:resource="#FluidProperty"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Baroclinic">
+    <rdfs:subClassOf rdf:resource="#FluidState" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Barotropic">
+    <rdfs:subClassOf rdf:resource="#FluidState" />
+    <owl:disjointWith rdf:resource="#Baroclinic" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Steric">
+    <rdfs:subClassOf rdf:resource="#FluidState" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Thermosteric">
+    <rdfs:subClassOf rdf:resource="#Steric"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Halosteric">
+    <rdfs:subClassOf rdf:resource="#Steric"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DissolvedGas">
+    <rdfs:subClassOf rdf:resource="&state;#Dissolved"/>
+    <rdfs:subClassOf rdf:resource="&state;#Gas"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SuspendedGas">
+    <rdfs:subClassOf rdf:resource="&state;#Gas"/>
+    <rdfs:subClassOf rdf:resource="&state;#SuspendedSubstance"/>
+  </owl:Class>
+
+</rdf:RDF>

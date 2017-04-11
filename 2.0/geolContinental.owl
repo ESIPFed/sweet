@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY crat "http://sweet.jpl.nasa.gov/2.0/geolContinental.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY basin "http://sweet.jpl.nasa.gov/2.0/geolBasin.owl">
+  <!ENTITY petr "http://sweet.jpl.nasa.gov/2.0/geolPetrology.owl">
+  <!ENTITY ign "http://sweet.jpl.nasa.gov/2.0/geolPetrologyIgneous.owl">
+  <!ENTITY tect "http://sweet.jpl.nasa.gov/2.0/geolTectonics.owl">
+  <!ENTITY geol "http://sweet.jpl.nasa.gov/2.0/geol.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY geom "http://sweet.jpl.nasa.gov/2.0/spaceObject.owl">
+  <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&crat;"
+         xmlns:crat="&crat;"
+         xmlns:petr="&petr;"
+         xmlns:ign="&ign;"
+         xmlns:planet="&planet;"
+         xmlns:basin="&basin;"
+         xmlns:geol="&geol;"
+         xmlns:top="&top;"
+         xmlns:chem="&chem;"
+         xmlns:geom="&geom;"
+         xmlns:tect="&tect;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&petr;"/>
+     <owl:imports rdf:resource="&ign;"/>
+     <owl:imports rdf:resource="&top;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&geol;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&basin;"/>
+     <owl:imports rdf:resource="&geom;"/>
+     <owl:imports rdf:resource="&tect;"/>
+  </owl:Ontology>
+
+<!-- Realms -->
+  <owl:Class rdf:about="#ContinentalCrust">
+    <rdfs:subClassOf rdf:resource="&geol;#Crust"/>
+    <rdfs:subClassOf rdf:resource="&geol;#Continental"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&petr;#hasRock"/>
+        <owl:someValuesFrom rdf:resource="&ign;#Felsic"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+        <owl:allValuesFrom rdf:resource="#ContinentalLithosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The continental crust is typically from 30 km (20 mi) to 50 km (30 mi) thick, and it is mostly composed of less dense rocks, such as granite, than is the oceanic crust. The continental crust has an average composition similar to that of the igneous rock, andesite.[Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalLithosphere">
+    <rdfs:subClassOf rdf:resource="&geol;#Lithosphere"/>
+    <rdfs:subClassOf rdf:resource="&geol;#Continental"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryStructure"/>
+        <owl:allValuesFrom rdf:resource="#Craton"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+<rdfs:comment xml:lang="en">[Mechanical or Seismic Definition of Structure] In the Earth, the lithosphere includes the crust and the uppermost mantle, which constitute the hard and rigid outer layer of the planet. The [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ActiveContinent">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+        <owl:allValuesFrom rdf:resource="#ContinentalLithosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A distinction of whether the continental margins are active (subducting).  [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#StableContinent">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+        <owl:allValuesFrom rdf:resource="#ContinentalLithosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A distinction of whether the continental is on a stable paltform, i.e., over millions of years. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Craton">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#partOf"/>
+        <owl:allValuesFrom rdf:resource="#ContinentalCrust"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryStructure"/>
+        <owl:allValuesFrom rdf:resource="#ContinentalPlatform"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryStructure"/>
+        <owl:allValuesFrom rdf:resource="#Shield"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+        <owl:allValuesFrom rdf:resource="&ign;#Kimberlite"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&basin;#IntracratonicBasin"/>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryStructure"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+<rdfs:comment xml:lang="en">A craton is an old and stable part of the continental crust that has survived the merging and splitting of continents and supercontinents for at least 500 million years. Some are over two billion years old. Cratons are generally found in the interiors of continents and are characteristically composed of ancient crystalline basement crust of lightweight felsic igneous rock such as granite. They have a thick crust and deep roots that extend into the mantle beneath to depths of 200 km. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Supercontinent">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryStructure"/>
+        <owl:allValuesFrom rdf:resource="#Craton"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm"/>
+        <owl:allValuesFrom rdf:resource="#ContinentalLithosphere"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment>In geology, a supercontinent is a land mass comprising more than one continental core, or craton. The assembly of cratons and accreted terranes that form Eurasia qualifies as a supercontinent today.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalPlatform">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:comment xml:lang="en">The extensive central cratons of continents may consist of both shields and platforms, and the crystalline basement. A platform is that part of the craton for which the basement is overlain by horizontal or subhorizontal sediments. [Wikipedia]
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalRift">
+    <rdfs:subClassOf rdf:resource="&tect;#DivergentBoundary"/>
+    <rdfs:subClassOf rdf:resource="&tect;#Rift"/>
+    <rdfs:comment xml:lang="en">A long, narrow fissure in the Earth marking a zone of the lithosphere that has become thinner due to extensional forces associated with plate tectonics. Continental rifts are thousands of kilometers in length and hundreds of kilometers in width, and they are associated with normal faults and with grabens. [FreeDictionary]
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Shield">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicProvince"/>
+    <rdfs:comment xml:lang="en">The extensive central cratons of continents may consist of both shields and platforms, and the crystalline basement. A shield is that part of a craton in which the usually Precambrian basement rocks crop out extensively at the surface.  [Wikipedia]
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalMargin">
+    <rdfs:subClassOf rdf:resource="&geom;#Margin"/>
+    <rdfs:comment xml:lang="en">The continental margin is the zone of the ocean floor that separates the thin oceanic crust from thick continental crust. [Wikipedia]
+    </rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

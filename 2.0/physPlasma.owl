@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY ion "http://sweet.jpl.nasa.gov/2.0/chemCharge.owl">
+  <!ENTITY conc "http://sweet.jpl.nasa.gov/2.0/chemConcentration.owl">
+  <!ENTITY oper "http://sweet.jpl.nasa.gov/2.0/mathOperation.owl">
+  <!ENTITY plas "http://sweet.jpl.nasa.gov/2.0/physPlasma.owl">
+  <!ENTITY part "http://sweet.jpl.nasa.gov/2.0/physParticle.owl">
+  <!ENTITY wind "http://sweet.jpl.nasa.gov/2.0/atmoWind.owl">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY res "http://sweet.jpl.nasa.gov/2.0/sciResearch.owl">
+  <!ENTITY dynam "http://sweet.jpl.nasa.gov/2.0/physDynamics.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY thermo "http://sweet.jpl.nasa.gov/2.0/physThermo.owl">
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.0/physTransport.owl">
+  <!ENTITY cont "http://sweet.jpl.nasa.gov/2.0/physContinuumMechanics.owl">
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl">
+  <!ENTITY waves "http://sweet.jpl.nasa.gov/2.0/physWaves.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&plas;"
+         xmlns:owl="&owl;"
+         xmlns:wind="&wind;"
+         xmlns:phys="&phys;"
+         xmlns:units="&units;"
+         xmlns:oper="&oper;"
+         xmlns:chem="&chem;"
+         xmlns:ion="&ion;"
+         xmlns:conc="&conc;"
+         xmlns:state="&state;"
+         xmlns:xten="&xten;"
+         xmlns:plas="&plas;"
+         xmlns:part="&part;"
+         xmlns:dynam="&dynam;"
+         xmlns:thermom="&thermo;"
+         xmlns:trans="&trans;"
+         xmlns:cont="&cont;"
+         xmlns:waves="&waves;"
+         xmlns:res="&res;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&res;"/>
+     <owl:imports rdf:resource="&wind;"/>
+     <owl:imports rdf:resource="&part;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&ion;"/>
+     <owl:imports rdf:resource="&conc;"/>
+     <owl:imports rdf:resource="&state;"/>
+     <owl:imports rdf:resource="&thermo;"/>
+     <owl:imports rdf:resource="&xten;"/>
+     <owl:imports rdf:resource="&waves;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&oper;"/>
+     <owl:imports rdf:resource="&trans;"/>
+     <owl:imports rdf:resource="&cont;"/>
+  </owl:Ontology>
+
+<!-- States -->
+  <owl:Class rdf:about="#NonThermalPlasma">
+    <rdfs:subClassOf rdf:resource="#Plasma"/>
+    <owl:disjointWith rdf:resource="#ThermalPlasma"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Plasma">
+    <rdfs:subClassOf rdf:resource="&chem;#Substance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasStateOfMatter"/>
+        <owl:allValuesFrom rdf:resource="&state;#Plasma" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ThermalPlasma">
+    <rdfs:subClassOf rdf:resource="#Plasma"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralGas">
+    <rdfs:subClassOf rdf:resource="&ion;#NeutralSubstance"/>
+  </owl:Class>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#AlfvenVelocity">
+    <rdfs:subClassOf rdf:resource="&dynam;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AtomicNeutralNumberDensity">
+    <rdfs:subClassOf rdf:resource="#NeutralNumberDensity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ChargedParticleFlux">
+    <rdfs:subClassOf rdf:resource="&trans;#Flux"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&phys;#hasPhysicalProperty" />
+        <owl:allValuesFrom rdf:resource="&ion;#Charge" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DebyeLength">
+    <rdfs:subClassOf rdf:resource="&xten;#Distance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DegreeOfIonization">
+    <rdfs:subClassOf rdf:resource="&oper;#Ratio"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HallConductivity">
+    <rdfs:subClassOf rdf:resource="&cont;#Conductivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ElectronTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&part;#Electron"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IonComposition">
+    <rdfs:subClassOf rdf:resource="&conc;#Composition"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ion;#IonizedSubstance"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IonDensity">
+    <rdfs:subClassOf rdf:resource="&phys;#Density"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ion;#IonizedSubstance"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IonTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ion;#IonizedSubstance"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IonVelocity">
+    <rdfs:subClassOf rdf:resource="&dynam;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MolecularNeutralNumberDensity">
+    <rdfs:subClassOf rdf:resource="#NeutralNumberDensity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralDensity">
+    <rdfs:subClassOf rdf:resource="&phys;#Density"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ion;#NeutralSubstance"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralNumberDensity">
+    <rdfs:subClassOf rdf:resource="&conc;#NumberDensity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ion;#NeutralSubstance"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralTemperature">
+    <rdfs:subClassOf rdf:resource="&thermo;#Temperature"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&ion;#NeutralSubstance"/>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralVelocity">
+    <rdfs:subClassOf rdf:resource="&dynam;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PedersenConductivity">
+    <rdfs:subClassOf rdf:resource="&cont;#Conductivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PlasmaFrequency">
+    <rdfs:subClassOf rdf:resource="&waves;#Frequency"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ThermalVelocity">
+    <rdfs:subClassOf rdf:resource="&dynam;#Velocity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TotalElectronContent">
+    <rdfs:subClassOf rdf:resource="&conc;#Composition"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#perMeterSquared"/>
+        <owl:onProperty rdf:resource="&units;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#AlfvenWave">
+    <rdfs:subClassOf rdf:resource="#PlasmaWave"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeutralWind">
+    <rdfs:subClassOf rdf:resource="&wind;#Wind"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PlasmaWave">
+    <rdfs:subClassOf rdf:resource="&waves;#Wave" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&state;#hasState"/>
+        <owl:allValuesFrom rdf:resource="#Plasma" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY vol "http://sweet.jpl.nasa.gov/2.0/geolVolcano.owl">  
+  <!ENTITY top "http://sweet.jpl.nasa.gov/2.0/top.owl">  
+  <!ENTITY sysd "http://sweet.jpl.nasa.gov/2.0/sciSystemDynamics.owl">  
+  <!ENTITY phys "http://sweet.jpl.nasa.gov/2.0/phys.owl">  
+  <!ENTITY ign "http://sweet.jpl.nasa.gov/2.0/geolPetrologyIgneous.owl">  
+  <!ENTITY geol "http://sweet.jpl.nasa.gov/2.0/geol.owl">  
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">  
+  <!ENTITY trans "http://sweet.jpl.nasa.gov/2.0/physTransport.owl">
+  <!ENTITY etrans "http://sweet.jpl.nasa.gov/2.0/envirTransport.owl">
+  <!ENTITY thermo "http://sweet.jpl.nasa.gov/2.0/physThermo.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY owlt "http://www.w3.org/2006/time#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&vol;"
+         xmlns:top="&top;"
+         xmlns:sysd="&sysd;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+	 xmlns:trans="&trans;"
+	 xmlns:etrans="&etrans;"
+         xmlns:phys="&phys;"
+         xmlns:owlt="&owlt;"
+         xmlns:ign="&ign;"
+         xmlns:chem="&chem;"
+         xmlns:geol="&geol;"
+         xmlns:thermo="&thermo;"
+         xmlns:planet="&planet;"
+         xmlns:vol="&vol;"
+>
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&thermo;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&phys;"/>
+     <owl:imports rdf:resource="&geol;"/>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&ign;"/>
+     <owl:imports rdf:resource="&top;"/>
+     <owl:imports rdf:resource="&sysd;"/>
+     <owl:imports rdf:resource="&trans;"/>
+     <owl:imports rdf:resource="&etrans;"/>
+  </owl:Ontology>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#Eruption">
+    <rdfs:subClassOf rdf:resource="#VolcanicActivity"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&trans;#MassFlux"/>
+        <owl:onProperty rdf:resource="&trans;#hasFlux"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="&thermo;#ThermalFlux"/>
+        <owl:onProperty rdf:resource="&trans;#hasFlux"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#VolcanicEruption"/>
+    <rdfs:comment xml:lang="en">Moderate to violent ejection of solid or very viscous hot fragments of new lava in short-lived, cannon-like bursts. Ash and fine ash are emitted with gases and ascend to form a cauliflower-like eruption cloud.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#VolcanicEruption"/>
+
+  <owl:Class rdf:about="#FlankEruption">
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+    <rdfs:comment xml:lang="en">An eruption from the side of a volcano (in contrast to a summit eruption.)</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LavaOfTephra">
+    <rdfs:subClassOf rdf:resource="&trans;#MassFlux"/>
+    <rdfs:subClassOf rdf:resource="&ign;#Lava"/>
+    <rdfs:comment xml:lang="en">Tephra is air-fall material (of any size) produced by a volcanic eruption regardless of composition or fragment size. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MantlePlume">
+    <rdfs:subClassOf rdf:resource="#VolcanicPlume"/>
+    <owl:equivalentClass rdf:resource="#MantleThermalPlume"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&geol;#Mantle" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A mantle plume is an upwelling of abnormally hot rock within the Earth's mantle. As the heads of mantle plumes can partly melt when they reach shallow depths, they are thought to be the cause of volcanic centers known as hotspots and probably also to have caused flood basalts. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#MantleThermalPlume"/>
+
+  <owl:Class rdf:about="#MagmaMotion">
+    <rdfs:subClassOf rdf:resource="#VolcanicActivity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Magmatic">
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+    <rdfs:comment xml:lang="en">Eruption Type 1 - produce juvenile clasts during explosive decompression from gas release. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NueeArdenteEruption"/>
+  <owl:Class rdf:about="#PeleeanEruption">
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+    <owl:equivalentClass rdf:resource="#NueeArdenteEruption"/>
+    <rdfs:comment xml:lang="en">In a Peléan eruption or nuée ardente (glowing cloud) eruptions a large amount of gas, dust, ash, and lava fragments are blown out of a central crater, fall back, and form avalanches that move downslope at speeds as great as 160 km per hour. These eruptions are usually associated with silicic magmas. A name for some pyroclastic flows is nuée ardente (French for "glowing cloud"); this was first used to describe the disastrous 1902 eruption of Mount Pelée on Martinique.[3] These pyroclastic flows glowed red in the dark. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhreaticEruption">
+    <rdfs:comment xml:lang="en">Phreatic eruption is an explosion that follows the transformation of groundwater into steam. No incandescent or juvenile material is erupted.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SteamBlastEruption">
+    <owl:equivalentClass rdf:resource="#PhreaticEruption"/>
+    <rdfs:comment xml:lang="en">A series of hundreds of steam explosions preceding an eruption of the volcano A less intense geothermal event may result in a mud volcano. In 1949, Thomas Jaggar described this kind of activity as steam-blast eruptions. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhreatomagmaticEruption">
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+    <rdfs:comment xml:lang="en">Eruption Type 2 - Ejection of entrained particles during steam eruptions. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+
+  <owl:Class rdf:about="#PlinianEruption">
+    <rdfs:comment xml:lang="en">Plinian eruptions are characterized by paroxysmal ejection of large volume of ash and pumice as a well-defined eruption column or "jet;" often precedes caldera collapse. The resulting tephra fallout covers an area of more than 500 square kilometers.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StrombolianEruption">
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+    <rdfs:comment xml:lang="en">Strombolian Eruptions are characterised by huge clots of molten lava bursting from the summit crater to form luminous arcs through the sky. Collecting on the flanks of the cone, lava clots combine to stream down the slopes in molten rivulets. The explosions are driven by bursts of gas slugs that rise faster than surrounding magma</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SummitEruption">
+    <rdfs:subClassOf rdf:resource="#Eruption"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Surge">
+    <rdfs:subClassOf rdf:resource="#VolcanicPlume"/>
+    <rdfs:comment xml:lang="en">A ring-shaped cloud of gas and suspended solid debris that moves radially outward at high velocity as a density flow from the base of a vertical eruption column accompanying a volcanic eruption or crater formation.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VolcanicPhenomena">
+    <rdfs:subClassOf rdf:resource="&geol;#GeospherePhenomena"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&geol;#hasGeologicalPhenomena"/>
+        <owl:allValuesFrom rdf:resource="#Volcanism" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A geophysical phenomena involving the extrusion of rock that tends to form mountains or features like mountains over a period of time. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Volcanism">
+    <rdfs:subClassOf rdf:resource="&geol;#GeologicalPhenomena"/>
+    <owl:equivalentClass rdf:resource="#Vulcanism"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Vulcanism"/>
+
+  <owl:Class rdf:about="#VolcanicPlume">
+    <rdfs:subClassOf rdf:resource="#VolcanicPhenomena"/>
+    <rdfs:comment xml:lang="en">An eruption column of hot volcanic ash and gas emitted into the atmosphere during an explosive volcanic eruption. [Wikipedia]</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="&etrans;#Plume"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EruptionCloud">
+    <rdfs:subClassOf rdf:resource="#Ejecta"/>
+    <rdfs:subClassOf rdf:resource="#VolcanicPhenomena"/>
+    <rdfs:comment xml:lang="en">The column of gases, ash, and larger rock fragments rising from a crater or other vent. If it is of sufficient volume and velocity, this gaseous column may reach many miles into the stratosphere, where high winds will carry it long distances.</rdfs:comment>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:ID="hasVolcanicActivity">
+    <rdfs:subPropertyOf rdf:resource="&geol;#hasGeologicalPhenomena"/>
+  </owl:ObjectProperty>
+
+<!-- Substance -->
+  <owl:Class rdf:about="#Ashfall">
+    <rdfs:subClassOf rdf:resource="#Ejecta"/>
+    <rdfs:comment xml:lang="en">Volcanic ash that has fallen through the air from an eruption cloud. A deposit so formed is usually well sorted and layered.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AshFlow">
+    <rdfs:subClassOf rdf:resource="#DebrisFlow"/>
+    <rdfs:comment xml:lang="en">A turbulent mixture of gas and rock fragments, most of which are ash-sized particles, ejected violently from a crater or fissure. The mass of pyroclastics is normally of very high temperature and moves rapidly down the slopes or even along a level surface.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Block">
+    <rdfs:subClassOf rdf:resource="#Ejecta"/>
+    <rdfs:comment xml:lang="en">Angular chunk of solid rock ejected during an eruption.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Bomb">
+    <rdfs:subClassOf rdf:resource="#Ejecta"/>
+    <rdfs:comment xml:lang="en">Fragment of molten or semi-molten rock, 2 1/2 inches to many feet in diameter, which is blown out during an eruption. Because of their plastic condition, bombs are often modified in shape during their flight or upon impact.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DebrisAvalanche">
+    <rdfs:subClassOf rdf:resource="#DebrisFlow"/>
+    <rdfs:comment xml:lang="en">A rapid and unusually sudden sliding or flowage of unsorted masses of rock and other material. As applied to the major avalanche involved in the eruption of Mount St. Helens, a rapid mass movement that included fragmented cold and hot volcanic rock, water, snow, glacier ice, trees, and some hot pyroclastic material. Most of the May 18, 1980 deposits in the upper valley of the North Fork Toutle River and in the vicinity of Spirit Lake are from the debris avalanche.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DebrisFlow">
+    <rdfs:subClassOf rdf:resource="&trans;#MassFlux"/>
+    <rdfs:comment xml:lang="en">A mixture of water-saturated rock debris that flows downslope under the force of gravity (also called lahar or mudflow).</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Ejecta">
+    <rdfs:subClassOf rdf:resource="&chem;#Mixture"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&top;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#VolcanicActivity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">In volcanology, particles that came out of a volcanic vent, traveled through the air or under water, and fell back on the ground surface or on the ocean floor. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Hypoclastite">
+    <rdfs:subClassOf rdf:resource="#VolcanicDeposit"/>
+    <rdfs:comment xml:lang="en">A deposit formed by the flowing or intrusion of lava or magma into water, ice, or water-saturated sediment and its consequent granulation or shattering into small angular fragments.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Lahar">
+    <rdfs:subClassOf rdf:resource="#Mudflow"/>
+    <rdfs:comment xml:lang="en">A torrential flow of water-saturated volcanic debris down the slope of a volcano in response to gravity. A type of mudflow.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Mudflow">
+    <rdfs:subClassOf rdf:resource="#DebrisFlow"/>
+    <rdfs:comment xml:lang="en">A flowage of water-saturated earth material possessing a high degree of fluidity during movement. A less-saturated flowing mass is often called a debris flow. A mudflow originating on the flank of a volcano is properly called a lahar.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VolcanicDeposit">
+    <rdfs:subClassOf rdf:resource="&sysd;#Deposit"/>
+    <rdfs:comment xml:lang="en">Volcanic deposits are molten rock (lava), solid rocks and ash which surround a volcano crater. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+<!-- Properties -->
+  <owl:Class rdf:about="#Repose">
+    <rdfs:subClassOf rdf:resource="&owlt;Interval"/>
+    <rdfs:comment xml:lang="en">The interval of time between volcanic eruptions.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#VolcanicActivity">
+    <rdfs:subClassOf rdf:resource="#Volcanism"/>
+    <rdfs:comment xml:lang="en">A popular way of classifying magmatic volcanoes is by their frequency of eruption or Volcanic Activity. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>

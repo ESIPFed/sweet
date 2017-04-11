@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY statec "http://sweet.jpl.nasa.gov/2.2/procStateChange.owl">
+  <!ENTITY atmo "http://sweet.jpl.nasa.gov/2.2/realmAtmo.owl">
+  <!ENTITY weat "http://sweet.jpl.nasa.gov/2.2/realmAtmoWeather.owl">
+  <!ENTITY ht "http://sweet.jpl.nasa.gov/2.2/quanSpaceHeight.owl">
+  <!ENTITY atmp "http://sweet.jpl.nasa.gov/2.2/phenAtmo.owl">
+  <!ENTITY prec "http://sweet.jpl.nasa.gov/2.2/phenAtmoPrecipitation.owl">
+  <!ENTITY inst "http://sweet.jpl.nasa.gov/2.2/phenFluidInstability.owl">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.2/realm.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&weat;"
+         xmlns:weat="&weat;"
+         xmlns:atmo="&atmo;"
+         xmlns:atmp="&atmp;"
+         xmlns:inst="&inst;"
+         xmlns:ht="&ht;"
+         xmlns:prec="&prec;"
+         xmlns:statec="&statec;"
+         xmlns:planet="&planet;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&inst;"/>
+     <owl:imports rdf:resource="&ht;"/>
+     <owl:imports rdf:resource="&prec;"/>
+     <owl:imports rdf:resource="&atmp;"/>
+     <owl:imports rdf:resource="&atmo;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&statec;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#MeltingLayer">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&statec;#hasStateChange" />
+        <owl:allValuesFrom rdf:resource="&statec;#Melting" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The altitude interval throughout which ice-phase precipitation melts as it descends. The top of the melting layer is the melting level. The melting layer may be several hundred meters deep, reflecting the time it takes for all the hydrometeors to undergo the transition from solid to liquid phase. The temperature of the melting layer is typically 0?C or slightly warmer. See bright band.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CloudBase">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CloudTop">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConvectiveCloudBase">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConvectiveCloudTop">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetaryBoundary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AdiabaticCondensationLevel">
+    <rdfs:subClassOf rdf:resource="#CondensationLevel" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#CondensationLevel">
+    <rdfs:subClassOf rdf:resource="&ht;#Level" />
+    <rdfs:comment>Level at which water vapor to condense</rdfs:comment>
+    <rdfs:label>Condensation Level</rdfs:label>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ConvectiveCondensationLevel">
+    <rdfs:subClassOf rdf:resource="#CondensationLevel" />
+    <rdfs:comment xml:lang="en">On a thermodynamic diagram, the point of intersection of a sounding curve (representing the vertical distribution of temperature in an atmospheric column) with the saturation mixing ratio line corresponding to the average mixing ratio in the surface layer.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MaximumWindSpeedLevel">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LFC">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+    <owl:equivalentClass rdf:resource="#LevelOfFreeConvection"/>
+    <rdfs:comment>Level of free convection</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#LevelOfFreeConvection"/>
+
+  <owl:Class rdf:about="#FreezingLevel">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+    <rdfs:subClassOf rdf:resource="&atmp;#MeteorologicalPhenomena" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#MeltingLevel">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&statec;#hasStateChange" />
+        <owl:allValuesFrom rdf:resource="&statec;#Melting" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">The altitude at which ice crystals and snowflakes begin to melt as they descend through the atmosphere. In cloud physics and in radar meteorology, this is the accepted term for the 0?C constant-temperature surface (see bright band). It is physically more apt than the corresponding operational term, freezing level, for melting of pure ice must begin very near 0?C, but freezing of liquid water can occur over a broad range of temperatures (between 0? and -40?C; see supercooling). See also freezing point, ice point, melting point.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SnowGeneratingLevel">
+    <rdfs:subClassOf rdf:resource="&planet;#PlanetarySurfaceLevel"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&atmp;#hasMeteorologicalPhenomena" />
+        <owl:allValuesFrom rdf:resource="&prec;#Snowfall" />
+       </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A layer in the middle or upper troposphere in widespread precipitation in which ice crystals form in small convective cells and fall to lower altitudes.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FreeConvectiveLayer">
+    <rdfs:subClassOf rdf:resource="&atmo;#AtmosphereLayer" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&atmp;#hasMeteorologicalPhenomena" />
+        <owl:allValuesFrom rdf:resource="&inst;#FreeInstability" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ZoneOfMaximumPrecipitation">
+    <rdfs:subClassOf rdf:resource="&atmo;#AtmosphereLayer"/>
+    <rdfs:comment xml:lang="en">The elevation band on a mountain or orographic barrier that receives the greatest precipitation for a seasonal or annual average.</rdfs:comment>
+  </owl:Class>
+
+
+</rdf:RDF>

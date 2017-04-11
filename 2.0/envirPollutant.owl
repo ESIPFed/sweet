@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY land "http://sweet.jpl.nasa.gov/2.0/landLandform.owl">
+  <!ENTITY imp "http://sweet.jpl.nasa.gov/2.0/envirImpact.owl">
+  <!ENTITY role "http://sweet.jpl.nasa.gov/2.0/sciRole.owl">
+  <!ENTITY sol "http://sweet.jpl.nasa.gov/2.0/physSolid.owl">
+  <!ENTITY chem "http://sweet.jpl.nasa.gov/2.0/chem.owl">
+  <!ENTITY water "http://sweet.jpl.nasa.gov/2.0/chemWater.owl">
+  <!ENTITY conc "http://sweet.jpl.nasa.gov/2.0/chemConcentration.owl">
+  <!ENTITY poll "http://sweet.jpl.nasa.gov/2.0/envirPollutant.owl">
+  <!ENTITY state "http://sweet.jpl.nasa.gov/2.0/chemState.owl">
+  <!ENTITY atmo "http://sweet.jpl.nasa.gov/2.0/atmo.owl">
+  <!ENTITY xten "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl">
+  <!ENTITY xten2 "http://sweet.jpl.nasa.gov/2.0/spaceExtent.owl#">
+  <!ENTITY math "http://sweet.jpl.nasa.gov/2.0/math.owl">
+  <!ENTITY math2 "http://sweet.jpl.nasa.gov/2.0/math.owl#">
+  <!ENTITY units "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl">
+  <!ENTITY units2 "http://sweet.jpl.nasa.gov/2.0/sciUnits.owl#">
+  <!ENTITY planet "http://sweet.jpl.nasa.gov/2.0/astroPlanet.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&poll;"
+         xmlns:owl="&owl;"
+         xmlns:atmo="&atmo;"
+         xmlns:land="&land;"
+         xmlns:poll="&poll;"
+         xmlns:imp="&imp;"
+         xmlns:role="&role;"
+         xmlns:sol="&sol;"
+         xmlns:planet="&planet;"
+         xmlns:state="&state;"
+         xmlns:chem="&chem;"
+         xmlns:water="&water;"
+         xmlns:conc="&conc;"
+         xmlns:xten="&xten;"
+         xmlns:xten2="&xten2;"
+         xmlns:units="&units;"
+         xmlns:units2="&units2;"
+         xmlns:math="&math;"
+         xmlns:math2="&math2;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information  -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.0">
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&water;"/>
+     <owl:imports rdf:resource="&conc;"/>
+     <owl:imports rdf:resource="&land;"/>
+     <owl:imports rdf:resource="&atmo;"/>
+     <owl:imports rdf:resource="&math;"/>
+     <owl:imports rdf:resource="&imp;"/>
+     <owl:imports rdf:resource="&role;"/>
+     <owl:imports rdf:resource="&sol;"/>
+     <owl:imports rdf:resource="&xten;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&planet;"/>
+     <owl:imports rdf:resource="&state;"/>
+  </owl:Ontology>
+
+<!-- Matter -->
+  <owl:Class rdf:about="#Aerosol">
+    <rdfs:subClassOf rdf:resource="&chem;#Mixture"/>
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#Particulate"/>
+      <rdf:Description rdf:about="&state;#Gas"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BiodegradableDissolvedOrganicCarbon">
+    <rdfs:subClassOf rdf:resource="#DissolvedOrganicCarbon"/>
+    <owl:equivalentClass rdf:resource="#BDOC"/>
+  </owl:Class>
+  <owl:Class rdf:about="#BDOC"/>
+
+  <owl:Class rdf:about="#BlackWater">
+    <rdfs:subClassOf rdf:resource="&water;#WaterMixture"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CarbonaceousAerosol">
+    <rdfs:subClassOf rdf:resource="#Aerosol"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Carcinogen">
+    <rdfs:subClassOf rdf:resource="#HazardousSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Contaminant">
+    <rdfs:subClassOf rdf:resource="#HazardousSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ContinentalAerosol">
+    <rdfs:subClassOf rdf:resource="#Aerosol" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&planet;#hasPlanetaryRealm" />
+        <owl:allValuesFrom rdf:resource="&land;#Land" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">Aerosol having its origin over the continents with industrial, urban, agricultural, forest, and desert sources, with potential for high concentrations of hygroscopic aerosol.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DissolvedOxygen">
+    <rdfs:subClassOf rdf:resource="&state;#DissolvedSubstance"/>
+    <owl:equivalentClass rdf:resource="#DO"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DO"/>
+
+  <owl:Class rdf:about="#DissolvedOrganicCarbon">
+    <rdfs:subClassOf rdf:resource="&state;#DissolvedSubstance"/>
+    <owl:equivalentClass rdf:resource="#DOC"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DOC"/>
+
+  <owl:Class rdf:about="#Effluent">
+    <rdfs:subClassOf rdf:resource="&water;#WaterMixture"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FugitiveDust">
+    <rdfs:subClassOf rdf:resource="&sol;#Dust"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GrayWater">
+    <rdfs:subClassOf rdf:resource="&water;#WaterMixture"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HazardousSubstance">
+    <owl:equivalentClass rdf:resource="#Hazardous"/>
+    <rdfs:subClassOf rdf:resource="&chem;#Substance"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="&imp;#Hazard"/>
+        <owl:onProperty rdf:resource="&role;#hasRole"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#Hazardous"/>
+
+  <owl:Class rdf:about="#JungeAerosolLayer">
+    <rdfs:subClassOf rdf:resource="&atmo;#AtmosphereLayer"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&chem;#hasSubstance" />
+        <owl:allValuesFrom rdf:resource="#Aerosol" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A maximum in large-particle concentrations observed in the lower stratosphere between 15 and 25 km.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OrganicLoading">
+    <rdfs:subClassOf rdf:resource="&state;#DissolvedSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Pollutant">
+    <rdfs:subClassOf rdf:resource="&role;#Role"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PM1">
+    <rdfs:subClassOf rdf:resource="#Particulate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#max1micron"/>
+        <owl:onProperty rdf:resource="&xten;#diameter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <xten2:SizeRange rdf:about="#max1micron">
+     <units2:hasUnit rdf:resource="&units;#micrometer"/>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">1</math2:hasUpperBound>
+  </xten2:SizeRange>
+
+  <owl:Class rdf:about="#PM2point5">
+    <rdfs:subClassOf rdf:resource="#Particulate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#max2dot5micron"/>
+        <owl:onProperty rdf:resource="&xten;#diameter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <xten2:SizeRange rdf:about="#max2dot5micron">
+     <units2:hasUnit rdf:resource="&units;#micrometer"/>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">2.5</math2:hasUpperBound>
+  </xten2:SizeRange>
+
+  <owl:Class rdf:about="#PM10">
+    <rdfs:subClassOf rdf:resource="#Particulate"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#max10micron"/>
+        <owl:onProperty rdf:resource="&xten;#diameter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <xten2:SizeRange rdf:about="#max10micron">
+     <units2:hasUnit rdf:resource="&units;#micrometer"/>
+     <math2:hasUpperBound rdf:datatype="&xsd;double">10.</math2:hasUpperBound>
+  </xten2:SizeRange>
+
+  <owl:Class rdf:about="#Particulate">
+    <rdfs:subClassOf rdf:resource="&state;#SuspendedSubstance"/>
+    <rdfs:comment xml:lang="en">The term for solid or liquid particles found in a gas.   Some particles are large or dark enough to be seen as soot or smoke.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Poison">
+    <rdfs:subClassOf rdf:resource="#HazardousSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Pollen">
+    <rdfs:subClassOf rdf:resource="#Particulate"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Sewage">
+    <rdfs:subClassOf rdf:resource="#Effluent"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Smoke">
+    <rdfs:subClassOf rdf:resource="&state;#SuspendedSubstance"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Spray">
+    <rdfs:subClassOf rdf:resource="#Aerosol"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Soot">
+    <rdfs:subClassOf rdf:resource="#Particulate"/>
+    <owl:equivalentClass rdf:resource="#BlackCarbon" />
+  </owl:Class>
+  <owl:Class rdf:about="#BlackCarbon"/>
+
+  <owl:Class rdf:about="#Wastewater">
+    <rdfs:subClassOf rdf:resource="#Effluent"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ToxicAirContaminant">
+    <rdfs:subClassOf rdf:resource="#HazardousSubstance"/>
+    <owl:equivalentClass rdf:resource="#TAC"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TAC"/>
+
+  <owl:Class rdf:about="#Toxin">
+    <rdfs:subClassOf rdf:resource="#HazardousSubstance"/>
+  </owl:Class>
+
+</rdf:RDF>

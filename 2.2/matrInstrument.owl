@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY ocea "http://sweet.jpl.nasa.gov/2.2/phenOceanCoastal.owl">
+  <!ENTITY instr "http://sweet.jpl.nasa.gov/2.2/matrInstrument.owl">
+  <!ENTITY comm "http://sweet.jpl.nasa.gov/2.2/matrEquipment.owl">
+  <!ENTITY temp "http://sweet.jpl.nasa.gov/2.2/quanTemperature.owl">
+  <!ENTITY pres "http://sweet.jpl.nasa.gov/2.2/quanPressure.owl">
+  <!ENTITY vel "http://sweet.jpl.nasa.gov/2.2/quanSpeed.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+
+]>
+
+<rdf:RDF xml:base="&instr;"
+         xmlns:instr="&instr;"
+         xmlns:comm="&comm;"
+         xmlns:temp="&temp;"
+         xmlns:pres="&pres;"
+         xmlns:ocea="&ocea;"
+         xmlns:vel="&vel;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+	 xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="1.1">
+     <owl:imports rdf:resource="&ocea;"/>
+     <owl:imports rdf:resource="&vel;"/>
+     <owl:imports rdf:resource="&comm;"/>
+     <owl:imports rdf:resource="&pres;"/>
+     <owl:imports rdf:resource="&temp;"/>
+  </owl:Ontology>
+
+<!-- Classes -->
+  <owl:Class rdf:about="#Buoy">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Instrument">
+    <rdfs:subClassOf rdf:resource="&comm;#Equipment"/>
+    <owl:equivalentClass rdf:resource="#Device"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Device"/>
+
+  <owl:Class rdf:about="#Sensor">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+
+  <owl:ObjectProperty rdf:about="#measures">
+    <rdfs:domain rdf:resource="#Instrument"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#measuredBy">
+    <owl:inverseOf rdf:resource="#measures"/>
+  </owl:ObjectProperty>
+
+  <owl:Class rdf:about="#Piezometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  <rdfs:comment xml:lang="en"> A devise used to measure groundwater pressure head at a point in the subsurface.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Tensiometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  <rdfs:comment xml:lang="en">A device used to measure the moisture tension in the unsaturated zone.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Anemometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#measures" />
+        <owl:allValuesFrom rdf:resource="&vel;#WindSpeed" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Manometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#measures" />
+        <owl:allValuesFrom rdf:resource="&pres;#Pressure" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TideGauge">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+         <owl:onProperty rdf:resource="#measures" />
+         <owl:allValuesFrom rdf:resource="&ocea;#OceanTide" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Radar">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DopplerRadar">
+    <rdfs:subClassOf rdf:resource="#Radar"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#LIDAR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:comment>LIDAR (Light Detection and Ranging) is an optical remote sensing technology that measures properties of scattered light to find range and/or other information of a distant target. The prevalent method to determine distance to an object or surface is to use laser pulses. Like the similar radar technology, which uses radio waves instead of light, the range to an object is determined by measuring the time delay between transmission of a pulse and detection of the reflected signal. LIDAR technology has application in archaeology, geography, geology, geomorphology, seismology, remote sensing and atmospheric physics.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Magnetogram">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Microscope">
+    <rdfs:subClassOf rdf:resource="#OpticalInstrument"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#OpticalInstrument">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Telescope">
+    <rdfs:subClassOf rdf:resource="#OpticalInstrument"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Telethermometer">
+    <rdfs:subClassOf rdf:resource="#Thermometer" />
+    <rdfs:comment xml:lang="en">A temperature-measuring system in which the thermally sensitive element is located at a distance from the indicating element.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Thermometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#measures" />
+        <owl:allValuesFrom rdf:resource="&temp;#Temperature" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Piezometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="#measures" />
+        <owl:allValuesFrom rdf:resource="&pres;#Pressure" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GPS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <owl:equivalentClass rdf:resource="#GlobalPositioningSystem"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GlobalPositioningSystem"/>
+
+</rdf:RDF>

@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+   <!ENTITY serv "http://sweet.jpl.nasa.gov/2.0/infoService.owl">   
+   <!ENTITY red "http://sweet.jpl.nasa.gov/2.0/infoReduction.owl">   
+   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+   <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF
+    xmlns = "&red;"
+    xml:base = "&red;"
+    xmlns:serv = "&serv;"
+    xmlns:red = "&red;"
+    xmlns:owl = "&owl;"
+    xmlns:rdf = "&rdf;"
+    xmlns:rdfs = "&rdfs;"
+    xmlns:xsd = "&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.0">
+    <owl:imports rdf:resource = "&serv;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#Binning">
+    <rdfs:subClassOf rdf:resource="&serv;#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Binned">
+    <rdfs:subClassOf rdf:resource="&serv;#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Binning"/>
+        <owl:onProperty rdf:resource="&serv;#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Classification">
+    <rdfs:subClassOf rdf:resource="&serv;#DataService"/>
+    <owl:equivalentClass rdf:resource="#Classifier"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Classifier"/>
+
+  <owl:Class rdf:about="#Clustered">
+    <rdfs:subClassOf rdf:resource="&serv;#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Clustering"/>
+        <owl:onProperty rdf:resource="&serv;#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Clustering">
+    <rdfs:subClassOf rdf:resource="&serv;#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DataMining">
+    <rdfs:subClassOf rdf:resource="#Subset" />
+    <owl:equivalentClass rdf:resource="#Mining"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Mining"/>
+
+  <owl:Class rdf:about="#Mined">
+    <rdfs:subClassOf rdf:resource="&serv;#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Mining"/>
+        <owl:onProperty rdf:resource="&serv;#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DecisionTreeLearning">
+    <rdfs:subClassOf rdf:resource="#Classifier"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NaiveBayes">
+    <rdfs:subClassOf rdf:resource="#Classifier"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NeuralNetwork">
+    <rdfs:subClassOf rdf:resource="#Classifier"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#ParameterSubset">
+    <rdfs:subClassOf rdf:resource="#Subset"/>
+<!--
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#hasParameter"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+-->
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subset">
+    <rdfs:subClassOf rdf:resource="&serv;#DataService"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Subsetted">
+    <rdfs:subClassOf rdf:resource="&serv;#DataState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:someValuesFrom rdf:resource="#Subset"/>
+        <owl:onProperty rdf:resource="&serv;#hadProcess"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpatialSubset">
+    <rdfs:subClassOf rdf:resource="#Subset"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#TemporalSubset">
+    <rdfs:subClassOf rdf:resource="#Subset"/>
+  </owl:Class>
+
+</rdf:RDF>
