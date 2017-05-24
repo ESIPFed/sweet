@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY reac "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/phenReaction.owl">
+  <!ENTITY rela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/rela.owl">
+  <!ENTITY screla "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaSci.owl">
+  <!ENTITY crela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaChemical.owl">
+  <!ENTITY isot "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/matrIsotope.owl">
+  <!ENTITY cproc "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/procChemical.owl">
+  <!ENTITY noise "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/phenWaveNoise.owl">
+  <!ENTITY role "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/stateRole.owl">
+  <!ENTITY impa "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/stateRoleImpact.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&reac;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:reac="&reac;"
+         xmlns:isot="&isot;"
+         xmlns:role="&role;"
+         xmlns:rela="&rela;"
+         xmlns:screla="&screla;"
+         xmlns:crela="&crela;"
+         xmlns:impa="&impa;"
+         xmlns:cproc="&cproc;"
+         xmlns:noise="&noise;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&cproc;"/>
+     <owl:imports rdf:resource="&noise;"/>
+     <owl:imports rdf:resource="&role;"/>
+     <owl:imports rdf:resource="&impa;"/>
+     <owl:imports rdf:resource="&isot;"/>
+     <owl:imports rdf:resource="&rela;"/>
+     <owl:imports rdf:resource="&screla;"/>
+     <owl:imports rdf:resource="&crela;"/>
+  </owl:Ontology>
+
+<!-- Phenomena -->
+  <owl:Class rdf:about="#Explosion">
+    <rdfs:subClassOf rdf:resource="&cproc;#ChemicalReaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasImpact" />
+        <owl:hasValue rdf:resource="&impa;#Hazard" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&noise;#Noise" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Fire">
+    <rdfs:subClassOf rdf:resource="&cproc;#ChemicalReaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasImpact" />
+        <owl:hasValue rdf:resource="&impa;#Hazard" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Flare">
+    <rdfs:subClassOf rdf:resource="&cproc;#ChemicalReaction"/>
+    <owl:equivalentClass rdf:resource="#Flaring"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Flaring"/>
+
+  <owl:Class rdf:about="#FluidLeak">
+    <rdfs:subClassOf rdf:resource="#Leak"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GasFlare">
+    <rdfs:subClassOf rdf:resource="&cproc;#ChemicalReaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&screla;#hasImpact" />
+        <owl:hasValue rdf:resource="&impa;#Hazard" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#GasLeak">
+    <rdfs:subClassOf rdf:resource="#Leak"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Emission">
+    <rdfs:subClassOf rdf:resource="&cproc;#ChemicalReaction"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasRole" />
+        <owl:hasValue rdf:resource="&role;#ByProduct" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Eruption">
+    <rdfs:subClassOf rdf:resource="#Release"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Activation">
+    <rdfs:subClassOf rdf:resource="&cproc;#ChemicalReaction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#IndustrialEmission">
+    <rdfs:subClassOf rdf:resource="#Emission"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Leak">
+    <rdfs:subClassOf rdf:resource="#Release"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Leach">
+    <rdfs:subClassOf rdf:resource="#Release"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Release">
+    <rdfs:subClassOf rdf:resource="#Emission"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BiochemicalRelease">
+    <rdfs:subClassOf rdf:resource="#Release"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#RadioactivityRelease">
+    <rdfs:subClassOf rdf:resource="#Release"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;#hasSubstance" />
+        <owl:allValuesFrom rdf:resource="&isot;#RadioactiveSubstance" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Wildfire">
+    <rdfs:subClassOf rdf:resource="#Fire"/>
+  </owl:Class>
+
+</rdf:RDF>

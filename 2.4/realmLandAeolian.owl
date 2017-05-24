@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY sed "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/matrSediment.owl">
+  <!ENTITY geomor "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/phenGeolGeomorphology.owl">
+  <!ENTITY srela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaSpace.owl">
+  <!ENTITY crela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaChemical.owl">
+  <!ENTITY rela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/rela.owl">
+  <!ENTITY ht "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propSpaceHeight.owl">
+  <!ENTITY chem "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/matr.owl">
+  <!ENTITY phen "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/phen.owl">
+  <!ENTITY land "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/realmLandform.owl">
+  <!ENTITY aeol "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/realmLandAeolian.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&aeol;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:ht="&ht;"
+         xmlns:chem="&chem;"
+         xmlns:land="&land;"
+         xmlns:aeol="&aeol;"
+         xmlns:srela="&srela;"
+         xmlns:crela="&crela;"
+         xmlns:rela="&rela;"
+         xmlns:phen="&phen;"
+         xmlns:geomor="&geomor;"
+         xmlns:sed="&sed;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&chem;"/>
+     <owl:imports rdf:resource="&ht;"/>
+     <owl:imports rdf:resource="&phen;"/>
+     <owl:imports rdf:resource="&srela;"/>
+     <owl:imports rdf:resource="&crela;"/>
+     <owl:imports rdf:resource="&rela;"/>
+     <owl:imports rdf:resource="&land;"/>
+     <owl:imports rdf:resource="&geomor;"/>
+     <owl:imports rdf:resource="&sed;"/>
+  </owl:Ontology>
+
+<!-- Aeolian -->
+  <owl:Class rdf:about="#Aeolian">
+    <rdfs:subClassOf rdf:resource="&geomor;#Weathering"/>
+    <owl:equivalentClass rdf:resource="#Eolian"/>
+    <rdfs:comment xml:lang="en">Aeolian (or Eolian or Æolian) processes pertain to the activity of the winds and more specifically, to the winds' ability to shape the surface of the Earth and other planets. Winds may erode, transport, and deposit materials, and are effective agents in regions with sparse vegetation and a large supply of unconsolidated sediments. [Wikipedia]</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#Eolian"/>
+
+  <owl:Class rdf:about="#AeolianLandform">
+    <rdfs:subClassOf rdf:resource="&land;#Landform"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="#Eolian" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Barchan">
+    <rdfs:subClassOf rdf:resource="#Dune"/>
+  </owl:Class>
+
+ <owl:Class rdf:about="#Desert">
+    <rdfs:subClassOf rdf:resource="#AeolianLandform"/>
+    <rdfs:comment xml:lang="en">A desert is a landscape form or region that receives very little precipitation.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Dune">
+    <rdfs:subClassOf rdf:resource="#AeolianLandform"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&crela;#hasSubstance" />
+        <owl:allValuesFrom rdf:resource="&sed;#Sand" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <owl:equivalentClass rdf:resource="#SandDune"/>
+   <rdfs:comment xml:lang="en">A dune is a hill of sand built by eolian processes. Dunes are subject to different forms and sizes based on their interaction with the wind. Most kinds of dune are longer on the windward side where the sand is pushed up the dune, and a shorter slip face in the lee of the wind. The valley or trough between dunes is called a slack. A dune field is an area covered by extensive sand dunes. Large dune fields are known as ergs </rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="#SandDune"/>
+
+  <owl:Class rdf:about="#Erg">
+    <rdfs:subClassOf rdf:resource="#AeolianLandform"/>
+  </owl:Class>
+
+ <owl:Class rdf:about="#HighDesert">
+    <rdfs:subClassOf rdf:resource="#Desert"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&srela;#hasSpatialExtent" />
+        <owl:allValuesFrom rdf:resource="&ht;#Elevation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Seif">
+    <rdfs:subClassOf rdf:resource="#Dune"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Slack">
+    <rdfs:subClassOf rdf:resource="#AeolianLandform"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SlipFace">
+    <rdfs:subClassOf rdf:resource="#AeolianLandform"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Yardang">
+    <rdfs:subClassOf rdf:resource="#AeolianLandform"/>
+  </owl:Class>
+
+</rdf:RDF>

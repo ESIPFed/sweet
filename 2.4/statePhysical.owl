@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY pstate "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/statePhysical.owl#">
+  <!ENTITY sstate "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/stateSystem.owl#">
+  <!ENTITY charge "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propCharge.owl#">
+  <!ENTITY state  "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/state.owl#">
+  <!ENTITY crela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaChemical.owl#">
+  <!ENTITY comp "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/matrCompound.owl#">
+  <!ENTITY ordi  "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propOrdinal.owl#">
+  <!ENTITY mrela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaMath.owl#">
+  <!ENTITY prela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaPhysical.owl#"> 
+  <!ENTITY velo "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propSpeed.owl#"> 
+  <!ENTITY diml "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propDimensionlessRatio.owl#"> 
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&pstate;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:state="&state;"
+         xmlns:pstate="&pstate;"
+         xmlns:sstate="&sstate;"
+         xmlns:comp="&comp;"
+         xmlns:ordi="&ordi;"
+         xmlns:charge="&charge;"
+         xmlns:velo="&velo;"
+         xmlns:crela="&crela;"
+         xmlns:mrela="&mrela;"
+         xmlns:prela="&prela;"
+         xmlns:diml="&diml;"
+>
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaMath.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaPhysical.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/state.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propOrdinal.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propCharge.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/matrCompound.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/stateSystem.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/matr.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaChemical.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propSpeed.owl"/>
+     <owl:imports rdf:resource="https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propDimensionlessRatio.owl"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#StateOfMatter">
+    <rdfs:subClassOf rdf:resource="#PhysicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SubstanceForm">
+    <rdfs:subClassOf rdf:resource="#PhysicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MoistureState">
+    <rdfs:subClassOf rdf:resource="#PhysicalState"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&comp;Water"/>
+        <owl:onProperty rdf:resource="&crela;hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhysicalState">
+    <rdfs:subClassOf rdf:resource="&state;State"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaveState">
+    <rdfs:subClassOf rdf:resource="#PhysicalState"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#SpeedState">
+    <rdfs:subClassOf rdf:resource="#PhysicalState"/>
+  </owl:Class>
+
+<!-- Charge states -->
+  <pstate:PhysicalState rdf:about="#Neutral">
+    <prela:hasCharge rdf:datatype="&xsd;integer">0</prela:hasCharge>
+    <owl:sameAs rdf:resource="#NeutralState"/>
+    <owl:differentFrom rdf:resource="#IonizedState"/>
+  </pstate:PhysicalState>
+  <pstate:PhysicalState rdf:about="#NeutralState"/>
+
+  <pstate:PhysicalState rdf:about="#NonThermalPlasma">
+    <owl:differentFrom rdf:resource="#ThermalPlasma"/>
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#ThermalPlasma">
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Ferroelectric">
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Burned">
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Radiative">
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Peraelectric">
+    <owl:differentFrom rdf:resource="#Ferroelectric" />
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Ionized">
+    <owl:sameAs rdf:resource="#IonizedState"/>
+  </pstate:PhysicalState>
+  <pstate:PhysicalState rdf:about="#IonizedState"/>
+
+  <pstate:PhysicalState rdf:about="#QuasiNeutral">
+    <mrela:approximates rdf:resource="#Neutral" />
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Charged">
+    <owl:differentFrom rdf:resource="#Neutral" />
+  </pstate:PhysicalState>
+
+<!-- Gravitational states -->
+  <pstate:PhysicalState rdf:about="#Hypergravity">
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#Hypogravity">
+    <owl:differentFrom rdf:resource="#Hypergravity" />
+  </pstate:PhysicalState>
+
+  <pstate:PhysicalState rdf:about="#ZeroG">
+  </pstate:PhysicalState>
+
+<!-- States of matter -->
+  <pstate:StateOfMatter rdf:about="#Fluid">
+    <owl:differentFrom rdf:resource="#Solid"/>
+  </pstate:StateOfMatter>
+
+  <pstate:StateOfMatter rdf:about="#Solid">
+    <owl:differentFrom rdf:resource="#Gas" />
+    <owl:sameAs rdf:resource="#Frozen"/>
+  </pstate:StateOfMatter>
+  <pstate:PhysicalState rdf:about="#Frozen"/>
+
+  <pstate:StateOfMatter rdf:about="#Gas">
+    <owl:sameAs rdf:resource="#Vapor" />
+  </pstate:StateOfMatter>
+  <pstate:StateOfMatter rdf:about="#Vapor"/>
+
+  <pstate:StateOfMatter rdf:about="#Plasma">
+    <owl:differentFrom rdf:resource="#Solid" />
+  </pstate:StateOfMatter>
+
+  <pstate:StateOfMatter rdf:about="#Liquid">
+    <owl:differentFrom rdf:resource="#Gas" />
+  </pstate:StateOfMatter>
+
+  <pstate:StateOfMatter rdf:about="#Gaseous">
+    <mrela:approximates rdf:resource="#Gas" />
+  </pstate:StateOfMatter>
+
+  <pstate:StateOfMatter rdf:about="#Condensed">
+    <owl:differentFrom rdf:resource="#Gas"/>
+  </pstate:StateOfMatter>
+
+<!-- Equilibrium states -->
+  <sstate:EquilibriumState rdf:about="#Isobaric">
+  </sstate:EquilibriumState>
+
+  <sstate:EquilibriumState rdf:about="#Isochoric">
+  </sstate:EquilibriumState>
+
+  <sstate:EquilibriumState rdf:about="#Isohalic">
+  </sstate:EquilibriumState>
+
+  <sstate:EquilibriumState rdf:about="#Isostatic">
+    <owl:sameAs rdf:resource="#Isostacy"/>
+  </sstate:EquilibriumState>
+  <sstate:EquilibriumState rdf:about="#Isostacy"/>
+
+  <sstate:EquilibriumState rdf:about="#NormalMode">
+    <owl:sameAs rdf:resource="#FreeOscillation"/>
+  </sstate:EquilibriumState>
+  <sstate:EquilibriumState rdf:about="#FreeOscillation"/>
+
+<!-- Forms -->
+  <pstate:SubstanceForm rdf:about="#Suspended">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Diluted">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Dissolved">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Film">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Floating">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Fragment">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Pellicular">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Pillow">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Particle">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Bubble">
+  </pstate:SubstanceForm>
+
+  <pstate:SubstanceForm rdf:about="#Droplet">
+    <rdfs:comment xml:lang="en">A small spherical particle of any liquid; in meteorology, particularly a water droplet. </rdfs:comment>
+  </pstate:SubstanceForm>
+
+<!-- Rain -->
+  <owl:Class rdf:about="#RainState">
+    <rdfs:subClassOf rdf:resource="&ordi;OrdinalProperty"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&comp;Water"/>
+        <owl:onProperty rdf:resource="&crela;hasSubstance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <pstate:RainState rdf:about="#Light">
+  </pstate:RainState>
+
+  <pstate:RainState rdf:about="#Occasional">
+  </pstate:RainState>
+
+  <pstate:RainState rdf:about="#Intermittent">
+  </pstate:RainState>
+
+  <pstate:RainState rdf:about="#Scattered">
+  </pstate:RainState>
+
+  <pstate:RainState rdf:about="#Heavy">
+  </pstate:RainState>
+
+  <pstate:RainState rdf:about="#Severe">
+  </pstate:RainState>
+
+<!-- Moisture -->
+  <pstate:MoistureState rdf:about="#Deiced">
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Dry">
+    <owl:differentFrom rdf:resource="#Moist"/>
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Humid">
+    <owl:sameAs rdf:resource="#Moist"/>
+  </pstate:MoistureState>
+  <pstate:MoistureState rdf:about="#Moist"/>
+
+  <pstate:MoistureState rdf:about="#Wet">
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Hydrophobic">
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Impermeable">
+    <owl:differentFrom rdf:resource="#Permeable"/>
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Permeable"/>
+
+  <pstate:MoistureState rdf:about="#Porous"/>
+
+  <pstate:MoistureState rdf:about="#Hydrophilic">
+    <owl:differentFrom rdf:resource="#Hydrophobic"/>
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Hygroscopic">
+  </pstate:MoistureState>
+
+  <pstate:MoistureState rdf:about="#Hydrolyzable">
+  </pstate:MoistureState>
+
+<!-- Wave states -->
+  <pstate:WaveState rdf:about="#Constructive">
+  </pstate:WaveState>
+
+  <pstate:WaveState rdf:about="#Destructive">
+    <owl:differentFrom rdf:resource="#Constructive" />
+  </pstate:WaveState>
+
+  <pstate:WaveState rdf:about="#HighFrequency">
+  </pstate:WaveState>
+
+  <pstate:WaveState rdf:about="#LowFrequency">
+    <owl:differentFrom rdf:resource="#HighFrequency" />
+  </pstate:WaveState>
+
+  <pstate:WaveState rdf:about="#Filtered">
+  </pstate:WaveState>
+
+  <pstate:WaveState rdf:about="#Eddy">
+  </pstate:WaveState>
+
+  <pstate:WaveState rdf:about="#Zonal">
+    <owl:differentFrom rdf:resource="#Eddy" />
+  </pstate:WaveState>
+
+<!-- Speed states -->
+  <pstate:SpeedState rdf:about="#Subsonic">
+    <prela:slowerThan rdf:resource="&diml;SonicMachNumber" />
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Supersonic">
+    <prela:fasterThan rdf:resource="&diml;SonicMachNumber" />
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Quiescent">
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Slow">
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Gentle">
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Calm">
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Gale">
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Fast">
+    <prela:fasterThan rdf:resource="#Slow" />
+    <prela:fasterThan rdf:resource="#Calm" />
+  </pstate:SpeedState>
+
+  <pstate:SpeedState rdf:about="#Rapid">
+    <prela:fasterThan rdf:resource="#Slow" />
+    <prela:fasterThan rdf:resource="#Calm" />
+  </pstate:SpeedState>
+
+</rdf:RDF>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY mrela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaMath.owl">  
+  <!ENTITY screla "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/relaSci.owl">  
+  <!ENTITY mult "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propSpaceMultidimensional.owl">  
+  <!ENTITY dist "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propSpace.owl">  
+  <!ENTITY quan "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propQuantity.owl">  
+  <!ENTITY repr "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/repr.owl">  
+  <!ENTITY units "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/reprSciUnits.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&mult;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:mrela="&mrela;"
+         xmlns:screla="&screla;"
+         xmlns:dist="&dist;"
+         xmlns:quan="&quan;"
+         xmlns:repr="&repr;"
+         xmlns:units="&units;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&mrela;"/>
+     <owl:imports rdf:resource="&screla;"/>
+     <owl:imports rdf:resource="&units;"/>
+     <owl:imports rdf:resource="&repr;"/>
+     <owl:imports rdf:resource="&dist;"/>
+     <owl:imports rdf:resource="&quan;"/>
+  </owl:Ontology>
+  
+<!-- Multi-dimensional properties -->
+  <owl:Class rdf:about="#RadarCrossSection">
+    <rdfs:subClassOf rdf:resource="#CrossSection"/>
+    <rdfs:subClassOf rdf:resource="&quan;#RadiationMediumInteractionQuantity"/>
+    <rdfs:comment xml:lang="en">Radar cross section (RCS) describes the extent to which an object reflects an incident electromagnetic wave. It is a measure of the strength of the radar signal backscattered from a target object for a given incident wave power..</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CrossSection">
+    <rdfs:subClassOf rdf:resource="#Area"/>
+    <owl:equivalentClass rdf:resource="#CrossSectionalArea"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CrossSectionalArea"/>
+
+  <owl:Class rdf:about="#Area">
+    <rdfs:subClassOf rdf:resource="&dist;#SpatialMeasure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasDimension"/>
+        <owl:hasValue rdf:datatype="&xsd;integer">2</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meterSquared"/>
+        <owl:onProperty rdf:resource="&screla;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Footprint">
+    <rdfs:subClassOf rdf:resource="#Area"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CarbonFootprint">
+    <rdfs:subClassOf rdf:resource="#Footprint"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Volume">
+    <rdfs:subClassOf rdf:resource="&dist;#SpatialMeasure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&mrela;#hasDimension"/>
+        <owl:hasValue rdf:datatype="&xsd;integer">3</owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#meterCubed"/>
+        <owl:onProperty rdf:resource="&screla;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#Capacity">
+    <rdfs:subClassOf rdf:resource="#Volume"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#Resolution">
+    <rdfs:subClassOf rdf:resource="#AngularExtent"/>
+  </owl:Class>
+  
+  <owl:Class rdf:about="#FieldOfView">
+    <rdfs:subClassOf rdf:resource="#AngularExtent"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AngularExtent">
+    <rdfs:subClassOf rdf:resource="&dist;#SpatialMeasure"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="&units;#radian"/>
+        <owl:onProperty rdf:resource="&screla;#hasDefaultUnit"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+</rdf:RDF>

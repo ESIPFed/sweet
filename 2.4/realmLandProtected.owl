@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE rdf:RDF [
+  <!ENTITY root "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/">
+  <!ENTITY nat "&root;matrNaturalResource.owl#">
+  <!ENTITY prot "&root;realmLandProtected.owl#">
+  <!ENTITY hrela "&root;relaHuman.owl#">
+  <!ENTITY jur "&root;humanJurisdiction.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&prot;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+         xmlns:xsd="&xsd;"
+         xmlns:nat="&nat;"
+         xmlns:prot="&prot;"
+         xmlns:jur="&jur;"
+         xmlns:hrela="&hrela;"
+>
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""
+                owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&root;relaHuman.owl"/>
+     <owl:imports rdf:resource="&root;humanJurisdiction.owl"/>
+     <owl:imports rdf:resource="&root;matrNaturalResource.owl"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#LandReserve">
+   <rdfs:subClassOf rdf:resource="&jur;AdministrativeRegion"/>
+    <rdfs:subClassOf rdf:resource="&nat;LandResource"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#MarineProtectedArea">
+    <rdfs:subClassOf rdf:resource="#WaterReserve" />
+    <owl:equivalentClass rdf:resource="#MPA"/>
+  </owl:Class>
+  <owl:Class rdf:about="#MPA"/>
+
+  <owl:Class rdf:about="#NationalForest">
+    <rdfs:subClassOf rdf:resource="#LandReserve"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;Country"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NationalMonument">
+    <rdfs:subClassOf rdf:resource="#LandReserve"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;Country"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#NationalPark">
+    <rdfs:subClassOf rdf:resource="#Park"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;Country"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CityPark">
+    <rdfs:subClassOf rdf:resource="#Park"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;City"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CountyPark">
+    <rdfs:subClassOf rdf:resource="#Park"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;County"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Park">
+    <rdfs:subClassOf rdf:resource="#LandReserve" />
+    <owl:equivalentClass rdf:resource="#Parkland"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Parkland"/>
+
+  <owl:Class rdf:about="#StateForest">
+    <rdfs:subClassOf rdf:resource="#LandReserve"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;State"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#StatePark">
+    <rdfs:subClassOf rdf:resource="#Park"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+       <owl:onProperty rdf:resource="&hrela;hasJurisdiction"/>
+        <owl:allValuesFrom rdf:resource="&jur;State"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WaterReserve">
+   <rdfs:subClassOf rdf:resource="&jur;AdministrativeRegion"/>
+    <rdfs:subClassOf rdf:resource="&nat;WaterResource"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WildlifeRefuge">
+    <rdfs:subClassOf rdf:resource="#LandReserve"/>
+  </owl:Class>
+
+</rdf:RDF>

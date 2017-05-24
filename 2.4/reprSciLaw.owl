@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY wave "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/procWave.owl">
+  <!ENTITY mod  "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/reprSciModel.owl">
+  <!ENTITY velo "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propSpeed.owl">
+  <!ENTITY wind "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/phenAtmoWind.owl">
+  <!ENTITY pres "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/propPressure.owl">
+  <!ENTITY prec "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/phenAtmoPrecipitation.owl">
+  <!ENTITY pstate "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/statePhysical.owl">
+  <!ENTITY law "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/reprSciLaw.owl">
+  <!ENTITY know "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/repr.owl">
+  <!ENTITY rela "https://raw.githubusercontent.com/ESIPFed/sweet/master/2.4/rela.owl">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+
+<rdf:RDF xml:base="&law;"
+         xmlns:wave="&wave;"
+         xmlns:wind="&wind;"
+         xmlns:pres="&pres;"
+         xmlns:prec="&prec;"
+         xmlns:mod="&mod;"
+         xmlns:velo="&velo;"
+         xmlns:pstate="&pstate;"
+         xmlns:law="&law;"
+         xmlns:know="&know;"
+         xmlns:rela="&rela;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;"
+ 	 xmlns:xsd="&xsd;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about="" owl:versionInfo="2.3">
+     <rdfs:label>SWEET Ontology</rdfs:label>
+     <owl:imports rdf:resource="&wave;"/>
+     <owl:imports rdf:resource="&mod;"/>
+     <owl:imports rdf:resource="&velo;"/>
+     <owl:imports rdf:resource="&wind;"/>
+     <owl:imports rdf:resource="&pres;"/>
+     <owl:imports rdf:resource="&prec;"/>
+     <owl:imports rdf:resource="&pstate;"/>
+     <owl:imports rdf:resource="&know;"/>
+     <owl:imports rdf:resource="&rela;"/>
+  </owl:Ontology>
+
+  <owl:Class rdf:about="#MathematicalTheorem">
+    <rdfs:subClassOf rdf:resource="&know;#Knowledge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#EmpiricalLaw">
+    <rdfs:subClassOf rdf:resource="&know;#Knowledge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#PhysicalLaw">
+    <rdfs:subClassOf rdf:resource="&know;#Knowledge"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BouguerLaw">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasProcess" />
+        <owl:allValuesFrom rdf:resource="&wave;#Attenuation" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#EmpiricalLaw" />
+    <rdfs:comment>Attenuation of a beam of light by an optically homogeneous (transparent) medium.
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DarcysLaw">
+    <rdfs:subClassOf rdf:resource="#EmpiricalLaw"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HookesLaw">
+    <rdfs:subClassOf rdf:resource="#EmpiricalLaw" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#StokesLaw">
+    <rdfs:subClassOf rdf:resource="&mod;#PhysicalApproximation" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#IdealGasLaw">
+    <rdfs:subClassOf rdf:resource="#PhysicalLaw" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasState" />
+        <owl:hasValue rdf:resource="&pstate;#Gas" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BernoulliTheorem">
+    <rdfs:subClassOf rdf:resource="#PhysicalLaw" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasProperty" />
+        <owl:someValuesFrom rdf:resource="&velo;#Velocity" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">As originally formulated, a statement of the conservation of energy (per unit mass) for an inviscid fluid in steady motion.
+    </rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#BuysBallotLaw">
+    <rdfs:subClassOf rdf:resource="#EmpiricalLaw" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&wind;#Wind" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasProperty" />
+        <owl:someValuesFrom rdf:resource="&pres;#Pressure" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A law describing the relationship of the horizontal wind direction in the atmosphere to the pressure distribution.</rdfs:comment>
+  </owl:Class>
+
+  <owl:Class rdf:about="#WalthersLaw">
+    <rdfs:subClassOf rdf:resource="#EmpiricalLaw" />
+  </owl:Class>
+
+  <owl:Class rdf:about="#Z_RRelation">
+    <rdfs:subClassOf rdf:resource="#EmpiricalLaw" />
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="&rela;#hasPhenomena" />
+        <owl:allValuesFrom rdf:resource="&prec;#Rainfall" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:comment xml:lang="en">A relationship between radar reflectivity factor Z (mm6 m-3) and rain rate R (mm h-1).</rdfs:comment>
+  </owl:Class>
+
+</rdf:RDF>
