@@ -7,28 +7,22 @@
 
 # Introduction
 Official repository for Semantic Web for Earth and Environmental Terminology 
-(SWEET) Ontologies. For more information, see [https://sweet.jpl.nasa.gov](https://sweet.jpl.nasa.gov).
+(SWEET) Ontologies. For more information, see [https://sweet.jpl.nasa.gov](https://sweet.jpl.nasa.gov) N.B. this Website will soon be transitioned over to https://esipfed.github.io/sweet.
 
 # What is SWEET?
 SWEET ontologies are written in the OWL ontology language and are publicly available. 
-SWEET version 2.3 is highly modular with 6000 concepts in 200 separate ontologies. 
+SWEET version is highly modular with 6000 concepts in 200 separate ontologies. 
 You can view the entire concept space from an OWL tool such as [Protege](http://protege.stanford.edu/)
-by reading in [sweetAll.owl](https://github.com/ESIPFed/sweet/blob/master/sweet2.3/sweetAll.owl). Alternatively, these ontologies can be viewed individually. 
+by reading in [sweetAll.owl](https://github.com/ESIPFed/sweet/blob/master/sweetAll.owl). Alternatively, these ontologies can be viewed individually. 
 
-SWEET 2.3 consists of nine top-level concepts/ontologies. 
-SWEET is a middle-level ontology; most users add a domain-specific ontology using the components 
+SWEET consists of nine top-level concepts/ontologies and is considered as a [middle-level ontology](https://en.wikipedia.org/wiki/Ontology_%28information_science%29); most users add a domain-specific ontology using the components 
 defined here to satisfy end user needs.
 
 # Community
-SWEET is governed by the ESIP Semantic Technologies [Committee]
-(http://wiki.esipfed.org/index.php/Semantic_Technologies) (STC) meaning that all proposed 
-changes are evaluated by a number of subject matter experts. If you would like to learn more about
-SWEET, or are interested in joining the community, please 
-join our community mailing [list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb).
+SWEET is governed by the [ESIP Semantic Technologies Committee](http://wiki.esipfed.org/index.php/Semantic_Technologies) (STC) meaning that all proposed changes are evaluated by a number of subject matter experts. If you would like to learn more about SWEET, or are interested in joining the community, please join our community mailing [list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb).
 
 # Development
-The development process for SWEET follows the [Review-then-Commit](https://www.apache.org/foundation/glossary.html#ReviewThenCommit) software development 
-process. For more information, see the Subsection below
+The development process for SWEET follows the [Review-then-Commit](https://www.apache.org/foundation/glossary.html#ReviewThenCommit) software development process. For more information, see the Subsection below
 
 ## How to work with us on Github
 The following is the SWEET Github development workflow:
