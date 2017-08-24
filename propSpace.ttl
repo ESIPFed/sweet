@@ -1,0 +1,75 @@
+@prefix meas: <http://sweetontology.net/reprSpace> .
+@prefix prop: <http://sweetontology.net/prop> .
+@prefix proc: <http://sweetontology.net/procPhysical> .
+@prefix func: <http://sweetontology.net/reprMathFunction> .
+@prefix space: <http://sweetontology.net/propSpace#> .
+@prefix units: <http://sweetontology.net/reprSciUnits> .
+@prefix screla: <http://sweetontology.net/relaSci> .
+@prefix rela: <http://sweetontology.net/rela> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://sweetontology.net/propSpace> a owl:Ontology ;
+	owl:versionInfo "2.4" ;
+	rdfs:label "SWEET Ontology" ;
+	owl:imports <http://sweetontology.net/reprSpace> , <http://sweetontology.net/prop> , <http://sweetontology.net/procPhysical> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/reprMathFunction> .
+
+space:SpatialProperty a owl:Class ;
+	rdfs:subClassOf <http://sweetontology.net/prop#Property> , _:node1boamebgux1 .
+
+_:node1boamebgux1 a owl:Restriction ;
+	owl:allValuesFrom <http://sweetontology.net/reprSpace#Space> ;
+	owl:onProperty <http://sweetontology.net/relaSci#measureOf> .
+
+space:SpatialMeasure a owl:Class ;
+	rdfs:subClassOf space:SpatialProperty , <http://sweetontology.net/prop#Measure> .
+
+space:LinearExtent a owl:Class ;
+	rdfs:subClassOf space:SpatialMeasure , _:node1boamebgux2 .
+
+_:node1boamebgux2 a owl:Restriction ;
+	owl:hasValue <http://sweetontology.net/reprSciUnits#kilometer> ;
+	owl:onProperty <http://sweetontology.net/relaSci#hasDefaultUnit> .
+
+space:SpatialExtent a owl:Class ;
+	rdfs:subClassOf space:LinearExtent .
+
+space:Shape a owl:Class ;
+	rdfs:subClassOf space:SpatialConfiguration ;
+	rdfs:comment "Description of the form of an object"@en .
+
+space:SpatialConfiguration a owl:Class ;
+	rdfs:subClassOf space:SpatialProperty ;
+	owl:equivalentClass space:Configuration .
+
+space:Configuration a owl:Class .
+
+space:OrbitalConfiguration a owl:Class ;
+	rdfs:subClassOf space:SpatialConfiguration , _:node1boamebgux3 .
+
+_:node1boamebgux3 a owl:Restriction ;
+	owl:onProperty <http://sweetontology.net/rela#hasProcess> ;
+	owl:allValuesFrom <http://sweetontology.net/procPhysical#Orbit> .
+
+space:Connectivity a owl:Class ;
+	rdfs:subClassOf space:SpatialConfiguration .
+
+space:Containment a owl:Class ;
+	rdfs:subClassOf space:SpatialConfiguration .
+
+space:Morphology a owl:Class ;
+	rdfs:subClassOf space:SpatialProperty .
+
+space:SpatialSource a owl:Class ;
+	rdfs:subClassOf space:SpatialProperty .
+
+space:Curvature a owl:Class ;
+	rdfs:subClassOf space:SpatialProperty .
+
+space:SpatialDistribution a owl:Class ;
+	rdfs:subClassOf <http://sweetontology.net/reprMathFunction#DistributionFunction> , space:SpatialConfiguration .
+
+space:AngularDistribution a owl:Class ;
+	rdfs:subClassOf space:SpatialDistribution .
