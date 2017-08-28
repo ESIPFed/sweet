@@ -1,0 +1,112 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix biol: <http://sweetontology.net/matrBiomass#> .
+@prefix prop: <http://sweetontology.net/prop#> .
+@prefix role: <http://sweetontology.net/stateRole#> .
+@prefix brole: <http://sweetontology.net/stateRoleBiological#> .
+@prefix screla: <http://sweetontology.net/relaSci#> .
+
+<http://sweetontology.net/stateRoleBiological> a owl:Ontology ;
+	owl:versionInfo "2.4" ;
+	rdfs:label "SWEET Ontology" ;
+	owl:imports <http://sweetontology.net/stateRole> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/matrBiomass> , <http://sweetontology.net/prop> .
+
+brole:BiologicalRole a owl:Class ;
+	rdfs:subClassOf prop:Role .
+
+brole:Contaminant a brole:BiologicalRole .
+
+brole:Consumer a owl:Class ;
+	rdfs:subClassOf brole:BiologicalRole .
+
+brole:Producer a owl:Class ;
+	rdfs:subClassOf brole:BiologicalRole .
+
+brole:Decomposer a brole:BiologicalRole .
+
+brole:Host a brole:BiologicalRole .
+
+brole:Heterotrophic a brole:BiologicalRole .
+
+brole:Nutrient a brole:BiologicalRole .
+
+brole:Macronutrient a brole:BiologicalRole .
+
+brole:Micronutrient a brole:BiologicalRole ;
+	owl:differentFrom brole:Macronutrient .
+
+brole:Enzyme a brole:BiologicalRole .
+
+brole:Carcinogen a brole:BiologicalRole .
+
+brole:Toxin a brole:BiologicalRole ;
+	owl:sameAs brole:Toxic .
+
+brole:Toxic a brole:BiologicalRole .
+
+brole:Poision a brole:BiologicalRole .
+
+brole:Forage a brole:BiologicalRole , biol:Biomass .
+
+brole:Pollutant a brole:BiologicalRole .
+
+brole:Biomarker a brole:BiologicalRole .
+
+brole:Pest a brole:BiologicalRole .
+
+brole:Defoilant a brole:BiologicalRole .
+
+brole:Pesticide a brole:BiologicalRole ;
+	screla:kills brole:Pest .
+
+brole:Insecticide a brole:BiologicalRole .
+
+brole:ToxicAirContaminant a brole:BiologicalRole ;
+	owl:sameAs brole:TAC .
+
+brole:TAC a brole:BiologicalRole .
+
+brole:Habitat a owl:Class ;
+	rdfs:subClassOf brole:BiologicalRole .
+
+brole:Autotroph a owl:Class ;
+	rdfs:subClassOf brole:BiologicalRole .
+
+brole:Chemoautotroph a owl:Class ;
+	rdfs:subClassOf brole:Autotroph .
+
+brole:Chemoheterotroph a owl:Class ;
+	rdfs:subClassOf brole:Heterotroph .
+
+brole:Heterotroph a owl:Class ;
+	rdfs:subClassOf brole:BiologicalRole ;
+	owl:disjointWith brole:Autotroph .
+
+brole:Photoautotroph a owl:Class ;
+	rdfs:subClassOf brole:Autotroph .
+
+brole:Photoheterotroph a owl:Class ;
+	rdfs:subClassOf brole:Heterotroph .
+
+brole:TopOfFoodChain a brole:BiologicalRole ;
+	screla:hasTrophicLevel "5"^^xsd:integer .
+
+brole:FeedingHabitat a brole:Habitat .
+
+brole:Nursery a brole:Habitat .
+
+brole:SpawningGround a brole:Habitat .
+
+brole:PrimaryProducer a brole:Producer ;
+	screla:hasTrophicLevel "1"^^xsd:integer .
+
+brole:PrimaryConsumer a brole:Consumer ;
+	screla:hasTrophicLevel "2"^^xsd:integer .
+
+brole:SecondaryConsumer a brole:Consumer ;
+	screla:hasTrophicLevel "3"^^xsd:integer .
+
+brole:TertiaryConsumer a brole:Consumer ;
+	screla:hasTrophicLevel "4"^^xsd:integer .
