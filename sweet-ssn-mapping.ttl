@@ -1,0 +1,89 @@
+# baseURI: http://sweetontology.net/alignment/ssn
+# imports: http://purl.org/vocommons/voaf
+# imports: http://sweetontology.net/sweetAll
+# imports: http://www.w3.org/2004/02/skos/core
+# imports: http://www.w3.org/2006/time
+# imports: http://www.w3.org/ns/org
+# imports: http://www.w3.org/ns/ssn/
+# imports: http://xmlns.com/foaf/0.1/
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix organization: <http://www.w3.org/ns/org#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix res: <http://sweetontology.net/humanResearch/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix ssn: <http://www.w3.org/ns/ssn/> .
+@prefix stat: <http://sweetontology.net/reprMathStatistics/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://sweetontology.net/alignment/ssn>
+  rdf:type owl:Ontology ;
+  dcterms:created "2017-10-25"^^xsd:date ;
+  dcterms:creator [
+      rdf:type foaf:Person ;
+      organization:hasMembership [
+          rdf:type organization:Membership ;
+          organization:memberDuring [
+              rdf:type time:Interval ;
+              time:hasBeginning [
+                  rdf:type time:Instant ;
+                  time:inXSDDateTimeStamp "2012-12-01T00:00:00+08:00"^^xsd:dateTimeStamp ;
+                ] ;
+            ] ;
+          organization:organization <http://csiro.au> ;
+          organization:organization <http://dbpedia.org/resource/CSIRO> ;
+          organization:role [
+              rdf:type organization:Role ;
+              rdfs:label "Research Scientist" ;
+            ] ;
+        ] ;
+      foaf:family_name "Cox" ;
+      foaf:firstName "Simon J D" ;
+      foaf:mbox <mailto:simon.cox@csiro.au> ;
+      foaf:name "Simon J D COX" ;
+      foaf:publications <http://orcid.org/0000-0002-3884-3420> ;
+      foaf:workInfoHomepage <http://people.csiro.au/Simon-Cox> ;
+    ] ;
+  voaf:reliesOn <http://sweetontology.net/sweetAll> ;
+  voaf:reliesOn sosa: ;
+  voaf:reliesOn ssn: ;
+  rdfs:comment "A preliminary axiomatization of the alignment of SWEET with the W3C SSN/SOSA ontologies" ;
+  rdfs:label "SWEET-SSN/SOSA alignment graph" ;
+  owl:imports <http://purl.org/vocommons/voaf> ;
+  owl:imports <http://sweetontology.net/sweetAll> ;
+  owl:imports <http://www.w3.org/2004/02/skos/core> ;
+  owl:imports <http://www.w3.org/2006/time> ;
+  owl:imports <http://www.w3.org/ns/org> ;
+  owl:imports ssn: ;
+  owl:imports foaf: ;
+.
+res:Observation
+  rdfs:subClassOf sosa:Observation ;
+.
+res:Result
+  rdfs:subClassOf sosa:Result ;
+.
+res:Sample
+  rdfs:subClassOf sosa:Sampling ;
+.
+res:Variable
+  rdfs:comment "Not quite sure about alignment to ssn:Property here" ;
+  rdfs:subClassOf ssn:Property ;
+.
+prop:Property
+  owl:equivalentClass ssn:Property ;
+.
+stat:Sampling
+  rdfs:subClassOf sosa:Sampling ;
+.
+stat:StatisticalSample
+  rdfs:subClassOf sosa:Sample ;
+  skos:note "Is the subclass relationship from StatisticalSample to humanResearchSample the right way round here? Or are they both subclasses of sosa:Sample? " ;
+.
