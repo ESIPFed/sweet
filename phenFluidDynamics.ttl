@@ -1,159 +1,151 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix phen: <http://sweetontology.net/phen/> .
-@prefix geom: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix fldy: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix pres: <http://sweetontology.net/propPressure/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/phenFluidDynamics> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix proc:  <http://sweetontology.net/procPhysical/> .
+@prefix fldy:  <http://sweetontology.net/phenFluidDynamics/> .
+@prefix pres:  <http://sweetontology.net/propPressure/> .
+@prefix phen:  <http://sweetontology.net/phen/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geom:  <http://sweetontology.net/reprSpaceGeometry/> .
 @prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/phenFluidDynamics> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phen> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/propPressure> , <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/procPhysical> .
+fldy:StationaryEddy  a   owl:Class ;
+        rdfs:comment     "In studies of the general circulation, the eddies are the departures of a field from the zonal mean of that field; the stationary eddies are the time-averaged, or time-invariant, component of the eddy field."@en ;
+        rdfs:subClassOf  fldy:Eddy .
 
-<http://sweetontology.net/phenFluidDynamics/Overturning> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Circulation> .
+fldy:Trough  a           owl:Class ;
+        rdfs:comment     "In meteorology, an elongated area of relatively low atmospheric pressure; the opposite of a ridge."@en ;
+        rdfs:subClassOf  geom:Trough ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasState ;
+                           owl:someValuesFrom  fldy:LowPressure
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/Recirculation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Circulation> .
+fldy:BoundaryLayer  a    owl:Class ;
+        rdfs:subClassOf  geom:Region .
 
-<http://sweetontology.net/phenFluidDynamics/Circulation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> .
+fldy:Vortex  a           owl:Class ;
+        rdfs:comment     "More often the term refers to a flow with closed streamlines or to the idealized case in which all vorticity is concentrated in a vortex filament."@en ;
+        rdfs:subClassOf  fldy:Flow ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  proc:Rotation ;
+                           owl:onProperty     rela:hasProcess
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/Flow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> , <http://sweetontology.net/procPhysical/Motion> .
+fldy:FluidPhenomena  a   owl:Class ;
+        rdfs:subClassOf  phen:Phenomena ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Fluid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/Jet> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> , _:node1boame4gsx1 .
+fldy:Depression  a       owl:Class ;
+        rdfs:subClassOf  geom:Depression , fldy:LowPressure .
 
-_:node1boame4gsx1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasQuantity> .
+fldy:Overturning  a      owl:Class ;
+        rdfs:subClassOf  fldy:Circulation .
 
-<http://sweetontology.net/phenFluidDynamics/FluidPhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> , _:node1boame4gsx2 .
+fldy:LaminarBoundaryLayer
+        a                owl:Class ;
+        rdfs:comment     "An interfacial region in which flow is smooth and nonturbulent. Above a surface, a laminar layer will develop and fluid velocity will increase with distance from the surface, but not indefinitely. At some point, flow will become turbulent, with the laminar sublayer separating the turbulent layer from the surface. In the real world, most laminar boundary layers are extremely thin (order of 1 mm), but can be of biological importance, for example, next to plant leaves or as invertebrate refuges in streams."@en ;
+        rdfs:subClassOf  fldy:BoundaryLayer ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  fldy:LaminarFlow ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-_:node1boame4gsx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Fluid> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <statePhysical> , <phen> , <relaSpace> , <reprSpaceGeometry> , <procPhysical> , <propPressure> , <rela> , <relaSci> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenFluidDynamics/Eddy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ;
-	rdfs:comment "In fluid dynamics, an eddy is the swirling of a fluid and the reverse current created when the fluid flows past an obstacle. The moving fluid creates a space devoid of downstream-flowing water on the downstream side of the object. Fluid behind the obstacle flows into the void creating a swirl of fluid on each edge of the obstacle, followed by a short reverse flow of fluid behind the obstacle flowing upstream, toward the back of the obstacle. This phenomenon is most visible behind large emergent rocks in swift-flowing rivers." .
+fldy:PointVortex  a      owl:Class ;
+        rdfs:comment     "A straight line vortex, the flow of which can be modeled in two dimensions, with a point concentration of vorticity surrounded by irrotational flow."@en ;
+        rdfs:subClassOf  fldy:Vortex .
 
-<http://sweetontology.net/phenFluidDynamics/LaminarFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> ;
-	rdfs:comment "(Also called sheet flow, streamline flow.) A flow regime in which fluid motion is smooth and orderly, and in which adjacent layers or laminas slip past each other with little mixing between them. Exchange of material across laminar layers occurs by molecular diffusion, a process about 106 times less effective than turbulence. Laminar flow can be easily predicted as velocity increases at a steady rate from a boundary. This contrasts with the chaotic and random nature of turbulent flow. Laminar flow is not a common occurrence in the statically neutral and unstable atmosphere and is confined to a very thin layer (1 mm) adjacent to very smooth surfaces such as snow and ice. However, in strongly statically stable regions such as the the nocturnal boundary layer, the Richardson number can be large enough that turbulence is suppressed, and the flow is laminar over a layer many tens of meters thick."@en .
+fldy:Flow  a             owl:Class ;
+        rdfs:subClassOf  proc:Motion , fldy:FluidPhenomena .
 
-<http://sweetontology.net/phenFluidDynamics/ViscousFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> .
+fldy:Cell  a             owl:Class ;
+        rdfs:comment     "In radar usage, a local maximum in radar reflectivity that undergoes a life cycle of growth and decay. The rising portion of the reflectivity maximum is indicative of updraft, and the later descending portion is indicative of a precipitation downdraft. Cells in ordinary convective storms last from 20 to 30 min, but often form longer-lasting multicell convective storms. Cells in supercell storms are more steady and last considerably longer. See also thunderstorm cell."@en ;
+        rdfs:subClassOf  phen:Phenomena ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasProcess ;
+                           owl:someValuesFrom  proc:Rotation
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/StationaryEddy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Eddy> ;
-	rdfs:comment "In studies of the general circulation, the eddies are the departures of a field from the zonal mean of that field; the stationary eddies are the time-averaged, or time-invariant, component of the eddy field."@en .
+fldy:LaminarFlow  a      owl:Class ;
+        rdfs:comment     "(Also called sheet flow, streamline flow.) A flow regime in which fluid motion is smooth and orderly, and in which adjacent layers or laminas slip past each other with little mixing between them. Exchange of material across laminar layers occurs by molecular diffusion, a process about 106 times less effective than turbulence. Laminar flow can be easily predicted as velocity increases at a steady rate from a boundary. This contrasts with the chaotic and random nature of turbulent flow. Laminar flow is not a common occurrence in the statically neutral and unstable atmosphere and is confined to a very thin layer (1 mm) adjacent to very smooth surfaces such as snow and ice. However, in strongly statically stable regions such as the the nocturnal boundary layer, the Richardson number can be large enough that turbulence is suppressed, and the flow is laminar over a layer many tens of meters thick."@en ;
+        rdfs:subClassOf  fldy:Flow .
 
-<http://sweetontology.net/phenFluidDynamics/Vortex> a owl:Class ;
-	rdfs:subClassOf _:node1boame4gsx3 .
+fldy:Capillary  a  owl:Class .
 
-_:node1boame4gsx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-	owl:allValuesFrom <http://sweetontology.net/procPhysical/Rotation> .
+fldy:LowPressure  a      owl:Class ;
+        rdfs:label       "Low Pressure" ;
+        rdfs:subClassOf  pres:Pressure .
 
-<http://sweetontology.net/phenFluidDynamics/Vortex> rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> ;
-	rdfs:comment "More often the term refers to a flow with closed streamlines or to the idealized case in which all vorticity is concentrated in a vortex filament."@en .
+fldy:Eddy  a             owl:Class ;
+        rdfs:comment     "In fluid dynamics, an eddy is the swirling of a fluid and the reverse current created when the fluid flows past an obstacle. The moving fluid creates a space devoid of downstream-flowing water on the downstream side of the object. Fluid behind the obstacle flows into the void creating a swirl of fluid on each edge of the obstacle, followed by a short reverse flow of fluid behind the obstacle flowing upstream, toward the back of the obstacle. This phenomenon is most visible behind large emergent rocks in swift-flowing rivers." ;
+        rdfs:subClassOf  fldy:FluidPhenomena .
 
-<http://sweetontology.net/phenFluidDynamics/PointVortex> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Vortex> ;
-	rdfs:comment "A straight line vortex, the flow of which can be modeled in two dimensions, with a point concentration of vorticity surrounded by irrotational flow."@en .
+fldy:Cyclone  a          owl:Class ;
+        rdfs:subClassOf  fldy:LowPressure .
 
-<http://sweetontology.net/phenFluidDynamics/BoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Region> .
+fldy:Recirculation  a    owl:Class ;
+        rdfs:subClassOf  fldy:Circulation .
 
-<http://sweetontology.net/phenFluidDynamics/LaminarBoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/BoundaryLayer> , _:node1boame4gsx4 .
+fldy:ViscousFlow  a      owl:Class ;
+        rdfs:subClassOf  fldy:Flow .
 
-_:node1boame4gsx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenFluidDynamics/LaminarFlow> .
+fldy:Ridge  a            owl:Class ;
+        rdfs:comment     "In meteorology, an elongated area of relatively low atmospheric pressure; the opposite of a ridge."@en ;
+        rdfs:subClassOf  geom:Ridge ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasState ;
+                           owl:someValuesFrom  fldy:HighPressure
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/LaminarBoundaryLayer> rdfs:comment "An interfacial region in which flow is smooth and nonturbulent. Above a surface, a laminar layer will develop and fluid velocity will increase with distance from the surface, but not indefinitely. At some point, flow will become turbulent, with the laminar sublayer separating the turbulent layer from the surface. In the real world, most laminar boundary layers are extremely thin (order of 1 mm), but can be of biological importance, for example, next to plant leaves or as invertebrate refuges in streams."@en .
+fldy:CapillaryAction  a      owl:Class ;
+        rdfs:subClassOf      fldy:FluidPhenomena ;
+        owl:equivalentClass  fldy:Capillary .
 
-<http://sweetontology.net/phenFluidDynamics/LaminarSublayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/LaminarBoundaryLayer> ;
-	rdfs:comment "A layer in which the fluid undergoes smooth, nonturbulent flow. It is found between any surface and a turbulent layer above. See laminar boundary layer, laminar flow."@en .
+fldy:LaminarSublayer  a  owl:Class ;
+        rdfs:comment     "A layer in which the fluid undergoes smooth, nonturbulent flow. It is found between any surface and a turbulent layer above. See laminar boundary layer, laminar flow."@en ;
+        rdfs:subClassOf  fldy:LaminarBoundaryLayer .
 
-<http://sweetontology.net/phenFluidDynamics/CapillaryAction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ;
-	owl:equivalentClass <http://sweetontology.net/phenFluidDynamics/Capillary> .
+fldy:CellCluster  a      owl:Class ;
+        rdfs:subClassOf  geom:Cluster ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  fldy:Cell ;
+                           owl:onProperty     srela:clusterOf
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/Capillary> a owl:Class .
+fldy:Anticyclone  a      owl:Class ;
+        rdfs:comment     "An atmospheric anticyclonic circulation, a closed circulation. The wind in an anticyclone is in the clockwise direction in the Northern Hemisphere and counterclockwise in the Southern Hemisphere."@en ;
+        rdfs:subClassOf  fldy:Cell ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasState ;
+                           owl:someValuesFrom  fldy:HighPressure
+                         ] .
 
-<http://sweetontology.net/phenFluidDynamics/Anticyclone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Cell> , _:node1boame4gsx5 .
+fldy:Jet  a              owl:Class ;
+        rdfs:subClassOf  fldy:Flow ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  pres:Pressure ;
+                           owl:onProperty     screla:hasQuantity
+                         ] .
 
-_:node1boame4gsx5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:someValuesFrom <http://sweetontology.net/phenFluidDynamics/HighPressure> .
+fldy:Gyre  a             owl:Class ;
+        rdfs:subClassOf  fldy:Cell .
 
-<http://sweetontology.net/phenFluidDynamics/Anticyclone> rdfs:comment "An atmospheric anticyclonic circulation, a closed circulation. The wind in an anticyclone is in the clockwise direction in the Northern Hemisphere and counterclockwise in the Southern Hemisphere."@en .
+fldy:HighPressure  a         owl:Class ;
+        rdfs:label           "High Pressure" ;
+        rdfs:subClassOf      pres:Pressure ;
+        owl:equivalentClass  fldy:Ridge .
 
-<http://sweetontology.net/phenFluidDynamics/Depression> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/LowPressure> , <http://sweetontology.net/reprSpaceGeometry/Depression> .
-
-<http://sweetontology.net/phenFluidDynamics/HighPressure> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propPressure/Pressure> ;
-	owl:equivalentClass <http://sweetontology.net/phenFluidDynamics/Ridge> ;
-	rdfs:label "High Pressure" .
-
-<http://sweetontology.net/phenFluidDynamics/Ridge> a owl:Class .
-
-<http://sweetontology.net/phenFluidDynamics/LowPressure> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propPressure/Pressure> ;
-	rdfs:label "Low Pressure" .
-
-<http://sweetontology.net/phenFluidDynamics/Ridge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Ridge> , _:node1boame4gsx6 .
-
-_:node1boame4gsx6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:someValuesFrom <http://sweetontology.net/phenFluidDynamics/HighPressure> .
-
-<http://sweetontology.net/phenFluidDynamics/Ridge> rdfs:comment "In meteorology, an elongated area of relatively low atmospheric pressure; the opposite of a ridge."@en ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Ridge> .
-
-<http://sweetontology.net/phenFluidDynamics/Trough> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Trough> , _:node1boame4gsx7 .
-
-_:node1boame4gsx7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:someValuesFrom <http://sweetontology.net/phenFluidDynamics/LowPressure> .
-
-<http://sweetontology.net/phenFluidDynamics/Trough> rdfs:comment "In meteorology, an elongated area of relatively low atmospheric pressure; the opposite of a ridge."@en .
-
-<http://sweetontology.net/phenFluidDynamics/Cyclone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/LowPressure> .
-
-<http://sweetontology.net/phenFluidDynamics/Cell> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> , _:node1boame4gsx8 .
-
-_:node1boame4gsx8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-	owl:someValuesFrom <http://sweetontology.net/procPhysical/Rotation> .
-
-<http://sweetontology.net/phenFluidDynamics/Cell> rdfs:comment "In radar usage, a local maximum in radar reflectivity that undergoes a life cycle of growth and decay. The rising portion of the reflectivity maximum is indicative of updraft, and the later descending portion is indicative of a precipitation downdraft. Cells in ordinary convective storms last from 20 to 30 min, but often form longer-lasting multicell convective storms. Cells in supercell storms are more steady and last considerably longer. See also thunderstorm cell."@en .
-
-<http://sweetontology.net/phenFluidDynamics/CellCluster> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Cluster> , _:node1boame4gsx9 .
-
-_:node1boame4gsx9 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenFluidDynamics/Cell> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/clusterOf> .
-
-<http://sweetontology.net/phenFluidDynamics/Gyre> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Cell> .
+fldy:Circulation  a      owl:Class ;
+        rdfs:subClassOf  fldy:Flow .

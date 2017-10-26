@@ -1,133 +1,143 @@
-@prefix planet: <http://sweetontology.net/realm/> .
-@prefix sfreq: <http://sweetontology.net/stateTimeFrequency/> .
-@prefix spac: <http://sweetontology.net/stateSpaceScale/> .
-@prefix star: <http://sweetontology.net/phenStar/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/phenCycle> .
 @prefix trela: <http://sweetontology.net/relaTime/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix star:  <http://sweetontology.net/phenStar/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix planet: <http://sweetontology.net/realm/> .
 @prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix osc: <http://sweetontology.net/phenCycle/> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix spac:  <http://sweetontology.net/stateSpaceScale/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sys:   <http://sweetontology.net/phenSystem/> .
+@prefix sfreq: <http://sweetontology.net/stateTimeFrequency/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix osc:   <http://sweetontology.net/phenCycle/> .
 
-<http://sweetontology.net/phenCycle> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/stateSpaceScale> , <http://sweetontology.net/phenSystem> , <http://sweetontology.net/stateTimeFrequency> , <http://sweetontology.net/phenStar> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaTime> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/realm> .
+osc:ElNinoSouthernOscillation
+        a                    owl:Class ;
+        rdfs:comment         "A significant increase in sea surface temperature over the eastern and central equatorial Pacific that occurs at irregular intervals, generally ranging between two and seven years."@en ;
+        rdfs:subClassOf      osc:EarthOscillation ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  planet:Ocean ;
+                               owl:onProperty     rela:hasRealm
+                             ] ;
+        owl:equivalentClass  osc:ENSO .
 
-<http://sweetontology.net/phenCycle/EarthOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/PlanetaryOscillation> , _:node1boame3lax1 .
+osc:PDO  a      owl:Class .
 
-_:node1boame3lax1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasAstronomicalBody> ;
-	owl:hasValue <http://sweetontology.net/realm/Earth> .
+osc:AntarcticOscillation
+        a                owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .
 
-<http://sweetontology.net/phenCycle/AntarcticOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
+osc:QBO  a      owl:Class .
 
-<http://sweetontology.net/phenCycle/ArcticOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
+osc:AnnualCycle  a       owl:Class ;
+        rdfs:subClassOf  osc:GlobalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sfreq:Annual ;
+                           owl:onProperty  trela:hasFrequency
+                         ] .
 
-<http://sweetontology.net/phenCycle/ChandlerWobble> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
+osc:IceAgeCycle  a       owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .
 
-<http://sweetontology.net/phenCycle/MaddenJulianOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> , _:node1boame3lax2 .
+osc:MaddenJulianOscillation
+        a                owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sfreq:Decadal ;
+                           owl:onProperty  trela:hasFrequency
+                         ] .
 
-_:node1boame3lax2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
-	owl:hasValue <http://sweetontology.net/stateTimeFrequency/Decadal> .
+osc:ArcticOscillation
+        a                owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .
 
-<http://sweetontology.net/phenCycle/MilankovitchCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
+osc:EarthOscillation  a  owl:Class ;
+        rdfs:subClassOf  osc:PlanetaryOscillation ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    planet:Earth ;
+                           owl:onProperty  prela:hasAstronomicalBody
+                         ] .
 
-<http://sweetontology.net/phenCycle/NorthAtlanticOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> ;
-	owl:equivalentClass <http://sweetontology.net/phenCycle/NAO> .
+osc:Tide  a              owl:Class ;
+        rdfs:subClassOf  osc:PlanetaryOscillation .
 
-<http://sweetontology.net/phenCycle/NAO> a owl:Class .
+osc:PoleTide  a          owl:Class ;
+        rdfs:subClassOf  osc:Tide .
 
-<http://sweetontology.net/phenCycle/PacificDecadalOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> ;
-	owl:equivalentClass <http://sweetontology.net/phenCycle/PDO> .
+osc:GlobalCycle  a       owl:Class ;
+        rdfs:subClassOf  sys:Oscillation ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    spac:Global ;
+                           owl:onProperty  srela:hasSpatialScale
+                         ] .
 
-<http://sweetontology.net/phenCycle/PDO> a owl:Class .
+osc:PlanetaryOscillation
+        a                owl:Class ;
+        rdfs:subClassOf  osc:GlobalCycle .
 
-<http://sweetontology.net/phenCycle/PacificNorthAmericanPattern> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
+osc:PacificNorthAmericanPattern
+        a                owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .
 
-<http://sweetontology.net/phenCycle/QuasiBiennialOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> , _:node1boame3lax3 .
+osc:ENSO  a     owl:Class .
 
-_:node1boame3lax3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
-	owl:hasValue <http://sweetontology.net/stateTimeFrequency/Biannual> .
+osc:QuasiBiennialOscillation
+        a                    owl:Class ;
+        rdfs:subClassOf      osc:EarthOscillation ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    sfreq:Biannual ;
+                               owl:onProperty  trela:hasFrequency
+                             ] ;
+        owl:equivalentClass  osc:QBO .
 
-<http://sweetontology.net/phenCycle/QuasiBiennialOscillation> owl:equivalentClass <http://sweetontology.net/phenCycle/QBO> .
+osc:BodyTide  a          owl:Class ;
+        rdfs:subClassOf  osc:Tide .
 
-<http://sweetontology.net/phenCycle/QBO> a owl:Class .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <stateTimeFrequency> , <relaSpace> , <relaTime> , <rela> , <stateSpaceScale> , <phenSystem> , <phenStar> , <realm> , <relaPhysical> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenCycle/SouthernOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> ;
-	owl:equivalentClass <http://sweetontology.net/phenCycle/ENSO> .
+osc:ChandlerWobble  a    owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .
 
-<http://sweetontology.net/phenCycle/PlanetaryOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/GlobalCycle> .
+osc:SolarCycle  a        owl:Class ;
+        rdfs:subClassOf  osc:GlobalCycle ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  star:SolarActivity ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/phenCycle/GlobalCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/Oscillation> , _:node1boame3lax4 .
+osc:NAO  a      owl:Class .
 
-_:node1boame3lax4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceScale/Global> .
+osc:DiurnalCycle  a      owl:Class ;
+        rdfs:subClassOf  osc:GlobalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sfreq:Daily ;
+                           owl:onProperty  trela:hasFrequency
+                         ] .
 
-<http://sweetontology.net/phenCycle/PolarWander> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
+osc:NorthAtlanticOscillation
+        a                    owl:Class ;
+        rdfs:subClassOf      osc:EarthOscillation ;
+        owl:equivalentClass  osc:NAO .
 
-<http://sweetontology.net/phenCycle/BodyTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/Tide> .
+osc:SouthernOscillation
+        a                    owl:Class ;
+        rdfs:subClassOf      osc:EarthOscillation ;
+        owl:equivalentClass  osc:ENSO .
 
-<http://sweetontology.net/phenCycle/PoleTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/Tide> .
+osc:PacificDecadalOscillation
+        a                    owl:Class ;
+        rdfs:subClassOf      osc:EarthOscillation ;
+        owl:equivalentClass  osc:PDO .
 
-<http://sweetontology.net/phenCycle/Tide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/PlanetaryOscillation> .
+osc:PolarWander  a       owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .
 
-<http://sweetontology.net/phenCycle/IceAgeCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> .
-
-<http://sweetontology.net/phenCycle/ElNinoSouthernOscillation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/EarthOscillation> , _:node1boame3lax5 .
-
-_:node1boame3lax5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:allValuesFrom <http://sweetontology.net/realm/Ocean> .
-
-<http://sweetontology.net/phenCycle/ElNinoSouthernOscillation> owl:equivalentClass <http://sweetontology.net/phenCycle/ENSO> ;
-	rdfs:comment "A significant increase in sea surface temperature over the eastern and central equatorial Pacific that occurs at irregular intervals, generally ranging between two and seven years."@en .
-
-<http://sweetontology.net/phenCycle/ENSO> a owl:Class .
-
-<http://sweetontology.net/phenCycle/SolarCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/GlobalCycle> , _:node1boame3lax6 .
-
-_:node1boame3lax6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenStar/SolarActivity> .
-
-<http://sweetontology.net/phenCycle/DiurnalCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/GlobalCycle> , _:node1boame3lax7 .
-
-_:node1boame3lax7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
-	owl:hasValue <http://sweetontology.net/stateTimeFrequency/Daily> .
-
-<http://sweetontology.net/phenCycle/AnnualCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/GlobalCycle> , _:node1boame3lax8 .
-
-_:node1boame3lax8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
-	owl:hasValue <http://sweetontology.net/stateTimeFrequency/Annual> .
+osc:MilankovitchCycle
+        a                owl:Class ;
+        rdfs:subClassOf  osc:EarthOscillation .

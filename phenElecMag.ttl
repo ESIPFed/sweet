@@ -1,56 +1,58 @@
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@base          <http://sweetontology.net/phenElecMag> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
-@prefix char: <http://sweetontology.net/propCharge/> .
-@prefix emf: <http://sweetontology.net/phenElecMag/> .
-@prefix phen: <http://sweetontology.net/phen/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
 @prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix proc:  <http://sweetontology.net/procPhysical/> .
+@prefix func:  <http://sweetontology.net/reprMathFunction/> .
+@prefix phen:  <http://sweetontology.net/phen/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix char:  <http://sweetontology.net/propCharge/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix emf:   <http://sweetontology.net/phenElecMag/> .
 
-<http://sweetontology.net/phenElecMag> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/phen> , <http://sweetontology.net/reprSpaceGeometry3D> , <http://sweetontology.net/procPhysical> , <http://sweetontology.net/propCharge> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprSpaceGeometry3D> , <procPhysical> , <reprMathFunction> , <propCharge> , <relaSpace> , <relaMath> , <phen> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenElecMag/ElectricDipole> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry3D/Dipole> , <http://sweetontology.net/phenElecMag/ElectricField> .
+emf:MagneticDipole  a    owl:Class ;
+        rdfs:subClassOf  emf:MagneticField , obj3d:Dipole .
 
-<http://sweetontology.net/phenElecMag/MagneticDipole> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry3D/Dipole> , <http://sweetontology.net/phenElecMag/MagneticField> .
+emf:MagneticField  a     owl:Class ;
+        rdfs:subClassOf  func:VectorField ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      srela:hasSpatialDistribution ;
+                           owl:someValuesFrom  char:MagneticMoment
+                         ] .
 
-<http://sweetontology.net/phenElecMag/GeomagneticField> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenElecMag/MagneticField> .
+emf:GeomagneticField  a  owl:Class ;
+        rdfs:subClassOf  emf:MagneticField .
 
-<http://sweetontology.net/phenElecMag/CurrentSheet> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenElecMag/ElectricField> .
+emf:ElectricField  a     owl:Class ;
+        rdfs:subClassOf  func:VectorField ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      srela:hasSpatialDistribution ;
+                           owl:someValuesFrom  char:Charge
+                         ] .
 
-<http://sweetontology.net/phenElecMag/MagneticField> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/VectorField> , _:node1boame42mx1 .
+emf:Gyroresonance  a     owl:Class ;
+        rdfs:subClassOf  emf:MagneticFieldPhenomena .
 
-_:node1boame42mx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialDistribution> ;
-	owl:someValuesFrom <http://sweetontology.net/propCharge/MagneticMoment> .
+emf:ElectricDipole  a    owl:Class ;
+        rdfs:subClassOf  emf:ElectricField , obj3d:Dipole .
 
-<http://sweetontology.net/phenElecMag/ElectricField> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/VectorField> , _:node1boame42mx2 .
+emf:CurrentSheet  a      owl:Class ;
+        rdfs:subClassOf  emf:ElectricField .
 
-_:node1boame42mx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialDistribution> ;
-	owl:someValuesFrom <http://sweetontology.net/propCharge/Charge> .
+emf:MagneticFieldPhenomena
+        a                owl:Class ;
+        rdfs:subClassOf  phen:Phenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  emf:MagneticField ;
+                           owl:onProperty     mrela:hasField
+                         ] .
 
-<http://sweetontology.net/phenElecMag/MagneticFieldPhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> , _:node1boame42mx3 .
-
-_:node1boame42mx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasField> ;
-	owl:allValuesFrom <http://sweetontology.net/phenElecMag/MagneticField> .
-
-<http://sweetontology.net/phenElecMag/MagneticMirror> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenElecMag/MagneticFieldPhenomena> .
-
-<http://sweetontology.net/phenElecMag/Gyroresonance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenElecMag/MagneticFieldPhenomena> .
+emf:MagneticMirror  a    owl:Class ;
+        rdfs:subClassOf  emf:MagneticFieldPhenomena .

@@ -1,91 +1,94 @@
-@prefix seis: <http://sweetontology.net/phenGeolSeismicity/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix geol: <http://sweetontology.net/phenGeol/> .
-@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/phenGeolSeismicity> .
+@prefix impa:  <http://sweetontology.net/stateRoleImpact/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix seis:  <http://sweetontology.net/phenGeolSeismicity/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geol:  <http://sweetontology.net/phenGeol/> .
 @prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix wave: <http://sweetontology.net/phenWave/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix wave:  <http://sweetontology.net/phenWave/> .
 
-<http://sweetontology.net/phenGeolSeismicity> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenGeol> , <http://sweetontology.net/phenWave> , <http://sweetontology.net/stateRoleImpact> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaSci> .
+seis:SeismicWave  a      owl:Class ;
+        rdfs:comment     "Seismic waves are phenomena that travel through the Earth or other elastic body, for example as the result of an earthquake, explosion, or some other process that imparts forces to the body. [Wikipedia]"@en ;
+        rdfs:subClassOf  wave:Wave ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  seis:SeismicPhenomena ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/phenGeolSeismicity/Aftershock> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/Earthquake> .
+seis:SeismicPhenomena
+        a                owl:Class ;
+        rdfs:subClassOf  geol:GeospherePhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  seis:SeismicWave ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    impa:Hazard ;
+                           owl:onProperty  screla:hasImpact
+                         ] .
 
-<http://sweetontology.net/phenGeolSeismicity/Earthquake> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicPhenomena> ;
-	rdfs:comment "Earthquakes are caused by energy release during rapid slippage along a fault. [Wikipedia]"@en .
+seis:Foreshock  a         owl:Class ;
+        rdfs:subClassOf   seis:Earthquake ;
+        owl:disjointWith  seis:Aftershock .
 
-<http://sweetontology.net/phenGeolSeismicity/Foreshock> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/Earthquake> ;
-	owl:disjointWith <http://sweetontology.net/phenGeolSeismicity/Aftershock> .
+seis:SeismicBodyWave  a  owl:Class ;
+        rdfs:comment     "Body waves are seismic waves that travel through the lithosphere. Two kinds of body waves exist: P-waves and S-waves."@en ;
+        rdfs:subClassOf  wave:BodyWave , seis:SeismicWave .
 
-<http://sweetontology.net/phenGeolSeismicity/SeismicPhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/GeospherePhenomena> , _:node1boame5box1 .
+seis:PrimaryWave  a  owl:Class .
 
-_:node1boame5box1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard> .
+seis:Aftershock  a       owl:Class ;
+        rdfs:subClassOf  seis:Earthquake .
 
-<http://sweetontology.net/phenGeolSeismicity/SeismicPhenomena> rdfs:subClassOf _:node1boame5box2 .
+seis:SWave  a                owl:Class ;
+        rdfs:comment         "S waves are transverse or shear waves, which means that the ground is displaced perpendicularly to the direction of propagation. In the case of horizontally polarized S waves, the ground moves alternately to one side and then the other. S waves can travel only through solids, as fluids (liquids and gases) do not support shear stresses. Their speed is about 60% of that of P waves in a given material. S waves are sometimes called secondary waves, and are several times larger in amplitude than P waves for earthquake sources."@en ;
+        rdfs:subClassOf      wave:ShearWave , seis:SeismicBodyWave ;
+        owl:equivalentClass  seis:SecondaryWave .
 
-_:node1boame5box2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenGeolSeismicity/SeismicWave> ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> .
+seis:Lwave  a   owl:Class .
 
-<http://sweetontology.net/phenGeolSeismicity/DeepFocusEarthquake> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/Earthquake> .
+seis:SeismicSurfaceWave
+        a                owl:Class ;
+        rdfs:comment     "Surface waves are analogous to water waves and travel just under the Earth's surface. They travel more slowly than body waves. Because of their low frequency, long duration, and large amplitude, they can be the most destructive type of seismic wave. There are two types of surface waves: Rayleigh waves and Love waves. Theoretically, surface waves can be understood as systems of interacting P and/or S waves."@en ;
+        rdfs:subClassOf  wave:SurfaceWave , seis:SeismicWave .
 
-<http://sweetontology.net/phenGeolSeismicity/ShallowFocusEarthquake> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/Earthquake> ;
-	owl:disjointWith <http://sweetontology.net/phenGeolSeismicity/DeepFocusEarthquake> .
+seis:ShallowFocusEarthquake
+        a                 owl:Class ;
+        rdfs:subClassOf   seis:Earthquake ;
+        owl:disjointWith  seis:DeepFocusEarthquake .
 
-<http://sweetontology.net/phenGeolSeismicity/Tremor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/Earthquake> ;
-	rdfs:comment "Low amplitude, continuous earthquake activity often associated with magma movement."@en .
+seis:Earthquake  a       owl:Class ;
+        rdfs:comment     "Earthquakes are caused by energy release during rapid slippage along a fault. [Wikipedia]"@en ;
+        rdfs:subClassOf  seis:SeismicPhenomena .
 
-<http://sweetontology.net/phenGeolSeismicity/MegathrustEarthquake> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/Earthquake> .
+seis:Tremor  a           owl:Class ;
+        rdfs:comment     "Low amplitude, continuous earthquake activity often associated with magma movement."@en ;
+        rdfs:subClassOf  seis:Earthquake .
 
-<http://sweetontology.net/phenGeolSeismicity/SeismicWave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenWave/Wave> , _:node1boame5box3 .
+seis:SecondaryWave  a  owl:Class .
 
-_:node1boame5box3 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenGeolSeismicity/SeismicPhenomena> ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> .
+seis:DeepFocusEarthquake
+        a                owl:Class ;
+        rdfs:subClassOf  seis:Earthquake .
 
-<http://sweetontology.net/phenGeolSeismicity/SeismicWave> rdfs:comment "Seismic waves are phenomena that travel through the Earth or other elastic body, for example as the result of an earthquake, explosion, or some other process that imparts forces to the body. [Wikipedia]"@en .
+seis:PWave  a                owl:Class ;
+        rdfs:comment         "P waves are longitudinal or compressional waves, which means that the ground is alternately compressed and dilated in the direction of propagation. In solids these waves generally travel slightly less than twice as fast as S waves and can travel through any type of material. In air, these pressure waves take the form of sound waves, hence they travel at the speed of sound. Typical speeds are 330 m/s in air, 1450 m/s in water and about 5000 m/s in granite. P waves are sometimes called primary waves. When generated by an earthquake they are less destructive than the S waves and surface waves that follow them, due to their lesser amplitudes."@en ;
+        rdfs:subClassOf      wave:LongitudinalWave , seis:SeismicBodyWave ;
+        owl:equivalentClass  seis:PrimaryWave .
 
-<http://sweetontology.net/phenGeolSeismicity/SeismicBodyWave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicWave> , <http://sweetontology.net/phenWave/BodyWave> ;
-	rdfs:comment "Body waves are seismic waves that travel through the lithosphere. Two kinds of body waves exist: P-waves and S-waves."@en .
+seis:LoveWave  a             owl:Class ;
+        rdfs:comment         "A type of seismic surface wave having a horizontal motion that is shear or transverse to the direction of propagation. Its velocity depends only on density and rigidity modulus, and not on bulk modulus. It is named after A. E. H. Love, the English mathematician who discovered it."@en ;
+        rdfs:subClassOf      wave:SurfaceWave ;
+        owl:equivalentClass  seis:Lwave .
 
-<http://sweetontology.net/phenGeolSeismicity/SeismicSurfaceWave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicWave> , <http://sweetontology.net/phenWave/SurfaceWave> ;
-	rdfs:comment "Surface waves are analogous to water waves and travel just under the Earth's surface. They travel more slowly than body waves. Because of their low frequency, long duration, and large amplitude, they can be the most destructive type of seismic wave. There are two types of surface waves: Rayleigh waves and Love waves. Theoretically, surface waves can be understood as systems of interacting P and/or S waves."@en .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaSci> , <rela> , <stateRoleImpact> , <phenWave> , <phenGeol> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenGeolSeismicity/LoveWave> a owl:Class ;
-	owl:equivalentClass <http://sweetontology.net/phenGeolSeismicity/Lwave> ;
-	rdfs:subClassOf <http://sweetontology.net/phenWave/SurfaceWave> ;
-	rdfs:comment "A type of seismic surface wave having a horizontal motion that is shear or transverse to the direction of propagation. Its velocity depends only on density and rigidity modulus, and not on bulk modulus. It is named after A. E. H. Love, the English mathematician who discovered it."@en .
-
-<http://sweetontology.net/phenGeolSeismicity/Lwave> a owl:Class .
-
-<http://sweetontology.net/phenGeolSeismicity/PWave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicBodyWave> , <http://sweetontology.net/phenWave/LongitudinalWave> ;
-	owl:equivalentClass <http://sweetontology.net/phenGeolSeismicity/PrimaryWave> ;
-	rdfs:comment "P waves are longitudinal or compressional waves, which means that the ground is alternately compressed and dilated in the direction of propagation. In solids these waves generally travel slightly less than twice as fast as S waves and can travel through any type of material. In air, these pressure waves take the form of sound waves, hence they travel at the speed of sound. Typical speeds are 330 m/s in air, 1450 m/s in water and about 5000 m/s in granite. P waves are sometimes called primary waves. When generated by an earthquake they are less destructive than the S waves and surface waves that follow them, due to their lesser amplitudes."@en .
-
-<http://sweetontology.net/phenGeolSeismicity/PrimaryWave> a owl:Class .
-
-<http://sweetontology.net/phenGeolSeismicity/SWave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicBodyWave> , <http://sweetontology.net/phenWave/ShearWave> ;
-	owl:equivalentClass <http://sweetontology.net/phenGeolSeismicity/SecondaryWave> ;
-	rdfs:comment "S waves are transverse or shear waves, which means that the ground is displaced perpendicularly to the direction of propagation. In the case of horizontally polarized S waves, the ground moves alternately to one side and then the other. S waves can travel only through solids, as fluids (liquids and gases) do not support shear stresses. Their speed is about 60% of that of P waves in a given material. S waves are sometimes called secondary waves, and are several times larger in amplitude than P waves for earthquake sources."@en .
-
-<http://sweetontology.net/phenGeolSeismicity/SecondaryWave> a owl:Class .
+seis:MegathrustEarthquake
+        a                owl:Class ;
+        rdfs:subClassOf  seis:Earthquake .

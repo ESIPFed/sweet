@@ -1,95 +1,97 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix space: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix orog: <http://sweetontology.net/realmLandOrographic/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix land: <http://sweetontology.net/realmLandform/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/realmLandOrographic> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix land:  <http://sweetontology.net/realmLandform/> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ht:    <http://sweetontology.net/propSpaceHeight/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix space: <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix orog:  <http://sweetontology.net/realmLandOrographic/> .
 
-<http://sweetontology.net/realmLandOrographic> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/realmLandform> , <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/realm> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/propSpaceHeight> .
+orog:Orographic  a  owl:Class .
 
-<http://sweetontology.net/realmLandOrographic/Alpine> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> ;
-	rdfs:comment "Alpine region is one above the tree line. [Wikipedia]"@en .
+orog:MountainRange  a    owl:Class ;
+        rdfs:subClassOf  space:Cluster ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  orog:Mountain ;
+                           owl:onProperty     srela:clusterOf
+                         ] .
 
-<http://sweetontology.net/realmLandOrographic/Bluff> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/Hill> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <propSpaceHeight> , <relaSpace> , <rela> , <realm> , <reprSpaceGeometry> , <realmLandform> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/realmLandOrographic/Butte> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/Hill> .
+orog:Pass  a             owl:Class ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/Cliff> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/Hill> .
+orog:TopographicalRegion
+        a                owl:Class ;
+        rdfs:subClassOf  land:SurfaceRegion .
 
-<http://sweetontology.net/realmLandOrographic/Foothill> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> .
+orog:Alpine  a           owl:Class ;
+        rdfs:comment     "Alpine region is one above the tree line. [Wikipedia]"@en ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/Hill> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> ;
-	rdfs:comment "A hill is a landform that extends above the surrounding terrain, in a limited area. Hills often have a distinct summit, although in areas with scarp/dip topography a hill may refer to a particular section of scarp slope without a well-defined summit (e.g. Box Hill). A hillock is a small hill. [Wikipedia]"@en .
+orog:Cliff  a            owl:Class ;
+        rdfs:subClassOf  orog:Hill .
 
-<http://sweetontology.net/realmLandOrographic/Hummock> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> .
+orog:Foothill  a         owl:Class ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/Mesa> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> .
+orog:Orography  a            owl:Class ;
+        rdfs:subClassOf      land:Landform ;
+        owl:equivalentClass  orog:Orographic , orog:Mountain .
 
-<http://sweetontology.net/realmLandOrographic/Mountain> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> .
+orog:Hill  a             owl:Class ;
+        rdfs:comment     "A hill is a landform that extends above the surrounding terrain, in a limited area. Hills often have a distinct summit, although in areas with scarp/dip topography a hill may refer to a particular section of scarp slope without a well-defined summit (e.g. Box Hill). A hillock is a small hill. [Wikipedia]"@en ;
+        rdfs:subClassOf  land:Landform .
 
-<http://sweetontology.net/realmLandOrographic/MountainRange> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Cluster> , _:node1boamegk0x1 .
+orog:Plateau  a          owl:Class ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-_:node1boamegk0x1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmLandOrographic/Mountain> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/clusterOf> .
+orog:Mesa  a             owl:Class ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/MountainRegion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/LandRegion> , _:node1boamegk0x2 .
+orog:Protrusion  a       owl:Class ;
+        rdfs:subClassOf  orog:Ridge .
 
-_:node1boamegk0x2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmLandOrographic/Mountain> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
+orog:Ubac  a             owl:Class ;
+        rdfs:comment     "The shady (usually poleward) side of a mountain." ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/NonOrographic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> ;
-	owl:disjointWith <http://sweetontology.net/realmLandOrographic/Orographic> .
+orog:Summit  a           owl:Class ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/Orography> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandOrographic/Mountain> , <http://sweetontology.net/realmLandOrographic/Orographic> .
+orog:Mountain  a         owl:Class ;
+        rdfs:subClassOf  land:Landform .
 
-<http://sweetontology.net/realmLandOrographic/Orographic> a owl:Class .
+orog:Ridge  a            owl:Class ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/Pass> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> .
+orog:NonOrographic  a     owl:Class ;
+        rdfs:subClassOf   land:Landform ;
+        owl:disjointWith  orog:Orographic .
 
-<http://sweetontology.net/realmLandOrographic/Plateau> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> .
+orog:Talus  a            owl:Class ;
+        rdfs:comment     "A slope formed at the base of a steeper slope, made of fallen and disintegrated materials."@en ;
+        rdfs:subClassOf  orog:MountainRegion .
 
-<http://sweetontology.net/realmLandOrographic/Protrusion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/Ridge> .
+orog:MountainRegion  a   owl:Class ;
+        rdfs:subClassOf  land:LandRegion ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  orog:Mountain ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/realmLandOrographic/Ridge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> .
+orog:Bluff  a            owl:Class ;
+        rdfs:subClassOf  orog:Hill .
 
-<http://sweetontology.net/realmLandOrographic/Summit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> .
+orog:Butte  a            owl:Class ;
+        rdfs:subClassOf  orog:Hill .
 
-<http://sweetontology.net/realmLandOrographic/Talus> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> ;
-	rdfs:comment "A slope formed at the base of a steeper slope, made of fallen and disintegrated materials."@en .
-
-<http://sweetontology.net/realmLandOrographic/TopographicalRegion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/SurfaceRegion> .
-
-<http://sweetontology.net/realmLandOrographic/Ubac> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandOrographic/MountainRegion> ;
-	rdfs:comment "The shady (usually poleward) side of a mountain." .
+orog:Hummock  a          owl:Class ;
+        rdfs:subClassOf  land:Landform .

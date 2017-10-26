@@ -1,585 +1,630 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
-@prefix repr: <http://sweetontology.net/repr/> .
+@base          <http://sweetontology.net/reprSciUnits> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix repr:  <http://sweetontology.net/repr/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix oper:  <http://sweetontology.net/reprMathOperation/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 
-<http://sweetontology.net/reprSciUnits> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/repr> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/reprMathOperation> .
+units:MYA  a                    units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "1000"^^xsd:double ;
+        screla:hasBaseUnit      units:year .
 
-units:UnitDerivedByShifting a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit .
+units:kelvin  a           units:BaseUnit ;
+        screla:hasSymbol  "K" .
 
-units:UnitDerivedByScaling a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit .
+units:Unit  a            owl:Class ;
+        rdfs:subClassOf  repr:Measurement .
 
-units:UnitDefinedByProduct a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit , oper:Product .
+units:meterCubedPerSecond
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meterCubed , units:perSecond .
 
-units:UnitDerivedByRaisingToPower a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit .
+units:year  a                   units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "31556926"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:BaseUnit a owl:Class ;
-	rdfs:subClassOf units:Unit .
+units:arcsecond  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  4.848E-6 ;
+        screla:hasBaseUnit      units:radian .
 
-units:ComplexUnit a owl:Class ;
-	rdfs:subClassOf units:Unit ;
-	owl:disjointWith units:BaseUnit .
+units:db  a     units:LogarithmicUnit .
 
-units:Unit a owl:Class ;
-	rdfs:subClassOf repr:Measurement .
+units:jouleSecond  a      units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:second .
 
-units:Prefix a owl:Class ;
-	rdfs:subClassOf repr:Measurement .
+units:metre  a  units:BaseUnit .
 
-units:LogarithmicUnit a owl:Class ;
-	rdfs:subClassOf units:Unit , _:node1btb0r2nbx1 .
+units:ppm  a                    units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.000001"^^xsd:double ;
+        screla:hasBaseUnit      units:ratio .
 
-_:node1btb0r2nbx1 a owl:Restriction ;
-	owl:onProperty mrela:hasScale ;
-	owl:allValuesFrom repr:LogarithmicScale .
+units:joulePerKilogramPerKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:perKelvin , units:perKilogram .
 
-units:kilo a units:Prefix ;
-	screla:hasNumericValue "1e3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "k"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:meterCubed  a         units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "3"^^xsd:double ;
+        screla:hasBaseUnit  units:meter .
 
-units:giga a units:Prefix ;
-	screla:hasSymbol "G"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e9"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:gigahertz  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E9 ;
+        screla:hasBaseUnit      units:hertz ;
+        screla:hasPrefix        units:giga .
 
-units:tera a units:Prefix ;
-	screla:hasSymbol "T"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e12"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:micron  a  units:UnitDerivedByScaling .
 
-units:peta a units:Prefix ;
-	screla:hasSymbol "P"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e15"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:pascalSecond  a     units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:pascal , units:second .
 
-units:exa a units:Prefix ;
-	screla:hasSymbol "E"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e18"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perKelvin  a          units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:kelvin .
 
-units:micro a units:Prefix ;
-	screla:hasNumericValue "1E-6"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:siemens  a            units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:ohm ;
+        screla:hasSymbol    "G" .
 
-units:milli a units:Prefix ;
-	screla:hasSymbol "m"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1E-3"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:nano  a                   units:Prefix ;
+        screla:hasNumericValue  1E-9 ;
+        screla:hasSymbol        "n" .
 
-units:centi a units:Prefix ;
-	screla:hasSymbol "c"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1E-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:micro  a                  units:Prefix ;
+        screla:hasNumericValue  1E-6 .
 
-units:hecto a units:Prefix ;
-	screla:hasNumericValue "1e2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "h"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:wattPerMeterSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeterSquared , units:watt .
 
-units:nano a units:Prefix ;
-	screla:hasNumericValue "1E-9"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "n"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:arcminute  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  2.909E-4 ;
+        screla:hasBaseUnit      units:radian .
 
-units:deca a units:Prefix ;
-	screla:hasNumericValue "10"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "da"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:micrometer  a             units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E-6 ;
+        screla:hasBaseUnit      units:meter ;
+        screla:hasPrefix        units:micro ;
+        owl:sameAs              units:micron .
 
-units:mega a units:Prefix ;
-	screla:hasSymbol "M"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e6"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:UnitDerivedByShifting
+        a                owl:Class ;
+        rdfs:subClassOf  units:ComplexUnit .
 
-units:meter a units:BaseUnit ;
-	screla:hasSymbol "m"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	owl:sameAs units:metre .
+units:farad  a            units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:coulomb , units:perVolt ;
+        screla:hasSymbol  "F" .
 
-units:metre a units:BaseUnit .
+units:perKilogramMeterSquaredPerSecondKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kelvin , units:meterSquared , units:perKilogram , units:perSecond .
 
-units:kilogram a units:BaseUnit ;
-	screla:hasSymbol "kg"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:centimeter  a             units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E-2 ;
+        screla:hasBaseUnit      units:meter ;
+        screla:hasPrefix        units:centi .
 
-units:ampere a units:BaseUnit ;
-	screla:hasSymbol "a"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:milli  a                  units:Prefix ;
+        screla:hasNumericValue  1E-3 ;
+        screla:hasSymbol        "m" .
+
+units:million_km2  a            units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1e-12 ;
+        screla:hasBaseUnit      units:meterSquared .
+
+units:radianPerSecondSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:radian , units:perSecondSquared .
+
+units:decade  a                 units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "315569260"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
+
+units:candelaPerMeterSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:candela , units:perMeterSquared .
+
+units:lux  a              units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:lumen , units:candela , units:perMeterSquared ;
+        screla:hasSymbol  "Lx" .
 
-units:steradian a units:BaseUnit ;
-	screla:hasSymbol "sr"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:season  a                 units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "7889232"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:second a units:BaseUnit ;
-	screla:hasSymbol "s"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:newtonPerMeter  a   units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeter , units:newton .
 
-units:radian a units:BaseUnit ;
-	screla:hasSymbol "rad"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:meterCubedPerKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perKelvin , units:meterCubed .
 
-units:candela a units:BaseUnit ;
-	screla:hasSymbol "cd"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:joule  a            units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perSecondSquared , units:kilogram ;
+        screla:hasSymbol  "J" .
 
-units:kelvin a units:BaseUnit ;
-	screla:hasSymbol "K"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:joulePerKilogram
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:perKilogram .
 
-units:dimensionlessUnit a units:BaseUnit .
+units:pptv  a                   units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.000000000001"^^xsd:double ;
+        screla:hasBaseUnit      units:volumeRatio .
 
-units:normalizedUnit a units:BaseUnit .
+units:weber  a            units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:meterSquared , units:perAmpere , units:perSecondSquared .
+
+units:perKilogram  a        units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:kilogram .
 
-units:ratio a units:BaseUnit .
+units:megahertz  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E6 ;
+        screla:hasBaseUnit      units:hertz ;
+        screla:hasPrefix        units:mega ;
+        owl:sameAs              units:MHz .
 
-units:volumeRatio a units:BaseUnit .
+units:ratio  a  units:BaseUnit .
 
-units:mole a units:BaseUnit ;
-	screla:hasSymbol "mol"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:coulombPerMeterSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeterSquared , units:coulomb .
 
-units:perMeterSquared a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:meter ;
-	mrela:toThePower "-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:LogarithmicUnit
+        a                owl:Class ;
+        rdfs:subClassOf  units:Unit ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  repr:LogarithmicScale ;
+                           owl:onProperty     mrela:hasScale
+                         ] .
 
-units:perMeterCubed a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meter .
+units:giga  a                   units:Prefix ;
+        screla:hasNumericValue  1e9 ;
+        screla:hasSymbol        "G" .
 
-units:perMeter a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:meter ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:joulePerMeterSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:perMeterSquared .
 
-units:meterSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meter .
+units:perTesla  a           units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:tesla .
 
-units:meterCubed a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meter .
+units:day  a                    units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "86400"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:perKilogram a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:kilogram ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:week  a                   units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "604800"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:perAmpere a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:ampere ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:hecto  a                  units:Prefix ;
+        screla:hasNumericValue  1e2 ;
+        screla:hasSymbol        "h" .
 
-units:siemens a units:UnitDerivedByRaisingToPower ;
-	screla:hasSymbol "G"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ohm .
+units:perMeterSquared
+        a                   units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-2"^^xsd:double ;
+        screla:hasBaseUnit  units:meter .
 
-units:perTesla a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:tesla .
+units:kilogramPerMeterSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:perMeterSquared .
 
-units:ampereSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ampere .
+units:coulombMeter  a     units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meter , units:coulomb .
 
-units:perAmpereSquared a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:ampere ;
-	mrela:toThePower "-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:mole  a             units:BaseUnit ;
+        screla:hasSymbol  "mol" .
 
-units:perVolt a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volt .
+units:pascal  a           units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:newton , units:perMeterSquared ;
+        screla:hasSymbol  "Pa" .
 
-units:perSecond a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second ;
-	owl:sameAs units:hertz ;
-	screla:hasSymbol "Hz"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:amperePerMeter  a   units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:ampere , units:perMeter .
 
-units:hertz a units:UnitDerivedByRaisingToPower .
+units:dimensionlessUnit
+        a       units:BaseUnit .
 
-units:perSecondSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:candela  a          units:BaseUnit ;
+        screla:hasSymbol  "cd" .
 
-units:perSecondCubed a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:joulePerMeterCubedPerKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:perKelvin , units:perMeterCubed .
 
-units:secondSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:minute  a                 units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "60"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:perCandela a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:candela ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:siemensPerKilogram
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perKilogram , units:siemens .
 
-units:perSteradian a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:steradian .
+units:meterPerSecondSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meter , units:perSecondSquared .
 
-units:perKelvin a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:kelvin ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perMole  a            units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:mole .
 
-units:perRadian a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:radian .
+units:wattPerMeterPerKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perKelvin , units:perMeter , units:watt .
 
-units:perPascal a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:pascal ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:normalizedUnit  a  units:BaseUnit .
 
-units:perMole a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:mole ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perPascal  a          units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:pascal .
 
-units:millimeter a units:UnitDerivedByScaling ;
-	screla:hasPrefix units:milli ;
-	screla:hasBaseUnit units:meter ;
-	mrela:hasScalingNumber "1.E-3"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:UnitDefinedByProduct
+        a                owl:Class ;
+        rdfs:subClassOf  oper:Product , units:ComplexUnit .
 
-units:micrometer a units:UnitDerivedByScaling ;
-	screla:hasPrefix units:micro ;
-	screla:hasBaseUnit units:meter ;
-	mrela:hasScalingNumber "1.E-6"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	owl:sameAs units:micron .
+units:meterSquared  a       units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "2"^^xsd:double ;
+        screla:hasBaseUnit  units:meter .
 
-units:micron a units:UnitDerivedByScaling .
+units:FTU  a        units:Unit ;
+        owl:sameAs  units:FNU , units:FormazinTurbidityUnit .
 
-units:nanometer a units:UnitDerivedByScaling ;
-	screla:hasPrefix units:nano ;
-	screla:hasBaseUnit units:meter ;
-	mrela:hasScalingNumber "1.E-9"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:kelvinPerMeter  a   units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeter , units:kelvin .
 
-units:kilometer a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:meter ;
-	screla:hasPrefix units:kilo ;
-	mrela:hasScalingNumber "1000."^^<http://www.w3.org/2001/XMLSchema#double> .
+units:pascalPerSecond
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:pascal , units:perSecond ;
+        screla:hasSymbol  "pa/s" .
 
-units:centimeter a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:meter ;
-	screla:hasPrefix units:centi ;
-	mrela:hasScalingNumber "1.E-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perVolt  a            units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:volt .
 
-units:permil a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+units:ComplexUnit  a      owl:Class ;
+        rdfs:subClassOf   units:Unit ;
+        owl:disjointWith  units:BaseUnit .
 
-units:kilohertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:kilo ;
-	mrela:hasScalingNumber "1000."^^<http://www.w3.org/2001/XMLSchema#double> .
+units:steradian  a        units:BaseUnit ;
+        screla:hasSymbol  "sr" .
 
-units:megahertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:mega ;
-	mrela:hasScalingNumber "1.E6"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	owl:sameAs units:MHz .
+units:permil  a                 units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.001"^^xsd:double ;
+        screla:hasBaseUnit      units:ratio .
 
-units:MHz a units:UnitDerivedByScaling .
+units:kilohertz  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "1000."^^xsd:double ;
+        screla:hasBaseUnit      units:hertz ;
+        screla:hasPrefix        units:kilo .
 
-units:gigahertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:giga ;
-	mrela:hasScalingNumber "1.E9"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:radian  a           units:BaseUnit ;
+        screla:hasSymbol  "rad" .
 
-units:terahertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:tera ;
-	mrela:hasScalingNumber "1.E12"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perSteradian  a       units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:steradian .
 
-units:degrees a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:radian ;
-	mrela:hasScalingNumber "57.2957795"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:meter  a            units:BaseUnit ;
+        screla:hasSymbol  "m" ;
+        owl:sameAs        units:metre .
 
-units:kilometerPerHour a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:meterPerSecond ;
-	mrela:hasScalingNumber "0.27777777"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:kilogram  a         units:BaseUnit ;
+        screla:hasSymbol  "kg" .
 
-units:percent a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.01"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+units:meterSquaredPerSecondSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meterSquared , units:perSecondSquared .
 
-units:perMil a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+units:henryPerMeter  a    units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeter , units:henry .
 
-units:ppb a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+units:degreeC  a                 units:UnitDerivedByShifting ;
+        mrela:hasShiftingNumber  "-273"^^xsd:double ;
+        screla:hasBaseUnit       units:kelvin ;
+        screla:hasSymbol         "C" .
 
-units:ppt a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+units:mega  a                   units:Prefix ;
+        screla:hasNumericValue  1e6 ;
+        screla:hasSymbol        "M" .
 
-units:ppm a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+units:million_km3  a            units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1e-15 ;
+        screla:hasBaseUnit      units:meterCubed .
 
-units:minute a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "60"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perMeterCubed  a      units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-3"^^xsd:double ;
+        screla:hasBaseUnit  units:meter .
 
-units:hour a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "3600"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:perRadian  a          units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:radian .
 
-units:day a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "86400"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:ppmv  a                   units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.000001"^^xsd:double ;
+        screla:hasBaseUnit      units:volumeRatio .
 
-units:week a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "604800"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:lumen  a            units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:candela , units:steradian .
 
-units:month a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "2629744"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:ohm  a              units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:meterSquared , units:perAmpereSquared , units:perSecondCubed .
 
-units:season a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "7889232"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:FNU  a    units:Unit .
 
-units:year a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "31556926"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:UnitDerivedByRaisingToPower
+        a                owl:Class ;
+        rdfs:subClassOf  units:ComplexUnit .
 
-units:decade a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "315569260"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:meterPerSecond  a   units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meter , units:perSecond .
 
-units:century a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "3.1556926E09"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+units:century  a                units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  3.1556926E09 ;
+        screla:hasBaseUnit      units:second .
 
-units:millenium a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1000"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:year .
+units:perKilogramMole
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:mole , units:perKilogram .
 
-units:arcsecond a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "4.848E-6"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:radian .
+units:terahertz  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E12 ;
+        screla:hasBaseUnit      units:hertz ;
+        screla:hasPrefix        units:tera .
 
-units:arcminute a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "2.909E-4"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:radian .
+units:month  a                  units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "2629744"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:ppbv a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volumeRatio .
+units:kilometer  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "1000."^^xsd:double ;
+        screla:hasBaseUnit      units:meter ;
+        screla:hasPrefix        units:kilo .
 
-units:pptv a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volumeRatio .
+units:joulePerMolePerKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:perMole , units:perKelvin .
 
-units:ppmv a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volumeRatio .
+units:wattPerMeterSquaredPerSteradian
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:wattPerMeterSquared , units:perSteradian .
 
-units:MYA a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1000"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:year .
+units:siemensPerMeter
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeter , units:siemens .
 
-units:million_km2 a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1e-12"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meterSquared .
+units:degreeF  a                 units:UnitDerivedByShifting ;
+        mrela:hasScalingNumber   "1.8"^^xsd:double ;
+        mrela:hasShiftingNumber  "32"^^xsd:double ;
+        screla:hasBaseUnit       units:degreeC .
 
-units:million_km3 a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1e-15"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meterCubed .
+units:kilo  a                   units:Prefix ;
+        screla:hasNumericValue  1e3 ;
+        screla:hasSymbol        "k" .
 
-units:degreeF a units:UnitDerivedByShifting ;
-	screla:hasBaseUnit units:degreeC ;
-	mrela:hasShiftingNumber "32"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	mrela:hasScalingNumber "1.8"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:henry  a            units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:meterSquared , units:perAmpereSquared , units:perSecondSquared .
 
-units:degreeC a units:UnitDerivedByShifting ;
-	screla:hasSymbol "C"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasBaseUnit units:kelvin ;
-	mrela:hasShiftingNumber "-273"^^<http://www.w3.org/2001/XMLSchema#double> .
+units:ppbv  a                   units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.000000001"^^xsd:double ;
+        screla:hasBaseUnit      units:volumeRatio .
 
-units:kilogramPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:kilogram .
+units:UnitDerivedByScaling
+        a                owl:Class ;
+        rdfs:subClassOf  units:ComplexUnit .
 
-units:kilogramPerMeterCubed a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterCubed , units:kilogram .
+units:FormazinTurbidityUnit
+        a       units:Unit .
 
-units:farad a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perVolt , units:coulomb ;
-	screla:hasSymbol "F"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:joulePerKelvin  a   units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:joule , units:perKelvin .
 
-units:coulomb a units:UnitDefinedByProduct ;
-	screla:hasSymbol "C"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:second , units:ampere .
+units:exa  a                    units:Prefix ;
+        screla:hasNumericValue  1e18 ;
+        screla:hasSymbol        "E" .
 
-units:coulombMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:coulomb , units:meter .
+units:watt  a             units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perSecond , units:joule .
 
-units:coulombPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:coulomb , units:perMeterSquared .
+units:coulomb  a          units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:ampere , units:second ;
+        screla:hasSymbol  "C" .
 
-units:coulombPerMeterCubed a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:coulomb , units:perMeterCubed .
+units:ppt  a                    units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.000000000001"^^xsd:double ;
+        screla:hasBaseUnit      units:ratio .
 
-units:voltPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:volt , units:perMeter .
+units:joulePerTesla  a    units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perTesla , units:joule .
 
-units:tesla a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:weber .
+units:kilogramMeterPerSecond
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:meter , units:perSecond .
 
-units:joulePerTesla a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:joule , units:perTesla .
+units:tesla  a            units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:weber , units:perMeterSquared .
 
-units:siemensPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:siemens , units:perMeter .
+units:meterCubedPerKilogram
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perKilogram , units:meterCubed .
 
-units:siemensPerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:siemens , units:perKilogram .
+units:hertz  a  units:UnitDerivedByRaisingToPower .
 
-units:henry a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:perAmpereSquared , units:meterSquared , units:kilogram .
+units:millenium  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "1000"^^xsd:double ;
+        screla:hasBaseUnit      units:year .
 
-units:henryPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:henry , units:perMeter .
+units:perSecondCubed  a     units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-3"^^xsd:double ;
+        screla:hasBaseUnit  units:second .
 
-units:faradPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:farad , units:perMeter .
+units:ampere  a           units:BaseUnit ;
+        screla:hasSymbol  "a" .
 
-units:ohm a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondCubed , units:perAmpereSquared , units:meterSquared , units:kilogram .
+units:percent  a                units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.01"^^xsd:double ;
+        screla:hasBaseUnit      units:ratio .
 
-units:ohmMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:ohm , units:meter .
+units:voltPerMeter  a     units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeter , units:volt .
 
-units:amperePerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeter , units:ampere .
+units:perMil  a                 units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.001"^^xsd:double ;
+        screla:hasBaseUnit      units:ratio .
 
-units:amperePerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:ampere .
+units:perSecondSquared
+        a                   units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-2"^^xsd:double ;
+        screla:hasBaseUnit  units:second .
 
-units:lumen a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:steradian , units:candela .
+units:second  a           units:BaseUnit ;
+        screla:hasSymbol  "s" .
 
-units:volt a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondCubed , units:perAmpere , units:meterSquared , units:kilogram ;
-	screla:hasSymbol "V"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:hour  a                   units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "3600"^^xsd:double ;
+        screla:hasBaseUnit      units:second .
 
-units:weber a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:perAmpere , units:meterSquared , units:kilogram .
+units:meterPerKelvin  a   units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meter , units:perKelvin .
 
-units:lux a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:candela , units:lumen ;
-	screla:hasSymbol "Lx"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:degrees  a                units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "57.2957795"^^xsd:double ;
+        screla:hasBaseUnit      units:radian .
 
-units:radianPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:radian .
+units:secondSquared  a      units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "2"^^xsd:double ;
+        screla:hasBaseUnit  units:second .
 
-units:kilogramRadianPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:radian , units:kilogram .
+units:Prefix  a          owl:Class ;
+        rdfs:subClassOf  repr:Measurement .
 
-units:radianPerSecondSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:radian .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprMathOperation> , <relaSci> , <relaMath> , <repr> ;
+        owl:versionInfo  "3.1.0" .
 
-units:wattPerMeterSquaredPerSteradian a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSteradian , units:wattPerMeterSquared .
+units:wattPerMeterSquaredPerKelvin
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:wattPerMeterSquared , units:perKelvin .
 
-units:wattPerMeterSquaredPerSteradianPerWavelength a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSteradian , units:perMeter , units:wattPerMeterSquared .
+units:wattPerMeterSquaredPerSteradianPerWavelength
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:wattPerMeterSquared , units:perMeter , units:perSteradian .
 
-units:wattPerMeterSquaredPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:wattPerMeterSquared .
+units:coulombPerMeterCubed
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeterCubed , units:coulomb .
 
-units:candelaPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:candela .
+units:ppb  a                    units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.000000001"^^xsd:double ;
+        screla:hasBaseUnit      units:ratio .
 
-units:meterPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:meter .
+units:perAmpere  a          units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:ampere .
 
-units:kelvinPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:kelvin , units:perMeter .
+units:perCandela  a         units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:candela .
 
-units:wattPerMeterPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:watt , units:perMeter , units:perKelvin .
+units:ohmMeter  a         units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meter , units:ohm .
 
-units:meterCubedPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:meterCubed , units:perKelvin .
+units:perSecond  a          units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:second ;
+        screla:hasSymbol    "Hz" ;
+        owl:sameAs          units:hertz .
 
-units:meterCubedPerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:meterCubed , units:perKilogram .
+units:kilogramPerMeterCubed
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:perMeterCubed .
 
-units:newtonMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:meter , units:newton .
+units:meterSquaredPerKilogram
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meterSquared , units:perKilogram .
 
-units:perKilogramMeterSquaredPerSecondKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:perKilogram , units:meterSquared , units:kelvin .
+units:newtonMeter  a      units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:newton , units:meter .
 
-units:joulePerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:joule .
+units:volt  a             units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:meterSquared , units:perAmpere , units:perSecondCubed ;
+        screla:hasSymbol  "V" .
 
-units:joulePerKilogramPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:perKelvin , units:joule .
+units:millimeter  a             units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E-3 ;
+        screla:hasBaseUnit      units:meter ;
+        screla:hasPrefix        units:milli .
 
-units:joulePerMeterCubedPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterCubed , units:perKelvin , units:joule .
+units:nanometer  a              units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  1.E-9 ;
+        screla:hasBaseUnit      units:meter ;
+        screla:hasPrefix        units:nano .
 
-units:jouleSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:second , units:joule .
+units:radianPerSecond
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:radian , units:perSecond .
 
-units:meterPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meter .
+units:perAmpereSquared
+        a                   units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-2"^^xsd:double ;
+        screla:hasBaseUnit  units:ampere .
 
-units:meterPerSecondSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:meter .
+units:meterSquaredPerSecond
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:meterSquared , units:perSecond .
 
-units:watt a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:joule , units:perSecond .
+units:kilogramRadianPerSecond
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:radian , units:perSecond .
 
-units:joule a units:UnitDefinedByProduct ;
-	screla:hasSymbol "J"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:kilogram , units:perSecondSquared .
+units:centi  a                  units:Prefix ;
+        screla:hasNumericValue  1E-2 ;
+        screla:hasSymbol        "c" .
 
-units:wattPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:watt , units:perMeterSquared .
+units:BaseUnit  a        owl:Class ;
+        rdfs:subClassOf  units:Unit .
 
-units:kilogramMeterPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meter , units:kilogram .
+units:volumeRatio  a  units:BaseUnit .
 
-units:newton a units:UnitDefinedByProduct ;
-	screla:hasSymbol "N"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:perSecondSquared , units:meter , units:kilogram .
+units:ampereSquared  a      units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "2"^^xsd:double ;
+        screla:hasBaseUnit  units:ampere .
 
-units:pascal a units:UnitDefinedByProduct ;
-	screla:hasSymbol "Pa"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:perMeterSquared , units:newton .
+units:kilometerPerHour
+        a                       units:UnitDerivedByScaling ;
+        mrela:hasScalingNumber  "0.27777777"^^xsd:double ;
+        screla:hasBaseUnit      units:meterPerSecond .
 
-units:pascalPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:pascal ;
-	screla:hasSymbol "pa/s"^^<http://www.w3.org/2001/XMLSchema#string> .
+units:faradPerMeter  a    units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:perMeter , units:farad .
 
-units:newtonPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:newton , units:perMeter .
+units:amperePerMeterSquared
+        a                 units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:ampere , units:perMeterSquared .
 
-units:meterSquaredPerSecondSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:meterSquared .
+units:newton  a           units:UnitDefinedByProduct ;
+        mrela:hasOperand  units:kilogram , units:meter , units:perSecondSquared ;
+        screla:hasSymbol  "N" .
 
-units:meterSquaredPerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:meterSquared .
+units:deca  a                   units:Prefix ;
+        screla:hasNumericValue  "10"^^xsd:double ;
+        screla:hasSymbol        "da" .
 
-units:joulePerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:joule .
+units:MHz  a    units:UnitDerivedByScaling .
 
-units:joulePerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:joule .
+units:perMeter  a           units:UnitDerivedByRaisingToPower ;
+        mrela:toThePower    "-1"^^xsd:double ;
+        screla:hasBaseUnit  units:meter .
 
-units:pascalSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:second , units:pascal .
+units:tera  a                   units:Prefix ;
+        screla:hasNumericValue  1e12 ;
+        screla:hasSymbol        "T" .
 
-units:meterSquaredPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meterSquared .
-
-units:meterCubedPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meterCubed .
-
-units:perKilogramMole a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:mole .
-
-units:joulePerMolePerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:perMole , units:joule .
-
-units:FTU a units:Unit ;
-	owl:sameAs units:FormazinTurbidityUnit , units:FNU .
-
-units:FormazinTurbidityUnit a units:Unit .
-
-units:FNU a units:Unit .
-
-units:db a units:LogarithmicUnit .
+units:peta  a                   units:Prefix ;
+        screla:hasNumericValue  1e15 ;
+        screla:hasSymbol        "P" .

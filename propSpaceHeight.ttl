@@ -1,140 +1,144 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix xten: <http://sweetontology.net/propSpaceDistance/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
+@base          <http://sweetontology.net/propSpaceHeight> .
+@prefix quan:  <http://sweetontology.net/propQuantity/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix realm: <http://sweetontology.net/realm/> .
-@prefix space: <http://sweetontology.net/propSpace/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix ht:    <http://sweetontology.net/propSpaceHeight/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 @prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix xten:  <http://sweetontology.net/propSpaceDistance/> .
+@prefix space: <http://sweetontology.net/propSpace/> .
 
-<http://sweetontology.net/propSpaceHeight> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propSpaceDistance> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/realm> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/propSpace> .
+ht:VerticalExtent  a     owl:Class ;
+        rdfs:subClassOf  space:SpatialExtent .
 
-<http://sweetontology.net/propSpaceHeight/HeightRange> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> , _:node1boamebulx1 .
+ht:Elevation  a              owl:Class ;
+        rdfs:subClassOf      ht:Height ;
+        owl:equivalentClass  ht:Altitude .
 
-_:node1boamebulx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-	owl:someValuesFrom <http://sweetontology.net/propSpaceHeight/Height> .
+ht:HeightRange  a        owl:Class ;
+        rdfs:subClassOf  quan:IntervalQuantity ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:rangeOf ;
+                           owl:someValuesFrom  ht:Height
+                         ] .
 
-<http://sweetontology.net/propSpaceHeight/HeightRange_km> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/HeightRange> , _:node1boamebulx2 .
+ht:DepthRange_km  a      owl:Class ;
+        rdfs:subClassOf  ht:DepthRange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:kilometer ;
+                           owl:onProperty  screla:hasUnit
+                         ] .
 
-_:node1boamebulx2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/kilometer> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasUnit> .
+ht:MixingHeight  a       owl:Class ;
+        rdfs:subClassOf  ht:Height .
 
-<http://sweetontology.net/propSpaceHeight/Altitude> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> ;
-	rdfs:label "Altitude" ;
-	rdfs:comment "A measure (or condition) of height, especially of great height, as a mountain top or aircraft flight level." , "The vertical distance above mean sea level of the ground at the meteorological station." .
+ht:GeopotentialHeight
+        a                owl:Class ;
+        rdfs:subClassOf  ht:Height .
 
-<http://sweetontology.net/propSpaceHeight/SignificantHeight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:Geoid  a              owl:Class ;
+        rdfs:subClassOf  realm:PlanetarySurfaceLevel .
 
-<http://sweetontology.net/propSpaceHeight/BarometricAltitude> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Altitude> .
+ht:TopographicProminence
+        a                owl:Class ;
+        rdfs:comment     "In topography, prominence, also known as autonomous height, relative height or shoulder drop (in America) or prime factor (in Europe), is a concept used in the categorization of hills and mountains, also known as peaks. It is a measure of the independent stature of a summit." ;
+        rdfs:subClassOf  ht:Height .
 
-<http://sweetontology.net/propSpaceHeight/GeopotentialHeight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:BarometricAltitude
+        a                owl:Class ;
+        rdfs:subClassOf  ht:Altitude .
 
-<http://sweetontology.net/propSpaceHeight/Ceiling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/VerticalExtent> .
+ht:DampingDepth  a       owl:Class ;
+        rdfs:subClassOf  ht:Depth .
 
-<http://sweetontology.net/propSpaceHeight/EstimatedCeiling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Ceiling> ;
-	rdfs:comment "After U.S.weather observing practice, the ceiling classification applied to a ceiling height that is determined in any of the following ways: 1) by means of a convective-cloud height diagram or dewpoint formula; 2) from the known heights of unobscured portions of natural landmarks, or objects more than one and one-half nautical miles from any runway of the airport; 3) on the basis of observational experience, provided the sky is not obscured by surface-based hydrometeors or lithometeors, and other guides are lacking or considered unreliable; or 4) determined by ceilometer or ceiling light when the penetration of the light beam is in excess of normal for the particular height and type of layer, or when the elevation angle of the clinometer or ceilometer-detector scanner exceeds 84?."@en .
+ht:Altitude  a           owl:Class ;
+        rdfs:comment     "The vertical distance above mean sea level of the ground at the meteorological station." , "A measure (or condition) of height, especially of great height, as a mountain top or aircraft flight level." ;
+        rdfs:label       "Altitude" ;
+        rdfs:subClassOf  ht:Height .
 
-<http://sweetontology.net/propSpaceHeight/ScaleHeight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:Depth  a              owl:Class ;
+        rdfs:subClassOf  xten:Distance , ht:VerticalExtent .
 
-<http://sweetontology.net/propSpaceHeight/MixingHeight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:FlightLevel  a        owl:Class ;
+        rdfs:comment     "In aviation, a Flight Level (FL) is a standard nominal altitude of an aircraft, referenced to a world-wide fixed pressure datum of 1013.25 hPa or the equivalent setting, 29.921 inHg (the average sea-level pressure). It is not necessarily the same as the aircraft's true altitude above mean sea level."@en ;
+        rdfs:subClassOf  ht:Altitude .
 
-<http://sweetontology.net/propSpaceHeight/Crest> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:HeightRange_km  a     owl:Class ;
+        rdfs:subClassOf  ht:HeightRange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:kilometer ;
+                           owl:onProperty  screla:hasUnit
+                         ] .
 
-<http://sweetontology.net/propSpaceHeight/UpperLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Level> .
+ht:SignificantHeight  a  owl:Class ;
+        rdfs:subClassOf  ht:Height .
 
-<http://sweetontology.net/propSpaceHeight/Level> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/VerticalExtent> .
+ht:SkinDepth  a          owl:Class ;
+        rdfs:subClassOf  ht:Depth .
 
-<http://sweetontology.net/propSpaceHeight/VerticalExtent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpace/SpatialExtent> .
+ht:Height  a             owl:Class ;
+        rdfs:subClassOf  xten:Distance , ht:VerticalExtent .
 
-<http://sweetontology.net/propSpaceHeight/Elevation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> ;
-	owl:equivalentClass <http://sweetontology.net/propSpaceHeight/Altitude> .
+ht:SeaLevel  a           owl:Class ;
+        rdfs:subClassOf  realm:PlanetarySurfaceLevel .
 
-<http://sweetontology.net/propSpaceHeight/Freeboard> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:Ceiling  a            owl:Class ;
+        rdfs:subClassOf  ht:VerticalExtent .
 
-<http://sweetontology.net/propSpaceHeight/Height> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/VerticalExtent> , <http://sweetontology.net/propSpaceDistance/Distance> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <propSpaceDistance> , <propQuantity> , <realm> , <propSpace> , <reprSciUnits> , <relaSci> , <rela> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/propSpaceHeight/FlightLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Altitude> ;
-	rdfs:comment "In aviation, a Flight Level (FL) is a standard nominal altitude of an aircraft, referenced to a world-wide fixed pressure datum of 1013.25 hPa or the equivalent setting, 29.921 inHg (the average sea-level pressure). It is not necessarily the same as the aircraft's true altitude above mean sea level."@en .
+ht:DynamicTopography  a  owl:Class ;
+        rdfs:subClassOf  ht:Topography .
 
-<http://sweetontology.net/propSpaceHeight/Topography> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> .
+ht:Drawdown  a           owl:Class ;
+        rdfs:subClassOf  ht:Depth .
 
-<http://sweetontology.net/propSpaceHeight/TopographicProminence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> ;
-	rdfs:comment "In topography, prominence, also known as autonomous height, relative height or shoulder drop (in America) or prime factor (in Europe), is a concept used in the categorization of hills and mountains, also known as peaks. It is a measure of the independent stature of a summit." .
+ht:Topography  a         owl:Class ;
+        rdfs:subClassOf  ht:Height .
 
-<http://sweetontology.net/propSpaceHeight/DynamicTopography> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Topography> .
+ht:SecchiDepth  a        owl:Class ;
+        rdfs:comment     "The Secchi disk is a device used to measure water transparency in open waters of lakes, bays, and the ocean. A pattern is drawn or painted onto a card or acrylic, mounted on a pole or line, and lowered slowly in the water. The depth at which the pattern on the disk is no longer visible is taken as a measure of the transparency of the water. This measure is known as the Secchi depth and is related to water turbidity."@en ;
+        rdfs:subClassOf  ht:Depth , quan:RadiationMediumInteractionQuantity .
 
-<http://sweetontology.net/propSpaceHeight/SeaState> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Height> , _:node1boamebulx3 .
+ht:UpperLevel  a         owl:Class ;
+        rdfs:subClassOf  ht:Level .
 
-_:node1boamebulx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:allValuesFrom <http://sweetontology.net/realm/Ocean> .
+ht:EstimatedCeiling  a   owl:Class ;
+        rdfs:comment     "After U.S.weather observing practice, the ceiling classification applied to a ceiling height that is determined in any of the following ways: 1) by means of a convective-cloud height diagram or dewpoint formula; 2) from the known heights of unobscured portions of natural landmarks, or objects more than one and one-half nautical miles from any runway of the airport; 3) on the basis of observational experience, provided the sky is not obscured by surface-based hydrometeors or lithometeors, and other guides are lacking or considered unreliable; or 4) determined by ceilometer or ceiling light when the penetration of the light beam is in excess of normal for the particular height and type of layer, or when the elevation angle of the clinometer or ceilometer-detector scanner exceeds 84?."@en ;
+        rdfs:subClassOf  ht:Ceiling .
 
-<http://sweetontology.net/propSpaceHeight/Geoid> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
+ht:Level  a              owl:Class ;
+        rdfs:subClassOf  ht:VerticalExtent .
 
-<http://sweetontology.net/propSpaceHeight/SeaLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
+ht:SeaState  a           owl:Class ;
+        rdfs:subClassOf  ht:Height ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:Ocean ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/propSpaceHeight/DepthRange> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> , _:node1boamebulx4 .
+ht:ScaleHeight  a        owl:Class ;
+        rdfs:subClassOf  ht:Height .
 
-_:node1boamebulx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-	owl:someValuesFrom <http://sweetontology.net/propSpaceHeight/Depth> .
+ht:Bathymetry  a         owl:Class ;
+        rdfs:subClassOf  realm:PlanetarySurfaceLevel .
 
-<http://sweetontology.net/propSpaceHeight/DepthRange_km> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/DepthRange> , _:node1boamebulx5 .
+ht:Freeboard  a          owl:Class ;
+        rdfs:subClassOf  ht:Height .
 
-_:node1boamebulx5 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/kilometer> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasUnit> .
+ht:DepthRange  a         owl:Class ;
+        rdfs:subClassOf  quan:IntervalQuantity ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:rangeOf ;
+                           owl:someValuesFrom  ht:Depth
+                         ] .
 
-<http://sweetontology.net/propSpaceHeight/Depth> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/VerticalExtent> , <http://sweetontology.net/propSpaceDistance/Distance> .
-
-<http://sweetontology.net/propSpaceHeight/Bathymetry> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
-
-<http://sweetontology.net/propSpaceHeight/DampingDepth> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Depth> .
-
-<http://sweetontology.net/propSpaceHeight/Drawdown> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Depth> .
-
-<http://sweetontology.net/propSpaceHeight/SkinDepth> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Depth> .
-
-<http://sweetontology.net/propSpaceHeight/SecchiDepth> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> , <http://sweetontology.net/propSpaceHeight/Depth> ;
-	rdfs:comment "The Secchi disk is a device used to measure water transparency in open waters of lakes, bays, and the ocean. A pattern is drawn or painted onto a card or acrylic, mounted on a pole or line, and lowered slowly in the water. The depth at which the pattern on the disk is no longer visible is taken as a measure of the transparency of the water. This measure is known as the Secchi depth and is related to water turbidity."@en .
+ht:Crest  a              owl:Class ;
+        rdfs:subClassOf  ht:Height .

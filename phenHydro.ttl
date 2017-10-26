@@ -1,138 +1,142 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
-@prefix com: <http://sweetontology.net/reprSciComponent/> .
-@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
-@prefix realm: <http://sweetontology.net/realmHydro/> .
-@prefix planet: <http://sweetontology.net/realm/> .
-@prefix phen: <http://sweetontology.net/phen/> .
-@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@base          <http://sweetontology.net/phenHydro> .
+@prefix surf:  <http://sweetontology.net/phenHydro/> .
+@prefix com:   <http://sweetontology.net/reprSciComponent/> .
+@prefix comp:  <http://sweetontology.net/matrCompound/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix geom: <http://sweetontology.net/phenGeolGeomorphology/> .
+@prefix impa:  <http://sweetontology.net/stateRoleImpact/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix planet: <http://sweetontology.net/realm/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geom:  <http://sweetontology.net/phenGeolGeomorphology/> .
+@prefix sys:   <http://sweetontology.net/phenSystem/> .
+@prefix phen:  <http://sweetontology.net/phen/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix fluid: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix surf: <http://sweetontology.net/phenHydro/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix realm: <http://sweetontology.net/realmHydro/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
 
-<http://sweetontology.net/phenHydro> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrCompound> , <http://sweetontology.net/stateRoleImpact> , <http://sweetontology.net/phenFluidTransport> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/realmHydro> , <http://sweetontology.net/phenFluidDynamics> , <http://sweetontology.net/realm> , <http://sweetontology.net/phen> , <http://sweetontology.net/phenGeolGeomorphology> , <http://sweetontology.net/phenSystem> , <http://sweetontology.net/reprSciComponent> .
+surf:Recharge  a         owl:Class ;
+        rdfs:subClassOf  trans:Transport ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:Aquifer ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/phenHydro/HydrospherePhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/PlanetaryPhenomena> , _:node1boame5u5x1 .
+surf:Intrusion  a        owl:Class ;
+        rdfs:subClassOf  surf:LandWaterCirculation .
 
-_:node1boame5u5x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:allValuesFrom <http://sweetontology.net/realm/Hydrosphere> .
+surf:Infiltration  a     owl:Class ;
+        rdfs:subClassOf  surf:LandWaterCirculation .
 
-<http://sweetontology.net/phenHydro/Drainage> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/Removal> .
+surf:WaterFlow  a        owl:Class ;
+        rdfs:subClassOf  fluid:Flow ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    comp:Water ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-<http://sweetontology.net/phenHydro/Discharge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/WaterFlow> .
+surf:Outflow  a          owl:Class ;
+        rdfs:subClassOf  surf:WaterFlow .
 
-<http://sweetontology.net/phenHydro/BaseFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/Streamflow> .
+surf:SnowCover  a        owl:Class ;
+        rdfs:subClassOf  surf:HydrospherePhenomena .
 
-<http://sweetontology.net/phenHydro/FlashFlood> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/Flood> , <http://sweetontology.net/phen/ExtremeEvent> .
+surf:Drain  a            owl:Class ;
+        rdfs:subClassOf  surf:WaterFlow .
 
-<http://sweetontology.net/phenHydro/SnowCover> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/HydrospherePhenomena> .
+surf:OverlandFlow  a     owl:Class ;
+        rdfs:subClassOf  surf:Runoff .
 
-<http://sweetontology.net/phenHydro/Flood> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/HydrospherePhenomena> , <http://sweetontology.net/phenSystem/Inundation> , _:node1boame5u5x2 .
+surf:StreamDischarge  a  owl:Class ;
+        rdfs:subClassOf  surf:Discharge .
 
-_:node1boame5u5x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard> .
+surf:LandWaterCirculation
+        a                owl:Class ;
+        rdfs:subClassOf  surf:HydrospherePhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  trans:Transport ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:UndergroundWater ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/phenHydro/Drain> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/WaterFlow> .
+surf:GroundwaterStorage
+        a                owl:Class ;
+        rdfs:subClassOf  com:Storage , surf:HydrospherePhenomena .
 
-<http://sweetontology.net/phenHydro/OpenChannelFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/WaterFlow> ;
-	rdfs:comment "Flow of a fluid with its surface exposed to the atmosphere."@en .
+surf:Streamflow  a       owl:Class ;
+        rdfs:comment     "Streamflow, or channel runoff, is the flow of water in streams, rivers, and other channels, and is a major element of the water cycle. It is one component of the runoff of water from the land to waterbodies, the other component being surface runoff. Water flowing in channels comes from surface runoff from adjacent hillslopes, from groundwater flow out of the ground, and from water discharged from pipes. The discharge of water flowing in a channel is measured using stream gauges or can be estimated by the Manning equation. The record of flow over time is called a hydrograph. Flooding occurs when the volume of water exceeds the capacity of the channel." ;
+        rdfs:subClassOf  surf:WaterFlow .
 
-<http://sweetontology.net/phenHydro/Outflow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/WaterFlow> .
+surf:Runoff  a           owl:Class ;
+        rdfs:comment     "Runoff is a term used to describe the flow of water, from rain, snowmelt, or other sources, over the land surface, and is a major component of the water cycle. Runoff that occurs on surfaces before reaching a channel is also called a nonpoint source. If a nonpoint source contains man-made contaminants, the runoff is called nonpoint source pollution. A land area which produces runoff draining to a common point is called a watershed. When runoff flows along the ground, it can pick up soil contaminants such as petroleum, pesticides (in particular herbicides and insecticides), or fertilizers that become discharge or nonpoint source pollution." ;
+        rdfs:subClassOf  surf:WaterFlow .
 
-<http://sweetontology.net/phenHydro/OverlandFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/Runoff> .
+surf:Torrent  a          owl:Class ;
+        rdfs:subClassOf  surf:Discharge .
 
-<http://sweetontology.net/phenHydro/Runoff> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/WaterFlow> ;
-	rdfs:comment "Runoff is a term used to describe the flow of water, from rain, snowmelt, or other sources, over the land surface, and is a major component of the water cycle. Runoff that occurs on surfaces before reaching a channel is also called a nonpoint source. If a nonpoint source contains man-made contaminants, the runoff is called nonpoint source pollution. A land area which produces runoff draining to a common point is called a watershed. When runoff flows along the ground, it can pick up soil contaminants such as petroleum, pesticides (in particular herbicides and insecticides), or fertilizers that become discharge or nonpoint source pollution." .
+surf:RadionucleiRetardation
+        a                owl:Class ;
+        rdfs:comment     "The process or processes that cause the time required for a given radionuclide to move between two locations to be greater than the groundwater travel time, because of physical and chemical interactions between the radionuclide and the geohydrologic unit through which the radionuclide travels."@en ;
+        rdfs:subClassOf  surf:HydrospherePhenomena .
 
-<http://sweetontology.net/phenHydro/Snowslide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolGeomorphology/Avalanche> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprSciComponent> , <relaChemical> , <phen> , <matrCompound> , <relaSci> , <realmHydro> , <phenFluidTransport> , <phenSystem> , <stateRoleImpact> , <phenGeolGeomorphology> , <rela> , <phenFluidDynamics> , <realm> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenHydro/Streamflow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/WaterFlow> ;
-	rdfs:comment "Streamflow, or channel runoff, is the flow of water in streams, rivers, and other channels, and is a major element of the water cycle. It is one component of the runoff of water from the land to waterbodies, the other component being surface runoff. Water flowing in channels comes from surface runoff from adjacent hillslopes, from groundwater flow out of the ground, and from water discharged from pipes. The discharge of water flowing in a channel is measured using stream gauges or can be estimated by the Manning equation. The record of flow over time is called a hydrograph. Flooding occurs when the volume of water exceeds the capacity of the channel." .
+surf:Flood  a            owl:Class ;
+        rdfs:subClassOf  sys:Inundation , surf:HydrospherePhenomena ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    impa:Hazard ;
+                           owl:onProperty  screla:hasImpact
+                         ] .
 
-<http://sweetontology.net/phenHydro/StreamDischarge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/Discharge> .
+surf:Snowslide  a        owl:Class ;
+        rdfs:subClassOf  geom:Avalanche .
 
-<http://sweetontology.net/phenHydro/Torrent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/Discharge> .
+surf:OpenChannelFlow  a  owl:Class ;
+        rdfs:comment     "Flow of a fluid with its surface exposed to the atmosphere."@en ;
+        rdfs:subClassOf  surf:WaterFlow .
 
-<http://sweetontology.net/phenHydro/Debouche> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/StreamDischarge> .
+surf:Drainage  a         owl:Class ;
+        rdfs:subClassOf  sys:Removal .
 
-<http://sweetontology.net/phenHydro/WaterFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> , _:node1boame5u5x3 .
+surf:HydrospherePhenomena
+        a                owl:Class ;
+        rdfs:subClassOf  phen:PlanetaryPhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  planet:Hydrosphere ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-_:node1boame5u5x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:hasValue <http://sweetontology.net/matrCompound/Water> .
+surf:DeepPercolation  a  owl:Class ;
+        rdfs:subClassOf  surf:Percolation .
 
-<http://sweetontology.net/phenHydro/HydrothermalAlteration> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/HydrospherePhenomena> .
+surf:Debouche  a         owl:Class ;
+        rdfs:subClassOf  surf:StreamDischarge .
 
-<http://sweetontology.net/phenHydro/GroundwaterStorage> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/HydrospherePhenomena> , <http://sweetontology.net/reprSciComponent/Storage> .
+surf:FlashFlood  a       owl:Class ;
+        rdfs:subClassOf  phen:ExtremeEvent , surf:Flood .
 
-<http://sweetontology.net/phenHydro/Infiltration> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/LandWaterCirculation> .
+surf:Percolate  a  owl:Class .
 
-<http://sweetontology.net/phenHydro/Intrusion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/LandWaterCirculation> .
+surf:HydrothermalAlteration
+        a                owl:Class ;
+        rdfs:subClassOf  surf:HydrospherePhenomena .
 
-<http://sweetontology.net/phenHydro/LandWaterCirculation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/HydrospherePhenomena> , _:node1boame5u5x4 .
+surf:Discharge  a        owl:Class ;
+        rdfs:subClassOf  surf:WaterFlow .
 
-_:node1boame5u5x4 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydro/UndergroundWater> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
+surf:BaseFlow  a         owl:Class ;
+        rdfs:subClassOf  surf:Streamflow .
 
-<http://sweetontology.net/phenHydro/LandWaterCirculation> rdfs:subClassOf _:node1boame5u5x5 .
-
-_:node1boame5u5x5 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenFluidTransport/Transport> ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> .
-
-<http://sweetontology.net/phenHydro/RadionucleiRetardation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/HydrospherePhenomena> ;
-	rdfs:comment "The process or processes that cause the time required for a given radionuclide to move between two locations to be greater than the groundwater travel time, because of physical and chemical interactions between the radionuclide and the geohydrologic unit through which the radionuclide travels."@en .
-
-<http://sweetontology.net/phenHydro/Recharge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidTransport/Transport> , _:node1boame5u5x6 .
-
-_:node1boame5u5x6 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydro/Aquifer> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
-
-<http://sweetontology.net/phenHydro/DeepPercolation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenHydro/Percolation> .
-
-<http://sweetontology.net/phenHydro/Percolation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidTransport/Transport> ;
-	owl:equivalentClass <http://sweetontology.net/phenHydro/Percolate> ;
-	rdfs:comment "Percolation concerns the movement and filtering of fluids through porous materials."@en .
-
-<http://sweetontology.net/phenHydro/Percolate> a owl:Class .
+surf:Percolation  a          owl:Class ;
+        rdfs:comment         "Percolation concerns the movement and filtering of fluids through porous materials."@en ;
+        rdfs:subClassOf      trans:Transport ;
+        owl:equivalentClass  surf:Percolate .

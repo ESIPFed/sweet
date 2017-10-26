@@ -1,78 +1,75 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix chem: <http://sweetontology.net/matr/> .
+@base          <http://sweetontology.net/matrParticle> .
+@prefix chem:  <http://sweetontology.net/matr/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix part:  <http://sweetontology.net/matrParticle/> .
 @prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix ordi: <http://sweetontology.net/relaSpace/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix scale: <http://sweetontology.net/stateSpaceScale/> .
-@prefix part: <http://sweetontology.net/matrParticle/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ordi:  <http://sweetontology.net/relaSpace/> .
 
-<http://sweetontology.net/matrParticle> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matr> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/stateSpaceScale> .
+part:Neutrino  a         owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-<http://sweetontology.net/matrParticle/Atom> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/statePhysical/SubstanceForm> .
+part:AnomalousEnergeticParticle
+        a                owl:Class ;
+        rdfs:subClassOf  part:CosmicRay .
 
-<http://sweetontology.net/matrParticle/CosmicRay> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/EnergeticParticle> .
+part:Particle  a         owl:Class ;
+        rdfs:subClassOf  chem:Substance .
 
-<http://sweetontology.net/matrParticle/Electron> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
+part:Photon  a           owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-<http://sweetontology.net/matrParticle/EnergeticParticle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
+part:CosmicRay  a        owl:Class ;
+        rdfs:subClassOf  part:EnergeticParticle .
 
-<http://sweetontology.net/matrParticle/GammaRay> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/Photon> ;
-	rdfs:comment "Gamma rays are a form of electromagnetic radiation or light emission of frequencies produced by sub-atomic particle interactions, such as electron-positron annihilation or radioactive decay. Gamma rays are generally characterized as electromagnetic radiation having the highest frequency and energy, and also the shortest wavelength, within the electromagnetic spectrum, i.e. high energy photons. Due to their high energy content, they can cause serious damage when absorbed by living cells." .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <stateSpaceScale> , <relaSpace> , <statePhysical> , <matr> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/matrParticle/HeavyNuclei> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
+part:SolarEnergeticParticle
+        a                owl:Class ;
+        rdfs:subClassOf  part:CosmicRay .
 
-<http://sweetontology.net/matrParticle/Molecule> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/statePhysical/SubstanceForm> .
+part:Neutron  a          owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-<http://sweetontology.net/matrParticle/Neutrino> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
+part:Electron  a         owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-<http://sweetontology.net/matrParticle/Nucleon> a owl:Class ;
-	owl:equivalentClass _:node1boame0m3x1 .
+part:Proton  a           owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-_:node1boame0m3x1 a owl:Class ;
-	owl:unionOf _:node1boame0m3x2 .
+part:EnergeticParticle
+        a                owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-_:node1boame0m3x2 rdf:first <http://sweetontology.net/matrParticle/Neutron> ;
-	rdf:rest _:node1boame0m3x3 .
+part:Nucleon  a              owl:Class ;
+        rdfs:comment         "A collective name for the two baryons: neutron and the proton." ;
+        owl:equivalentClass  [ a            owl:Class ;
+                               owl:unionOf  ( part:Neutron part:Proton )
+                             ] .
 
-_:node1boame0m3x3 rdf:first <http://sweetontology.net/matrParticle/Proton> ;
-	rdf:rest rdf:nil .
+part:HeavyNuclei  a      owl:Class ;
+        rdfs:subClassOf  part:SubatomicParticle .
 
-<http://sweetontology.net/matrParticle/Nucleon> rdfs:comment "A collective name for the two baryons: neutron and the proton." .
+part:SubatomicParticle
+        a                owl:Class ;
+        rdfs:subClassOf  chem:Substance ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    scale:SubatomicScale ;
+                           owl:onProperty  ordi:hasSpatialScale
+                         ] .
 
-<http://sweetontology.net/matrParticle/Neutron> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
+part:GammaRay  a         owl:Class ;
+        rdfs:comment     "Gamma rays are a form of electromagnetic radiation or light emission of frequencies produced by sub-atomic particle interactions, such as electron-positron annihilation or radioactive decay. Gamma rays are generally characterized as electromagnetic radiation having the highest frequency and energy, and also the shortest wavelength, within the electromagnetic spectrum, i.e. high energy photons. Due to their high energy content, they can cause serious damage when absorbed by living cells." ;
+        rdfs:subClassOf  part:Photon .
 
-<http://sweetontology.net/matrParticle/Particle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matr/Substance> .
+part:Atom  a             owl:Class ;
+        rdfs:subClassOf  pstate:SubstanceForm .
 
-<http://sweetontology.net/matrParticle/Photon> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
-
-<http://sweetontology.net/matrParticle/Proton> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/SubatomicParticle> .
-
-<http://sweetontology.net/matrParticle/SubatomicParticle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matr/Substance> , _:node1boame0m3x4 .
-
-_:node1boame0m3x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceScale/SubatomicScale> .
-
-<http://sweetontology.net/matrParticle/AnomalousEnergeticParticle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/CosmicRay> .
-
-<http://sweetontology.net/matrParticle/SolarEnergeticParticle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrParticle/CosmicRay> .
+part:Molecule  a         owl:Class ;
+        rdfs:subClassOf  pstate:SubstanceForm .

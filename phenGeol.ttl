@@ -1,110 +1,112 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dyn: <http://sweetontology.net/propSpeed/> .
-@prefix ign: <http://sweetontology.net/matrRockIgneous/> .
-@prefix tec: <http://sweetontology.net/phenGeolTectonic/> .
-@prefix hic: <http://sweetontology.net/reprSciProvenance/> .
-@prefix geol: <http://sweetontology.net/phenGeol/> .
-@prefix oror: <http://sweetontology.net/realmGeolOrogen/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@base          <http://sweetontology.net/phenGeol> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix geolr: <http://sweetontology.net/realmGeol/> .
-@prefix planp: <http://sweetontology.net/phen/> .
+@prefix hic:   <http://sweetontology.net/reprSciProvenance/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix basin: <http://sweetontology.net/realmGeolBasin/> .
+@prefix geol:  <http://sweetontology.net/phenGeol/> .
+@prefix geolr: <http://sweetontology.net/realmGeol/> .
 @prefix graph: <http://sweetontology.net/reprMathGraph/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ign:   <http://sweetontology.net/matrRockIgneous/> .
+@prefix oror:  <http://sweetontology.net/realmGeolOrogen/> .
+@prefix tec:   <http://sweetontology.net/phenGeolTectonic/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dyn:   <http://sweetontology.net/propSpeed/> .
+@prefix planp: <http://sweetontology.net/phen/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/phenGeol> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propSpeed> , <http://sweetontology.net/phenGeolTectonic> , <http://sweetontology.net/reprMathGraph> , <http://sweetontology.net/reprSciProvenance> , <http://sweetontology.net/matrRockIgneous> , <http://sweetontology.net/realmGeolOrogen> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/realmGeol> , <http://sweetontology.net/phen> , <http://sweetontology.net/realmGeolBasin> .
+geol:Igneous  a          owl:Class ;
+        rdfs:comment     "One of 3 processes in the Rock Cycle. Igneous refers to the process whereby hot material from the mantle is squeezed upward toward the earth's surface. If it has not reached the surface then the material is described as an intrusive structure and the rocks it creates are called Intrusive Rock. If it extrudes from the surface the material is described as a volcano and the rock it creates is known as Extrusive Rock. [Wikipedia]"@en ;
+        rdfs:subClassOf  geol:RockCycleProcess .
 
-<http://sweetontology.net/phenGeol/CompositeProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/Genesis> .
+geol:Orogenesis  a       owl:Class ;
+        rdfs:subClassOf  geol:GeologicalPhenomena .
 
-<http://sweetontology.net/phenGeol/WilsonCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/RockCycle> ;
-	rdfs:comment "The Wilson cycle (a plate tectonics based rock cycle) was developed by J. Tuzo Wilson during the 1960s and 1970s. [Wikipedia]"@en .
+geol:RockCycleProcess
+        a       owl:Class .
 
-<http://sweetontology.net/phenGeol/Metamorphic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/RockCycleProcess> ;
-	rdfs:comment "One of 3 processes in the Rock Cycle. When sedimentary (and/or) igneous layers are folded, bent or twisted by heat and pressure due to motions of tectonic plates or intrusions by magma, the rocky material is transformed into other rock called metamorphic rock. [Wikipedia]"@en .
+geol:CompositeProcess
+        a                owl:Class ;
+        rdfs:subClassOf  hic:Genesis .
 
-<http://sweetontology.net/phenGeol/RockCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Cycle> , <http://sweetontology.net/phenGeol/GeologicalPhenomena> ;
-	owl:equivalentClass <http://sweetontology.net/phenGeol/RockCycleProcess> ;
-	rdfs:comment "The rock cycle is a fundamental concept that describes the dynamic transitions through geologic time among the three main rock types: sedimentary, metamorphic, and igneous. [Wikipedia]"@en .
+geol:GeologicalPhenomena
+        a                    owl:Class ;
+        rdfs:subClassOf      planp:PlanetaryPhenomena ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  geolr:SolidEarth ;
+                               owl:onProperty     rela:hasRealm
+                             ] ;
+        owl:equivalentClass  geol:GeospherePhenomena .
 
-<http://sweetontology.net/phenGeol/RockCycleProcess> a owl:Class .
+geol:GeospherePhenomena
+        a       owl:Class .
 
-<http://sweetontology.net/phenGeol/Sedimentary> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/RockCycleProcess> ;
-	rdfs:comment "One of 3 processes in the Rock Cycle. When wind or water deposit fine grained material on the surface, it creates sheets. Over thousands of years, the composition can change subtly or distinctly and the result is differing compositions of layered deposits. As the overlying layers compact the soil underneath the soil is converted to rock by the process of lithification. [Wikipedia]"@en .
+geol:IntraplateProcess
+        a                owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeol/StratigraphicSequence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/History> .
+geol:OrogenicCollapse
+        a                owl:Class ;
+        rdfs:comment     "The process in which mountains begin to collapse under their own weight and spread out laterally." ;
+        rdfs:subClassOf  tec:TectonicPhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  basin:SuccessorBasin ;
+                           owl:onProperty     prela:hasPlanetaryStructure
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  ign:AnorogenicIgneousRock ;
+                           owl:onProperty     crela:hasSubstance
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  oror:Orogen ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/phenGeol/Unconformity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/History> ;
-	rdfs:comment "A substantial break or gap in the geologic record where a rock unit is overlain by another that is not next in stratigraphic sucession, such as an interruption in continuity of a depositional sequence of sedimentary rocks or a break between eroded igneous rocks and younger sedimentary strata. It results from a change that caused deposition to cease for a considerable time, and it normally implies uplift and erosion with loss of the previous formed record."@en .
+geol:Orogeny  a          owl:Class ;
+        rdfs:comment     "Orogeny refers to natural mountain building, and may be studied as (a) a tectonic structural event, (b) as a geographical event, and (c) a chronological event. Orogenic events (a) cause distinctive structural phenomena and related tectonic activity, (b) affect certain regions of rocks and crust, and (c) happen within a specific period of time. [Wikipedia]"@en ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeol/IntraplateProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+geol:Pedogenesis  a      owl:Class ;
+        rdfs:subClassOf  hic:Genesis .
 
-<http://sweetontology.net/phenGeol/Orogeny> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	rdfs:comment "Orogeny refers to natural mountain building, and may be studied as (a) a tectonic structural event, (b) as a geographical event, and (c) a chronological event. Orogenic events (a) cause distinctive structural phenomena and related tectonic activity, (b) affect certain regions of rocks and crust, and (c) happen within a specific period of time. [Wikipedia]"@en .
+geol:Paleomagnetism  a   owl:Class ;
+        rdfs:subClassOf  geol:GeologicalPhenomena .
 
-<http://sweetontology.net/phenGeol/Orogenesis> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/GeologicalPhenomena> .
+geol:WilsonCycle  a      owl:Class ;
+        rdfs:comment     "The Wilson cycle (a plate tectonics based rock cycle) was developed by J. Tuzo Wilson during the 1960s and 1970s. [Wikipedia]"@en ;
+        rdfs:subClassOf  geol:RockCycle .
 
-<http://sweetontology.net/phenGeol/OrogenicCollapse> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> , _:node1boame4tsx1 .
+geol:Unconformity  a     owl:Class ;
+        rdfs:comment     "A substantial break or gap in the geologic record where a rock unit is overlain by another that is not next in stratigraphic sucession, such as an interruption in continuity of a depositional sequence of sedimentary rocks or a break between eroded igneous rocks and younger sedimentary strata. It results from a change that caused deposition to cease for a considerable time, and it normally implies uplift and erosion with loss of the previous formed record."@en ;
+        rdfs:subClassOf  hic:History .
 
-_:node1boame4tsx1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmGeolOrogen/Orogen> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
+geol:Metamorphic  a      owl:Class ;
+        rdfs:comment     "One of 3 processes in the Rock Cycle. When sedimentary (and/or) igneous layers are folded, bent or twisted by heat and pressure due to motions of tectonic plates or intrusions by magma, the rocky material is transformed into other rock called metamorphic rock. [Wikipedia]"@en ;
+        rdfs:subClassOf  geol:RockCycleProcess .
 
-<http://sweetontology.net/phenGeol/OrogenicCollapse> rdfs:subClassOf _:node1boame4tsx2 .
+geol:Fluvial  a          owl:Class ;
+        rdfs:comment     "Fluvial is used in geography and earth science to refer to the processes associated with rivers and streams and the deposits and landforms created by them [Wikipedia]"@en ;
+        rdfs:subClassOf  geol:GeologicalPhenomena .
 
-_:node1boame4tsx2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/matrRockIgneous/AnorogenicIgneousRock> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
+geol:StratigraphicSequence
+        a                owl:Class ;
+        rdfs:subClassOf  hic:History .
 
-<http://sweetontology.net/phenGeol/OrogenicCollapse> rdfs:subClassOf _:node1boame4tsx3 .
+geol:RockCycle  a            owl:Class ;
+        rdfs:comment         "The rock cycle is a fundamental concept that describes the dynamic transitions through geologic time among the three main rock types: sedimentary, metamorphic, and igneous. [Wikipedia]"@en ;
+        rdfs:subClassOf      geol:GeologicalPhenomena , graph:Cycle ;
+        owl:equivalentClass  geol:RockCycleProcess .
 
-_:node1boame4tsx3 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmGeolBasin/SuccessorBasin> ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> .
+geol:Sedimentary  a      owl:Class ;
+        rdfs:comment     "One of 3 processes in the Rock Cycle. When wind or water deposit fine grained material on the surface, it creates sheets. Over thousands of years, the composition can change subtly or distinctly and the result is differing compositions of layered deposits. As the overlying layers compact the soil underneath the soil is converted to rock by the process of lithification. [Wikipedia]"@en ;
+        rdfs:subClassOf  geol:RockCycleProcess .
 
-<http://sweetontology.net/phenGeol/OrogenicCollapse> rdfs:comment "The process in which mountains begin to collapse under their own weight and spread out laterally." .
+geol:Differentiation  a  owl:Class ;
+        rdfs:subClassOf  geol:GeologicalPhenomena .
 
-<http://sweetontology.net/phenGeol/Igneous> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/RockCycleProcess> ;
-	rdfs:comment "One of 3 processes in the Rock Cycle. Igneous refers to the process whereby hot material from the mantle is squeezed upward toward the earth's surface. If it has not reached the surface then the material is described as an intrusive structure and the rocks it creates are called Intrusive Rock. If it extrudes from the surface the material is described as a volcano and the rock it creates is known as Extrusive Rock. [Wikipedia]"@en .
-
-<http://sweetontology.net/phenGeol/GeologicalPhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/PlanetaryPhenomena> ;
-	owl:equivalentClass <http://sweetontology.net/phenGeol/GeospherePhenomena> ;
-	rdfs:subClassOf _:node1boame4tsx4 .
-
-_:node1boame4tsx4 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmGeol/SolidEarth> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
-
-<http://sweetontology.net/phenGeol/GeospherePhenomena> a owl:Class .
-
-<http://sweetontology.net/phenGeol/Differentiation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/GeologicalPhenomena> .
-
-<http://sweetontology.net/phenGeol/Paleomagnetism> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/GeologicalPhenomena> .
-
-<http://sweetontology.net/phenGeol/Fluvial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/GeologicalPhenomena> ;
-	rdfs:comment "Fluvial is used in geography and earth science to refer to the processes associated with rivers and streams and the deposits and landforms created by them [Wikipedia]"@en .
-
-<http://sweetontology.net/phenGeol/Pedogenesis> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/Genesis> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaChemical> , <phen> , <reprMathGraph> , <realmGeolBasin> , <reprSciProvenance> , <relaPhysical> , <propSpeed> , <phenGeolTectonic> , <realmGeol> , <matrRockIgneous> , <rela> , <realmGeolOrogen> ;
+        owl:versionInfo  "3.1.0" .

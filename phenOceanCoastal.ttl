@@ -1,67 +1,70 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix osc: <http://sweetontology.net/phenCycle/> .
+@base          <http://sweetontology.net/phenOceanCoastal> .
 @prefix coast: <http://sweetontology.net/phenOceanCoastal/> .
+@prefix ocea:  <http://sweetontology.net/phenOcean/> .
 @prefix coastr: <http://sweetontology.net/realmLandCoastal/> .
-@prefix wave: <http://sweetontology.net/phenWave/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix ocea: <http://sweetontology.net/phenOcean/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix wave:  <http://sweetontology.net/phenWave/> .
+@prefix osc:   <http://sweetontology.net/phenCycle/> .
 
-<http://sweetontology.net/phenOceanCoastal> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/realmLandCoastal> , <http://sweetontology.net/phenWave> , <http://sweetontology.net/phenOcean> , <http://sweetontology.net/rela> , <http://sweetontology.net/phenCycle> .
+coast:Breaker  a         owl:Class ;
+        rdfs:subClassOf  coast:BreakingWave .
 
-<http://sweetontology.net/phenOceanCoastal/OceanTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycle/Tide> , <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> ;
-	rdfs:comment """The periodic rising and falling of the earth's oceans and atmosphere.
-    It results from the tide-producing forces of the moon and sun acting upon the rotating earth. This disturbance actually propagates as a wave through the atmosphere and along the surface of the waters of the earth. Atmospheric tides are always so designated, whereas the term “tide“ alone commonly implies the oceanic variety. Sometimes, the consequent horizontal movement of water along the coastlines is also called “tide,” but it is preferable to designate the latter as tidal current, reserving the name tide for the vertical wavelike movement.""" .
+coast:Backwash  a        owl:Class ;
+        rdfs:subClassOf  coast:CoastalPhenomena .
 
-<http://sweetontology.net/phenOceanCoastal/Swell> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> , <http://sweetontology.net/phenWave/GravityWave> ;
-	rdfs:comment "Surface gravity waves on the ocean that are not growing or being sustained any longer by the wind."@en .
+coast:BeachDepletion  a  owl:Class ;
+        rdfs:subClassOf  coast:CoastalPhenomena .
 
-<http://sweetontology.net/phenOceanCoastal/LittoralDrift> a owl:Class ;
-	owl:equivalentClass <http://sweetontology.net/phenOceanCoastal/LongshoreDrift> ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:CoastalPhenomena
+        a                owl:Class ;
+        rdfs:subClassOf  ocea:OceanPhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  coastr:CoastalRegion ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/phenOceanCoastal/LongshoreDrift> a owl:Class .
+coast:OceanTide  a       owl:Class ;
+        rdfs:comment     "The periodic rising and falling of the earth's oceans and atmosphere.\n    It results from the tide-producing forces of the moon and sun acting upon the rotating earth. This disturbance actually propagates as a wave through the atmosphere and along the surface of the waters of the earth. Atmospheric tides are always so designated, whereas the term “tide“ alone commonly implies the oceanic variety. Sometimes, the consequent horizontal movement of water along the coastlines is also called “tide,” but it is preferable to designate the latter as tidal current, reserving the name tide for the vertical wavelike movement." ;
+        rdfs:subClassOf  coast:CoastalPhenomena , osc:Tide .
 
-<http://sweetontology.net/phenOceanCoastal/StormSurge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:Swell  a           owl:Class ;
+        rdfs:comment     "Surface gravity waves on the ocean that are not growing or being sustained any longer by the wind."@en ;
+        rdfs:subClassOf  wave:GravityWave , coast:CoastalPhenomena .
 
-<http://sweetontology.net/phenOceanCoastal/SurfBeat> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:LongshoreDrift  a  owl:Class .
 
-<http://sweetontology.net/phenOceanCoastal/BreakingWave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:LittoralDrift  a       owl:Class ;
+        rdfs:subClassOf      coast:CoastalPhenomena ;
+        owl:equivalentClass  coast:LongshoreDrift .
 
-<http://sweetontology.net/phenOceanCoastal/Attrition> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:SpillingBreaker
+        a                owl:Class ;
+        rdfs:subClassOf  coast:Breaker .
 
-<http://sweetontology.net/phenOceanCoastal/Backwash> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:SurgingBreaker  a  owl:Class ;
+        rdfs:subClassOf  coast:Breaker .
 
-<http://sweetontology.net/phenOceanCoastal/BeachDepletion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> .
+coast:Attrition  a       owl:Class ;
+        rdfs:subClassOf  coast:CoastalPhenomena .
 
-<http://sweetontology.net/phenOceanCoastal/CoastalPhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOcean/OceanPhenomena> , _:node1boame6avx1 .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <phenCycle> , <rela> , <phenOcean> , <phenWave> , <realmLandCoastal> ;
+        owl:versionInfo  "3.1.0" .
 
-_:node1boame6avx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:allValuesFrom <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:PlungingBreaker
+        a                owl:Class ;
+        rdfs:subClassOf  coast:Breaker .
 
-<http://sweetontology.net/phenOceanCoastal/Breaker> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/BreakingWave> .
+coast:BreakingWave  a    owl:Class ;
+        rdfs:subClassOf  coast:CoastalPhenomena .
 
-<http://sweetontology.net/phenOceanCoastal/PlungingBreaker> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/Breaker> .
+coast:SurfBeat  a        owl:Class ;
+        rdfs:subClassOf  coast:CoastalPhenomena .
 
-<http://sweetontology.net/phenOceanCoastal/SpillingBreaker> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/Breaker> .
-
-<http://sweetontology.net/phenOceanCoastal/SurgingBreaker> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOceanCoastal/Breaker> .
+coast:StormSurge  a      owl:Class ;
+        rdfs:subClassOf  coast:CoastalPhenomena .

@@ -1,139 +1,145 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dir: <http://sweetontology.net/propSpaceDirection/> .
-@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix tec: <http://sweetontology.net/phenGeolTectonic/> .
-@prefix geol: <http://sweetontology.net/phenGeol/> .
-@prefix fault: <http://sweetontology.net/phenGeolFault/> .
+@base          <http://sweetontology.net/phenGeolFault> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix proc:  <http://sweetontology.net/procPhysical/> .
+@prefix tec:   <http://sweetontology.net/phenGeolTectonic/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix fault: <http://sweetontology.net/phenGeolFault/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geol:  <http://sweetontology.net/phenGeol/> .
+@prefix sys:   <http://sweetontology.net/phenSystem/> .
+@prefix dir:   <http://sweetontology.net/propSpaceDirection/> .
+@prefix sdir:  <http://sweetontology.net/reprSpaceDirection/> .
 
-<http://sweetontology.net/phenGeolFault> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propSpaceDirection> , <http://sweetontology.net/reprSpaceDirection> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/procPhysical> , <http://sweetontology.net/phenGeolTectonic> , <http://sweetontology.net/phenGeol> , <http://sweetontology.net/phenSystem> .
+fault:Transpressional
+        a                owl:Class ;
+        rdfs:comment     "A fault along which strike-slip deformation is accompanied by a component of shortening transverse to the fault."@en ;
+        rdfs:subClassOf  fault:ObliqueSlip .
 
-<http://sweetontology.net/phenGeolFault/DipSeparationSense> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Slip> ;
-	rdfs:comment "A fault along which there is some separation parallel to the dip of the fault."@en .
+fault:StrikeSlip  a      owl:Class ;
+        rdfs:comment     "The net slip of the fault (slip vector) is parallel to the strike of the fault."@en ;
+        rdfs:subClassOf  fault:StrikeSeparationSense .
 
-<http://sweetontology.net/phenGeolFault/DipSlip> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/DipSeparationSense> ;
-	rdfs:comment "The net slip of the fault lies in the dip direction of the fault"@en .
+fault:Normal  a          owl:Class ;
+        rdfs:comment     "The hanging wall appears to have moved down relative to the footwall; dip of fault usually 45-90 degrees." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-<http://sweetontology.net/phenGeolFault/Extraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Slip> ;
-	rdfs:comment "A fault whose two sides have approached each other substantially in the direction perpendicular to the fault."@en .
+fault:Transtensional  a  owl:Class ;
+        rdfs:comment     "A fault along which strike-slip deformation is accompanied by a component of extension transverse to the fault."@en ;
+        rdfs:subClassOf  fault:ObliqueSlip .
 
-<http://sweetontology.net/phenGeolFault/Heave> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/Displacement> , _:node1boame52dx1 .
+fault:Wrench  a          owl:Class ;
+        rdfs:comment     "A strike slip fault in which the faut plane is more or less vertical."@en ;
+        rdfs:subClassOf  fault:StrikeSlip .
 
-_:node1boame52dx1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenGeolFault/Horizontal> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> .
+fault:ObliqueSlip  a     owl:Class ;
+        rdfs:comment     "The net slip of the fault lies between the strike and dip directions of the fault; the slip vector rakes between 10 and 80 degrees in the plane of the fault."@en ;
+        rdfs:subClassOf  fault:Slip ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sdir:Oblique ;
+                           owl:onProperty  srela:hasDirection
+                         ] .
 
-<http://sweetontology.net/phenGeolFault/Horizontal> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Slip> ;
-	rdfs:comment "The fault is horizontal"@en .
+fault:Sense  a           owl:Class ;
+        rdfs:subClassOf  dir:Direction .
 
-<http://sweetontology.net/phenGeolFault/MixedExtraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Extraction> ;
-	rdfs:comment "An extraction fault with some displacement within the fault plane."@en .
+fault:StrikeSeparationSense
+        a                owl:Class ;
+        rdfs:comment     "A fault along which there is some separation parallel to the strike of the fault."@en ;
+        rdfs:subClassOf  fault:Slip .
 
-<http://sweetontology.net/phenGeolFault/ObliqueSlip> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Slip> , _:node1boame52dx2 .
+fault:NoMovementSense
+        a                owl:Class ;
+        rdfs:comment     "The fault-parallel displacement is effectively zero, as in an extraction fault." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-_:node1boame52dx2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSpaceDirection/Oblique> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> .
+fault:Scissor  a         owl:Class ;
+        rdfs:comment     "A fault on which there is increasing offset or separation along the strike from an initial point of no offset, with reverse offset in the opposite direction."@en ;
+        rdfs:subClassOf  fault:Slip .
 
-<http://sweetontology.net/phenGeolFault/ObliqueSlip> rdfs:comment "The net slip of the fault lies between the strike and dip directions of the fault; the slip vector rakes between 10 and 80 degrees in the plane of the fault."@en .
+fault:Detachment  a      owl:Class ;
+        rdfs:comment     "A regional-scale low-angle normal fault.\nA regional-scale low-angle normal fault." ;
+        rdfs:subClassOf  fault:Normal .
 
-<http://sweetontology.net/phenGeolFault/PureExtraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Extraction> ;
-	rdfs:comment "An extraction fault with no discernible displacement within the fault plane."@en .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <procPhysical> , <phenGeolTectonic> , <relaSpace> , <reprSpaceDirection> , <phenGeol> , <phenSystem> , <propSpaceDirection> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenGeolFault/Scissor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Slip> ;
-	rdfs:comment "A fault on which there is increasing offset or separation along the strike from an initial point of no offset, with reverse offset in the opposite direction."@en .
+fault:Heave  a           owl:Class ;
+        rdfs:subClassOf  sys:Displacement ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  fault:Horizontal ;
+                           owl:onProperty     srela:hasDirection
+                         ] .
 
-<http://sweetontology.net/phenGeolFault/Sense> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceDirection/Direction> .
+fault:Reverse  a         owl:Class ;
+        rdfs:comment     "The hanging wall appears to have moved down relative to the footwall; dip of fault usually greater than 45 degrees." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-<http://sweetontology.net/phenGeolFault/Slip> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Motion> .
+fault:Dextral  a         owl:Class ;
+        rdfs:comment     "Right-lateral separation sense; in plan view, the side opposite the observer appears displaced to the right." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-<http://sweetontology.net/phenGeolFault/StrikeSeparationSense> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Slip> ;
-	rdfs:comment "A fault along which there is some separation parallel to the strike of the fault."@en .
+fault:Slip  a            owl:Class ;
+        rdfs:subClassOf  proc:Motion .
 
-<http://sweetontology.net/phenGeolFault/StrikeSlip> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/StrikeSeparationSense> ;
-	rdfs:comment "The net slip of the fault (slip vector) is parallel to the strike of the fault."@en .
+fault:Extraction  a      owl:Class ;
+        rdfs:comment     "A fault whose two sides have approached each other substantially in the direction perpendicular to the fault."@en ;
+        rdfs:subClassOf  fault:Slip .
 
-<http://sweetontology.net/phenGeolFault/Throw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/Displacement> , _:node1boame52dx3 .
+fault:Sinistral  a       owl:Class ;
+        rdfs:comment     "Left-lateral separation sense; in plan view, the side opposite the observer appears displaced to the right." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-_:node1boame52dx3 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSpaceDirection/Vertical> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> .
+fault:DipSlip  a         owl:Class ;
+        rdfs:comment     "The net slip of the fault lies in the dip direction of the fault"@en ;
+        rdfs:subClassOf  fault:DipSeparationSense .
 
-<http://sweetontology.net/phenGeolFault/Transcurrent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/StrikeSlip> ;
-	rdfs:comment "A large scale strike-slip fault in which the fault surface is steeply inclined."@en .
+fault:Horizontal  a      owl:Class ;
+        rdfs:comment     "The fault is horizontal"@en ;
+        rdfs:subClassOf  fault:Slip .
 
-<http://sweetontology.net/phenGeolFault/Transform> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/StrikeSlip> ;
-	rdfs:comment "A variety of strike-slip fault along which the displacement suddenly stops or changes form; typically associated with mid-ocean ridges."@en .
+fault:ThrustDecollement
+        a                owl:Class ;
+        rdfs:comment     "A regional-scale low-angle thrust fault." ;
+        rdfs:subClassOf  fault:Thrust .
 
-<http://sweetontology.net/phenGeolFault/Transpressional> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/ObliqueSlip> ;
-	rdfs:comment "A fault along which strike-slip deformation is accompanied by a component of shortening transverse to the fault."@en .
+fault:DipSeparationSense
+        a                owl:Class ;
+        rdfs:comment     "A fault along which there is some separation parallel to the dip of the fault."@en ;
+        rdfs:subClassOf  fault:Slip .
 
-<http://sweetontology.net/phenGeolFault/Transtensional> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/ObliqueSlip> ;
-	rdfs:comment "A fault along which strike-slip deformation is accompanied by a component of extension transverse to the fault."@en .
+fault:GenericDecollement
+        a                owl:Class ;
+        rdfs:comment     "A large-displacement (kilometers or tens of kilometers) shallowly dipping to subhorizontal fault or shear zone." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-<http://sweetontology.net/phenGeolFault/Wrench> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/StrikeSlip> ;
-	rdfs:comment "A strike slip fault in which the faut plane is more or less vertical."@en .
+fault:Transcurrent  a    owl:Class ;
+        rdfs:comment     "A large scale strike-slip fault in which the fault surface is steeply inclined."@en ;
+        rdfs:subClassOf  fault:StrikeSlip .
 
-<http://sweetontology.net/phenGeolFault/Detachment> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Normal> ;
-	rdfs:comment """A regional-scale low-angle normal fault.
-A regional-scale low-angle normal fault.""" .
+fault:PureExtraction  a  owl:Class ;
+        rdfs:comment     "An extraction fault with no discernible displacement within the fault plane."@en ;
+        rdfs:subClassOf  fault:Extraction .
 
-<http://sweetontology.net/phenGeolFault/Dextral> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "Right-lateral separation sense; in plan view, the side opposite the observer appears displaced to the right." .
+fault:Thrust  a          owl:Class ;
+        rdfs:comment     "Reverse fault with dip typically less than 45 degrees; horizontal compression, rather than vertical displacement is characteristic." ;
+        rdfs:subClassOf  tec:TectonicProcess .
 
-<http://sweetontology.net/phenGeolFault/GenericDecollement> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "A large-displacement (kilometers or tens of kilometers) shallowly dipping to subhorizontal fault or shear zone." .
+fault:Transform  a       owl:Class ;
+        rdfs:comment     "A variety of strike-slip fault along which the displacement suddenly stops or changes form; typically associated with mid-ocean ridges."@en ;
+        rdfs:subClassOf  fault:StrikeSlip .
 
-<http://sweetontology.net/phenGeolFault/NoMovementSense> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "The fault-parallel displacement is effectively zero, as in an extraction fault." .
+fault:Throw  a           owl:Class ;
+        rdfs:subClassOf  sys:Displacement ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sdir:Vertical ;
+                           owl:onProperty  srela:hasDirection
+                         ] .
 
-<http://sweetontology.net/phenGeolFault/Normal> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "The hanging wall appears to have moved down relative to the footwall; dip of fault usually 45-90 degrees." .
-
-<http://sweetontology.net/phenGeolFault/Sinistral> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "Left-lateral separation sense; in plan view, the side opposite the observer appears displaced to the right." .
-
-<http://sweetontology.net/phenGeolFault/Reverse> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "The hanging wall appears to have moved down relative to the footwall; dip of fault usually greater than 45 degrees." .
-
-<http://sweetontology.net/phenGeolFault/Thrust> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:comment "Reverse fault with dip typically less than 45 degrees; horizontal compression, rather than vertical displacement is characteristic." .
-
-<http://sweetontology.net/phenGeolFault/ThrustDecollement> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolFault/Thrust> ;
-	rdfs:comment "A regional-scale low-angle thrust fault." .
+fault:MixedExtraction
+        a                owl:Class ;
+        rdfs:comment     "An extraction fault with some displacement within the fault plane."@en ;
+        rdfs:subClassOf  fault:Extraction .

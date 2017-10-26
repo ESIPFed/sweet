@@ -1,73 +1,81 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base          <http://sweetontology.net/propSpaceMultidimensional> .
+@prefix repr:  <http://sweetontology.net/repr/> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix dist: <http://sweetontology.net/propSpace/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix repr: <http://sweetontology.net/repr/> .
+@prefix quan:  <http://sweetontology.net/propQuantity/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dist:  <http://sweetontology.net/propSpace/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 
-<http://sweetontology.net/propSpaceMultidimensional> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/repr> , <http://sweetontology.net/propSpace> , <http://sweetontology.net/propQuantity> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <propQuantity> , <propSpace> , <repr> , <reprSciUnits> , <relaSci> , <relaMath> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/propSpaceMultidimensional/RadarCrossSection> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/CrossSection> , <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ;
-	rdfs:comment "Radar cross section (RCS) describes the extent to which an object reflects an incident electromagnetic wave. It is a measure of the strength of the radar signal backscattered from a target object for a given incident wave power.."@en .
+<propSpaceMultidimensional/Area>
+        a                owl:Class ;
+        rdfs:subClassOf  dist:SpatialMeasure ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:meterSquared ;
+                           owl:onProperty  screla:hasDefaultUnit
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    2 ;
+                           owl:onProperty  mrela:hasDimension
+                         ] .
 
-<http://sweetontology.net/propSpaceMultidimensional/CrossSection> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/Area> ;
-	owl:equivalentClass <http://sweetontology.net/propSpaceMultidimensional/CrossSectionalArea> .
+<propSpaceMultidimensional/FieldOfView>
+        a                owl:Class ;
+        rdfs:subClassOf  <propSpaceMultidimensional/AngularExtent> .
 
-<http://sweetontology.net/propSpaceMultidimensional/CrossSectionalArea> a owl:Class .
+<propSpaceMultidimensional/Volume>
+        a                owl:Class ;
+        rdfs:subClassOf  dist:SpatialMeasure ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:meterCubed ;
+                           owl:onProperty  screla:hasDefaultUnit
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    3 ;
+                           owl:onProperty  mrela:hasDimension
+                         ] .
 
-<http://sweetontology.net/propSpaceMultidimensional/Area> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpace/SpatialMeasure> , _:node1boamec8hx1 .
+<propSpaceMultidimensional/Resolution>
+        a                owl:Class ;
+        rdfs:subClassOf  <propSpaceMultidimensional/AngularExtent> .
 
-_:node1boamec8hx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDimension> ;
-	owl:hasValue "2"^^xsd:integer .
+<propSpaceMultidimensional/AngularExtent>
+        a                owl:Class ;
+        rdfs:subClassOf  dist:SpatialMeasure ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:radian ;
+                           owl:onProperty  screla:hasDefaultUnit
+                         ] .
 
-<http://sweetontology.net/propSpaceMultidimensional/Area> rdfs:subClassOf _:node1boamec8hx2 .
+<propSpaceMultidimensional/Footprint>
+        a                owl:Class ;
+        rdfs:subClassOf  <propSpaceMultidimensional/Area> .
 
-_:node1boamec8hx2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/meterSquared> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+<propSpaceMultidimensional/Capacity>
+        a                owl:Class ;
+        rdfs:subClassOf  <propSpaceMultidimensional/Volume> .
 
-<http://sweetontology.net/propSpaceMultidimensional/Footprint> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/Area> .
+<propSpaceMultidimensional/CrossSection>
+        a                    owl:Class ;
+        rdfs:subClassOf      <propSpaceMultidimensional/Area> ;
+        owl:equivalentClass  <propSpaceMultidimensional/CrossSectionalArea> .
 
-<http://sweetontology.net/propSpaceMultidimensional/CarbonFootprint> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/Footprint> .
+<propSpaceMultidimensional/CarbonFootprint>
+        a                owl:Class ;
+        rdfs:subClassOf  <propSpaceMultidimensional/Footprint> .
 
-<http://sweetontology.net/propSpaceMultidimensional/Volume> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpace/SpatialMeasure> , _:node1boamec8hx3 .
+<propSpaceMultidimensional/CrossSectionalArea>
+        a       owl:Class .
 
-_:node1boamec8hx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDimension> ;
-	owl:hasValue "3"^^xsd:integer .
-
-<http://sweetontology.net/propSpaceMultidimensional/Volume> rdfs:subClassOf _:node1boamec8hx4 .
-
-_:node1boamec8hx4 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/meterCubed> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
-
-<http://sweetontology.net/propSpaceMultidimensional/Capacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/Volume> .
-
-<http://sweetontology.net/propSpaceMultidimensional/Resolution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/AngularExtent> .
-
-<http://sweetontology.net/propSpaceMultidimensional/FieldOfView> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/AngularExtent> .
-
-<http://sweetontology.net/propSpaceMultidimensional/AngularExtent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpace/SpatialMeasure> , _:node1boamec8hx5 .
-
-_:node1boamec8hx5 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/radian> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+<propSpaceMultidimensional/RadarCrossSection>
+        a                owl:Class ;
+        rdfs:comment     "Radar cross section (RCS) describes the extent to which an object reflects an incident electromagnetic wave. It is a measure of the strength of the radar signal backscattered from a target object for a given incident wave power.."@en ;
+        rdfs:subClassOf  quan:RadiationMediumInteractionQuantity , <propSpaceMultidimensional/CrossSection> .

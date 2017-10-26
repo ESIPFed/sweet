@@ -1,90 +1,98 @@
+@base          <http://sweetontology.net/stateFluid> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
 @prefix fstate: <http://sweetontology.net/stateFluid/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix sstate: <http://sweetontology.net/stateSystem/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/stateFluid> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/rela> .
+fstate:Laminar  a          fstate:FluidState ;
+        owl:differentFrom  fstate:Turbulent .
 
-fstate:FluidState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState , _:node1boameoscx1 .
+fstate:Pressurized  a  fstate:FluidState .
 
-_:node1boameoscx1 a owl:Restriction ;
-	owl:onProperty rela:hasState ;
-	owl:hasValue pstate:Fluid .
+fstate:Buoyant  a  fstate:FluidState .
 
-fstate:FluidEquilibriumState a owl:Class ;
-	rdfs:subClassOf fstate:FluidState , sstate:EquilibriumState .
+fstate:FluidState  a     owl:Class ;
+        rdfs:subClassOf  pstate:PhysicalState ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Fluid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-fstate:Baroclinic a fstate:FluidState .
+fstate:FluidEquilibriumState
+        a                owl:Class ;
+        rdfs:subClassOf  sstate:EquilibriumState , fstate:FluidState .
 
-fstate:Barotropic a fstate:FluidState ;
-	owl:differentFrom fstate:Baroclinic .
+fstate:Unpressurized  a    fstate:FluidState ;
+        owl:differentFrom  fstate:Pressurized .
 
-fstate:Buoyant a fstate:FluidState .
+fstate:NonNewtonian  a     fstate:FluidState ;
+        owl:differentFrom  fstate:Newtonian .
 
-fstate:Convective a fstate:FluidState .
+fstate:Nonhydrostatic
+        a                  fstate:FluidEquilibriumState ;
+        owl:differentFrom  fstate:Hydrostatic .
 
-fstate:Turbulent a fstate:FluidState .
+fstate:QuasiHydrostatic
+        a                   fstate:FluidEquilibriumState ;
+        mrela:approximates  fstate:Hydrostatic .
 
-fstate:Laminar a fstate:FluidState ;
-	owl:differentFrom fstate:Turbulent .
+fstate:SemiGeostrophic
+        a       fstate:FluidEquilibriumState .
 
-fstate:Viscous a fstate:FluidState .
+fstate:Ageostrophic  a     fstate:FluidEquilibriumState ;
+        owl:differentFrom  fstate:Geostrophic .
 
-fstate:NonNewtonian a fstate:FluidState ;
-	owl:differentFrom fstate:Newtonian .
+fstate:Geostrophic  a  fstate:FluidEquilibriumState .
 
-fstate:Newtonian a fstate:FluidState .
+fstate:Convective  a  fstate:FluidState .
 
-fstate:Pressurized a fstate:FluidState .
+fstate:Thermosteric  a  fstate:FluidEquilibriumState .
 
-fstate:Unpressurized a fstate:FluidState ;
-	owl:differentFrom fstate:Pressurized .
+fstate:Ekman  a       fstate:FluidEquilibriumState ;
+        rdfs:comment  "Motions describing an equlibrium between pressure gradient force, Coriolis force and the turbulent drag force."@en .
 
-fstate:Rareified a fstate:FluidState .
+fstate:Steric  a  fstate:FluidEquilibriumState .
 
-fstate:Stratified a fstate:FluidState ;
-	owl:sameAs fstate:Stratification .
+fstate:QuasiGeostrophic
+        a                   fstate:FluidEquilibriumState ;
+        rdfs:comment        "A system or flow that evolves slowly in time compared to the rotation period of the earth, has a length scale of the deformation radius or larger, and undergoes only limited vertical excursions."@en ;
+        mrela:approximates  fstate:Geostrophic .
 
-fstate:Stratification a fstate:FluidState .
+fstate:Miscible  a    fstate:FluidState ;
+        rdfs:comment  "Said of two or more liquids that are mutually soluble (i.e. they will dissolve in each other) (McGraw-Hill, 1974).  The chemical property of two or more phases that, when brought together, have the ability to mix and form one phase (after AGI, 1980)."@en .
 
-fstate:Miscible a fstate:FluidState ;
-	rdfs:comment "Said of two or more liquids that are mutually soluble (i.e. they will dissolve in each other) (McGraw-Hill, 1974).  The chemical property of two or more phases that, when brought together, have the ability to mix and form one phase (after AGI, 1980)."@en .
+fstate:Turbulent  a  fstate:FluidState .
 
-fstate:Steric a fstate:FluidEquilibriumState .
+fstate:Baroclinic  a  fstate:FluidState .
 
-fstate:Thermosteric a fstate:FluidEquilibriumState .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <rela> , <stateSystem> , <statePhysical> , <relaMath> ;
+        owl:versionInfo  "3.1.0" .
 
-fstate:Halosteric a fstate:FluidEquilibriumState .
+fstate:Stratified  a  fstate:FluidState ;
+        owl:sameAs  fstate:Stratification .
 
-fstate:SverdrupBalance a fstate:FluidEquilibriumState .
+fstate:Halosteric  a  fstate:FluidEquilibriumState .
 
-fstate:Ekman a fstate:FluidEquilibriumState ;
-	rdfs:comment "Motions describing an equlibrium between pressure gradient force, Coriolis force and the turbulent drag force."@en .
+fstate:Viscous  a  fstate:FluidState .
 
-fstate:Ageostrophic a fstate:FluidEquilibriumState ;
-	owl:differentFrom fstate:Geostrophic .
+fstate:Stratification
+        a       fstate:FluidState .
 
-fstate:Geostrophic a fstate:FluidEquilibriumState .
+fstate:SverdrupBalance
+        a       fstate:FluidEquilibriumState .
 
-fstate:SemiGeostrophic a fstate:FluidEquilibriumState .
+fstate:Barotropic  a       fstate:FluidState ;
+        owl:differentFrom  fstate:Baroclinic .
 
-fstate:QuasiGeostrophic a fstate:FluidEquilibriumState ;
-	mrela:approximates fstate:Geostrophic ;
-	rdfs:comment "A system or flow that evolves slowly in time compared to the rotation period of the earth, has a length scale of the deformation radius or larger, and undergoes only limited vertical excursions."@en .
+fstate:Hydrostatic  a  fstate:FluidEquilibriumState .
 
-fstate:Hydrostatic a fstate:FluidEquilibriumState .
+fstate:Newtonian  a  fstate:FluidState .
 
-fstate:QuasiHydrostatic a fstate:FluidEquilibriumState ;
-	mrela:approximates fstate:Hydrostatic .
-
-fstate:Nonhydrostatic a fstate:FluidEquilibriumState ;
-	owl:differentFrom fstate:Hydrostatic .
+fstate:Rareified  a  fstate:FluidState .

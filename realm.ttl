@@ -1,140 +1,131 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix water: <http://sweetontology.net/matrWater/> .
-@prefix astro: <http://sweetontology.net/realmAstroBody/> .
-@prefix astro2: <http://sweetontology.net/realmAstroBody/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix geom: <http://sweetontology.net/reprSpaceGeometry/> .
+@base          <http://sweetontology.net/realm> .
+@prefix comp:  <http://sweetontology.net/matrCompound/> .
 @prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
+@prefix astro2: <http://sweetontology.net/realmAstroBody/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geom:  <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix water: <http://sweetontology.net/matrWater/> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix astro: <http://sweetontology.net/realmAstroBody/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/realm> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/state> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/reprSpaceGeometry3D> , <http://sweetontology.net/matrWater> , <http://sweetontology.net/realmAstroBody> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/rela> , <http://sweetontology.net/matrCompound> , <http://sweetontology.net/reprSpaceGeometry> .
+realm:PlanetaryStructure
+        a                owl:Class ;
+        rdfs:subClassOf  realm:PlanetaryRealm .
 
-<http://sweetontology.net/realm/Realm> a owl:Class .
+realm:PlanetaryLayer  a      owl:Class ;
+        rdfs:subClassOf      obj3d:Layer ;
+        owl:equivalentClass  realm:GlobalPlanetaryLayer .
 
-<http://sweetontology.net/realm/Earth> a astro2:Planet .
+realm:Earth  a  astro:Planet .
 
-<http://sweetontology.net/realm/PlanetaryRealm> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/Realm> .
+realm:Land  a            owl:Class ;
+        rdfs:comment     "The part of a planetary surface that is a solid"@en ;
+        rdfs:subClassOf  realm:Geosphere ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realm/PlanetaryStructure> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> .
+realm:Geosphere  a       owl:Class ;
+        rdfs:comment     "The term Geosphere is often used to refer to the densest (solid) parts of a planet, which consist mostly of rock and regolith [Wikipedia]"@en ;
+        rdfs:subClassOf  realm:PlanetaryRealm ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:PlanetarySurface ;
+                           owl:onProperty     srela:hasUpperBoundary
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realm/Geosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> , _:node1boamed9ix1 .
+realm:PlanetaryRealm  a  owl:Class ;
+        rdfs:subClassOf  realm:Realm .
 
-_:node1boamed9ix1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
+realm:PlanetarySurface
+        a                    owl:Class ;
+        rdfs:comment         "The surface of the planet defined by solid and/or liquid layers"@en ;
+        rdfs:subClassOf      realm:PlanetarySurfaceLevel ;
+        owl:equivalentClass  realm:Subaerial .
 
-<http://sweetontology.net/realm/Geosphere> rdfs:subClassOf _:node1boamed9ix2 .
+realm:Ring  a            owl:Class ;
+        rdfs:subClassOf  realm:PlanetaryRealm ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-_:node1boamed9ix2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realm/PlanetarySurface> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasUpperBoundary> .
+realm:PlanetarySurfaceLevel
+        a                    owl:Class ;
+        rdfs:comment         "A qusai-horizontal surface spanning all or part of a planet that corresponds to a constant value of some parameter"@en ;
+        rdfs:subClassOf      realm:CriticalZone , geom:Surface ;
+        owl:equivalentClass  realm:PlanetaryBoundary .
 
-<http://sweetontology.net/realm/Geosphere> rdfs:comment "The term Geosphere is often used to refer to the densest (solid) parts of a planet, which consist mostly of rock and regolith [Wikipedia]"@en .
+realm:Subaerial  a  owl:Class .
 
-<http://sweetontology.net/realm/Hydrosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> , _:node1boamed9ix3 .
+realm:CriticalZone  a    owl:Class ;
+        rdfs:subClassOf  realm:PlanetaryRealm .
 
-_:node1boamed9ix3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:hasValue <http://sweetontology.net/matrCompound/Water> .
+realm:GlobalPlanetaryLayer
+        a       owl:Class .
 
-<http://sweetontology.net/realm/Hydrosphere> rdfs:comment "A hydrosphere in physical geography describes the combined mass of water found on, under, and over the surface of a planet. [Wikipedia]"@en .
+realm:PlanetaryBoundary
+        a       owl:Class .
 
-<http://sweetontology.net/realm/Land> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/Geosphere> , _:node1boamed9ix4 .
+realm:Hydrosphere  a     owl:Class ;
+        rdfs:comment     "A hydrosphere in physical geography describes the combined mass of water found on, under, and over the surface of a planet. [Wikipedia]"@en ;
+        rdfs:subClassOf  realm:PlanetaryRealm ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    comp:Water ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-_:node1boamed9ix4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
+realm:Cryosphere  a      owl:Class ;
+        rdfs:comment     "The cryosphere collectively describes the portions of a planetary surface in frozen form, including sea ice, lake ice, river ice, snow cover, glaciers, ice caps and ice sheets, and frozen ground (which includes permafrost).  [Wikipedia]"@en ;
+        rdfs:subClassOf  realm:Hydrosphere ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:PlanetarySurface ;
+                           owl:onProperty     srela:hasUpperBoundary
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  water:Ice ;
+                           owl:onProperty     crela:hasSubstance
+                         ] .
 
-<http://sweetontology.net/realm/Land> rdfs:comment "The part of a planetary surface that is a solid"@en .
+realm:Atmosphere  a      owl:Class ;
+        rdfs:comment     "An atmosphere is a layer of gases that may surround a material body of sufficient mass,[1] by the gravity of the body, and are retained for a longer duration if gravity is high and the atmosphere's temperature is low. [Wikipedia]"@en ;
+        rdfs:subClassOf  realm:PlanetaryRealm ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:PlanetarySurface ;
+                           owl:onProperty     srela:hasLowerBoundary
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realm/Ocean> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/Hydrosphere> , _:node1boamed9ix5 .
+realm:Realm  a  owl:Class .
 
-_:node1boamed9ix5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> .
+realm:Ocean  a           owl:Class ;
+        rdfs:comment     "An ocean is a major body of saline water, and a principal component of the hydrosphere. [Wikipedia]"@en ;
+        rdfs:subClassOf  realm:Hydrosphere ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  realm:PlanetarySurface ;
+                           owl:onProperty     srela:hasUpperBoundary
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Liquid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realm/Ocean> rdfs:subClassOf _:node1boamed9ix6 .
-
-_:node1boamed9ix6 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realm/PlanetarySurface> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasUpperBoundary> .
-
-<http://sweetontology.net/realm/Ocean> rdfs:comment "An ocean is a major body of saline water, and a principal component of the hydrosphere. [Wikipedia]"@en .
-
-<http://sweetontology.net/realm/Atmosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> , _:node1boamed9ix7 .
-
-_:node1boamed9ix7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
-
-<http://sweetontology.net/realm/Atmosphere> rdfs:subClassOf _:node1boamed9ix8 .
-
-_:node1boamed9ix8 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realm/PlanetarySurface> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasLowerBoundary> .
-
-<http://sweetontology.net/realm/Atmosphere> rdfs:comment "An atmosphere is a layer of gases that may surround a material body of sufficient mass,[1] by the gravity of the body, and are retained for a longer duration if gravity is high and the atmosphere's temperature is low. [Wikipedia]"@en .
-
-<http://sweetontology.net/realm/Cryosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/Hydrosphere> , _:node1boamed9ix9 .
-
-_:node1boamed9ix9 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:allValuesFrom <http://sweetontology.net/matrWater/Ice> .
-
-<http://sweetontology.net/realm/Cryosphere> rdfs:subClassOf _:node1boamed9ix10 .
-
-_:node1boamed9ix10 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realm/PlanetarySurface> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasUpperBoundary> .
-
-<http://sweetontology.net/realm/Cryosphere> rdfs:comment "The cryosphere collectively describes the portions of a planetary surface in frozen form, including sea ice, lake ice, river ice, snow cover, glaciers, ice caps and ice sheets, and frozen ground (which includes permafrost).  [Wikipedia]"@en .
-
-<http://sweetontology.net/realm/CriticalZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> .
-
-<http://sweetontology.net/realm/Ring> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> , _:node1boamed9ix11 .
-
-_:node1boamed9ix11 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
-
-<http://sweetontology.net/realm/PlanetarySurface> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> ;
-	owl:equivalentClass <http://sweetontology.net/realm/Subaerial> ;
-	rdfs:comment "The surface of the planet defined by solid and/or liquid layers"@en .
-
-<http://sweetontology.net/realm/Subaerial> a owl:Class .
-
-<http://sweetontology.net/realm/PlanetaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry3D/Layer> ;
-	owl:equivalentClass <http://sweetontology.net/realm/GlobalPlanetaryLayer> .
-
-<http://sweetontology.net/realm/GlobalPlanetaryLayer> a owl:Class .
-
-<http://sweetontology.net/realm/PlanetarySurfaceLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Surface> ;
-	owl:equivalentClass <http://sweetontology.net/realm/PlanetaryBoundary> ;
-	rdfs:subClassOf <http://sweetontology.net/realm/CriticalZone> ;
-	rdfs:comment "A qusai-horizontal surface spanning all or part of a planet that corresponds to a constant value of some parameter"@en .
-
-<http://sweetontology.net/realm/PlanetaryBoundary> a owl:Class .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaChemical> , <reprSpaceGeometry3D> , <relaSpace> , <realmAstroBody> , <state> , <rela> , <statePhysical> , <matrCompound> , <reprSpaceGeometry> , <matrWater> ;
+        owl:versionInfo  "3.1.0" .

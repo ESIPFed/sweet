@@ -1,147 +1,155 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix hydr: <http://sweetontology.net/realmHydro/> .
-@prefix geom: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix sgeo: <http://sweetontology.net/stateRoleGeographic/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix state: <http://sweetontology.net/stateSystem/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix xten: <http://sweetontology.net/propSpaceDistance/> .
+@base          <http://sweetontology.net/realmHydro> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix conf:  <http://sweetontology.net/stateSpaceConfiguration/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sgeo:  <http://sweetontology.net/stateRoleGeographic/> .
+@prefix geom:  <http://sweetontology.net/reprSpaceGeometry/> .
 @prefix water: <http://sweetontology.net/matrWater/> .
-@prefix conf: <http://sweetontology.net/stateSpaceConfiguration/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix hydr:  <http://sweetontology.net/realmHydro/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix state: <http://sweetontology.net/stateSystem/> .
+@prefix xten:  <http://sweetontology.net/propSpaceDistance/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/realmHydro> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/stateSpaceConfiguration> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/rela> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/realm> , <http://sweetontology.net/propSpaceDistance> , <http://sweetontology.net/stateRoleGeographic> , <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/matrWater> .
+hydr:HydrosphereFeature
+        a                owl:Class ;
+        rdfs:subClassOf  realm:PlanetaryRealm .
 
-<http://sweetontology.net/realmHydro/Aquifer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , _:node1boamefo2x1 .
+hydr:RaisedBank  a  owl:Class .
 
-_:node1boamefo2x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/partOf> ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydro/SaturatedZone> .
+hydr:ConfinedUnit  a     owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    conf:Confined ;
+                           owl:onProperty  srela:hasSpatialConfiguration
+                         ] .
 
-<http://sweetontology.net/realmHydro/CascadingWater> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , <http://sweetontology.net/matrWater/Groundwater> .
+hydr:Aquifuge  a         owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/ConeOfDepression> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , <http://sweetontology.net/reprSpaceGeometry/Trough> .
+hydr:ConfinedZone  a     owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    conf:Confined ;
+                           owl:onProperty  srela:hasSpatialConfiguration
+                         ] .
 
-<http://sweetontology.net/realmHydro/ConeOfImpression> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , <http://sweetontology.net/reprSpaceGeometry/Ridge> .
+hydr:WaterColumn  a      owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/ConfinedAquifer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/Aquifer> , _:node1boamefo2x2 .
+hydr:VadoseZone  a           owl:Class ;
+        rdfs:subClassOf      hydr:HydrosphereFeature ;
+        owl:equivalentClass  hydr:UnsaturatedZone .
 
-_:node1boamefo2x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialConfiguration> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceConfiguration/Confined> .
+hydr:Aquifer  a          owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  hydr:SaturatedZone ;
+                           owl:onProperty     rela:partOf
+                         ] .
 
-<http://sweetontology.net/realmHydro/ConfinedBed> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , _:node1boamefo2x3 .
+hydr:Embankment  a  owl:Class .
 
-_:node1boamefo2x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialConfiguration> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceConfiguration/Confined> .
+hydr:ConeOfDepression
+        a                owl:Class ;
+        rdfs:subClassOf  geom:Trough , hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/ConfinedUnit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , _:node1boamefo2x4 .
+hydr:UnsaturatedZone  a  owl:Class .
 
-_:node1boamefo2x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialConfiguration> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceConfiguration/Confined> .
+hydr:CascadingWater  a   owl:Class ;
+        rdfs:subClassOf  water:Groundwater , hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/ConfinedZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , _:node1boamefo2x5 .
+hydr:WaterTableAquifer
+        a       owl:Class .
 
-_:node1boamefo2x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialConfiguration> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceConfiguration/Confined> .
+hydr:PotentiometricSurface
+        a                owl:Class ;
+        rdfs:comment     "An imaginary surface representing the static head of groundwater and defined by the level to which water will rise in a tightly cased well."@en ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/UndergroundWater> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrWater/Groundwater> , _:node1boamefo2x6 .
+hydr:Aquiclude  a        owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-_:node1boamefo2x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydro/VadoseZone> .
+hydr:Aquitard  a         owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/SaturatedZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , _:node1boamefo2x7 .
+hydr:SaturatedZone  a    owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  hydr:Aquifer ;
+                           owl:onProperty     rela:partOf
+                         ] .
 
-_:node1boamefo2x7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/partOf> ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydro/Aquifer> .
+hydr:Dike  a                 owl:Class ;
+        rdfs:subClassOf      hydr:Bank ;
+        owl:equivalentClass  hydr:RaisedBank , hydr:FloodBank , hydr:Embankment , hydr:Levee , hydr:Dyke .
 
-<http://sweetontology.net/realmHydro/SeepageFace> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateRoleGeographic/Boundary> ;
-	rdfs:comment "A boundary between the saturated flow field and the atmosphere along which groundwater discharges, either by evaporation or movement \"downhill\" along the land surface or in a well as a thin film in response to the force of gravity."@en .
+hydr:ConfinedBed  a      owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    conf:Confined ;
+                           owl:onProperty  srela:hasSpatialConfiguration
+                         ] .
 
-<http://sweetontology.net/realmHydro/UnconfinedAquifer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/Aquifer> ;
-	owl:equivalentClass <http://sweetontology.net/realmHydro/WaterTableAquifer> ;
-	rdfs:subClassOf _:node1boamefo2x8 .
+hydr:Bank  a             owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-_:node1boamefo2x8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialConfiguration> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceConfiguration/Unconfined> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <matrWater> , <relaSpace> , <rela> , <stateRoleGeographic> , <realm> , <reprSpaceGeometry> , <stateSystem> , <stateSpaceConfiguration> , <propSpaceDistance> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/realmHydro/WaterTableAquifer> a owl:Class .
+hydr:WaterTable  a       owl:Class ;
+        rdfs:comment     "The water table or phreatic surface is the surface where the water pressure is equal to atmospheric pressure. A sustainable amount of water within a unit of sediment or rock, below the water table, in the phreatic zone is called an aquifer. The ability of the aquifer to store groundwater is dependent on the primary and secondary porosity and permeability"@en ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/WaterTable> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> ;
-	rdfs:comment "The water table or phreatic surface is the surface where the water pressure is equal to atmospheric pressure. A sustainable amount of water within a unit of sediment or rock, below the water table, in the phreatic zone is called an aquifer. The ability of the aquifer to store groundwater is dependent on the primary and secondary porosity and permeability"@en .
+hydr:SeepageFace  a      owl:Class ;
+        rdfs:comment     "A boundary between the saturated flow field and the atmosphere along which groundwater discharges, either by evaporation or movement \"downhill\" along the land surface or in a well as a thin film in response to the force of gravity."@en ;
+        rdfs:subClassOf  sgeo:Boundary .
 
-<http://sweetontology.net/realmHydro/Aquiclude> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
+hydr:UndergroundWater
+        a                owl:Class ;
+        rdfs:subClassOf  water:Groundwater ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  hydr:VadoseZone ;
+                           owl:onProperty     srela:inside
+                         ] .
 
-<http://sweetontology.net/realmHydro/Aquifuge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
+hydr:ConeOfImpression
+        a                owl:Class ;
+        rdfs:subClassOf  geom:Ridge , hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/Aquitard> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
+hydr:FloodBank  a  owl:Class .
 
-<http://sweetontology.net/realmHydro/WarmPool> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
+hydr:WarmPool  a         owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/VadoseZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> ;
-	owl:equivalentClass <http://sweetontology.net/realmHydro/UnsaturatedZone> .
+hydr:Levee  a   owl:Class .
 
-<http://sweetontology.net/realmHydro/UnsaturatedZone> a owl:Class .
+hydr:SurfaceWater  a     owl:Class ;
+        rdfs:subClassOf  hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/WaterColumn> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
+hydr:Dyke  a    owl:Class .
 
-<http://sweetontology.net/realmHydro/Bank> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
+hydr:GroundwaterLevel
+        a                owl:Class ;
+        rdfs:subClassOf  realm:PlanetarySurfaceLevel , hydr:HydrosphereFeature .
 
-<http://sweetontology.net/realmHydro/Dike> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/Bank> ;
-	owl:equivalentClass <http://sweetontology.net/realmHydro/Dyke> , <http://sweetontology.net/realmHydro/Levee> , <http://sweetontology.net/realmHydro/Embankment> , <http://sweetontology.net/realmHydro/FloodBank> , <http://sweetontology.net/realmHydro/RaisedBank> .
+hydr:UnconfinedAquifer
+        a                    owl:Class ;
+        rdfs:subClassOf      hydr:Aquifer ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    conf:Unconfined ;
+                               owl:onProperty  srela:hasSpatialConfiguration
+                             ] ;
+        owl:equivalentClass  hydr:WaterTableAquifer .
 
-<http://sweetontology.net/realmHydro/Dyke> a owl:Class .
-
-<http://sweetontology.net/realmHydro/Levee> a owl:Class .
-
-<http://sweetontology.net/realmHydro/Embankment> a owl:Class .
-
-<http://sweetontology.net/realmHydro/FloodBank> a owl:Class .
-
-<http://sweetontology.net/realmHydro/RaisedBank> a owl:Class .
-
-<http://sweetontology.net/realmHydro/HydrosphereFeature> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> .
-
-<http://sweetontology.net/realmHydro/SurfaceWater> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> .
-
-<http://sweetontology.net/realmHydro/GroundwaterLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> , <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
-
-<http://sweetontology.net/realmHydro/PotentiometricSurface> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmHydro/HydrosphereFeature> ;
-	rdfs:comment "An imaginary surface representing the static head of groundwater and defined by the level to which water will rise in a tightly cased well."@en .
+hydr:ConfinedAquifer  a  owl:Class ;
+        rdfs:subClassOf  hydr:Aquifer ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    conf:Confined ;
+                           owl:onProperty  srela:hasSpatialConfiguration
+                         ] .

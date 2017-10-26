@@ -1,111 +1,115 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix fld: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix dyn: <http://sweetontology.net/propSpeed/> .
-@prefix tec: <http://sweetontology.net/phenGeolTectonic/> .
-@prefix tecl: <http://sweetontology.net/realmLandTectonic/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix geol: <http://sweetontology.net/phenGeol/> .
+@base          <http://sweetontology.net/phenGeolTectonic> .
+@prefix proc:  <http://sweetontology.net/proc/> .
+@prefix tec:   <http://sweetontology.net/phenGeolTectonic/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix dyn:   <http://sweetontology.net/propSpeed/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geol:  <http://sweetontology.net/phenGeol/> .
+@prefix soli:  <http://sweetontology.net/phenSolid/> .
 @prefix geolr: <http://sweetontology.net/realmGeol/> .
-@prefix soli: <http://sweetontology.net/phenSolid/> .
-@prefix proc: <http://sweetontology.net/proc/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix tecl:  <http://sweetontology.net/realmLandTectonic/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix fld:   <http://sweetontology.net/phenFluidDynamics/> .
 
-<http://sweetontology.net/phenGeolTectonic> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propSpeed> , <http://sweetontology.net/phenFluidDynamics> , <http://sweetontology.net/phenGeol> , <http://sweetontology.net/realmLandTectonic> , <http://sweetontology.net/realmGeol> , <http://sweetontology.net/phenSolid> , <http://sweetontology.net/rela> , <http://sweetontology.net/proc> .
+tec:ContinentalCollision
+        a                owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/CompositeProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:Spreading  a         owl:Class ;
+        rdfs:comment     "A spreading event occurs whenever plates drift apart (Plate Divergence). [Wikipedia]"@en ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/ContinentalBreakup> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:PlateConvergence  a   owl:Class ;
+        rdfs:comment      "Plate convergence is the phenomena of two plates moving toward one another. [Wikipedia]"@en ;
+        rdfs:subClassOf   tec:TectonicPhenomena ;
+        owl:disjointWith  tec:PlateDivergence .
 
-<http://sweetontology.net/phenGeolTectonic/ContinentalCollision> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:ContinentalBreakup
+        a                owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/PlateConvergence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	owl:disjointWith <http://sweetontology.net/phenGeolTectonic/PlateDivergence> ;
-	rdfs:comment "Plate convergence is the phenomena of two plates moving toward one another. [Wikipedia]"@en .
+tec:AsymmetricHeatFlow
+        a                owl:Class ;
+        rdfs:comment     "Asymmetric heat flow in geology is an observation that the heat from upwelling mantle does not spread symmetrically away from the hot spot or rift due to differences in crust composition."@en ;
+        rdfs:subClassOf  fld:Flow .
 
-<http://sweetontology.net/phenGeolTectonic/PlateDivergence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	rdfs:comment "Plate divergence is the phenomena of plates drifting apart [Wikipedia]"@en .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <phenGeol> , <phenSolid> , <propSpeed> , <proc> , <realmGeol> , <phenFluidDynamics> , <realmLandTectonic> , <rela> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenGeolTectonic/TectonicUplift> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:TectonicPhenomena
+        a                owl:Class ;
+        rdfs:comment     "The tectonic phenomena is the observable motions of the tectonic plates in the Earth's Lithosphere. [Wikipedia]"@en ;
+        rdfs:subClassOf  geol:GeospherePhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geolr:Crust ;
+                           owl:onProperty     rela:hasRealm
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  soli:Deformation ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/phenGeolTectonic/TectonicAssemblage> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicFeature> ;
-	rdfs:comment "A tectonic ssemblage is a geological term for an accreted terrane of heterogeneous rocks. [Wikipedia]"@en .
+tec:TectonicAssemblage
+        a                owl:Class ;
+        rdfs:comment     "A tectonic ssemblage is a geological term for an accreted terrane of heterogeneous rocks. [Wikipedia]"@en ;
+        rdfs:subClassOf  geolr:GeologicFeature .
 
-<http://sweetontology.net/phenGeolTectonic/Terrane> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicAssemblage> ;
-	rdfs:comment "A terrane in geology is a fragment of crustal material formed on, or broken off from, one tectonic plate and accreted — \"sutured\" — to crust lying on another plate.  [Wikipedia]"@en .
+tec:ContinenetalDrift
+        a                owl:Class ;
+        rdfs:comment     "Continental drift is the movement of the Earth's continents relative to each other. [Wikipedia]"@en ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/AsymmetricHeatFlow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> ;
-	rdfs:comment "Asymmetric heat flow in geology is an observation that the heat from upwelling mantle does not spread symmetrically away from the hot spot or rift due to differences in crust composition."@en .
+tec:TectonicForce  a         owl:Class ;
+        rdfs:comment         "The tectonic force is the force created by one tectonic plate pushing against another due to upwellings of the mantle, [Wikipedia]"@en ;
+        rdfs:subClassOf      proc:Force ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  tec:TectonicPhenomena ;
+                               owl:onProperty     rela:hasPhenomena
+                             ] ;
+        owl:equivalentClass  tec:TectonicProcess .
 
-<http://sweetontology.net/phenGeolTectonic/ContinenetalDrift> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	rdfs:comment "Continental drift is the movement of the Earth's continents relative to each other. [Wikipedia]"@en .
+tec:TectonicUplift  a    owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/ExtensionEvent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	rdfs:comment "An extension event occurs when a seismic event causes an extension in the crust.   [Wikipedia]"@en .
+tec:IsostaticAdjustment
+        a       owl:Class .
 
-<http://sweetontology.net/phenGeolTectonic/IsostaticRebound> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	owl:equivalentClass <http://sweetontology.net/phenGeolTectonic/IsostaticAdjustment> ;
-	rdfs:comment "Post-glacial rebound (sometimes called continental rebound, isostatic rebound, isostatic adjustment or post-ice-age isostatic recovery) is the rise of land masses that were depressed by the huge weight of ice sheets during the last glacial period, through a process known as isostatic depression. [Wikipedia]"@en .
+tec:Subduction  a        owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/IsostaticAdjustment> a owl:Class .
+tec:TransformFaulting
+        a                owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tecl:TransformFault ;
+                           owl:onProperty     rela:hasRealm
+                         ] .
 
-<http://sweetontology.net/phenGeolTectonic/Spreading> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> ;
-	rdfs:comment "A spreading event occurs whenever plates drift apart (Plate Divergence). [Wikipedia]"@en .
+tec:TectonicProcess  a  owl:Class .
 
-<http://sweetontology.net/phenGeolTectonic/Subduction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:ExtensionEvent  a    owl:Class ;
+        rdfs:comment     "An extension event occurs when a seismic event causes an extension in the crust.   [Wikipedia]"@en ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/TectonicForce> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> ;
-	owl:equivalentClass <http://sweetontology.net/phenGeolTectonic/TectonicProcess> ;
-	rdfs:subClassOf _:node1boame5gex1 .
+tec:PlateDivergence  a   owl:Class ;
+        rdfs:comment     "Plate divergence is the phenomena of plates drifting apart [Wikipedia]"@en ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-_:node1boame5gex1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:Creep  a             owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/TectonicForce> rdfs:comment "The tectonic force is the force created by one tectonic plate pushing against another due to upwellings of the mantle, [Wikipedia]"@en .
+tec:CompositeProcess  a  owl:Class ;
+        rdfs:subClassOf  tec:TectonicPhenomena .
 
-<http://sweetontology.net/phenGeolTectonic/TectonicProcess> a owl:Class .
+tec:Terrane  a           owl:Class ;
+        rdfs:comment     "A terrane in geology is a fragment of crustal material formed on, or broken off from, one tectonic plate and accreted — \"sutured\" — to crust lying on another plate.  [Wikipedia]"@en ;
+        rdfs:subClassOf  tec:TectonicAssemblage .
 
-<http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeol/GeospherePhenomena> , _:node1boame5gex2 .
-
-_:node1boame5gex2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenSolid/Deformation> ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> .
-
-<http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> rdfs:subClassOf _:node1boame5gex3 .
-
-_:node1boame5gex3 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmGeol/Crust> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
-
-<http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> rdfs:comment "The tectonic phenomena is the observable motions of the tectonic plates in the Earth's Lithosphere. [Wikipedia]"@en .
-
-<http://sweetontology.net/phenGeolTectonic/TransformFaulting> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> , _:node1boame5gex4 .
-
-_:node1boame5gex4 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmLandTectonic/TransformFault> ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> .
-
-<http://sweetontology.net/phenGeolTectonic/Creep> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolTectonic/TectonicPhenomena> .
+tec:IsostaticRebound  a      owl:Class ;
+        rdfs:comment         "Post-glacial rebound (sometimes called continental rebound, isostatic rebound, isostatic adjustment or post-ice-age isostatic recovery) is the rise of land masses that were depressed by the huge weight of ice sheets during the last glacial period, through a process known as isostatic depression. [Wikipedia]"@en ;
+        rdfs:subClassOf      tec:TectonicPhenomena ;
+        owl:equivalentClass  tec:IsostaticAdjustment .

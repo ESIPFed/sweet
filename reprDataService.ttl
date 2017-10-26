@@ -1,71 +1,72 @@
-@prefix : <http://sweetontology.net/reprDataService/> .
-@prefix solu: <http://sweetontology.net/reprMathSolution/> .
-@prefix huma: <http://sweetontology.net/human/> .
+@base          <http://sweetontology.net/reprDataService> .
 @prefix prrela: <http://sweetontology.net/relaProvenance/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix huma:  <http://sweetontology.net/human/> .
+@prefix solu:  <http://sweetontology.net/reprMathSolution/> .
+@prefix :      <http://sweetontology.net/reprDataService/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 
-<http://sweetontology.net/reprDataService> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/human> , <http://sweetontology.net/relaProvenance> , <http://sweetontology.net/reprMathSolution> .
+:Compression  a          owl:Class ;
+        rdfs:subClassOf  :DataService .
 
-:DataService a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/Service> .
+:CompressionMethod  a    owl:Class ;
+        rdfs:subClassOf  solu:Algorithm ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  :Compression ;
+                           owl:onProperty     prrela:hasDataService
+                         ] .
 
-:PostProcessing a owl:Class ;
-	rdfs:subClassOf :DataService .
+:Reformatting  a  owl:Class .
 
-:PreProcessing a owl:Class ;
-	rdfs:subClassOf :DataService .
+:Discovery  a   owl:Class .
 
-:DataSynchronization a owl:Class ;
-	rdfs:subClassOf :DataService .
+:Access  a                   owl:Class ;
+        rdfs:subClassOf      :DataService ;
+        owl:equivalentClass  :Accessing .
 
-:Discover a owl:Class ;
-	rdfs:subClassOf :DataService ;
-	owl:equivalentClass :Discovery , :DiscoveryService .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprMathSolution> , <relaProvenance> , <human> ;
+        owl:versionInfo  "3.1.0" .
 
-:Discovery a owl:Class .
+:DODS   a       :InterfaceProtocol .
 
-:DiscoveryService a owl:Class .
+:DataSynchronization  a  owl:Class ;
+        rdfs:subClassOf  :DataService .
 
-:Reformat a owl:Class ;
-	rdfs:subClassOf :DataService ;
-	owl:equivalentClass :FormatConversion , :Reformatting .
+:Z      a       :CompressionMethod .
 
-:FormatConversion a owl:Class .
+:Bzip2  a       :CompressionMethod .
 
-:Reformatting a owl:Class .
+:DataService  a          owl:Class ;
+        rdfs:subClassOf  huma:Service .
 
-:Compression a owl:Class ;
-	rdfs:subClassOf :DataService .
+:DiscoveryService  a  owl:Class .
 
-:CompressionMethod a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathSolution/Algorithm> , _:node1boamek3ix1 .
+:Gzip   a       :CompressionMethod .
 
-_:node1boamek3ix1 a owl:Restriction ;
-	owl:allValuesFrom :Compression ;
-	owl:onProperty <http://sweetontology.net/relaProvenance/hasDataService> .
+:PostProcessing  a       owl:Class ;
+        rdfs:subClassOf  :DataService .
 
-:Bzip2 a :CompressionMethod .
+:Reformat  a                 owl:Class ;
+        rdfs:subClassOf      :DataService ;
+        owl:equivalentClass  :Reformatting , :FormatConversion .
 
-:Gzip a :CompressionMethod .
+:Discover  a                 owl:Class ;
+        rdfs:subClassOf      :DataService ;
+        owl:equivalentClass  :DiscoveryService , :Discovery .
 
-:Z a :CompressionMethod .
+:FormatConversion  a  owl:Class .
 
-:Access a owl:Class ;
-	rdfs:subClassOf :DataService ;
-	owl:equivalentClass :Accessing .
+:PreProcessing  a        owl:Class ;
+        rdfs:subClassOf  :DataService .
 
-:Accessing a owl:Class .
+:InterfaceProtocol  a    owl:Class ;
+        rdfs:subClassOf  :DataService .
 
-:InterfaceProtocol a owl:Class ;
-	rdfs:subClassOf :DataService .
+:OPeNDAP  a         :InterfaceProtocol ;
+        owl:sameAs  :DODS .
 
-:OPeNDAP a :InterfaceProtocol ;
-	owl:sameAs :DODS .
-
-:DODS a :InterfaceProtocol .
+:Accessing  a   owl:Class .

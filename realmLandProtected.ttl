@@ -1,83 +1,86 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix nat: <http://sweetontology.net/matrNaturalResource/> .
-@prefix prot: <http://sweetontology.net/realmLandProtected/> .
-@prefix jur: <http://sweetontology.net/humanJurisdiction/> .
+@base          <http://sweetontology.net/realmLandProtected> .
+@prefix nat:   <http://sweetontology.net/matrNaturalResource/> .
+@prefix prot:  <http://sweetontology.net/realmLandProtected/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix jur:   <http://sweetontology.net/humanJurisdiction/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix hrela: <http://sweetontology.net/relaHuman/> .
 
-<http://sweetontology.net/realmLandProtected> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaHuman> , <http://sweetontology.net/humanJurisdiction> , <http://sweetontology.net/matrNaturalResource> .
+prot:MarineProtectedArea
+        a                    owl:Class ;
+        rdfs:subClassOf      prot:WaterReserve ;
+        owl:equivalentClass  prot:MPA .
 
-prot:LandReserve a owl:Class ;
-	rdfs:subClassOf jur:AdministrativeRegion , nat:LandResource .
+prot:MPA  a     owl:Class .
 
-prot:MarineProtectedArea a owl:Class ;
-	rdfs:subClassOf prot:WaterReserve ;
-	owl:equivalentClass prot:MPA .
+prot:CountyPark  a       owl:Class ;
+        rdfs:subClassOf  prot:Park ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:County ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-prot:MPA a owl:Class .
+prot:NationalPark  a     owl:Class ;
+        rdfs:subClassOf  prot:Park ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:Country ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-prot:NationalForest a owl:Class ;
-	rdfs:subClassOf prot:LandReserve , _:node1boamegohx1 .
+prot:StatePark  a        owl:Class ;
+        rdfs:subClassOf  prot:Park ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:State ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-_:node1boamegohx1 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:Country .
+prot:Park  a                 owl:Class ;
+        rdfs:subClassOf      prot:LandReserve ;
+        owl:equivalentClass  prot:Parkland .
 
-prot:NationalMonument a owl:Class ;
-	rdfs:subClassOf prot:LandReserve , _:node1boamegohx2 .
+prot:Parkland  a  owl:Class .
 
-_:node1boamegohx2 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:Country .
+prot:WaterReserve  a     owl:Class ;
+        rdfs:subClassOf  nat:WaterResource , jur:AdministrativeRegion .
 
-prot:NationalPark a owl:Class ;
-	rdfs:subClassOf prot:Park , _:node1boamegohx3 .
+prot:CityPark  a         owl:Class ;
+        rdfs:subClassOf  prot:Park ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:City ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-_:node1boamegohx3 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:Country .
+prot:WildlifeRefuge  a   owl:Class ;
+        rdfs:subClassOf  prot:LandReserve .
 
-prot:CityPark a owl:Class ;
-	rdfs:subClassOf prot:Park , _:node1boamegohx4 .
+prot:StateForest  a      owl:Class ;
+        rdfs:subClassOf  prot:LandReserve ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:State ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-_:node1boamegohx4 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:City .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <matrNaturalResource> , <humanJurisdiction> , <relaHuman> ;
+        owl:versionInfo  "3.1.0" .
 
-prot:CountyPark a owl:Class ;
-	rdfs:subClassOf prot:Park , _:node1boamegohx5 .
+prot:NationalMonument
+        a                owl:Class ;
+        rdfs:subClassOf  prot:LandReserve ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:Country ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-_:node1boamegohx5 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:County .
+prot:NationalForest  a   owl:Class ;
+        rdfs:subClassOf  prot:LandReserve ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  jur:Country ;
+                           owl:onProperty     hrela:hasJurisdiction
+                         ] .
 
-prot:Park a owl:Class ;
-	rdfs:subClassOf prot:LandReserve ;
-	owl:equivalentClass prot:Parkland .
-
-prot:Parkland a owl:Class .
-
-prot:StateForest a owl:Class ;
-	rdfs:subClassOf prot:LandReserve , _:node1boamegohx6 .
-
-_:node1boamegohx6 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:State .
-
-prot:StatePark a owl:Class ;
-	rdfs:subClassOf prot:Park , _:node1boamegohx7 .
-
-_:node1boamegohx7 a owl:Restriction ;
-	owl:onProperty hrela:hasJurisdiction ;
-	owl:allValuesFrom jur:State .
-
-prot:WaterReserve a owl:Class ;
-	rdfs:subClassOf jur:AdministrativeRegion , nat:WaterResource .
-
-prot:WildlifeRefuge a owl:Class ;
-	rdfs:subClassOf prot:LandReserve .
+prot:LandReserve  a      owl:Class ;
+        rdfs:subClassOf  nat:LandResource , jur:AdministrativeRegion .

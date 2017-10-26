@@ -1,110 +1,108 @@
-@prefix trela: <http://sweetontology.net/relaTime/> .
+@base          <http://sweetontology.net/reprTimeSeason> .
+@prefix repr:  <http://sweetontology.net/repr/> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix temp:  <http://sweetontology.net/propTemperature/> .
+@prefix owlt:  <http://www.w3.org/2006/time#> .
+@prefix trela: <http://sweetontology.net/relaTime/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix phys:  <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix temp: <http://sweetontology.net/propTemperature/> .
-@prefix time: <http://sweetontology.net/propTime/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix phys: <http://sweetontology.net/statePhysical/> .
-@prefix seas: <http://sweetontology.net/reprTimeSeason/> .
-@prefix owlt: <http://www.w3.org/2006/time#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix seas:  <http://sweetontology.net/reprTimeSeason/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix time:  <http://sweetontology.net/propTime/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 
-<http://sweetontology.net/reprTimeSeason> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaTime> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/propTemperature> , <http://sweetontology.net/propTime> , <http://sweetontology.net/rela> , <http://sweetontology.net/repr> , <http://sweetontology.net/statePhysical> .
+seas:ColdestMonth  a     owl:Class ;
+        rdfs:subClassOf  time:Time ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      mrela:hasMinimum ;
+                           owl:someValuesFrom  temp:Temperature
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:month ;
+                           owl:onProperty  screla:hasUnit
+                         ] .
 
-seas:Equinox a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+seas:Spring  a             seas:Season ;
+        owlt:hasBeginning  seas:SpringEquinox ;
+        owlt:hasEnd        seas:SummerSolstice .
 
-seas:Season a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval .
+seas:Autumn  a             seas:Season ;
+        owl:sameAs         seas:Fall ;
+        owlt:hasBeginning  seas:AutumnalEquinox ;
+        owlt:hasEnd        seas:WinterSolstice .
 
-seas:Solstice a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+seas:Solstice  a         owl:Class ;
+        rdfs:subClassOf  owlt:Instant .
 
-seas:DrySeason a owl:Class ;
-	rdfs:subClassOf seas:Season , _:node1boamenvvx1 .
+seas:JuneSolstice  a     seas:Solstice ;
+        trela:dayOfYear  "172"^^xsd:nonNegativeInteger .
 
-_:node1boamenvvx1 a owl:Restriction ;
-	owl:onProperty rela:hasState ;
-	owl:hasValue phys:Dry .
+seas:WarmestMonth  a     owl:Class ;
+        rdfs:subClassOf  time:Time ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      mrela:hasMaximum ;
+                           owl:someValuesFrom  temp:Temperature
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:month ;
+                           owl:onProperty  screla:hasUnit
+                         ] .
 
-seas:WetSeason a owl:Class ;
-	rdfs:subClassOf seas:Season , _:node1boamenvvx2 .
+seas:Equinox  a          owl:Class ;
+        rdfs:subClassOf  owlt:Instant .
 
-_:node1boamenvvx2 a owl:Restriction ;
-	owl:onProperty rela:hasState ;
-	owl:hasValue phys:Wet .
+seas:WetSeason  a        owl:Class ;
+        rdfs:subClassOf  seas:Season ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    phys:Wet ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-seas:WarmestMonth a owl:Class ;
-	rdfs:subClassOf time:Time , _:node1boamenvvx3 .
+seas:SummerSolstice  a   seas:Solstice ;
+        trela:hasNHTime  seas:JuneSolstice ;
+        trela:hasSHTime  seas:DecemberSolstice .
 
-_:node1boamenvvx3 a owl:Restriction ;
-	owl:onProperty screla:hasUnit ;
-	owl:hasValue units:month .
+seas:AutumnalEquinox  a  seas:Equinox ;
+        owl:sameAs  seas:FallEquinox .
 
-seas:WarmestMonth rdfs:subClassOf _:node1boamenvvx4 .
+seas:Fall  a    seas:Season .
 
-_:node1boamenvvx4 a owl:Restriction ;
-	owl:onProperty mrela:hasMaximum ;
-	owl:someValuesFrom temp:Temperature .
+seas:FallEquinox  a  seas:Equinox .
 
-seas:ColdestMonth a owl:Class ;
-	rdfs:subClassOf time:Time , _:node1boamenvvx5 .
+seas:Summer  a             seas:Season ;
+        owlt:hasBeginning  seas:SummerSolstice ;
+        owlt:hasEnd        seas:FallEquinox .
 
-_:node1boamenvvx5 a owl:Restriction ;
-	owl:onProperty screla:hasUnit ;
-	owl:hasValue units:month .
+seas:DecemberSolstice
+        a                seas:Solstice ;
+        trela:dayOfYear  "355"^^xsd:nonNegativeInteger .
 
-seas:ColdestMonth rdfs:subClassOf _:node1boamenvvx6 .
+seas:DrySeason  a        owl:Class ;
+        rdfs:subClassOf  seas:Season ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    phys:Dry ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-_:node1boamenvvx6 a owl:Restriction ;
-	owl:onProperty mrela:hasMinimum ;
-	owl:someValuesFrom temp:Temperature .
+seas:WinterSolstice  a   seas:Solstice ;
+        trela:hasNHTime  seas:DecemberSolstice ;
+        trela:hasSHTime  seas:JuneSolstice .
 
-seas:Autumn a seas:Season ;
-	owl:sameAs seas:Fall ;
-	owlt:hasBeginning seas:AutumnalEquinox ;
-	owlt:hasEnd seas:WinterSolstice .
+seas:SpringEquinox  a      seas:Equinox ;
+        owl:differentFrom  seas:FallEquinox .
 
-seas:Fall a seas:Season .
+seas:Winter  a             seas:Season ;
+        owlt:hasBeginning  seas:WinterSolstice ;
+        owlt:hasEnd        seas:SpringEquinox .
 
-seas:Spring a seas:Season ;
-	owlt:hasBeginning seas:SpringEquinox ;
-	owlt:hasEnd seas:SummerSolstice .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <propTemperature> , <relaSci> , <rela> , <reprSciUnits> , <relaTime> , <relaMath> , <repr> , <propTime> , <statePhysical> ;
+        owl:versionInfo  "3.1.0" .
 
-seas:AutumnalEquinox a seas:Equinox ;
-	owl:sameAs seas:FallEquinox .
-
-seas:FallEquinox a seas:Equinox .
-
-seas:SpringEquinox a seas:Equinox ;
-	owl:differentFrom seas:FallEquinox .
-
-seas:Summer a seas:Season ;
-	owlt:hasBeginning seas:SummerSolstice ;
-	owlt:hasEnd seas:FallEquinox .
-
-seas:SummerSolstice a seas:Solstice ;
-	trela:hasNHTime seas:JuneSolstice ;
-	trela:hasSHTime seas:DecemberSolstice .
-
-seas:WinterSolstice a seas:Solstice ;
-	trela:hasSHTime seas:JuneSolstice ;
-	trela:hasNHTime seas:DecemberSolstice .
-
-seas:JuneSolstice a seas:Solstice ;
-	trela:dayOfYear "172"^^xsd:nonNegativeInteger .
-
-seas:DecemberSolstice a seas:Solstice ;
-	trela:dayOfYear "355"^^xsd:nonNegativeInteger .
-
-seas:Winter a seas:Season ;
-	owlt:hasBeginning seas:WinterSolstice ;
-	owlt:hasEnd seas:SpringEquinox .
+seas:Season  a           owl:Class ;
+        rdfs:subClassOf  owlt:ProperInterval .

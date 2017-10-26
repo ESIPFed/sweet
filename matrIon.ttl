@@ -1,108 +1,109 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix chem: <http://sweetontology.net/matr/> .
-@prefix elem: <http://sweetontology.net/matrElement/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@base          <http://sweetontology.net/matrIon> .
+@prefix elem:  <http://sweetontology.net/matrElement/> .
+@prefix comp:  <http://sweetontology.net/matrCompound/> .
+@prefix allo:  <http://sweetontology.net/matrElementalMolecule/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix state: <http://sweetontology.net/state/> .
+@prefix chem:  <http://sweetontology.net/matr/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
 @prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix ion: <http://sweetontology.net/matrIon/> .
-@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix ion:   <http://sweetontology.net/matrIon/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/matrIon> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrCompound> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/matrElement> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/matrElementalMolecule> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/state> , <http://sweetontology.net/matr> , <http://sweetontology.net/rela> .
+ion:Nitrite  a  ion:Ion .
 
-ion:Anion a owl:Class ;
-	rdfs:subClassOf ion:Ion ;
-	rdfs:comment "An anion is an ion that has more electrons than protons such that the atom or molecule is negatively charged. [Wikipedia]"@en .
+ion:NH4plus  a               comp:InorganicCompound , ion:Ion ;
+        crela:hasChemical_1  elem:N ;
+        crela:hasChemical_2  ion:H4plus ;
+        owl:sameAs           ion:Ammonium .
 
-ion:Cation a owl:Class ;
-	rdfs:subClassOf ion:Ion ;
-	rdfs:comment "An cation is an ion that has more protons than electrons such that the atom or molecule is positively charged. [Wikipedia]"@en .
+ion:Ammonium  a  ion:Ion .
 
-ion:HeavyIon a owl:Class ;
-	rdfs:subClassOf ion:Ion .
+ion:O3minus  a             ion:Ion ;
+        crela:hasChemical  allo:O3 ;
+        prela:hasCharge    -1 .
 
-ion:Ion a owl:Class ;
-	rdfs:subClassOf chem:Substance , _:node1boamdvpax1 .
+ion:Nitrate  a  ion:Ion .
 
-_:node1boamdvpax1 a owl:Restriction ;
-	owl:onProperty rela:hasState ;
-	owl:hasValue pstate:Ionized .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <state> , <matrCompound> , <rela> , <relaPhysical> , <matrElementalMolecule> , <matrElement> , <statePhysical> , <relaChemical> , <matr> ;
+        owl:versionInfo  "3.1.0" .
 
-ion:Ion rdfs:comment "An ion is an atom or molecule where the total number of electrons is not equal to the total number of protons, giving it a net positive or negative electrical charge. [Wikipedia]"@en .
+ion:O3minusminus  a        ion:Ion ;
+        crela:hasChemical  allo:O3 ;
+        prela:hasCharge    -2 .
 
-ion:SaltIon a owl:Class ;
-	rdfs:subClassOf ion:Ion .
+ion:SaltIon  a           owl:Class ;
+        rdfs:subClassOf  ion:Ion .
 
-ion:HCO3minus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 ion:O3minus ;
-	owl:sameAs ion:Bicarbonite , ion:HydrogenCarbonate .
+ion:NO2minus  a              comp:InorganicCompound , ion:Ion ;
+        crela:hasChemical_1  elem:N ;
+        crela:hasChemical_2  ion:O2minus ;
+        owl:sameAs           ion:Nitrite .
 
-ion:Bicarbonite a ion:Ion .
+ion:Cation  a            owl:Class ;
+        rdfs:comment     "An cation is an ion that has more protons than electrons such that the atom or molecule is positively charged. [Wikipedia]"@en ;
+        rdfs:subClassOf  ion:Ion .
 
-ion:HydrogenCarbonate a ion:Ion .
+ion:Oplus  a               ion:Ion ;
+        crela:hasChemical  elem:O ;
+        prela:hasCharge    1 .
 
-ion:CO3minusminus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 ion:O3minusminus ;
-	owl:sameAs ion:Carbonate .
+ion:Bicarbonite  a  ion:Ion .
 
-ion:Carbonate a ion:Ion .
+ion:HydrogenCarbonate
+        a       ion:Ion .
 
-ion:NO2minus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 ion:O2minus ;
-	owl:sameAs ion:Nitrite .
+ion:Ion  a               owl:Class ;
+        rdfs:comment     "An ion is an atom or molecule where the total number of electrons is not equal to the total number of protons, giving it a net positive or negative electrical charge. [Wikipedia]"@en ;
+        rdfs:subClassOf  chem:Substance ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Ionized ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-ion:Nitrite a ion:Ion .
+ion:HeavyIon  a          owl:Class ;
+        rdfs:subClassOf  ion:Ion .
 
-ion:NO3minus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 ion:O3minus ;
-	owl:sameAs ion:Nitrate .
+ion:Carbonate  a  ion:Ion .
 
-ion:Nitrate a ion:Ion .
+ion:CO3minusminus  a         comp:InorganicCompound , ion:Ion ;
+        crela:hasChemical_1  elem:C ;
+        crela:hasChemical_2  ion:O3minusminus ;
+        owl:sameAs           ion:Carbonate .
 
-ion:NH4plus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 ion:H4plus ;
-	owl:sameAs ion:Ammonium .
+ion:O2minus  a             ion:Ion ;
+        crela:hasChemical  allo:O2 ;
+        prela:hasCharge    -1 .
 
-ion:Ammonium a ion:Ion .
+ion:NO3minus  a              comp:InorganicCompound , ion:Ion ;
+        crela:hasChemical_1  elem:N ;
+        crela:hasChemical_2  ion:O3minus ;
+        owl:sameAs           ion:Nitrate .
 
-ion:Hplus a ion:Ion ;
-	crela:hasChemical elem:H ;
-	prela:hasCharge "1"^^xsd:integer .
+ion:H4plus  a              ion:Ion ;
+        crela:hasChemical  allo:H4 ;
+        prela:hasCharge    1 .
 
-ion:H4plus a ion:Ion ;
-	crela:hasChemical allo:H4 ;
-	prela:hasCharge "1"^^xsd:integer .
+ion:Anion  a             owl:Class ;
+        rdfs:comment     "An anion is an ion that has more electrons than protons such that the atom or molecule is negatively charged. [Wikipedia]"@en ;
+        rdfs:subClassOf  ion:Ion .
 
-ion:Ominus a ion:Ion ;
-	crela:hasChemical elem:O ;
-	prela:hasCharge "-1"^^xsd:integer .
+ion:Hplus  a               ion:Ion ;
+        crela:hasChemical  elem:H ;
+        prela:hasCharge    1 .
 
-ion:O2minus a ion:Ion ;
-	crela:hasChemical allo:O2 ;
-	prela:hasCharge "-1"^^xsd:integer .
+ion:HCO3minus  a             comp:InorganicCompound , ion:Ion ;
+        crela:hasChemical_1  elem:H ;
+        crela:hasChemical_2  elem:C ;
+        crela:hasChemical_3  ion:O3minus ;
+        owl:sameAs           ion:HydrogenCarbonate , ion:Bicarbonite .
 
-ion:O3minus a ion:Ion ;
-	crela:hasChemical allo:O3 ;
-	prela:hasCharge "-1"^^xsd:integer .
-
-ion:Oplus a ion:Ion ;
-	crela:hasChemical elem:O ;
-	prela:hasCharge "1"^^xsd:integer .
-
-ion:O3minusminus a ion:Ion ;
-	crela:hasChemical allo:O3 ;
-	prela:hasCharge "-2"^^xsd:integer .
+ion:Ominus  a              ion:Ion ;
+        crela:hasChemical  elem:O ;
+        prela:hasCharge    -1 .

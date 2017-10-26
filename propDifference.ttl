@@ -1,57 +1,58 @@
-@prefix diff: <http://sweetontology.net/propDifference/> .
+@base          <http://sweetontology.net/propDifference> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix chem: <http://sweetontology.net/propChemical/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
 @prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem:  <http://sweetontology.net/propChemical/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix prop:  <http://sweetontology.net/prop/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix oper:  <http://sweetontology.net/reprMathOperation/> .
+@prefix diff:  <http://sweetontology.net/propDifference/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ht:    <http://sweetontology.net/propSpaceHeight/> .
 
-<http://sweetontology.net/propDifference> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/prop> , <http://sweetontology.net/reprMathOperation> , <http://sweetontology.net/propChemical> , <http://sweetontology.net/propSpaceHeight> , <http://sweetontology.net/reprSpaceGeometry3D> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprSpaceGeometry3D> , <propSpaceHeight> , <propChemical> , <reprMathOperation> , <prop> , <relaMath> ;
+        owl:versionInfo  "3.1.0" .
 
-diff:Difference a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Difference> .
+diff:NDVI  a    diff:Difference .
 
-diff:Deviation a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/Error> , diff:Difference .
+diff:Anomaly  a          owl:Class ;
+        rdfs:subClassOf  diff:Deviation .
 
-diff:Tolerance a owl:Class ;
-	rdfs:subClassOf diff:Deviation , <http://sweetontology.net/prop/Error> .
+diff:Difference  a       owl:Class ;
+        rdfs:subClassOf  oper:Difference .
 
-diff:Bias a owl:Class ;
-	rdfs:subClassOf diff:Deviation , <http://sweetontology.net/prop/Error> .
+diff:Amplitude  a        owl:Class ;
+        rdfs:comment     "Often the greatest magnitude at a given point of any spatially and temporally varying physical quantity governed by a wave equation; can also mean the spatial part of a time-harmonic wave function."@en ;
+        rdfs:subClassOf  prop:WaveProperty , diff:Deviation .
 
-diff:NormalizedDifferenceVegetationIndex a diff:Difference ;
-	owl:sameAs diff:NDVI .
+diff:Deviation  a        owl:Class ;
+        rdfs:subClassOf  diff:Difference , prop:Error .
 
-diff:NDVI a diff:Difference .
+diff:Tolerance  a        owl:Class ;
+        rdfs:subClassOf  prop:Error , diff:Deviation .
 
-diff:Undulation a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Difference> , _:node1boame9glx1 .
+diff:SaturationDeficit
+        a                owl:Class ;
+        rdfs:comment     "The amount by which the water vapor in the air must be increased to achieve saturation without changing the environmental temperature and pressure."@en ;
+        rdfs:subClassOf  chem:SaturationProperty .
 
-_:node1boame9glx1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/Geoid> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> .
+diff:Bias  a             owl:Class ;
+        rdfs:subClassOf  prop:Error , diff:Deviation .
 
-diff:Undulation rdfs:subClassOf _:node1boame9glx2 .
+diff:Undulation  a       owl:Class ;
+        rdfs:subClassOf  oper:Difference ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  obj3d:ReferenceEllipsoid ;
+                           owl:onProperty     mrela:hasSecondOperand
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  ht:Geoid ;
+                           owl:onProperty     mrela:hasFirstOperand
+                         ] .
 
-_:node1boame9glx2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprSpaceGeometry3D/ReferenceEllipsoid> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> .
-
-diff:Anomaly a owl:Class ;
-	rdfs:subClassOf diff:Deviation .
-
-diff:Amplitude a owl:Class ;
-	rdfs:subClassOf diff:Deviation , <http://sweetontology.net/prop/WaveProperty> ;
-	rdfs:comment "Often the greatest magnitude at a given point of any spatially and temporally varying physical quantity governed by a wave equation; can also mean the spatial part of a time-harmonic wave function."@en .
-
-diff:SaturationDeficit a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propChemical/SaturationProperty> ;
-	rdfs:comment "The amount by which the water vapor in the air must be increased to achieve saturation without changing the environmental temperature and pressure."@en .
+diff:NormalizedDifferenceVegetationIndex
+        a           diff:Difference ;
+        owl:sameAs  diff:NDVI .
