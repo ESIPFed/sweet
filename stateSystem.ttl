@@ -1,169 +1,406 @@
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix sstate: <http://sweetontology.net/stateSystem/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix : <http://sweetontology.net/stateSystem/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/stateSystem> .
 
-<http://sweetontology.net/stateSystem> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/state> .
+<http://sweetontology.net/stateSystem> rdf:type owl:Ontology ;
+                                        owl:imports <http://sweetontology.net/propOrdinal> ,
+                                                    <http://sweetontology.net/rela> ,
+                                                    <http://sweetontology.net/relaSci> ,
+                                                    <http://sweetontology.net/state> ;
+                                        rdfs:label "SWEET Ontology" ;
+                                        owl:versionInfo "3.1.0" .
 
-sstate:SystemState a owl:Class ;
-	rdfs:subClassOf state:State .
+#################################################################
+#    Classes
+#################################################################
 
-sstate:EquilibriumState a owl:Class ;
-	rdfs:subClassOf sstate:SystemState , _:node1boamergcx1 .
+###  http://sweetontology.net/stateSystem/Coherent
+:Coherent rdf:type owl:Class ;
+          rdfs:subClassOf :SystemState .
 
-_:node1boamergcx1 a owl:Restriction ;
-	owl:hasValue sstate:Equilibrium ;
-	owl:onProperty rela:hasState .
 
-sstate:Active a ordi:ActivityLevel ;
-	screla:moreActiveThan sstate:Inactive .
+###  http://sweetontology.net/stateSystem/Complex
+:Complex rdf:type owl:Class ;
+         rdfs:subClassOf :SystemState ;
+         rdfs:comment "A complex system is a system composed of interconnected parts that as a whole exhibit one or more properties (behavior among the possible properties) not obvious from the properties" .
 
-sstate:Dormant a ordi:ActivityLevel ;
-	screla:moreActiveThan sstate:Inactive .
 
-sstate:Eruptive a ordi:ActivityLevel ;
-	screla:moreActiveThan sstate:Inactive .
+###  http://sweetontology.net/stateSystem/Deficit
+:Deficit rdf:type owl:Class ;
+         rdfs:subClassOf :SystemState ;
+         owl:disjointWith :Excess .
 
-sstate:Extinct a ordi:ActivityLevel .
 
-sstate:Hyperactive a ordi:ActivityLevel ;
-	screla:moreActiveThan sstate:Active .
+###  http://sweetontology.net/stateSystem/EquilibriumState
+:EquilibriumState rdf:type owl:Class ;
+                  rdfs:subClassOf :SystemState ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                    owl:hasValue :Equilibrium
+                                  ] .
 
-sstate:Quiet a ordi:ActivityLevel ;
-	screla:moreActiveThan sstate:Extinct .
 
-sstate:Inactive a ordi:ActivityLevel .
+###  http://sweetontology.net/stateSystem/Excess
+:Excess rdf:type owl:Class ;
+        rdfs:subClassOf :SystemState .
 
-sstate:Artificial a sstate:SystemState ;
-	owl:differentFrom sstate:Natural .
 
-sstate:Balanced a sstate:SystemState ;
-	owl:sameAs sstate:Balance .
+###  http://sweetontology.net/stateSystem/Homeostasis
+:Homeostasis rdf:type owl:Class ;
+             rdfs:subClassOf :SystemState .
 
-sstate:Balance a sstate:SystemState .
 
-sstate:Broken a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Instability
+:Instability rdf:type owl:Class ;
+             owl:equivalentClass :Unstable .
 
-sstate:Chaotic a sstate:SystemState ;
-	owl:sameAs sstate:Chaos .
 
-sstate:Chaos a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Overflow
+:Overflow rdf:type owl:Class ;
+          rdfs:subClassOf :SystemState .
 
-sstate:Closed a sstate:SystemState ;
-	owl:differentFrom sstate:Open .
 
-sstate:Critical a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Resilient
+:Resilient rdf:type owl:Class ;
+           rdfs:subClassOf :SystemState .
 
-sstate:Deterministic a sstate:SystemState .
 
-sstate:Disturbed a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Stability
+:Stability rdf:type owl:Class ;
+           owl:equivalentClass :Stable ;
+           owl:disjointWith :Unstable .
 
-sstate:Dynamic a sstate:SystemState ;
-	owl:sameAs sstate:TimeVarying , sstate:TimeDependent .
 
-sstate:TimeVarying a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Stable
+:Stable rdf:type owl:Class ;
+        rdfs:subClassOf :SystemState ;
+        rdfs:comment "The characteristic of a system if sufficiently small disturbances have only small effects, either decreasing in amplitude or oscillating periodically; it is asymptotically stable if the effect of small disturbances vanishes for long time periods."@en .
 
-sstate:TimeDependent a sstate:SystemState .
 
-sstate:Equilibrium a sstate:SystemState ;
-	rdfs:comment """In mechanics, a state in which the vector sum of all forces, that is, the acceleration vector, is zero.
+###  http://sweetontology.net/stateSystem/SystemState
+:SystemState rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/state/State> .
+
+
+###  http://sweetontology.net/stateSystem/Unstable
+:Unstable rdf:type owl:Class ;
+          rdfs:subClassOf :SystemState ;
+          rdfs:comment "property describing unstable conditions, such as in the atmosphere" .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/stateSystem/Active
+:Active rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/propOrdinal/ActivityLevel> ;
+        <http://sweetontology.net/relaSci/moreActiveThan> :Inactive .
+
+
+###  http://sweetontology.net/stateSystem/Artificial
+:Artificial rdf:type owl:NamedIndividual ,
+                     :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Balance
+:Balance rdf:type owl:NamedIndividual ,
+                  :SystemState ;
+         owl:sameAs :Balanced .
+
+
+###  http://sweetontology.net/stateSystem/Balanced
+:Balanced rdf:type owl:NamedIndividual ,
+                   :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Broken
+:Broken rdf:type owl:NamedIndividual ,
+                 :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Chaos
+:Chaos rdf:type owl:NamedIndividual ,
+                :SystemState ;
+       owl:sameAs :Chaotic .
+
+
+###  http://sweetontology.net/stateSystem/Chaotic
+:Chaotic rdf:type owl:NamedIndividual ,
+                  :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Closed
+:Closed rdf:type owl:NamedIndividual ,
+                 :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Complete
+:Complete rdf:type owl:NamedIndividual ,
+                   :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Coupled
+:Coupled rdf:type owl:NamedIndividual ,
+                  :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Critical
+:Critical rdf:type owl:NamedIndividual ,
+                   :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Dependent
+:Dependent rdf:type owl:NamedIndividual ,
+                    :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Deterministic
+:Deterministic rdf:type owl:NamedIndividual ,
+                        :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Disturbed
+:Disturbed rdf:type owl:NamedIndividual ,
+                    :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Dormant
+:Dormant rdf:type owl:NamedIndividual ,
+                  <http://sweetontology.net/propOrdinal/ActivityLevel> ;
+         <http://sweetontology.net/relaSci/moreActiveThan> :Inactive .
+
+
+###  http://sweetontology.net/stateSystem/Dynamic
+:Dynamic rdf:type owl:NamedIndividual ,
+                  :SystemState ;
+         owl:sameAs :TimeDependent ,
+                    :TimeVarying .
+
+
+###  http://sweetontology.net/stateSystem/Endogenous
+:Endogenous rdf:type owl:NamedIndividual ,
+                     :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Equilibrium
+:Equilibrium rdf:type owl:NamedIndividual ,
+                      :SystemState ;
+             rdfs:comment """In mechanics, a state in which the vector sum of all forces, that is, the acceleration vector, is zero.
 In hydrodynamics, it is usually further required that a steady state exist throughout the atmospheric or fluid model. The equilibrium may be stable or unstable with respect to displacements therefrom. See also hydrostatic equilibrium, geostrophic equilibrium, instability. 2. In thermodynamics, any state of a system that would not undergo change if the system were to be isolated.""" .
 
-sstate:Intermittent a sstate:SystemState .
 
-sstate:Native a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Eruptive
+:Eruptive rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/propOrdinal/ActivityLevel> ;
+          <http://sweetontology.net/relaSci/moreActiveThan> :Inactive .
 
-sstate:Natural a sstate:SystemState .
 
-sstate:NonEquilibrium a sstate:SystemState ;
-	owl:differentFrom sstate:Equilibrium .
+###  http://sweetontology.net/stateSystem/Exogenous
+:Exogenous rdf:type owl:NamedIndividual ,
+                    :SystemState .
 
-sstate:NonLinear a sstate:SystemState .
 
-sstate:Open a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Extinct
+:Extinct rdf:type owl:NamedIndividual ,
+                  <http://sweetontology.net/propOrdinal/ActivityLevel> .
 
-sstate:Random a sstate:SystemState .
 
-sstate:Static a sstate:SystemState ;
-	owl:differentFrom sstate:Dynamic .
+###  http://sweetontology.net/stateSystem/Heterogeneous
+:Heterogeneous rdf:type owl:NamedIndividual ,
+                        :SystemState .
 
-sstate:Stochastic a sstate:SystemState ;
-	owl:differentFrom sstate:Deterministic .
 
-sstate:Endogenous a sstate:SystemState ;
-	owl:differentFrom sstate:Exogenous .
+###  http://sweetontology.net/stateSystem/Homogeneous
+:Homogeneous rdf:type owl:NamedIndividual ,
+                      :SystemState .
 
-sstate:Exogenous a sstate:SystemState .
 
-sstate:Heterogeneous a sstate:SystemState ;
-	owl:differentFrom sstate:Inhomogeneous .
+###  http://sweetontology.net/stateSystem/Hyperactive
+:Hyperactive rdf:type owl:NamedIndividual ,
+                      <http://sweetontology.net/propOrdinal/ActivityLevel> ;
+             <http://sweetontology.net/relaSci/moreActiveThan> :Active .
 
-sstate:Inhomogeneous a sstate:SystemState .
 
-sstate:Homogeneous a sstate:SystemState ;
-	owl:differentFrom sstate:Heterogeneous .
+###  http://sweetontology.net/stateSystem/Hysteresis
+:Hysteresis rdf:type owl:NamedIndividual ,
+                     :SystemState .
 
-sstate:Reversible a sstate:SystemState .
 
-sstate:Irreversible a sstate:SystemState ;
-	owl:differentFrom sstate:Reversible .
+###  http://sweetontology.net/stateSystem/Inactive
+:Inactive rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/propOrdinal/ActivityLevel> .
 
-sstate:Hysteresis a sstate:SystemState .
 
-sstate:Unstable a owl:Class ;
-	rdfs:subClassOf sstate:SystemState ;
-	owl:equivalentClass sstate:Instability ;
-	owl:disjointWith sstate:Stability ;
-	rdfs:comment "property describing unstable conditions, such as in the atmosphere" .
+###  http://sweetontology.net/stateSystem/Incomplete
+:Incomplete rdf:type owl:NamedIndividual ,
+                     :SystemState .
 
-sstate:Instability a owl:Class .
 
-sstate:Stable a owl:Class ;
-	rdfs:subClassOf sstate:SystemState ;
-	owl:equivalentClass sstate:Stability ;
-	rdfs:comment "The characteristic of a system if sufficiently small disturbances have only small effects, either decreasing in amplitude or oscillating periodically; it is asymptotically stable if the effect of small disturbances vanishes for long time periods."@en .
+###  http://sweetontology.net/stateSystem/Independent
+:Independent rdf:type owl:NamedIndividual ,
+                      :SystemState .
 
-sstate:Stability a owl:Class .
 
-sstate:Complex a owl:Class ;
-	rdfs:subClassOf sstate:SystemState ;
-	rdfs:comment "A complex system is a system composed of interconnected parts that as a whole exhibit one or more properties (behavior among the possible properties) not obvious from the properties" .
+###  http://sweetontology.net/stateSystem/Inhomogeneous
+:Inhomogeneous rdf:type owl:NamedIndividual ,
+                        :SystemState .
 
-sstate:Coherent a owl:Class ;
-	rdfs:subClassOf sstate:SystemState .
 
-sstate:Resilient a owl:Class ;
-	rdfs:subClassOf sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Intermittent
+:Intermittent rdf:type owl:NamedIndividual ,
+                       :SystemState .
 
-sstate:Homeostasis a owl:Class ;
-	rdfs:subClassOf sstate:SystemState .
 
-sstate:Deficit a owl:Class ;
-	rdfs:subClassOf sstate:SystemState ;
-	owl:disjointWith sstate:Excess .
+###  http://sweetontology.net/stateSystem/Irreversible
+:Irreversible rdf:type owl:NamedIndividual ,
+                       :SystemState .
 
-sstate:Excess a owl:Class ;
-	rdfs:subClassOf sstate:SystemState .
 
-sstate:Overflow a owl:Class ;
-	rdfs:subClassOf sstate:SystemState .
+###  http://sweetontology.net/stateSystem/Native
+:Native rdf:type owl:NamedIndividual ,
+                 :SystemState .
 
-sstate:Complete a sstate:SystemState .
 
-sstate:Incomplete a sstate:SystemState ;
-	owl:differentFrom sstate:Complete .
+###  http://sweetontology.net/stateSystem/Natural
+:Natural rdf:type owl:NamedIndividual ,
+                  :SystemState .
 
-sstate:Dependent a sstate:SystemState ;
-	owl:differentFrom sstate:Independent .
 
-sstate:Independent a sstate:SystemState .
+###  http://sweetontology.net/stateSystem/NonEquilibrium
+:NonEquilibrium rdf:type owl:NamedIndividual ,
+                         :SystemState .
 
-sstate:Coupled a sstate:SystemState .
+
+###  http://sweetontology.net/stateSystem/NonLinear
+:NonLinear rdf:type owl:NamedIndividual ,
+                    :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Open
+:Open rdf:type owl:NamedIndividual ,
+               :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Quiet
+:Quiet rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/ActivityLevel> ;
+       <http://sweetontology.net/relaSci/moreActiveThan> :Extinct .
+
+
+###  http://sweetontology.net/stateSystem/Random
+:Random rdf:type owl:NamedIndividual ,
+                 :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Reversible
+:Reversible rdf:type owl:NamedIndividual ,
+                     :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Static
+:Static rdf:type owl:NamedIndividual ,
+                 :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/Stochastic
+:Stochastic rdf:type owl:NamedIndividual ,
+                     :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/TimeDependent
+:TimeDependent rdf:type owl:NamedIndividual ,
+                        :SystemState .
+
+
+###  http://sweetontology.net/stateSystem/TimeVarying
+:TimeVarying rdf:type owl:NamedIndividual ,
+                      :SystemState .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Artificial
+                        :Natural
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Closed
+                        :Open
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Complete
+                        :Incomplete
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Dependent
+                        :Independent
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Deterministic
+                        :Stochastic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Dynamic
+                        :Static
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Endogenous
+                        :Exogenous
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Equilibrium
+                        :NonEquilibrium
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Heterogeneous
+                        :Homogeneous
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Heterogeneous
+                        :Inhomogeneous
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Irreversible
+                        :Reversible
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

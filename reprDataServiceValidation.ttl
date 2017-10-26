@@ -1,72 +1,120 @@
 @prefix : <http://sweetontology.net/reprDataServiceValidation/> .
-@prefix serv: <http://sweetontology.net/reprDataService/> .
-@prefix res: <http://sweetontology.net/humanResearch/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/reprDataServiceValidation> .
 
-<http://sweetontology.net/reprDataServiceValidation> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprDataService> , <http://sweetontology.net/humanResearch> .
+<http://sweetontology.net/reprDataServiceValidation> rdf:type owl:Ontology ;
+                                                      owl:imports <http://sweetontology.net/humanResearch> ,
+                                                                  <http://sweetontology.net/reprDataService> ;
+                                                      rdfs:label "SWEET Ontology" ;
+                                                      owl:versionInfo "3.1.0" .
 
-:DataCleaning a owl:Class ;
-	rdfs:subClassOf :Verification .
+#################################################################
+#    Classes
+#################################################################
 
-:Mask a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
-	owl:equivalentClass :BinaryMask .
+###  http://sweetontology.net/reprDataServiceValidation/Acceptance
+:Acceptance rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
 
-:BinaryMask a owl:Class .
 
-:Acceptance a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
+###  http://sweetontology.net/reprDataServiceValidation/BinaryMask
+:BinaryMask rdf:type owl:Class ;
+            owl:equivalentClass :Mask .
 
-:PixelScreening a owl:Class ;
-	rdfs:subClassOf :QualityScreening .
 
-:QualityScreening a owl:Class ;
-	rdfs:subClassOf :Verification .
+###  http://sweetontology.net/reprDataServiceValidation/Calibrate
+:Calibrate rdf:type owl:Class ;
+           owl:equivalentClass :Calibration .
 
-:Validation a owl:Class ;
-	rdfs:subClassOf :Verification .
 
-:Verify a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
-	owl:equivalentClass :Verification .
+###  http://sweetontology.net/reprDataServiceValidation/Calibration
+:Calibration rdf:type owl:Class ;
+             rdfs:subClassOf :Verification .
 
-:Verification a owl:Class .
 
-:Calibration a owl:Class ;
-	rdfs:subClassOf :Verification ;
-	owl:equivalentClass :Calibrate .
+###  http://sweetontology.net/reprDataServiceValidation/Certificate
+:Certificate rdf:type owl:Class ;
+             rdfs:subClassOf :ValidationEvidence .
 
-:Calibrate a owl:Class .
 
-:Intercalibration a owl:Class ;
-	rdfs:subClassOf :Calibration .
+###  http://sweetontology.net/reprDataServiceValidation/Copyright
+:Copyright rdf:type owl:Class ;
+           rdfs:subClassOf :ValidationEvidence .
 
-:ValidationEvidence a owl:Class ;
-	rdfs:subClassOf :Validation , <http://sweetontology.net/humanResearch/Evidence> .
 
-:SecurityMethod a owl:Class ;
-	rdfs:subClassOf :Verification .
+###  http://sweetontology.net/reprDataServiceValidation/DataCleaning
+:DataCleaning rdf:type owl:Class ;
+              rdfs:subClassOf :Verification .
 
-:Signature a owl:Class ;
-	rdfs:subClassOf :ValidationEvidence .
 
-:Certificate a owl:Class ;
-	rdfs:subClassOf :ValidationEvidence .
+###  http://sweetontology.net/reprDataServiceValidation/Encoding
+:Encoding rdf:type owl:Class ;
+          rdfs:subClassOf :SecurityMethod .
 
-:Copyright a owl:Class ;
-	rdfs:subClassOf :ValidationEvidence .
 
-:Key a owl:Class ;
-	rdfs:subClassOf :SecurityMethod .
+###  http://sweetontology.net/reprDataServiceValidation/Encryption
+:Encryption rdf:type owl:Class ;
+            rdfs:subClassOf :SecurityMethod .
 
-:Encoding a owl:Class ;
-	rdfs:subClassOf :SecurityMethod .
 
-:Encryption a owl:Class ;
-	rdfs:subClassOf :SecurityMethod .
+###  http://sweetontology.net/reprDataServiceValidation/Intercalibration
+:Intercalibration rdf:type owl:Class ;
+                  rdfs:subClassOf :Calibration .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/Key
+:Key rdf:type owl:Class ;
+     rdfs:subClassOf :SecurityMethod .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/Mask
+:Mask rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/PixelScreening
+:PixelScreening rdf:type owl:Class ;
+                rdfs:subClassOf :QualityScreening .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/QualityScreening
+:QualityScreening rdf:type owl:Class ;
+                  rdfs:subClassOf :Verification .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/SecurityMethod
+:SecurityMethod rdf:type owl:Class ;
+                rdfs:subClassOf :Verification .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/Signature
+:Signature rdf:type owl:Class ;
+           rdfs:subClassOf :ValidationEvidence .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/Validation
+:Validation rdf:type owl:Class ;
+            rdfs:subClassOf :Verification .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/ValidationEvidence
+:ValidationEvidence rdf:type owl:Class ;
+                    rdfs:subClassOf <http://sweetontology.net/humanResearch/Evidence> ,
+                                    :Validation .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/Verification
+:Verification rdf:type owl:Class ;
+              owl:equivalentClass :Verify .
+
+
+###  http://sweetontology.net/reprDataServiceValidation/Verify
+:Verify rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

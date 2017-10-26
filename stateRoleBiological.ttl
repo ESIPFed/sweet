@@ -1,112 +1,241 @@
+@prefix : <http://sweetontology.net/stateRoleBiological/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix biol: <http://sweetontology.net/matrBiomass/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix role: <http://sweetontology.net/stateRole/> .
-@prefix brole: <http://sweetontology.net/stateRoleBiological/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/stateRoleBiological> .
 
-<http://sweetontology.net/stateRoleBiological> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/stateRole> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/matrBiomass> , <http://sweetontology.net/prop> .
+<http://sweetontology.net/stateRoleBiological> rdf:type owl:Ontology ;
+                                                owl:imports <http://sweetontology.net/matrBiomass> ,
+                                                            <http://sweetontology.net/prop> ,
+                                                            <http://sweetontology.net/relaSci> ,
+                                                            <http://sweetontology.net/stateRole> ;
+                                                rdfs:label "SWEET Ontology" ;
+                                                owl:versionInfo "3.1.0" .
 
-brole:BiologicalRole a owl:Class ;
-	rdfs:subClassOf prop:Role .
+#################################################################
+#    Classes
+#################################################################
 
-brole:Contaminant a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Autotroph
+:Autotroph rdf:type owl:Class ;
+           rdfs:subClassOf :BiologicalRole ;
+           owl:disjointWith :Heterotroph .
 
-brole:Consumer a owl:Class ;
-	rdfs:subClassOf brole:BiologicalRole .
 
-brole:Producer a owl:Class ;
-	rdfs:subClassOf brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/BiologicalRole
+:BiologicalRole rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/prop/Role> .
 
-brole:Decomposer a brole:BiologicalRole .
 
-brole:Host a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Chemoautotroph
+:Chemoautotroph rdf:type owl:Class ;
+                rdfs:subClassOf :Autotroph .
 
-brole:Heterotrophic a brole:BiologicalRole .
 
-brole:Nutrient a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Chemoheterotroph
+:Chemoheterotroph rdf:type owl:Class ;
+                  rdfs:subClassOf :Heterotroph .
 
-brole:Macronutrient a brole:BiologicalRole .
 
-brole:Micronutrient a brole:BiologicalRole ;
-	owl:differentFrom brole:Macronutrient .
+###  http://sweetontology.net/stateRoleBiological/Consumer
+:Consumer rdf:type owl:Class ;
+          rdfs:subClassOf :BiologicalRole .
 
-brole:Enzyme a brole:BiologicalRole .
 
-brole:Carcinogen a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Habitat
+:Habitat rdf:type owl:Class ;
+         rdfs:subClassOf :BiologicalRole .
 
-brole:Toxin a brole:BiologicalRole ;
-	owl:sameAs brole:Toxic .
 
-brole:Toxic a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Heterotroph
+:Heterotroph rdf:type owl:Class ;
+             rdfs:subClassOf :BiologicalRole .
 
-brole:Poision a brole:BiologicalRole .
 
-brole:Forage a brole:BiologicalRole , biol:Biomass .
+###  http://sweetontology.net/stateRoleBiological/Photoautotroph
+:Photoautotroph rdf:type owl:Class ;
+                rdfs:subClassOf :Autotroph .
 
-brole:Pollutant a brole:BiologicalRole .
 
-brole:Biomarker a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Photoheterotroph
+:Photoheterotroph rdf:type owl:Class ;
+                  rdfs:subClassOf :Heterotroph .
 
-brole:Pest a brole:BiologicalRole .
 
-brole:Defoilant a brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Producer
+:Producer rdf:type owl:Class ;
+          rdfs:subClassOf :BiologicalRole .
 
-brole:Pesticide a brole:BiologicalRole ;
-	screla:kills brole:Pest .
 
-brole:Insecticide a brole:BiologicalRole .
+#################################################################
+#    Individuals
+#################################################################
 
-brole:ToxicAirContaminant a brole:BiologicalRole ;
-	owl:sameAs brole:TAC .
+###  http://sweetontology.net/stateRoleBiological/Biomarker
+:Biomarker rdf:type owl:NamedIndividual ,
+                    :BiologicalRole .
 
-brole:TAC a brole:BiologicalRole .
 
-brole:Habitat a owl:Class ;
-	rdfs:subClassOf brole:BiologicalRole .
+###  http://sweetontology.net/stateRoleBiological/Carcinogen
+:Carcinogen rdf:type owl:NamedIndividual ,
+                     :BiologicalRole .
 
-brole:Autotroph a owl:Class ;
-	rdfs:subClassOf brole:BiologicalRole .
 
-brole:Chemoautotroph a owl:Class ;
-	rdfs:subClassOf brole:Autotroph .
+###  http://sweetontology.net/stateRoleBiological/Contaminant
+:Contaminant rdf:type owl:NamedIndividual ,
+                      :BiologicalRole .
 
-brole:Chemoheterotroph a owl:Class ;
-	rdfs:subClassOf brole:Heterotroph .
 
-brole:Heterotroph a owl:Class ;
-	rdfs:subClassOf brole:BiologicalRole ;
-	owl:disjointWith brole:Autotroph .
+###  http://sweetontology.net/stateRoleBiological/Decomposer
+:Decomposer rdf:type owl:NamedIndividual ,
+                     :BiologicalRole .
 
-brole:Photoautotroph a owl:Class ;
-	rdfs:subClassOf brole:Autotroph .
 
-brole:Photoheterotroph a owl:Class ;
-	rdfs:subClassOf brole:Heterotroph .
+###  http://sweetontology.net/stateRoleBiological/Defoilant
+:Defoilant rdf:type owl:NamedIndividual ,
+                    :BiologicalRole .
 
-brole:TopOfFoodChain a brole:BiologicalRole ;
-	screla:hasTrophicLevel "5"^^xsd:integer .
 
-brole:FeedingHabitat a brole:Habitat .
+###  http://sweetontology.net/stateRoleBiological/Enzyme
+:Enzyme rdf:type owl:NamedIndividual ,
+                 :BiologicalRole .
 
-brole:Nursery a brole:Habitat .
 
-brole:SpawningGround a brole:Habitat .
+###  http://sweetontology.net/stateRoleBiological/FeedingHabitat
+:FeedingHabitat rdf:type owl:NamedIndividual ,
+                         :Habitat .
 
-brole:PrimaryProducer a brole:Producer ;
-	screla:hasTrophicLevel "1"^^xsd:integer .
 
-brole:PrimaryConsumer a brole:Consumer ;
-	screla:hasTrophicLevel "2"^^xsd:integer .
+###  http://sweetontology.net/stateRoleBiological/Forage
+:Forage rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/matrBiomass/Biomass> ,
+                 :BiologicalRole .
 
-brole:SecondaryConsumer a brole:Consumer ;
-	screla:hasTrophicLevel "3"^^xsd:integer .
 
-brole:TertiaryConsumer a brole:Consumer ;
-	screla:hasTrophicLevel "4"^^xsd:integer .
+###  http://sweetontology.net/stateRoleBiological/Heterotrophic
+:Heterotrophic rdf:type owl:NamedIndividual ,
+                        :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Host
+:Host rdf:type owl:NamedIndividual ,
+               :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Insecticide
+:Insecticide rdf:type owl:NamedIndividual ,
+                      :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Macronutrient
+:Macronutrient rdf:type owl:NamedIndividual ,
+                        :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Micronutrient
+:Micronutrient rdf:type owl:NamedIndividual ,
+                        :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Nursery
+:Nursery rdf:type owl:NamedIndividual ,
+                  :Habitat .
+
+
+###  http://sweetontology.net/stateRoleBiological/Nutrient
+:Nutrient rdf:type owl:NamedIndividual ,
+                   :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Pest
+:Pest rdf:type owl:NamedIndividual ,
+               :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Pesticide
+:Pesticide rdf:type owl:NamedIndividual ,
+                    :BiologicalRole ;
+           <http://sweetontology.net/relaSci/kills> :Pest .
+
+
+###  http://sweetontology.net/stateRoleBiological/Poision
+:Poision rdf:type owl:NamedIndividual ,
+                  :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Pollutant
+:Pollutant rdf:type owl:NamedIndividual ,
+                    :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/PrimaryConsumer
+:PrimaryConsumer rdf:type owl:NamedIndividual ,
+                          :Consumer ;
+                 <http://sweetontology.net/relaSci/hasTrophicLevel> 2 .
+
+
+###  http://sweetontology.net/stateRoleBiological/PrimaryProducer
+:PrimaryProducer rdf:type owl:NamedIndividual ,
+                          :Producer ;
+                 <http://sweetontology.net/relaSci/hasTrophicLevel> 1 .
+
+
+###  http://sweetontology.net/stateRoleBiological/SecondaryConsumer
+:SecondaryConsumer rdf:type owl:NamedIndividual ,
+                            :Consumer ;
+                   <http://sweetontology.net/relaSci/hasTrophicLevel> 3 .
+
+
+###  http://sweetontology.net/stateRoleBiological/SpawningGround
+:SpawningGround rdf:type owl:NamedIndividual ,
+                         :Habitat .
+
+
+###  http://sweetontology.net/stateRoleBiological/TAC
+:TAC rdf:type owl:NamedIndividual ,
+              :BiologicalRole ;
+     owl:sameAs :ToxicAirContaminant .
+
+
+###  http://sweetontology.net/stateRoleBiological/TertiaryConsumer
+:TertiaryConsumer rdf:type owl:NamedIndividual ,
+                           :Consumer ;
+                  <http://sweetontology.net/relaSci/hasTrophicLevel> 4 .
+
+
+###  http://sweetontology.net/stateRoleBiological/TopOfFoodChain
+:TopOfFoodChain rdf:type owl:NamedIndividual ,
+                         :BiologicalRole ;
+                <http://sweetontology.net/relaSci/hasTrophicLevel> 5 .
+
+
+###  http://sweetontology.net/stateRoleBiological/Toxic
+:Toxic rdf:type owl:NamedIndividual ,
+                :BiologicalRole ;
+       owl:sameAs :Toxin .
+
+
+###  http://sweetontology.net/stateRoleBiological/ToxicAirContaminant
+:ToxicAirContaminant rdf:type owl:NamedIndividual ,
+                              :BiologicalRole .
+
+
+###  http://sweetontology.net/stateRoleBiological/Toxin
+:Toxin rdf:type owl:NamedIndividual ,
+                :BiologicalRole .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Macronutrient
+                        :Micronutrient
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

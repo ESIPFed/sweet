@@ -1,71 +1,110 @@
-@prefix mass: <http://sweetontology.net/propMass/> .
-@prefix mflux: <http://sweetontology.net/propMassFlux/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix : <http://sweetontology.net/propMassFlux/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/propMassFlux> .
 
-<http://sweetontology.net/propMassFlux> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propMass> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/propQuantity> .
+<http://sweetontology.net/propMassFlux> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/propMass> ,
+                                                     <http://sweetontology.net/propQuantity> ,
+                                                     <http://sweetontology.net/relaChemical> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/propMassFlux/MassFlux> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/Flux> , _:node1boameaqpx1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boameaqpx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:allValuesFrom <http://sweetontology.net/propMass/Mass> .
+###  http://sweetontology.net/propMassFlux/DarcyFlux
+:DarcyFlux rdf:type owl:Class ;
+           rdfs:subClassOf :MassFlux .
 
-<http://sweetontology.net/propMassFlux/DifferentialFlux> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/MassFlux> .
 
-<http://sweetontology.net/propMassFlux/DarcyFlux> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/MassFlux> .
+###  http://sweetontology.net/propMassFlux/DifferentialFlux
+:DifferentialFlux rdf:type owl:Class ;
+                  rdfs:subClassOf :MassFlux .
 
-<http://sweetontology.net/propMassFlux/SpecificCapacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/MassFlux> ;
-	rdfs:comment "The rate of discharge of water from the well divided by the drawdown of the water level within the well."@en .
 
-<http://sweetontology.net/propMassFlux/SpecificDischarge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/MassFlux> ;
-	rdfs:comment "The rate of discharge of groundwater per unit area of a porous medium measured at right angle to the direction of flow."@en .
+###  http://sweetontology.net/propMassFlux/EffectivePermeability
+:EffectivePermeability rdf:type owl:Class ;
+                       rdfs:subClassOf :Permeability ;
+                       rdfs:comment "The observed permeability of a porous medium to one fluid phase under conditions of physical interaction between this phase and other fluid phases present."@en .
 
-<http://sweetontology.net/propMassFlux/PrimaryProductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/Productivity> .
 
-<http://sweetontology.net/propMassFlux/Productivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/MassFlux> .
+###  http://sweetontology.net/propMassFlux/GPP
+:GPP rdf:type owl:Class ;
+     owl:equivalentClass :GrossPrimaryProductivity .
 
-<http://sweetontology.net/propMassFlux/GrossPrimaryProductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/PrimaryProductivity> ;
-	owl:equivalentClass <http://sweetontology.net/propMassFlux/GPP> .
 
-<http://sweetontology.net/propMassFlux/GPP> a owl:Class .
+###  http://sweetontology.net/propMassFlux/GrossPrimaryProductivity
+:GrossPrimaryProductivity rdf:type owl:Class ;
+                          rdfs:subClassOf :PrimaryProductivity .
 
-<http://sweetontology.net/propMassFlux/NetPrimaryProductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/PrimaryProductivity> ;
-	owl:equivalentClass <http://sweetontology.net/propMassFlux/NPP> .
 
-<http://sweetontology.net/propMassFlux/NPP> a owl:Class .
+###  http://sweetontology.net/propMassFlux/IntrinsicPermeability
+:IntrinsicPermeability rdf:type owl:Class ;
+                       rdfs:subClassOf :Permeability ;
+                       rdfs:comment "A measure of the relative ease with which a porous medium can transmit a fluid under a potential gradient and is a property of the medium alone (after Lohman and others, 1972). The property of a porous medium itself that expresses the ease with which gases, liquids, or other substances can pass through it."@en .
 
-<http://sweetontology.net/propMassFlux/PermeabilityCoefficent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/Permeability> ;
-	rdfs:comment "The rate of flow of water through a unit cross-sectional area under a unit hydraulic gradient at the prevailing temperature (field permeability coefficient) or adjusted to a temperature of 150C (60-F)."@en .
 
-<http://sweetontology.net/propMassFlux/Permeability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/MassFlux> .
+###  http://sweetontology.net/propMassFlux/MassFlux
+:MassFlux rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/propQuantity/Flux> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                            owl:allValuesFrom <http://sweetontology.net/propMass/Mass>
+                          ] .
 
-<http://sweetontology.net/propMassFlux/EffectivePermeability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/Permeability> ;
-	rdfs:comment "The observed permeability of a porous medium to one fluid phase under conditions of physical interaction between this phase and other fluid phases present."@en .
 
-<http://sweetontology.net/propMassFlux/IntrinsicPermeability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/Permeability> ;
-	rdfs:comment "A measure of the relative ease with which a porous medium can transmit a fluid under a potential gradient and is a property of the medium alone (after Lohman and others, 1972). The property of a porous medium itself that expresses the ease with which gases, liquids, or other substances can pass through it."@en .
+###  http://sweetontology.net/propMassFlux/NPP
+:NPP rdf:type owl:Class ;
+     owl:equivalentClass :NetPrimaryProductivity .
 
-<http://sweetontology.net/propMassFlux/SpecificPermeability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMassFlux/Permeability> ;
-	rdfs:comment "The permeability measured when the rock contains only one fluid."@en .
+
+###  http://sweetontology.net/propMassFlux/NetPrimaryProductivity
+:NetPrimaryProductivity rdf:type owl:Class ;
+                        rdfs:subClassOf :PrimaryProductivity .
+
+
+###  http://sweetontology.net/propMassFlux/Permeability
+:Permeability rdf:type owl:Class ;
+              rdfs:subClassOf :MassFlux .
+
+
+###  http://sweetontology.net/propMassFlux/PermeabilityCoefficent
+:PermeabilityCoefficent rdf:type owl:Class ;
+                        rdfs:subClassOf :Permeability ;
+                        rdfs:comment "The rate of flow of water through a unit cross-sectional area under a unit hydraulic gradient at the prevailing temperature (field permeability coefficient) or adjusted to a temperature of 150C (60-F)."@en .
+
+
+###  http://sweetontology.net/propMassFlux/PrimaryProductivity
+:PrimaryProductivity rdf:type owl:Class ;
+                     rdfs:subClassOf :Productivity .
+
+
+###  http://sweetontology.net/propMassFlux/Productivity
+:Productivity rdf:type owl:Class ;
+              rdfs:subClassOf :MassFlux .
+
+
+###  http://sweetontology.net/propMassFlux/SpecificCapacity
+:SpecificCapacity rdf:type owl:Class ;
+                  rdfs:subClassOf :MassFlux ;
+                  rdfs:comment "The rate of discharge of water from the well divided by the drawdown of the water level within the well."@en .
+
+
+###  http://sweetontology.net/propMassFlux/SpecificDischarge
+:SpecificDischarge rdf:type owl:Class ;
+                   rdfs:subClassOf :MassFlux ;
+                   rdfs:comment "The rate of discharge of groundwater per unit area of a porous medium measured at right angle to the direction of flow."@en .
+
+
+###  http://sweetontology.net/propMassFlux/SpecificPermeability
+:SpecificPermeability rdf:type owl:Class ;
+                      rdfs:subClassOf :Permeability ;
+                      rdfs:comment "The permeability measured when the rock contains only one fluid."@en .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

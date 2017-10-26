@@ -1,94 +1,131 @@
-@prefix weat: <http://sweetontology.net/realmAtmoWeather/> .
-@prefix atmo: <http://sweetontology.net/realmAtmo/> .
-@prefix atmp: <http://sweetontology.net/phenAtmo/> .
-@prefix inst: <http://sweetontology.net/phenFluidInstability/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
-@prefix prec: <http://sweetontology.net/phenAtmoPrecipitation/> .
-@prefix statec: <http://sweetontology.net/procStateChange/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix planet: <http://sweetontology.net/realm/> .
+@prefix : <http://sweetontology.net/realmAtmoWeather/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/realmAtmoWeather> .
 
-<http://sweetontology.net/realmAtmoWeather> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenFluidInstability> , <http://sweetontology.net/propSpaceHeight> , <http://sweetontology.net/phenAtmoPrecipitation> , <http://sweetontology.net/phenAtmo> , <http://sweetontology.net/realmAtmo> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/realm> , <http://sweetontology.net/procStateChange> .
+<http://sweetontology.net/realmAtmoWeather> rdf:type owl:Ontology ;
+                                             owl:imports <http://sweetontology.net/phenAtmo> ,
+                                                         <http://sweetontology.net/phenAtmoPrecipitation> ,
+                                                         <http://sweetontology.net/phenFluidInstability> ,
+                                                         <http://sweetontology.net/procStateChange> ,
+                                                         <http://sweetontology.net/propSpaceHeight> ,
+                                                         <http://sweetontology.net/realm> ,
+                                                         <http://sweetontology.net/realmAtmo> ,
+                                                         <http://sweetontology.net/rela> ,
+                                                         <http://sweetontology.net/relaPhysical> ;
+                                             rdfs:label "SWEET Ontology" ;
+                                             owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/realmAtmoWeather/MeltingLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryLayer> , _:node1boamee49x1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamee49x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasStateChange> ;
-	owl:allValuesFrom <http://sweetontology.net/procStateChange/Melting> .
+###  http://sweetontology.net/realmAtmoWeather/AdiabaticCondensationLevel
+:AdiabaticCondensationLevel rdf:type owl:Class ;
+                            rdfs:subClassOf :CondensationLevel .
 
-<http://sweetontology.net/realmAtmoWeather/MeltingLayer> rdfs:comment "The altitude interval throughout which ice-phase precipitation melts as it descends. The top of the melting layer is the melting level. The melting layer may be several hundred meters deep, reflecting the time it takes for all the hydrometeors to undergo the transition from solid to liquid phase. The temperature of the melting layer is typically 0?C or slightly warmer. See bright band."@en .
 
-<http://sweetontology.net/realmAtmoWeather/CloudBase> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
+###  http://sweetontology.net/realmAtmoWeather/CloudBase
+:CloudBase rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
 
-<http://sweetontology.net/realmAtmoWeather/CloudTop> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
 
-<http://sweetontology.net/realmAtmoWeather/ConvectiveCloudBase> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
+###  http://sweetontology.net/realmAtmoWeather/CloudTop
+:CloudTop rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
 
-<http://sweetontology.net/realmAtmoWeather/ConvectiveCloudTop> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
 
-<http://sweetontology.net/realmAtmoWeather/AdiabaticCondensationLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoWeather/CondensationLevel> .
+###  http://sweetontology.net/realmAtmoWeather/CondensationLevel
+:CondensationLevel rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Level> ;
+                   rdfs:comment "Level at which water vapor to condense" ;
+                   rdfs:label "Condensation Level" .
 
-<http://sweetontology.net/realmAtmoWeather/CondensationLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Level> ;
-	rdfs:comment "Level at which water vapor to condense" ;
-	rdfs:label "Condensation Level" .
 
-<http://sweetontology.net/realmAtmoWeather/ConvectiveCondensationLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoWeather/CondensationLevel> ;
-	rdfs:comment "On a thermodynamic diagram, the point of intersection of a sounding curve (representing the vertical distribution of temperature in an atmospheric column) with the saturation mixing ratio line corresponding to the average mixing ratio in the surface layer."@en .
+###  http://sweetontology.net/realmAtmoWeather/ConvectiveCloudBase
+:ConvectiveCloudBase rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
 
-<http://sweetontology.net/realmAtmoWeather/MaximumWindSpeedLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
 
-<http://sweetontology.net/realmAtmoWeather/LFC> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> ;
-	owl:equivalentClass <http://sweetontology.net/realmAtmoWeather/LevelOfFreeConvection> ;
-	rdfs:comment "Level of free convection" .
+###  http://sweetontology.net/realmAtmoWeather/ConvectiveCloudTop
+:ConvectiveCloudTop rdf:type owl:Class ;
+                    rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> .
 
-<http://sweetontology.net/realmAtmoWeather/LevelOfFreeConvection> a owl:Class .
 
-<http://sweetontology.net/realmAtmoWeather/FreezingLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> , <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> .
+###  http://sweetontology.net/realmAtmoWeather/ConvectiveCondensationLevel
+:ConvectiveCondensationLevel rdf:type owl:Class ;
+                             rdfs:subClassOf :CondensationLevel ;
+                             rdfs:comment "On a thermodynamic diagram, the point of intersection of a sounding curve (representing the vertical distribution of temperature in an atmospheric column) with the saturation mixing ratio line corresponding to the average mixing ratio in the surface layer."@en .
 
-<http://sweetontology.net/realmAtmoWeather/MeltingLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> , _:node1boamee49x2 .
 
-_:node1boamee49x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasStateChange> ;
-	owl:allValuesFrom <http://sweetontology.net/procStateChange/Melting> .
+###  http://sweetontology.net/realmAtmoWeather/FreeConvectiveLayer
+:FreeConvectiveLayer rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/realmAtmo/AtmosphereLayer> ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                       owl:allValuesFrom <http://sweetontology.net/phenFluidInstability/FreeInstability>
+                                     ] .
 
-<http://sweetontology.net/realmAtmoWeather/MeltingLevel> rdfs:comment "The altitude at which ice crystals and snowflakes begin to melt as they descend through the atmosphere. In cloud physics and in radar meteorology, this is the accepted term for the 0?C constant-temperature surface (see bright band). It is physically more apt than the corresponding operational term, freezing level, for melting of pure ice must begin very near 0?C, but freezing of liquid water can occur over a broad range of temperatures (between 0? and -40?C; see supercooling). See also freezing point, ice point, melting point."@en .
 
-<http://sweetontology.net/realmAtmoWeather/SnowGeneratingLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> , _:node1boamee49x3 .
+###  http://sweetontology.net/realmAtmoWeather/FreezingLevel
+:FreezingLevel rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
+                               <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
 
-_:node1boamee49x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenAtmoPrecipitation/Snowfall> .
 
-<http://sweetontology.net/realmAtmoWeather/SnowGeneratingLevel> rdfs:comment "A layer in the middle or upper troposphere in widespread precipitation in which ice crystals form in small convective cells and fall to lower altitudes."@en .
+###  http://sweetontology.net/realmAtmoWeather/LFC
+:LFC rdf:type owl:Class ;
+     owl:equivalentClass :LevelOfFreeConvection ;
+     rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> ;
+     rdfs:comment "Level of free convection" .
 
-<http://sweetontology.net/realmAtmoWeather/FreeConvectiveLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmo/AtmosphereLayer> , _:node1boamee49x4 .
 
-_:node1boamee49x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenFluidInstability/FreeInstability> .
+###  http://sweetontology.net/realmAtmoWeather/LevelOfFreeConvection
+:LevelOfFreeConvection rdf:type owl:Class .
 
-<http://sweetontology.net/realmAtmoWeather/ZoneOfMaximumPrecipitation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmo/AtmosphereLayer> ;
-	rdfs:comment "The elevation band on a mountain or orographic barrier that receives the greatest precipitation for a seasonal or annual average."@en .
+
+###  http://sweetontology.net/realmAtmoWeather/MaximumWindSpeedLevel
+:MaximumWindSpeedLevel rdf:type owl:Class ;
+                       rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> .
+
+
+###  http://sweetontology.net/realmAtmoWeather/MeltingLayer
+:MeltingLayer rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryLayer> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaPhysical/hasStateChange> ;
+                                owl:allValuesFrom <http://sweetontology.net/procStateChange/Melting>
+                              ] ;
+              rdfs:comment "The altitude interval throughout which ice-phase precipitation melts as it descends. The top of the melting layer is the melting level. The melting layer may be several hundred meters deep, reflecting the time it takes for all the hydrometeors to undergo the transition from solid to liquid phase. The temperature of the melting layer is typically 0?C or slightly warmer. See bright band."@en .
+
+
+###  http://sweetontology.net/realmAtmoWeather/MeltingLevel
+:MeltingLevel rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaPhysical/hasStateChange> ;
+                                owl:allValuesFrom <http://sweetontology.net/procStateChange/Melting>
+                              ] ;
+              rdfs:comment "The altitude at which ice crystals and snowflakes begin to melt as they descend through the atmosphere. In cloud physics and in radar meteorology, this is the accepted term for the 0?C constant-temperature surface (see bright band). It is physically more apt than the corresponding operational term, freezing level, for melting of pure ice must begin very near 0?C, but freezing of liquid water can occur over a broad range of temperatures (between 0? and -40?C; see supercooling). See also freezing point, ice point, melting point."@en .
+
+
+###  http://sweetontology.net/realmAtmoWeather/SnowGeneratingLevel
+:SnowGeneratingLevel rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/realm/PlanetarySurfaceLevel> ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                       owl:allValuesFrom <http://sweetontology.net/phenAtmoPrecipitation/Snowfall>
+                                     ] ;
+                     rdfs:comment "A layer in the middle or upper troposphere in widespread precipitation in which ice crystals form in small convective cells and fall to lower altitudes."@en .
+
+
+###  http://sweetontology.net/realmAtmoWeather/ZoneOfMaximumPrecipitation
+:ZoneOfMaximumPrecipitation rdf:type owl:Class ;
+                            rdfs:subClassOf <http://sweetontology.net/realmAtmo/AtmosphereLayer> ;
+                            rdfs:comment "The elevation band on a mountain or orographic barrier that receives the greatest precipitation for a seasonal or annual average."@en .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

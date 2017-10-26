@@ -1,126 +1,218 @@
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix repr: <http://sweetontology.net/reprMath/> .
-@prefix body: <http://sweetontology.net/realmAstroBody/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix eflux: <http://sweetontology.net/propEnergyFlux/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix ener: <http://sweetontology.net/phenEnergy/> .
-@prefix wave: <http://sweetontology.net/phenWave/> .
-@prefix phen: <http://sweetontology.net/phen/> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix velo: <http://sweetontology.net/propSpeed/> .
-@prefix tran: <http://sweetontology.net/phenFluidTransport/> .
-@prefix tstate: <http://sweetontology.net/stateThermodynamic/> .
+@prefix : <http://sweetontology.net/relaPhysical/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/relaPhysical> .
 
-<http://sweetontology.net/relaPhysical> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/state> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/prop> , <http://sweetontology.net/realm> , <http://sweetontology.net/phen> , <http://sweetontology.net/phenWave> , <http://sweetontology.net/phenEnergy> , <http://sweetontology.net/phenFluidTransport> , <http://sweetontology.net/propSpeed> , <http://sweetontology.net/propEnergyFlux> , <http://sweetontology.net/realmAstroBody> , <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/stateThermodynamic> .
+<http://sweetontology.net/relaPhysical> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/phen> ,
+                                                     <http://sweetontology.net/phenEnergy> ,
+                                                     <http://sweetontology.net/phenFluidTransport> ,
+                                                     <http://sweetontology.net/phenWave> ,
+                                                     <http://sweetontology.net/prop> ,
+                                                     <http://sweetontology.net/propEnergyFlux> ,
+                                                     <http://sweetontology.net/propOrdinal> ,
+                                                     <http://sweetontology.net/propQuantity> ,
+                                                     <http://sweetontology.net/propSpeed> ,
+                                                     <http://sweetontology.net/realm> ,
+                                                     <http://sweetontology.net/realmAstroBody> ,
+                                                     <http://sweetontology.net/rela> ,
+                                                     <http://sweetontology.net/relaMath> ,
+                                                     <http://sweetontology.net/relaSci> ,
+                                                     <http://sweetontology.net/relaSpace> ,
+                                                     <http://sweetontology.net/reprMath> ,
+                                                     <http://sweetontology.net/state> ,
+                                                     <http://sweetontology.net/stateThermodynamic> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-prela:hasCharge a owl:DatatypeProperty ;
-	rdfs:range xsd:integer .
+#################################################################
+#    Object Properties
+#################################################################
 
-prela:hasEnergyFlux a owl:ObjectProperty ;
-	rdfs:range eflux:EnergyFlux .
+###  http://sweetontology.net/relaPhysical/colderThan
+:colderThan rdf:type owl:ObjectProperty ;
+            owl:inverseOf :warmerThan .
 
-prela:hasTransport a owl:ObjectProperty ;
-	rdfs:range tran:Transport .
 
-prela:hasEnergySource a owl:ObjectProperty ;
-	rdfs:range ener:EnergySource .
+###  http://sweetontology.net/relaPhysical/dTdh
+:dTdh rdf:type owl:ObjectProperty .
 
-prela:hasEnergyProduct a owl:ObjectProperty ;
-	rdfs:range ener:EnergyForm .
 
-prela:hasConstantQuantity a owl:ObjectProperty ;
-	rdfs:subPropertyOf mrela:hasConstant , screla:hasQuantity .
+###  http://sweetontology.net/relaPhysical/dTds
+:dTds rdf:type owl:ObjectProperty .
 
-prela:from a owl:ObjectProperty ;
-	rdfs:domain state:State ;
-	rdfs:range state:State .
 
-prela:to a owl:ObjectProperty ;
-	rdfs:domain state:State ;
-	rdfs:range state:State .
+###  http://sweetontology.net/relaPhysical/fasterThan
+:fasterThan rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> ;
+            rdfs:domain <http://sweetontology.net/propSpeed/Speed> ;
+            rdfs:range <http://sweetontology.net/propSpeed/Speed> .
 
-prela:strongerThan a owl:ObjectProperty ;
-	rdfs:domain ordi:Impact ;
-	rdfs:range ordi:Impact ;
-	rdfs:subPropertyOf mrela:greaterThan .
 
-prela:weakerThan a owl:ObjectProperty ;
-	owl:inverseOf prela:strongerThan .
+###  http://sweetontology.net/relaPhysical/from
+:from rdf:type owl:ObjectProperty ;
+      rdfs:domain <http://sweetontology.net/state/State> ;
+      rdfs:range <http://sweetontology.net/state/State> .
 
-prela:transportOf a owl:ObjectProperty ;
-	rdfs:range quan:Quantity .
 
-prela:revolvesAround a owl:ObjectProperty .
+###  http://sweetontology.net/relaPhysical/hasAstronomicalBody
+:hasAstronomicalBody rdf:type owl:ObjectProperty ;
+                     rdfs:range <http://sweetontology.net/realmAstroBody/AstronomicalBody> .
 
-prela:hasConservedQuantity a owl:ObjectProperty ;
-	rdfs:range quan:ConservedQuantity .
 
-prela:hasAstronomicalBody a owl:ObjectProperty ;
-	rdfs:range body:AstronomicalBody .
+###  http://sweetontology.net/relaPhysical/hasConservedQuantity
+:hasConservedQuantity rdf:type owl:ObjectProperty ;
+                      rdfs:range <http://sweetontology.net/propQuantity/ConservedQuantity> .
 
-prela:hasPlanetaryStructure a owl:ObjectProperty ;
-	rdfs:range realm:PlanetaryStructure .
 
-prela:warmerThan a owl:ObjectProperty ;
-	rdfs:domain tstate:ThermodynamicState ;
-	rdfs:range tstate:ThermodynamicState ;
-	rdfs:subPropertyOf mrela:greaterThan .
+###  http://sweetontology.net/relaPhysical/hasConstantQuantity
+:hasConstantQuantity rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasConstant> ,
+                                        <http://sweetontology.net/relaSci/hasQuantity> .
 
-prela:colderThan a owl:ObjectProperty ;
-	owl:inverseOf prela:warmerThan .
 
-prela:dTdh a owl:ObjectProperty .
+###  http://sweetontology.net/relaPhysical/hasEnergyFlux
+:hasEnergyFlux rdf:type owl:ObjectProperty ;
+               rdfs:range <http://sweetontology.net/propEnergyFlux/EnergyFlux> .
 
-prela:dTds a owl:ObjectProperty .
 
-prela:hasTemperatureRange a owl:ObjectProperty ;
-	rdfs:range ordi:TemperatureRange .
+###  http://sweetontology.net/relaPhysical/hasEnergyProduct
+:hasEnergyProduct rdf:type owl:ObjectProperty ;
+                  rdfs:range <http://sweetontology.net/phenEnergy/EnergyForm> .
 
-prela:hasStateChange a owl:ObjectProperty ;
-	rdfs:subPropertyOf rela:hasProcess .
 
-prela:hasRestoringForce a owl:ObjectProperty ;
-	rdfs:domain wave:Wave ;
-	rdfs:range phen:Phenomena .
+###  http://sweetontology.net/relaPhysical/hasEnergySource
+:hasEnergySource rdf:type owl:ObjectProperty ;
+                 rdfs:range <http://sweetontology.net/phenEnergy/EnergySource> .
 
-prela:hasOscillationDirection a owl:ObjectProperty ;
-	rdfs:subPropertyOf srela:hasDirection ;
-	rdfs:domain wave:Wave .
 
-prela:hasOscillationField a owl:ObjectProperty ;
-	rdfs:domain wave:Wave .
+###  http://sweetontology.net/relaPhysical/hasOscillationDirection
+:hasOscillationDirection rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf <http://sweetontology.net/relaSpace/hasDirection> ;
+                         rdfs:domain <http://sweetontology.net/phenWave/Wave> .
 
-prela:fasterThan a owl:ObjectProperty ;
-	rdfs:domain velo:Speed ;
-	rdfs:range velo:Speed ;
-	rdfs:subPropertyOf mrela:greaterThan .
 
-prela:slowerThan a owl:ObjectProperty ;
-	owl:inverseOf prela:fasterThan .
+###  http://sweetontology.net/relaPhysical/hasOscillationField
+:hasOscillationField rdf:type owl:ObjectProperty ;
+                     rdfs:domain <http://sweetontology.net/phenWave/Wave> .
 
-prela:hasSpeed a owl:ObjectProperty .
 
-prela:moreVisibleThan a owl:ObjectProperty ;
-	rdfs:domain ordi:Visibility ;
-	rdfs:range ordi:Visibility ;
-	rdfs:subPropertyOf mrela:greaterThan .
+###  http://sweetontology.net/relaPhysical/hasPlanetaryStructure
+:hasPlanetaryStructure rdf:type owl:ObjectProperty ;
+                       rdfs:range <http://sweetontology.net/realm/PlanetaryStructure> .
 
-prela:hasVisibility a owl:ObjectProperty ;
-	rdfs:range ordi:Visibility .
 
-prela:hasSpectralBand a owl:ObjectProperty ;
-	rdfs:range ordi:SpectralBand .
+###  http://sweetontology.net/relaPhysical/hasRestoringForce
+:hasRestoringForce rdf:type owl:ObjectProperty ;
+                   rdfs:domain <http://sweetontology.net/phenWave/Wave> ;
+                   rdfs:range <http://sweetontology.net/phen/Phenomena> .
+
+
+###  http://sweetontology.net/relaPhysical/hasSpectralBand
+:hasSpectralBand rdf:type owl:ObjectProperty ;
+                 rdfs:range <http://sweetontology.net/propOrdinal/SpectralBand> .
+
+
+###  http://sweetontology.net/relaPhysical/hasSpeed
+:hasSpeed rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaPhysical/hasStateChange
+:hasStateChange rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf <http://sweetontology.net/rela/hasProcess> .
+
+
+###  http://sweetontology.net/relaPhysical/hasTemperatureRange
+:hasTemperatureRange rdf:type owl:ObjectProperty ;
+                     rdfs:range <http://sweetontology.net/propOrdinal/TemperatureRange> .
+
+
+###  http://sweetontology.net/relaPhysical/hasTransport
+:hasTransport rdf:type owl:ObjectProperty ;
+              rdfs:range <http://sweetontology.net/phenFluidTransport/Transport> .
+
+
+###  http://sweetontology.net/relaPhysical/hasVisibility
+:hasVisibility rdf:type owl:ObjectProperty ;
+               rdfs:range <http://sweetontology.net/propOrdinal/Visibility> .
+
+
+###  http://sweetontology.net/relaPhysical/moreVisibleThan
+:moreVisibleThan rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> ;
+                 rdfs:domain <http://sweetontology.net/propOrdinal/Visibility> ;
+                 rdfs:range <http://sweetontology.net/propOrdinal/Visibility> .
+
+
+###  http://sweetontology.net/relaPhysical/revolvesAround
+:revolvesAround rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaPhysical/slowerThan
+:slowerThan rdf:type owl:ObjectProperty ;
+            owl:inverseOf :fasterThan .
+
+
+###  http://sweetontology.net/relaPhysical/strongerThan
+:strongerThan rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> ;
+              rdfs:domain <http://sweetontology.net/propOrdinal/Impact> ;
+              rdfs:range <http://sweetontology.net/propOrdinal/Impact> .
+
+
+###  http://sweetontology.net/relaPhysical/to
+:to rdf:type owl:ObjectProperty ;
+    rdfs:domain <http://sweetontology.net/state/State> ;
+    rdfs:range <http://sweetontology.net/state/State> .
+
+
+###  http://sweetontology.net/relaPhysical/transportOf
+:transportOf rdf:type owl:ObjectProperty ;
+             rdfs:range <http://sweetontology.net/propQuantity/Quantity> .
+
+
+###  http://sweetontology.net/relaPhysical/warmerThan
+:warmerThan rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> ;
+            rdfs:domain <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+            rdfs:range <http://sweetontology.net/stateThermodynamic/ThermodynamicState> .
+
+
+###  http://sweetontology.net/relaPhysical/weakerThan
+:weakerThan rdf:type owl:ObjectProperty ;
+            owl:inverseOf :strongerThan .
+
+
+###  http://sweetontology.net/relaSci/hasQuantity
+<http://sweetontology.net/relaSci/hasQuantity> rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaSpace/hasDirection
+<http://sweetontology.net/relaSpace/hasDirection> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://sweetontology.net/relaPhysical/hasCharge
+:hasCharge rdf:type owl:DatatypeProperty ;
+           rdfs:range xsd:integer .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://sweetontology.net/state/State
+<http://sweetontology.net/state/State> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/stateThermodynamic/ThermodynamicState
+<http://sweetontology.net/stateThermodynamic/ThermodynamicState> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

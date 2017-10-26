@@ -1,232 +1,600 @@
+@prefix : <http://sweetontology.net/statePhysical/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix sstate: <http://sweetontology.net/stateSystem/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix charge: <http://sweetontology.net/propCharge/> .
-@prefix velo: <http://sweetontology.net/propSpeed/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix diml: <http://sweetontology.net/propDimensionlessRatio/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/statePhysical> .
 
-<http://sweetontology.net/statePhysical> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/state> , <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/propCharge> , <http://sweetontology.net/matrCompound> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/matr> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/propSpeed> , <http://sweetontology.net/propDimensionlessRatio> .
+<http://sweetontology.net/statePhysical> rdf:type owl:Ontology ;
+                                          owl:imports <http://sweetontology.net/matr> ,
+                                                      <http://sweetontology.net/matrCompound> ,
+                                                      <http://sweetontology.net/propCharge> ,
+                                                      <http://sweetontology.net/propDimensionlessRatio> ,
+                                                      <http://sweetontology.net/propOrdinal> ,
+                                                      <http://sweetontology.net/propSpeed> ,
+                                                      <http://sweetontology.net/relaChemical> ,
+                                                      <http://sweetontology.net/relaMath> ,
+                                                      <http://sweetontology.net/relaPhysical> ,
+                                                      <http://sweetontology.net/state> ,
+                                                      <http://sweetontology.net/stateSystem> ;
+                                          rdfs:label "SWEET Ontology" ;
+                                          owl:versionInfo "3.1.0" .
 
-pstate:StateOfMatter a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+#################################################################
+#    Classes
+#################################################################
 
-pstate:SubstanceForm a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+###  http://sweetontology.net/statePhysical/MoistureState
+:MoistureState rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalState ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                 owl:hasValue <http://sweetontology.net/matrCompound/Water>
+                               ] .
 
-pstate:MoistureState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState , _:node1boamep5cx1 .
 
-_:node1boamep5cx1 a owl:Restriction ;
-	owl:hasValue comp:Water ;
-	owl:onProperty crela:hasSubstance .
+###  http://sweetontology.net/statePhysical/PhysicalState
+:PhysicalState rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/state/State> .
 
-pstate:PhysicalState a owl:Class ;
-	rdfs:subClassOf state:State .
 
-pstate:WaveState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+###  http://sweetontology.net/statePhysical/RainState
+:RainState rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/propOrdinal/OrdinalProperty> ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                             owl:hasValue <http://sweetontology.net/matrCompound/Water>
+                           ] .
 
-pstate:SpeedState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
 
-pstate:Neutral a pstate:PhysicalState ;
-	prela:hasCharge "0"^^xsd:integer ;
-	owl:sameAs pstate:NeutralState ;
-	owl:differentFrom pstate:IonizedState .
+###  http://sweetontology.net/statePhysical/SpeedState
+:SpeedState rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalState .
 
-pstate:NeutralState a pstate:PhysicalState .
 
-pstate:NonThermalPlasma a pstate:PhysicalState ;
-	owl:differentFrom pstate:ThermalPlasma .
+###  http://sweetontology.net/statePhysical/StateOfMatter
+:StateOfMatter rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalState .
 
-pstate:ThermalPlasma a pstate:PhysicalState .
 
-pstate:Ferroelectric a pstate:PhysicalState .
+###  http://sweetontology.net/statePhysical/SubstanceForm
+:SubstanceForm rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalState .
 
-pstate:Burned a pstate:PhysicalState .
 
-pstate:Radiative a pstate:PhysicalState .
+###  http://sweetontology.net/statePhysical/WaveState
+:WaveState rdf:type owl:Class ;
+           rdfs:subClassOf :PhysicalState .
 
-pstate:Peraelectric a pstate:PhysicalState ;
-	owl:differentFrom pstate:Ferroelectric .
 
-pstate:Ionized a pstate:PhysicalState ;
-	owl:sameAs pstate:IonizedState .
+###  http://sweetontology.net/stateSystem/EquilibriumState
+<http://sweetontology.net/stateSystem/EquilibriumState> rdf:type owl:Class .
 
-pstate:IonizedState a pstate:PhysicalState .
 
-pstate:QuasiNeutral a pstate:PhysicalState ;
-	mrela:approximates pstate:Neutral .
+#################################################################
+#    Individuals
+#################################################################
 
-pstate:Charged a pstate:PhysicalState ;
-	owl:differentFrom pstate:Neutral .
+###  http://sweetontology.net/matrCompound/Water
+<http://sweetontology.net/matrCompound/Water> rdf:type owl:NamedIndividual .
 
-pstate:Hypergravity a pstate:PhysicalState .
 
-pstate:Hypogravity a pstate:PhysicalState ;
-	owl:differentFrom pstate:Hypergravity .
+###  http://sweetontology.net/propDimensionlessRatio/SonicMachNumber
+<http://sweetontology.net/propDimensionlessRatio/SonicMachNumber> rdf:type owl:NamedIndividual .
 
-pstate:ZeroG a pstate:PhysicalState .
 
-pstate:Fluid a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Solid .
+###  http://sweetontology.net/statePhysical/Bubble
+:Bubble rdf:type owl:NamedIndividual ,
+                 :SubstanceForm .
 
-pstate:Solid a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Gas ;
-	owl:sameAs pstate:Frozen .
 
-pstate:Frozen a pstate:PhysicalState .
+###  http://sweetontology.net/statePhysical/Burned
+:Burned rdf:type owl:NamedIndividual ,
+                 :PhysicalState .
 
-pstate:Gas a pstate:StateOfMatter ;
-	owl:sameAs pstate:Vapor .
 
-pstate:Vapor a pstate:StateOfMatter .
+###  http://sweetontology.net/statePhysical/Calm
+:Calm rdf:type owl:NamedIndividual ,
+               :SpeedState .
 
-pstate:Plasma a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Solid .
 
-pstate:Liquid a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Gas .
+###  http://sweetontology.net/statePhysical/Charged
+:Charged rdf:type owl:NamedIndividual ,
+                  :PhysicalState .
 
-pstate:Gaseous a pstate:StateOfMatter ;
-	mrela:approximates pstate:Gas .
 
-pstate:Condensed a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Gas .
+###  http://sweetontology.net/statePhysical/Condensed
+:Condensed rdf:type owl:NamedIndividual ,
+                    :StateOfMatter .
 
-pstate:Isobaric a sstate:EquilibriumState .
 
-pstate:Isochoric a sstate:EquilibriumState .
+###  http://sweetontology.net/statePhysical/Constructive
+:Constructive rdf:type owl:NamedIndividual ,
+                       :WaveState .
 
-pstate:Isohalic a sstate:EquilibriumState .
 
-pstate:Isostatic a sstate:EquilibriumState ;
-	owl:sameAs pstate:Isostacy .
+###  http://sweetontology.net/statePhysical/Deiced
+:Deiced rdf:type owl:NamedIndividual ,
+                 :MoistureState .
 
-pstate:Isostacy a sstate:EquilibriumState .
 
-pstate:NormalMode a sstate:EquilibriumState ;
-	owl:sameAs pstate:FreeOscillation .
+###  http://sweetontology.net/statePhysical/Destructive
+:Destructive rdf:type owl:NamedIndividual ,
+                      :WaveState .
 
-pstate:FreeOscillation a sstate:EquilibriumState .
 
-pstate:Suspended a pstate:SubstanceForm .
+###  http://sweetontology.net/statePhysical/Diluted
+:Diluted rdf:type owl:NamedIndividual ,
+                  :SubstanceForm .
 
-pstate:Diluted a pstate:SubstanceForm .
 
-pstate:Dissolved a pstate:SubstanceForm .
+###  http://sweetontology.net/statePhysical/Dissolved
+:Dissolved rdf:type owl:NamedIndividual ,
+                    :SubstanceForm .
 
-pstate:Film a pstate:SubstanceForm .
 
-pstate:Floating a pstate:SubstanceForm .
+###  http://sweetontology.net/statePhysical/Droplet
+:Droplet rdf:type owl:NamedIndividual ,
+                  :SubstanceForm ;
+         rdfs:comment "A small spherical particle of any liquid; in meteorology, particularly a water droplet."@en .
 
-pstate:Fragment a pstate:SubstanceForm .
 
-pstate:Pellicular a pstate:SubstanceForm .
+###  http://sweetontology.net/statePhysical/Dry
+:Dry rdf:type owl:NamedIndividual ,
+              :MoistureState .
 
-pstate:Pillow a pstate:SubstanceForm .
 
-pstate:Particle a pstate:SubstanceForm .
+###  http://sweetontology.net/statePhysical/Eddy
+:Eddy rdf:type owl:NamedIndividual ,
+               :WaveState .
 
-pstate:Bubble a pstate:SubstanceForm .
 
-pstate:Droplet a pstate:SubstanceForm ;
-	rdfs:comment "A small spherical particle of any liquid; in meteorology, particularly a water droplet."@en .
+###  http://sweetontology.net/statePhysical/Fast
+:Fast rdf:type owl:NamedIndividual ,
+               :SpeedState ;
+      <http://sweetontology.net/relaPhysical/fasterThan> :Calm ,
+                                                         :Slow .
 
-pstate:RainState a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty , _:node1boamep5cx2 .
 
-_:node1boamep5cx2 a owl:Restriction ;
-	owl:hasValue comp:Water ;
-	owl:onProperty crela:hasSubstance .
+###  http://sweetontology.net/statePhysical/Ferroelectric
+:Ferroelectric rdf:type owl:NamedIndividual ,
+                        :PhysicalState .
 
-pstate:Light a pstate:RainState .
 
-pstate:Occasional a pstate:RainState .
+###  http://sweetontology.net/statePhysical/Film
+:Film rdf:type owl:NamedIndividual ,
+               :SubstanceForm .
 
-pstate:Intermittent a pstate:RainState .
 
-pstate:Scattered a pstate:RainState .
+###  http://sweetontology.net/statePhysical/Filtered
+:Filtered rdf:type owl:NamedIndividual ,
+                   :WaveState .
 
-pstate:Heavy a pstate:RainState .
 
-pstate:Severe a pstate:RainState .
+###  http://sweetontology.net/statePhysical/Floating
+:Floating rdf:type owl:NamedIndividual ,
+                   :SubstanceForm .
 
-pstate:Deiced a pstate:MoistureState .
 
-pstate:Dry a pstate:MoistureState ;
-	owl:differentFrom pstate:Moist .
+###  http://sweetontology.net/statePhysical/Fluid
+:Fluid rdf:type owl:NamedIndividual ,
+                :StateOfMatter .
 
-pstate:Humid a pstate:MoistureState ;
-	owl:sameAs pstate:Moist .
 
-pstate:Moist a pstate:MoistureState .
+###  http://sweetontology.net/statePhysical/Fragment
+:Fragment rdf:type owl:NamedIndividual ,
+                   :SubstanceForm .
 
-pstate:Wet a pstate:MoistureState .
 
-pstate:Hydrophobic a pstate:MoistureState .
+###  http://sweetontology.net/statePhysical/FreeOscillation
+:FreeOscillation rdf:type owl:NamedIndividual ,
+                          <http://sweetontology.net/stateSystem/EquilibriumState> ;
+                 owl:sameAs :NormalMode .
 
-pstate:Impermeable a pstate:MoistureState ;
-	owl:differentFrom pstate:Permeable .
 
-pstate:Permeable a pstate:MoistureState .
+###  http://sweetontology.net/statePhysical/Frozen
+:Frozen rdf:type owl:NamedIndividual ,
+                 :PhysicalState ;
+        owl:sameAs :Solid .
 
-pstate:Porous a pstate:MoistureState .
 
-pstate:Hydrophilic a pstate:MoistureState ;
-	owl:differentFrom pstate:Hydrophobic .
+###  http://sweetontology.net/statePhysical/Gale
+:Gale rdf:type owl:NamedIndividual ,
+               :SpeedState .
 
-pstate:Hygroscopic a pstate:MoistureState .
 
-pstate:Hydrolyzable a pstate:MoistureState .
+###  http://sweetontology.net/statePhysical/Gas
+:Gas rdf:type owl:NamedIndividual ,
+              :StateOfMatter ;
+     owl:sameAs :Vapor .
 
-pstate:Constructive a pstate:WaveState .
 
-pstate:Destructive a pstate:WaveState ;
-	owl:differentFrom pstate:Constructive .
+###  http://sweetontology.net/statePhysical/Gaseous
+:Gaseous rdf:type owl:NamedIndividual ,
+                  :StateOfMatter ;
+         <http://sweetontology.net/relaMath/approximates> :Gas .
 
-pstate:HighFrequency a pstate:WaveState .
 
-pstate:LowFrequency a pstate:WaveState ;
-	owl:differentFrom pstate:HighFrequency .
+###  http://sweetontology.net/statePhysical/Gentle
+:Gentle rdf:type owl:NamedIndividual ,
+                 :SpeedState .
 
-pstate:Filtered a pstate:WaveState .
 
-pstate:Eddy a pstate:WaveState .
+###  http://sweetontology.net/statePhysical/Heavy
+:Heavy rdf:type owl:NamedIndividual ,
+                :RainState .
 
-pstate:Zonal a pstate:WaveState ;
-	owl:differentFrom pstate:Eddy .
 
-pstate:Subsonic a pstate:SpeedState ;
-	prela:slowerThan diml:SonicMachNumber .
+###  http://sweetontology.net/statePhysical/HighFrequency
+:HighFrequency rdf:type owl:NamedIndividual ,
+                        :WaveState .
 
-pstate:Supersonic a pstate:SpeedState ;
-	prela:fasterThan diml:SonicMachNumber .
 
-pstate:Quiescent a pstate:SpeedState .
+###  http://sweetontology.net/statePhysical/Humid
+:Humid rdf:type owl:NamedIndividual ,
+                :MoistureState ;
+       owl:sameAs :Moist .
 
-pstate:Slow a pstate:SpeedState .
 
-pstate:Gentle a pstate:SpeedState .
+###  http://sweetontology.net/statePhysical/Hydrolyzable
+:Hydrolyzable rdf:type owl:NamedIndividual ,
+                       :MoistureState .
 
-pstate:Calm a pstate:SpeedState .
 
-pstate:Gale a pstate:SpeedState .
+###  http://sweetontology.net/statePhysical/Hydrophilic
+:Hydrophilic rdf:type owl:NamedIndividual ,
+                      :MoistureState .
 
-pstate:Fast a pstate:SpeedState ;
-	prela:fasterThan pstate:Slow , pstate:Calm .
 
-pstate:Rapid a pstate:SpeedState ;
-	prela:fasterThan pstate:Slow , pstate:Calm .
+###  http://sweetontology.net/statePhysical/Hydrophobic
+:Hydrophobic rdf:type owl:NamedIndividual ,
+                      :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/Hygroscopic
+:Hygroscopic rdf:type owl:NamedIndividual ,
+                      :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/Hypergravity
+:Hypergravity rdf:type owl:NamedIndividual ,
+                       :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Hypogravity
+:Hypogravity rdf:type owl:NamedIndividual ,
+                      :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Impermeable
+:Impermeable rdf:type owl:NamedIndividual ,
+                      :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/Intermittent
+:Intermittent rdf:type owl:NamedIndividual ,
+                       :RainState .
+
+
+###  http://sweetontology.net/statePhysical/Ionized
+:Ionized rdf:type owl:NamedIndividual ,
+                  :PhysicalState ;
+         owl:sameAs :IonizedState .
+
+
+###  http://sweetontology.net/statePhysical/IonizedState
+:IonizedState rdf:type owl:NamedIndividual ,
+                       :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Isobaric
+:Isobaric rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/stateSystem/EquilibriumState> .
+
+
+###  http://sweetontology.net/statePhysical/Isochoric
+:Isochoric rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/stateSystem/EquilibriumState> .
+
+
+###  http://sweetontology.net/statePhysical/Isohalic
+:Isohalic rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/stateSystem/EquilibriumState> .
+
+
+###  http://sweetontology.net/statePhysical/Isostacy
+:Isostacy rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/stateSystem/EquilibriumState> ;
+          owl:sameAs :Isostatic .
+
+
+###  http://sweetontology.net/statePhysical/Isostatic
+:Isostatic rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/stateSystem/EquilibriumState> .
+
+
+###  http://sweetontology.net/statePhysical/Light
+:Light rdf:type owl:NamedIndividual ,
+                :RainState .
+
+
+###  http://sweetontology.net/statePhysical/Liquid
+:Liquid rdf:type owl:NamedIndividual ,
+                 :StateOfMatter .
+
+
+###  http://sweetontology.net/statePhysical/LowFrequency
+:LowFrequency rdf:type owl:NamedIndividual ,
+                       :WaveState .
+
+
+###  http://sweetontology.net/statePhysical/Moist
+:Moist rdf:type owl:NamedIndividual ,
+                :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/Neutral
+:Neutral rdf:type owl:NamedIndividual ,
+                  :PhysicalState ;
+         owl:sameAs :NeutralState ;
+         <http://sweetontology.net/relaPhysical/hasCharge> 0 .
+
+
+###  http://sweetontology.net/statePhysical/NeutralState
+:NeutralState rdf:type owl:NamedIndividual ,
+                       :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/NonThermalPlasma
+:NonThermalPlasma rdf:type owl:NamedIndividual ,
+                           :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/NormalMode
+:NormalMode rdf:type owl:NamedIndividual ,
+                     <http://sweetontology.net/stateSystem/EquilibriumState> .
+
+
+###  http://sweetontology.net/statePhysical/Occasional
+:Occasional rdf:type owl:NamedIndividual ,
+                     :RainState .
+
+
+###  http://sweetontology.net/statePhysical/Particle
+:Particle rdf:type owl:NamedIndividual ,
+                   :SubstanceForm .
+
+
+###  http://sweetontology.net/statePhysical/Pellicular
+:Pellicular rdf:type owl:NamedIndividual ,
+                     :SubstanceForm .
+
+
+###  http://sweetontology.net/statePhysical/Peraelectric
+:Peraelectric rdf:type owl:NamedIndividual ,
+                       :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Permeable
+:Permeable rdf:type owl:NamedIndividual ,
+                    :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/Pillow
+:Pillow rdf:type owl:NamedIndividual ,
+                 :SubstanceForm .
+
+
+###  http://sweetontology.net/statePhysical/Plasma
+:Plasma rdf:type owl:NamedIndividual ,
+                 :StateOfMatter .
+
+
+###  http://sweetontology.net/statePhysical/Porous
+:Porous rdf:type owl:NamedIndividual ,
+                 :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/QuasiNeutral
+:QuasiNeutral rdf:type owl:NamedIndividual ,
+                       :PhysicalState ;
+              <http://sweetontology.net/relaMath/approximates> :Neutral .
+
+
+###  http://sweetontology.net/statePhysical/Quiescent
+:Quiescent rdf:type owl:NamedIndividual ,
+                    :SpeedState .
+
+
+###  http://sweetontology.net/statePhysical/Radiative
+:Radiative rdf:type owl:NamedIndividual ,
+                    :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Rapid
+:Rapid rdf:type owl:NamedIndividual ,
+                :SpeedState ;
+       <http://sweetontology.net/relaPhysical/fasterThan> :Calm ,
+                                                          :Slow .
+
+
+###  http://sweetontology.net/statePhysical/Scattered
+:Scattered rdf:type owl:NamedIndividual ,
+                    :RainState .
+
+
+###  http://sweetontology.net/statePhysical/Severe
+:Severe rdf:type owl:NamedIndividual ,
+                 :RainState .
+
+
+###  http://sweetontology.net/statePhysical/Slow
+:Slow rdf:type owl:NamedIndividual ,
+               :SpeedState .
+
+
+###  http://sweetontology.net/statePhysical/Solid
+:Solid rdf:type owl:NamedIndividual ,
+                :StateOfMatter .
+
+
+###  http://sweetontology.net/statePhysical/Subsonic
+:Subsonic rdf:type owl:NamedIndividual ,
+                   :SpeedState ;
+          <http://sweetontology.net/relaPhysical/slowerThan> <http://sweetontology.net/propDimensionlessRatio/SonicMachNumber> .
+
+
+###  http://sweetontology.net/statePhysical/Supersonic
+:Supersonic rdf:type owl:NamedIndividual ,
+                     :SpeedState ;
+            <http://sweetontology.net/relaPhysical/fasterThan> <http://sweetontology.net/propDimensionlessRatio/SonicMachNumber> .
+
+
+###  http://sweetontology.net/statePhysical/Suspended
+:Suspended rdf:type owl:NamedIndividual ,
+                    :SubstanceForm .
+
+
+###  http://sweetontology.net/statePhysical/ThermalPlasma
+:ThermalPlasma rdf:type owl:NamedIndividual ,
+                        :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Vapor
+:Vapor rdf:type owl:NamedIndividual ,
+                :StateOfMatter .
+
+
+###  http://sweetontology.net/statePhysical/Wet
+:Wet rdf:type owl:NamedIndividual ,
+              :MoistureState .
+
+
+###  http://sweetontology.net/statePhysical/ZeroG
+:ZeroG rdf:type owl:NamedIndividual ,
+                :PhysicalState .
+
+
+###  http://sweetontology.net/statePhysical/Zonal
+:Zonal rdf:type owl:NamedIndividual ,
+                :WaveState .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Charged
+                        :Neutral
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Condensed
+                        :Gas
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Constructive
+                        :Destructive
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Dry
+                        :Moist
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Eddy
+                        :Zonal
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Ferroelectric
+                        :Peraelectric
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Fluid
+                        :Solid
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Gas
+                        :Liquid
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Gas
+                        :Solid
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :HighFrequency
+                        :LowFrequency
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Hydrophilic
+                        :Hydrophobic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Hypergravity
+                        :Hypogravity
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Impermeable
+                        :Permeable
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :IonizedState
+                        :Neutral
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :NonThermalPlasma
+                        :ThermalPlasma
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Plasma
+                        :Solid
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

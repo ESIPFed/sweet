@@ -1,276 +1,415 @@
+@prefix : <http://sweetontology.net/stateSpectralBand/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix freq: <http://sweetontology.net/propTimeFrequency/> .
-@prefix waves: <http://sweetontology.net/propSpaceDistance/> .
-@prefix trela: <http://sweetontology.net/relaTime/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix band: <http://sweetontology.net/stateSpectralBand/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/stateSpectralBand> .
 
-<http://sweetontology.net/stateSpectralBand> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/propTimeFrequency> , <http://sweetontology.net/relaTime> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/propSpaceDistance> .
+<http://sweetontology.net/stateSpectralBand> rdf:type owl:Ontology ;
+                                              owl:imports <http://sweetontology.net/propOrdinal> ,
+                                                          <http://sweetontology.net/propSpaceDistance> ,
+                                                          <http://sweetontology.net/propTimeFrequency> ,
+                                                          <http://sweetontology.net/relaMath> ,
+                                                          <http://sweetontology.net/relaSpace> ,
+                                                          <http://sweetontology.net/relaTime> ;
+                                              rdfs:label "SWEET Ontology" ;
+                                              owl:versionInfo "3.1.0" .
 
-band:BroadSpectrum a owl:Class ;
-	rdfs:subClassOf ordi:SpectralBand ;
-	owl:equivalentClass band:BroadBand , band:WhiteLight ;
-	owl:disjointWith ordi:SpectralLine .
+#################################################################
+#    Classes
+#################################################################
 
-band:BroadBand a owl:Class .
+###  http://sweetontology.net/propOrdinal/SpectralLine
+<http://sweetontology.net/propOrdinal/SpectralLine> owl:disjointWith :BroadSpectrum .
 
-band:WhiteLight a owl:Class .
 
-band:Bolometric a owl:Class ;
-	rdfs:subClassOf band:BroadSpectrum .
+###  http://sweetontology.net/stateSpectralBand/BandLimited
+:BandLimited rdf:type owl:Class ;
+             owl:equivalentClass :NarrowSpectrum .
 
-band:Monochromatic a owl:Class ;
-	rdfs:subClassOf band:NarrowSpectrum .
 
-band:NarrowSpectrum a owl:Class ;
-	rdfs:subClassOf ordi:SpectralBand ;
-	owl:equivalentClass band:NarrowBand , band:BandLimited .
+###  http://sweetontology.net/stateSpectralBand/Bolometric
+:Bolometric rdf:type owl:Class ;
+            rdfs:subClassOf :BroadSpectrum .
 
-band:NarrowBand a owl:Class .
 
-band:BandLimited a owl:Class .
+###  http://sweetontology.net/stateSpectralBand/BroadBand
+:BroadBand rdf:type owl:Class ;
+           owl:equivalentClass :BroadSpectrum .
 
-band:Polychromatic a owl:Class ;
-	rdfs:subClassOf band:BroadSpectrum .
 
-band:GammaWave a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx1 .
+###  http://sweetontology.net/stateSpectralBand/BroadSpectrum
+:BroadSpectrum rdf:type owl:Class ;
+               owl:equivalentClass :WhiteLight ;
+               rdfs:subClassOf <http://sweetontology.net/propOrdinal/SpectralBand> .
 
-_:node1boamer1dx1 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "0"^^xsd:double ;
-	mrela:hasUpperBound "0.03"^^xsd:double .
 
-band:XRay a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx2 .
+###  http://sweetontology.net/stateSpectralBand/Monochromatic
+:Monochromatic rdf:type owl:Class ;
+               rdfs:subClassOf :NarrowSpectrum .
 
-_:node1boamer1dx2 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "0.03"^^xsd:double ;
-	mrela:hasUpperBound "5"^^xsd:double .
 
-band:HardXRay a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx3 .
+###  http://sweetontology.net/stateSpectralBand/NarrowBand
+:NarrowBand rdf:type owl:Class ;
+            owl:equivalentClass :NarrowSpectrum .
 
-_:node1boamer1dx3 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "0.03"^^xsd:double ;
-	mrela:hasUpperBound "0.3"^^xsd:double .
 
-band:SoftXRay a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx4 .
+###  http://sweetontology.net/stateSpectralBand/NarrowSpectrum
+:NarrowSpectrum rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/propOrdinal/SpectralBand> .
 
-_:node1boamer1dx4 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "0.3"^^xsd:double ;
-	mrela:hasUpperBound "5"^^xsd:double .
 
-band:Ultraviolet a ordi:SpectralBand ;
-	owl:sameAs band:ShortWave , band:UV ;
-	srela:hasWavelength _:node1boamer1dx5 .
+###  http://sweetontology.net/stateSpectralBand/Polychromatic
+:Polychromatic rdf:type owl:Class ;
+               rdfs:subClassOf :BroadSpectrum .
 
-_:node1boamer1dx5 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "5"^^xsd:double ;
-	mrela:hasUpperBound "390"^^xsd:double .
 
-band:Ultraviolet rdfs:comment "Electromagnetic radiation of shorter wavelength than visible radiation but longer than x-rays."@en .
+###  http://sweetontology.net/stateSpectralBand/WhiteLight
+:WhiteLight rdf:type owl:Class .
 
-band:ShortWave a ordi:SpectralBand .
 
-band:UV a ordi:SpectralBand .
+#################################################################
+#    Individuals
+#################################################################
 
-band:EUV a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx6 .
+###  http://sweetontology.net/stateSpectralBand/Blue
+:Blue rdf:type owl:NamedIndividual ,
+               <http://sweetontology.net/propOrdinal/SpectralBand> ;
+      <http://sweetontology.net/relaSpace/hasWavelength> _:genid1 .
 
-_:node1boamer1dx6 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "5"^^xsd:double ;
-	mrela:hasUpperBound "100"^^xsd:double .
+_:genid1 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "455.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "492.0"^^xsd:double .
 
-band:UVC a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx7 .
 
-_:node1boamer1dx7 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "100"^^xsd:double ;
-	mrela:hasUpperBound "280"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/CBand
+:CBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid2 .
 
-band:UVB a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx8 .
+_:genid2 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "4000.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "8000.0"^^xsd:double .
 
-_:node1boamer1dx8 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "280"^^xsd:double ;
-	mrela:hasUpperBound "315"^^xsd:double .
 
-band:UVA a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx9 .
+###  http://sweetontology.net/stateSpectralBand/EUV
+:EUV rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/propOrdinal/SpectralBand> ;
+     <http://sweetontology.net/relaSpace/hasWavelength> _:genid3 .
 
-_:node1boamer1dx9 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "315"^^xsd:double ;
-	mrela:hasUpperBound "390"^^xsd:double .
+_:genid3 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "5.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "100.0"^^xsd:double .
 
-band:Violet a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx10 .
 
-_:node1boamer1dx10 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "390"^^xsd:double ;
-	mrela:hasUpperBound "455"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/FM
+:FM rdf:type owl:NamedIndividual ,
+             <http://sweetontology.net/propOrdinal/SpectralBand> ;
+    <http://sweetontology.net/relaTime/hasFrequency> _:genid4 .
 
-band:Blue a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx11 .
+_:genid4 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "87.5"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "108.0"^^xsd:double .
 
-_:node1boamer1dx11 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "455"^^xsd:double ;
-	mrela:hasUpperBound "492"^^xsd:double .
 
-band:Green a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx12 .
+###  http://sweetontology.net/stateSpectralBand/GammaWave
+:GammaWave rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/propOrdinal/SpectralBand> ;
+           <http://sweetontology.net/relaSpace/hasWavelength> _:genid5 .
 
-_:node1boamer1dx12 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "492"^^xsd:double ;
-	mrela:hasUpperBound "557"^^xsd:double .
+_:genid5 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "0.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "0.03"^^xsd:double .
 
-band:Yellow a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx13 .
 
-_:node1boamer1dx13 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "557"^^xsd:double ;
-	mrela:hasUpperBound "597"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/Green
+:Green rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaSpace/hasWavelength> _:genid6 .
 
-band:Orange a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx14 .
+_:genid6 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "492.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "557.0"^^xsd:double .
 
-_:node1boamer1dx14 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "597"^^xsd:double ;
-	mrela:hasUpperBound "622"^^xsd:double .
 
-band:Red a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx15 .
+###  http://sweetontology.net/stateSpectralBand/HardXRay
+:HardXRay rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/propOrdinal/SpectralBand> ;
+          <http://sweetontology.net/relaSpace/hasWavelength> _:genid7 .
 
-_:node1boamer1dx15 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "622"^^xsd:double ;
-	mrela:hasUpperBound "780"^^xsd:double .
+_:genid7 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "0.03"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "0.3"^^xsd:double .
 
-band:PhotosyntheticallyActiveRadiation a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx16 .
 
-_:node1boamer1dx16 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "400"^^xsd:double ;
-	mrela:hasUpperBound "700"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/Infrared
+:Infrared rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/propOrdinal/SpectralBand> ;
+          owl:sameAs :LongWave ;
+          <http://sweetontology.net/relaSpace/hasWavelength> _:genid8 .
 
-band:Visible a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx17 .
+_:genid8 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "780.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "1000000.0"^^xsd:double .
 
-_:node1boamer1dx17 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "390"^^xsd:double ;
-	mrela:hasUpperBound "780"^^xsd:double .
 
-band:Infrared a ordi:SpectralBand ;
-	owl:sameAs band:LongWave ;
-	srela:hasWavelength _:node1boamer1dx18 .
+###  http://sweetontology.net/stateSpectralBand/KBand
+:KBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid9 .
 
-_:node1boamer1dx18 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "780"^^xsd:double ;
-	mrela:hasUpperBound "1.E6"^^xsd:double .
+_:genid9 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+          <http://sweetontology.net/relaMath/hasLowerBound> "18000.0"^^xsd:double ;
+          <http://sweetontology.net/relaMath/hasUpperBound> "26500.0"^^xsd:double .
 
-band:LongWave a ordi:SpectralBand .
 
-band:ThermalInfrared a ordi:SpectralBand ;
-	srela:hasWavelength _:node1boamer1dx19 .
+###  http://sweetontology.net/stateSpectralBand/KaBand
+:KaBand rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/propOrdinal/SpectralBand> ;
+        <http://sweetontology.net/relaTime/hasFrequency> _:genid10 .
 
-_:node1boamer1dx19 a waves:WavelengthBand_nm ;
-	mrela:hasLowerBound "780"^^xsd:double ;
-	mrela:hasUpperBound "6000"^^xsd:double .
+_:genid10 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "26500.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "40000.0"^^xsd:double .
 
-band:RadioWave a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx20 .
 
-_:node1boamer1dx20 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "0"^^xsd:double ;
-	mrela:hasUpperBound "3.e5"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/KuBand
+:KuBand rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/propOrdinal/SpectralBand> ;
+        <http://sweetontology.net/relaTime/hasFrequency> _:genid11 .
 
-band:FM a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx21 .
+_:genid11 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "12000.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "18000.0"^^xsd:double .
 
-_:node1boamer1dx21 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "87.5"^^xsd:double ;
-	mrela:hasUpperBound "108"^^xsd:double .
 
-band:VLF a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx22 .
+###  http://sweetontology.net/stateSpectralBand/LBand
+:LBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid12 .
 
-_:node1boamer1dx22 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "0.003"^^xsd:double ;
-	mrela:hasUpperBound "0.03"^^xsd:double .
+_:genid12 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "1000.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "2000.0"^^xsd:double .
 
-band:LBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx23 .
 
-_:node1boamer1dx23 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "1000"^^xsd:double ;
-	mrela:hasUpperBound "2000"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/LongWave
+:LongWave rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/propOrdinal/SpectralBand> .
 
-band:SBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx24 .
 
-_:node1boamer1dx24 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "2000"^^xsd:double ;
-	mrela:hasUpperBound "4000"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/Microwave
+:Microwave rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/propOrdinal/SpectralBand> ;
+           <http://sweetontology.net/relaTime/hasFrequency> _:genid13 .
 
-band:CBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx25 .
+_:genid13 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "300.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "300000.0"^^xsd:double .
 
-_:node1boamer1dx25 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "4000"^^xsd:double ;
-	mrela:hasUpperBound "8000"^^xsd:double .
 
-band:XBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx26 .
+###  http://sweetontology.net/stateSpectralBand/Orange
+:Orange rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/propOrdinal/SpectralBand> ;
+        <http://sweetontology.net/relaSpace/hasWavelength> _:genid14 .
 
-_:node1boamer1dx26 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "8000"^^xsd:double ;
-	mrela:hasUpperBound "12000"^^xsd:double .
+_:genid14 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "597.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "622.0"^^xsd:double .
 
-band:KuBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx27 .
 
-_:node1boamer1dx27 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "12000"^^xsd:double ;
-	mrela:hasUpperBound "18000"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/PhotosyntheticallyActiveRadiation
+:PhotosyntheticallyActiveRadiation rdf:type owl:NamedIndividual ,
+                                            <http://sweetontology.net/propOrdinal/SpectralBand> ;
+                                   <http://sweetontology.net/relaSpace/hasWavelength> _:genid15 .
 
-band:KBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx28 .
+_:genid15 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "400.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "700.0"^^xsd:double .
 
-_:node1boamer1dx28 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "18000"^^xsd:double ;
-	mrela:hasUpperBound "26500"^^xsd:double .
 
-band:KaBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx29 .
+###  http://sweetontology.net/stateSpectralBand/RadioWave
+:RadioWave rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/propOrdinal/SpectralBand> ;
+           <http://sweetontology.net/relaTime/hasFrequency> _:genid16 .
 
-_:node1boamer1dx29 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "26500"^^xsd:double ;
-	mrela:hasUpperBound "40000"^^xsd:double .
+_:genid16 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "0.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "300000.0"^^xsd:double .
 
-band:VBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx30 .
 
-_:node1boamer1dx30 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "40000"^^xsd:double ;
-	mrela:hasUpperBound "75000"^^xsd:double .
+###  http://sweetontology.net/stateSpectralBand/Red
+:Red rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/propOrdinal/SpectralBand> ;
+     <http://sweetontology.net/relaSpace/hasWavelength> _:genid17 .
 
-band:WBand a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx31 .
+_:genid17 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "622.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "780.0"^^xsd:double .
 
-_:node1boamer1dx31 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "75000"^^xsd:double ;
-	mrela:hasUpperBound "110000"^^xsd:double .
 
-band:Microwave a ordi:SpectralBand ;
-	trela:hasFrequency _:node1boamer1dx32 .
+###  http://sweetontology.net/stateSpectralBand/SBand
+:SBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid18 .
 
-_:node1boamer1dx32 a freq:FrequencyBand_MHz ;
-	mrela:hasLowerBound "300"^^xsd:double ;
-	mrela:hasUpperBound "3.E5"^^xsd:double .
+_:genid18 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "2000.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "4000.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/ShortWave
+:ShortWave rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/propOrdinal/SpectralBand> ;
+           owl:sameAs :Ultraviolet .
+
+
+###  http://sweetontology.net/stateSpectralBand/SoftXRay
+:SoftXRay rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/propOrdinal/SpectralBand> ;
+          <http://sweetontology.net/relaSpace/hasWavelength> _:genid19 .
+
+_:genid19 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "0.3"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "5.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/ThermalInfrared
+:ThermalInfrared rdf:type owl:NamedIndividual ,
+                          <http://sweetontology.net/propOrdinal/SpectralBand> ;
+                 <http://sweetontology.net/relaSpace/hasWavelength> _:genid20 .
+
+_:genid20 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "780.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "6000.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/UV
+:UV rdf:type owl:NamedIndividual ,
+             <http://sweetontology.net/propOrdinal/SpectralBand> ;
+    owl:sameAs :Ultraviolet .
+
+
+###  http://sweetontology.net/stateSpectralBand/UVA
+:UVA rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/propOrdinal/SpectralBand> ;
+     <http://sweetontology.net/relaSpace/hasWavelength> _:genid21 .
+
+_:genid21 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "315.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "390.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/UVB
+:UVB rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/propOrdinal/SpectralBand> ;
+     <http://sweetontology.net/relaSpace/hasWavelength> _:genid22 .
+
+_:genid22 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "280.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "315.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/UVC
+:UVC rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/propOrdinal/SpectralBand> ;
+     <http://sweetontology.net/relaSpace/hasWavelength> _:genid23 .
+
+_:genid23 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "100.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "280.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/Ultraviolet
+:Ultraviolet rdf:type owl:NamedIndividual ,
+                      <http://sweetontology.net/propOrdinal/SpectralBand> ;
+             <http://sweetontology.net/relaSpace/hasWavelength> _:genid24 ;
+             rdfs:comment "Electromagnetic radiation of shorter wavelength than visible radiation but longer than x-rays."@en .
+
+_:genid24 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "5.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "390.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/VBand
+:VBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid25 .
+
+_:genid25 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "40000.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "75000.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/VLF
+:VLF rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/propOrdinal/SpectralBand> ;
+     <http://sweetontology.net/relaTime/hasFrequency> _:genid26 .
+
+_:genid26 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "0.003"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "0.03"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/Violet
+:Violet rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/propOrdinal/SpectralBand> ;
+        <http://sweetontology.net/relaSpace/hasWavelength> _:genid27 .
+
+_:genid27 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "390.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "455.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/Visible
+:Visible rdf:type owl:NamedIndividual ,
+                  <http://sweetontology.net/propOrdinal/SpectralBand> ;
+         <http://sweetontology.net/relaSpace/hasWavelength> _:genid28 .
+
+_:genid28 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "390.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "780.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/WBand
+:WBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid29 .
+
+_:genid29 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "75000.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "110000.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/XBand
+:XBand rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/SpectralBand> ;
+       <http://sweetontology.net/relaTime/hasFrequency> _:genid30 .
+
+_:genid30 rdf:type <http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "8000.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "12000.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/XRay
+:XRay rdf:type owl:NamedIndividual ,
+               <http://sweetontology.net/propOrdinal/SpectralBand> ;
+      <http://sweetontology.net/relaSpace/hasWavelength> _:genid31 .
+
+_:genid31 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "0.03"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "5.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateSpectralBand/Yellow
+:Yellow rdf:type owl:NamedIndividual ,
+                 <http://sweetontology.net/propOrdinal/SpectralBand> ;
+        <http://sweetontology.net/relaSpace/hasWavelength> _:genid32 .
+
+_:genid32 rdf:type <http://sweetontology.net/propSpaceDistance/WavelengthBand_nm> ;
+           <http://sweetontology.net/relaMath/hasLowerBound> "557.0"^^xsd:double ;
+           <http://sweetontology.net/relaMath/hasUpperBound> "597.0"^^xsd:double .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

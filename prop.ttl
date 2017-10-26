@@ -1,132 +1,197 @@
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix know: <http://sweetontology.net/humanKnowledgeDomain/> .
-@prefix hrela: <http://sweetontology.net/relaHuman/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix : <http://sweetontology.net/prop/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/prop> .
 
-<http://sweetontology.net/prop> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/procPhysical> , <http://sweetontology.net/humanKnowledgeDomain> , <http://sweetontology.net/relaHuman> , <http://sweetontology.net/rela> .
+<http://sweetontology.net/prop> rdf:type owl:Ontology ;
+                                 owl:imports <http://sweetontology.net/humanKnowledgeDomain> ,
+                                             <http://sweetontology.net/procPhysical> ,
+                                             <http://sweetontology.net/rela> ,
+                                             <http://sweetontology.net/relaHuman> ;
+                                 rdfs:label "SWEET Ontology" ;
+                                 owl:versionInfo "3.1.0" .
 
-prop:Property a owl:Class .
+#################################################################
+#    Classes
+#################################################################
 
-prop:Role a owl:Class ;
-	rdfs:subClassOf prop:Property .
+###  http://sweetontology.net/prop/Accuracy
+:Accuracy rdf:type owl:Class ;
+          rdfs:subClassOf :Metric .
 
-prop:PhysicalProperty a owl:Class ;
-	rdfs:subClassOf prop:Property , _:node1boame8ddx1 .
 
-_:node1boame8ddx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Physics> .
+###  http://sweetontology.net/prop/AngularMotionProperty
+:AngularMotionProperty rdf:type owl:Class ;
+                       rdfs:subClassOf :MotionProperty .
 
-prop:ElectromagneticRadiationProperty a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty , _:node1boame8ddx2 .
 
-_:node1boame8ddx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-	owl:allValuesFrom <http://sweetontology.net/procPhysical/RadiativeTransfer> .
+###  http://sweetontology.net/prop/BiologicalProperty
+:BiologicalProperty rdf:type owl:Class ;
+                    rdfs:subClassOf :Property ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                      owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Biology>
+                                    ] .
 
-prop:RadiationMediumInteractionProperty a owl:Class ;
-	rdfs:subClassOf prop:ElectromagneticRadiationProperty .
 
-prop:BiologicalProperty a owl:Class ;
-	rdfs:subClassOf prop:Property , _:node1boame8ddx3 .
+###  http://sweetontology.net/prop/ChemicalProperty
+:ChemicalProperty rdf:type owl:Class ;
+                  rdfs:subClassOf :Property ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                    owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Chemistry>
+                                  ] .
 
-_:node1boame8ddx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Biology> .
 
-prop:ThermodynamicProperty a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty , _:node1boame8ddx4 .
+###  http://sweetontology.net/prop/Distortion
+:Distortion rdf:type owl:Class ;
+            rdfs:subClassOf :Error .
 
-_:node1boame8ddx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Thermodynamics> .
 
-prop:HydrogeologicalProperty a owl:Class ;
-	rdfs:subClassOf prop:GeologicalProperty , _:node1boame8ddx5 .
+###  http://sweetontology.net/prop/Efficiency
+:Efficiency rdf:type owl:Class ;
+            rdfs:subClassOf :Measure .
 
-_:node1boame8ddx5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Hydrology> .
 
-prop:MotionProperty a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty , _:node1boame8ddx6 .
+###  http://sweetontology.net/prop/ElectromagneticProperty
+:ElectromagneticProperty rdf:type owl:Class ;
+                         rdfs:subClassOf :PhysicalProperty .
 
-_:node1boame8ddx6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Dynamics> .
 
-prop:AngularMotionProperty a owl:Class ;
-	rdfs:subClassOf prop:MotionProperty .
+###  http://sweetontology.net/prop/ElectromagneticRadiationProperty
+:ElectromagneticRadiationProperty rdf:type owl:Class ;
+                                  rdfs:subClassOf :PhysicalProperty ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                                    owl:allValuesFrom <http://sweetontology.net/procPhysical/RadiativeTransfer>
+                                                  ] .
 
-prop:ReactionProperty a owl:Class ;
-	rdfs:subClassOf prop:ChemicalProperty .
 
-prop:ChemicalProperty a owl:Class ;
-	rdfs:subClassOf prop:Property , _:node1boame8ddx7 .
+###  http://sweetontology.net/prop/Error
+:Error rdf:type owl:Class ;
+       rdfs:subClassOf :Metric .
 
-_:node1boame8ddx7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Chemistry> .
 
-prop:ElectromagneticProperty a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty .
+###  http://sweetontology.net/prop/Fideltiy
+:Fideltiy rdf:type owl:Class ;
+          rdfs:subClassOf :Measure .
 
-prop:GeologicalProperty a owl:Class ;
-	rdfs:subClassOf prop:Property , _:node1boame8ddx8 .
 
-_:node1boame8ddx8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
-	owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Geology> .
+###  http://sweetontology.net/prop/FlowProperty
+:FlowProperty rdf:type owl:Class ;
+              rdfs:subClassOf :SystemProperty .
 
-prop:WaveProperty a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty .
 
-prop:SystemProperty a owl:Class ;
-	rdfs:subClassOf prop:Property .
+###  http://sweetontology.net/prop/FluidProperty
+:FluidProperty rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProperty .
 
-prop:StockProperty a owl:Class ;
-	rdfs:subClassOf prop:SystemProperty .
 
-prop:FlowProperty a owl:Class ;
-	rdfs:subClassOf prop:SystemProperty .
+###  http://sweetontology.net/prop/GeologicalProperty
+:GeologicalProperty rdf:type owl:Class ;
+                    rdfs:subClassOf :Property ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                      owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Geology>
+                                    ] .
 
-prop:FluidProperty a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty .
 
-prop:Measure a owl:Class ;
-	rdfs:subClassOf prop:Property .
+###  http://sweetontology.net/prop/HydrogeologicalProperty
+:HydrogeologicalProperty rdf:type owl:Class ;
+                         rdfs:subClassOf :GeologicalProperty ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                           owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Hydrology>
+                                         ] .
 
-prop:Metric a owl:Class ;
-	rdfs:subClassOf prop:Measure .
 
-prop:Efficiency a owl:Class ;
-	rdfs:subClassOf prop:Measure .
+###  http://sweetontology.net/prop/Measure
+:Measure rdf:type owl:Class ;
+         rdfs:subClassOf :Property .
 
-prop:Sensitivity a owl:Class ;
-	rdfs:subClassOf prop:Measure .
 
-prop:Fideltiy a owl:Class ;
-	rdfs:subClassOf prop:Measure .
+###  http://sweetontology.net/prop/Metric
+:Metric rdf:type owl:Class ;
+        rdfs:subClassOf :Measure .
 
-prop:StatisticalSummary a owl:Class ;
-	rdfs:subClassOf prop:Property .
 
-prop:Accuracy a owl:Class ;
-	rdfs:subClassOf prop:Metric .
+###  http://sweetontology.net/prop/MotionProperty
+:MotionProperty rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalProperty ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                  owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Dynamics>
+                                ] .
 
-prop:Precision a owl:Class ;
-	rdfs:subClassOf prop:Metric .
 
-prop:Distortion a owl:Class ;
-	rdfs:subClassOf prop:Error .
+###  http://sweetontology.net/prop/PhysicalProperty
+:PhysicalProperty rdf:type owl:Class ;
+                  rdfs:subClassOf :Property ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                    owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Physics>
+                                  ] .
 
-prop:Error a owl:Class ;
-	rdfs:subClassOf prop:Metric .
+
+###  http://sweetontology.net/prop/Precision
+:Precision rdf:type owl:Class ;
+           rdfs:subClassOf :Metric .
+
+
+###  http://sweetontology.net/prop/Property
+:Property rdf:type owl:Class .
+
+
+###  http://sweetontology.net/prop/RadiationMediumInteractionProperty
+:RadiationMediumInteractionProperty rdf:type owl:Class ;
+                                    rdfs:subClassOf :ElectromagneticRadiationProperty .
+
+
+###  http://sweetontology.net/prop/ReactionProperty
+:ReactionProperty rdf:type owl:Class ;
+                  rdfs:subClassOf :ChemicalProperty .
+
+
+###  http://sweetontology.net/prop/Role
+:Role rdf:type owl:Class ;
+      rdfs:subClassOf :Property .
+
+
+###  http://sweetontology.net/prop/Sensitivity
+:Sensitivity rdf:type owl:Class ;
+             rdfs:subClassOf :Measure .
+
+
+###  http://sweetontology.net/prop/StatisticalSummary
+:StatisticalSummary rdf:type owl:Class ;
+                    rdfs:subClassOf :Property .
+
+
+###  http://sweetontology.net/prop/StockProperty
+:StockProperty rdf:type owl:Class ;
+               rdfs:subClassOf :SystemProperty .
+
+
+###  http://sweetontology.net/prop/SystemProperty
+:SystemProperty rdf:type owl:Class ;
+                rdfs:subClassOf :Property .
+
+
+###  http://sweetontology.net/prop/ThermodynamicProperty
+:ThermodynamicProperty rdf:type owl:Class ;
+                       rdfs:subClassOf :PhysicalProperty ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                         owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Thermodynamics>
+                                       ] .
+
+
+###  http://sweetontology.net/prop/WaveProperty
+:WaveProperty rdf:type owl:Class ;
+              rdfs:subClassOf :PhysicalProperty .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

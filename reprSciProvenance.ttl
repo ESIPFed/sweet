@@ -1,95 +1,151 @@
-@prefix res: <http://sweetontology.net/humanResearch/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix proc: <http://sweetontology.net/proc/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix prov: <http://sweetontology.net/reprSciProvenance/> .
-@prefix pmlj: <http://inference-web.org/2.0/pml-justification.owl#> .
-@prefix pmlpbase: <http://inference-web.org/2.0/pml-provenance.owl#> .
-@prefix opm: <http://openprovenance.org/model/opmo#> .
+@prefix : <http://sweetontology.net/reprSciProvenance/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/reprSciProvenance> .
 
-<http://sweetontology.net/reprSciProvenance> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/prop> , <http://sweetontology.net/proc> , <http://sweetontology.net/repr> , <http://sweetontology.net/humanResearch> .
+<http://sweetontology.net/reprSciProvenance> rdf:type owl:Ontology ;
+                                              owl:imports <http://sweetontology.net/humanResearch> ,
+                                                          <http://sweetontology.net/proc> ,
+                                                          <http://sweetontology.net/prop> ,
+                                                          <http://sweetontology.net/repr> ;
+                                              rdfs:label "SWEET Ontology" ;
+                                              owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/reprSciProvenance/Metadata> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Representation> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/reprSciProvenance/Agent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
+###  http://sweetontology.net/reprSciProvenance/Agent
+:Agent rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Artifact> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Process> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Process> .
+###  http://sweetontology.net/reprSciProvenance/Artifact
+:Artifact rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Background> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Chronology> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/History> .
+###  http://sweetontology.net/reprSciProvenance/Background
+:Background rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Documentation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Excavate> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
+###  http://sweetontology.net/reprSciProvenance/Chronology
+:Chronology rdf:type owl:Class ;
+            rdfs:subClassOf :History .
 
-<http://sweetontology.net/reprSciProvenance/Genesis> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/History> .
 
-<http://sweetontology.net/reprSciProvenance/History> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/Property> .
+###  http://sweetontology.net/reprSciProvenance/Crosswalk
+:Crosswalk rdf:type owl:Class ;
+           owl:equivalentClass :VariableMapping .
 
-<http://sweetontology.net/reprSciProvenance/Pipeline> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/Process> .
 
-<http://sweetontology.net/reprSciProvenance/Provenance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/History> .
+###  http://sweetontology.net/reprSciProvenance/DerivedRule
+:DerivedRule rdf:type owl:Class ;
+             rdfs:subClassOf :InferenceRule .
 
-<http://sweetontology.net/reprSciProvenance/Reconstruction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Sequence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/History> .
+###  http://sweetontology.net/reprSciProvenance/Documentation
+:Documentation rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/Record> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/Research> .
 
-<http://sweetontology.net/reprSciProvenance/Workflow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
+###  http://sweetontology.net/reprSciProvenance/Excavate
+:Excavate rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/VariableMapping> a owl:Class ;
-	owl:equivalentClass <http://sweetontology.net/reprSciProvenance/Crosswalk> ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/ProvenanceElement> .
 
-<http://sweetontology.net/reprSciProvenance/Crosswalk> a owl:Class .
+###  http://sweetontology.net/reprSciProvenance/Genesis
+:Genesis rdf:type owl:Class ;
+         rdfs:subClassOf :History .
 
-<http://sweetontology.net/reprSciProvenance/ProvenanceElement> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
 
-<http://sweetontology.net/reprSciProvenance/JustificationElement> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/ProvenanceElement> .
+###  http://sweetontology.net/reprSciProvenance/History
+:History rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/prop/Property> .
 
-<http://sweetontology.net/reprSciProvenance/InferenceRule> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/ProvenanceElement> .
 
-<http://sweetontology.net/reprSciProvenance/PrimitiveRule> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/InferenceRule> .
+###  http://sweetontology.net/reprSciProvenance/InferenceRule
+:InferenceRule rdf:type owl:Class ;
+               rdfs:subClassOf :ProvenanceElement .
 
-<http://sweetontology.net/reprSciProvenance/DerivedRule> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/InferenceRule> .
 
-<http://sweetontology.net/reprSciProvenance/MethodRule> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/InferenceRule> .
+###  http://sweetontology.net/reprSciProvenance/JustificationElement
+:JustificationElement rdf:type owl:Class ;
+                      rdfs:subClassOf :ProvenanceElement .
 
-<http://sweetontology.net/reprSciProvenance/Predecessor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/ProvenanceElement> .
 
-<http://sweetontology.net/reprSciProvenance/Successor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciProvenance/ProvenanceElement> .
+###  http://sweetontology.net/reprSciProvenance/Metadata
+:Metadata rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/repr/Representation> .
+
+
+###  http://sweetontology.net/reprSciProvenance/MethodRule
+:MethodRule rdf:type owl:Class ;
+            rdfs:subClassOf :InferenceRule .
+
+
+###  http://sweetontology.net/reprSciProvenance/Pipeline
+:Pipeline rdf:type owl:Class ;
+          rdfs:subClassOf :Process .
+
+
+###  http://sweetontology.net/reprSciProvenance/Predecessor
+:Predecessor rdf:type owl:Class ;
+             rdfs:subClassOf :ProvenanceElement .
+
+
+###  http://sweetontology.net/reprSciProvenance/PrimitiveRule
+:PrimitiveRule rdf:type owl:Class ;
+               rdfs:subClassOf :InferenceRule .
+
+
+###  http://sweetontology.net/reprSciProvenance/Process
+:Process rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/proc/Process> .
+
+
+###  http://sweetontology.net/reprSciProvenance/Provenance
+:Provenance rdf:type owl:Class ;
+            rdfs:subClassOf :History .
+
+
+###  http://sweetontology.net/reprSciProvenance/ProvenanceElement
+:ProvenanceElement rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
+
+
+###  http://sweetontology.net/reprSciProvenance/Reconstruction
+:Reconstruction rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
+
+
+###  http://sweetontology.net/reprSciProvenance/Record
+:Record rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/humanResearch/Research> .
+
+
+###  http://sweetontology.net/reprSciProvenance/Sequence
+:Sequence rdf:type owl:Class ;
+          rdfs:subClassOf :History .
+
+
+###  http://sweetontology.net/reprSciProvenance/Successor
+:Successor rdf:type owl:Class ;
+           rdfs:subClassOf :ProvenanceElement .
+
+
+###  http://sweetontology.net/reprSciProvenance/VariableMapping
+:VariableMapping rdf:type owl:Class ;
+                 rdfs:subClassOf :ProvenanceElement .
+
+
+###  http://sweetontology.net/reprSciProvenance/Workflow
+:Workflow rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/humanResearch/ExperimentActivity> .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

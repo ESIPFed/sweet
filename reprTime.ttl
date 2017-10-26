@@ -1,67 +1,118 @@
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix reg: <http://sweetontology.net/realmRegion/> .
-@prefix time: <http://sweetontology.net/reprTime/> .
-@prefix owlt: <http://www.w3.org/2006/time#> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix math: <http://sweetontology.net/reprMath/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://sweetontology.net/reprTime/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/reprTime> .
 
-<http://sweetontology.net/reprTime> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/repr> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/realmRegion> .
+<http://sweetontology.net/reprTime> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/realmRegion> ,
+                                                 <http://sweetontology.net/relaSci> ,
+                                                 <http://sweetontology.net/repr> ,
+                                                 <http://sweetontology.net/reprMath> ,
+                                                 <http://sweetontology.net/reprSciUnits> ;
+                                     rdfs:label "SWEET Ontology" ;
+                                     owl:versionInfo "3.1.0" .
 
-time:Time a owl:Class ;
-	rdfs:subClassOf repr:Dimension , _:node1boamenmux1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamenmux1 a owl:Restriction ;
-	owl:hasValue units:second ;
-	owl:onProperty screla:hasDefaultUnit .
+###  http://sweetontology.net/reprTime/Duration
+:Duration rdf:type owl:Class ;
+          owl:equivalentClass :TemporalEntity .
 
-time:Time rdfs:comment "This concept is of time as an independent variable"@en .
 
-time:TimeFrame a owl:Class ;
-	rdfs:subClassOf repr:ReferenceFrame , time:Time .
+###  http://sweetontology.net/reprTime/Local
+:Local rdf:type owl:Class ;
+       rdfs:subClassOf :LocalTime .
 
-time:Sidereal a time:TimeFrame .
 
-time:Synodic a time:TimeFrame .
+###  http://sweetontology.net/reprTime/LocalTime
+:LocalTime rdf:type owl:Class ;
+           rdfs:subClassOf :TimeZone .
 
-time:UniversalTime a time:TimeZone ;
-	owl:sameAs time:UT .
 
-time:UT a time:TimeZone .
+###  http://sweetontology.net/reprTime/SolarTime
+:SolarTime rdf:type owl:Class ;
+           rdfs:subClassOf :LocalTime .
 
-time:LocalTime a owl:Class ;
-	rdfs:subClassOf time:TimeZone .
 
-time:SolarTime a owl:Class ;
-	rdfs:subClassOf time:LocalTime .
+###  http://sweetontology.net/reprTime/TemporalEntity
+:TemporalEntity rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/reprMath/NumericalEntity> .
 
-time:Local a owl:Class ;
-	rdfs:subClassOf time:LocalTime .
 
-owlt:TemporalEntity a owl:Class ;
-	rdfs:subClassOf time:Time .
+###  http://sweetontology.net/reprTime/TemporalReference
+:TemporalReference rdf:type owl:Class ;
+                   owl:equivalentClass :TimeReference ;
+                   rdfs:subClassOf :TemporalEntity .
 
-owlt:Instant a owl:Class ;
-	rdfs:subClassOf time:Time , math:Point .
 
-time:Duration a owl:Class ;
-	owl:equivalentClass time:TemporalEntity .
+###  http://sweetontology.net/reprTime/Time
+:Time rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/repr/Dimension> ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                        owl:hasValue <http://sweetontology.net/reprSciUnits/second>
+                      ] ;
+      rdfs:comment "This concept is of time as an independent variable"@en .
 
-time:TemporalEntity a owl:Class ;
-	rdfs:subClassOf math:NumericalEntity .
 
-time:TemporalReference a owl:Class ;
-	rdfs:subClassOf time:TemporalEntity ;
-	owl:equivalentClass time:TimeReference .
+###  http://sweetontology.net/reprTime/TimeFrame
+:TimeFrame rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/repr/ReferenceFrame> ,
+                           :Time .
 
-time:TimeReference a owl:Class .
 
-time:TimeZone a owl:Class ;
-	rdfs:subClassOf time:TemporalReference .
+###  http://sweetontology.net/reprTime/TimeReference
+:TimeReference rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprTime/TimeZone
+:TimeZone rdf:type owl:Class ;
+          rdfs:subClassOf :TemporalReference .
+
+
+###  http://www.w3.org/2006/time#Instant
+<http://www.w3.org/2006/time#Instant> rdf:type owl:Class ;
+                                      rdfs:subClassOf <http://sweetontology.net/reprMath/Point> ,
+                                                      :Time .
+
+
+###  http://www.w3.org/2006/time#TemporalEntity
+<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class ;
+                                             rdfs:subClassOf :Time .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/second
+<http://sweetontology.net/reprSciUnits/second> rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprTime/Sidereal
+:Sidereal rdf:type owl:NamedIndividual ,
+                   :TimeFrame .
+
+
+###  http://sweetontology.net/reprTime/Synodic
+:Synodic rdf:type owl:NamedIndividual ,
+                  :TimeFrame .
+
+
+###  http://sweetontology.net/reprTime/UT
+:UT rdf:type owl:NamedIndividual ,
+             :TimeZone ;
+    owl:sameAs :UniversalTime .
+
+
+###  http://sweetontology.net/reprTime/UniversalTime
+:UniversalTime rdf:type owl:NamedIndividual ,
+                        :TimeZone .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

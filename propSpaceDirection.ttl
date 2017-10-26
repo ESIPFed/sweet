@@ -1,112 +1,200 @@
+@prefix : <http://sweetontology.net/propSpaceDirection/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
-@prefix math: <http://sweetontology.net/reprMath/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix loca: <http://sweetontology.net/propSpaceLocation/> .
-@prefix dir: <http://sweetontology.net/propSpaceDirection/> .
-@prefix rdir: <http://sweetontology.net/reprSpaceDirection/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/propSpaceDirection> .
 
-<http://sweetontology.net/propSpaceDirection> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/propSpaceLocation> , <http://sweetontology.net/reprSpaceDirection> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/reprSpaceGeometry3D> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/reprSciUnits> .
+<http://sweetontology.net/propSpaceDirection> rdf:type owl:Ontology ;
+                                               owl:imports <http://sweetontology.net/propQuantity> ,
+                                                           <http://sweetontology.net/propSpaceLocation> ,
+                                                           <http://sweetontology.net/relaSci> ,
+                                                           <http://sweetontology.net/relaSpace> ,
+                                                           <http://sweetontology.net/reprMath> ,
+                                                           <http://sweetontology.net/reprSciUnits> ,
+                                                           <http://sweetontology.net/reprSpaceDirection> ,
+                                                           <http://sweetontology.net/reprSpaceGeometry3D> ;
+                                               rdfs:label "SWEET Ontology" ;
+                                               owl:versionInfo "3.1.0" .
 
-dir:Direction a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMath/Vector_3D> .
+#################################################################
+#    Object Properties
+#################################################################
 
-dir:AngularDirection a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/relaSci/hasDefaultUnit
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
-dir:Attitude a owl:Class ;
-	rdfs:subClassOf dir:Direction .
 
-dir:Axis a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/relaSpace/hasDirection
+<http://sweetontology.net/relaSpace/hasDirection> rdf:type owl:ObjectProperty .
 
-dir:Azimuth a owl:Class ;
-	rdfs:subClassOf dir:Direction .
 
-dir:AzimuthalDirection a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/relaSpace/hasGeometricalObject
+<http://sweetontology.net/relaSpace/hasGeometricalObject> rdf:type owl:ObjectProperty .
 
-dir:Bearing a owl:Class ;
-	owl:equivalentClass dir:Direction .
 
-dir:HorizontalDirection a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/relaSpace/oppositeTo
+<http://sweetontology.net/relaSpace/oppositeTo> rdf:type owl:ObjectProperty .
 
-dir:Incidence a owl:Class ;
-	rdfs:subClassOf dir:Direction .
 
-dir:Inclination a owl:Class ;
-	owl:equivalentClass dir:Direction .
+#################################################################
+#    Classes
+#################################################################
 
-dir:Orientation a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/propSpaceDirection/Angle
+:Angle rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                         owl:hasValue <http://sweetontology.net/reprSciUnits/radian>
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
+                         owl:cardinality "2"^^xsd:nonNegativeInteger
+                       ] .
 
-dir:PolarDirection a owl:Class ;
-	rdfs:subClassOf dir:Direction .
 
-dir:SolidAngle a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> , _:node1boamebllx1 .
+###  http://sweetontology.net/propSpaceDirection/AngularDirection
+:AngularDirection rdf:type owl:Class ;
+                  rdfs:subClassOf :Direction .
 
-_:node1boamebllx1 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/steradian> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-dir:SolidAngle rdfs:subClassOf _:node1boamebllx2 .
+###  http://sweetontology.net/propSpaceDirection/Attitude
+:Attitude rdf:type owl:Class ;
+          rdfs:subClassOf :Direction .
 
-_:node1boamebllx2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprSpaceGeometry3D/Cone> ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasGeometricalObject> .
 
-dir:Tilt a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/propSpaceDirection/Axis
+:Axis rdf:type owl:Class ;
+      rdfs:subClassOf :Direction .
 
-dir:VerticalDirection a owl:Class ;
-	rdfs:subClassOf dir:Direction .
 
-dir:Angle a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> , _:node1boamebllx3 .
+###  http://sweetontology.net/propSpaceDirection/Azimuth
+:Azimuth rdf:type owl:Class ;
+         rdfs:subClassOf :Direction .
 
-_:node1boamebllx3 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/radian> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-dir:Angle rdfs:subClassOf _:node1boamebllx4 .
+###  http://sweetontology.net/propSpaceDirection/AzimuthalDirection
+:AzimuthalDirection rdf:type owl:Class ;
+                    rdfs:subClassOf :Direction .
 
-_:node1boamebllx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
-	owl:cardinality "2"^^xsd:nonNegativeInteger .
 
-dir:Incoming a owl:Class ;
-	rdfs:subClassOf dir:Direction ;
-	owl:equivalentClass dir:Inward .
+###  http://sweetontology.net/propSpaceDirection/Bearing
+:Bearing rdf:type owl:Class ;
+         owl:equivalentClass :Direction .
 
-dir:Inward a owl:Class .
 
-dir:Lateral a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/propSpaceDirection/Direction
+:Direction rdf:type owl:Class ;
+           owl:equivalentClass :Inclination ;
+           rdfs:subClassOf <http://sweetontology.net/reprMath/Vector_3D> .
 
-dir:Outgoing a owl:Class ;
-	rdfs:subClassOf dir:Direction ;
-	owl:equivalentClass dir:Outward ;
-	rdfs:subClassOf _:node1boamebllx5 .
 
-_:node1boamebllx5 a owl:Restriction ;
-	owl:allValuesFrom dir:Incoming ;
-	owl:onProperty <http://sweetontology.net/relaSpace/oppositeTo> .
+###  http://sweetontology.net/propSpaceDirection/HorizontalDirection
+:HorizontalDirection rdf:type owl:Class ;
+                     rdfs:subClassOf :Direction .
 
-dir:Outward a owl:Class .
 
-dir:Radial a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+###  http://sweetontology.net/propSpaceDirection/Incidence
+:Incidence rdf:type owl:Class ;
+           rdfs:subClassOf :Direction .
 
-dir:Zenith a owl:Class ;
-	rdfs:subClassOf dir:Direction .
+
+###  http://sweetontology.net/propSpaceDirection/Inclination
+:Inclination rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propSpaceDirection/Incoming
+:Incoming rdf:type owl:Class ;
+          owl:equivalentClass :Inward ;
+          rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/Inward
+:Inward rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propSpaceDirection/Lateral
+:Lateral rdf:type owl:Class ;
+         rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/Orientation
+:Orientation rdf:type owl:Class ;
+             rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/Outgoing
+:Outgoing rdf:type owl:Class ;
+          owl:equivalentClass :Outward ;
+          rdfs:subClassOf :Direction ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSpace/oppositeTo> ;
+                            owl:allValuesFrom :Incoming
+                          ] .
+
+
+###  http://sweetontology.net/propSpaceDirection/Outward
+:Outward rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propSpaceDirection/PolarDirection
+:PolarDirection rdf:type owl:Class ;
+                rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/Radial
+:Radial rdf:type owl:Class ;
+        rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/SolidAngle
+:SolidAngle rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSpace/hasGeometricalObject> ;
+                              owl:allValuesFrom <http://sweetontology.net/reprSpaceGeometry3D/Cone>
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                              owl:hasValue <http://sweetontology.net/reprSciUnits/steradian>
+                            ] .
+
+
+###  http://sweetontology.net/propSpaceDirection/Tilt
+:Tilt rdf:type owl:Class ;
+      rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/VerticalDirection
+:VerticalDirection rdf:type owl:Class ;
+                   rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/propSpaceDirection/Zenith
+:Zenith rdf:type owl:Class ;
+        rdfs:subClassOf :Direction .
+
+
+###  http://sweetontology.net/reprMath/Vector_3D
+<http://sweetontology.net/reprMath/Vector_3D> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprSpaceGeometry3D/Cone
+<http://sweetontology.net/reprSpaceGeometry3D/Cone> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/radian
+<http://sweetontology.net/reprSciUnits/radian> rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/steradian
+<http://sweetontology.net/reprSciUnits/steradian> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

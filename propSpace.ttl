@@ -1,75 +1,130 @@
-@prefix meas: <http://sweetontology.net/reprSpace/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
-@prefix space: <http://sweetontology.net/propSpace/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix : <http://sweetontology.net/propSpace/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/propSpace> .
 
-<http://sweetontology.net/propSpace> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpace> , <http://sweetontology.net/prop> , <http://sweetontology.net/procPhysical> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/reprMathFunction> .
+<http://sweetontology.net/propSpace> rdf:type owl:Ontology ;
+                                      owl:imports <http://sweetontology.net/procPhysical> ,
+                                                  <http://sweetontology.net/prop> ,
+                                                  <http://sweetontology.net/rela> ,
+                                                  <http://sweetontology.net/relaSci> ,
+                                                  <http://sweetontology.net/reprMathFunction> ,
+                                                  <http://sweetontology.net/reprSciUnits> ,
+                                                  <http://sweetontology.net/reprSpace> ;
+                                      rdfs:label "SWEET Ontology" ;
+                                      owl:versionInfo "3.1.0" .
 
-space:SpatialProperty a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/Property> , _:node1boamebgux1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamebgux1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprSpace/Space> ;
-	owl:onProperty <http://sweetontology.net/relaSci/measureOf> .
+###  http://sweetontology.net/propSpace/AngularDistribution
+:AngularDistribution rdf:type owl:Class ;
+                     rdfs:subClassOf :SpatialDistribution .
 
-space:SpatialMeasure a owl:Class ;
-	rdfs:subClassOf space:SpatialProperty , <http://sweetontology.net/prop/Measure> .
 
-space:LinearExtent a owl:Class ;
-	rdfs:subClassOf space:SpatialMeasure , _:node1boamebgux2 .
+###  http://sweetontology.net/propSpace/Configuration
+:Configuration rdf:type owl:Class ;
+               owl:equivalentClass :SpatialConfiguration .
 
-_:node1boamebgux2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/kilometer> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-space:SpatialExtent a owl:Class ;
-	rdfs:subClassOf space:LinearExtent .
+###  http://sweetontology.net/propSpace/Connectivity
+:Connectivity rdf:type owl:Class ;
+              rdfs:subClassOf :SpatialConfiguration .
 
-space:Shape a owl:Class ;
-	rdfs:subClassOf space:SpatialConfiguration ;
-	rdfs:comment "Description of the form of an object"@en .
 
-space:SpatialConfiguration a owl:Class ;
-	rdfs:subClassOf space:SpatialProperty ;
-	owl:equivalentClass space:Configuration .
+###  http://sweetontology.net/propSpace/Containment
+:Containment rdf:type owl:Class ;
+             rdfs:subClassOf :SpatialConfiguration .
 
-space:Configuration a owl:Class .
 
-space:OrbitalConfiguration a owl:Class ;
-	rdfs:subClassOf space:SpatialConfiguration , _:node1boamebgux3 .
+###  http://sweetontology.net/propSpace/Curvature
+:Curvature rdf:type owl:Class ;
+           rdfs:subClassOf :SpatialProperty .
 
-_:node1boamebgux3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-	owl:allValuesFrom <http://sweetontology.net/procPhysical/Orbit> .
 
-space:Connectivity a owl:Class ;
-	rdfs:subClassOf space:SpatialConfiguration .
+###  http://sweetontology.net/propSpace/LinearExtent
+:LinearExtent rdf:type owl:Class ;
+              rdfs:subClassOf :SpatialMeasure ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                owl:hasValue <http://sweetontology.net/reprSciUnits/kilometer>
+                              ] .
 
-space:Containment a owl:Class ;
-	rdfs:subClassOf space:SpatialConfiguration .
 
-space:Morphology a owl:Class ;
-	rdfs:subClassOf space:SpatialProperty .
+###  http://sweetontology.net/propSpace/Morphology
+:Morphology rdf:type owl:Class ;
+            rdfs:subClassOf :SpatialProperty .
 
-space:SpatialSource a owl:Class ;
-	rdfs:subClassOf space:SpatialProperty .
 
-space:Curvature a owl:Class ;
-	rdfs:subClassOf space:SpatialProperty .
+###  http://sweetontology.net/propSpace/OrbitalConfiguration
+:OrbitalConfiguration rdf:type owl:Class ;
+                      rdfs:subClassOf :SpatialConfiguration ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                        owl:allValuesFrom <http://sweetontology.net/procPhysical/Orbit>
+                                      ] .
 
-space:SpatialDistribution a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/DistributionFunction> , space:SpatialConfiguration .
 
-space:AngularDistribution a owl:Class ;
-	rdfs:subClassOf space:SpatialDistribution .
+###  http://sweetontology.net/propSpace/Shape
+:Shape rdf:type owl:Class ;
+       rdfs:subClassOf :SpatialConfiguration ;
+       rdfs:comment "Description of the form of an object"@en .
+
+
+###  http://sweetontology.net/propSpace/SpatialConfiguration
+:SpatialConfiguration rdf:type owl:Class ;
+                      rdfs:subClassOf :SpatialProperty .
+
+
+###  http://sweetontology.net/propSpace/SpatialDistribution
+:SpatialDistribution rdf:type owl:Class ;
+                     rdfs:subClassOf :SpatialConfiguration ,
+                                     <http://sweetontology.net/reprMathFunction/DistributionFunction> .
+
+
+###  http://sweetontology.net/propSpace/SpatialExtent
+:SpatialExtent rdf:type owl:Class ;
+               rdfs:subClassOf :LinearExtent .
+
+
+###  http://sweetontology.net/propSpace/SpatialMeasure
+:SpatialMeasure rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/prop/Measure> ,
+                                :SpatialProperty .
+
+
+###  http://sweetontology.net/propSpace/SpatialProperty
+:SpatialProperty rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/prop/Property> ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
+                                   owl:allValuesFrom <http://sweetontology.net/reprSpace/Space>
+                                 ] .
+
+
+###  http://sweetontology.net/propSpace/SpatialSource
+:SpatialSource rdf:type owl:Class ;
+               rdfs:subClassOf :SpatialProperty .
+
+
+###  http://sweetontology.net/reprMathFunction/DistributionFunction
+<http://sweetontology.net/reprMathFunction/DistributionFunction> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprSpace/Space
+<http://sweetontology.net/reprSpace/Space> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/kilometer
+<http://sweetontology.net/reprSciUnits/kilometer> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

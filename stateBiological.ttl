@@ -1,85 +1,220 @@
-@prefix trela: <http://sweetontology.net/relaTime/> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix bstate: <http://sweetontology.net/stateBiological/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix dir: <http://sweetontology.net/reprSpaceDirection/> .
+@prefix : <http://sweetontology.net/stateBiological/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/stateBiological> .
 
-<http://sweetontology.net/stateBiological> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaTime> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/propCategorical> , <http://sweetontology.net/reprSpaceDirection> , <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/stateTime> , <http://sweetontology.net/state> .
+<http://sweetontology.net/stateBiological> rdf:type owl:Ontology ;
+                                            owl:imports <http://sweetontology.net/propCategorical> ,
+                                                        <http://sweetontology.net/propOrdinal> ,
+                                                        <http://sweetontology.net/relaSci> ,
+                                                        <http://sweetontology.net/relaTime> ,
+                                                        <http://sweetontology.net/reprSpaceDirection> ,
+                                                        <http://sweetontology.net/state> ,
+                                                        <http://sweetontology.net/stateTime> ;
+                                            rdfs:label "SWEET Ontology" ;
+                                            owl:versionInfo "3.1.0" .
 
-bstate:BiologicalState a owl:Class ;
-	rdfs:subClassOf state:State .
+#################################################################
+#    Classes
+#################################################################
 
-bstate:Dead a bstate:BiologicalState , state:BinaryState ;
-	owl:sameAs bstate:Deceased .
+###  http://sweetontology.net/stateBiological/BiologicalState
+:BiologicalState rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/state/State> .
 
-bstate:Deceased a bstate:BiologicalState .
 
-bstate:Live a bstate:BiologicalState , state:BinaryState ;
-	owl:sameAs bstate:Living , bstate:Alive ;
-	owl:differentFrom bstate:Dead , bstate:Nonliving .
+#################################################################
+#    Individuals
+#################################################################
 
-bstate:Living a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Abiotic
+:Abiotic rdf:type owl:NamedIndividual ,
+                  :BiologicalState .
 
-bstate:Alive a bstate:BiologicalState .
 
-bstate:Nonliving a bstate:BiologicalState , state:BinaryState .
+###  http://sweetontology.net/stateBiological/Adult
+:Adult rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/Age> ;
+       <http://sweetontology.net/relaTime/olderThan> :Child .
 
-bstate:Decomposed a bstate:BiologicalState .
 
-bstate:Diseased a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Alive
+:Alive rdf:type owl:NamedIndividual ,
+                :BiologicalState ;
+       owl:sameAs :Live .
 
-bstate:Fertilized a bstate:BiologicalState .
 
-bstate:Assimilated a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Anadromous
+:Anadromous rdf:type owl:NamedIndividual ,
+                     :BiologicalState ;
+            <http://sweetontology.net/relaSci/spawn> <http://sweetontology.net/reprSpaceDirection/Upstream> .
 
-bstate:NutrientRich a bstate:BiologicalState .
 
-bstate:Healthy a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Anthropogenic
+:Anthropogenic rdf:type owl:NamedIndividual ,
+                        :BiologicalState .
 
-bstate:Deciduous a bstate:BiologicalState .
 
-bstate:Anadromous a bstate:BiologicalState ;
-	screla:spawn dir:Upstream .
+###  http://sweetontology.net/stateBiological/Arable
+:Arable rdf:type owl:NamedIndividual ,
+                 :BiologicalState .
 
-bstate:Catadromous a bstate:BiologicalState ;
-	screla:spawn dir:Downstream .
 
-bstate:Migrating a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Assimilated
+:Assimilated rdf:type owl:NamedIndividual ,
+                      :BiologicalState .
 
-bstate:Pollinated a bstate:BiologicalState .
 
-bstate:Anthropogenic a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Biodegradable
+:Biodegradable rdf:type owl:NamedIndividual ,
+                        :BiologicalState .
 
-bstate:Biogenic a bstate:BiologicalState ;
-	owl:differentFrom bstate:Anthropogenic .
 
-bstate:Biotic a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Biogenic
+:Biogenic rdf:type owl:NamedIndividual ,
+                   :BiologicalState .
 
-bstate:Abiotic a bstate:BiologicalState ;
-	owl:differentFrom bstate:Biotic .
 
-bstate:Arable a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Biotic
+:Biotic rdf:type owl:NamedIndividual ,
+                 :BiologicalState .
 
-bstate:Biodegradable a bstate:BiologicalState .
 
-bstate:Diverse a bstate:BiologicalState .
+###  http://sweetontology.net/stateBiological/Catadromous
+:Catadromous rdf:type owl:NamedIndividual ,
+                      :BiologicalState ;
+             <http://sweetontology.net/relaSci/spawn> <http://sweetontology.net/reprSpaceDirection/Downstream> .
 
-bstate:Adult a ordi:Age ;
-	trela:olderThan bstate:Child .
 
-bstate:Child a ordi:Age .
+###  http://sweetontology.net/stateBiological/Child
+:Child rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/Age> .
 
-bstate:Youth a ordi:Age .
 
-bstate:Elderly a ordi:Age ;
-	trela:olderThan bstate:Youth .
+###  http://sweetontology.net/stateBiological/Dead
+:Dead rdf:type owl:NamedIndividual ,
+               <http://sweetontology.net/state/BinaryState> ,
+               :BiologicalState ;
+      owl:sameAs :Deceased .
 
-bstate:OldGrowth a ordi:Age .
+
+###  http://sweetontology.net/stateBiological/Deceased
+:Deceased rdf:type owl:NamedIndividual ,
+                   :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Deciduous
+:Deciduous rdf:type owl:NamedIndividual ,
+                    :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Decomposed
+:Decomposed rdf:type owl:NamedIndividual ,
+                     :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Diseased
+:Diseased rdf:type owl:NamedIndividual ,
+                   :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Diverse
+:Diverse rdf:type owl:NamedIndividual ,
+                  :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Elderly
+:Elderly rdf:type owl:NamedIndividual ,
+                  <http://sweetontology.net/propOrdinal/Age> ;
+         <http://sweetontology.net/relaTime/olderThan> :Youth .
+
+
+###  http://sweetontology.net/stateBiological/Fertilized
+:Fertilized rdf:type owl:NamedIndividual ,
+                     :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Healthy
+:Healthy rdf:type owl:NamedIndividual ,
+                  :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Live
+:Live rdf:type owl:NamedIndividual ,
+               <http://sweetontology.net/state/BinaryState> ,
+               :BiologicalState ;
+      owl:sameAs :Living .
+
+
+###  http://sweetontology.net/stateBiological/Living
+:Living rdf:type owl:NamedIndividual ,
+                 :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Migrating
+:Migrating rdf:type owl:NamedIndividual ,
+                    :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Nonliving
+:Nonliving rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/state/BinaryState> ,
+                    :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/NutrientRich
+:NutrientRich rdf:type owl:NamedIndividual ,
+                       :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/OldGrowth
+:OldGrowth rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/propOrdinal/Age> .
+
+
+###  http://sweetontology.net/stateBiological/Pollinated
+:Pollinated rdf:type owl:NamedIndividual ,
+                     :BiologicalState .
+
+
+###  http://sweetontology.net/stateBiological/Youth
+:Youth rdf:type owl:NamedIndividual ,
+                <http://sweetontology.net/propOrdinal/Age> .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Abiotic
+                        :Biotic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Anthropogenic
+                        :Biogenic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Dead
+                        :Live
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Live
+                        :Nonliving
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

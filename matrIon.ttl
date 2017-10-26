@@ -1,108 +1,204 @@
+@prefix : <http://sweetontology.net/matrIon/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix chem: <http://sweetontology.net/matr/> .
-@prefix elem: <http://sweetontology.net/matrElement/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix ion: <http://sweetontology.net/matrIon/> .
-@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/matrIon> .
 
-<http://sweetontology.net/matrIon> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrCompound> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/matrElement> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/matrElementalMolecule> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/state> , <http://sweetontology.net/matr> , <http://sweetontology.net/rela> .
+<http://sweetontology.net/matrIon> rdf:type owl:Ontology ;
+                                    owl:imports <http://sweetontology.net/matr> ,
+                                                <http://sweetontology.net/matrCompound> ,
+                                                <http://sweetontology.net/matrElement> ,
+                                                <http://sweetontology.net/matrElementalMolecule> ,
+                                                <http://sweetontology.net/rela> ,
+                                                <http://sweetontology.net/relaChemical> ,
+                                                <http://sweetontology.net/relaPhysical> ,
+                                                <http://sweetontology.net/state> ,
+                                                <http://sweetontology.net/statePhysical> ;
+                                    rdfs:label "SWEET Ontology" ;
+                                    owl:versionInfo "3.1.0" .
 
-ion:Anion a owl:Class ;
-	rdfs:subClassOf ion:Ion ;
-	rdfs:comment "An anion is an ion that has more electrons than protons such that the atom or molecule is negatively charged. [Wikipedia]"@en .
+#################################################################
+#    Annotation properties
+#################################################################
 
-ion:Cation a owl:Class ;
-	rdfs:subClassOf ion:Ion ;
-	rdfs:comment "An cation is an ion that has more protons than electrons such that the atom or molecule is positively charged. [Wikipedia]"@en .
+###  http://sweetontology.net/relaChemical/hasChemical
+<http://sweetontology.net/relaChemical/hasChemical> rdf:type owl:AnnotationProperty .
 
-ion:HeavyIon a owl:Class ;
-	rdfs:subClassOf ion:Ion .
 
-ion:Ion a owl:Class ;
-	rdfs:subClassOf chem:Substance , _:node1boamdvpax1 .
+###  http://sweetontology.net/relaPhysical/hasCharge
+<http://sweetontology.net/relaPhysical/hasCharge> rdf:type owl:AnnotationProperty .
 
-_:node1boamdvpax1 a owl:Restriction ;
-	owl:onProperty rela:hasState ;
-	owl:hasValue pstate:Ionized .
 
-ion:Ion rdfs:comment "An ion is an atom or molecule where the total number of electrons is not equal to the total number of protons, giving it a net positive or negative electrical charge. [Wikipedia]"@en .
+#################################################################
+#    Classes
+#################################################################
 
-ion:SaltIon a owl:Class ;
-	rdfs:subClassOf ion:Ion .
+###  http://sweetontology.net/matrIon/Anion
+:Anion rdf:type owl:Class ;
+       rdfs:subClassOf :Ion ;
+       rdfs:comment "An anion is an ion that has more electrons than protons such that the atom or molecule is negatively charged. [Wikipedia]"@en .
 
-ion:HCO3minus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 ion:O3minus ;
-	owl:sameAs ion:Bicarbonite , ion:HydrogenCarbonate .
 
-ion:Bicarbonite a ion:Ion .
+###  http://sweetontology.net/matrIon/Cation
+:Cation rdf:type owl:Class ;
+        rdfs:subClassOf :Ion ;
+        rdfs:comment "An cation is an ion that has more protons than electrons such that the atom or molecule is positively charged. [Wikipedia]"@en .
 
-ion:HydrogenCarbonate a ion:Ion .
 
-ion:CO3minusminus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 ion:O3minusminus ;
-	owl:sameAs ion:Carbonate .
+###  http://sweetontology.net/matrIon/HeavyIon
+:HeavyIon rdf:type owl:Class ;
+          rdfs:subClassOf :Ion .
 
-ion:Carbonate a ion:Ion .
 
-ion:NO2minus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 ion:O2minus ;
-	owl:sameAs ion:Nitrite .
+###  http://sweetontology.net/matrIon/Ion
+:Ion rdf:type owl:Class ;
+     rdfs:subClassOf <http://sweetontology.net/matr/Substance> ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                       owl:hasValue <http://sweetontology.net/statePhysical/Ionized>
+                     ] ;
+     rdfs:comment "An ion is an atom or molecule where the total number of electrons is not equal to the total number of protons, giving it a net positive or negative electrical charge. [Wikipedia]"@en .
 
-ion:Nitrite a ion:Ion .
 
-ion:NO3minus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 ion:O3minus ;
-	owl:sameAs ion:Nitrate .
+###  http://sweetontology.net/matrIon/SaltIon
+:SaltIon rdf:type owl:Class ;
+         rdfs:subClassOf :Ion .
 
-ion:Nitrate a ion:Ion .
 
-ion:NH4plus a ion:Ion , comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 ion:H4plus ;
-	owl:sameAs ion:Ammonium .
+#################################################################
+#    Individuals
+#################################################################
 
-ion:Ammonium a ion:Ion .
+###  http://sweetontology.net/matrIon/Ammonium
+:Ammonium rdf:type owl:NamedIndividual ,
+                   :Ion ;
+          owl:sameAs :NH4plus .
 
-ion:Hplus a ion:Ion ;
-	crela:hasChemical elem:H ;
-	prela:hasCharge "1"^^xsd:integer .
 
-ion:H4plus a ion:Ion ;
-	crela:hasChemical allo:H4 ;
-	prela:hasCharge "1"^^xsd:integer .
+###  http://sweetontology.net/matrIon/Bicarbonite
+:Bicarbonite rdf:type owl:NamedIndividual ,
+                      :Ion ;
+             owl:sameAs :HCO3minus .
 
-ion:Ominus a ion:Ion ;
-	crela:hasChemical elem:O ;
-	prela:hasCharge "-1"^^xsd:integer .
 
-ion:O2minus a ion:Ion ;
-	crela:hasChemical allo:O2 ;
-	prela:hasCharge "-1"^^xsd:integer .
+###  http://sweetontology.net/matrIon/CO3minusminus
+:CO3minusminus rdf:type owl:NamedIndividual ,
+                        <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                        :Ion ;
+               owl:sameAs :Carbonate ;
+               <http://sweetontology.net/relaChemical/hasChemical_1> <http://sweetontology.net/matrElement/C> ;
+               <http://sweetontology.net/relaChemical/hasChemical_2> :O3minusminus .
 
-ion:O3minus a ion:Ion ;
-	crela:hasChemical allo:O3 ;
-	prela:hasCharge "-1"^^xsd:integer .
 
-ion:Oplus a ion:Ion ;
-	crela:hasChemical elem:O ;
-	prela:hasCharge "1"^^xsd:integer .
+###  http://sweetontology.net/matrIon/Carbonate
+:Carbonate rdf:type owl:NamedIndividual ,
+                    :Ion .
 
-ion:O3minusminus a ion:Ion ;
-	crela:hasChemical allo:O3 ;
-	prela:hasCharge "-2"^^xsd:integer .
+
+###  http://sweetontology.net/matrIon/H4plus
+:H4plus rdf:type owl:NamedIndividual ,
+                 :Ion ;
+        <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElementalMolecule/H4> ;
+        <http://sweetontology.net/relaPhysical/hasCharge> 1 .
+
+
+###  http://sweetontology.net/matrIon/HCO3minus
+:HCO3minus rdf:type owl:NamedIndividual ,
+                    <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                    :Ion ;
+           owl:sameAs :HydrogenCarbonate ;
+           <http://sweetontology.net/relaChemical/hasChemical_1> <http://sweetontology.net/matrElement/H> ;
+           <http://sweetontology.net/relaChemical/hasChemical_2> <http://sweetontology.net/matrElement/C> ;
+           <http://sweetontology.net/relaChemical/hasChemical_3> :O3minus .
+
+
+###  http://sweetontology.net/matrIon/Hplus
+:Hplus rdf:type owl:NamedIndividual ,
+                :Ion ;
+       <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElement/H> ;
+       <http://sweetontology.net/relaPhysical/hasCharge> 1 .
+
+
+###  http://sweetontology.net/matrIon/HydrogenCarbonate
+:HydrogenCarbonate rdf:type owl:NamedIndividual ,
+                            :Ion .
+
+
+###  http://sweetontology.net/matrIon/NH4plus
+:NH4plus rdf:type owl:NamedIndividual ,
+                  <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                  :Ion ;
+         <http://sweetontology.net/relaChemical/hasChemical_1> <http://sweetontology.net/matrElement/N> ;
+         <http://sweetontology.net/relaChemical/hasChemical_2> :H4plus .
+
+
+###  http://sweetontology.net/matrIon/NO2minus
+:NO2minus rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                   :Ion ;
+          owl:sameAs :Nitrite ;
+          <http://sweetontology.net/relaChemical/hasChemical_1> <http://sweetontology.net/matrElement/N> ;
+          <http://sweetontology.net/relaChemical/hasChemical_2> :O2minus .
+
+
+###  http://sweetontology.net/matrIon/NO3minus
+:NO3minus rdf:type owl:NamedIndividual ,
+                   <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                   :Ion ;
+          owl:sameAs :Nitrate ;
+          <http://sweetontology.net/relaChemical/hasChemical_1> <http://sweetontology.net/matrElement/N> ;
+          <http://sweetontology.net/relaChemical/hasChemical_2> :O3minus .
+
+
+###  http://sweetontology.net/matrIon/Nitrate
+:Nitrate rdf:type owl:NamedIndividual ,
+                  :Ion .
+
+
+###  http://sweetontology.net/matrIon/Nitrite
+:Nitrite rdf:type owl:NamedIndividual ,
+                  :Ion .
+
+
+###  http://sweetontology.net/matrIon/O2minus
+:O2minus rdf:type owl:NamedIndividual ,
+                  :Ion ;
+         <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElementalMolecule/O2> ;
+         <http://sweetontology.net/relaPhysical/hasCharge> -1 .
+
+
+###  http://sweetontology.net/matrIon/O3minus
+:O3minus rdf:type owl:NamedIndividual ,
+                  :Ion ;
+         <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElementalMolecule/O3> ;
+         <http://sweetontology.net/relaPhysical/hasCharge> -1 .
+
+
+###  http://sweetontology.net/matrIon/O3minusminus
+:O3minusminus rdf:type owl:NamedIndividual ,
+                       :Ion ;
+              <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElementalMolecule/O3> ;
+              <http://sweetontology.net/relaPhysical/hasCharge> -2 .
+
+
+###  http://sweetontology.net/matrIon/Ominus
+:Ominus rdf:type owl:NamedIndividual ,
+                 :Ion ;
+        <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElement/O> ;
+        <http://sweetontology.net/relaPhysical/hasCharge> -1 .
+
+
+###  http://sweetontology.net/matrIon/Oplus
+:Oplus rdf:type owl:NamedIndividual ,
+                :Ion ;
+       <http://sweetontology.net/relaChemical/hasChemical> <http://sweetontology.net/matrElement/O> ;
+       <http://sweetontology.net/relaPhysical/hasCharge> 1 .
+
+
+###  http://sweetontology.net/statePhysical/Ionized
+<http://sweetontology.net/statePhysical/Ionized> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

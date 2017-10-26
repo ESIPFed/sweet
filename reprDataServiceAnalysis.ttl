@@ -1,163 +1,282 @@
 @prefix : <http://sweetontology.net/reprDataServiceAnalysis/> .
-@prefix serv: <http://sweetontology.net/reprDataService/> .
-@prefix func: <http://sweetontology.net/reprMathFunctionOrthogonal/> .
-@prefix mod: <http://sweetontology.net/reprSciModel/> .
-@prefix solu: <http://sweetontology.net/reprMathSolution/> .
-@prefix human: <http://sweetontology.net/human/> .
-@prefix prrela: <http://sweetontology.net/relaProvenance/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/reprDataServiceAnalysis> .
 
-<http://sweetontology.net/reprDataServiceAnalysis> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/human> , <http://sweetontology.net/relaProvenance> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/reprMathSolution> , <http://sweetontology.net/reprMathFunctionOrthogonal> , <http://sweetontology.net/reprSciModel> .
+<http://sweetontology.net/reprDataServiceAnalysis> rdf:type owl:Ontology ;
+                                                    owl:imports <http://sweetontology.net/human> ,
+                                                                <http://sweetontology.net/relaMath> ,
+                                                                <http://sweetontology.net/relaProvenance> ,
+                                                                <http://sweetontology.net/reprMathFunctionOrthogonal> ,
+                                                                <http://sweetontology.net/reprMathSolution> ,
+                                                                <http://sweetontology.net/reprSciModel> ;
+                                                    rdfs:label "SWEET Ontology" ;
+                                                    owl:versionInfo "3.1.0" .
 
-:DataAnalysisService a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
+#################################################################
+#    Classes
+#################################################################
 
-:Parameterize a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass <http://sweetontology.net/reprSciModel/Parameterization> .
+###  http://sweetontology.net/reprDataServiceAnalysis/Animate
+:Animate rdf:type owl:Class ;
+         owl:equivalentClass :Animation .
 
-:Assimilation a owl:Class ;
-	rdfs:subClassOf :Parameterize ;
-	owl:equivalentClass :Assimilate .
 
-:Assimilate a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Animation
+:Animation rdf:type owl:Class ;
+           rdfs:subClassOf :Visualization .
 
-:AssociationRuleLearning a owl:Class ;
-	rdfs:subClassOf :Parameterize .
 
-:Fit a owl:Class ;
-	rdfs:subClassOf :Parameterize ;
-	owl:equivalentClass :Fitting .
+###  http://sweetontology.net/reprDataServiceAnalysis/Assimilate
+:Assimilate rdf:type owl:Class ;
+            owl:equivalentClass :Assimilation .
 
-:Fitting a owl:Class .
 
-:Train a owl:Class ;
-	rdfs:subClassOf :Parameterize ;
-	owl:equivalentClass :Training .
+###  http://sweetontology.net/reprDataServiceAnalysis/Assimilation
+:Assimilation rdf:type owl:Class ;
+              rdfs:subClassOf :Parameterize .
 
-:Training a owl:Class .
 
-:Classification a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass :Classifier , :Classify .
+###  http://sweetontology.net/reprDataServiceAnalysis/AssociationRuleLearning
+:AssociationRuleLearning rdf:type owl:Class ;
+                         rdfs:subClassOf :Parameterize .
 
-:Classifier a owl:Class .
 
-:Classify a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Classification
+:Classification rdf:type owl:Class ;
+                owl:equivalentClass :Classifier ,
+                                    :Classify ;
+                rdfs:subClassOf :DataAnalysisService .
 
-:DecisionTreeLearning a :Classifier .
 
-:NaiveBayes a :Classifier .
+###  http://sweetontology.net/reprDataServiceAnalysis/Classifier
+:Classifier rdf:type owl:Class .
 
-:NeuralNetwork a :Classifier .
 
-:Cluster a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass :Clustering .
+###  http://sweetontology.net/reprDataServiceAnalysis/Classify
+:Classify rdf:type owl:Class .
 
-:Clustering a owl:Class .
 
-:Filter a owl:Class ;
-	rdfs:subClassOf :SpectralAnalysis .
+###  http://sweetontology.net/reprDataServiceAnalysis/Cluster
+:Cluster rdf:type owl:Class ;
+         owl:equivalentClass :Clustering ;
+         rdfs:subClassOf :DataAnalysisService .
 
-:Spectrum a owl:Class ;
-	rdfs:subClassOf :SpectralAnalysis ;
-	owl:equivalentClass :PowerSpectrum .
 
-:PowerSpectrum a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Clustering
+:Clustering rdf:type owl:Class .
 
-:FourierAnalysis a owl:Class ;
-	rdfs:subClassOf :SpectralAnalysis , _:node1boamek88x1 .
 
-_:node1boamek88x1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasBasisFunction> .
+###  http://sweetontology.net/reprDataServiceAnalysis/DataAnalysisService
+:DataAnalysisService rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
 
-:FourierAnalysis owl:equivalentClass :FourierTransform .
 
-:FourierTransform a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Filter
+:Filter rdf:type owl:Class ;
+        rdfs:subClassOf :SpectralAnalysis .
 
-:SpectralAnalysis a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass :FrequencyDomainAnalysis .
 
-:FrequencyDomainAnalysis a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Fit
+:Fit rdf:type owl:Class ;
+     owl:equivalentClass :Fitting ;
+     rdfs:subClassOf :Parameterize .
 
-:SpectralSynthesis a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService .
 
-:SphericalHarmonicAnalysis a owl:Class ;
-	rdfs:subClassOf :SpectralAnalysis , _:node1boamek88x2 .
+###  http://sweetontology.net/reprDataServiceAnalysis/Fitting
+:Fitting rdf:type owl:Class .
 
-_:node1boamek88x2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasBasisFunction> .
 
-:WaveletAnalysis a owl:Class ;
-	rdfs:subClassOf :SpectralAnalysis .
+###  http://sweetontology.net/reprDataServiceAnalysis/FourierAnalysis
+:FourierAnalysis rdf:type owl:Class ;
+                 owl:equivalentClass :FourierTransform ;
+                 rdfs:subClassOf :SpectralAnalysis ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaMath/hasBasisFunction> ;
+                                   owl:allValuesFrom <http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction>
+                                 ] .
 
-:Reanalyze a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass :Reanalysis .
 
-:Reanalysis a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/FourierTransform
+:FourierTransform rdf:type owl:Class .
 
-:Reconstruct a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass :Reconstruction .
 
-:Reconstruction a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/FrequencyDomainAnalysis
+:FrequencyDomainAnalysis rdf:type owl:Class ;
+                         owl:equivalentClass :SpectralAnalysis .
 
-:TimeSeries a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService .
 
-:KnowledgeDiscovery a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService .
+###  http://sweetontology.net/reprDataServiceAnalysis/Interpolate
+:Interpolate rdf:type owl:Class ;
+             owl:equivalentClass :Interpolation ;
+             rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> .
 
-:Interpolate a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
-	owl:equivalentClass :Interpolation .
 
-:Interpolation a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Interpolation
+:Interpolation rdf:type owl:Class .
 
-:InterpolationMethod a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathSolution/Algorithm> , _:node1boamek88x3 .
 
-_:node1boamek88x3 a owl:Restriction ;
-	owl:allValuesFrom :Interpolation ;
-	owl:onProperty <http://sweetontology.net/relaProvenance/hasDataService> .
+###  http://sweetontology.net/reprDataServiceAnalysis/InterpolationMethod
+:InterpolationMethod rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/reprMathSolution/Algorithm> ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/relaProvenance/hasDataService> ;
+                                       owl:allValuesFrom :Interpolation
+                                     ] .
 
-:DistanceWeighting a :InterpolationMethod .
 
-:NearestNeighbor a :InterpolationMethod .
+###  http://sweetontology.net/reprDataServiceAnalysis/KnowledgeDiscovery
+:KnowledgeDiscovery rdf:type owl:Class ;
+                    rdfs:subClassOf :DataAnalysisService .
 
-:Visualization a owl:Class ;
-	rdfs:subClassOf :DataAnalysisService ;
-	owl:equivalentClass :Visualize .
 
-:Visualize a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Overlay
+:Overlay rdf:type owl:Class ;
+         rdfs:subClassOf :Visualization .
 
-:Animation a owl:Class ;
-	rdfs:subClassOf :Visualization ;
-	owl:equivalentClass :Animate .
 
-:Animate a owl:Class .
+###  http://sweetontology.net/reprDataServiceAnalysis/Parameterize
+:Parameterize rdf:type owl:Class ;
+              owl:equivalentClass <http://sweetontology.net/reprSciModel/Parameterization> ;
+              rdfs:subClassOf :DataAnalysisService .
 
-:Overlay a owl:Class ;
-	rdfs:subClassOf :Visualization .
 
-:Superimpose a owl:Class ;
-	rdfs:subClassOf :Visualization .
+###  http://sweetontology.net/reprDataServiceAnalysis/Plot
+:Plot rdf:type owl:Class ;
+      rdfs:subClassOf :Visualization .
 
-:Plot a owl:Class ;
-	rdfs:subClassOf :Visualization .
 
-:Scattergram a owl:Class ;
-	rdfs:subClassOf :Plot .
+###  http://sweetontology.net/reprDataServiceAnalysis/PowerSpectrum
+:PowerSpectrum rdf:type owl:Class ;
+               owl:equivalentClass :Spectrum .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Reanalysis
+:Reanalysis rdf:type owl:Class ;
+            owl:equivalentClass :Reanalyze .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Reanalyze
+:Reanalyze rdf:type owl:Class ;
+           rdfs:subClassOf :DataAnalysisService .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Reconstruct
+:Reconstruct rdf:type owl:Class ;
+             owl:equivalentClass :Reconstruction ;
+             rdfs:subClassOf :DataAnalysisService .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Reconstruction
+:Reconstruction rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Scattergram
+:Scattergram rdf:type owl:Class ;
+             rdfs:subClassOf :Plot .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/SpectralAnalysis
+:SpectralAnalysis rdf:type owl:Class ;
+                  rdfs:subClassOf :DataAnalysisService .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/SpectralSynthesis
+:SpectralSynthesis rdf:type owl:Class ;
+                   rdfs:subClassOf :DataAnalysisService .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Spectrum
+:Spectrum rdf:type owl:Class ;
+          rdfs:subClassOf :SpectralAnalysis .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/SphericalHarmonicAnalysis
+:SphericalHarmonicAnalysis rdf:type owl:Class ;
+                           rdfs:subClassOf :SpectralAnalysis ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://sweetontology.net/relaMath/hasBasisFunction> ;
+                                             owl:allValuesFrom <http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction>
+                                           ] .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Superimpose
+:Superimpose rdf:type owl:Class ;
+             rdfs:subClassOf :Visualization .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/TimeSeries
+:TimeSeries rdf:type owl:Class ;
+            rdfs:subClassOf :DataAnalysisService .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Train
+:Train rdf:type owl:Class ;
+       owl:equivalentClass :Training ;
+       rdfs:subClassOf :Parameterize .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Training
+:Training rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Visualization
+:Visualization rdf:type owl:Class ;
+               owl:equivalentClass :Visualize ;
+               rdfs:subClassOf :DataAnalysisService .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/Visualize
+:Visualize rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/WaveletAnalysis
+:WaveletAnalysis rdf:type owl:Class ;
+                 rdfs:subClassOf :SpectralAnalysis .
+
+
+###  http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction
+<http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction
+<http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprSciModel/Parameterization
+<http://sweetontology.net/reprSciModel/Parameterization> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprDataServiceAnalysis/DecisionTreeLearning
+:DecisionTreeLearning rdf:type owl:NamedIndividual ,
+                               :Classifier .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/DistanceWeighting
+:DistanceWeighting rdf:type owl:NamedIndividual ,
+                            :InterpolationMethod .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/NaiveBayes
+:NaiveBayes rdf:type owl:NamedIndividual ,
+                     :Classifier .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/NearestNeighbor
+:NearestNeighbor rdf:type owl:NamedIndividual ,
+                          :InterpolationMethod .
+
+
+###  http://sweetontology.net/reprDataServiceAnalysis/NeuralNetwork
+:NeuralNetwork rdf:type owl:NamedIndividual ,
+                        :Classifier .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

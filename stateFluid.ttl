@@ -1,90 +1,235 @@
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix fstate: <http://sweetontology.net/stateFluid/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix sstate: <http://sweetontology.net/stateSystem/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix : <http://sweetontology.net/stateFluid/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/stateFluid> .
 
-<http://sweetontology.net/stateFluid> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/rela> .
+<http://sweetontology.net/stateFluid> rdf:type owl:Ontology ;
+                                       owl:imports <http://sweetontology.net/rela> ,
+                                                   <http://sweetontology.net/relaMath> ,
+                                                   <http://sweetontology.net/statePhysical> ,
+                                                   <http://sweetontology.net/stateSystem> ;
+                                       rdfs:label "SWEET Ontology" ;
+                                       owl:versionInfo "3.1.0" .
 
-fstate:FluidState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState , _:node1boameoscx1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boameoscx1 a owl:Restriction ;
-	owl:onProperty rela:hasState ;
-	owl:hasValue pstate:Fluid .
+###  http://sweetontology.net/stateFluid/FluidEquilibriumState
+:FluidEquilibriumState rdf:type owl:Class ;
+                       rdfs:subClassOf :FluidState ,
+                                       <http://sweetontology.net/stateSystem/EquilibriumState> .
 
-fstate:FluidEquilibriumState a owl:Class ;
-	rdfs:subClassOf fstate:FluidState , sstate:EquilibriumState .
 
-fstate:Baroclinic a fstate:FluidState .
+###  http://sweetontology.net/stateFluid/FluidState
+:FluidState rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/statePhysical/PhysicalState> ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                              owl:hasValue <http://sweetontology.net/statePhysical/Fluid>
+                            ] .
 
-fstate:Barotropic a fstate:FluidState ;
-	owl:differentFrom fstate:Baroclinic .
 
-fstate:Buoyant a fstate:FluidState .
+###  http://sweetontology.net/statePhysical/PhysicalState
+<http://sweetontology.net/statePhysical/PhysicalState> rdf:type owl:Class .
 
-fstate:Convective a fstate:FluidState .
 
-fstate:Turbulent a fstate:FluidState .
+###  http://sweetontology.net/stateSystem/EquilibriumState
+<http://sweetontology.net/stateSystem/EquilibriumState> rdf:type owl:Class .
 
-fstate:Laminar a fstate:FluidState ;
-	owl:differentFrom fstate:Turbulent .
 
-fstate:Viscous a fstate:FluidState .
+#################################################################
+#    Individuals
+#################################################################
 
-fstate:NonNewtonian a fstate:FluidState ;
-	owl:differentFrom fstate:Newtonian .
+###  http://sweetontology.net/stateFluid/Ageostrophic
+:Ageostrophic rdf:type owl:NamedIndividual ,
+                       :FluidEquilibriumState .
 
-fstate:Newtonian a fstate:FluidState .
 
-fstate:Pressurized a fstate:FluidState .
+###  http://sweetontology.net/stateFluid/Baroclinic
+:Baroclinic rdf:type owl:NamedIndividual ,
+                     :FluidState .
 
-fstate:Unpressurized a fstate:FluidState ;
-	owl:differentFrom fstate:Pressurized .
 
-fstate:Rareified a fstate:FluidState .
+###  http://sweetontology.net/stateFluid/Barotropic
+:Barotropic rdf:type owl:NamedIndividual ,
+                     :FluidState .
 
-fstate:Stratified a fstate:FluidState ;
-	owl:sameAs fstate:Stratification .
 
-fstate:Stratification a fstate:FluidState .
+###  http://sweetontology.net/stateFluid/Buoyant
+:Buoyant rdf:type owl:NamedIndividual ,
+                  :FluidState .
 
-fstate:Miscible a fstate:FluidState ;
-	rdfs:comment "Said of two or more liquids that are mutually soluble (i.e. they will dissolve in each other) (McGraw-Hill, 1974).  The chemical property of two or more phases that, when brought together, have the ability to mix and form one phase (after AGI, 1980)."@en .
 
-fstate:Steric a fstate:FluidEquilibriumState .
+###  http://sweetontology.net/stateFluid/Convective
+:Convective rdf:type owl:NamedIndividual ,
+                     :FluidState .
 
-fstate:Thermosteric a fstate:FluidEquilibriumState .
 
-fstate:Halosteric a fstate:FluidEquilibriumState .
+###  http://sweetontology.net/stateFluid/Ekman
+:Ekman rdf:type owl:NamedIndividual ,
+                :FluidEquilibriumState ;
+       rdfs:comment "Motions describing an equlibrium between pressure gradient force, Coriolis force and the turbulent drag force."@en .
 
-fstate:SverdrupBalance a fstate:FluidEquilibriumState .
 
-fstate:Ekman a fstate:FluidEquilibriumState ;
-	rdfs:comment "Motions describing an equlibrium between pressure gradient force, Coriolis force and the turbulent drag force."@en .
+###  http://sweetontology.net/stateFluid/Geostrophic
+:Geostrophic rdf:type owl:NamedIndividual ,
+                      :FluidEquilibriumState .
 
-fstate:Ageostrophic a fstate:FluidEquilibriumState ;
-	owl:differentFrom fstate:Geostrophic .
 
-fstate:Geostrophic a fstate:FluidEquilibriumState .
+###  http://sweetontology.net/stateFluid/Halosteric
+:Halosteric rdf:type owl:NamedIndividual ,
+                     :FluidEquilibriumState .
 
-fstate:SemiGeostrophic a fstate:FluidEquilibriumState .
 
-fstate:QuasiGeostrophic a fstate:FluidEquilibriumState ;
-	mrela:approximates fstate:Geostrophic ;
-	rdfs:comment "A system or flow that evolves slowly in time compared to the rotation period of the earth, has a length scale of the deformation radius or larger, and undergoes only limited vertical excursions."@en .
+###  http://sweetontology.net/stateFluid/Hydrostatic
+:Hydrostatic rdf:type owl:NamedIndividual ,
+                      :FluidEquilibriumState .
 
-fstate:Hydrostatic a fstate:FluidEquilibriumState .
 
-fstate:QuasiHydrostatic a fstate:FluidEquilibriumState ;
-	mrela:approximates fstate:Hydrostatic .
+###  http://sweetontology.net/stateFluid/Laminar
+:Laminar rdf:type owl:NamedIndividual ,
+                  :FluidState .
 
-fstate:Nonhydrostatic a fstate:FluidEquilibriumState ;
-	owl:differentFrom fstate:Hydrostatic .
+
+###  http://sweetontology.net/stateFluid/Miscible
+:Miscible rdf:type owl:NamedIndividual ,
+                   :FluidState ;
+          rdfs:comment "Said of two or more liquids that are mutually soluble (i.e. they will dissolve in each other) (McGraw-Hill, 1974).  The chemical property of two or more phases that, when brought together, have the ability to mix and form one phase (after AGI, 1980)."@en .
+
+
+###  http://sweetontology.net/stateFluid/Newtonian
+:Newtonian rdf:type owl:NamedIndividual ,
+                    :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/NonNewtonian
+:NonNewtonian rdf:type owl:NamedIndividual ,
+                       :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/Nonhydrostatic
+:Nonhydrostatic rdf:type owl:NamedIndividual ,
+                         :FluidEquilibriumState .
+
+
+###  http://sweetontology.net/stateFluid/Pressurized
+:Pressurized rdf:type owl:NamedIndividual ,
+                      :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/QuasiGeostrophic
+:QuasiGeostrophic rdf:type owl:NamedIndividual ,
+                           :FluidEquilibriumState ;
+                  <http://sweetontology.net/relaMath/approximates> :Geostrophic ;
+                  rdfs:comment "A system or flow that evolves slowly in time compared to the rotation period of the earth, has a length scale of the deformation radius or larger, and undergoes only limited vertical excursions."@en .
+
+
+###  http://sweetontology.net/stateFluid/QuasiHydrostatic
+:QuasiHydrostatic rdf:type owl:NamedIndividual ,
+                           :FluidEquilibriumState ;
+                  <http://sweetontology.net/relaMath/approximates> :Hydrostatic .
+
+
+###  http://sweetontology.net/stateFluid/Rareified
+:Rareified rdf:type owl:NamedIndividual ,
+                    :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/SemiGeostrophic
+:SemiGeostrophic rdf:type owl:NamedIndividual ,
+                          :FluidEquilibriumState .
+
+
+###  http://sweetontology.net/stateFluid/Steric
+:Steric rdf:type owl:NamedIndividual ,
+                 :FluidEquilibriumState .
+
+
+###  http://sweetontology.net/stateFluid/Stratification
+:Stratification rdf:type owl:NamedIndividual ,
+                         :FluidState ;
+                owl:sameAs :Stratified .
+
+
+###  http://sweetontology.net/stateFluid/Stratified
+:Stratified rdf:type owl:NamedIndividual ,
+                     :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/SverdrupBalance
+:SverdrupBalance rdf:type owl:NamedIndividual ,
+                          :FluidEquilibriumState .
+
+
+###  http://sweetontology.net/stateFluid/Thermosteric
+:Thermosteric rdf:type owl:NamedIndividual ,
+                       :FluidEquilibriumState .
+
+
+###  http://sweetontology.net/stateFluid/Turbulent
+:Turbulent rdf:type owl:NamedIndividual ,
+                    :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/Unpressurized
+:Unpressurized rdf:type owl:NamedIndividual ,
+                        :FluidState .
+
+
+###  http://sweetontology.net/stateFluid/Viscous
+:Viscous rdf:type owl:NamedIndividual ,
+                  :FluidState .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Ageostrophic
+                        :Geostrophic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Baroclinic
+                        :Barotropic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Hydrostatic
+                        :Nonhydrostatic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Laminar
+                        :Turbulent
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Newtonian
+                        :NonNewtonian
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( :Pressurized
+                        :Unpressurized
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

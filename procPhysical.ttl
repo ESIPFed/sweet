@@ -1,232 +1,386 @@
-@prefix proc: <http://sweetontology.net/proc/> .
-@prefix phys: <http://sweetontology.net/procPhysical/> .
-@prefix his: <http://sweetontology.net/reprSciProvenance/> .
-@prefix geom: <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix : <http://sweetontology.net/procPhysical/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/procPhysical> .
 
-<http://sweetontology.net/procPhysical> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/proc> , <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/reprSciProvenance> .
+<http://sweetontology.net/procPhysical> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/proc> ,
+                                                     <http://sweetontology.net/reprSciProvenance> ,
+                                                     <http://sweetontology.net/reprSpaceGeometry> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/procPhysical/PhysicalProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Process> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/procPhysical/Pressure> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/Abrasion
+:Abrasion rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Tension> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Abrasion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/Agitation
+:Agitation rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Agitation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Clogging> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/Bombardment
+:Bombardment rdf:type owl:Class ;
+             rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/Congealing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Consolidation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/Burning
+:Burning rdf:type owl:Class ;
+         rdfs:subClassOf :ThermalProcess .
 
-<http://sweetontology.net/procPhysical/Falling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Flocculation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/CentrifugalForce
+:CentrifugalForce rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/proc/Force> ;
+                  rdfs:label "Centrifugal Force" .
 
-<http://sweetontology.net/procPhysical/Flushing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Orientation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/CentripetalForce
+:CentripetalForce rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/proc/Force> ;
+                  rdfs:label "Centripetal Force" .
 
-<http://sweetontology.net/procPhysical/Quenching> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Sheltering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/Clogging
+:Clogging rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Smashing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Washing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/Collision
+:Collision rdf:type owl:Class ;
+           rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/Insulation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Conduction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
-	rdfs:comment "Transport of energy (charge) solely as a consequence of random motions of individual molecules (ions, electrons) not moving together in coherent groups."@en .
+###  http://sweetontology.net/procPhysical/Compression
+:Compression rdf:type owl:Class ;
+             rdfs:subClassOf :PhysicalProcess ;
+             owl:disjointWith :Decompression ,
+                              :Rareification .
 
-<http://sweetontology.net/procPhysical/Radiation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/RadiativeTransfer> .
 
-<http://sweetontology.net/procPhysical/IonizingRadiation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Radiation> .
+###  http://sweetontology.net/procPhysical/Conduction
+:Conduction rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess ;
+            rdfs:comment "Transport of energy (charge) solely as a consequence of random motions of individual molecules (ions, electrons) not moving together in coherent groups."@en .
 
-<http://sweetontology.net/procPhysical/NonIonizingRadiation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Radiation> ;
-	owl:disjointWith <http://sweetontology.net/procPhysical/IonizingRadiation> .
 
-<http://sweetontology.net/procPhysical/RadiativeTransfer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Congealing
+:Congealing rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Contracting> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
-	owl:disjointWith <http://sweetontology.net/procPhysical/Expansion> .
 
-<http://sweetontology.net/procPhysical/Compression> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Consolidation
+:Consolidation rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Decompression> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
-	owl:disjointWith <http://sweetontology.net/procPhysical/Compression> .
 
-<http://sweetontology.net/procPhysical/Rareification> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
-	owl:disjointWith <http://sweetontology.net/procPhysical/Compression> .
+###  http://sweetontology.net/procPhysical/Contracting
+:Contracting rdf:type owl:Class ;
+             rdfs:subClassOf :PhysicalProcess ;
+             owl:disjointWith :Expansion .
 
-<http://sweetontology.net/procPhysical/Shorten> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Shrink> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Cooling
+:Cooling rdf:type owl:Class ;
+         rdfs:subClassOf :ThermalProcess ;
+         owl:disjointWith :Heating .
 
-<http://sweetontology.net/procPhysical/Expansion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
-	owl:equivalentClass <http://sweetontology.net/procPhysical/Expanding> .
 
-<http://sweetontology.net/procPhysical/Expanding> a owl:Class .
+###  http://sweetontology.net/procPhysical/CoriolisEffect
+:CoriolisEffect rdf:type owl:Class ;
+                owl:equivalentClass :CoriolisForce .
 
-<http://sweetontology.net/procPhysical/Nucleosynthesis> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> , <http://sweetontology.net/reprSciProvenance/Genesis> .
 
-<http://sweetontology.net/procPhysical/Heating> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ThermalProcess> .
+###  http://sweetontology.net/procPhysical/CoriolisForce
+:CoriolisForce rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/proc/Force> ,
+                               :Deflection .
 
-<http://sweetontology.net/procPhysical/Burning> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ThermalProcess> .
 
-<http://sweetontology.net/procPhysical/ThermalProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Current
+:Current rdf:type owl:Class ;
+         owl:equivalentClass :ElectricCurrent ;
+         rdfs:subClassOf :ElectromagneticProcess .
 
-<http://sweetontology.net/procPhysical/Cooling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ThermalProcess> ;
-	owl:disjointWith <http://sweetontology.net/procPhysical/Heating> .
 
-<http://sweetontology.net/procPhysical/Quenching> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Cooling> .
+###  http://sweetontology.net/procPhysical/Decompression
+:Decompression rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/Gravity> a owl:Class ;
-	owl:equivalentClass <http://sweetontology.net/procPhysical/GravityForce> , <http://sweetontology.net/procPhysical/GravitationalForce> ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/GravityForce> a owl:Class .
+###  http://sweetontology.net/procPhysical/Deflection
+:Deflection rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/GravitationalForce> a owl:Class .
 
-<http://sweetontology.net/procPhysical/Motion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/DifferentialRotation
+:DifferentialRotation rdf:type owl:Class ;
+                      rdfs:subClassOf :Rotation .
 
-<http://sweetontology.net/procPhysical/Deflection> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Translation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Dynamo
+:Dynamo rdf:type owl:Class ;
+        rdfs:subClassOf :ElectromagneticProcess .
 
-<http://sweetontology.net/procPhysical/Meandering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Friction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+###  http://sweetontology.net/procPhysical/ElectricCurrent
+:ElectricCurrent rdf:type owl:Class .
 
-<http://sweetontology.net/procPhysical/ViscousForce> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Friction> ;
-	rdfs:comment "The transport of mass motion momentum solely by the random motions of individual molecules not moving together in coherent groups."@en .
 
-<http://sweetontology.net/procPhysical/Collision> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/ElectromagneticInduction
+:ElectromagneticInduction rdf:type owl:Class ;
+                          owl:equivalentClass :Induction ;
+                          rdfs:subClassOf :ElectromagneticProcess .
 
-<http://sweetontology.net/procPhysical/Trapping> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Bombardment> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/ElectromagneticProcess
+:ElectromagneticProcess rdf:type owl:Class ;
+                        rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/Funnelling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Migration> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Expanding
+:Expanding rdf:type owl:Class ;
+           owl:equivalentClass :Expansion .
 
-<http://sweetontology.net/procPhysical/Sinking> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Sputtering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Expansion
+:Expansion rdf:type owl:Class ;
+           rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/Rotation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/DifferentialRotation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Rotation> .
+###  http://sweetontology.net/procPhysical/Falling
+:Falling rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/CoriolisForce> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> , <http://sweetontology.net/procPhysical/Deflection> ;
-	owl:equivalentClass <http://sweetontology.net/procPhysical/CoriolisEffect> .
 
-<http://sweetontology.net/procPhysical/CoriolisEffect> a owl:Class .
+###  http://sweetontology.net/procPhysical/Flocculation
+:Flocculation rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Precession> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/Revolution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/procPhysical/Flushing
+:Flushing rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/CentrifugalForce> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> ;
-	rdfs:label "Centrifugal Force" .
 
-<http://sweetontology.net/procPhysical/CentripetalForce> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/proc/Force> ;
-	rdfs:label "Centripetal Force" .
+###  http://sweetontology.net/procPhysical/Friction
+:Friction rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Orbit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Path> .
 
-<http://sweetontology.net/procPhysical/GyroOrbit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Orbit> .
+###  http://sweetontology.net/procPhysical/Funnelling
+:Funnelling rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
 
-<http://sweetontology.net/procPhysical/OrbitalMotion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/Orbit> ;
-	rdfs:comment "In hydrodynamics, the motion of a fluid particle induced by the passage of a progressive gravity wave."@en .
 
-<http://sweetontology.net/procPhysical/Dynamo> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ElectromagneticProcess> .
+###  http://sweetontology.net/procPhysical/GravitationalForce
+:GravitationalForce rdf:type owl:Class ;
+                    owl:equivalentClass :Gravity .
 
-<http://sweetontology.net/procPhysical/ElectromagneticProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procPhysical/ElectromagneticInduction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ElectromagneticProcess> ;
-	owl:equivalentClass <http://sweetontology.net/procPhysical/Induction> .
+###  http://sweetontology.net/procPhysical/Gravity
+:Gravity rdf:type owl:Class ;
+         owl:equivalentClass :GravityForce ;
+         rdfs:subClassOf <http://sweetontology.net/proc/Force> .
 
-<http://sweetontology.net/procPhysical/Induction> a owl:Class .
 
-<http://sweetontology.net/procPhysical/Current> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ElectromagneticProcess> ;
-	owl:equivalentClass <http://sweetontology.net/procPhysical/ElectricCurrent> .
+###  http://sweetontology.net/procPhysical/GravityForce
+:GravityForce rdf:type owl:Class .
 
-<http://sweetontology.net/procPhysical/ElectricCurrent> a owl:Class .
 
-<http://sweetontology.net/procPhysical/Magnetism> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/ElectromagneticProcess> .
+###  http://sweetontology.net/procPhysical/GyroOrbit
+:GyroOrbit rdf:type owl:Class ;
+           rdfs:subClassOf :Orbit .
+
+
+###  http://sweetontology.net/procPhysical/Heating
+:Heating rdf:type owl:Class ;
+         rdfs:subClassOf :ThermalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Induction
+:Induction rdf:type owl:Class .
+
+
+###  http://sweetontology.net/procPhysical/Insulation
+:Insulation rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/IonizingRadiation
+:IonizingRadiation rdf:type owl:Class ;
+                   rdfs:subClassOf :Radiation ;
+                   owl:disjointWith :NonIonizingRadiation .
+
+
+###  http://sweetontology.net/procPhysical/Magnetism
+:Magnetism rdf:type owl:Class ;
+           rdfs:subClassOf :ElectromagneticProcess .
+
+
+###  http://sweetontology.net/procPhysical/Meandering
+:Meandering rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Migration
+:Migration rdf:type owl:Class ;
+           rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Motion
+:Motion rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/NonIonizingRadiation
+:NonIonizingRadiation rdf:type owl:Class ;
+                      rdfs:subClassOf :Radiation .
+
+
+###  http://sweetontology.net/procPhysical/Nucleosynthesis
+:Nucleosynthesis rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcess ,
+                                 <http://sweetontology.net/reprSciProvenance/Genesis> .
+
+
+###  http://sweetontology.net/procPhysical/Orbit
+:Orbit rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Path> .
+
+
+###  http://sweetontology.net/procPhysical/OrbitalMotion
+:OrbitalMotion rdf:type owl:Class ;
+               rdfs:subClassOf :Orbit ;
+               rdfs:comment "In hydrodynamics, the motion of a fluid particle induced by the passage of a progressive gravity wave."@en .
+
+
+###  http://sweetontology.net/procPhysical/Orientation
+:Orientation rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+
+
+###  http://sweetontology.net/procPhysical/PhysicalProcess
+:PhysicalProcess rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/proc/Process> .
+
+
+###  http://sweetontology.net/procPhysical/Precession
+:Precession rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Pressure
+:Pressure rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+
+
+###  http://sweetontology.net/procPhysical/Quenching
+:Quenching rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/proc/Force> ,
+                           :Cooling .
+
+
+###  http://sweetontology.net/procPhysical/Radiation
+:Radiation rdf:type owl:Class ;
+           rdfs:subClassOf :RadiativeTransfer .
+
+
+###  http://sweetontology.net/procPhysical/RadiativeTransfer
+:RadiativeTransfer rdf:type owl:Class ;
+                   rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Rareification
+:Rareification rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Revolution
+:Revolution rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Rotation
+:Rotation rdf:type owl:Class ;
+          rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Sheltering
+:Sheltering rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+
+
+###  http://sweetontology.net/procPhysical/Shorten
+:Shorten rdf:type owl:Class ;
+         rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Shrink
+:Shrink rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Sinking
+:Sinking rdf:type owl:Class ;
+         rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Smashing
+:Smashing rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+
+
+###  http://sweetontology.net/procPhysical/Sputtering
+:Sputtering rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Tension
+:Tension rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+
+
+###  http://sweetontology.net/procPhysical/ThermalProcess
+:ThermalProcess rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Translation
+:Translation rdf:type owl:Class ;
+             rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/Trapping
+:Trapping rdf:type owl:Class ;
+          rdfs:subClassOf :PhysicalProcess .
+
+
+###  http://sweetontology.net/procPhysical/ViscousForce
+:ViscousForce rdf:type owl:Class ;
+              rdfs:subClassOf :Friction ;
+              rdfs:comment "The transport of mass motion momentum solely by the random motions of individual molecules not moving together in coherent groups."@en .
+
+
+###  http://sweetontology.net/procPhysical/Washing
+:Washing rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/proc/Force> .
+
+
+###  http://sweetontology.net/reprSciProvenance/Genesis
+<http://sweetontology.net/reprSciProvenance/Genesis> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprSpaceGeometry/Path
+<http://sweetontology.net/reprSpaceGeometry/Path> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

@@ -1,60 +1,121 @@
-@prefix count: <http://sweetontology.net/propCount/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix : <http://sweetontology.net/propCount/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix math: <http://sweetontology.net/reprMathFunction/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix star: <http://sweetontology.net/phenStar/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/propCount> .
 
-<http://sweetontology.net/propCount> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/phenStar> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> .
+<http://sweetontology.net/propCount> rdf:type owl:Ontology ;
+                                      owl:imports <http://sweetontology.net/phenStar> ,
+                                                  <http://sweetontology.net/propQuantity> ,
+                                                  <http://sweetontology.net/relaSci> ,
+                                                  <http://sweetontology.net/reprMathFunction> ,
+                                                  <http://sweetontology.net/reprSciUnits> ;
+                                      rdfs:label "SWEET Ontology" ;
+                                      owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/propCount/Count> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Discrete> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/propCount/NumberDensity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> , _:node1boame9cfx1 .
+###  http://sweetontology.net/relaSci/hasDefaultUnit
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
-_:node1boame9cfx1 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/perMeterCubed> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-<http://sweetontology.net/propCount/Fluence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> , _:node1boame9cfx2 .
+###  http://sweetontology.net/relaSci/measureOf
+<http://sweetontology.net/relaSci/measureOf> rdf:type owl:ObjectProperty .
 
-_:node1boame9cfx2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/perMeterSquared> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-<http://sweetontology.net/propCount/SunspotNumber> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/Count> , _:node1boame9cfx3 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boame9cfx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
-	owl:allValuesFrom <http://sweetontology.net/phenStar/SolarActivity> .
+###  http://sweetontology.net/propCount/AtomicNeutralNumberDensity
+:AtomicNeutralNumberDensity rdf:type owl:Class ;
+                            rdfs:subClassOf :NeutralNumberDensity .
 
-<http://sweetontology.net/propCount/EnergyLevel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/Count> .
 
-<http://sweetontology.net/propCount/Population> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/Count> .
+###  http://sweetontology.net/propCount/CarryingCapacity
+:CarryingCapacity rdf:type owl:Class ;
+                  rdfs:subClassOf :Population .
 
-<http://sweetontology.net/propCount/CarryingCapacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/Population> .
 
-<http://sweetontology.net/propCount/NeutralNumberDensity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/NumberDensity> .
+###  http://sweetontology.net/propCount/Count
+:Count rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Discrete> .
 
-<http://sweetontology.net/propCount/AtomicNeutralNumberDensity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/NeutralNumberDensity> .
 
-<http://sweetontology.net/propCount/TotalElectronContent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/NumberDensity> .
+###  http://sweetontology.net/propCount/EnergyLevel
+:EnergyLevel rdf:type owl:Class ;
+             rdfs:subClassOf :Count .
 
-<http://sweetontology.net/propCount/MolecularNeutralNumberDensity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propCount/NeutralNumberDensity> .
+
+###  http://sweetontology.net/propCount/Fluence
+:Fluence rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                           owl:hasValue <http://sweetontology.net/reprSciUnits/perMeterSquared>
+                         ] .
+
+
+###  http://sweetontology.net/propCount/MolecularNeutralNumberDensity
+:MolecularNeutralNumberDensity rdf:type owl:Class ;
+                               rdfs:subClassOf :NeutralNumberDensity .
+
+
+###  http://sweetontology.net/propCount/NeutralNumberDensity
+:NeutralNumberDensity rdf:type owl:Class ;
+                      rdfs:subClassOf :NumberDensity .
+
+
+###  http://sweetontology.net/propCount/NumberDensity
+:NumberDensity rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                 owl:hasValue <http://sweetontology.net/reprSciUnits/perMeterCubed>
+                               ] .
+
+
+###  http://sweetontology.net/propCount/Population
+:Population rdf:type owl:Class ;
+            rdfs:subClassOf :Count .
+
+
+###  http://sweetontology.net/propCount/SunspotNumber
+:SunspotNumber rdf:type owl:Class ;
+               rdfs:subClassOf :Count ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
+                                 owl:allValuesFrom <http://sweetontology.net/phenStar/SolarActivity>
+                               ] .
+
+
+###  http://sweetontology.net/propCount/TotalElectronContent
+:TotalElectronContent rdf:type owl:Class ;
+                      rdfs:subClassOf :NumberDensity .
+
+
+###  http://sweetontology.net/propQuantity/Quantity
+<http://sweetontology.net/propQuantity/Quantity> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunction/Discrete
+<http://sweetontology.net/reprMathFunction/Discrete> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/perMeterCubed
+<http://sweetontology.net/reprSciUnits/perMeterCubed> rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/perMeterSquared
+<http://sweetontology.net/reprSciUnits/perMeterSquared> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

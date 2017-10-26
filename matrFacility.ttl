@@ -1,97 +1,159 @@
-@prefix infr: <http://sweetontology.net/matrEquipment/> .
-@prefix tran: <http://sweetontology.net/humanTransportation/> .
-@prefix struc: <http://sweetontology.net/matrFacility/> .
-@prefix hum: <http://sweetontology.net/relaHuman/> .
+@prefix : <http://sweetontology.net/matrFacility/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/matrFacility> .
 
-<http://sweetontology.net/matrFacility> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrEquipment> , <http://sweetontology.net/humanTransportation> , <http://sweetontology.net/relaHuman> .
+<http://sweetontology.net/matrFacility> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/humanTransportation> ,
+                                                     <http://sweetontology.net/matrEquipment> ,
+                                                     <http://sweetontology.net/relaHuman> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/matrFacility/Base> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/matrFacility/Building> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Structure> .
+###  http://sweetontology.net/matrFacility/AgriculturalProductionFacility
+:AgriculturalProductionFacility rdf:type owl:Class ;
+                                rdfs:subClassOf :Facility .
 
-<http://sweetontology.net/matrFacility/CulturalFeature> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Structure> .
 
-<http://sweetontology.net/matrFacility/Dome> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+###  http://sweetontology.net/matrFacility/AirTrafficControlCenter
+:AirTrafficControlCenter rdf:type owl:Class ;
+                         rdfs:subClassOf :AirportFacility .
 
-<http://sweetontology.net/matrFacility/Facility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Structure> .
 
-<http://sweetontology.net/matrFacility/Habitat> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Building> .
+###  http://sweetontology.net/matrFacility/AirTrafficControlEnRouteCenter
+:AirTrafficControlEnRouteCenter rdf:type owl:Class ;
+                                rdfs:subClassOf :AirTrafficControlCenter .
 
-<http://sweetontology.net/matrFacility/Platform> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Structure> .
 
-<http://sweetontology.net/matrFacility/Station> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+###  http://sweetontology.net/matrFacility/AirTrafficControlRadarRoom
+:AirTrafficControlRadarRoom rdf:type owl:Class ;
+                            rdfs:subClassOf :AirportFacility .
 
-<http://sweetontology.net/matrFacility/Structure> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> .
 
-<http://sweetontology.net/matrFacility/MeteorologicalFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+###  http://sweetontology.net/matrFacility/AirTrafficControlTower
+:AirTrafficControlTower rdf:type owl:Class ;
+                        rdfs:subClassOf :AirportFacility .
 
-<http://sweetontology.net/matrFacility/Meteostation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/MeteorologicalFacility> .
 
-<http://sweetontology.net/matrFacility/CommunicationFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+###  http://sweetontology.net/matrFacility/AirTransitway
+:AirTransitway rdf:type owl:Class ;
+               rdfs:subClassOf :AirportFacility .
 
-<http://sweetontology.net/matrFacility/TransportationFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
 
-<http://sweetontology.net/matrFacility/AgriculturalProductionFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+###  http://sweetontology.net/matrFacility/Airport
+:Airport rdf:type owl:Class ;
+         rdfs:subClassOf :AirportFacility .
 
-<http://sweetontology.net/matrFacility/Farm> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AgriculturalProductionFacility> .
 
-<http://sweetontology.net/matrFacility/Fishery> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AgriculturalProductionFacility> .
+###  http://sweetontology.net/matrFacility/AirportFacility
+:AirportFacility rdf:type owl:Class ;
+                 rdfs:subClassOf :Facility ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaHuman/hasHumanActivity> ;
+                                   owl:allValuesFrom <http://sweetontology.net/humanTransportation/AirTraffic>
+                                 ] .
 
-<http://sweetontology.net/matrFacility/Plantation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Farm> .
 
-<http://sweetontology.net/matrFacility/Airport> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirportFacility> .
+###  http://sweetontology.net/matrFacility/Base
+:Base rdf:type owl:Class ;
+      rdfs:subClassOf :Facility .
 
-<http://sweetontology.net/matrFacility/AirportFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> , _:node1boamdvcix1 .
 
-_:node1boamdvcix1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/hasHumanActivity> ;
-	owl:allValuesFrom <http://sweetontology.net/humanTransportation/AirTraffic> .
+###  http://sweetontology.net/matrFacility/Building
+:Building rdf:type owl:Class ;
+          rdfs:subClassOf :Structure .
 
-<http://sweetontology.net/matrFacility/AirTrafficControlCenter> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirportFacility> .
 
-<http://sweetontology.net/matrFacility/AirTrafficControlEnRouteCenter> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirTrafficControlCenter> .
+###  http://sweetontology.net/matrFacility/CommunicationFacility
+:CommunicationFacility rdf:type owl:Class ;
+                       rdfs:subClassOf :Facility .
 
-<http://sweetontology.net/matrFacility/AirTrafficControlRadarRoom> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirportFacility> .
 
-<http://sweetontology.net/matrFacility/AirTrafficControlTower> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirportFacility> .
+###  http://sweetontology.net/matrFacility/CulturalFeature
+:CulturalFeature rdf:type owl:Class ;
+                 rdfs:subClassOf :Structure .
 
-<http://sweetontology.net/matrFacility/AirTransitway> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirportFacility> .
 
-<http://sweetontology.net/matrFacility/Runway> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/AirportFacility> .
+###  http://sweetontology.net/matrFacility/Dome
+:Dome rdf:type owl:Class ;
+      rdfs:subClassOf :Facility .
 
-<http://sweetontology.net/matrFacility/Mine> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/MiningFacility> .
 
-<http://sweetontology.net/matrFacility/MiningFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrFacility/Facility> .
+###  http://sweetontology.net/matrFacility/Facility
+:Facility rdf:type owl:Class ;
+          rdfs:subClassOf :Structure .
+
+
+###  http://sweetontology.net/matrFacility/Farm
+:Farm rdf:type owl:Class ;
+      rdfs:subClassOf :AgriculturalProductionFacility .
+
+
+###  http://sweetontology.net/matrFacility/Fishery
+:Fishery rdf:type owl:Class ;
+         rdfs:subClassOf :AgriculturalProductionFacility .
+
+
+###  http://sweetontology.net/matrFacility/Habitat
+:Habitat rdf:type owl:Class ;
+         rdfs:subClassOf :Building .
+
+
+###  http://sweetontology.net/matrFacility/MeteorologicalFacility
+:MeteorologicalFacility rdf:type owl:Class ;
+                        rdfs:subClassOf :Facility .
+
+
+###  http://sweetontology.net/matrFacility/Meteostation
+:Meteostation rdf:type owl:Class ;
+              rdfs:subClassOf :MeteorologicalFacility .
+
+
+###  http://sweetontology.net/matrFacility/Mine
+:Mine rdf:type owl:Class ;
+      rdfs:subClassOf :MiningFacility .
+
+
+###  http://sweetontology.net/matrFacility/MiningFacility
+:MiningFacility rdf:type owl:Class ;
+                rdfs:subClassOf :Facility .
+
+
+###  http://sweetontology.net/matrFacility/Plantation
+:Plantation rdf:type owl:Class ;
+            rdfs:subClassOf :Farm .
+
+
+###  http://sweetontology.net/matrFacility/Platform
+:Platform rdf:type owl:Class ;
+          rdfs:subClassOf :Structure .
+
+
+###  http://sweetontology.net/matrFacility/Runway
+:Runway rdf:type owl:Class ;
+        rdfs:subClassOf :AirportFacility .
+
+
+###  http://sweetontology.net/matrFacility/Station
+:Station rdf:type owl:Class ;
+         rdfs:subClassOf :Facility .
+
+
+###  http://sweetontology.net/matrFacility/Structure
+:Structure rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> .
+
+
+###  http://sweetontology.net/matrFacility/TransportationFacility
+:TransportationFacility rdf:type owl:Class ;
+                        rdfs:subClassOf :Facility .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

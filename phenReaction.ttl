@@ -1,95 +1,170 @@
+@prefix : <http://sweetontology.net/phenReaction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix reac: <http://sweetontology.net/phenReaction/> .
-@prefix isot: <http://sweetontology.net/matrIsotope/> .
-@prefix role: <http://sweetontology.net/stateRole/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
-@prefix cproc: <http://sweetontology.net/procChemical/> .
-@prefix noise: <http://sweetontology.net/phenWaveNoise/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/phenReaction> .
 
-<http://sweetontology.net/phenReaction> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/procChemical> , <http://sweetontology.net/phenWaveNoise> , <http://sweetontology.net/stateRole> , <http://sweetontology.net/stateRoleImpact> , <http://sweetontology.net/matrIsotope> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/relaChemical> .
+<http://sweetontology.net/phenReaction> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/matrIsotope> ,
+                                                     <http://sweetontology.net/phenWaveNoise> ,
+                                                     <http://sweetontology.net/procChemical> ,
+                                                     <http://sweetontology.net/rela> ,
+                                                     <http://sweetontology.net/relaChemical> ,
+                                                     <http://sweetontology.net/relaSci> ,
+                                                     <http://sweetontology.net/stateRole> ,
+                                                     <http://sweetontology.net/stateRoleImpact> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/phenReaction/Explosion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> , _:node1boame6o9x1 .
+#################################################################
+#    Object Properties
+#################################################################
 
-_:node1boame6o9x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard> .
+###  http://sweetontology.net/rela/hasPhenomena
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/phenReaction/Explosion> rdfs:subClassOf _:node1boame6o9x2 .
 
-_:node1boame6o9x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenWaveNoise/Noise> .
+###  http://sweetontology.net/relaChemical/hasSubstance
+<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/phenReaction/Fire> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> , _:node1boame6o9x3 .
 
-_:node1boame6o9x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard> .
+###  http://sweetontology.net/relaSci/hasImpact
+<http://sweetontology.net/relaSci/hasImpact> rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/phenReaction/Flare> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ;
-	owl:equivalentClass <http://sweetontology.net/phenReaction/Flaring> .
 
-<http://sweetontology.net/phenReaction/Flaring> a owl:Class .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/phenReaction/FluidLeak> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Leak> .
+###  http://sweetontology.net/phenReaction/Activation
+:Activation rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> .
 
-<http://sweetontology.net/phenReaction/GasFlare> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> , _:node1boame6o9x4 .
 
-_:node1boame6o9x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard> .
+###  http://sweetontology.net/phenReaction/BiochemicalRelease
+:BiochemicalRelease rdf:type owl:Class ;
+                    rdfs:subClassOf :Release .
 
-<http://sweetontology.net/phenReaction/GasLeak> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Leak> .
 
-<http://sweetontology.net/phenReaction/Emission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> , _:node1boame6o9x5 .
+###  http://sweetontology.net/phenReaction/Emission
+:Emission rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/rela/hasRole> ;
+                            owl:hasValue <http://sweetontology.net/stateRole/ByProduct>
+                          ] .
 
-_:node1boame6o9x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRole> ;
-	owl:hasValue <http://sweetontology.net/stateRole/ByProduct> .
 
-<http://sweetontology.net/phenReaction/Eruption> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Release> .
+###  http://sweetontology.net/phenReaction/Eruption
+:Eruption rdf:type owl:Class ;
+          rdfs:subClassOf :Release .
 
-<http://sweetontology.net/phenReaction/Activation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> .
 
-<http://sweetontology.net/phenReaction/IndustrialEmission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Emission> .
+###  http://sweetontology.net/phenReaction/Explosion
+:Explosion rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                             owl:allValuesFrom <http://sweetontology.net/phenWaveNoise/Noise>
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                             owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                           ] .
 
-<http://sweetontology.net/phenReaction/Leak> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Release> .
 
-<http://sweetontology.net/phenReaction/Leach> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Release> .
+###  http://sweetontology.net/phenReaction/Fire
+:Fire rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                        owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                      ] .
 
-<http://sweetontology.net/phenReaction/Release> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Emission> .
 
-<http://sweetontology.net/phenReaction/BiochemicalRelease> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Release> .
+###  http://sweetontology.net/phenReaction/Flare
+:Flare rdf:type owl:Class ;
+       owl:equivalentClass :Flaring ;
+       rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> .
 
-<http://sweetontology.net/phenReaction/RadioactivityRelease> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Release> , _:node1boame6o9x6 .
 
-_:node1boame6o9x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:allValuesFrom <http://sweetontology.net/matrIsotope/RadioactiveSubstance> .
+###  http://sweetontology.net/phenReaction/Flaring
+:Flaring rdf:type owl:Class .
 
-<http://sweetontology.net/phenReaction/Wildfire> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenReaction/Fire> .
+
+###  http://sweetontology.net/phenReaction/FluidLeak
+:FluidLeak rdf:type owl:Class ;
+           rdfs:subClassOf :Leak .
+
+
+###  http://sweetontology.net/phenReaction/GasFlare
+:GasFlare rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                            owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                          ] .
+
+
+###  http://sweetontology.net/phenReaction/GasLeak
+:GasLeak rdf:type owl:Class ;
+         rdfs:subClassOf :Leak .
+
+
+###  http://sweetontology.net/phenReaction/IndustrialEmission
+:IndustrialEmission rdf:type owl:Class ;
+                    rdfs:subClassOf :Emission .
+
+
+###  http://sweetontology.net/phenReaction/Leach
+:Leach rdf:type owl:Class ;
+       rdfs:subClassOf :Release .
+
+
+###  http://sweetontology.net/phenReaction/Leak
+:Leak rdf:type owl:Class ;
+      rdfs:subClassOf :Release .
+
+
+###  http://sweetontology.net/phenReaction/RadioactivityRelease
+:RadioactivityRelease rdf:type owl:Class ;
+                      rdfs:subClassOf :Release ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                        owl:allValuesFrom <http://sweetontology.net/matrIsotope/RadioactiveSubstance>
+                                      ] .
+
+
+###  http://sweetontology.net/phenReaction/Release
+:Release rdf:type owl:Class ;
+         rdfs:subClassOf :Emission .
+
+
+###  http://sweetontology.net/phenReaction/Wildfire
+:Wildfire rdf:type owl:Class ;
+          rdfs:subClassOf :Fire .
+
+
+###  http://sweetontology.net/phenWaveNoise/Noise
+<http://sweetontology.net/phenWaveNoise/Noise> rdf:type owl:Class .
+
+
+###  http://sweetontology.net/procChemical/ChemicalReaction
+<http://sweetontology.net/procChemical/ChemicalReaction> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/stateRole/ByProduct
+<http://sweetontology.net/stateRole/ByProduct> rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/stateRoleImpact/Hazard
+<http://sweetontology.net/stateRoleImpact/Hazard> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

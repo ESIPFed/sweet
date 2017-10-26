@@ -1,92 +1,171 @@
+@prefix : <http://sweetontology.net/propTemperatureGradient/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix tstate: <http://sweetontology.net/stateThermodynamic/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix mrela2: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix thermo: <http://sweetontology.net/propTemperature/> .
-@prefix tgrad: <http://sweetontology.net/propTemperatureGradient/> .
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/propTemperatureGradient> .
 
-<http://sweetontology.net/propTemperatureGradient> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/stateThermodynamic> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/propSpaceHeight> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/propTemperature> .
+<http://sweetontology.net/propTemperatureGradient> rdf:type owl:Ontology ;
+                                                    owl:imports <http://sweetontology.net/propQuantity> ,
+                                                                <http://sweetontology.net/propSpaceHeight> ,
+                                                                <http://sweetontology.net/propTemperature> ,
+                                                                <http://sweetontology.net/rela> ,
+                                                                <http://sweetontology.net/relaMath> ,
+                                                                <http://sweetontology.net/relaSci> ,
+                                                                <http://sweetontology.net/reprMathFunction> ,
+                                                                <http://sweetontology.net/reprSciUnits> ,
+                                                                <http://sweetontology.net/stateThermodynamic> ;
+                                                    rdfs:label "SWEET Ontology" ;
+                                                    owl:versionInfo "3.1.0" .
 
-tgrad:DryAdiabaticLapseRate a owl:Class ;
-	rdfs:subClassOf tgrad:LapseRate , _:node1boamecr7x1 .
+#################################################################
+#    Annotation properties
+#################################################################
 
-_:node1boamecr7x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/stateThermodynamic/DryAdiabatic> .
+###  http://sweetontology.net/relaMath/hasLowerBound
+<http://sweetontology.net/relaMath/hasLowerBound> rdf:type owl:AnnotationProperty .
 
-tgrad:DryAdiabaticLapseRate rdfs:comment "A process lapse rate of temperature, the rate of decrease of temperature with height of a parcel of dry air lifted by a reversible adiabatic process through an atmosphere in hydrostatic equilibrium."@en .
 
-tgrad:EnvironmentalLapseRate a owl:Class ;
-	rdfs:subClassOf tgrad:LapseRate ;
-	rdfs:comment "The rate of decrease of temperature with elevation"@en .
+###  http://sweetontology.net/relaMath/hasUpperBound
+<http://sweetontology.net/relaMath/hasUpperBound> rdf:type owl:AnnotationProperty .
 
-tgrad:LapseRate a owl:Class ;
-	rdfs:subClassOf tgrad:TemperatureHeightDerivative .
 
-tgrad:ThermalProfile a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> , <http://sweetontology.net/reprMathFunction/Profile> .
+#################################################################
+#    Object Properties
+#################################################################
 
-tgrad:TemperatureGradient a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> , _:node1boamecr7x2 .
+###  http://sweetontology.net/rela/hasState
+<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
 
-_:node1boamecr7x2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/propTemperature/Temperature> ;
-	owl:onProperty mrela2:hasGradient .
 
-tgrad:TemperatureGradient rdfs:subClassOf _:node1boamecr7x3 .
+###  http://sweetontology.net/relaMath/derivativeWithRespectTo
+<http://sweetontology.net/relaMath/derivativeWithRespectTo> rdf:type owl:ObjectProperty .
 
-_:node1boamecr7x3 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/kelvinPerMeter> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasUnit> .
 
-tgrad:TemperatureGradient owl:equivalentClass tgrad:ThermalGradient ;
-	rdfs:comment "The derivative of temperature."@en .
+###  http://sweetontology.net/relaMath/hasGradient
+<http://sweetontology.net/relaMath/hasGradient> rdf:type owl:ObjectProperty .
 
-tgrad:ThermalGradient a owl:Class .
 
-tgrad:TemperatureHeightDerivative a owl:Class ;
-	rdfs:subClassOf tgrad:TemperatureGradient , _:node1boamecr7x4 .
+###  http://sweetontology.net/relaSci/hasUnit
+<http://sweetontology.net/relaSci/hasUnit> rdf:type owl:ObjectProperty .
 
-_:node1boamecr7x4 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/Height> ;
-	owl:onProperty mrela2:derivativeWithRespectTo .
 
-tgrad:TemperatureHeightDerivative rdfs:comment "The derivative of temperature with respect to height."@en .
+###  http://sweetontology.net/relaSci/rangeOf
+<http://sweetontology.net/relaSci/rangeOf> rdf:type owl:ObjectProperty .
 
-tgrad:TemperatureDepthDerivative a owl:Class ;
-	rdfs:subClassOf tgrad:TemperatureGradient , _:node1boamecr7x5 .
 
-_:node1boamecr7x5 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/Depth> ;
-	owl:onProperty mrela2:derivativeWithRespectTo .
+#################################################################
+#    Classes
+#################################################################
 
-tgrad:TemperatureDepthDerivative rdfs:comment "The derivative of temperature with respect to depth."@en .
+###  http://sweetontology.net/propTemperatureGradient/AutoConvectiveLapseRate
+:AutoConvectiveLapseRate rdf:type owl:Class ;
+                         rdfs:subClassOf :EnvironmentalLapseRate ;
+                         rdfs:comment "The environmental lapse rate of temperature in an atmosphere in which the density is constant with height (homogeneous atmosphere), equal to g/R, where g is the acceleration of gravity and R the gas constant."@en .
 
-tgrad:AutoConvectiveLapseRate a owl:Class ;
-	rdfs:subClassOf tgrad:EnvironmentalLapseRate ;
-	rdfs:comment "The environmental lapse rate of temperature in an atmosphere in which the density is constant with height (homogeneous atmosphere), equal to g/R, where g is the acceleration of gravity and R the gas constant."@en .
 
-tgrad:TemperatureGradientRange a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> , _:node1boamecr7x6 .
+###  http://sweetontology.net/propTemperatureGradient/DryAdiabaticLapseRate
+:DryAdiabaticLapseRate rdf:type owl:Class ;
+                       rdfs:subClassOf :LapseRate ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                         owl:hasValue <http://sweetontology.net/stateThermodynamic/DryAdiabatic>
+                                       ] ;
+                       rdfs:comment "A process lapse rate of temperature, the rate of decrease of temperature with height of a parcel of dry air lifted by a reversible adiabatic process through an atmosphere in hydrostatic equilibrium."@en .
 
-_:node1boamecr7x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-	owl:someValuesFrom tgrad:TemperatureGradient .
 
-tgrad:PositiveSlope a tgrad:TemperatureGradientRange ;
-	mrela2:hasLowerBound "0"^^xsd:double .
+###  http://sweetontology.net/propTemperatureGradient/EnvironmentalLapseRate
+:EnvironmentalLapseRate rdf:type owl:Class ;
+                        rdfs:subClassOf :LapseRate ;
+                        rdfs:comment "The rate of decrease of temperature with elevation"@en .
 
-tgrad:NegativeSlope a tgrad:TemperatureGradientRange ;
-	mrela2:hasUpperBound "0"^^xsd:double .
+
+###  http://sweetontology.net/propTemperatureGradient/LapseRate
+:LapseRate rdf:type owl:Class ;
+           rdfs:subClassOf :TemperatureHeightDerivative .
+
+
+###  http://sweetontology.net/propTemperatureGradient/TemperatureDepthDerivative
+:TemperatureDepthDerivative rdf:type owl:Class ;
+                            rdfs:subClassOf :TemperatureGradient ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty <http://sweetontology.net/relaMath/derivativeWithRespectTo> ;
+                                              owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/Depth>
+                                            ] ;
+                            rdfs:comment "The derivative of temperature with respect to depth."@en .
+
+
+###  http://sweetontology.net/propTemperatureGradient/TemperatureGradient
+:TemperatureGradient rdf:type owl:Class ;
+                     owl:equivalentClass :ThermalGradient ;
+                     rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/relaMath/hasGradient> ;
+                                       owl:allValuesFrom <http://sweetontology.net/propTemperature/Temperature>
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
+                                       owl:hasValue <http://sweetontology.net/reprSciUnits/kelvinPerMeter>
+                                     ] ;
+                     rdfs:comment "The derivative of temperature."@en .
+
+
+###  http://sweetontology.net/propTemperatureGradient/TemperatureGradientRange
+:TemperatureGradientRange rdf:type owl:Class ;
+                          rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
+                                            owl:someValuesFrom :TemperatureGradient
+                                          ] .
+
+
+###  http://sweetontology.net/propTemperatureGradient/TemperatureHeightDerivative
+:TemperatureHeightDerivative rdf:type owl:Class ;
+                             rdfs:subClassOf :TemperatureGradient ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://sweetontology.net/relaMath/derivativeWithRespectTo> ;
+                                               owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/Height>
+                                             ] ;
+                             rdfs:comment "The derivative of temperature with respect to height."@en .
+
+
+###  http://sweetontology.net/propTemperatureGradient/ThermalGradient
+:ThermalGradient rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propTemperatureGradient/ThermalProfile
+:ThermalProfile rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                <http://sweetontology.net/reprMathFunction/Profile> .
+
+
+###  http://sweetontology.net/reprMathFunction/Profile
+<http://sweetontology.net/reprMathFunction/Profile> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/propTemperatureGradient/NegativeSlope
+:NegativeSlope rdf:type owl:NamedIndividual ,
+                        :TemperatureGradientRange ;
+               <http://sweetontology.net/relaMath/hasUpperBound> "0.0"^^xsd:double .
+
+
+###  http://sweetontology.net/propTemperatureGradient/PositiveSlope
+:PositiveSlope rdf:type owl:NamedIndividual ,
+                        :TemperatureGradientRange ;
+               <http://sweetontology.net/relaMath/hasLowerBound> "0.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/kelvinPerMeter
+<http://sweetontology.net/reprSciUnits/kelvinPerMeter> rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/stateThermodynamic/DryAdiabatic
+<http://sweetontology.net/stateThermodynamic/DryAdiabatic> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

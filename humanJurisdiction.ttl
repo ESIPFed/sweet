@@ -1,157 +1,250 @@
-@prefix space: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix know: <http://sweetontology.net/repr/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix hrela: <http://sweetontology.net/relaHuman/> .
-@prefix hum: <http://sweetontology.net/human/> .
-@prefix jur: <http://sweetontology.net/humanJurisdiction/> .
+@prefix : <http://sweetontology.net/humanJurisdiction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/humanJurisdiction> .
 
-<http://sweetontology.net/humanJurisdiction> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/repr> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaHuman> , <http://sweetontology.net/human> .
+<http://sweetontology.net/humanJurisdiction> rdf:type owl:Ontology ;
+                                              owl:imports <http://sweetontology.net/human> ,
+                                                          <http://sweetontology.net/relaHuman> ,
+                                                          <http://sweetontology.net/relaSpace> ,
+                                                          <http://sweetontology.net/repr> ,
+                                                          <http://sweetontology.net/reprSpaceGeometry> ;
+                                              rdfs:label "SWEET Ontology" ;
+                                              owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/humanJurisdiction/AdministrativeRegion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Region> , <http://sweetontology.net/humanJurisdiction/Jurisdiction> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/humanJurisdiction/City> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> , _:node1boamdtcbx1 .
+###  http://sweetontology.net/relaHuman/hasJurisdiction
+<http://sweetontology.net/relaHuman/hasJurisdiction> rdf:type owl:ObjectProperty .
 
-_:node1boamdtcbx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/State> .
 
-<http://sweetontology.net/humanJurisdiction/Civil> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/Jurisdiction> ;
-	owl:equivalentClass <http://sweetontology.net/humanJurisdiction/Civilian> .
+###  http://sweetontology.net/relaSpace/inside
+<http://sweetontology.net/relaSpace/inside> rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/humanJurisdiction/Civilian> a owl:Class .
 
-<http://sweetontology.net/humanJurisdiction/CombinedStatisticalArea> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/MetropolitanArea> ;
-	owl:equivalentClass <http://sweetontology.net/humanJurisdiction/CSA> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/humanJurisdiction/CSA> a owl:Class .
+###  http://sweetontology.net/humanJurisdiction/AdministrativeRegion
+:AdministrativeRegion rdf:type owl:Class ;
+                      rdfs:subClassOf :Jurisdiction ,
+                                      <http://sweetontology.net/reprSpaceGeometry/Region> .
 
-<http://sweetontology.net/humanJurisdiction/Continent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> .
 
-<http://sweetontology.net/humanJurisdiction/Country> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> .
+###  http://sweetontology.net/humanJurisdiction/CSA
+:CSA rdf:type owl:Class ;
+     owl:equivalentClass :CombinedStatisticalArea .
 
-<http://sweetontology.net/humanJurisdiction/County> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> , _:node1boamdtcbx2 .
 
-_:node1boamdtcbx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/State> .
+###  http://sweetontology.net/humanJurisdiction/City
+:City rdf:type owl:Class ;
+      rdfs:subClassOf :AdministrativeRegion ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                        owl:allValuesFrom :State
+                      ] .
 
-<http://sweetontology.net/humanJurisdiction/Government> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
 
-<http://sweetontology.net/humanJurisdiction/GoverningBody> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+###  http://sweetontology.net/humanJurisdiction/Civil
+:Civil rdf:type owl:Class ;
+       owl:equivalentClass :Civilian ;
+       rdfs:subClassOf :Jurisdiction ;
+       owl:disjointWith :Military .
 
-<http://sweetontology.net/humanJurisdiction/FederalGoverningBody> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GoverningBody> ;
-	owl:equivalentClass <http://sweetontology.net/humanJurisdiction/Federal> ;
-	rdfs:subClassOf _:node1boamdtcbx3 .
 
-_:node1boamdtcbx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Country> .
+###  http://sweetontology.net/humanJurisdiction/Civilian
+:Civilian rdf:type owl:Class .
 
-<http://sweetontology.net/humanJurisdiction/Federal> a owl:Class .
 
-<http://sweetontology.net/humanJurisdiction/Jurisdiction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+###  http://sweetontology.net/humanJurisdiction/CombinedStatisticalArea
+:CombinedStatisticalArea rdf:type owl:Class ;
+                         rdfs:subClassOf :MetropolitanArea .
 
-<http://sweetontology.net/humanJurisdiction/MetropolitanArea> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> , _:node1boamdtcbx4 .
 
-_:node1boamdtcbx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Country> .
+###  http://sweetontology.net/humanJurisdiction/Continent
+:Continent rdf:type owl:Class ;
+           rdfs:subClassOf :AdministrativeRegion .
 
-<http://sweetontology.net/humanJurisdiction/MetropolitanStatisticalArea> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/MetropolitanArea> ;
-	owl:equivalentClass <http://sweetontology.net/humanJurisdiction/MSA> .
 
-<http://sweetontology.net/humanJurisdiction/MSA> a owl:Class .
+###  http://sweetontology.net/humanJurisdiction/Country
+:Country rdf:type owl:Class ;
+         rdfs:subClassOf :AdministrativeRegion .
 
-<http://sweetontology.net/humanJurisdiction/Military> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/Jurisdiction> ;
-	owl:disjointWith <http://sweetontology.net/humanJurisdiction/Civil> .
 
-<http://sweetontology.net/humanJurisdiction/Province> a owl:Class ;
-	rdfs:subClassOf _:node1boamdtcbx5 .
+###  http://sweetontology.net/humanJurisdiction/County
+:County rdf:type owl:Class ;
+        rdfs:subClassOf :AdministrativeRegion ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                          owl:allValuesFrom :State
+                        ] .
 
-_:node1boamdtcbx5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Country> .
 
-<http://sweetontology.net/humanJurisdiction/Province> rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> .
+###  http://sweetontology.net/humanJurisdiction/Enforcement
+:Enforcement rdf:type owl:Class ;
+             rdfs:subClassOf :GovtActivity .
 
-<http://sweetontology.net/humanJurisdiction/StandardsBody> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GoverningBody> .
 
-<http://sweetontology.net/humanJurisdiction/State> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> , _:node1boamdtcbx6 .
+###  http://sweetontology.net/humanJurisdiction/Federal
+:Federal rdf:type owl:Class ;
+         owl:equivalentClass :FederalGoverningBody .
 
-_:node1boamdtcbx6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Country> .
 
-<http://sweetontology.net/humanJurisdiction/SpecialAdministrationRegion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> ;
-	owl:equivalentClass <http://sweetontology.net/humanJurisdiction/SAR> ;
-	rdfs:subClassOf _:node1boamdtcbx7 .
+###  http://sweetontology.net/humanJurisdiction/FederalGoverningBody
+:FederalGoverningBody rdf:type owl:Class ;
+                      rdfs:subClassOf :GoverningBody ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
+                                        owl:allValuesFrom :Country
+                                      ] .
 
-_:node1boamdtcbx7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
-	owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Country> .
 
-<http://sweetontology.net/humanJurisdiction/SAR> a owl:Class .
+###  http://sweetontology.net/humanJurisdiction/GoverningBody
+:GoverningBody rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
 
-<http://sweetontology.net/humanJurisdiction/StandardMetropolitanStatisticalArea> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/MetropolitanArea> ;
-	owl:equivalentClass <http://sweetontology.net/humanJurisdiction/SMSA> .
 
-<http://sweetontology.net/humanJurisdiction/SMSA> a owl:Class .
+###  http://sweetontology.net/humanJurisdiction/GoverningBodyProduct
+:GoverningBodyProduct rdf:type owl:Class ;
+                      rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
 
-<http://sweetontology.net/humanJurisdiction/UrbanArea> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/AdministrativeRegion> ;
-	rdfs:comment "An urban area is an area with an increased density of human-created structures in comparison to the areas surrounding it. This term is at one end of the spectrum of suburban and rural areas. An urban area is more frequently called a city or town."@en .
 
-<http://sweetontology.net/humanJurisdiction/Penalty> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/Enforcement> .
+###  http://sweetontology.net/humanJurisdiction/Government
+:Government rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
 
-<http://sweetontology.net/humanJurisdiction/Permit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GovtActivity> .
 
-<http://sweetontology.net/humanJurisdiction/Policy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GoverningBodyProduct> .
+###  http://sweetontology.net/humanJurisdiction/GovtActivity
+:GovtActivity rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
 
-<http://sweetontology.net/humanJurisdiction/Regulation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/HumanLaw> .
 
-<http://sweetontology.net/humanJurisdiction/Standard> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GoverningBodyProduct> .
+###  http://sweetontology.net/humanJurisdiction/HumanLaw
+:HumanLaw rdf:type owl:Class ;
+          rdfs:subClassOf :GoverningBodyProduct ,
+                          <http://sweetontology.net/repr/Knowledge> .
 
-<http://sweetontology.net/humanJurisdiction/Treaty> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/HumanLaw> .
 
-<http://sweetontology.net/humanJurisdiction/HumanLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GoverningBodyProduct> , <http://sweetontology.net/repr/Knowledge> .
+###  http://sweetontology.net/humanJurisdiction/Jurisdiction
+:Jurisdiction rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
 
-<http://sweetontology.net/humanJurisdiction/Enforcement> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanJurisdiction/GovtActivity> .
 
-<http://sweetontology.net/humanJurisdiction/GovtActivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+###  http://sweetontology.net/humanJurisdiction/MSA
+:MSA rdf:type owl:Class ;
+     owl:equivalentClass :MetropolitanStatisticalArea .
 
-<http://sweetontology.net/humanJurisdiction/GoverningBodyProduct> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+
+###  http://sweetontology.net/humanJurisdiction/MetropolitanArea
+:MetropolitanArea rdf:type owl:Class ;
+                  rdfs:subClassOf :AdministrativeRegion ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                                    owl:allValuesFrom :Country
+                                  ] .
+
+
+###  http://sweetontology.net/humanJurisdiction/MetropolitanStatisticalArea
+:MetropolitanStatisticalArea rdf:type owl:Class ;
+                             rdfs:subClassOf :MetropolitanArea .
+
+
+###  http://sweetontology.net/humanJurisdiction/Military
+:Military rdf:type owl:Class ;
+          rdfs:subClassOf :Jurisdiction .
+
+
+###  http://sweetontology.net/humanJurisdiction/Penalty
+:Penalty rdf:type owl:Class ;
+         rdfs:subClassOf :Enforcement .
+
+
+###  http://sweetontology.net/humanJurisdiction/Permit
+:Permit rdf:type owl:Class ;
+        rdfs:subClassOf :GovtActivity .
+
+
+###  http://sweetontology.net/humanJurisdiction/Policy
+:Policy rdf:type owl:Class ;
+        rdfs:subClassOf :GoverningBodyProduct .
+
+
+###  http://sweetontology.net/humanJurisdiction/Province
+:Province rdf:type owl:Class ;
+          rdfs:subClassOf :AdministrativeRegion ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                            owl:allValuesFrom :Country
+                          ] .
+
+
+###  http://sweetontology.net/humanJurisdiction/Regulation
+:Regulation rdf:type owl:Class ;
+            rdfs:subClassOf :HumanLaw .
+
+
+###  http://sweetontology.net/humanJurisdiction/SAR
+:SAR rdf:type owl:Class ;
+     owl:equivalentClass :SpecialAdministrationRegion .
+
+
+###  http://sweetontology.net/humanJurisdiction/SMSA
+:SMSA rdf:type owl:Class ;
+      owl:equivalentClass :StandardMetropolitanStatisticalArea .
+
+
+###  http://sweetontology.net/humanJurisdiction/SpecialAdministrationRegion
+:SpecialAdministrationRegion rdf:type owl:Class ;
+                             rdfs:subClassOf :AdministrativeRegion ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                                               owl:allValuesFrom :Country
+                                             ] .
+
+
+###  http://sweetontology.net/humanJurisdiction/Standard
+:Standard rdf:type owl:Class ;
+          rdfs:subClassOf :GoverningBodyProduct .
+
+
+###  http://sweetontology.net/humanJurisdiction/StandardMetropolitanStatisticalArea
+:StandardMetropolitanStatisticalArea rdf:type owl:Class ;
+                                     rdfs:subClassOf :MetropolitanArea .
+
+
+###  http://sweetontology.net/humanJurisdiction/StandardsBody
+:StandardsBody rdf:type owl:Class ;
+               rdfs:subClassOf :GoverningBody .
+
+
+###  http://sweetontology.net/humanJurisdiction/State
+:State rdf:type owl:Class ;
+       rdfs:subClassOf :AdministrativeRegion ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                         owl:allValuesFrom :Country
+                       ] .
+
+
+###  http://sweetontology.net/humanJurisdiction/Treaty
+:Treaty rdf:type owl:Class ;
+        rdfs:subClassOf :HumanLaw .
+
+
+###  http://sweetontology.net/humanJurisdiction/UrbanArea
+:UrbanArea rdf:type owl:Class ;
+           rdfs:subClassOf :AdministrativeRegion ;
+           rdfs:comment "An urban area is an area with an increased density of human-created structures in comparison to the areas surrounding it. This term is at one end of the spectrum of suburban and rural areas. An urban area is more frequently called a city or town."@en .
+
+
+###  http://sweetontology.net/reprSpaceGeometry/Region
+<http://sweetontology.net/reprSpaceGeometry/Region> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

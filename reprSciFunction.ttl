@@ -1,83 +1,109 @@
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
-@prefix spac: <http://sweetontology.net/propSpaceMultidimensional/> .
-@prefix thic: <http://sweetontology.net/propSpaceThickness/> .
-@prefix chem: <http://sweetontology.net/propChemical/> .
-@prefix sfunc: <http://sweetontology.net/reprSciFunction/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix ener: <http://sweetontology.net/propEnergy/> .
-@prefix mass: <http://sweetontology.net/propMass/> .
-@prefix temp: <http://sweetontology.net/propTemperature/> .
-@prefix pres: <http://sweetontology.net/propPressure/> .
+@prefix : <http://sweetontology.net/reprSciFunction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/reprSciFunction> .
 
-<http://sweetontology.net/reprSciFunction> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/propEnergy> , <http://sweetontology.net/propPressure> , <http://sweetontology.net/propMass> , <http://sweetontology.net/propSpaceMultidimensional> , <http://sweetontology.net/propSpaceThickness> , <http://sweetontology.net/propChemical> , <http://sweetontology.net/propTemperature> .
+<http://sweetontology.net/reprSciFunction> rdf:type owl:Ontology ;
+                                            owl:imports <http://sweetontology.net/propChemical> ,
+                                                        <http://sweetontology.net/propEnergy> ,
+                                                        <http://sweetontology.net/propMass> ,
+                                                        <http://sweetontology.net/propPressure> ,
+                                                        <http://sweetontology.net/propSpaceMultidimensional> ,
+                                                        <http://sweetontology.net/propSpaceThickness> ,
+                                                        <http://sweetontology.net/propTemperature> ,
+                                                        <http://sweetontology.net/relaPhysical> ,
+                                                        <http://sweetontology.net/reprMathFunction> ;
+                                            rdfs:label "SWEET Ontology" ;
+                                            owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/reprSciFunction/Invariant> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/reprSciFunction/Isopleth> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Invariant> .
+###  http://sweetontology.net/reprSciFunction/AdiabaticInvariant
+:AdiabaticInvariant rdf:type owl:Class ;
+                    rdfs:subClassOf :Invariant ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                                      owl:allValuesFrom <http://sweetontology.net/propEnergy/Entropy>
+                                    ] .
 
-<http://sweetontology.net/reprSciFunction/Isentrope> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax1 .
 
-_:node1boamem0ax1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propEnergy/Entropy> .
+###  http://sweetontology.net/reprSciFunction/Invariant
+:Invariant rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
 
-<http://sweetontology.net/reprSciFunction/Isobar> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax2 .
 
-_:node1boamem0ax2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure> .
+###  http://sweetontology.net/reprSciFunction/Isentrope
+:Isentrope rdf:type owl:Class ;
+           rdfs:subClassOf :Isopleth ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                             owl:allValuesFrom <http://sweetontology.net/propEnergy/Entropy>
+                           ] .
 
-<http://sweetontology.net/reprSciFunction/Isochore> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax3 .
 
-_:node1boamem0ax3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propSpaceMultidimensional/Volume> .
+###  http://sweetontology.net/reprSciFunction/Isobar
+:Isobar rdf:type owl:Class ;
+        rdfs:subClassOf :Isopleth ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                          owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure>
+                        ] .
 
-<http://sweetontology.net/reprSciFunction/Isohaline> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax4 .
 
-_:node1boamem0ax4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propChemical/Salinity> .
+###  http://sweetontology.net/reprSciFunction/Isochore
+:Isochore rdf:type owl:Class ;
+          rdfs:subClassOf :Isopleth ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                            owl:allValuesFrom <http://sweetontology.net/propSpaceMultidimensional/Volume>
+                          ] .
 
-<http://sweetontology.net/reprSciFunction/Isotere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax5 .
 
-_:node1boamem0ax5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propMass/Density> .
+###  http://sweetontology.net/reprSciFunction/Isohaline
+:Isohaline rdf:type owl:Class ;
+           rdfs:subClassOf :Isopleth ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                             owl:allValuesFrom <http://sweetontology.net/propChemical/Salinity>
+                           ] .
 
-<http://sweetontology.net/reprSciFunction/Isotherm> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax6 .
 
-_:node1boamem0ax6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propTemperature/Temperature> .
+###  http://sweetontology.net/reprSciFunction/Isopleth
+:Isopleth rdf:type owl:Class ;
+          rdfs:subClassOf :Invariant .
 
-<http://sweetontology.net/reprSciFunction/ThicknessLine> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Isopleth> , _:node1boamem0ax7 .
 
-_:node1boamem0ax7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propSpaceThickness/Thickness> .
+###  http://sweetontology.net/reprSciFunction/Isotere
+:Isotere rdf:type owl:Class ;
+         rdfs:subClassOf :Isopleth ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                           owl:allValuesFrom <http://sweetontology.net/propMass/Density>
+                         ] .
 
-<http://sweetontology.net/reprSciFunction/ThicknessLine> rdfs:comment "A line drawn through all geographic points at which the thickness of a given atmospheric layer is the same; an isopleth of thickness."@en .
 
-<http://sweetontology.net/reprSciFunction/AdiabaticInvariant> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciFunction/Invariant> , _:node1boamem0ax8 .
+###  http://sweetontology.net/reprSciFunction/Isotherm
+:Isotherm rdf:type owl:Class ;
+          rdfs:subClassOf :Isopleth ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                            owl:allValuesFrom <http://sweetontology.net/propTemperature/Temperature>
+                          ] .
 
-_:node1boamem0ax8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
-	owl:allValuesFrom <http://sweetontology.net/propEnergy/Entropy> .
+
+###  http://sweetontology.net/reprSciFunction/ThicknessLine
+:ThicknessLine rdf:type owl:Class ;
+               rdfs:subClassOf :Isopleth ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                                 owl:allValuesFrom <http://sweetontology.net/propSpaceThickness/Thickness>
+                               ] ;
+               rdfs:comment "A line drawn through all geographic points at which the thickness of a given atmospheric layer is the same; an isopleth of thickness."@en .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

@@ -1,123 +1,197 @@
-@prefix wave: <http://sweetontology.net/procWave/> .
-@prefix wavep: <http://sweetontology.net/phenWave/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix matr: <http://sweetontology.net/matr/> .
+@prefix : <http://sweetontology.net/procWave/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/procWave> .
 
-<http://sweetontology.net/procWave> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/procPhysical> , <http://sweetontology.net/matr> , <http://sweetontology.net/phenWave> .
+<http://sweetontology.net/procWave> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/matr> ,
+                                                 <http://sweetontology.net/phenWave> ,
+                                                 <http://sweetontology.net/procPhysical> ;
+                                     rdfs:label "SWEET Ontology" ;
+                                     owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/procWave/WaveProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/procWave/MediumWaveInteractionProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WaveProcess> .
+###  http://sweetontology.net/procWave/Absorption
+:Absorption rdf:type owl:Class ;
+            rdfs:subClassOf :MediumWaveInteractionProcess ;
+            rdfs:comment "The process in which incident radiant energy is retained by a substance." ;
+            rdfs:label "Absorption" .
 
-<http://sweetontology.net/procWave/Attenuation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> ;
-	owl:equivalentClass <http://sweetontology.net/procWave/Extinction> .
 
-<http://sweetontology.net/procWave/Extinction> a owl:Class .
+###  http://sweetontology.net/procWave/AcousticBackScattering
+:AcousticBackScattering rdf:type owl:Class ;
+                        rdfs:subClassOf :Backscattering ;
+                        rdfs:comment "Scattering of sound or ultrasound in the direction of the source." ;
+                        rdfs:label "Acoustic Backscattering" .
 
-<http://sweetontology.net/procWave/Dispersion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
 
-<http://sweetontology.net/procWave/Dissipation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
+###  http://sweetontology.net/procWave/Attenuation
+:Attenuation rdf:type owl:Class ;
+             owl:equivalentClass :Extinction ;
+             rdfs:subClassOf :MediumWaveInteractionProcess .
 
-<http://sweetontology.net/procWave/Excitation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
 
-<http://sweetontology.net/procWave/Interference> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
+###  http://sweetontology.net/procWave/Backscattering
+:Backscattering rdf:type owl:Class ;
+                rdfs:subClassOf :Scattering ;
+                rdfs:comment "scattering of waves (photons) that reverse the direction of propagation" .
 
-<http://sweetontology.net/procWave/Polarization> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WaveProcess> .
 
-<http://sweetontology.net/procWave/Reflection> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
+###  http://sweetontology.net/procWave/BraggDiffraction
+:BraggDiffraction rdf:type owl:Class ;
+                  rdfs:subClassOf :Diffraction .
 
-<http://sweetontology.net/procWave/Refraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> ;
-	rdfs:comment "A change of direction and possibly amplitude of an electromagnetic, acoustic, or any other wave propagating in a material medium, homogeneous on the scale of the wavelength, as a consequence of spatial variation in the properties of the medium."@en .
 
-<http://sweetontology.net/procWave/Scattering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> ;
-	rdfs:comment "In a broad sense, the process by which matter is excited to radiate by an external source of electromagnetic radiation, as distinguished from emission of radiation by matter, which occurs even in the absence of such a source."@en .
+###  http://sweetontology.net/procWave/Damping
+:Damping rdf:type owl:Class ;
+         rdfs:subClassOf :WaveProcess .
 
-<http://sweetontology.net/procWave/MieScattering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Scattering> ;
-	rdfs:comment "scattering of waves (photons) that reverse the direction of propagation" .
 
-<http://sweetontology.net/procWave/RayleighScattering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Scattering> .
+###  http://sweetontology.net/procWave/Diffraction
+:Diffraction rdf:type owl:Class ;
+             rdfs:subClassOf :MediumWaveInteractionProcess .
 
-<http://sweetontology.net/procWave/Transmission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
 
-<http://sweetontology.net/procWave/Absorption> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> ;
-	rdfs:label "Absorption" ;
-	rdfs:comment "The process in which incident radiant energy is retained by a substance." .
+###  http://sweetontology.net/procWave/Dispersion
+:Dispersion rdf:type owl:Class ;
+            rdfs:subClassOf :MediumWaveInteractionProcess .
 
-<http://sweetontology.net/procWave/Backscattering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Scattering> ;
-	rdfs:comment "scattering of waves (photons) that reverse the direction of propagation" .
 
-<http://sweetontology.net/procWave/Damping> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WaveProcess> .
+###  http://sweetontology.net/procWave/Dissipation
+:Dissipation rdf:type owl:Class ;
+             rdfs:subClassOf :MediumWaveInteractionProcess .
 
-<http://sweetontology.net/procWave/Emission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WaveProcess> .
 
-<http://sweetontology.net/procWave/WaveDrag> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WaveProcess> .
+###  http://sweetontology.net/procWave/Echo
+:Echo rdf:type owl:Class ;
+      rdfs:subClassOf :Reflection ;
+      rdfs:comment "In radar, a general term for the appearance, on a radar display, of the radio signal scattered or reflected from a target. The characteristics of a radar echo are determined by 1) the waveform, frequency, and power of the incident wave; 2) the range and velocity of the target with respect to the radar; and 3) the size, shape, and composition of the target."@en .
 
-<http://sweetontology.net/procWave/Propagation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WaveProcess> ;
-	rdfs:comment "Wave propagation is any of the ways in which waves travel through a medium (waveguide). With respect to the direction of the oscillation relative to the propagation direction, we can distinguish between longitudinal wave and transverse waves. Another useful parameter for describing the propagation is the wave velocity that mostly depends on some kind of density of the medium. For electromagnetic waves, propagation may occur in a vacuum as well as in a material medium."@en ;
-	owl:equivalentClass <http://sweetontology.net/procWave/WavePropagation> .
 
-<http://sweetontology.net/procWave/WavePropagation> a owl:Class .
+###  http://sweetontology.net/procWave/ElectromagneticRadiation
+:ElectromagneticRadiation rdf:type owl:Class ;
+                          owl:equivalentClass :ElectromagneticWave ;
+                          rdfs:subClassOf <http://sweetontology.net/phenWave/Wave> ,
+                                          <http://sweetontology.net/procPhysical/PhysicalProcess> .
 
-<http://sweetontology.net/procWave/LineOfSightPropagation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/WavePropagation> ;
-	rdfs:comment "Line-of-sight propagation refers to electromagnetic radiation or electromagnetic waves travelling in a straight line. The rays or waves are deviated or reflected by obstructions and cannot travel over the horizon or behind obstacles. Beyond that, material disperses the rays respectively the energy of the waves."@en .
 
-<http://sweetontology.net/procWave/AcousticBackScattering> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Backscattering> ;
-	rdfs:comment "Scattering of sound or ultrasound in the direction of the source." ;
-	rdfs:label "Acoustic Backscattering" .
+###  http://sweetontology.net/procWave/ElectromagneticWave
+:ElectromagneticWave rdf:type owl:Class .
 
-<http://sweetontology.net/procWave/Echo> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Reflection> ;
-	rdfs:comment "In radar, a general term for the appearance, on a radar display, of the radio signal scattered or reflected from a target. The characteristics of a radar echo are determined by 1) the waveform, frequency, and power of the incident wave; 2) the range and velocity of the target with respect to the radar; and 3) the size, shape, and composition of the target."@en .
 
-<http://sweetontology.net/procWave/LineEmission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Emission> .
+###  http://sweetontology.net/procWave/Emission
+:Emission rdf:type owl:Class ;
+          rdfs:subClassOf :WaveProcess .
 
-<http://sweetontology.net/procWave/ElectromagneticRadiation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> , <http://sweetontology.net/phenWave/Wave> ;
-	owl:equivalentClass <http://sweetontology.net/procWave/ElectromagneticWave> .
 
-<http://sweetontology.net/procWave/ElectromagneticWave> a owl:Class .
+###  http://sweetontology.net/procWave/Excitation
+:Excitation rdf:type owl:Class ;
+            rdfs:subClassOf :MediumWaveInteractionProcess .
 
-<http://sweetontology.net/procWave/Diffraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/MediumWaveInteractionProcess> .
 
-<http://sweetontology.net/procWave/FraunhoferDiffraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Diffraction> .
+###  http://sweetontology.net/procWave/Extinction
+:Extinction rdf:type owl:Class .
 
-<http://sweetontology.net/procWave/FresnelDiffraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Diffraction> .
 
-<http://sweetontology.net/procWave/BraggDiffraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Diffraction> .
+###  http://sweetontology.net/procWave/FraunhoferDiffraction
+:FraunhoferDiffraction rdf:type owl:Class ;
+                       rdfs:subClassOf :Diffraction .
 
-<http://sweetontology.net/procWave/SchaeferBergmannDiffraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procWave/Diffraction> .
+
+###  http://sweetontology.net/procWave/FresnelDiffraction
+:FresnelDiffraction rdf:type owl:Class ;
+                    rdfs:subClassOf :Diffraction .
+
+
+###  http://sweetontology.net/procWave/Interference
+:Interference rdf:type owl:Class ;
+              rdfs:subClassOf :MediumWaveInteractionProcess .
+
+
+###  http://sweetontology.net/procWave/LineEmission
+:LineEmission rdf:type owl:Class ;
+              rdfs:subClassOf :Emission .
+
+
+###  http://sweetontology.net/procWave/LineOfSightPropagation
+:LineOfSightPropagation rdf:type owl:Class ;
+                        rdfs:subClassOf :WavePropagation ;
+                        rdfs:comment "Line-of-sight propagation refers to electromagnetic radiation or electromagnetic waves travelling in a straight line. The rays or waves are deviated or reflected by obstructions and cannot travel over the horizon or behind obstacles. Beyond that, material disperses the rays respectively the energy of the waves."@en .
+
+
+###  http://sweetontology.net/procWave/MediumWaveInteractionProcess
+:MediumWaveInteractionProcess rdf:type owl:Class ;
+                              rdfs:subClassOf :WaveProcess .
+
+
+###  http://sweetontology.net/procWave/MieScattering
+:MieScattering rdf:type owl:Class ;
+               rdfs:subClassOf :Scattering ;
+               rdfs:comment "scattering of waves (photons) that reverse the direction of propagation" .
+
+
+###  http://sweetontology.net/procWave/Polarization
+:Polarization rdf:type owl:Class ;
+              rdfs:subClassOf :WaveProcess .
+
+
+###  http://sweetontology.net/procWave/Propagation
+:Propagation rdf:type owl:Class ;
+             owl:equivalentClass :WavePropagation ;
+             rdfs:subClassOf :WaveProcess ;
+             rdfs:comment "Wave propagation is any of the ways in which waves travel through a medium (waveguide). With respect to the direction of the oscillation relative to the propagation direction, we can distinguish between longitudinal wave and transverse waves. Another useful parameter for describing the propagation is the wave velocity that mostly depends on some kind of density of the medium. For electromagnetic waves, propagation may occur in a vacuum as well as in a material medium."@en .
+
+
+###  http://sweetontology.net/procWave/RayleighScattering
+:RayleighScattering rdf:type owl:Class ;
+                    rdfs:subClassOf :Scattering .
+
+
+###  http://sweetontology.net/procWave/Reflection
+:Reflection rdf:type owl:Class ;
+            rdfs:subClassOf :MediumWaveInteractionProcess .
+
+
+###  http://sweetontology.net/procWave/Refraction
+:Refraction rdf:type owl:Class ;
+            rdfs:subClassOf :MediumWaveInteractionProcess ;
+            rdfs:comment "A change of direction and possibly amplitude of an electromagnetic, acoustic, or any other wave propagating in a material medium, homogeneous on the scale of the wavelength, as a consequence of spatial variation in the properties of the medium."@en .
+
+
+###  http://sweetontology.net/procWave/Scattering
+:Scattering rdf:type owl:Class ;
+            rdfs:subClassOf :MediumWaveInteractionProcess ;
+            rdfs:comment "In a broad sense, the process by which matter is excited to radiate by an external source of electromagnetic radiation, as distinguished from emission of radiation by matter, which occurs even in the absence of such a source."@en .
+
+
+###  http://sweetontology.net/procWave/SchaeferBergmannDiffraction
+:SchaeferBergmannDiffraction rdf:type owl:Class ;
+                             rdfs:subClassOf :Diffraction .
+
+
+###  http://sweetontology.net/procWave/Transmission
+:Transmission rdf:type owl:Class ;
+              rdfs:subClassOf :MediumWaveInteractionProcess .
+
+
+###  http://sweetontology.net/procWave/WaveDrag
+:WaveDrag rdf:type owl:Class ;
+          rdfs:subClassOf :WaveProcess .
+
+
+###  http://sweetontology.net/procWave/WaveProcess
+:WaveProcess rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+
+
+###  http://sweetontology.net/procWave/WavePropagation
+:WavePropagation rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
