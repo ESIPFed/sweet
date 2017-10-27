@@ -1,54 +1,98 @@
+@prefix : <http://sweetontology.net/realmAstroBody/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://sweetontology.net/propTime/> .
 @prefix astro: <http://sweetontology.net/realmAstroBody/> .
 @prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix chem: <http://sweetontology.net/matr/> .
-@prefix time: <http://sweetontology.net/propTime/> .
 @prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@base <http://sweetontology.net/realmAstroBody> .
 
-<http://sweetontology.net/realmAstroBody> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpaceGeometry3D> , <http://sweetontology.net/realm> , <http://sweetontology.net/matr> , <http://sweetontology.net/propTime> , <http://sweetontology.net/relaPhysical> .
+<http://sweetontology.net/realmAstroBody> rdf:type owl:Ontology ;
+                                           owl:imports <http://sweetontology.net/matr> ,
+                                                       <http://sweetontology.net/propTime> ,
+                                                       <http://sweetontology.net/realm> ,
+                                                       <http://sweetontology.net/relaPhysical> ,
+                                                       <http://sweetontology.net/reprSpaceGeometry3D> ;
+                                           rdfs:label "SWEET Ontology" ;
+                                           owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/realmAstroBody/Asteroid> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/realmAstroBody/AstronomicalBody> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry3D/Body> .
+###  http://sweetontology.net/relaPhysical/revolvesAround
+prela:revolvesAround rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/realmAstroBody/Comet> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> .
 
-<http://sweetontology.net/realmAstroBody/Galaxy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/realmAstroBody/Moon> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> , _:node1boamede6x1 .
+###  http://sweetontology.net/realmAstroBody/Asteroid
+astro:Asteroid rdf:type owl:Class ;
+               rdfs:subClassOf astro:AstronomicalBody .
 
-_:node1boamede6x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/revolvesAround> ;
-	owl:allValuesFrom <http://sweetontology.net/realmAstroBody/Planet> .
 
-<http://sweetontology.net/realmAstroBody/Planet> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> , _:node1boamede6x2 .
+###  http://sweetontology.net/realmAstroBody/AstronomicalBody
+astro:AstronomicalBody rdf:type owl:Class ;
+                       rdfs:subClassOf obj3d:Body .
 
-_:node1boamede6x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/revolvesAround> ;
-	owl:allValuesFrom <http://sweetontology.net/realmAstroBody/Star> .
 
-<http://sweetontology.net/realmAstroBody/Satellite> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> .
+###  http://sweetontology.net/realmAstroBody/Comet
+astro:Comet rdf:type owl:Class ;
+            rdfs:subClassOf astro:AstronomicalBody .
 
-<http://sweetontology.net/realmAstroBody/Star> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> .
 
-<http://sweetontology.net/realmAstroBody/OuterSpace> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/Realm> .
+###  http://sweetontology.net/realmAstroBody/Extraterrestrial
+astro:Extraterrestrial rdf:type owl:Class ;
+                       rdfs:subClassOf astro:AstronomicalBody .
 
-<http://sweetontology.net/realmAstroBody/Extraterrestrial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroBody/AstronomicalBody> ;
-	rdfs:comment "A body or substance which does not originate from Earth. [Wikipedia]"@en .
+
+###  http://sweetontology.net/realmAstroBody/Galaxy
+astro:Galaxy rdf:type owl:Class ;
+             rdfs:subClassOf astro:AstronomicalBody .
+
+
+###  http://sweetontology.net/realmAstroBody/Moon
+astro:Moon rdf:type owl:Class ;
+           rdfs:subClassOf astro:AstronomicalBody ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty prela:revolvesAround ;
+                             owl:allValuesFrom astro:Planet
+                           ] .
+
+
+###  http://sweetontology.net/realmAstroBody/OuterSpace
+astro:OuterSpace rdf:type owl:Class ;
+                 rdfs:subClassOf realm:Realm .
+
+
+###  http://sweetontology.net/realmAstroBody/Planet
+astro:Planet rdf:type owl:Class ;
+             rdfs:subClassOf astro:AstronomicalBody ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty prela:revolvesAround ;
+                               owl:allValuesFrom astro:Star
+                             ] .
+
+
+###  http://sweetontology.net/realmAstroBody/Satellite
+astro:Satellite rdf:type owl:Class ;
+                rdfs:subClassOf astro:AstronomicalBody .
+
+
+###  http://sweetontology.net/realmAstroBody/Star
+astro:Star rdf:type owl:Class ;
+           rdfs:subClassOf astro:AstronomicalBody .
+
+
+###  http://sweetontology.net/reprSpaceGeometry3D/Body
+obj3d:Body rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

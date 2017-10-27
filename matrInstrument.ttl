@@ -1,105 +1,180 @@
-@prefix instr: <http://sweetontology.net/matrInstrument/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix comm: <http://sweetontology.net/matrEquipment/> .
-@prefix temp: <http://sweetontology.net/propTemperature/> .
-@prefix pres: <http://sweetontology.net/propPressure/> .
-@prefix ocea: <http://sweetontology.net/phenOceanCoastal/> .
-@prefix vel: <http://sweetontology.net/propSpeed/> .
+@prefix : <http://sweetontology.net/matrInstrument/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix vel: <http://sweetontology.net/propSpeed/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix comm: <http://sweetontology.net/matrEquipment/> .
+@prefix ocea: <http://sweetontology.net/phenOceanCoastal/> .
+@prefix pres: <http://sweetontology.net/propPressure/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix temp: <http://sweetontology.net/propTemperature/> .
+@prefix instr: <http://sweetontology.net/matrInstrument/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/matrInstrument> .
 
-<http://sweetontology.net/matrInstrument> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenOceanCoastal> , <http://sweetontology.net/propSpeed> , <http://sweetontology.net/matrEquipment> , <http://sweetontology.net/propPressure> , <http://sweetontology.net/propTemperature> , <http://sweetontology.net/relaSci> .
+<http://sweetontology.net/matrInstrument> rdf:type owl:Ontology ;
+                                           owl:imports <http://sweetontology.net/matrEquipment> ,
+                                                       <http://sweetontology.net/phenOceanCoastal> ,
+                                                       <http://sweetontology.net/propPressure> ,
+                                                       <http://sweetontology.net/propSpeed> ,
+                                                       <http://sweetontology.net/propTemperature> ,
+                                                       <http://sweetontology.net/relaSci> ;
+                                           rdfs:label "SWEET Ontology" ;
+                                           owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/matrInstrument/Buoy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/matrInstrument/Instrument> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEquipment/Equipment> ;
-	owl:equivalentClass <http://sweetontology.net/matrInstrument/Device> .
+###  http://sweetontology.net/relaSci/measures
+screla:measures rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/matrInstrument/Device> a owl:Class .
 
-<http://sweetontology.net/matrInstrument/Sensor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> ;
-	rdfs:subClassOf <http://www.w3.org/ns/sosa/Sensor> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/matrInstrument/Piezometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> ;
-	rdfs:comment "A devise used to measure groundwater pressure head at a point in the subsurface."@en .
+###  http://sweetontology.net/matrInstrument/Anemometer
+instr:Anemometer rdf:type owl:Class ;
+                 rdfs:subClassOf instr:Instrument ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:measures ;
+                                   owl:allValuesFrom vel:WindSpeed
+                                 ] .
 
-<http://sweetontology.net/matrInstrument/Tensiometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> ;
-	rdfs:comment "A device used to measure the moisture tension in the unsaturated zone."@en .
 
-<http://sweetontology.net/matrInstrument/Anemometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> , _:node1boamdvl2x1 .
+###  http://sweetontology.net/matrInstrument/Buoy
+instr:Buoy rdf:type owl:Class ;
+           rdfs:subClassOf instr:Instrument .
 
-_:node1boamdvl2x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measures> ;
-	owl:allValuesFrom <http://sweetontology.net/propSpeed/WindSpeed> .
 
-<http://sweetontology.net/matrInstrument/Manometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> , _:node1boamdvl2x2 .
+###  http://sweetontology.net/matrInstrument/Device
+instr:Device rdf:type owl:Class ;
+             owl:equivalentClass instr:Instrument .
 
-_:node1boamdvl2x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measures> ;
-	owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure> .
 
-<http://sweetontology.net/matrInstrument/TideGauge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> , _:node1boamdvl2x3 .
+###  http://sweetontology.net/matrInstrument/DopplerRadar
+instr:DopplerRadar rdf:type owl:Class ;
+                   rdfs:subClassOf instr:Radar .
 
-_:node1boamdvl2x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measures> ;
-	owl:allValuesFrom <http://sweetontology.net/phenOceanCoastal/OceanTide> .
 
-<http://sweetontology.net/matrInstrument/Radar> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> .
+###  http://sweetontology.net/matrInstrument/GPS
+instr:GPS rdf:type owl:Class ;
+          owl:equivalentClass instr:GlobalPositioningSystem ;
+          rdfs:subClassOf instr:Instrument .
 
-<http://sweetontology.net/matrInstrument/DopplerRadar> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Radar> .
 
-<http://sweetontology.net/matrInstrument/LIDAR> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> ;
-	rdfs:comment "LIDAR (Light Detection and Ranging) is an optical remote sensing technology that measures properties of scattered light to find range and/or other information of a distant target. The prevalent method to determine distance to an object or surface is to use laser pulses. Like the similar radar technology, which uses radio waves instead of light, the range to an object is determined by measuring the time delay between transmission of a pulse and detection of the reflected signal. LIDAR technology has application in archaeology, geography, geology, geomorphology, seismology, remote sensing and atmospheric physics." .
+###  http://sweetontology.net/matrInstrument/GlobalPositioningSystem
+instr:GlobalPositioningSystem rdf:type owl:Class .
 
-<http://sweetontology.net/matrInstrument/Magnetogram> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> .
 
-<http://sweetontology.net/matrInstrument/Microscope> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/OpticalInstrument> .
+###  http://sweetontology.net/matrInstrument/Instrument
+instr:Instrument rdf:type owl:Class ;
+                 rdfs:subClassOf comm:Equipment .
 
-<http://sweetontology.net/matrInstrument/OpticalInstrument> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> .
 
-<http://sweetontology.net/matrInstrument/Telescope> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/OpticalInstrument> .
+###  http://sweetontology.net/matrInstrument/LIDAR
+instr:LIDAR rdf:type owl:Class ;
+            rdfs:subClassOf instr:Instrument .
 
-<http://sweetontology.net/matrInstrument/Telethermometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Thermometer> ;
-	rdfs:comment "A temperature-measuring system in which the thermally sensitive element is located at a distance from the indicating element."@en .
 
-<http://sweetontology.net/matrInstrument/Thermometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> , _:node1boamdvl2x4 .
+###  http://sweetontology.net/matrInstrument/Magnetogram
+instr:Magnetogram rdf:type owl:Class ;
+                  rdfs:subClassOf instr:Instrument .
 
-_:node1boamdvl2x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measures> ;
-	owl:allValuesFrom <http://sweetontology.net/propTemperature/Temperature> .
 
-<http://sweetontology.net/matrInstrument/Piezometer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> , _:node1boamdvl2x5 .
+###  http://sweetontology.net/matrInstrument/Manometer
+instr:Manometer rdf:type owl:Class ;
+                rdfs:subClassOf instr:Instrument ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty screla:measures ;
+                                  owl:allValuesFrom pres:Pressure
+                                ] .
 
-_:node1boamdvl2x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measures> ;
-	owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure> .
 
-<http://sweetontology.net/matrInstrument/GPS> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrInstrument/Instrument> ;
-	owl:equivalentClass <http://sweetontology.net/matrInstrument/GlobalPositioningSystem> .
+###  http://sweetontology.net/matrInstrument/Microscope
+instr:Microscope rdf:type owl:Class ;
+                 rdfs:subClassOf instr:OpticalInstrument .
 
-<http://sweetontology.net/matrInstrument/GlobalPositioningSystem> a owl:Class .
+
+###  http://sweetontology.net/matrInstrument/OpticalInstrument
+instr:OpticalInstrument rdf:type owl:Class ;
+                        rdfs:subClassOf instr:Instrument .
+
+
+###  http://sweetontology.net/matrInstrument/Piezometer
+instr:Piezometer rdf:type owl:Class ;
+                 rdfs:subClassOf instr:Instrument ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:measures ;
+                                   owl:allValuesFrom pres:Pressure
+                                 ] .
+
+
+###  http://sweetontology.net/matrInstrument/Radar
+instr:Radar rdf:type owl:Class ;
+            rdfs:subClassOf instr:Instrument .
+
+
+###  http://sweetontology.net/matrInstrument/Sensor
+instr:Sensor rdf:type owl:Class ;
+             rdfs:subClassOf instr:Instrument ,
+                             sosa:Sensor .
+
+
+###  http://sweetontology.net/matrInstrument/Telescope
+instr:Telescope rdf:type owl:Class ;
+                rdfs:subClassOf instr:OpticalInstrument .
+
+
+###  http://sweetontology.net/matrInstrument/Telethermometer
+instr:Telethermometer rdf:type owl:Class ;
+                      rdfs:subClassOf instr:Thermometer .
+
+
+###  http://sweetontology.net/matrInstrument/Tensiometer
+instr:Tensiometer rdf:type owl:Class ;
+                  rdfs:subClassOf instr:Instrument .
+
+
+###  http://sweetontology.net/matrInstrument/Thermometer
+instr:Thermometer rdf:type owl:Class ;
+                  rdfs:subClassOf instr:Instrument ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty screla:measures ;
+                                    owl:allValuesFrom temp:Temperature
+                                  ] .
+
+
+###  http://sweetontology.net/matrInstrument/TideGauge
+instr:TideGauge rdf:type owl:Class ;
+                rdfs:subClassOf instr:Instrument ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty screla:measures ;
+                                  owl:allValuesFrom ocea:OceanTide
+                                ] .
+
+
+###  http://sweetontology.net/phenOceanCoastal/OceanTide
+ocea:OceanTide rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propPressure/Pressure
+pres:Pressure rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propSpeed/WindSpeed
+vel:WindSpeed rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propTemperature/Temperature
+temp:Temperature rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/sosa/Sensor
+sosa:Sensor rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

@@ -1,175 +1,268 @@
+@prefix : <http://sweetontology.net/realmRegion/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sreg: <http://sweetontology.net/realmRegion/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix realm: <http://sweetontology.net/realm/> .
 @prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix spac: <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix sreg: <http://sweetontology.net/realmRegion/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/realmRegion> .
 
-<http://sweetontology.net/realmRegion> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/realm> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/reprSciUnits> .
+<http://sweetontology.net/realmRegion> rdf:type owl:Ontology ;
+                                        owl:imports <http://sweetontology.net/propQuantity> ,
+                                                    <http://sweetontology.net/realm> ,
+                                                    <http://sweetontology.net/relaMath> ,
+                                                    <http://sweetontology.net/relaSci> ,
+                                                    <http://sweetontology.net/relaSpace> ,
+                                                    <http://sweetontology.net/reprSciUnits> ,
+                                                    <http://sweetontology.net/reprSpaceGeometry> ;
+                                        rdfs:label "SWEET Ontology" ;
+                                        owl:versionInfo "3.1.0" .
 
-sreg:Equator a sreg:LatitudeLine ;
-	srela:hasLatitudeLine _:node1boamehq5x1 .
+#################################################################
+#    Object Properties
+#################################################################
 
-_:node1boamehq5x1 a sreg:LatitudeLine ;
-	screla:hasNumericValue "0."^^xsd:double .
+###  http://sweetontology.net/relaSci/hasUnit
+screla:hasUnit rdf:type owl:ObjectProperty .
 
-sreg:Extratropics a sreg:LatitudeBand ;
-	owl:differentFrom sreg:Tropics , sreg:Subtropics .
 
-sreg:LowLatitude a sreg:LatitudeBand ;
-	owl:sameAs sreg:Tropical , sreg:Tropics , sreg:LowLatitude ;
-	srela:hasLatitudeBand _:node1boamehq5x2 .
+#################################################################
+#    Data properties
+#################################################################
 
-_:node1boamehq5x2 a sreg:LatitudeBand ;
-	mrela:hasLowerBound "-25"^^xsd:integer ;
-	mrela:hasUpperBound "25"^^xsd:integer .
+###  http://sweetontology.net/relaMath/hasLowerBound
+mrela:hasLowerBound rdf:type owl:DatatypeProperty .
 
-sreg:Tropics a sreg:LatitudeBand .
 
-sreg:Tropical a sreg:LatitudeBand .
+###  http://sweetontology.net/relaMath/hasUpperBound
+mrela:hasUpperBound rdf:type owl:DatatypeProperty .
 
-sreg:LowLatitude a sreg:LatitudeBand .
 
-sreg:MidLatitude a sreg:LatitudeBand ;
-	srela:hasLatitudeBand _:node1boamehq5x3 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamehq5x3 a sreg:SouthLatitudeBand ;
-	mrela:hasLowerBound "-55"^^xsd:integer ;
-	mrela:hasUpperBound "-25"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/Austral
+sreg:Austral rdf:type owl:Class ;
+             rdfs:subClassOf sreg:SouthLatitudeBand .
 
-sreg:MidLatitude srela:hasLatitudeBand _:node1boamehq5x4 .
 
-_:node1boamehq5x4 a sreg:NorthLatitudeBand ;
-	mrela:hasLowerBound "25"^^xsd:integer ;
-	mrela:hasUpperBound "55"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/Borealis
+sreg:Borealis rdf:type owl:Class ;
+              rdfs:subClassOf sreg:NorthLatitudeBand .
 
-sreg:Pole a sreg:LatitudeLine ;
-	srela:hasLatitudeLine _:node1boamehq5x5 .
 
-_:node1boamehq5x5 a sreg:SouthLatitudeLine ;
-	screla:hasNumericValue "-90."^^xsd:double .
+###  http://sweetontology.net/realmRegion/LatitudeBand
+sreg:LatitudeBand rdf:type owl:Class ;
+                  rdfs:subClassOf quan:PhysicalQuantity ,
+                                  spac:Region ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty screla:hasUnit ;
+                                    owl:hasValue units:degrees
+                                  ] .
 
-sreg:Pole srela:hasLatitudeLine _:node1boamehq5x6 .
 
-_:node1boamehq5x6 a sreg:NorthLatitudeLine ;
-	screla:hasNumericValue "90."^^xsd:double .
+###  http://sweetontology.net/realmRegion/LatitudeLine
+sreg:LatitudeLine rdf:type owl:Class ;
+                  rdfs:subClassOf quan:PhysicalQuantity ,
+                                  spac:Region ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty screla:hasUnit ;
+                                    owl:hasValue units:degrees
+                                  ] .
 
-sreg:Subtropics a sreg:LatitudeBand ;
-	srela:hasLatitudeBand _:node1boamehq5x7 .
 
-_:node1boamehq5x7 a sreg:SouthLatitudeBand ;
-	mrela:hasLowerBound "-40"^^xsd:integer ;
-	mrela:hasUpperBound "-20"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/NorthLatitudeBand
+sreg:NorthLatitudeBand rdf:type owl:Class ;
+                       rdfs:subClassOf sreg:LatitudeBand ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty mrela:hasLowerBound ;
+                                         owl:hasValue 0
+                                       ] .
 
-sreg:Subtropics srela:hasLatitudeBand _:node1boamehq5x8 .
 
-_:node1boamehq5x8 a sreg:NorthLatitudeBand ;
-	mrela:hasLowerBound "20"^^xsd:integer ;
-	mrela:hasUpperBound "40"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/NorthLatitudeLine
+sreg:NorthLatitudeLine rdf:type owl:Class ;
+                       rdfs:subClassOf sreg:LatitudeLine .
 
-sreg:Subtropics owl:sameAs sreg:Subtropical .
 
-sreg:Subtropical a sreg:LatitudeBand .
+###  http://sweetontology.net/realmRegion/NorthernHemisphere
+sreg:NorthernHemisphere rdf:type owl:Class ;
+                        rdfs:subClassOf sreg:NorthLatitudeBand ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty mrela:hasUpperBound ;
+                                          owl:hasValue 90
+                                        ] .
 
-sreg:HighLatitude a sreg:LatitudeBand ;
-	srela:hasLatitudeBand _:node1boamehq5x9 .
 
-_:node1boamehq5x9 a sreg:SouthLatitudeBand ;
-	mrela:hasLowerBound "-90"^^xsd:integer ;
-	mrela:hasUpperBound "-55"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/SouthLatitudeBand
+sreg:SouthLatitudeBand rdf:type owl:Class ;
+                       rdfs:subClassOf sreg:LatitudeBand ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty mrela:hasUpperBound ;
+                                         owl:hasValue 0
+                                       ] .
 
-sreg:HighLatitude srela:hasLatitudeBand _:node1boamehq5x10 .
 
-_:node1boamehq5x10 a sreg:NorthLatitudeBand ;
-	mrela:hasLowerBound "55"^^xsd:integer ;
-	mrela:hasUpperBound "90"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/SouthLatitudeLine
+sreg:SouthLatitudeLine rdf:type owl:Class ;
+                       rdfs:subClassOf sreg:LatitudeLine .
 
-sreg:Equatorial a sreg:LatitudeBand ;
-	srela:hasLatitudeBand _:node1boamehq5x11 .
 
-_:node1boamehq5x11 a sreg:SouthLatitudeBand ;
-	mrela:hasLowerBound "-20"^^xsd:integer ;
-	mrela:hasUpperBound "20"^^xsd:integer .
+###  http://sweetontology.net/realmRegion/SouthernHemisphere
+sreg:SouthernHemisphere rdf:type owl:Class ;
+                        rdfs:subClassOf sreg:SouthLatitudeBand ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty mrela:hasLowerBound ;
+                                          owl:hasValue -90
+                                        ] .
 
-sreg:Global a sreg:LatitudeBand ;
-	srela:hasLatitudeBand _:node1boamehq5x12 .
 
-_:node1boamehq5x12 a sreg:SouthLatitudeBand ;
-	mrela:hasLowerBound "-90"^^xsd:integer ;
-	mrela:hasUpperBound "90"^^xsd:integer .
+###  http://sweetontology.net/reprSpaceGeometry/Region
+spac:Region rdf:type owl:Class .
 
-sreg:Polar a sreg:LatitudeBand ;
-	srela:hasLatitudeBand _:node1boamehq5x13 .
 
-_:node1boamehq5x13 a sreg:SouthLatitudeBand ;
-	mrela:hasLowerBound "-90"^^xsd:integer ;
-	mrela:hasUpperBound "-70"^^xsd:integer .
+#################################################################
+#    Individuals
+#################################################################
 
-sreg:Polar srela:hasLatitudeBand _:node1boamehq5x14 .
+###  http://sweetontology.net/realmRegion/Equator
+sreg:Equator rdf:type owl:NamedIndividual ,
+                      sreg:LatitudeLine .
 
-_:node1boamehq5x14 a sreg:NorthLatitudeBand ;
-	mrela:hasLowerBound "70"^^xsd:integer ;
-	mrela:hasUpperBound "90"^^xsd:integer .
 
-sreg:LatitudeBand a owl:Class ;
-	rdfs:subClassOf spac:Region , quan:PhysicalQuantity , _:node1boamehq5x15 .
+###  http://sweetontology.net/realmRegion/Equatorial
+sreg:Equatorial rdf:type owl:NamedIndividual ,
+                         sreg:LatitudeBand .
 
-_:node1boamehq5x15 a owl:Restriction ;
-	owl:hasValue units:degrees ;
-	owl:onProperty screla:hasUnit .
 
-sreg:SouthLatitudeBand a owl:Class ;
-	rdfs:subClassOf sreg:LatitudeBand , _:node1boamehq5x16 .
+###  http://sweetontology.net/realmRegion/Extratropics
+sreg:Extratropics rdf:type owl:NamedIndividual ,
+                           sreg:LatitudeBand .
 
-_:node1boamehq5x16 a owl:Restriction ;
-	owl:hasValue "0"^^xsd:integer ;
-	owl:onProperty mrela:hasUpperBound .
 
-sreg:NorthLatitudeBand a owl:Class ;
-	rdfs:subClassOf sreg:LatitudeBand , _:node1boamehq5x17 .
+###  http://sweetontology.net/realmRegion/Global
+sreg:Global rdf:type owl:NamedIndividual ,
+                     sreg:LatitudeBand .
 
-_:node1boamehq5x17 a owl:Restriction ;
-	owl:hasValue "0"^^xsd:integer ;
-	owl:onProperty mrela:hasLowerBound .
 
-sreg:LatitudeLine a owl:Class ;
-	rdfs:subClassOf spac:Region , quan:PhysicalQuantity , _:node1boamehq5x18 .
+###  http://sweetontology.net/realmRegion/HighLatitude
+sreg:HighLatitude rdf:type owl:NamedIndividual ,
+                           sreg:LatitudeBand .
 
-_:node1boamehq5x18 a owl:Restriction ;
-	owl:hasValue units:degrees ;
-	owl:onProperty screla:hasUnit .
 
-sreg:NorthLatitudeLine a owl:Class ;
-	rdfs:subClassOf sreg:LatitudeLine .
+###  http://sweetontology.net/realmRegion/LowLatitude
+sreg:LowLatitude rdf:type owl:NamedIndividual ,
+                          sreg:LatitudeBand ;
+                 owl:sameAs sreg:Tropical ,
+                            sreg:Tropics .
 
-sreg:SouthLatitudeLine a owl:Class ;
-	rdfs:subClassOf sreg:LatitudeLine .
 
-sreg:NorthernHemisphere a owl:Class ;
-	rdfs:subClassOf sreg:NorthLatitudeBand , _:node1boamehq5x19 .
+###  http://sweetontology.net/realmRegion/MidLatitude
+sreg:MidLatitude rdf:type owl:NamedIndividual ,
+                          sreg:LatitudeBand .
 
-_:node1boamehq5x19 a owl:Restriction ;
-	owl:hasValue "90"^^xsd:integer ;
-	owl:onProperty mrela:hasUpperBound .
 
-sreg:SouthernHemisphere a owl:Class ;
-	rdfs:subClassOf sreg:SouthLatitudeBand , _:node1boamehq5x20 .
+###  http://sweetontology.net/realmRegion/Polar
+sreg:Polar rdf:type owl:NamedIndividual ,
+                    sreg:LatitudeBand .
 
-_:node1boamehq5x20 a owl:Restriction ;
-	owl:hasValue "-90"^^xsd:integer ;
-	owl:onProperty mrela:hasLowerBound .
 
-sreg:Borealis a owl:Class ;
-	rdfs:subClassOf sreg:NorthLatitudeBand .
+###  http://sweetontology.net/realmRegion/Pole
+sreg:Pole rdf:type owl:NamedIndividual ,
+                   sreg:LatitudeLine .
 
-sreg:Austral a owl:Class ;
-	rdfs:subClassOf sreg:SouthLatitudeBand .
+
+###  http://sweetontology.net/realmRegion/Subtropical
+sreg:Subtropical rdf:type owl:NamedIndividual ,
+                          sreg:LatitudeBand ;
+                 owl:sameAs sreg:Subtropics .
+
+
+###  http://sweetontology.net/realmRegion/Subtropics
+sreg:Subtropics rdf:type owl:NamedIndividual ,
+                         sreg:LatitudeBand .
+
+
+###  http://sweetontology.net/realmRegion/Tropical
+sreg:Tropical rdf:type owl:NamedIndividual ,
+                       sreg:LatitudeBand .
+
+
+###  http://sweetontology.net/realmRegion/Tropics
+sreg:Tropics rdf:type owl:NamedIndividual ,
+                      sreg:LatitudeBand .
+
+
+###  http://sweetontology.net/reprSciUnits/degrees
+units:degrees rdf:type owl:NamedIndividual .
+
+
+[ rdf:type sreg:LatitudeLine
+] .
+
+[ rdf:type sreg:LatitudeBand
+ ] .
+
+[ rdf:type sreg:SouthLatitudeBand
+ ] .
+
+[ rdf:type sreg:NorthLatitudeBand
+ ] .
+
+[ rdf:type sreg:SouthLatitudeLine
+ ] .
+
+[ rdf:type sreg:NorthLatitudeLine
+ ] .
+
+[ rdf:type sreg:SouthLatitudeBand
+ ] .
+
+[ rdf:type sreg:NorthLatitudeBand
+ ] .
+
+[ rdf:type sreg:SouthLatitudeBand
+ ] .
+
+[ rdf:type sreg:NorthLatitudeBand
+ ] .
+
+[ rdf:type sreg:SouthLatitudeBand
+ ] .
+
+[ rdf:type sreg:SouthLatitudeBand
+ ] .
+
+[ rdf:type sreg:SouthLatitudeBand
+ ] .
+
+[ rdf:type sreg:NorthLatitudeBand
+ ] .
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+   owl:distinctMembers ( sreg:Extratropics
+                         sreg:Subtropics
+                       )
+ ] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( sreg:Extratropics
+                        sreg:Tropics
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

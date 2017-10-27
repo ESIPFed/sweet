@@ -1,326 +1,832 @@
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix spac: <http://sweetontology.net/propSpace/> .
-@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
-@prefix func: <http://sweetontology.net/propFunction/> .
-@prefix conf: <http://sweetontology.net/stateSpaceConfiguration/> .
+@prefix : <http://sweetontology.net/stateSpaceConfiguration/> .
 @prefix obj: <http://sweetontology.net/reprSpaceGeometry/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix conf: <http://sweetontology.net/stateSpaceConfiguration/> .
+@prefix func: <http://sweetontology.net/propFunction/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
+@prefix spac: <http://sweetontology.net/propSpace/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@base <http://sweetontology.net/stateSpaceConfiguration> .
 
-<http://sweetontology.net/stateSpaceConfiguration> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/propSpace> , <http://sweetontology.net/reprSpaceDirection> , <http://sweetontology.net/propFunction> , <http://sweetontology.net/reprSpaceGeometry> .
+<http://sweetontology.net/stateSpaceConfiguration> rdf:type owl:Ontology ;
+                                                    owl:imports <http://sweetontology.net/propFunction> ,
+                                                                <http://sweetontology.net/propSpace> ,
+                                                                <http://sweetontology.net/relaMath> ,
+                                                                <http://sweetontology.net/relaSpace> ,
+                                                                <http://sweetontology.net/reprSpaceDirection> ,
+                                                                <http://sweetontology.net/reprSpaceGeometry> ;
+                                                    rdfs:label "SWEET Ontology" ;
+                                                    owl:versionInfo "3.1.0" .
 
-conf:Arched a spac:Shape .
+#################################################################
+#    Classes
+#################################################################
 
-conf:Round a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Antumbra
+conf:Antumbra rdf:type owl:Class ;
+              rdfs:subClassOf conf:Shadow .
 
-conf:Rounded a spac:Shape ;
-	mrela:approximates conf:Round .
 
-conf:Bent a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Basal
+conf:Basal rdf:type owl:Class ;
+           owl:equivalentClass conf:Bottom .
 
-conf:Dip a spac:Shape .
 
-conf:Sigmoid a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Base
+conf:Base rdf:type owl:Class ;
+          owl:equivalentClass conf:Bottom .
 
-conf:Bladed a spac:Shape .
 
-conf:Compact a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Bottom
+conf:Bottom rdf:type owl:Class ;
+            owl:equivalentClass conf:Floor ;
+            rdfs:subClassOf func:Minimum ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty srela:hasDirection ;
+                              owl:hasValue sdir:Down
+                            ] .
 
-conf:Curved a spac:Shape .
 
-conf:Elliptical a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Flank
+conf:Flank rdf:type owl:Class ;
+           rdfs:subClassOf spac:SpatialConfiguration .
 
-conf:Flat a spac:Shape .
 
-conf:Flattend a spac:Shape ;
-	mrela:approximates conf:Flat .
+###  http://sweetontology.net/stateSpaceConfiguration/Floor
+conf:Floor rdf:type owl:Class .
 
-conf:Fretted a spac:Shape .
 
-conf:Grooved a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Juxtaposition
+conf:Juxtaposition rdf:type owl:Class ;
+                   rdfs:subClassOf spac:SpatialConfiguration .
 
-conf:Hexagonal a spac:Shape .
 
-conf:Poloidal a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Penumbra
+conf:Penumbra rdf:type owl:Class ;
+              rdfs:subClassOf conf:Shadow .
 
-conf:Scalloped a spac:Shape .
 
-conf:Short a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Projection
+conf:Projection rdf:type owl:Class ;
+                rdfs:subClassOf spac:SpatialConfiguration .
 
-conf:Sinusoidal a spac:Shape .
 
-conf:Square a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Relief
+conf:Relief rdf:type owl:Class ;
+            rdfs:subClassOf conf:Projection .
 
-conf:Toroidal a spac:Shape .
 
-conf:Toroional a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Rim
+conf:Rim rdf:type owl:Class ;
+         owl:equivalentClass conf:Top .
 
-conf:Twisted a spac:Shape .
 
-conf:Long a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Shadow
+conf:Shadow rdf:type owl:Class ;
+            rdfs:subClassOf conf:Projection .
 
-conf:Elongated a spac:Shape ;
-	mrela:approximates conf:Long .
 
-conf:Wide a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Side
+conf:Side rdf:type owl:Class ;
+          rdfs:subClassOf spac:SpatialConfiguration .
 
-conf:Broad a spac:Shape .
 
-conf:Narrow a spac:Shape ;
-	owl:differentFrom conf:Wide .
+###  http://sweetontology.net/stateSpaceConfiguration/Top
+conf:Top rdf:type owl:Class ;
+         rdfs:subClassOf func:Maximum ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty srela:above ;
+                           owl:allValuesFrom conf:Bottom
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty srela:hasDirection ;
+                           owl:hasValue sdir:Up
+                         ] .
 
-conf:Braided a spac:Shape .
 
-conf:Branched a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Umbra
+conf:Umbra rdf:type owl:Class ;
+           rdfs:subClassOf conf:Shadow .
 
-conf:Concealed a spac:Shape .
 
-conf:Curtain a spac:Shape .
+#################################################################
+#    Individuals
+#################################################################
 
-conf:Extant a spac:Shape .
+###  http://sweetontology.net/reprSpaceDirection/Down
+sdir:Down rdf:type owl:NamedIndividual .
 
-conf:Sharp a spac:Shape .
 
-conf:Spherical a spac:Shape .
+###  http://sweetontology.net/reprSpaceDirection/Up
+sdir:Up rdf:type owl:NamedIndividual .
 
-conf:Prolate a spac:Shape .
 
-conf:Oblate a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Amorphous
+conf:Amorphous rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Ridged a spac:Shape .
 
-conf:Sheet a spac:Shape .
+###  http://sweetontology.net/stateSpaceConfiguration/Anisotropic
+conf:Anisotropic rdf:type owl:NamedIndividual ,
+                          spac:SpatialConfiguration ;
+                 owl:sameAs conf:Anisotropy .
 
-conf:Terminator a spac:OrbitalConfiguration , obj:GreatCircle .
 
-conf:Geosynchronous a spac:OrbitalConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Anisotropy
+conf:Anisotropy rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration .
 
-conf:Geostationary a spac:OrbitalConfiguration , obj:GreatCircle .
 
-conf:SunSynchronous a spac:OrbitalConfiguration , obj:GreatCircle .
+###  http://sweetontology.net/stateSpaceConfiguration/Aphelion
+conf:Aphelion rdf:type owl:NamedIndividual ,
+                       spac:OrbitalConfiguration .
 
-conf:Aphelion a spac:OrbitalConfiguration .
 
-conf:Conjunction a spac:OrbitalConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Arched
+conf:Arched rdf:type owl:NamedIndividual ,
+                     spac:Shape .
 
-conf:Eclipse a spac:OrbitalConfiguration .
 
-conf:Opposition a spac:OrbitalConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Ascending
+conf:Ascending rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Perihelion a spac:OrbitalConfiguration ;
-	owl:differentFrom conf:Aphelion .
 
-conf:Prograde a spac:OrbitalConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Asymmetric
+conf:Asymmetric rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration ;
+                owl:sameAs conf:Asymmetry .
 
-conf:Retrograde a spac:OrbitalConfiguration ;
-	owl:differentFrom conf:Prograde .
 
-conf:Transit a spac:OrbitalConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Asymmetry
+conf:Asymmetry rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Anisotropic a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Isotropic ;
-	owl:sameAs conf:Anisotropy .
 
-conf:Anisotropy a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Axisymmetric
+conf:Axisymmetric rdf:type owl:NamedIndividual ,
+                           spac:SpatialConfiguration .
 
-conf:Asymmetry a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Symmetry ;
-	owl:sameAs conf:Asymmetric .
 
-conf:Asymmetric a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Bent
+conf:Bent rdf:type owl:NamedIndividual ,
+                   spac:Shape .
 
-conf:Axisymmetric a spac:SpatialConfiguration .
 
-conf:Amorphous a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Biaxial
+conf:Biaxial rdf:type owl:NamedIndividual ,
+                      spac:SpatialConfiguration .
 
-conf:Dendritic a spac:SpatialConfiguration .
 
-conf:Dispersed a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Bladed
+conf:Bladed rdf:type owl:NamedIndividual ,
+                     spac:Shape .
 
-conf:Entrained a spac:SpatialConfiguration .
 
-conf:Even a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Braided
+conf:Braided rdf:type owl:NamedIndividual ,
+                      spac:Shape .
 
-conf:Imbricated a spac:SpatialConfiguration ;
-	owl:sameAs conf:Imbrication .
 
-conf:Imbrication a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Branched
+conf:Branched rdf:type owl:NamedIndividual ,
+                       spac:Shape .
 
-conf:Isometric a spac:SpatialConfiguration .
 
-conf:Monoclinic a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Broad
+conf:Broad rdf:type owl:NamedIndividual ,
+                    spac:Shape .
 
-conf:Orthorhombic a spac:SpatialConfiguration .
 
-conf:Rhombic a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Compact
+conf:Compact rdf:type owl:NamedIndividual ,
+                      spac:Shape .
 
-conf:Steep a spac:SpatialConfiguration .
 
-conf:Tetragonal a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Concealed
+conf:Concealed rdf:type owl:NamedIndividual ,
+                        spac:Shape .
 
-conf:Trapped a spac:SpatialConfiguration .
 
-conf:Triclinic a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Concentric
+conf:Concentric rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration .
 
-conf:Trigonal a spac:SpatialConfiguration .
 
-conf:Perched a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Confined
+conf:Confined rdf:type owl:NamedIndividual ,
+                       spac:Connectivity ;
+              owl:sameAs conf:Trapped .
 
-conf:Isotropic a spac:SpatialConfiguration ;
-	owl:sameAs conf:Isotropy .
 
-conf:Isotropy a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Conjunction
+conf:Conjunction rdf:type owl:NamedIndividual ,
+                          spac:OrbitalConfiguration .
 
-conf:Symmetry a spac:SpatialConfiguration ;
-	owl:sameAs conf:Symmetric .
 
-conf:Symmetric a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Connected
+conf:Connected rdf:type owl:NamedIndividual ,
+                        spac:Connectivity ;
+               owl:sameAs conf:Interconnected .
 
-conf:Biaxial a spac:SpatialConfiguration .
 
-conf:Triaxial a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Contained
+conf:Contained rdf:type owl:NamedIndividual ,
+                        spac:Connectivity .
 
-conf:Inclined a spac:SpatialConfiguration .
 
-conf:Elevated a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Crooked
+conf:Crooked rdf:type owl:NamedIndividual ,
+                      spac:SpatialConfiguration .
 
-conf:String a spac:SpatialConfiguration .
 
-conf:Rope a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Curtain
+conf:Curtain rdf:type owl:NamedIndividual ,
+                      spac:Shape .
 
-conf:Uneven a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Even .
 
-conf:Crooked a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Straight .
+###  http://sweetontology.net/stateSpaceConfiguration/Curved
+conf:Curved rdf:type owl:NamedIndividual ,
+                     spac:Shape .
 
-conf:Tilted a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Straight .
 
-conf:Concentric a spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Cutoff
+conf:Cutoff rdf:type owl:NamedIndividual ,
+                     spac:Connectivity .
 
-conf:Straight a spac:SpatialConfiguration .
 
-conf:Ascending a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Descending .
+###  http://sweetontology.net/stateSpaceConfiguration/Dendritic
+conf:Dendritic rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Descending a spac:SpatialConfiguration .
 
-conf:Evacuated a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Full .
+###  http://sweetontology.net/stateSpaceConfiguration/Dense
+conf:Dense rdf:type owl:NamedIndividual ,
+                    spac:SpatialConfiguration .
 
-conf:Full a spac:SpatialConfiguration .
 
-conf:Empty a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Full .
+###  http://sweetontology.net/stateSpaceConfiguration/Descending
+conf:Descending rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration .
 
-conf:Dense a spac:SpatialConfiguration .
 
-conf:Void a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Full .
+###  http://sweetontology.net/stateSpaceConfiguration/Dip
+conf:Dip rdf:type owl:NamedIndividual ,
+                  spac:Shape .
 
-conf:Sparse a spac:SpatialConfiguration ;
-	owl:differentFrom conf:Dense .
 
-conf:Connected a spac:Connectivity ;
-	owl:sameAs conf:Interconnected .
+###  http://sweetontology.net/stateSpaceConfiguration/Dispersed
+conf:Dispersed rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Interconnected a spac:Connectivity .
 
-conf:Isolated a spac:Connectivity ;
-	owl:differentFrom conf:Connected .
+###  http://sweetontology.net/stateSpaceConfiguration/Eclipse
+conf:Eclipse rdf:type owl:NamedIndividual ,
+                      spac:OrbitalConfiguration .
 
-conf:Unconnected a spac:Connectivity .
 
-conf:Interlocking a spac:Connectivity .
+###  http://sweetontology.net/stateSpaceConfiguration/Elevated
+conf:Elevated rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
 
-conf:Interwoven a spac:Connectivity .
 
-conf:Semiconfined a spac:Connectivity ;
-	owl:differentFrom conf:Confined , conf:Unconfined .
+###  http://sweetontology.net/stateSpaceConfiguration/Elliptical
+conf:Elliptical rdf:type owl:NamedIndividual ,
+                         spac:Shape .
 
-conf:Unconfined a spac:Connectivity ;
-	owl:differentFrom conf:Confined .
 
-conf:Confined a spac:Connectivity ;
-	owl:differentFrom conf:Open ;
-	owl:sameAs conf:Trapped .
+###  http://sweetontology.net/stateSpaceConfiguration/Elongated
+conf:Elongated rdf:type owl:NamedIndividual ,
+                        spac:Shape ;
+               mrela:approximates conf:Long .
 
-conf:Trapped a spac:Connectivity .
 
-conf:Sealed a spac:Connectivity ;
-	owl:differentFrom conf:Open .
+###  http://sweetontology.net/stateSpaceConfiguration/Empty
+conf:Empty rdf:type owl:NamedIndividual ,
+                    spac:SpatialConfiguration .
 
-conf:Contained a spac:Connectivity ;
-	owl:differentFrom conf:Open .
 
-conf:Open a spac:Connectivity .
+###  http://sweetontology.net/stateSpaceConfiguration/Entrained
+conf:Entrained rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Isolated a spac:Connectivity .
 
-conf:Cutoff a spac:Connectivity .
+###  http://sweetontology.net/stateSpaceConfiguration/Evacuated
+conf:Evacuated rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
 
-conf:Flank a owl:Class ;
-	rdfs:subClassOf spac:SpatialConfiguration .
 
-conf:Juxtaposition a owl:Class ;
-	rdfs:subClassOf spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Even
+conf:Even rdf:type owl:NamedIndividual ,
+                   spac:SpatialConfiguration .
 
-conf:Projection a owl:Class ;
-	rdfs:subClassOf spac:SpatialConfiguration .
 
-conf:Relief a owl:Class ;
-	rdfs:subClassOf conf:Projection .
+###  http://sweetontology.net/stateSpaceConfiguration/Extant
+conf:Extant rdf:type owl:NamedIndividual ,
+                     spac:Shape .
 
-conf:Shadow a owl:Class ;
-	rdfs:subClassOf conf:Projection .
 
-conf:Side a owl:Class ;
-	rdfs:subClassOf spac:SpatialConfiguration .
+###  http://sweetontology.net/stateSpaceConfiguration/Flat
+conf:Flat rdf:type owl:NamedIndividual ,
+                   spac:Shape .
 
-conf:Bottom a owl:Class ;
-	rdfs:subClassOf func:Minimum , _:node1boameqnhx1 .
 
-_:node1boameqnhx1 a owl:Restriction ;
-	owl:onProperty srela:hasDirection ;
-	owl:hasValue sdir:Down .
+###  http://sweetontology.net/stateSpaceConfiguration/Flattend
+conf:Flattend rdf:type owl:NamedIndividual ,
+                       spac:Shape ;
+              mrela:approximates conf:Flat .
 
-conf:Bottom owl:equivalentClass conf:Base , conf:Basal , conf:Floor .
 
-conf:Base a owl:Class .
+###  http://sweetontology.net/stateSpaceConfiguration/Fretted
+conf:Fretted rdf:type owl:NamedIndividual ,
+                      spac:Shape .
 
-conf:Basal a owl:Class .
 
-conf:Floor a owl:Class .
+###  http://sweetontology.net/stateSpaceConfiguration/Full
+conf:Full rdf:type owl:NamedIndividual ,
+                   spac:SpatialConfiguration .
 
-conf:Top a owl:Class ;
-	rdfs:subClassOf func:Maximum ;
-	owl:equivalentClass conf:Rim ;
-	rdfs:subClassOf _:node1boameqnhx2 .
 
-_:node1boameqnhx2 a owl:Restriction ;
-	owl:onProperty srela:hasDirection ;
-	owl:hasValue sdir:Up .
+###  http://sweetontology.net/stateSpaceConfiguration/Geostationary
+conf:Geostationary rdf:type owl:NamedIndividual ,
+                            spac:OrbitalConfiguration ,
+                            obj:GreatCircle .
 
-conf:Top rdfs:subClassOf _:node1boameqnhx3 .
 
-_:node1boameqnhx3 a owl:Restriction ;
-	owl:allValuesFrom conf:Bottom ;
-	owl:onProperty srela:above .
+###  http://sweetontology.net/stateSpaceConfiguration/Geosynchronous
+conf:Geosynchronous rdf:type owl:NamedIndividual ,
+                             spac:OrbitalConfiguration .
 
-conf:Rim a owl:Class .
 
-conf:Antumbra a owl:Class ;
-	rdfs:subClassOf conf:Shadow .
+###  http://sweetontology.net/stateSpaceConfiguration/Grooved
+conf:Grooved rdf:type owl:NamedIndividual ,
+                      spac:Shape .
 
-conf:Umbra a owl:Class ;
-	rdfs:subClassOf conf:Shadow .
 
-conf:Penumbra a owl:Class ;
-	rdfs:subClassOf conf:Shadow .
+###  http://sweetontology.net/stateSpaceConfiguration/Hexagonal
+conf:Hexagonal rdf:type owl:NamedIndividual ,
+                        spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Imbricated
+conf:Imbricated rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration ;
+                owl:sameAs conf:Imbrication .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Imbrication
+conf:Imbrication rdf:type owl:NamedIndividual ,
+                          spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Inclined
+conf:Inclined rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Interconnected
+conf:Interconnected rdf:type owl:NamedIndividual ,
+                             spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Interlocking
+conf:Interlocking rdf:type owl:NamedIndividual ,
+                           spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Interwoven
+conf:Interwoven rdf:type owl:NamedIndividual ,
+                         spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Isolated
+conf:Isolated rdf:type owl:NamedIndividual ,
+                       spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Isometric
+conf:Isometric rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Isotropic
+conf:Isotropic rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration ;
+               owl:sameAs conf:Isotropy .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Isotropy
+conf:Isotropy rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Long
+conf:Long rdf:type owl:NamedIndividual ,
+                   spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Monoclinic
+conf:Monoclinic rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Narrow
+conf:Narrow rdf:type owl:NamedIndividual ,
+                     spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Oblate
+conf:Oblate rdf:type owl:NamedIndividual ,
+                     spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Open
+conf:Open rdf:type owl:NamedIndividual ,
+                   spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Opposition
+conf:Opposition rdf:type owl:NamedIndividual ,
+                         spac:OrbitalConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Orthorhombic
+conf:Orthorhombic rdf:type owl:NamedIndividual ,
+                           spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Perched
+conf:Perched rdf:type owl:NamedIndividual ,
+                      spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Perihelion
+conf:Perihelion rdf:type owl:NamedIndividual ,
+                         spac:OrbitalConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Poloidal
+conf:Poloidal rdf:type owl:NamedIndividual ,
+                       spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Prograde
+conf:Prograde rdf:type owl:NamedIndividual ,
+                       spac:OrbitalConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Prolate
+conf:Prolate rdf:type owl:NamedIndividual ,
+                      spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Retrograde
+conf:Retrograde rdf:type owl:NamedIndividual ,
+                         spac:OrbitalConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Rhombic
+conf:Rhombic rdf:type owl:NamedIndividual ,
+                      spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Ridged
+conf:Ridged rdf:type owl:NamedIndividual ,
+                     spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Rope
+conf:Rope rdf:type owl:NamedIndividual ,
+                   spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Round
+conf:Round rdf:type owl:NamedIndividual ,
+                    spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Rounded
+conf:Rounded rdf:type owl:NamedIndividual ,
+                      spac:Shape ;
+             mrela:approximates conf:Round .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Scalloped
+conf:Scalloped rdf:type owl:NamedIndividual ,
+                        spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Sealed
+conf:Sealed rdf:type owl:NamedIndividual ,
+                     spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Semiconfined
+conf:Semiconfined rdf:type owl:NamedIndividual ,
+                           spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Sharp
+conf:Sharp rdf:type owl:NamedIndividual ,
+                    spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Sheet
+conf:Sheet rdf:type owl:NamedIndividual ,
+                    spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Short
+conf:Short rdf:type owl:NamedIndividual ,
+                    spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Sigmoid
+conf:Sigmoid rdf:type owl:NamedIndividual ,
+                      spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Sinusoidal
+conf:Sinusoidal rdf:type owl:NamedIndividual ,
+                         spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Sparse
+conf:Sparse rdf:type owl:NamedIndividual ,
+                     spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Spherical
+conf:Spherical rdf:type owl:NamedIndividual ,
+                        spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Square
+conf:Square rdf:type owl:NamedIndividual ,
+                     spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Steep
+conf:Steep rdf:type owl:NamedIndividual ,
+                    spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Straight
+conf:Straight rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/String
+conf:String rdf:type owl:NamedIndividual ,
+                     spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/SunSynchronous
+conf:SunSynchronous rdf:type owl:NamedIndividual ,
+                             spac:OrbitalConfiguration ,
+                             obj:GreatCircle .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Symmetric
+conf:Symmetric rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration ;
+               owl:sameAs conf:Symmetry .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Symmetry
+conf:Symmetry rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Terminator
+conf:Terminator rdf:type owl:NamedIndividual ,
+                         spac:OrbitalConfiguration ,
+                         obj:GreatCircle .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Tetragonal
+conf:Tetragonal rdf:type owl:NamedIndividual ,
+                         spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Tilted
+conf:Tilted rdf:type owl:NamedIndividual ,
+                     spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Toroidal
+conf:Toroidal rdf:type owl:NamedIndividual ,
+                       spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Toroional
+conf:Toroional rdf:type owl:NamedIndividual ,
+                        spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Transit
+conf:Transit rdf:type owl:NamedIndividual ,
+                      spac:OrbitalConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Trapped
+conf:Trapped rdf:type owl:NamedIndividual ,
+                      spac:Connectivity ,
+                      spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Triaxial
+conf:Triaxial rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Triclinic
+conf:Triclinic rdf:type owl:NamedIndividual ,
+                        spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Trigonal
+conf:Trigonal rdf:type owl:NamedIndividual ,
+                       spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Twisted
+conf:Twisted rdf:type owl:NamedIndividual ,
+                      spac:Shape .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Unconfined
+conf:Unconfined rdf:type owl:NamedIndividual ,
+                         spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Unconnected
+conf:Unconnected rdf:type owl:NamedIndividual ,
+                          spac:Connectivity .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Uneven
+conf:Uneven rdf:type owl:NamedIndividual ,
+                     spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Void
+conf:Void rdf:type owl:NamedIndividual ,
+                   spac:SpatialConfiguration .
+
+
+###  http://sweetontology.net/stateSpaceConfiguration/Wide
+conf:Wide rdf:type owl:NamedIndividual ,
+                   spac:Shape .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Anisotropic
+                        conf:Isotropic
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Aphelion
+                        conf:Perihelion
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Ascending
+                        conf:Descending
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Asymmetry
+                        conf:Symmetry
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Confined
+                        conf:Open
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Confined
+                        conf:Semiconfined
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Confined
+                        conf:Unconfined
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Connected
+                        conf:Isolated
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Contained
+                        conf:Open
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Crooked
+                        conf:Straight
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Dense
+                        conf:Sparse
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Empty
+                        conf:Full
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Evacuated
+                        conf:Full
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Even
+                        conf:Uneven
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Full
+                        conf:Void
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Narrow
+                        conf:Wide
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Open
+                        conf:Sealed
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Prograde
+                        conf:Retrograde
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Semiconfined
+                        conf:Unconfined
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( conf:Straight
+                        conf:Tilted
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

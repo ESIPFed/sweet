@@ -1,203 +1,330 @@
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix velo: <http://sweetontology.net/propSpeed/> .
-@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix wind: <http://sweetontology.net/phenAtmoWind/> .
-@prefix precip: <http://sweetontology.net/phenAtmoPrecipitation/> .
-@prefix scale: <http://sweetontology.net/stateStorm/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix : <http://sweetontology.net/stateStorm/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix repr: <http://sweetontology.net/repr/> .
+@prefix velo: <http://sweetontology.net/propSpeed/> .
+@prefix wind: <http://sweetontology.net/phenAtmoWind/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix scale: <http://sweetontology.net/stateStorm/> .
+@prefix precip: <http://sweetontology.net/phenAtmoPrecipitation/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/stateStorm> .
 
-<http://sweetontology.net/stateStorm> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/rela> , <http://sweetontology.net/repr> , <http://sweetontology.net/propCount> , <http://sweetontology.net/propSpeed> , <http://sweetontology.net/phenAtmoWind> , <http://sweetontology.net/phenAtmoPrecipitation> , <http://sweetontology.net/stateRoleImpact> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/relaSci> .
+<http://sweetontology.net/stateStorm> rdf:type owl:Ontology ;
+                                       owl:imports <http://sweetontology.net/phenAtmoPrecipitation> ,
+                                                   <http://sweetontology.net/phenAtmoWind> ,
+                                                   <http://sweetontology.net/propCount> ,
+                                                   <http://sweetontology.net/propSpeed> ,
+                                                   <http://sweetontology.net/rela> ,
+                                                   <http://sweetontology.net/relaMath> ,
+                                                   <http://sweetontology.net/relaPhysical> ,
+                                                   <http://sweetontology.net/relaSci> ,
+                                                   <http://sweetontology.net/repr> ,
+                                                   <http://sweetontology.net/statePhysical> ,
+                                                   <http://sweetontology.net/stateRoleImpact> ;
+                                       rdfs:label "SWEET Ontology" ;
+                                       owl:versionInfo "3.1.0" .
 
-scale:WindScale a owl:Class ;
-	rdfs:subClassOf repr:OrdinalScale , _:node1boamerbcx1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamerbcx1 a owl:Restriction ;
-	owl:onProperty screla:measureOf ;
-	owl:allValuesFrom wind:Wind .
+###  http://sweetontology.net/stateStorm/BeaufortScale
+scale:BeaufortScale rdf:type owl:Class ;
+                    rdfs:subClassOf scale:WindScale .
 
-scale:TornadoScale a owl:Class ;
-	rdfs:subClassOf scale:WindScale , _:node1boamerbcx2 .
 
-_:node1boamerbcx2 a owl:Restriction ;
-	owl:onProperty rela:hasPhenomena ;
-	owl:allValuesFrom precip:Tornado .
+###  http://sweetontology.net/stateStorm/EnhancedFujitaScale
+scale:EnhancedFujitaScale rdf:type owl:Class ;
+                          rdfs:subClassOf scale:TornadoScale .
 
-scale:HurricaneScale a owl:Class ;
-	rdfs:subClassOf scale:WindScale , _:node1boamerbcx3 .
 
-_:node1boamerbcx3 a owl:Restriction ;
-	owl:onProperty rela:hasPhenomena ;
-	owl:allValuesFrom precip:Hurricane .
+###  http://sweetontology.net/stateStorm/FujitaPearsonScale
+scale:FujitaPearsonScale rdf:type owl:Class ;
+                         rdfs:subClassOf scale:TornadoScale .
 
-scale:BeaufortScale a owl:Class ;
-	rdfs:subClassOf scale:WindScale .
 
-scale:FujitaPearsonScale a owl:Class ;
-	rdfs:subClassOf scale:TornadoScale .
+###  http://sweetontology.net/stateStorm/HurricaneScale
+scale:HurricaneScale rdf:type owl:Class ;
+                     rdfs:subClassOf scale:WindScale ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasPhenomena ;
+                                       owl:allValuesFrom precip:Hurricane
+                                     ] .
 
-scale:EnhancedFujitaScale a owl:Class ;
-	rdfs:subClassOf scale:TornadoScale .
 
-scale:SaffirSimpsonScale a owl:Class ;
-	rdfs:subClassOf scale:HurricaneScale .
+###  http://sweetontology.net/stateStorm/SaffirSimpsonScale
+scale:SaffirSimpsonScale rdf:type owl:Class ;
+                         rdfs:subClassOf scale:HurricaneScale .
 
-scale:Beaufort0 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "0"^^xsd:integer ;
-	prela:hasSpeed pstate:Calm ;
-	mrela:hasLowerBound "0.0"^^xsd:double ;
-	mrela:hasUpperBound "0.3"^^xsd:double .
 
-scale:Beaufort1 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "1"^^xsd:integer ;
-	mrela:hasLowerBound "0.3"^^xsd:double ;
-	mrela:hasUpperBound "1.5"^^xsd:double .
+###  http://sweetontology.net/stateStorm/TornadoScale
+scale:TornadoScale rdf:type owl:Class ;
+                   rdfs:subClassOf scale:WindScale ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rela:hasPhenomena ;
+                                     owl:allValuesFrom precip:Tornado
+                                   ] .
 
-scale:Beaufort2 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "2"^^xsd:integer ;
-	mrela:hasLowerBound "1.6"^^xsd:double ;
-	mrela:hasUpperBound "3.4"^^xsd:double .
 
-scale:Beaufort3 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "3"^^xsd:integer ;
-	prela:hasSpeed pstate:Gentle ;
-	mrela:hasLowerBound "3.5"^^xsd:double ;
-	mrela:hasUpperBound "5.4"^^xsd:double .
+###  http://sweetontology.net/stateStorm/WindScale
+scale:WindScale rdf:type owl:Class ;
+                rdfs:subClassOf repr:OrdinalScale ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty screla:measureOf ;
+                                  owl:allValuesFrom wind:Wind
+                                ] .
 
-scale:Beaufort4 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "4"^^xsd:integer ;
-	mrela:hasLowerBound "5.5"^^xsd:double ;
-	mrela:hasUpperBound "7.9"^^xsd:double .
 
-scale:Beaufort5 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "5"^^xsd:integer ;
-	mrela:hasLowerBound "8.0"^^xsd:double ;
-	mrela:hasUpperBound "10.7"^^xsd:double .
+#################################################################
+#    Individuals
+#################################################################
 
-scale:Beaufort6 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "6"^^xsd:integer ;
-	mrela:hasLowerBound "10.8"^^xsd:double ;
-	mrela:hasUpperBound "13.8"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort0
+scale:Beaufort0 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                prela:hasSpeed pstate:Calm ;
+                mrela:hasIntegerValue 0 ;
+                mrela:hasLowerBound "0.0"^^xsd:double ;
+                mrela:hasUpperBound "0.3"^^xsd:double .
 
-scale:Beaufort7 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "7"^^xsd:integer ;
-	mrela:hasLowerBound "13.9"^^xsd:double ;
-	mrela:hasUpperBound "17.1"^^xsd:double .
 
-scale:Beaufort8 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "8"^^xsd:integer ;
-	prela:hasSpeed pstate:Gale ;
-	mrela:hasLowerBound "17.2"^^xsd:double ;
-	mrela:hasUpperBound "20.7"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort1
+scale:Beaufort1 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 1 ;
+                mrela:hasLowerBound "0.3"^^xsd:double ;
+                mrela:hasUpperBound "1.5"^^xsd:double .
 
-scale:Beaufort9 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "9"^^xsd:integer ;
-	mrela:hasLowerBound "20.8"^^xsd:double ;
-	mrela:hasUpperBound "24.4"^^xsd:double .
 
-scale:Beaufort10 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "10"^^xsd:integer ;
-	mrela:hasLowerBound "24.5"^^xsd:double ;
-	mrela:hasUpperBound "28.4"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort10
+scale:Beaufort10 rdf:type owl:NamedIndividual ,
+                          scale:BeaufortScale ;
+                 mrela:hasIntegerValue 10 ;
+                 mrela:hasLowerBound "24.5"^^xsd:double ;
+                 mrela:hasUpperBound "28.4"^^xsd:double .
 
-scale:Beaufort11 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "11"^^xsd:integer ;
-	mrela:hasLowerBound "28.5"^^xsd:double ;
-	mrela:hasUpperBound "32.6"^^xsd:double .
 
-scale:Beaufort12 a scale:BeaufortScale ;
-	mrela:hasIntegerValue "12"^^xsd:integer ;
-	mrela:hasLowerBound "32.7"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort11
+scale:Beaufort11 rdf:type owl:NamedIndividual ,
+                          scale:BeaufortScale ;
+                 mrela:hasIntegerValue 11 ;
+                 mrela:hasLowerBound "28.5"^^xsd:double ;
+                 mrela:hasUpperBound "32.6"^^xsd:double .
 
-scale:F0 a scale:FujitaPearsonScale ;
-	mrela:hasIntegerValue "0"^^xsd:integer ;
-	screla:hasImpact impa:Light ;
-	mrela:hasLowerBound "18"^^xsd:double ;
-	mrela:hasUpperBound "32"^^xsd:double .
 
-scale:F1 a scale:FujitaPearsonScale ;
-	mrela:hasIntegerValue "1"^^xsd:integer ;
-	screla:hasImpact impa:Moderate ;
-	mrela:hasLowerBound "32"^^xsd:double ;
-	mrela:hasUpperBound "50"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort12
+scale:Beaufort12 rdf:type owl:NamedIndividual ,
+                          scale:BeaufortScale ;
+                 mrela:hasIntegerValue 12 ;
+                 mrela:hasLowerBound "32.7"^^xsd:double .
 
-scale:F2 a scale:FujitaPearsonScale ;
-	mrela:hasIntegerValue "2"^^xsd:integer ;
-	screla:hasImpact impa:Significant ;
-	mrela:hasLowerBound "50"^^xsd:double ;
-	mrela:hasUpperBound "70"^^xsd:double .
 
-scale:F3 a scale:FujitaPearsonScale ;
-	mrela:hasIntegerValue "0"^^xsd:integer ;
-	screla:hasImpact impa:Severe ;
-	mrela:hasLowerBound "70"^^xsd:double ;
-	mrela:hasUpperBound "92"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort2
+scale:Beaufort2 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 2 ;
+                mrela:hasLowerBound "1.6"^^xsd:double ;
+                mrela:hasUpperBound "3.4"^^xsd:double .
 
-scale:F4 a scale:FujitaPearsonScale ;
-	mrela:hasIntegerValue "4"^^xsd:integer ;
-	screla:hasImpact impa:Devastating ;
-	mrela:hasLowerBound "92"^^xsd:double ;
-	mrela:hasUpperBound "116"^^xsd:double .
 
-scale:F5 a scale:FujitaPearsonScale ;
-	mrela:hasIntegerValue "5"^^xsd:integer ;
-	screla:hasImpact impa:Incredible ;
-	mrela:hasLowerBound "116"^^xsd:double ;
-	mrela:hasUpperBound "142"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort3
+scale:Beaufort3 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                prela:hasSpeed pstate:Gentle ;
+                mrela:hasIntegerValue 3 ;
+                mrela:hasLowerBound "3.5"^^xsd:double ;
+                mrela:hasUpperBound "5.4"^^xsd:double .
 
-scale:EF0 a scale:EnhancedFujitaScale ;
-	mrela:hasIntegerValue "0"^^xsd:integer .
 
-scale:EF1 a scale:EnhancedFujitaScale ;
-	mrela:hasIntegerValue "1"^^xsd:integer .
+###  http://sweetontology.net/stateStorm/Beaufort4
+scale:Beaufort4 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 4 ;
+                mrela:hasLowerBound "5.5"^^xsd:double ;
+                mrela:hasUpperBound "7.9"^^xsd:double .
 
-scale:EF2 a scale:EnhancedFujitaScale ;
-	mrela:hasIntegerValue "2"^^xsd:integer .
 
-scale:EF3 a scale:EnhancedFujitaScale ;
-	mrela:hasIntegerValue "3"^^xsd:integer .
+###  http://sweetontology.net/stateStorm/Beaufort5
+scale:Beaufort5 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 5 ;
+                mrela:hasLowerBound "8.0"^^xsd:double ;
+                mrela:hasUpperBound "10.7"^^xsd:double .
 
-scale:EF4 a scale:EnhancedFujitaScale ;
-	mrela:hasIntegerValue "4"^^xsd:integer .
 
-scale:EF5 a scale:EnhancedFujitaScale ;
-	mrela:hasIntegerValue "5"^^xsd:integer .
+###  http://sweetontology.net/stateStorm/Beaufort6
+scale:Beaufort6 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 6 ;
+                mrela:hasLowerBound "10.8"^^xsd:double ;
+                mrela:hasUpperBound "13.8"^^xsd:double .
 
-scale:Category1 a scale:SaffirSimpsonScale ;
-	mrela:hasIntegerValue "1"^^xsd:integer ;
-	screla:hasImpact impa:Minimal ;
-	mrela:hasLowerBound "33"^^xsd:double ;
-	mrela:hasUpperBound "42"^^xsd:double .
 
-scale:Category2 a scale:SaffirSimpsonScale ;
-	mrela:hasIntegerValue "2"^^xsd:integer ;
-	screla:hasImpact impa:Moderate ;
-	mrela:hasLowerBound "43"^^xsd:double ;
-	mrela:hasUpperBound "49"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort7
+scale:Beaufort7 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 7 ;
+                mrela:hasLowerBound "13.9"^^xsd:double ;
+                mrela:hasUpperBound "17.1"^^xsd:double .
 
-scale:Category3 a scale:SaffirSimpsonScale ;
-	mrela:hasIntegerValue "3"^^xsd:integer ;
-	screla:hasImpact impa:Extensive ;
-	mrela:hasLowerBound "50"^^xsd:double ;
-	mrela:hasUpperBound "58"^^xsd:double .
 
-scale:Category4 a scale:SaffirSimpsonScale ;
-	mrela:hasIntegerValue "4"^^xsd:integer ;
-	screla:hasImpact impa:Extreme ;
-	mrela:hasLowerBound "59"^^xsd:double ;
-	mrela:hasUpperBound "69"^^xsd:double .
+###  http://sweetontology.net/stateStorm/Beaufort8
+scale:Beaufort8 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                prela:hasSpeed pstate:Gale ;
+                mrela:hasIntegerValue 8 ;
+                mrela:hasLowerBound "17.2"^^xsd:double ;
+                mrela:hasUpperBound "20.7"^^xsd:double .
 
-scale:Category5 a scale:SaffirSimpsonScale ;
-	mrela:hasIntegerValue "5"^^xsd:integer ;
-	screla:hasImpact impa:Catastrophic ;
-	mrela:hasLowerBound "70"^^xsd:double .
+
+###  http://sweetontology.net/stateStorm/Beaufort9
+scale:Beaufort9 rdf:type owl:NamedIndividual ,
+                         scale:BeaufortScale ;
+                mrela:hasIntegerValue 9 ;
+                mrela:hasLowerBound "20.8"^^xsd:double ;
+                mrela:hasUpperBound "24.4"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/Category1
+scale:Category1 rdf:type owl:NamedIndividual ,
+                         scale:SaffirSimpsonScale ;
+                screla:hasImpact impa:Minimal ;
+                mrela:hasIntegerValue 1 ;
+                mrela:hasLowerBound "33.0"^^xsd:double ;
+                mrela:hasUpperBound "42.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/Category2
+scale:Category2 rdf:type owl:NamedIndividual ,
+                         scale:SaffirSimpsonScale ;
+                screla:hasImpact impa:Moderate ;
+                mrela:hasIntegerValue 2 ;
+                mrela:hasLowerBound "43.0"^^xsd:double ;
+                mrela:hasUpperBound "49.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/Category3
+scale:Category3 rdf:type owl:NamedIndividual ,
+                         scale:SaffirSimpsonScale ;
+                screla:hasImpact impa:Extensive ;
+                mrela:hasIntegerValue 3 ;
+                mrela:hasLowerBound "50.0"^^xsd:double ;
+                mrela:hasUpperBound "58.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/Category4
+scale:Category4 rdf:type owl:NamedIndividual ,
+                         scale:SaffirSimpsonScale ;
+                screla:hasImpact impa:Extreme ;
+                mrela:hasIntegerValue 4 ;
+                mrela:hasLowerBound "59.0"^^xsd:double ;
+                mrela:hasUpperBound "69.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/Category5
+scale:Category5 rdf:type owl:NamedIndividual ,
+                         scale:SaffirSimpsonScale ;
+                screla:hasImpact impa:Catastrophic ;
+                mrela:hasIntegerValue 5 ;
+                mrela:hasLowerBound "70.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/EF0
+scale:EF0 rdf:type owl:NamedIndividual ,
+                   scale:EnhancedFujitaScale ;
+          mrela:hasIntegerValue 0 .
+
+
+###  http://sweetontology.net/stateStorm/EF1
+scale:EF1 rdf:type owl:NamedIndividual ,
+                   scale:EnhancedFujitaScale ;
+          mrela:hasIntegerValue 1 .
+
+
+###  http://sweetontology.net/stateStorm/EF2
+scale:EF2 rdf:type owl:NamedIndividual ,
+                   scale:EnhancedFujitaScale ;
+          mrela:hasIntegerValue 2 .
+
+
+###  http://sweetontology.net/stateStorm/EF3
+scale:EF3 rdf:type owl:NamedIndividual ,
+                   scale:EnhancedFujitaScale ;
+          mrela:hasIntegerValue 3 .
+
+
+###  http://sweetontology.net/stateStorm/EF4
+scale:EF4 rdf:type owl:NamedIndividual ,
+                   scale:EnhancedFujitaScale ;
+          mrela:hasIntegerValue 4 .
+
+
+###  http://sweetontology.net/stateStorm/EF5
+scale:EF5 rdf:type owl:NamedIndividual ,
+                   scale:EnhancedFujitaScale ;
+          mrela:hasIntegerValue 5 .
+
+
+###  http://sweetontology.net/stateStorm/F0
+scale:F0 rdf:type owl:NamedIndividual ,
+                  scale:FujitaPearsonScale ;
+         screla:hasImpact impa:Light ;
+         mrela:hasIntegerValue 0 ;
+         mrela:hasLowerBound "18.0"^^xsd:double ;
+         mrela:hasUpperBound "32.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/F1
+scale:F1 rdf:type owl:NamedIndividual ,
+                  scale:FujitaPearsonScale ;
+         screla:hasImpact impa:Moderate ;
+         mrela:hasIntegerValue 1 ;
+         mrela:hasLowerBound "32.0"^^xsd:double ;
+         mrela:hasUpperBound "50.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/F2
+scale:F2 rdf:type owl:NamedIndividual ,
+                  scale:FujitaPearsonScale ;
+         screla:hasImpact impa:Significant ;
+         mrela:hasIntegerValue 2 ;
+         mrela:hasLowerBound "50.0"^^xsd:double ;
+         mrela:hasUpperBound "70.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/F3
+scale:F3 rdf:type owl:NamedIndividual ,
+                  scale:FujitaPearsonScale ;
+         screla:hasImpact impa:Severe ;
+         mrela:hasIntegerValue 0 ;
+         mrela:hasLowerBound "70.0"^^xsd:double ;
+         mrela:hasUpperBound "92.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/F4
+scale:F4 rdf:type owl:NamedIndividual ,
+                  scale:FujitaPearsonScale ;
+         screla:hasImpact impa:Devastating ;
+         mrela:hasIntegerValue 4 ;
+         mrela:hasLowerBound "92.0"^^xsd:double ;
+         mrela:hasUpperBound "116.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateStorm/F5
+scale:F5 rdf:type owl:NamedIndividual ,
+                  scale:FujitaPearsonScale ;
+         screla:hasImpact impa:Incredible ;
+         mrela:hasIntegerValue 5 ;
+         mrela:hasLowerBound "116.0"^^xsd:double ;
+         mrela:hasUpperBound "142.0"^^xsd:double .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

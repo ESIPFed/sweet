@@ -1,91 +1,158 @@
-@prefix math: <http://sweetontology.net/reprMathFunction/> .
-@prefix comp: <http://sweetontology.net/phenSystemComplexity/> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
+@prefix : <http://sweetontology.net/phenSystemComplexity/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sys: <http://sweetontology.net/phenSystem/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix comp: <http://sweetontology.net/phenSystemComplexity/> .
+@prefix math: <http://sweetontology.net/reprMathFunction/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://sweetontology.net/phenSystemComplexity> .
 
-<http://sweetontology.net/phenSystemComplexity> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/phenSystem> .
+<http://sweetontology.net/phenSystemComplexity> rdf:type owl:Ontology ;
+                                                 owl:imports <http://sweetontology.net/phenSystem> ,
+                                                             <http://sweetontology.net/reprMathFunction> ;
+                                                 rdfs:label "SWEET Ontology" ;
+                                                 owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/phenSystemComplexity/Feedback> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystemComplexity/SelfRegulation> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/phenSystemComplexity/NegativeFeedback> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystemComplexity/Feedback> .
+###  http://sweetontology.net/phenSystemComplexity/Cascade
+comp:Cascade rdf:type owl:Class ;
+             rdfs:subClassOf sys:SystemPhenomena .
 
-<http://sweetontology.net/phenSystemComplexity/PositiveFeedback> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystemComplexity/Feedback> ;
-	owl:disjointWith <http://sweetontology.net/phenSystemComplexity/NegativeFeedback> .
 
-<http://sweetontology.net/phenSystemComplexity/SelfRegulation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemPhenomena> .
+###  http://sweetontology.net/phenSystemComplexity/Collapse
+comp:Collapse rdf:type owl:Class ;
+              rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Resilience> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemPhenomena> .
 
-<http://sweetontology.net/phenSystemComplexity/Emergent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> ;
-	owl:equivalentClass <http://sweetontology.net/phenSystemComplexity/Emergence> , <http://sweetontology.net/phenSystemComplexity/EmergentPhenomenon> .
+###  http://sweetontology.net/phenSystemComplexity/Decay
+comp:Decay rdf:type owl:Class ;
+           rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Emergence> a owl:Class .
 
-<http://sweetontology.net/phenSystemComplexity/EmergentPhenomenon> a owl:Class .
+###  http://sweetontology.net/phenSystemComplexity/Decouple
+comp:Decouple rdf:type owl:Class ;
+              rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Shock> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> , <http://sweetontology.net/reprMathFunction/Discontinuity> .
 
-<http://sweetontology.net/phenSystemComplexity/Transformation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> ;
-	owl:equivalentClass <http://sweetontology.net/phenSystemComplexity/Transforming> .
+###  http://sweetontology.net/phenSystemComplexity/Development
+comp:Development rdf:type owl:Class ;
+                 rdfs:subClassOf comp:Evolution .
 
-<http://sweetontology.net/phenSystemComplexity/Transforming> a owl:Class .
 
-<http://sweetontology.net/phenSystemComplexity/Cascade> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemPhenomena> .
+###  http://sweetontology.net/phenSystemComplexity/Dissipate
+comp:Dissipate rdf:type owl:Class ;
+               rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Synergy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemPhenomena> .
 
-<http://sweetontology.net/phenSystemComplexity/Development> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystemComplexity/Evolution> .
+###  http://sweetontology.net/phenSystemComplexity/Emergence
+comp:Emergence rdf:type owl:Class ;
+               owl:equivalentClass comp:Emergent .
 
-<http://sweetontology.net/phenSystemComplexity/SystemDynamics> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemPhenomena> ;
-	rdfs:comment "System dynamics is an approach to understanding the behaviour of complex systems over time. It deals with internal feedback loops and time delays that affect the behaviour of the entire system. What makes using system dynamics different from other approaches to studying complex systems is the use of feedback loops and stocks and flows. These elements help describe how even seemingly simple systems display baffling nonlinearity" .
 
-<http://sweetontology.net/phenSystemComplexity/Pattern> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/Trend> .
+###  http://sweetontology.net/phenSystemComplexity/Emergent
+comp:Emergent rdf:type owl:Class ;
+              owl:equivalentClass comp:EmergentPhenomenon ;
+              rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Signature> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystemComplexity/Pattern> .
 
-<http://sweetontology.net/phenSystemComplexity/ErrorPropagation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
+###  http://sweetontology.net/phenSystemComplexity/EmergentPhenomenon
+comp:EmergentPhenomenon rdf:type owl:Class .
 
-<http://sweetontology.net/phenSystemComplexity/Maturation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
 
-<http://sweetontology.net/phenSystemComplexity/Recharge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
+###  http://sweetontology.net/phenSystemComplexity/ErrorPropagation
+comp:ErrorPropagation rdf:type owl:Class ;
+                      rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Decouple> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
 
-<http://sweetontology.net/phenSystemComplexity/Dissipate> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
+###  http://sweetontology.net/phenSystemComplexity/Evolution
+comp:Evolution rdf:type owl:Class ;
+               rdfs:subClassOf sys:SystemStateChange .
 
-<http://sweetontology.net/phenSystemComplexity/Decay> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
 
-<http://sweetontology.net/phenSystemComplexity/Evolution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
+###  http://sweetontology.net/phenSystemComplexity/Feedback
+comp:Feedback rdf:type owl:Class ;
+              rdfs:subClassOf comp:SelfRegulation .
 
-<http://sweetontology.net/phenSystemComplexity/Fluctuation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/Variation> .
 
-<http://sweetontology.net/phenSystemComplexity/Collapse> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenSystem/SystemStateChange> .
+###  http://sweetontology.net/phenSystemComplexity/Fluctuation
+comp:Fluctuation rdf:type owl:Class ;
+                 rdfs:subClassOf sys:Variation .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Maturation
+comp:Maturation rdf:type owl:Class ;
+                rdfs:subClassOf sys:SystemStateChange .
+
+
+###  http://sweetontology.net/phenSystemComplexity/NegativeFeedback
+comp:NegativeFeedback rdf:type owl:Class ;
+                      rdfs:subClassOf comp:Feedback ;
+                      owl:disjointWith comp:PositiveFeedback .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Pattern
+comp:Pattern rdf:type owl:Class ;
+             rdfs:subClassOf sys:Trend .
+
+
+###  http://sweetontology.net/phenSystemComplexity/PositiveFeedback
+comp:PositiveFeedback rdf:type owl:Class ;
+                      rdfs:subClassOf comp:Feedback .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Recharge
+comp:Recharge rdf:type owl:Class ;
+              rdfs:subClassOf sys:SystemStateChange .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Resilience
+comp:Resilience rdf:type owl:Class ;
+                rdfs:subClassOf sys:SystemPhenomena .
+
+
+###  http://sweetontology.net/phenSystemComplexity/SelfRegulation
+comp:SelfRegulation rdf:type owl:Class ;
+                    rdfs:subClassOf sys:SystemPhenomena .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Shock
+comp:Shock rdf:type owl:Class ;
+           rdfs:subClassOf sys:SystemStateChange ,
+                           math:Discontinuity .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Signature
+comp:Signature rdf:type owl:Class ;
+               rdfs:subClassOf comp:Pattern .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Synergy
+comp:Synergy rdf:type owl:Class ;
+             rdfs:subClassOf sys:SystemPhenomena .
+
+
+###  http://sweetontology.net/phenSystemComplexity/SystemDynamics
+comp:SystemDynamics rdf:type owl:Class ;
+                    rdfs:subClassOf sys:SystemPhenomena .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Transformation
+comp:Transformation rdf:type owl:Class ;
+                    owl:equivalentClass comp:Transforming ;
+                    rdfs:subClassOf sys:SystemStateChange .
+
+
+###  http://sweetontology.net/phenSystemComplexity/Transforming
+comp:Transforming rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunction/Discontinuity
+math:Discontinuity rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

@@ -1,58 +1,89 @@
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
-@prefix math: <http://sweetontology.net/reprMath/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix orth: <http://sweetontology.net/reprMathFunctionOrthogonal/> .
+@prefix : <http://sweetontology.net/reprMathFunctionOrthogonal/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix math: <http://sweetontology.net/reprMath/> .
+@prefix orth: <http://sweetontology.net/reprMathFunctionOrthogonal/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix repr: <http://sweetontology.net/repr/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@base <http://sweetontology.net/reprMathFunctionOrthogonal> .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/repr> .
+<http://sweetontology.net/reprMathFunctionOrthogonal> rdf:type owl:Ontology ;
+                                                       owl:imports <http://sweetontology.net/relaMath> ,
+                                                                   <http://sweetontology.net/repr> ,
+                                                                   <http://sweetontology.net/reprMath> ;
+                                                       rdfs:label "SWEET Ontology" ;
+                                                       owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/OrthogonalFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/BasisFunction> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/Fourier> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/ExponentialFunction> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction> .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/Coefficient
+orth:Coefficient rdf:type owl:Class ;
+                 rdfs:subClassOf math:Scalar .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction> a owl:Class .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunctionOrthogonal/OrthogonalFunction> , <http://sweetontology.net/reprMathFunction/TranscendentalFunction> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction> ;
-	rdfs:subClassOf _:node1boamel4vx1 .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/Degree
+orth:Degree rdf:type owl:Class ;
+            rdfs:subClassOf orth:Harmonic .
 
-_:node1boamel4vx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasOrder> ;
-	owl:cardinality "1"^^xsd:nonNegativeInteger .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonic> rdfs:subClassOf _:node1boamel4vx2 .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/Fourier
+orth:Fourier rdf:type owl:Class ;
+             owl:equivalentClass orth:FourierFunction ;
+             rdfs:subClassOf func:ExponentialFunction .
 
-_:node1boamel4vx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDegree> ;
-	owl:cardinality "1"^^xsd:nonNegativeInteger .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction> a owl:Class .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/FourierFunction
+orth:FourierFunction rdf:type owl:Class .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/WaveletFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunctionOrthogonal/OrthogonalFunction> .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/Harmonic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Coordinate> .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/Harmonic
+orth:Harmonic rdf:type owl:Class ;
+              rdfs:subClassOf repr:Coordinate .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/Degree> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunctionOrthogonal/Harmonic> .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/Order> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunctionOrthogonal/Harmonic> .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/Mode
+orth:Mode rdf:type owl:Class ;
+          rdfs:subClassOf orth:Harmonic .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/Mode> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunctionOrthogonal/Harmonic> .
 
-<http://sweetontology.net/reprMathFunctionOrthogonal/Coefficient> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMath/Scalar> .
+###  http://sweetontology.net/reprMathFunctionOrthogonal/Order
+orth:Order rdf:type owl:Class ;
+           rdfs:subClassOf orth:Harmonic .
+
+
+###  http://sweetontology.net/reprMathFunctionOrthogonal/OrthogonalFunction
+orth:OrthogonalFunction rdf:type owl:Class ;
+                        rdfs:subClassOf func:BasisFunction .
+
+
+###  http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonic
+orth:SphericalHarmonic rdf:type owl:Class ;
+                       owl:equivalentClass orth:SphericalHarmonicFunction ;
+                       rdfs:subClassOf func:TranscendentalFunction ,
+                                       orth:OrthogonalFunction ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty mrela:hasDegree ;
+                                         owl:cardinality "1"^^xsd:nonNegativeInteger
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty mrela:hasOrder ;
+                                         owl:cardinality "1"^^xsd:nonNegativeInteger
+                                       ] .
+
+
+###  http://sweetontology.net/reprMathFunctionOrthogonal/SphericalHarmonicFunction
+orth:SphericalHarmonicFunction rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunctionOrthogonal/WaveletFunction
+orth:WaveletFunction rdf:type owl:Class ;
+                     rdfs:subClassOf orth:OrthogonalFunction .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

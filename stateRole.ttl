@@ -1,144 +1,349 @@
-@prefix role: <http://sweetontology.net/stateRole/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
+@prefix : <http://sweetontology.net/stateRole/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ordi: <http://sweetontology.net/propOrdinal/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix role: <http://sweetontology.net/stateRole/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/stateRole> .
 
-<http://sweetontology.net/stateRole> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/rela> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/prop> , <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/procPhysical> .
+<http://sweetontology.net/stateRole> rdf:type owl:Ontology ;
+                                      owl:imports <http://sweetontology.net/procPhysical> ,
+                                                  <http://sweetontology.net/prop> ,
+                                                  <http://sweetontology.net/propOrdinal> ,
+                                                  <http://sweetontology.net/rela> ,
+                                                  <http://sweetontology.net/relaSci> ;
+                                      rdfs:label "SWEET Ontology" ;
+                                      owl:versionInfo "3.1.0" .
 
-role:Accessory a prop:Role .
+#################################################################
+#    Classes
+#################################################################
 
-role:Adjusted a prop:Role .
+###  http://sweetontology.net/stateRole/ConductionRole
+role:ConductionRole rdf:type owl:Class ;
+                    rdfs:subClassOf ordi:OrdinalProperty ,
+                                    role:PhysicalRole ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty rela:hasProcess ;
+                                      owl:allValuesFrom proc:Conduction
+                                    ] .
 
-role:ByProduct a prop:Role .
 
-role:Conduit a prop:Role .
+###  http://sweetontology.net/stateRole/PhysicalRole
+role:PhysicalRole rdf:type owl:Class ;
+                  rdfs:subClassOf prop:Role .
 
-role:Desirable a prop:Role .
 
-role:Dominant a prop:Role ;
-	screla:greaterRoleThan role:Subordinate .
+###  http://sweetontology.net/stateRole/ProvenanceRole
+role:ProvenanceRole rdf:type owl:Class ;
+                    rdfs:subClassOf prop:Role .
 
-role:Extraordinary a prop:Role .
 
-role:Important a prop:Role .
+#################################################################
+#    Individuals
+#################################################################
 
-role:Prevailing a prop:Role .
+###  http://sweetontology.net/stateRole/Accessor
+role:Accessor rdf:type owl:NamedIndividual ,
+                       role:ProvenanceRole .
 
-role:Induced a prop:Role .
 
-role:Key a prop:Role ;
-	owl:sameAs role:Keystone .
+###  http://sweetontology.net/stateRole/Accessory
+role:Accessory rdf:type owl:NamedIndividual ,
+                        prop:Role .
 
-role:Keystone a prop:Role .
 
-role:Main a prop:Role ;
-	screla:greaterRoleThan role:Secondary .
+###  http://sweetontology.net/stateRole/Adjusted
+role:Adjusted rdf:type owl:NamedIndividual ,
+                       prop:Role .
 
-role:Major a prop:Role ;
-	screla:greaterRoleThan role:Minor .
 
-role:Minor a prop:Role .
+###  http://sweetontology.net/stateRole/Antifreeze
+role:Antifreeze rdf:type owl:NamedIndividual ,
+                         role:PhysicalRole .
 
-role:Niche a prop:Role .
 
-role:Pioneer a prop:Role .
+###  http://sweetontology.net/stateRole/Archivist
+role:Archivist rdf:type owl:NamedIndividual ,
+                        role:ProvenanceRole .
 
-role:Negative a prop:Role ;
-	owl:differentFrom role:Positive .
 
-role:Positive a prop:Role .
+###  http://sweetontology.net/stateRole/Author
+role:Author rdf:type owl:NamedIndividual ,
+                     role:ProvenanceRole .
 
-role:PreExisting a prop:Role .
 
-role:Primary a prop:Role ;
-	screla:greaterRoleThan role:Secondary .
+###  http://sweetontology.net/stateRole/ByProduct
+role:ByProduct rdf:type owl:NamedIndividual ,
+                        prop:Role .
 
-role:Principal a prop:Role ;
-	screla:greaterRoleThan role:Secondary .
 
-role:Secure a prop:Role .
+###  http://sweetontology.net/stateRole/ChangeReason
+role:ChangeReason rdf:type owl:NamedIndividual ,
+                           role:ProvenanceRole .
 
-role:Secondary a prop:Role ;
-	screla:greaterRoleThan role:Tertiary .
 
-role:Stressor a prop:Role .
+###  http://sweetontology.net/stateRole/Conductor
+role:Conductor rdf:type owl:NamedIndividual ,
+                        role:ConductionRole .
 
-role:Tertiary a prop:Role .
 
-role:Subordinate a prop:Role .
+###  http://sweetontology.net/stateRole/Conduit
+role:Conduit rdf:type owl:NamedIndividual ,
+                      prop:Role .
 
-role:Surplus a prop:Role .
 
-role:Trace a prop:Role .
+###  http://sweetontology.net/stateRole/Contributor
+role:Contributor rdf:type owl:NamedIndividual ,
+                          role:ProvenanceRole .
 
-role:Undesirable a prop:Role ;
-	owl:differentFrom role:Desirable .
 
-role:Vulnerable a prop:Role ;
-	owl:differentFrom role:Secure .
+###  http://sweetontology.net/stateRole/Creator
+role:Creator rdf:type owl:NamedIndividual ,
+                      role:ProvenanceRole .
 
-role:PhysicalRole a owl:Class ;
-	rdfs:subClassOf prop:Role .
 
-role:ConductionRole a owl:Class ;
-	rdfs:subClassOf role:PhysicalRole , ordi:OrdinalProperty , _:node1boamepecx1 .
+###  http://sweetontology.net/stateRole/Cryoprotectant
+role:Cryoprotectant rdf:type owl:NamedIndividual ,
+                             role:PhysicalRole .
 
-_:node1boamepecx1 a owl:Restriction ;
-	owl:onProperty rela:hasProcess ;
-	owl:allValuesFrom proc:Conduction .
 
-role:Conductor a role:ConductionRole .
+###  http://sweetontology.net/stateRole/Curator
+role:Curator rdf:type owl:NamedIndividual ,
+                      role:ProvenanceRole .
 
-role:Insulator a role:ConductionRole .
 
-role:Propellant a role:PhysicalRole .
+###  http://sweetontology.net/stateRole/Deployer
+role:Deployer rdf:type owl:NamedIndividual ,
+                       role:ProvenanceRole .
 
-role:Antifreeze a role:PhysicalRole .
 
-role:Cryoprotectant a role:PhysicalRole .
+###  http://sweetontology.net/stateRole/Desirable
+role:Desirable rdf:type owl:NamedIndividual ,
+                        prop:Role .
 
-role:ProvenanceRole a owl:Class ;
-	rdfs:subClassOf prop:Role .
 
-role:Accessor a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Dominant
+role:Dominant rdf:type owl:NamedIndividual ,
+                       prop:Role ;
+              screla:greaterRoleThan role:Subordinate .
 
-role:Archivist a role:ProvenanceRole .
 
-role:Author a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Extraordinary
+role:Extraordinary rdf:type owl:NamedIndividual ,
+                            prop:Role .
 
-role:ChangeReason a role:ProvenanceRole .
 
-role:Contributor a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Important
+role:Important rdf:type owl:NamedIndividual ,
+                        prop:Role .
 
-role:Creator a role:ProvenanceRole .
 
-role:Curator a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Induced
+role:Induced rdf:type owl:NamedIndividual ,
+                      prop:Role .
 
-role:Deployer a role:ProvenanceRole .
 
-role:Processor a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Insulator
+role:Insulator rdf:type owl:NamedIndividual ,
+                        role:ConductionRole .
 
-role:Provider a role:ProvenanceRole .
 
-role:Publisher a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Key
+role:Key rdf:type owl:NamedIndividual ,
+                  prop:Role ;
+         owl:sameAs role:Keystone .
 
-role:References a role:ProvenanceRole .
 
-role:Replacement a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Keystone
+role:Keystone rdf:type owl:NamedIndividual ,
+                       prop:Role .
 
-role:Serializes a role:ProvenanceRole .
 
-role:Signer a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Main
+role:Main rdf:type owl:NamedIndividual ,
+                   prop:Role ;
+          screla:greaterRoleThan role:Secondary .
 
-role:Submitter a role:ProvenanceRole .
 
-role:User a role:ProvenanceRole .
+###  http://sweetontology.net/stateRole/Major
+role:Major rdf:type owl:NamedIndividual ,
+                    prop:Role ;
+           screla:greaterRoleThan role:Minor .
+
+
+###  http://sweetontology.net/stateRole/Minor
+role:Minor rdf:type owl:NamedIndividual ,
+                    prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Negative
+role:Negative rdf:type owl:NamedIndividual ,
+                       prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Niche
+role:Niche rdf:type owl:NamedIndividual ,
+                    prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Pioneer
+role:Pioneer rdf:type owl:NamedIndividual ,
+                      prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Positive
+role:Positive rdf:type owl:NamedIndividual ,
+                       prop:Role .
+
+
+###  http://sweetontology.net/stateRole/PreExisting
+role:PreExisting rdf:type owl:NamedIndividual ,
+                          prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Prevailing
+role:Prevailing rdf:type owl:NamedIndividual ,
+                         prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Primary
+role:Primary rdf:type owl:NamedIndividual ,
+                      prop:Role ;
+             screla:greaterRoleThan role:Secondary .
+
+
+###  http://sweetontology.net/stateRole/Principal
+role:Principal rdf:type owl:NamedIndividual ,
+                        prop:Role ;
+               screla:greaterRoleThan role:Secondary .
+
+
+###  http://sweetontology.net/stateRole/Processor
+role:Processor rdf:type owl:NamedIndividual ,
+                        role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Propellant
+role:Propellant rdf:type owl:NamedIndividual ,
+                         role:PhysicalRole .
+
+
+###  http://sweetontology.net/stateRole/Provider
+role:Provider rdf:type owl:NamedIndividual ,
+                       role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Publisher
+role:Publisher rdf:type owl:NamedIndividual ,
+                        role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/References
+role:References rdf:type owl:NamedIndividual ,
+                         role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Replacement
+role:Replacement rdf:type owl:NamedIndividual ,
+                          role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Secondary
+role:Secondary rdf:type owl:NamedIndividual ,
+                        prop:Role ;
+               screla:greaterRoleThan role:Tertiary .
+
+
+###  http://sweetontology.net/stateRole/Secure
+role:Secure rdf:type owl:NamedIndividual ,
+                     prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Serializes
+role:Serializes rdf:type owl:NamedIndividual ,
+                         role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Signer
+role:Signer rdf:type owl:NamedIndividual ,
+                     role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Stressor
+role:Stressor rdf:type owl:NamedIndividual ,
+                       prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Submitter
+role:Submitter rdf:type owl:NamedIndividual ,
+                        role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Subordinate
+role:Subordinate rdf:type owl:NamedIndividual ,
+                          prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Surplus
+role:Surplus rdf:type owl:NamedIndividual ,
+                      prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Tertiary
+role:Tertiary rdf:type owl:NamedIndividual ,
+                       prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Trace
+role:Trace rdf:type owl:NamedIndividual ,
+                    prop:Role .
+
+
+###  http://sweetontology.net/stateRole/Undesirable
+role:Undesirable rdf:type owl:NamedIndividual ,
+                          prop:Role .
+
+
+###  http://sweetontology.net/stateRole/User
+role:User rdf:type owl:NamedIndividual ,
+                   role:ProvenanceRole .
+
+
+###  http://sweetontology.net/stateRole/Vulnerable
+role:Vulnerable rdf:type owl:NamedIndividual ,
+                         prop:Role .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( role:Desirable
+                        role:Undesirable
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( role:Negative
+                        role:Positive
+                      )
+] .
+
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( role:Secure
+                        role:Vulnerable
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

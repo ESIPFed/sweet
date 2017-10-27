@@ -1,56 +1,105 @@
-@prefix statec: <http://sweetontology.net/procStateChange/> .
-@prefix cryop: <http://sweetontology.net/phenCryo/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
+@prefix : <http://sweetontology.net/phenCryo/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sys: <http://sweetontology.net/phenSystem/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix cryop: <http://sweetontology.net/phenCryo/> .
+@prefix statec: <http://sweetontology.net/procStateChange/> .
+@base <http://sweetontology.net/phenCryo> .
 
-<http://sweetontology.net/phenCryo> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenSystem> , <http://sweetontology.net/procStateChange> , <http://sweetontology.net/procPhysical> .
+<http://sweetontology.net/phenCryo> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/phenSystem> ,
+                                                 <http://sweetontology.net/procPhysical> ,
+                                                 <http://sweetontology.net/procStateChange> ;
+                                     rdfs:label "SWEET Ontology" ;
+                                     owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/phenCryo/Accumulation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> , <http://sweetontology.net/phenSystem/Accumulation> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/phenCryo/Calving> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> , <http://sweetontology.net/procStateChange/Melting> ;
-	owl:equivalentClass <http://sweetontology.net/phenCryo/IceCalving> .
+###  http://sweetontology.net/phenCryo/Accumulation
+cryop:Accumulation rdf:type owl:Class ;
+                   rdfs:subClassOf cryop:GlacialProcess ,
+                                   sys:Accumulation .
 
-<http://sweetontology.net/phenCryo/IceCalving> a owl:Class .
 
-<http://sweetontology.net/phenCryo/Glaciation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/Accumulation> ;
-	owl:equivalentClass <http://sweetontology.net/phenCryo/Glacial> .
+###  http://sweetontology.net/phenCryo/Calving
+cryop:Calving rdf:type owl:Class ;
+              owl:equivalentClass cryop:IceCalving ;
+              rdfs:subClassOf cryop:GlacialProcess ,
+                              statec:Melting .
 
-<http://sweetontology.net/phenCryo/Glacial> a owl:Class .
 
-<http://sweetontology.net/phenCryo/GlacialProcess> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+###  http://sweetontology.net/phenCryo/Englacial
+cryop:Englacial rdf:type owl:Class ;
+                rdfs:subClassOf cryop:GlacialProcess .
 
-<http://sweetontology.net/phenCryo/Periglaciation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/Glaciation> .
 
-<http://sweetontology.net/phenCryo/GlacierRetreat> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> , <http://sweetontology.net/procStateChange/Melting> ;
-	owl:disjointWith <http://sweetontology.net/phenCryo/Glaciation> .
+###  http://sweetontology.net/phenCryo/Glacial
+cryop:Glacial rdf:type owl:Class ;
+              owl:equivalentClass cryop:Glaciation .
 
-<http://sweetontology.net/phenCryo/Proglacial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> ;
-	rdfs:comment "Of streams, deposits, and other features, being immediately in front of or just beyond the outer limits of a glacier or ice sheet, and formed by or derived from glacier ice."@en .
 
-<http://sweetontology.net/phenCryo/Englacial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> ;
-	rdfs:comment "Embedded in, carried by, or running through a glacier"@en .
+###  http://sweetontology.net/phenCryo/GlacialProcess
+cryop:GlacialProcess rdf:type owl:Class ;
+                     rdfs:subClassOf proc:PhysicalProcess .
 
-<http://sweetontology.net/phenCryo/Periglacial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> .
 
-<http://sweetontology.net/phenCryo/Subglacial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> ;
-	rdfs:comment "Pertaining to the area in or at the bottom of, or immediately beneath, a glacier."@en .
+###  http://sweetontology.net/phenCryo/Glaciation
+cryop:Glaciation rdf:type owl:Class ;
+                 rdfs:subClassOf cryop:Accumulation ;
+                 owl:disjointWith cryop:GlacierRetreat .
 
-<http://sweetontology.net/phenCryo/Supraglacial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCryo/GlacialProcess> .
+
+###  http://sweetontology.net/phenCryo/GlacierRetreat
+cryop:GlacierRetreat rdf:type owl:Class ;
+                     rdfs:subClassOf cryop:GlacialProcess ,
+                                     statec:Melting .
+
+
+###  http://sweetontology.net/phenCryo/IceCalving
+cryop:IceCalving rdf:type owl:Class .
+
+
+###  http://sweetontology.net/phenCryo/Periglacial
+cryop:Periglacial rdf:type owl:Class ;
+                  rdfs:subClassOf cryop:GlacialProcess .
+
+
+###  http://sweetontology.net/phenCryo/Periglaciation
+cryop:Periglaciation rdf:type owl:Class ;
+                     rdfs:subClassOf cryop:Glaciation .
+
+
+###  http://sweetontology.net/phenCryo/Proglacial
+cryop:Proglacial rdf:type owl:Class ;
+                 rdfs:subClassOf cryop:GlacialProcess .
+
+
+###  http://sweetontology.net/phenCryo/Subglacial
+cryop:Subglacial rdf:type owl:Class ;
+                 rdfs:subClassOf cryop:GlacialProcess .
+
+
+###  http://sweetontology.net/phenCryo/Supraglacial
+cryop:Supraglacial rdf:type owl:Class ;
+                   rdfs:subClassOf cryop:GlacialProcess .
+
+
+###  http://sweetontology.net/phenSystem/Accumulation
+sys:Accumulation rdf:type owl:Class .
+
+
+###  http://sweetontology.net/procPhysical/PhysicalProcess
+proc:PhysicalProcess rdf:type owl:Class .
+
+
+###  http://sweetontology.net/procStateChange/Melting
+statec:Melting rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

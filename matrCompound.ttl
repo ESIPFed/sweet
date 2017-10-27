@@ -1,391 +1,618 @@
+@prefix : <http://sweetontology.net/matrCompound/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
 @prefix chem: <http://sweetontology.net/matr/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix cstate: <http://sweetontology.net/stateChemical/> .
 @prefix comp: <http://sweetontology.net/matrCompound/> .
 @prefix elem: <http://sweetontology.net/matrElement/> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix cstate: <http://sweetontology.net/stateChemical/> .
+@base <http://sweetontology.net/matrCompound> .
 
-<http://sweetontology.net/matrCompound> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrElement> , <http://sweetontology.net/stateChemical> , <http://sweetontology.net/state> , <http://sweetontology.net/matrElementalMolecule> , <http://sweetontology.net/matr> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaChemical> .
+<http://sweetontology.net/matrCompound> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/matr> ,
+                                                     <http://sweetontology.net/matrElement> ,
+                                                     <http://sweetontology.net/matrElementalMolecule> ,
+                                                     <http://sweetontology.net/rela> ,
+                                                     <http://sweetontology.net/relaChemical> ,
+                                                     <http://sweetontology.net/state> ,
+                                                     <http://sweetontology.net/stateChemical> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-comp:Compound a owl:Class ;
-	rdfs:subClassOf chem:Chemical ;
-	owl:equivalentClass comp:ChemicalCompound ;
-	rdfs:comment "A chemical compound is a pure chemical substance consisting of two or more different chemical elements[1][2][3] that can be separated into simpler substances by chemical reactions[4] and that have a unique and defined chemical structure. Chemical compounds consist of a fixed ratio of atoms[3] that are hold together in a defined spatial arrangement by chemical bonds. [Wikipedia]"@en .
+#################################################################
+#    Classes
+#################################################################
 
-comp:ChemicalCompound a owl:Class .
+###  http://sweetontology.net/matrCompound/ChemicalCompound
+comp:ChemicalCompound rdf:type owl:Class ;
+                      owl:equivalentClass comp:Compound .
 
-comp:InorganicCompound a owl:Class ;
-	rdfs:subClassOf comp:Compound .
 
-comp:Clathrate a owl:Class ;
-	rdfs:subClassOf comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Clathrate
+comp:Clathrate rdf:type owl:Class ;
+               rdfs:subClassOf comp:InorganicCompound .
 
-comp:Peroxide a owl:Class ;
-	rdfs:subClassOf comp:InorganicCompound .
 
-comp:InorganicAcid a owl:Class ;
-	rdfs:subClassOf comp:InorganicCompound , _:node1boamduktx1 .
+###  http://sweetontology.net/matrCompound/Compound
+comp:Compound rdf:type owl:Class ;
+              rdfs:subClassOf chem:Chemical .
 
-_:node1boamduktx1 a owl:Restriction ;
-	owl:hasValue cstate:Acid ;
-	owl:onProperty rela:hasState .
 
-comp:Perchlorate a owl:Class ;
-	rdfs:subClassOf comp:InorganicAcid .
+###  http://sweetontology.net/matrCompound/InorganicAcid
+comp:InorganicAcid rdf:type owl:Class ;
+                   rdfs:subClassOf comp:InorganicCompound ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rela:hasState ;
+                                     owl:hasValue cstate:Acid
+                                   ] .
 
-comp:BrCl a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Br ;
-	crela:hasChemical_2 elem:Cl ;
-	owl:sameAs comp:BromineChloride .
 
-comp:BromineChloride a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/InorganicCompound
+comp:InorganicCompound rdf:type owl:Class ;
+                       rdfs:subClassOf comp:Compound .
 
-comp:BrNO3 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Br ;
-	crela:hasChemical_2 elem:N ;
-	crela:hasChemical_3 allo:O3 ;
-	owl:sameAs comp:BromineNitrate .
 
-comp:BromineNitrate a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Perchlorate
+comp:Perchlorate rdf:type owl:Class ;
+                 rdfs:subClassOf comp:InorganicAcid .
 
-comp:BrO a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Br ;
-	crela:hasChemical_2 elem:O ;
-	owl:sameAs comp:BromineMonoxide .
 
-comp:BromineMonoxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Peroxide
+comp:Peroxide rdf:type owl:Class ;
+              rdfs:subClassOf comp:InorganicCompound .
 
-comp:BrOx a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Br ;
-	crela:hasChemical_2 allo:Ox .
 
-comp:COS a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 elem:O ;
-	crela:hasChemical_3 elem:S ;
-	owl:sameAs comp:CarbonylSulfide .
+#################################################################
+#    Individuals
+#################################################################
 
-comp:CarbonylSulfide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Ammonia
+comp:Ammonia rdf:type owl:NamedIndividual ,
+                      comp:InorganicCompound ;
+             owl:sameAs comp:NH3 .
 
-comp:Carbonate a comp:InorganicCompound .
 
-comp:CO a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 elem:O ;
-	owl:sameAs comp:CarbonMonoxide .
+###  http://sweetontology.net/matrCompound/BrCl
+comp:BrCl rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound ;
+          owl:sameAs comp:BromineChloride .
 
-comp:CarbonMonoxide a comp:InorganicCompound .
 
-comp:CO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:CarbonDioxide .
+###  http://sweetontology.net/matrCompound/BrNO3
+comp:BrNO3 rdf:type owl:NamedIndividual ,
+                    comp:InorganicCompound ;
+           owl:sameAs comp:BromineNitrate .
 
-comp:CarbonDioxide a comp:InorganicCompound .
 
-comp:DryIce a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:O2 .
+###  http://sweetontology.net/matrCompound/BrO
+comp:BrO rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:BromineMonoxide .
 
-comp:ClO a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Cl ;
-	crela:hasChemical_2 elem:O ;
-	owl:sameAs comp:ChlorineMonoxide .
 
-comp:ChlorineMonoxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/BrOx
+comp:BrOx rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound .
 
-comp:ClO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Cl ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:ChlorineDioxide .
 
-comp:ChlorineDioxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/BromineChloride
+comp:BromineChloride rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound .
 
-comp:ClOx a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Cl ;
-	crela:hasChemical_2 allo:Ox .
 
-comp:ClONO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Cl ;
-	crela:hasChemical_2 elem:O ;
-	crela:hasChemical_3 elem:N ;
-	crela:hasChemical_4 allo:O2 ;
-	owl:sameAs comp:ChlorineNitrate .
+###  http://sweetontology.net/matrCompound/BromineMonoxide
+comp:BromineMonoxide rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound .
 
-comp:ChlorineNitrate a comp:InorganicCompound .
 
-comp:Cl2O2 a comp:InorganicCompound ;
-	crela:hasChemical_1 allo:Cl2 ;
-	crela:hasChemical_2 allo:O2 ;
-	a comp:Peroxide ;
-	owl:sameAs comp:DichlorinePeroxide .
+###  http://sweetontology.net/matrCompound/BromineNitrate
+comp:BromineNitrate rdf:type owl:NamedIndividual ,
+                             comp:InorganicCompound .
 
-comp:DichlorinePeroxide a comp:InorganicCompound .
 
-<http://sweetontology.net/matrCompound/Fe2.3> a comp:InorganicCompound ;
-	rdfs:label "SWEET Ontology" ;
-	crela:hasChemical_1 allo:Fe2 ;
-	crela:hasChemical_2 allo:O3 ;
-	owl:sameAs comp:Hematite , comp:IronOxide , comp:Rust .
+###  http://sweetontology.net/matrCompound/CO
+comp:CO rdf:type owl:NamedIndividual ,
+                 comp:InorganicCompound ;
+        owl:sameAs comp:CarbonMonoxide .
 
-comp:Hematite a comp:InorganicCompound .
 
-comp:IronOxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/CO2
+comp:CO2 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:CarbonDioxide .
 
-comp:Rust a comp:InorganicCompound .
 
-comp:Fe3O4 a comp:InorganicCompound ;
-	crela:hasChemical_1 allo:Fe3 ;
-	crela:hasChemical_2 allo:O4 ;
-	owl:sameAs comp:Magnetite .
+###  http://sweetontology.net/matrCompound/COS
+comp:COS rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:CarbonylSulfide .
 
-comp:Magnetite a comp:InorganicCompound .
 
-comp:H2O a comp:InorganicCompound ;
-	crela:hasChemical_1 allo:H2 ;
-	crela:hasChemical_2 elem:O ;
-	owl:sameAs comp:Water .
+###  http://sweetontology.net/matrCompound/CarbonDioxide
+comp:CarbonDioxide rdf:type owl:NamedIndividual ,
+                            comp:InorganicCompound .
 
-comp:Water a comp:InorganicCompound .
 
-comp:HBr a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:Br ;
-	owl:sameAs comp:HydrogenBromide .
+###  http://sweetontology.net/matrCompound/CarbonMonoxide
+comp:CarbonMonoxide rdf:type owl:NamedIndividual ,
+                             comp:InorganicCompound .
 
-comp:HydrogenBromide a comp:InorganicCompound .
 
-comp:HCl a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:Cl .
+###  http://sweetontology.net/matrCompound/Carbonate
+comp:Carbonate rdf:type owl:NamedIndividual ,
+                        comp:InorganicCompound .
 
-comp:HydrogenChloride a comp:InorganicCompound .
 
-comp:HF a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:F ;
-	owl:sameAs comp:HydrogenFluoride .
+###  http://sweetontology.net/matrCompound/CarbonicAcid
+comp:CarbonicAcid rdf:type owl:NamedIndividual ,
+                           comp:InorganicAcid ;
+                  owl:sameAs comp:H2CO3 .
 
-comp:HydrogenFluoride a comp:InorganicCompound .
 
-comp:HO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:Hydroperoxyl .
+###  http://sweetontology.net/matrCompound/CarbonylSulfide
+comp:CarbonylSulfide rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound .
 
-comp:Hydroperoxyl a comp:InorganicCompound .
 
-comp:PeroxyRadical a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/ChlorineDioxide
+comp:ChlorineDioxide rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound ;
+                     owl:sameAs comp:ClO2 .
 
-comp:HOx a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 allo:Ox ;
-	owl:sameAs comp:HydrogenOxides .
 
-comp:HydrogenOxides a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/ChlorineMonoxide
+comp:ChlorineMonoxide rdf:type owl:NamedIndividual ,
+                               comp:InorganicCompound ;
+                      owl:sameAs comp:ClO .
 
-comp:H2O2 a comp:InorganicCompound ;
-	crela:hasChemical_1 allo:H2 ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:HydrogenPeroxide .
 
-comp:HydrogenPeroxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/ChlorineNitrate
+comp:ChlorineNitrate rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound ;
+                     owl:sameAs comp:ClONO2 .
 
-comp:N2O a comp:InorganicCompound ;
-	crela:hasChemical_1 allo:N2 ;
-	crela:hasChemical_2 elem:O ;
-	owl:sameAs comp:NitrousOxide .
 
-comp:NitrousOxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Cl2O2
+comp:Cl2O2 rdf:type owl:NamedIndividual ,
+                    comp:InorganicCompound ,
+                    comp:Peroxide ;
+           owl:sameAs comp:DichlorinePeroxide .
 
-comp:N2O5 a comp:InorganicCompound ;
-	crela:hasChemical_1 allo:N2 ;
-	crela:hasChemical_2 allo:O5 ;
-	owl:sameAs comp:DinitrogenPentoxide .
 
-comp:DinitrogenPentoxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/ClO
+comp:ClO rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound .
 
-comp:NH3 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Br ;
-	crela:hasChemical_2 elem:Cl ;
-	owl:sameAs comp:Ammonia .
 
-comp:Ammonia a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/ClO2
+comp:ClO2 rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound .
 
-comp:NO a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Br ;
-	crela:hasChemical_2 elem:Cl ;
-	owl:sameAs comp:NitricOxide , comp:NitrogenMonoxide .
 
-comp:NitricOxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/ClONO2
+comp:ClONO2 rdf:type owl:NamedIndividual ,
+                     comp:InorganicCompound .
 
-comp:NitrogenMonoxide a comp:InorganicCompound .
 
-comp:NO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:NitrogenDioxide .
+###  http://sweetontology.net/matrCompound/ClOx
+comp:ClOx rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound .
 
-comp:NitrogenDioxide a comp:InorganicCompound .
 
-comp:NO3 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:NitrateRadical .
+###  http://sweetontology.net/matrCompound/DichlorinePeroxide
+comp:DichlorinePeroxide rdf:type owl:NamedIndividual ,
+                                 comp:InorganicCompound .
 
-comp:NitrateRadical a comp:InorganicCompound .
 
-comp:NOx a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:N ;
-	crela:hasChemical_2 allo:Ox ;
-	owl:sameAs comp:NitrogenOxide .
+###  http://sweetontology.net/matrCompound/DinitrogenPentoxide
+comp:DinitrogenPentoxide rdf:type owl:NamedIndividual ,
+                                  comp:InorganicCompound ;
+                         owl:sameAs comp:N2O5 .
 
-comp:NitrogenOxide a comp:InorganicCompound .
 
-comp:NOy a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/DryIce
+comp:DryIce rdf:type owl:NamedIndividual ,
+                     comp:InorganicCompound .
 
-comp:NaCl a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Na ;
-	crela:hasChemical_2 elem:Cl ;
-	owl:sameAs comp:Salt ;
-	rdfs:comment "A salt is defined as the product formed from the neutralization reaction of acids and bases. Salts are ionic compounds composed of cations (positively charged ions) and anions (negative ions) so that the product is electrically neutral (without a net charge). [Wikipedia]"@en .
 
-comp:Salt a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Fe2.3
+comp:Fe2.3 rdf:type owl:NamedIndividual ,
+                    comp:InorganicCompound ;
+           owl:sameAs comp:Hematite ,
+                      comp:IronOxide ,
+                      comp:Rust .
 
-comp:OH a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:O ;
-	crela:hasChemical_2 elem:H ;
-	owl:sameAs comp:Hydroxyl .
 
-comp:Hydroxyl a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/Fe3O4
+comp:Fe3O4 rdf:type owl:NamedIndividual ,
+                    comp:InorganicCompound ;
+           owl:sameAs comp:Magnetite .
 
-comp:PO a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:P ;
-	crela:hasChemical_2 elem:O ;
-	owl:sameAs comp:Phosphate .
 
-comp:Phosphate a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/H2CO3
+comp:H2CO3 rdf:type owl:NamedIndividual ,
+                    comp:InorganicAcid .
 
-comp:SO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:S ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:SulfurDioxide .
 
-comp:SulfurDioxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/H2O
+comp:H2O rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:Water .
 
-comp:SO4 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:S ;
-	crela:hasChemical_2 allo:O4 ;
-	owl:sameAs comp:Sulfate .
 
-comp:Sulfate a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/H2O2
+comp:H2O2 rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound ;
+          owl:sameAs comp:HydrogenPeroxide .
 
-comp:SOx a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:S ;
-	crela:hasChemical_2 allo:Ox ;
-	owl:sameAs comp:SulfurOxide .
 
-comp:SulfurOxide a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/H2SO4
+comp:H2SO4 rdf:type owl:NamedIndividual ,
+                    comp:InorganicAcid ;
+           owl:sameAs comp:SulfuricAcid .
 
-comp:SiO2 a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Si ;
-	crela:hasChemical_2 allo:O2 ;
-	owl:sameAs comp:Silica , comp:SiliconDioxide .
 
-comp:Silica a comp:InorganicCompound .
+###  http://sweetontology.net/matrCompound/HBr
+comp:HBr rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:HydrogenBromide .
 
-comp:SiliconDioxide a comp:InorganicCompound .
 
-comp:Silicate a comp:InorganicCompound ;
-	crela:hasChemical_1 elem:Si ;
-	crela:hasChemical_2 elem:O .
+###  http://sweetontology.net/matrCompound/HBrO
+comp:HBrO rdf:type owl:NamedIndividual ,
+                   comp:InorganicAcid ;
+          owl:sameAs comp:HydrobromousAcid .
 
-comp:HypochlorousMonoxide a comp:InorganicCompound .
 
-comp:H2CO3 a comp:InorganicAcid ;
-	crela:hasChemical_1 allo:H2 ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 allo:O3 ;
-	owl:sameAs comp:CarbonicAcid .
+###  http://sweetontology.net/matrCompound/HCl
+comp:HCl rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound .
 
-comp:CarbonicAcid a comp:InorganicAcid .
 
-comp:H2SO4 a comp:InorganicAcid ;
-	crela:hasChemical_1 allo:H2 ;
-	crela:hasChemical_2 elem:S ;
-	crela:hasChemical_3 allo:O4 ;
-	owl:sameAs comp:SulfuricAcid .
+###  http://sweetontology.net/matrCompound/HClO
+comp:HClO rdf:type owl:NamedIndividual ,
+                   comp:InorganicAcid ;
+          owl:sameAs comp:HypochlorousAcid .
 
-comp:SulfuricAcid a comp:InorganicAcid .
 
-comp:HNO2 a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:N ;
-	crela:hasChemical_3 allo:O2 ;
-	owl:sameAs comp:NitrousAcid .
+###  http://sweetontology.net/matrCompound/HClO4
+comp:HClO4 rdf:type owl:NamedIndividual ,
+                    comp:InorganicAcid ,
+                    comp:Perchlorate ;
+           owl:sameAs comp:PerchloricAcid .
 
-comp:NitrousAcid a comp:InorganicAcid .
 
-comp:HNO3 a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:N ;
-	crela:hasChemical_3 allo:O3 ;
-	owl:sameAs comp:NitricAcid .
+###  http://sweetontology.net/matrCompound/HF
+comp:HF rdf:type owl:NamedIndividual ,
+                 comp:InorganicCompound ;
+        owl:sameAs comp:HydrogenFluoride .
 
-comp:NitricAcid a comp:InorganicAcid .
 
-comp:HNO4 a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:N ;
-	crela:hasChemical_3 allo:O4 ;
-	a comp:Peroxide ;
-	owl:sameAs comp:PeroxynitricAcid .
+###  http://sweetontology.net/matrCompound/HNO2
+comp:HNO2 rdf:type owl:NamedIndividual ,
+                   comp:InorganicAcid ;
+          owl:sameAs comp:NitrousAcid .
 
-comp:PeroxynitricAcid a comp:InorganicAcid .
 
-comp:NitricAcidTrihydrate a comp:InorganicAcid ;
-	owl:sameAs comp:NAT .
+###  http://sweetontology.net/matrCompound/HNO3
+comp:HNO3 rdf:type owl:NamedIndividual ,
+                   comp:InorganicAcid ;
+          owl:sameAs comp:NitricAcid .
 
-comp:NAT a comp:InorganicAcid .
 
-comp:HOCl a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:O ;
-	crela:hasChemical_3 elem:Cl ;
-	owl:sameAs comp:HydrochlorousAcid .
+###  http://sweetontology.net/matrCompound/HNO4
+comp:HNO4 rdf:type owl:NamedIndividual ,
+                   comp:InorganicAcid ,
+                   comp:Peroxide ;
+          owl:sameAs comp:PeroxynitricAcid .
 
-comp:HydrochlorousAcid a comp:InorganicAcid .
 
-comp:HBrO a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:Br ;
-	crela:hasChemical_3 elem:O ;
-	owl:sameAs comp:HydrobromousAcid .
+###  http://sweetontology.net/matrCompound/HO2
+comp:HO2 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:Hydroperoxyl .
 
-comp:HydrobromousAcid a comp:InorganicAcid .
 
-comp:HClO a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:Cl ;
-	crela:hasChemical_3 elem:O ;
-	owl:sameAs comp:HypochlorousAcid .
+###  http://sweetontology.net/matrCompound/HOCl
+comp:HOCl rdf:type owl:NamedIndividual ,
+                   comp:InorganicAcid ;
+          owl:sameAs comp:HydrochlorousAcid .
 
-comp:HypochlorousAcid a comp:InorganicAcid .
 
-comp:HClO4 a comp:InorganicAcid ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:Cl ;
-	crela:hasChemical_3 allo:O4 ;
-	a comp:Perchlorate ;
-	owl:sameAs comp:PerchloricAcid .
+###  http://sweetontology.net/matrCompound/HOx
+comp:HOx rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:HydrogenOxides .
 
-comp:PerchloricAcid a comp:InorganicAcid .
+
+###  http://sweetontology.net/matrCompound/Hematite
+comp:Hematite rdf:type owl:NamedIndividual ,
+                       comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/HydrobromousAcid
+comp:HydrobromousAcid rdf:type owl:NamedIndividual ,
+                               comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/HydrochlorousAcid
+comp:HydrochlorousAcid rdf:type owl:NamedIndividual ,
+                                comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/HydrogenBromide
+comp:HydrogenBromide rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/HydrogenChloride
+comp:HydrogenChloride rdf:type owl:NamedIndividual ,
+                               comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/HydrogenFluoride
+comp:HydrogenFluoride rdf:type owl:NamedIndividual ,
+                               comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/HydrogenOxides
+comp:HydrogenOxides rdf:type owl:NamedIndividual ,
+                             comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/HydrogenPeroxide
+comp:HydrogenPeroxide rdf:type owl:NamedIndividual ,
+                               comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/Hydroperoxyl
+comp:Hydroperoxyl rdf:type owl:NamedIndividual ,
+                           comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/Hydroxyl
+comp:Hydroxyl rdf:type owl:NamedIndividual ,
+                       comp:InorganicCompound ;
+              owl:sameAs comp:OH .
+
+
+###  http://sweetontology.net/matrCompound/HypochlorousAcid
+comp:HypochlorousAcid rdf:type owl:NamedIndividual ,
+                               comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/HypochlorousMonoxide
+comp:HypochlorousMonoxide rdf:type owl:NamedIndividual ,
+                                   comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/IronOxide
+comp:IronOxide rdf:type owl:NamedIndividual ,
+                        comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/Magnetite
+comp:Magnetite rdf:type owl:NamedIndividual ,
+                        comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/N2O
+comp:N2O rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:NitrousOxide .
+
+
+###  http://sweetontology.net/matrCompound/N2O5
+comp:N2O5 rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NAT
+comp:NAT rdf:type owl:NamedIndividual ,
+                  comp:InorganicAcid ;
+         owl:sameAs comp:NitricAcidTrihydrate .
+
+
+###  http://sweetontology.net/matrCompound/NH3
+comp:NH3 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NO
+comp:NO rdf:type owl:NamedIndividual ,
+                 comp:InorganicCompound ;
+        owl:sameAs comp:NitricOxide ,
+                   comp:NitrogenMonoxide .
+
+
+###  http://sweetontology.net/matrCompound/NO2
+comp:NO2 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:NitrogenDioxide .
+
+
+###  http://sweetontology.net/matrCompound/NO3
+comp:NO3 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:NitrateRadical .
+
+
+###  http://sweetontology.net/matrCompound/NOx
+comp:NOx rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:NitrogenOxide .
+
+
+###  http://sweetontology.net/matrCompound/NOy
+comp:NOy rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NaCl
+comp:NaCl rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound ;
+          owl:sameAs comp:Salt .
+
+
+###  http://sweetontology.net/matrCompound/NitrateRadical
+comp:NitrateRadical rdf:type owl:NamedIndividual ,
+                             comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NitricAcid
+comp:NitricAcid rdf:type owl:NamedIndividual ,
+                         comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/NitricAcidTrihydrate
+comp:NitricAcidTrihydrate rdf:type owl:NamedIndividual ,
+                                   comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/NitricOxide
+comp:NitricOxide rdf:type owl:NamedIndividual ,
+                          comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NitrogenDioxide
+comp:NitrogenDioxide rdf:type owl:NamedIndividual ,
+                              comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NitrogenMonoxide
+comp:NitrogenMonoxide rdf:type owl:NamedIndividual ,
+                               comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NitrogenOxide
+comp:NitrogenOxide rdf:type owl:NamedIndividual ,
+                            comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/NitrousAcid
+comp:NitrousAcid rdf:type owl:NamedIndividual ,
+                          comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/NitrousOxide
+comp:NitrousOxide rdf:type owl:NamedIndividual ,
+                           comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/OH
+comp:OH rdf:type owl:NamedIndividual ,
+                 comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/PO
+comp:PO rdf:type owl:NamedIndividual ,
+                 comp:InorganicCompound ;
+        owl:sameAs comp:Phosphate .
+
+
+###  http://sweetontology.net/matrCompound/PerchloricAcid
+comp:PerchloricAcid rdf:type owl:NamedIndividual ,
+                             comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/PeroxyRadical
+comp:PeroxyRadical rdf:type owl:NamedIndividual ,
+                            comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/PeroxynitricAcid
+comp:PeroxynitricAcid rdf:type owl:NamedIndividual ,
+                               comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/Phosphate
+comp:Phosphate rdf:type owl:NamedIndividual ,
+                        comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/Rust
+comp:Rust rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/SO2
+comp:SO2 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:SulfurDioxide .
+
+
+###  http://sweetontology.net/matrCompound/SO4
+comp:SO4 rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:Sulfate .
+
+
+###  http://sweetontology.net/matrCompound/SOx
+comp:SOx rdf:type owl:NamedIndividual ,
+                  comp:InorganicCompound ;
+         owl:sameAs comp:SulfurOxide .
+
+
+###  http://sweetontology.net/matrCompound/Salt
+comp:Salt rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/SiO2
+comp:SiO2 rdf:type owl:NamedIndividual ,
+                   comp:InorganicCompound ;
+          owl:sameAs comp:Silica ,
+                     comp:SiliconDioxide .
+
+
+###  http://sweetontology.net/matrCompound/Silica
+comp:Silica rdf:type owl:NamedIndividual ,
+                     comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/Silicate
+comp:Silicate rdf:type owl:NamedIndividual ,
+                       comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/SiliconDioxide
+comp:SiliconDioxide rdf:type owl:NamedIndividual ,
+                             comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/Sulfate
+comp:Sulfate rdf:type owl:NamedIndividual ,
+                      comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/SulfurDioxide
+comp:SulfurDioxide rdf:type owl:NamedIndividual ,
+                            comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/SulfurOxide
+comp:SulfurOxide rdf:type owl:NamedIndividual ,
+                          comp:InorganicCompound .
+
+
+###  http://sweetontology.net/matrCompound/SulfuricAcid
+comp:SulfuricAcid rdf:type owl:NamedIndividual ,
+                           comp:InorganicAcid .
+
+
+###  http://sweetontology.net/matrCompound/Water
+comp:Water rdf:type owl:NamedIndividual ,
+                    comp:InorganicCompound .
+
+
+###  http://sweetontology.net/stateChemical/Acid
+cstate:Acid rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
