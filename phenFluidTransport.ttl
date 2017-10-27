@@ -1,9 +1,16 @@
 @prefix : <http://sweetontology.net/phenFluidTransport/> .
+@prefix imp: <http://sweetontology.net/phenEnvirImpact/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix phen: <http://sweetontology.net/phen/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix etrans: <http://sweetontology.net/phenFluidTransport/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
 @base <http://sweetontology.net/phenFluidTransport> .
 
 <http://sweetontology.net/phenFluidTransport> rdf:type owl:Ontology ;
@@ -21,7 +28,7 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -29,149 +36,137 @@
 #################################################################
 
 ###  http://sweetontology.net/phenFluidTransport/Advection
-:Advection rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom :Transport
-                           ] ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                             owl:hasValue <http://sweetontology.net/statePhysical/Fluid>
-                           ] ;
-           rdfs:comment "The process of transport solely by the mass motion (velocity field); also, the rate of change of the value of the advected property at a given point." .
+etrans:Advection rdf:type owl:Class ;
+                 rdfs:subClassOf phen:Phenomena ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:hasPhenomena ;
+                                   owl:allValuesFrom etrans:Transport
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:hasState ;
+                                   owl:hasValue pstate:Fluid
+                                 ] .
 
 
 ###  http://sweetontology.net/phenFluidTransport/BolusAdvection
-:BolusAdvection rdf:type owl:Class ;
-                rdfs:subClassOf :Advection .
+etrans:BolusAdvection rdf:type owl:Class ;
+                      rdfs:subClassOf etrans:Advection .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Buoyancy
-:Buoyancy rdf:type owl:Class ;
-          rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ;
-          rdfs:comment "That property of an object that enables it to float on the surface of a liquid, or ascend through and remain freely suspended in a compressible fluid such as the atmosphere."@en .
+etrans:Buoyancy rdf:type owl:Class ;
+                rdfs:subClassOf phen:Phenomena .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Coning
-:Coning rdf:type owl:Class ;
-        rdfs:subClassOf :Plume .
+etrans:Coning rdf:type owl:Class ;
+              rdfs:subClassOf etrans:Plume .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Convection
-:Convection rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ;
-            rdfs:comment "In general, mass motions within a fluid resulting in transport and mixing of the properties of that fluid.  Convection, along with conduction and radiation, is a principal means of energy transfer."@en .
+etrans:Convection rdf:type owl:Class ;
+                  rdfs:subClassOf phen:Phenomena .
 
 
 ###  http://sweetontology.net/phenFluidTransport/ConvectivePlume
-:ConvectivePlume rdf:type owl:Class ;
-                 rdfs:subClassOf :Plume ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                   owl:allValuesFrom :Convection
-                                 ] ;
-                 rdfs:comment "A buoyant jet stream in which the buoyancy is supplied steadily from a point source; the buoyant region is continuous."@en .
+etrans:ConvectivePlume rdf:type owl:Class ;
+                       rdfs:subClassOf etrans:Plume ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rela:hasPhenomena ;
+                                         owl:allValuesFrom etrans:Convection
+                                       ] .
 
 
 ###  http://sweetontology.net/phenFluidTransport/CounterGradientFlux
-:CounterGradientFlux rdf:type owl:Class ;
-                     rdfs:subClassOf <http://sweetontology.net/propQuantity/Flux> .
+etrans:CounterGradientFlux rdf:type owl:Class ;
+                           rdfs:subClassOf quan:Flux .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Deposition
-:Deposition rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ;
-            rdfs:comment "Phenomena by which traces gases or particles are transferred from atmosphere to a surface."@en .
+etrans:Deposition rdf:type owl:Class ;
+                  rdfs:subClassOf phen:Phenomena .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Fanning
-:Fanning rdf:type owl:Class ;
-         rdfs:subClassOf :Plume ;
-         rdfs:comment "A pattern of smokestack plume dispersion in a statically stable atmosphere, in which the plume spreads out in the horizontal like an oriental fan and meanders about at a fixed height with little vertical spread."@en .
+etrans:Fanning rdf:type owl:Class ;
+               rdfs:subClassOf etrans:Plume .
 
 
 ###  http://sweetontology.net/phenFluidTransport/HTAP
-:HTAP rdf:type owl:Class ;
-      owl:equivalentClass :HemisphericTransportOfAirPollutants .
+etrans:HTAP rdf:type owl:Class ;
+            owl:equivalentClass etrans:HemisphericTransportOfAirPollutants .
 
 
 ###  http://sweetontology.net/phenFluidTransport/HemisphericTransportOfAirPollutants
-:HemisphericTransportOfAirPollutants rdf:type owl:Class ;
-                                     rdfs:subClassOf :Transport ,
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                                       owl:someValuesFrom <http://sweetontology.net/phenEnvirImpact/AirPollution>
-                                                     ] .
+etrans:HemisphericTransportOfAirPollutants rdf:type owl:Class ;
+                                           rdfs:subClassOf etrans:Transport ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty rela:hasPhenomena ;
+                                                             owl:someValuesFrom imp:AirPollution
+                                                           ] .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Lofting
-:Lofting rdf:type owl:Class ;
-         rdfs:subClassOf :Convection ;
-         rdfs:comment "The phenomenon where the upper part of a smoke plume diffuses more rapidly upward than the bottom part diffuses downward. This generally occurs when the boundary layer near the ground is more stable than it is aloft. Compare coning, fanning, looping."@en .
+etrans:Lofting rdf:type owl:Class ;
+               rdfs:subClassOf etrans:Convection .
 
 
 ###  http://sweetontology.net/phenFluidTransport/LongRangeTransport
-:LongRangeTransport rdf:type owl:Class ;
-                    rdfs:subClassOf :Transport .
+etrans:LongRangeTransport rdf:type owl:Class ;
+                          rdfs:subClassOf etrans:Transport .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Plume
-:Plume rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/matr/SuspendedSubstance> ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                         owl:hasValue <http://sweetontology.net/statePhysical/Fluid>
-                       ] ;
-       rdfs:comment "Buoyant jet in which the buoyancy is supplied from a point source; the buoyant region is continuous. 2. A mostly horizontal (sometimes initially vertical) stream of pollutant that is being blown downwind from a smokestack."@en .
+etrans:Plume rdf:type owl:Class ;
+             rdfs:subClassOf chem:SuspendedSubstance ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty rela:hasState ;
+                               owl:hasValue pstate:Fluid
+                             ] .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Puff
-:Puff rdf:type owl:Class ;
-      rdfs:subClassOf :Plume .
+etrans:Puff rdf:type owl:Class ;
+            rdfs:subClassOf etrans:Plume .
 
 
 ###  http://sweetontology.net/phenFluidTransport/SlantWiseConvection
-:SlantWiseConvection rdf:type owl:Class ;
-                     rdfs:subClassOf :Convection ;
-                     rdfs:comment "A form of convection driven by a combination of gravitational and centrifugal forces."@en .
+etrans:SlantWiseConvection rdf:type owl:Class ;
+                           rdfs:subClassOf etrans:Convection .
 
 
 ###  http://sweetontology.net/phenFluidTransport/StackEffect
-:StackEffect rdf:type owl:Class ;
-             rdfs:subClassOf :Convection ;
-             rdfs:comment "An effect due to heat sources within a local exhaust enclosure (stack) producing convective air currents with vertical velocities proportional to the rate of heat transferred to the surrounding air and to the height of rise of the heated air."@en .
+etrans:StackEffect rdf:type owl:Class ;
+                   rdfs:subClassOf etrans:Convection .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Surge
-:Surge rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/propQuantity/Flux> .
+etrans:Surge rdf:type owl:Class ;
+             rdfs:subClassOf quan:Flux .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Transport
-:Transport rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> .
+etrans:Transport rdf:type owl:Class ;
+                 rdfs:subClassOf phen:Phenomena .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Uptake
-:Uptake rdf:type owl:Class ;
-        rdfs:subClassOf :Transport .
+etrans:Uptake rdf:type owl:Class ;
+              rdfs:subClassOf etrans:Transport .
 
 
 ###  http://sweetontology.net/phenFluidTransport/VorticityAdvection
-:VorticityAdvection rdf:type owl:Class ;
-                    rdfs:subClassOf :Advection ;
-                    rdfs:comment "Advection of vorticity by the total wind or force."@en .
+etrans:VorticityAdvection rdf:type owl:Class ;
+                          rdfs:subClassOf etrans:Advection .
 
 
 ###  http://sweetontology.net/phenFluidTransport/WestEastTransport
-:WestEastTransport rdf:type owl:Class ;
-                   rdfs:subClassOf :Transport ;
-                   rdfs:comment "The eastward flux of mass, momentum, heat, moisture or any other property of a fluid by mean motion or by correlation with the eastward component of motion, that is, eddy flux."@en .
+etrans:WestEastTransport rdf:type owl:Class ;
+                         rdfs:subClassOf etrans:Transport .
 
 
 ###  http://sweetontology.net/propQuantity/Flux
-<http://sweetontology.net/propQuantity/Flux> rdf:type owl:Class .
+quan:Flux rdf:type owl:Class .
 
 
 #################################################################
@@ -179,7 +174,7 @@
 #################################################################
 
 ###  http://sweetontology.net/statePhysical/Fluid
-<http://sweetontology.net/statePhysical/Fluid> rdf:type owl:NamedIndividual .
+pstate:Fluid rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

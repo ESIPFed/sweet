@@ -1,9 +1,19 @@
 @prefix : <http://sweetontology.net/phenAtmoTransport/> .
+@prefix fog: <http://sweetontology.net/phenAtmoFog/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sys: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmt: <http://sweetontology.net/phenAtmoTransport/> .
+@prefix boun: <http://sweetontology.net/realmAtmoBoundaryLayer/> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix phen: <http://sweetontology.net/phen/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
+@prefix cstate: <http://sweetontology.net/stateChemical/> .
 @base <http://sweetontology.net/phenAtmoTransport> .
 
 <http://sweetontology.net/phenAtmoTransport> rdf:type owl:Ontology ;
@@ -24,75 +34,68 @@
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoTransport/AcidFog
-:AcidFog rdf:type owl:Class ;
-         owl:equivalentClass :AcidHaze ;
-         rdfs:subClassOf <http://sweetontology.net/phenAtmoFog/Fog> ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                           owl:hasValue <http://sweetontology.net/stateChemical/Acid>
-                         ] ;
-         rdfs:comment "Occurrence of fog or haze in which considerable amounts of acidic material have been taken up from the gas phase, resulting in pH values less than approximately 3 in the liquid phase." ;
-         rdfs:label "Acid Fog" .
+atmt:AcidFog rdf:type owl:Class ;
+             owl:equivalentClass atmt:AcidHaze ;
+             rdfs:subClassOf fog:Fog ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty crela:hasSubstance ;
+                               owl:hasValue cstate:Acid
+                             ] .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/AcidHaze
-:AcidHaze rdf:type owl:Class .
+atmt:AcidHaze rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/AcidRain
-:AcidRain rdf:type owl:Class ;
-          rdfs:subClassOf :WetDeposition ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                            owl:hasValue <http://sweetontology.net/stateChemical/Acid>
-                          ] ;
-          rdfs:comment "A popular expression for the deposition by rainfall of various airborne pollutants (especially SO2 and NO2) that have harmful effects on vegetation, soils, buildings and other external structures."@en .
+atmt:AcidRain rdf:type owl:Class ;
+              rdfs:subClassOf atmt:WetDeposition ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty crela:hasSubstance ;
+                                owl:hasValue cstate:Acid
+                              ] .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/MixedLayerVenting
-:MixedLayerVenting rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/phenSystem/Removal> ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                     owl:allValuesFrom <http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer>
-                                   ] ;
-                   rdfs:comment "Removal of pollutants out of the top of the atmospheric boundary layer through the mixed-layer capping inversion. Normally pollutants cannot escape through the capping inversion. However, penetrating cumulus clouds, thunderstorms, mountain circulations, and frontal circulations can force polluted air through the inversion to vent pollutants into the free atmosphere."@en .
+atmt:MixedLayerVenting rdf:type owl:Class ;
+                       rdfs:subClassOf sys:Removal ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rela:hasPhenomena ;
+                                         owl:allValuesFrom boun:MixedLayer
+                                       ] .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/NucleationScavenging
-:NucleationScavenging rdf:type owl:Class ;
-                      rdfs:subClassOf :ScavengingByPrecipitation ;
-                      rdfs:comment "Water vapor that removes particulate matter from the atmosphere"@en .
+atmt:NucleationScavenging rdf:type owl:Class ;
+                          rdfs:subClassOf atmt:ScavengingByPrecipitation .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/Rainout
-:Rainout rdf:type owl:Class ;
-         owl:equivalentClass :Washout ;
-         rdfs:subClassOf :ScavengingByPrecipitation .
+atmt:Rainout rdf:type owl:Class ;
+             owl:equivalentClass atmt:Washout ;
+             rdfs:subClassOf atmt:ScavengingByPrecipitation .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/ScavengingByPrecipitation
-:ScavengingByPrecipitation rdf:type owl:Class ;
-                           rdfs:subClassOf :WetDeposition ;
-                           rdfs:comment "Removal of pollutants from the air by either rain or snow.  Rainout (or snowout), which is the in-cloud capture of particulates as condensation nuclei, is one form of scavenging."@en .
+atmt:ScavengingByPrecipitation rdf:type owl:Class ;
+                               rdfs:subClassOf atmt:WetDeposition .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/Washout
-:Washout rdf:type owl:Class .
+atmt:Washout rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/WetDeposition
-:WetDeposition rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/phen/AtmosphereLandExchange> ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                 owl:allValuesFrom <http://sweetontology.net/phen/Precipitation>
-                               ] ;
-               rdfs:comment "The removal of atmospheric gases or particles through their incorporation into hydrometeors, which are then lost by precipitation."@en .
+atmt:WetDeposition rdf:type owl:Class ;
+                   rdfs:subClassOf phen:AtmosphereLandExchange ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rela:hasPhenomena ;
+                                     owl:allValuesFrom phen:Precipitation
+                                   ] .
 
 
 ###  http://sweetontology.net/phenSystem/Removal
-<http://sweetontology.net/phenSystem/Removal> rdf:type owl:Class .
+sys:Removal rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

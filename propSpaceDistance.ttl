@@ -3,7 +3,18 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mass: <http://sweetontology.net/propMass/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix xten: <http://sweetontology.net/propSpaceDistance/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix space: <http://sweetontology.net/propSpace/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix wavep: <http://sweetontology.net/procWave/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propSpaceDistance> .
 
 <http://sweetontology.net/propSpaceDistance> rdf:type owl:Ontology ;
@@ -25,23 +36,23 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasProcess
-<http://sweetontology.net/rela/hasProcess> rdf:type owl:ObjectProperty .
+rela:hasProcess rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasUnit
-<http://sweetontology.net/relaSci/hasUnit> rdf:type owl:ObjectProperty .
+screla:hasUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-<http://sweetontology.net/relaSci/measureOf> rdf:type owl:ObjectProperty .
+screla:measureOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/rangeOf
-<http://sweetontology.net/relaSci/rangeOf> rdf:type owl:ObjectProperty .
+screla:rangeOf rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -49,7 +60,7 @@
 #################################################################
 
 ###  http://sweetontology.net/relaMath/hasDimension
-<http://sweetontology.net/relaMath/hasDimension> rdf:type owl:DatatypeProperty .
+mrela:hasDimension rdf:type owl:DatatypeProperty .
 
 
 #################################################################
@@ -57,239 +68,236 @@
 #################################################################
 
 ###  http://sweetontology.net/propSpaceDistance/AttenuationCoefficient
-:AttenuationCoefficient rdf:type owl:Class ;
-                        owl:equivalentClass :ExtinctionCoefficient .
+xten:AttenuationCoefficient rdf:type owl:Class ;
+                            owl:equivalentClass xten:ExtinctionCoefficient .
 
 
 ###  http://sweetontology.net/propSpaceDistance/CompactionCoefficient
-:CompactionCoefficient rdf:type owl:Class ;
-                       rdfs:subClassOf :PerMeterQuantity .
+xten:CompactionCoefficient rdf:type owl:Class ;
+                           rdfs:subClassOf xten:PerMeterQuantity .
 
 
 ###  http://sweetontology.net/propSpaceDistance/CyclotronRadius
-:CyclotronRadius rdf:type owl:Class ;
-                 owl:equivalentClass :Gyroradius .
+xten:CyclotronRadius rdf:type owl:Class ;
+                     owl:equivalentClass xten:Gyroradius .
 
 
 ###  http://sweetontology.net/propSpaceDistance/DebyeLength
-:DebyeLength rdf:type owl:Class ;
-             owl:equivalentClass :DebyeScreeningLength ;
-             rdfs:subClassOf :Distance .
+xten:DebyeLength rdf:type owl:Class ;
+                 owl:equivalentClass xten:DebyeScreeningLength ;
+                 rdfs:subClassOf xten:Distance .
 
 
 ###  http://sweetontology.net/propSpaceDistance/DebyeScreeningLength
-:DebyeScreeningLength rdf:type owl:Class .
+xten:DebyeScreeningLength rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceDistance/DispersionCoeffienct
-:DispersionCoeffienct rdf:type owl:Class ;
-                      rdfs:subClassOf <http://sweetontology.net/propMass/MaterialProperty> ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
-                                        owl:someValuesFrom :Dispersivity
-                                      ] .
+xten:DispersionCoeffienct rdf:type owl:Class ;
+                          rdfs:subClassOf mass:MaterialProperty ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty screla:measureOf ;
+                                            owl:someValuesFrom xten:Dispersivity
+                                          ] .
 
 
 ###  http://sweetontology.net/propSpaceDistance/Dispersivity
-:Dispersivity rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/propMass/MaterialProperty> .
+xten:Dispersivity rdf:type owl:Class ;
+                  rdfs:subClassOf mass:MaterialProperty .
 
 
 ###  http://sweetontology.net/propSpaceDistance/Distance
-:Distance rdf:type owl:Class ;
-          rdfs:subClassOf :Length .
+xten:Distance rdf:type owl:Class ;
+              rdfs:subClassOf xten:Length .
 
 
 ###  http://sweetontology.net/propSpaceDistance/DistanceRange
-:DistanceRange rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-                                 owl:someValuesFrom :Distance
-                               ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/DistanceRange_km
-:DistanceRange_km rdf:type owl:Class ;
-                  rdfs:subClassOf :DistanceRange ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                    owl:hasValue <http://sweetontology.net/reprSciUnits/kilometer>
-                                  ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/ExtinctionCoefficient
-:ExtinctionCoefficient rdf:type owl:Class ;
-                       rdfs:subClassOf :SpatialFrequency ;
-                       rdfs:comment "The extinction coefficient for a particular substance is a measure of how well it scatters and absorbs electromagnetic radiation (EM waves). If the EM wave can pass through very easily, the material has a low extinction coefficient. Conversely, if the radiation hardly penetrates the material, but rather quickly becomes extinct within it, the extinction coefficient is high." .
-
-
-###  http://sweetontology.net/propSpaceDistance/Fetch
-:Fetch rdf:type owl:Class ;
-       rdfs:subClassOf :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/GrainSize
-:GrainSize rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/propMass/ConsistenceProperty> .
-
-
-###  http://sweetontology.net/propSpaceDistance/Gyroradius
-:Gyroradius rdf:type owl:Class ;
-            owl:equivalentClass :LarmorRadius ;
-            rdfs:subClassOf :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/LarmorRadius
-:LarmorRadius rdf:type owl:Class .
-
-
-###  http://sweetontology.net/propSpaceDistance/Length
-:Length rdf:type owl:Class ;
-        rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
-                        <http://sweetontology.net/propSpace/SpatialExtent> ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaMath/hasDimension> ;
-                          owl:hasValue 1
-                        ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/MeanFreePath
-:MeanFreePath rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/prop/MotionProperty> ,
-                              :Distance ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-                                owl:someValuesFrom <http://sweetontology.net/procPhysical/Collision>
-                              ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/MixingLength
-:MixingLength rdf:type owl:Class ;
-              rdfs:subClassOf :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/ObukhovLength
-:ObukhovLength rdf:type owl:Class ;
-               rdfs:subClassOf :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/PerMeterQuantity
-:PerMeterQuantity rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                    owl:hasValue <http://sweetontology.net/reprSciUnits/perMeter>
-                                  ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/PulseLength
-:PulseLength rdf:type owl:Class ;
-             rdfs:subClassOf :Length .
-
-
-###  http://sweetontology.net/propSpaceDistance/Range
-:Range rdf:type owl:Class ;
-       rdfs:subClassOf :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/RossbyRadiusOfDeformation
-:RossbyRadiusOfDeformation rdf:type owl:Class ;
-                           rdfs:subClassOf :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/ScatteringCoefficient
-:ScatteringCoefficient rdf:type owl:Class ;
-                       rdfs:subClassOf :SpatialFrequency ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-                                         owl:allValuesFrom <http://sweetontology.net/procWave/Scattering>
-                                       ] ;
-                       rdfs:comment "A measure of the extinction due to scattering of monochromatic radiation as it traverses a medium containing scattering particles."@en .
-
-
-###  http://sweetontology.net/propSpaceDistance/Size
-:Size rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/propSpace/SpatialExtent> .
-
-
-###  http://sweetontology.net/propSpaceDistance/SizeRange
-:SizeRange rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/propSpace/SpatialExtent> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-                             owl:someValuesFrom :Size
-                           ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/SizeRange_micron
-:SizeRange_micron rdf:type owl:Class ;
-                  rdfs:subClassOf :SizeRange ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                    owl:hasValue <http://sweetontology.net/reprSciUnits/micron>
-                                  ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/SpatialFrequency
-:SpatialFrequency rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ,
-                                  :PerMeterQuantity .
-
-
-###  http://sweetontology.net/propSpaceDistance/Visibility
-:Visibility rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/prop/RadiationMediumInteractionProperty> ,
-                            :Distance ;
-            rdfs:comment "The greatest distance in a given direction at which it is just possible to see and identify with the unaided eye"@en .
-
-
-###  http://sweetontology.net/propSpaceDistance/WaveNumber
-:WaveNumber rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> ,
-                            :PerMeterQuantity .
-
-
-###  http://sweetontology.net/propSpaceDistance/Wavelength
-:Wavelength rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> ,
-                            :Distance .
-
-
-###  http://sweetontology.net/propSpaceDistance/WavelengthBand
-:WavelengthBand rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-                                  owl:allValuesFrom :Wavelength
-                                ] .
-
-
-###  http://sweetontology.net/propSpaceDistance/WavelengthBand_nm
-:WavelengthBand_nm rdf:type owl:Class ;
-                   rdfs:subClassOf :WavelengthBand ,
+xten:DistanceRange rdf:type owl:Class ;
+                   rdfs:subClassOf quan:IntervalQuantity ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                                     owl:hasValue <http://sweetontology.net/reprSciUnits/nanometer>
+                                     owl:onProperty screla:rangeOf ;
+                                     owl:someValuesFrom xten:Distance
                                    ] .
 
 
-###  http://sweetontology.net/propSpaceDistance/Wavelength_cm
-:Wavelength_cm rdf:type owl:Class ;
-               rdfs:subClassOf :Wavelength ,
+###  http://sweetontology.net/propSpaceDistance/DistanceRange_km
+xten:DistanceRange_km rdf:type owl:Class ;
+                      rdfs:subClassOf xten:DistanceRange ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty screla:hasDefaultUnit ;
+                                        owl:hasValue units:kilometer
+                                      ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/ExtinctionCoefficient
+xten:ExtinctionCoefficient rdf:type owl:Class ;
+                           rdfs:subClassOf xten:SpatialFrequency .
+
+
+###  http://sweetontology.net/propSpaceDistance/Fetch
+xten:Fetch rdf:type owl:Class ;
+           rdfs:subClassOf xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/GrainSize
+xten:GrainSize rdf:type owl:Class ;
+               rdfs:subClassOf mass:ConsistenceProperty .
+
+
+###  http://sweetontology.net/propSpaceDistance/Gyroradius
+xten:Gyroradius rdf:type owl:Class ;
+                owl:equivalentClass xten:LarmorRadius ;
+                rdfs:subClassOf xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/LarmorRadius
+xten:LarmorRadius rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propSpaceDistance/Length
+xten:Length rdf:type owl:Class ;
+            rdfs:subClassOf quan:PhysicalQuantity ,
+                            space:SpatialExtent ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela:hasDimension ;
+                              owl:hasValue 1
+                            ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/MeanFreePath
+xten:MeanFreePath rdf:type owl:Class ;
+                  rdfs:subClassOf prop:MotionProperty ,
+                                  xten:Distance ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty rela:hasProcess ;
+                                    owl:someValuesFrom proc:Collision
+                                  ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/MixingLength
+xten:MixingLength rdf:type owl:Class ;
+                  rdfs:subClassOf xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/ObukhovLength
+xten:ObukhovLength rdf:type owl:Class ;
+                   rdfs:subClassOf xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/PerMeterQuantity
+xten:PerMeterQuantity rdf:type owl:Class ;
+                      rdfs:subClassOf quan:Quantity ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty screla:hasDefaultUnit ;
+                                        owl:hasValue units:perMeter
+                                      ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/PulseLength
+xten:PulseLength rdf:type owl:Class ;
+                 rdfs:subClassOf xten:Length .
+
+
+###  http://sweetontology.net/propSpaceDistance/Range
+xten:Range rdf:type owl:Class ;
+           rdfs:subClassOf xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/RossbyRadiusOfDeformation
+xten:RossbyRadiusOfDeformation rdf:type owl:Class ;
+                               rdfs:subClassOf xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/ScatteringCoefficient
+xten:ScatteringCoefficient rdf:type owl:Class ;
+                           rdfs:subClassOf xten:SpatialFrequency ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty rela:hasProcess ;
+                                             owl:allValuesFrom wavep:Scattering
+                                           ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/Size
+xten:Size rdf:type owl:Class ;
+          rdfs:subClassOf space:SpatialExtent .
+
+
+###  http://sweetontology.net/propSpaceDistance/SizeRange
+xten:SizeRange rdf:type owl:Class ;
+               rdfs:subClassOf space:SpatialExtent ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                                 owl:hasValue <http://sweetontology.net/reprSciUnits/centimeter>
+                                 owl:onProperty screla:rangeOf ;
+                                 owl:someValuesFrom xten:Size
                                ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/SizeRange_micron
+xten:SizeRange_micron rdf:type owl:Class ;
+                      rdfs:subClassOf xten:SizeRange ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty screla:hasDefaultUnit ;
+                                        owl:hasValue units:micron
+                                      ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/SpatialFrequency
+xten:SpatialFrequency rdf:type owl:Class ;
+                      rdfs:subClassOf quan:RadiationMediumInteractionQuantity ,
+                                      xten:PerMeterQuantity .
+
+
+###  http://sweetontology.net/propSpaceDistance/Visibility
+xten:Visibility rdf:type owl:Class ;
+                rdfs:subClassOf prop:RadiationMediumInteractionProperty ,
+                                xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/WaveNumber
+xten:WaveNumber rdf:type owl:Class ;
+                rdfs:subClassOf prop:WaveProperty ,
+                                xten:PerMeterQuantity .
+
+
+###  http://sweetontology.net/propSpaceDistance/Wavelength
+xten:Wavelength rdf:type owl:Class ;
+                rdfs:subClassOf prop:WaveProperty ,
+                                xten:Distance .
+
+
+###  http://sweetontology.net/propSpaceDistance/WavelengthBand
+xten:WavelengthBand rdf:type owl:Class ;
+                    rdfs:subClassOf quan:IntervalQuantity ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty screla:rangeOf ;
+                                      owl:allValuesFrom xten:Wavelength
+                                    ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/WavelengthBand_nm
+xten:WavelengthBand_nm rdf:type owl:Class ;
+                       rdfs:subClassOf xten:WavelengthBand ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty screla:hasUnit ;
+                                         owl:hasValue units:nanometer
+                                       ] .
+
+
+###  http://sweetontology.net/propSpaceDistance/Wavelength_cm
+xten:Wavelength_cm rdf:type owl:Class ;
+                   rdfs:subClassOf xten:Wavelength ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty screla:hasUnit ;
+                                     owl:hasValue units:centimeter
+                                   ] .
 
 
 ###  http://sweetontology.net/propSpaceDistance/Wavelength_nm
-:Wavelength_nm rdf:type owl:Class ;
-               rdfs:subClassOf :Wavelength ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                                 owl:hasValue <http://sweetontology.net/reprSciUnits/nanometer>
-                               ] .
+xten:Wavelength_nm rdf:type owl:Class ;
+                   rdfs:subClassOf xten:Wavelength ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty screla:hasUnit ;
+                                     owl:hasValue units:nanometer
+                                   ] .
 
 
 #################################################################
@@ -297,23 +305,23 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/centimeter
-<http://sweetontology.net/reprSciUnits/centimeter> rdf:type owl:NamedIndividual .
+units:centimeter rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilometer
-<http://sweetontology.net/reprSciUnits/kilometer> rdf:type owl:NamedIndividual .
+units:kilometer rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/micron
-<http://sweetontology.net/reprSciUnits/micron> rdf:type owl:NamedIndividual .
+units:micron rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/nanometer
-<http://sweetontology.net/reprSciUnits/nanometer> rdf:type owl:NamedIndividual .
+units:nanometer rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/perMeter
-<http://sweetontology.net/reprSciUnits/perMeter> rdf:type owl:NamedIndividual .
+units:perMeter rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

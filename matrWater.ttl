@@ -3,7 +3,25 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix comp: <http://sweetontology.net/matrCompound/> .
+@prefix prec: <http://sweetontology.net/phenAtmoPrecipitation/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix xten: <http://sweetontology.net/propSpaceDistance/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix human: <http://sweetontology.net/human/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix water: <http://sweetontology.net/matrWater/> .
+@prefix xten2: <http://sweetontology.net/propSpaceDistance/> .
+@prefix cstate: <http://sweetontology.net/stateChemical/> .
+@prefix mrela2: <http://sweetontology.net/relaMath/> .
+@prefix prrela: <http://sweetontology.net/relaProvenance/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix sstate: <http://sweetontology.net/stateSolid/> .
 @base <http://sweetontology.net/matrWater> .
 
 <http://sweetontology.net/matrWater> rdf:type owl:Ontology ;
@@ -26,39 +44,27 @@
                                       owl:versionInfo "3.1.0" .
 
 #################################################################
-#    Annotation properties
-#################################################################
-
-###  http://sweetontology.net/relaMath/hasLowerBound
-<http://sweetontology.net/relaMath/hasLowerBound> rdf:type owl:AnnotationProperty .
-
-
-###  http://sweetontology.net/relaMath/hasUpperBound
-<http://sweetontology.net/relaMath/hasUpperBound> rdf:type owl:AnnotationProperty .
-
-
-#################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaChemical/hasChemical
-<http://sweetontology.net/relaChemical/hasChemical> rdf:type owl:ObjectProperty .
+crela:hasChemical rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasChemical_1
-<http://sweetontology.net/relaChemical/hasChemical_1> rdf:type owl:ObjectProperty .
+crela:hasChemical_1 rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaProvenance/hasSource
-<http://sweetontology.net/relaProvenance/hasSource> rdf:type owl:ObjectProperty .
+prrela:hasSource rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/below
-<http://sweetontology.net/relaSpace/below> rdf:type owl:ObjectProperty .
+srela:below rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/diameter
-<http://sweetontology.net/relaSpace/diameter> rdf:type owl:ObjectProperty .
+srela:diameter rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -66,277 +72,269 @@
 #################################################################
 
 ###  http://sweetontology.net/matrWater/BlackWater
-:BlackWater rdf:type owl:Class ;
-            rdfs:subClassOf :WaterMixture .
+water:BlackWater rdf:type owl:Class ;
+                 rdfs:subClassOf water:WaterMixture .
 
 
 ###  http://sweetontology.net/matrWater/BrackishWater
-:BrackishWater rdf:type owl:Class ;
-               rdfs:subClassOf :SaltWater ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                 owl:hasValue <http://sweetontology.net/stateChemical/Brackish>
-                               ] ;
-               rdfs:comment "Brackish water is water that has more salinity than fresh water, but not as much as seawater. It may result from mixing of seawater with fresh water, as in estuaries, or it may occur in brackish fossil aquifers."@en .
+water:BrackishWater rdf:type owl:Class ;
+                    rdfs:subClassOf water:SaltWater ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty rela:hasState ;
+                                      owl:hasValue cstate:Brackish
+                                    ] .
 
 
 ###  http://sweetontology.net/matrWater/Brine
-:Brine rdf:type owl:Class ;
-       rdfs:subClassOf :SaltWater ;
-       owl:disjointWith :SalineWater .
+water:Brine rdf:type owl:Class ;
+            rdfs:subClassOf water:SaltWater ;
+            owl:disjointWith water:SalineWater .
 
 
 ###  http://sweetontology.net/matrWater/CloudDrop
-:CloudDrop rdf:type owl:Class ;
-           rdfs:subClassOf :Drop ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSpace/diameter> ;
-                             owl:hasValue _:genid3
-                           ] .
+water:CloudDrop rdf:type owl:Class ;
+                rdfs:subClassOf water:Drop ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty srela:diameter ;
+                                  owl:hasValue _:genid3
+                                ] .
 
-_:genid3 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron> ;
-          <http://sweetontology.net/relaMath/hasLowerBound> "200.0"^^xsd:double ;
-          <http://sweetontology.net/relaMath/hasUpperBound> "500.0"^^xsd:double .
+_:genid3 rdf:type xten2:SizeRange_micron .
 
 
 ###  http://sweetontology.net/matrWater/DepthHoar
-:DepthHoar rdf:type owl:Class ;
-           rdfs:subClassOf :IceCrystal ;
-           rdfs:comment "Depth hoares are large crystals occurring at the base of a snowpack that form due to the fact that a snow crystal can grow over time as moisture freezes onto the crystal from vapor that is rising in the snowpack."@en .
+water:DepthHoar rdf:type owl:Class ;
+                rdfs:subClassOf water:IceCrystal .
 
 
 ###  http://sweetontology.net/matrWater/Dew
-:Dew rdf:type owl:Class ;
-     rdfs:subClassOf :LiquidWater .
+water:Dew rdf:type owl:Class ;
+          rdfs:subClassOf water:LiquidWater .
 
 
 ###  http://sweetontology.net/matrWater/DrinkingWater
-:DrinkingWater rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/human/HumanNeed> ,
-                               :WaterMixture .
+water:DrinkingWater rdf:type owl:Class ;
+                    rdfs:subClassOf human:HumanNeed ,
+                                    water:WaterMixture .
 
 
 ###  http://sweetontology.net/matrWater/DrizzleDrop
-:DrizzleDrop rdf:type owl:Class ;
-             rdfs:subClassOf :Drop ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSpace/diameter> ;
-                               owl:hasValue _:genid5
-                             ] .
+water:DrizzleDrop rdf:type owl:Class ;
+                  rdfs:subClassOf water:Drop ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty srela:diameter ;
+                                    owl:hasValue _:genid5
+                                  ] .
 
-_:genid5 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron> ;
-          <http://sweetontology.net/relaMath/hasUpperBound> "200.0"^^xsd:double .
+_:genid5 rdf:type xten2:SizeRange_micron .
 
 
 ###  http://sweetontology.net/matrWater/Drop
-:Drop rdf:type owl:Class ;
-      rdfs:subClassOf :LiquidWater .
+water:Drop rdf:type owl:Class ;
+           rdfs:subClassOf water:LiquidWater .
 
 
 ###  http://sweetontology.net/matrWater/Effluent
-:Effluent rdf:type owl:Class ;
-          rdfs:subClassOf :WaterMixture .
+water:Effluent rdf:type owl:Class ;
+               rdfs:subClassOf water:WaterMixture .
 
 
 ###  http://sweetontology.net/matrWater/Firn
-:Firn rdf:type owl:Class ;
-      rdfs:subClassOf :IceCrystal ;
-      rdfs:comment "Firn is partially-compacted névé, a type of snow that has been left over from past seasons and has been recrystallized into a substance denser than névé. It is ice that is at an intermediate stage between snow and glacial ice. Firn has the appearance of wet sugar, but has a hardness that makes it extremely resistant to shovelling. It generally has a density greater than 550 kg/m³ and is often found underneath the snow that accumulates at the head of a glacier."@en .
+water:Firn rdf:type owl:Class ;
+           rdfs:subClassOf water:IceCrystal .
 
 
 ###  http://sweetontology.net/matrWater/FreshWater
-:FreshWater rdf:type owl:Class ;
-            rdfs:subClassOf :WaterSubstance ;
-            owl:disjointWith :SaltWater .
+water:FreshWater rdf:type owl:Class ;
+                 rdfs:subClassOf water:WaterSubstance ;
+                 owl:disjointWith water:SaltWater .
 
 
 ###  http://sweetontology.net/matrWater/Frost
-:Frost rdf:type owl:Class ;
-       rdfs:subClassOf :WaterSubstance ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                         owl:hasValue <http://sweetontology.net/statePhysical/Frozen>
-                       ] .
+water:Frost rdf:type owl:Class ;
+            rdfs:subClassOf water:WaterSubstance ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty rela:hasState ;
+                              owl:hasValue pstate:Frozen
+                            ] .
 
 
 ###  http://sweetontology.net/matrWater/GranularIce
-:GranularIce rdf:type owl:Class ;
-             rdfs:subClassOf :Ice .
+water:GranularIce rdf:type owl:Class ;
+                  rdfs:subClassOf water:Ice .
 
 
 ###  http://sweetontology.net/matrWater/GrayWater
-:GrayWater rdf:type owl:Class ;
-           rdfs:subClassOf :WaterMixture .
+water:GrayWater rdf:type owl:Class ;
+                rdfs:subClassOf water:WaterMixture .
 
 
 ###  http://sweetontology.net/matrWater/Groundwater
-:Groundwater rdf:type owl:Class ;
-             rdfs:subClassOf :LiquidWater ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSpace/below> ;
-                               owl:allValuesFrom <http://sweetontology.net/realm/PlanetarySurface>
-                             ] .
+water:Groundwater rdf:type owl:Class ;
+                  rdfs:subClassOf water:LiquidWater ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty srela:below ;
+                                    owl:allValuesFrom realm:PlanetarySurface
+                                  ] .
 
 
 ###  http://sweetontology.net/matrWater/HoarCrystal
-:HoarCrystal rdf:type owl:Class ;
-             rdfs:subClassOf :IceCrystal .
+water:HoarCrystal rdf:type owl:Class ;
+                  rdfs:subClassOf water:IceCrystal .
 
 
 ###  http://sweetontology.net/matrWater/Hydrate
-:Hydrate rdf:type owl:Class ;
-         rdfs:subClassOf :WaterSubstance .
+water:Hydrate rdf:type owl:Class ;
+              rdfs:subClassOf water:WaterSubstance .
 
 
 ###  http://sweetontology.net/matrWater/Ice
-:Ice rdf:type owl:Class ;
-     rdfs:subClassOf :WaterSubstance ,
-                     [ rdf:type owl:Restriction ;
-                       owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                       owl:hasValue <http://sweetontology.net/statePhysical/Solid>
-                     ] .
+water:Ice rdf:type owl:Class ;
+          rdfs:subClassOf water:WaterSubstance ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty rela:hasState ;
+                            owl:hasValue pstate:Solid
+                          ] .
 
 
 ###  http://sweetontology.net/matrWater/IceCrystal
-:IceCrystal rdf:type owl:Class ;
-            owl:equivalentClass :IceParticle ;
-            rdfs:subClassOf :Ice ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                              owl:hasValue <http://sweetontology.net/stateSolid/Crystal>
-                            ] .
+water:IceCrystal rdf:type owl:Class ;
+                 owl:equivalentClass water:IceParticle ;
+                 rdfs:subClassOf water:Ice ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:hasState ;
+                                   owl:hasValue sstate:Crystal
+                                 ] .
 
 
 ###  http://sweetontology.net/matrWater/IceParticle
-:IceParticle rdf:type owl:Class .
+water:IceParticle rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrWater/LiquidWater
-:LiquidWater rdf:type owl:Class ;
-             rdfs:subClassOf :WaterSubstance ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                               owl:hasValue <http://sweetontology.net/statePhysical/Liquid>
-                             ] .
+water:LiquidWater rdf:type owl:Class ;
+                  rdfs:subClassOf water:WaterSubstance ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty rela:hasState ;
+                                    owl:hasValue pstate:Liquid
+                                  ] .
 
 
 ###  http://sweetontology.net/matrWater/RainDrop
-:RainDrop rdf:type owl:Class ;
-          rdfs:subClassOf :Drop ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaSpace/diameter> ;
-                            owl:hasValue _:genid12
-                          ] .
+water:RainDrop rdf:type owl:Class ;
+               rdfs:subClassOf water:Drop ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty srela:diameter ;
+                                 owl:hasValue _:genid12
+                               ] .
 
-_:genid12 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron> ;
-           <http://sweetontology.net/relaMath/hasLowerBound> "500.0"^^xsd:double .
+_:genid12 rdf:type xten2:SizeRange_micron .
 
 
 ###  http://sweetontology.net/matrWater/Rainwater
-:Rainwater rdf:type owl:Class ;
-           rdfs:subClassOf :LiquidWater ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaProvenance/hasSource> ;
-                             owl:allValuesFrom <http://sweetontology.net/phenAtmoPrecipitation/Rainfall>
-                           ] .
-
-
-###  http://sweetontology.net/matrWater/Rime
-:Rime rdf:type owl:Class ;
-      rdfs:subClassOf :Ice ;
-      rdfs:comment "A white or milky and opaque granular deposit of ice formed by the rapid freezing of supercooled water drops as they impinge upon an exposed object."@en .
-
-
-###  http://sweetontology.net/matrWater/SalineWater
-:SalineWater rdf:type owl:Class ;
-             rdfs:subClassOf :SaltWater .
-
-
-###  http://sweetontology.net/matrWater/SaltWater
-:SaltWater rdf:type owl:Class ;
-           rdfs:subClassOf :WaterSubstance ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                             owl:hasValue <http://sweetontology.net/stateChemical/Saline>
-                           ] .
-
-
-###  http://sweetontology.net/matrWater/SeaWater
-:SeaWater rdf:type owl:Class ;
-          rdfs:subClassOf :SaltWater .
-
-
-###  http://sweetontology.net/matrWater/Sewage
-:Sewage rdf:type owl:Class ;
-        rdfs:subClassOf :Effluent .
-
-
-###  http://sweetontology.net/matrWater/Snow
-:Snow rdf:type owl:Class ;
-      rdfs:subClassOf :WaterSubstance ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                        owl:hasValue <http://sweetontology.net/statePhysical/Solid>
-                      ] .
-
-
-###  http://sweetontology.net/matrWater/SnowFacies
-:SnowFacies rdf:type owl:Class ;
-            rdfs:subClassOf :IceCrystal .
-
-
-###  http://sweetontology.net/matrWater/SnowGrain
-:SnowGrain rdf:type owl:Class ;
-           rdfs:subClassOf :Snow .
-
-
-###  http://sweetontology.net/matrWater/Steam
-:Steam rdf:type owl:Class ;
-       owl:equivalentClass :WaterVapor .
-
-
-###  http://sweetontology.net/matrWater/Wastewater
-:Wastewater rdf:type owl:Class ;
-            rdfs:subClassOf :Effluent .
-
-
-###  http://sweetontology.net/matrWater/WaterMixture
-:WaterMixture rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/matr/Mixture> ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/relaChemical/hasChemical_1> ;
-                                owl:hasValue <http://sweetontology.net/matrCompound/H2O>
-                              ] .
-
-
-###  http://sweetontology.net/matrWater/WaterSubstance
-:WaterSubstance rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/matr/Substance> ,
+water:Rainwater rdf:type owl:Class ;
+                rdfs:subClassOf water:LiquidWater ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/relaChemical/hasChemical> ;
-                                  owl:hasValue <http://sweetontology.net/matrCompound/Water>
+                                  owl:onProperty prrela:hasSource ;
+                                  owl:allValuesFrom prec:Rainfall
                                 ] .
 
 
+###  http://sweetontology.net/matrWater/Rime
+water:Rime rdf:type owl:Class ;
+           rdfs:subClassOf water:Ice .
+
+
+###  http://sweetontology.net/matrWater/SalineWater
+water:SalineWater rdf:type owl:Class ;
+                  rdfs:subClassOf water:SaltWater .
+
+
+###  http://sweetontology.net/matrWater/SaltWater
+water:SaltWater rdf:type owl:Class ;
+                rdfs:subClassOf water:WaterSubstance ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasState ;
+                                  owl:hasValue cstate:Saline
+                                ] .
+
+
+###  http://sweetontology.net/matrWater/SeaWater
+water:SeaWater rdf:type owl:Class ;
+               rdfs:subClassOf water:SaltWater .
+
+
+###  http://sweetontology.net/matrWater/Sewage
+water:Sewage rdf:type owl:Class ;
+             rdfs:subClassOf water:Effluent .
+
+
+###  http://sweetontology.net/matrWater/Snow
+water:Snow rdf:type owl:Class ;
+           rdfs:subClassOf water:WaterSubstance ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty rela:hasState ;
+                             owl:hasValue pstate:Solid
+                           ] .
+
+
+###  http://sweetontology.net/matrWater/SnowFacies
+water:SnowFacies rdf:type owl:Class ;
+                 rdfs:subClassOf water:IceCrystal .
+
+
+###  http://sweetontology.net/matrWater/SnowGrain
+water:SnowGrain rdf:type owl:Class ;
+                rdfs:subClassOf water:Snow .
+
+
+###  http://sweetontology.net/matrWater/Steam
+water:Steam rdf:type owl:Class ;
+            owl:equivalentClass water:WaterVapor .
+
+
+###  http://sweetontology.net/matrWater/Wastewater
+water:Wastewater rdf:type owl:Class ;
+                 rdfs:subClassOf water:Effluent .
+
+
+###  http://sweetontology.net/matrWater/WaterMixture
+water:WaterMixture rdf:type owl:Class ;
+                   rdfs:subClassOf chem:Mixture ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty crela:hasChemical_1 ;
+                                     owl:hasValue comp:H2O
+                                   ] .
+
+
+###  http://sweetontology.net/matrWater/WaterSubstance
+water:WaterSubstance rdf:type owl:Class ;
+                     rdfs:subClassOf chem:Substance ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty crela:hasChemical ;
+                                       owl:hasValue comp:Water
+                                     ] .
+
+
 ###  http://sweetontology.net/matrWater/WaterVapor
-:WaterVapor rdf:type owl:Class ;
-            rdfs:subClassOf :WaterSubstance ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                              owl:hasValue <http://sweetontology.net/statePhysical/Gas>
-                            ] .
+water:WaterVapor rdf:type owl:Class ;
+                 rdfs:subClassOf water:WaterSubstance ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:hasState ;
+                                   owl:hasValue pstate:Gas
+                                 ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Rainfall
-<http://sweetontology.net/phenAtmoPrecipitation/Rainfall> rdf:type owl:Class .
+prec:Rainfall rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceDistance/SizeRange_micron
-<http://sweetontology.net/propSpaceDistance/SizeRange_micron> rdf:type owl:Class .
+xten2:SizeRange_micron rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/PlanetarySurface
-<http://sweetontology.net/realm/PlanetarySurface> rdf:type owl:Class .
+realm:PlanetarySurface rdf:type owl:Class .
 
 
 #################################################################
@@ -344,23 +342,23 @@ _:genid12 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron>
 #################################################################
 
 ###  http://sweetontology.net/stateChemical/Brackish
-<http://sweetontology.net/stateChemical/Brackish> rdf:type owl:NamedIndividual .
+cstate:Brackish rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateChemical/Saline
-<http://sweetontology.net/stateChemical/Saline> rdf:type owl:NamedIndividual .
+cstate:Saline rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Frozen
-<http://sweetontology.net/statePhysical/Frozen> rdf:type owl:NamedIndividual .
+pstate:Frozen rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Liquid
-<http://sweetontology.net/statePhysical/Liquid> rdf:type owl:NamedIndividual .
+pstate:Liquid rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateSolid/Crystal
-<http://sweetontology.net/stateSolid/Crystal> rdf:type owl:NamedIndividual .
+sstate:Crystal rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

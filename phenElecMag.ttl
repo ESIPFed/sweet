@@ -1,9 +1,17 @@
 @prefix : <http://sweetontology.net/phenElecMag/> .
+@prefix emf: <http://sweetontology.net/phenElecMag/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix char: <http://sweetontology.net/propCharge/> .
+@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix phen: <http://sweetontology.net/phen/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
 @base <http://sweetontology.net/phenElecMag> .
 
 <http://sweetontology.net/phenElecMag> rdf:type owl:Ontology ;
@@ -22,11 +30,11 @@
 #################################################################
 
 ###  http://sweetontology.net/relaMath/hasField
-<http://sweetontology.net/relaMath/hasField> rdf:type owl:ObjectProperty .
+mrela:hasField rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasSpatialDistribution
-<http://sweetontology.net/relaSpace/hasSpatialDistribution> rdf:type owl:ObjectProperty .
+srela:hasSpatialDistribution rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -34,78 +42,78 @@
 #################################################################
 
 ###  http://sweetontology.net/phenElecMag/CurrentSheet
-:CurrentSheet rdf:type owl:Class ;
-              rdfs:subClassOf :ElectricField .
+emf:CurrentSheet rdf:type owl:Class ;
+                 rdfs:subClassOf emf:ElectricField .
 
 
 ###  http://sweetontology.net/phenElecMag/ElectricDipole
-:ElectricDipole rdf:type owl:Class ;
-                rdfs:subClassOf :ElectricField ,
-                                <http://sweetontology.net/reprSpaceGeometry3D/Dipole> .
+emf:ElectricDipole rdf:type owl:Class ;
+                   rdfs:subClassOf emf:ElectricField ,
+                                   obj3d:Dipole .
 
 
 ###  http://sweetontology.net/phenElecMag/ElectricField
-:ElectricField rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/reprMathFunction/VectorField> ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialDistribution> ;
-                                 owl:someValuesFrom <http://sweetontology.net/propCharge/Charge>
-                               ] .
+emf:ElectricField rdf:type owl:Class ;
+                  rdfs:subClassOf func:VectorField ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty srela:hasSpatialDistribution ;
+                                    owl:someValuesFrom char:Charge
+                                  ] .
 
 
 ###  http://sweetontology.net/phenElecMag/GeomagneticField
-:GeomagneticField rdf:type owl:Class ;
-                  rdfs:subClassOf :MagneticField .
+emf:GeomagneticField rdf:type owl:Class ;
+                     rdfs:subClassOf emf:MagneticField .
 
 
 ###  http://sweetontology.net/phenElecMag/Gyroresonance
-:Gyroresonance rdf:type owl:Class ;
-               rdfs:subClassOf :MagneticFieldPhenomena .
+emf:Gyroresonance rdf:type owl:Class ;
+                  rdfs:subClassOf emf:MagneticFieldPhenomena .
 
 
 ###  http://sweetontology.net/phenElecMag/MagneticDipole
-:MagneticDipole rdf:type owl:Class ;
-                rdfs:subClassOf :MagneticField ,
-                                <http://sweetontology.net/reprSpaceGeometry3D/Dipole> .
+emf:MagneticDipole rdf:type owl:Class ;
+                   rdfs:subClassOf emf:MagneticField ,
+                                   obj3d:Dipole .
 
 
 ###  http://sweetontology.net/phenElecMag/MagneticField
-:MagneticField rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/reprMathFunction/VectorField> ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialDistribution> ;
-                                 owl:someValuesFrom <http://sweetontology.net/propCharge/MagneticMoment>
-                               ] .
+emf:MagneticField rdf:type owl:Class ;
+                  rdfs:subClassOf func:VectorField ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty srela:hasSpatialDistribution ;
+                                    owl:someValuesFrom char:MagneticMoment
+                                  ] .
 
 
 ###  http://sweetontology.net/phenElecMag/MagneticFieldPhenomena
-:MagneticFieldPhenomena rdf:type owl:Class ;
-                        rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty <http://sweetontology.net/relaMath/hasField> ;
-                                          owl:allValuesFrom :MagneticField
-                                        ] .
+emf:MagneticFieldPhenomena rdf:type owl:Class ;
+                           rdfs:subClassOf phen:Phenomena ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty mrela:hasField ;
+                                             owl:allValuesFrom emf:MagneticField
+                                           ] .
 
 
 ###  http://sweetontology.net/phenElecMag/MagneticMirror
-:MagneticMirror rdf:type owl:Class ;
-                rdfs:subClassOf :MagneticFieldPhenomena .
+emf:MagneticMirror rdf:type owl:Class ;
+                   rdfs:subClassOf emf:MagneticFieldPhenomena .
 
 
 ###  http://sweetontology.net/propCharge/Charge
-<http://sweetontology.net/propCharge/Charge> rdf:type owl:Class .
+char:Charge rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propCharge/MagneticMoment
-<http://sweetontology.net/propCharge/MagneticMoment> rdf:type owl:Class .
+char:MagneticMoment rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathFunction/VectorField
-<http://sweetontology.net/reprMathFunction/VectorField> rdf:type owl:Class .
+func:VectorField rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry3D/Dipole
-<http://sweetontology.net/reprSpaceGeometry3D/Dipole> rdf:type owl:Class .
+obj3d:Dipole rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

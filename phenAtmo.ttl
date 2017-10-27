@@ -1,9 +1,28 @@
 @prefix : <http://sweetontology.net/phenAtmo/> .
+@prefix day: <http://sweetontology.net/reprTimeDay/> .
+@prefix fog: <http://sweetontology.net/phenAtmoFog/> .
+@prefix mod: <http://sweetontology.net/reprSciModel/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sys: <http://sweetontology.net/phenSystemComplexity/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmo: <http://sweetontology.net/realmAtmo/> .
+@prefix atmp: <http://sweetontology.net/phenAtmo/> .
+@prefix boun: <http://sweetontology.net/realmAtmoBoundaryLayer/> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix inst: <http://sweetontology.net/phenFluidInstability/> .
+@prefix orog: <http://sweetontology.net/realmLandOrographic/> .
+@prefix phen: <http://sweetontology.net/phen/> .
+@prefix plan: <http://sweetontology.net/realm/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix wave: <http://sweetontology.net/phenWave/> .
+@prefix wind: <http://sweetontology.net/phenAtmoWind/> .
+@prefix scale: <http://sweetontology.net/stateSpaceScale/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix trela: <http://sweetontology.net/relaTime/> .
+@prefix water: <http://sweetontology.net/matrWater/> .
 @base <http://sweetontology.net/phenAtmo> .
 
 <http://sweetontology.net/phenAtmo> rdf:type owl:Ontology ;
@@ -33,15 +52,15 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasRealm
-<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
+rela:hasRealm rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaTime/hasTime
-<http://sweetontology.net/relaTime/hasTime> rdf:type owl:ObjectProperty .
+trela:hasTime rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -49,242 +68,222 @@
 #################################################################
 
 ###  http://sweetontology.net/phenAtmo/AirMass
-:AirMass rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/matr/Air> ,
-                         <http://sweetontology.net/reprSciModel/Model> ;
-         rdfs:comment "A widespread body of air, the properties of which can be identified as 1) having been established while that air was situated over a particular region of the earth's surface (airmass source region), and 2) undergoing specific modifications while in transit away from the source region." ;
-         rdfs:label "Air Mass" .
+atmp:AirMass rdf:type owl:Class ;
+             rdfs:subClassOf chem:Air ,
+                             mod:Model .
 
 
 ###  http://sweetontology.net/phenAtmo/AtmosphericDisturbance
-:AtmosphericDisturbance rdf:type owl:Class ;
-                        rdfs:subClassOf :AtmosphericWave .
+atmp:AtmosphericDisturbance rdf:type owl:Class ;
+                            rdfs:subClassOf atmp:AtmosphericWave .
 
 
 ###  http://sweetontology.net/phenAtmo/AtmosphericPhenomena
-:AtmosphericPhenomena rdf:type owl:Class ;
-                      rdfs:subClassOf <http://sweetontology.net/phen/PlanetaryPhenomena> .
+atmp:AtmosphericPhenomena rdf:type owl:Class ;
+                          rdfs:subClassOf phen:PlanetaryPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/AtmosphericWave
-:AtmosphericWave rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/phenWave/FluidWave> ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-                                   owl:allValuesFrom <http://sweetontology.net/realm/Atmosphere>
-                                 ] .
+atmp:AtmosphericWave rdf:type owl:Class ;
+                     rdfs:subClassOf wave:FluidWave ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasRealm ;
+                                       owl:allValuesFrom plan:Atmosphere
+                                     ] .
 
 
 ###  http://sweetontology.net/phenAtmo/CappingInversion
-:CappingInversion rdf:type owl:Class ;
-                  rdfs:subClassOf :MeteorologicalPhenomena ;
-                  rdfs:comment "A statically stable layer at the top of the atmospheric boundary layer."@en .
+atmp:CappingInversion rdf:type owl:Class ;
+                      rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/EasterlyWave
-:EasterlyWave rdf:type owl:Class ;
-              rdfs:subClassOf :AtmosphericWave ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                owl:allValuesFrom <http://sweetontology.net/phenAtmoWind/EasterlyWind>
-                              ] ;
-              rdfs:comment "A migratory wavelike disturbance of the tropical easterlies."@en .
+atmp:EasterlyWave rdf:type owl:Class ;
+                  rdfs:subClassOf atmp:AtmosphericWave ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty rela:hasPhenomena ;
+                                    owl:allValuesFrom wind:EasterlyWind
+                                  ] .
 
 
 ###  http://sweetontology.net/phenAtmo/FoehnWave
-:FoehnWave rdf:type owl:Class ;
-           rdfs:subClassOf :MountainWave ;
-           rdfs:comment "Mountain waves, lee waves, or trapped lee waves in the air stream flowing over the mountain barrier that occur in association with foehn conditions. The Moazagotl is one example of a foehn wave made visible by lee-wave clouds."@en .
+atmp:FoehnWave rdf:type owl:Class ;
+               rdfs:subClassOf atmp:MountainWave .
 
 
 ###  http://sweetontology.net/phenAtmo/FrontalWave
-:FrontalWave rdf:type owl:Class ;
-             rdfs:subClassOf :AtmosphericWave ;
-             rdfs:comment "A horizontal wavelike deformation of a front in the lower levels, commonly associated with a maximum of cyclonic circulation in the adjacent flow. It may develop into a wave cyclone."@en .
+atmp:FrontalWave rdf:type owl:Class ;
+                 rdfs:subClassOf atmp:AtmosphericWave .
 
 
 ###  http://sweetontology.net/phenAtmo/GroundInversion
-:GroundInversion rdf:type owl:Class ;
-                 rdfs:subClassOf :MeteorologicalPhenomena ;
-                 rdfs:comment "An air layer with its base at the ground surface and in which temperature increases with height. These often form at night over land under clear skies and are statically stable. See inversion, lapse rate."@en .
+atmp:GroundInversion rdf:type owl:Class ;
+                     rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/Icing
-:Icing rdf:type owl:Class ;
-       rdfs:subClassOf :MeteorologicalPhenomena .
+atmp:Icing rdf:type owl:Class ;
+           rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/KillingFreeze
-:KillingFreeze rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/matrWater/Frost> ;
-               rdfs:comment "The occurrence of air temperature below 0 C (32F) that kills annual vegetation without formation of frost crystals on surfaces. See freeze, dry freeze, hard freeze, light freeze."@en .
+atmp:KillingFreeze rdf:type owl:Class ;
+                   rdfs:subClassOf water:Frost .
 
 
 ###  http://sweetontology.net/phenAtmo/LeeWave
-:LeeWave rdf:type owl:Class ;
-         rdfs:subClassOf :MountainWave ;
-         rdfs:comment "1. Any wave disturbance that is caused by, and is therefore stationary with respect to, some barrier in the fluid flow. Whether the wave is a gravity wave, inertia wave, barotropic wave, etc., will depend on the structure of the fluid and the dimensions of the barrier. 2. A mountain wave occurring to the lee of a mountain or mountain barrier. These waves can become visible in the form of lenticular or trapped lee-wave clouds."@en .
+atmp:LeeWave rdf:type owl:Class ;
+             rdfs:subClassOf atmp:MountainWave .
 
 
 ###  http://sweetontology.net/phenAtmo/LightFreeze
-:LightFreeze rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/matrWater/Frost> ;
-             rdfs:comment "The occurrence of air temperature below 0 C (32F) that kills some, but not all, annual vegetation. This often occurs in the 0 to -1 C (32 30 F) range."@en .
+atmp:LightFreeze rdf:type owl:Class ;
+                 rdfs:subClassOf water:Frost .
 
 
 ###  http://sweetontology.net/phenAtmo/LightFrost
-:LightFrost rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/matrWater/Frost> ;
-            rdfs:comment "A thin and more or less patchy deposit of hoarfrost on surface objects and vegetation."@en .
+atmp:LightFrost rdf:type owl:Class ;
+                rdfs:subClassOf water:Frost .
 
 
 ###  http://sweetontology.net/phenAtmo/MesoscaleDisturbance
-:MesoscaleDisturbance rdf:type owl:Class ;
-                      rdfs:subClassOf :AtmosphericDisturbance ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
-                                        owl:hasValue <http://sweetontology.net/stateSpaceScale/Mesoscale>
-                                      ] ;
-                      rdfs:comment "A disturbance where the atmospheric feature has a Rossby number of order 1 and exhibits a horizontal scale comparable to the Rossby radius of deformation. For such systems, both ageostrophic advection and rotational influences are important."@en .
+atmp:MesoscaleDisturbance rdf:type owl:Class ;
+                          rdfs:subClassOf atmp:AtmosphericDisturbance ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty srela:hasSpatialScale ;
+                                            owl:hasValue scale:Mesoscale
+                                          ] .
 
 
 ###  http://sweetontology.net/phenAtmo/MeteorologicalPhenomena
-:MeteorologicalPhenomena rdf:type owl:Class ;
-                         rdfs:subClassOf :AtmosphericPhenomena .
+atmp:MeteorologicalPhenomena rdf:type owl:Class ;
+                             rdfs:subClassOf atmp:AtmosphericPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/MixedLayerCappingInversion
-:MixedLayerCappingInversion rdf:type owl:Class ;
-                            rdfs:subClassOf :CappingInversion ;
-                            rdfs:comment "The statically stable layer of air at the top of the atmospheric boundary layer. Because the troposphere is statically stable on the average (i.e., potential temperature increases with height), and because turbulence in the boundary layer causes potential temperatures to become somewhat well mixed there, conservation of heat requires that there be a potential temperature increase (i.e., a temperature step or inversion) at the top of the boundary layer. It is this inversion that separates the boundary layer from the rest of the troposphere by limiting the domain of turbulence. It is also responsible for trapping pollutants near the ground during fair weather."@en .
+atmp:MixedLayerCappingInversion rdf:type owl:Class ;
+                                rdfs:subClassOf atmp:CappingInversion .
 
 
 ###  http://sweetontology.net/phenAtmo/MixedLayerEvolution
-:MixedLayerEvolution rdf:type owl:Class ;
-                     rdfs:subClassOf <http://sweetontology.net/phenSystemComplexity/Evolution> ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-                                       owl:allValuesFrom <http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer>
-                                     ] ;
-                     rdfs:comment "The three-part change of the atmospheric boundary layer that typically occurs during fair weather over land on sunny days. In the early morning, the mixed layer is shallow, slowly deepening, cool (in a potential temperature sense), and is capped by the remains of the stable boundary layer from the previous night. In mid- to late morning, the top of the mixed layer exhibits rapid rise as heating eliminates the nocturnal inversion, and the mixed layer grows through the residual layer. The third stage in late morning and afternoon is that of a deep (order of 1?2 km) convective boundary layer of relatively constant depth."@en .
+atmp:MixedLayerEvolution rdf:type owl:Class ;
+                         rdfs:subClassOf sys:Evolution ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty rela:hasRealm ;
+                                           owl:allValuesFrom boun:MixedLayer
+                                         ] .
 
 
 ###  http://sweetontology.net/phenAtmo/MoisturePooling
-:MoisturePooling rdf:type owl:Class ;
-                 rdfs:subClassOf :MeteorologicalPhenomena ;
-                 rdfs:comment "The development of an area in the boundary layer (e.g., often observed on surface or 850-mb charts) where moisture values become higher than in the surrounding region. Moisture pooling typically occurs in an area of low-level convergence during the warm (growing) season, and can have a significant effect on convection initiation and evolution."@en .
+atmp:MoisturePooling rdf:type owl:Class ;
+                     rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/MountainWave
-:MountainWave rdf:type owl:Class ;
-              rdfs:subClassOf :AtmosphericWave ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-                                owl:allValuesFrom <http://sweetontology.net/realmLandOrographic/Mountain>
-                              ] ;
-              rdfs:comment "An atmospheric gravity wave, formed when stable air flow passes over a mountain or mountain barrier."@en .
+atmp:MountainWave rdf:type owl:Class ;
+                  rdfs:subClassOf atmp:AtmosphericWave ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty rela:hasRealm ;
+                                    owl:allValuesFrom orog:Mountain
+                                  ] .
 
 
 ###  http://sweetontology.net/phenAtmo/NocturnalCooling
-:NocturnalCooling rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/phen/RadiationalCooling> ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaTime/hasTime> ;
-                                    owl:allValuesFrom <http://sweetontology.net/reprTimeDay/Nocturnal>
-                                  ] ;
-                  rdfs:comment "The lowering of temperature during night time, due to a net loss of radiant energy."@en .
+atmp:NocturnalCooling rdf:type owl:Class ;
+                      rdfs:subClassOf phen:RadiationalCooling ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty trela:hasTime ;
+                                        owl:allValuesFrom day:Nocturnal
+                                      ] .
 
 
 ###  http://sweetontology.net/phenAtmo/Obscuration
-:Obscuration rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/phenAtmoFog/Fog> .
+atmp:Obscuration rdf:type owl:Class ;
+                 rdfs:subClassOf fog:Fog .
 
 
 ###  http://sweetontology.net/phenAtmo/OrographicLifting
-:OrographicLifting rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/phenFluidInstability/Lifting> ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                     owl:someValuesFrom <http://sweetontology.net/realmLandOrographic/Orographic>
-                                   ] ;
-                   rdfs:comment "Ascending air flow caused by mountains.  Mechanisms that produce the lifting fall into two broad categories: 1) the upward deflection of horizontal larger-scale flow by the orography acting as an obstacle or barrier; or 2) the daytime heating of mountain surfaces to produce anabatic flow along the slopes and updrafts in the vicinity of the peaks."@en .
+atmp:OrographicLifting rdf:type owl:Class ;
+                       rdfs:subClassOf inst:Lifting ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rela:hasPhenomena ;
+                                         owl:someValuesFrom orog:Orographic
+                                       ] .
 
 
 ###  http://sweetontology.net/phenAtmo/Rainbow
-:Rainbow rdf:type owl:Class ;
-         rdfs:subClassOf :MeteorologicalPhenomena .
+atmp:Rainbow rdf:type owl:Class ;
+             rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/Sunlight
-:Sunlight rdf:type owl:Class ;
-          rdfs:subClassOf <http://sweetontology.net/phen/RadiativeHeating> ;
-          rdfs:comment "Sunlight, in the broad sense, is the total spectrum of the electromagnetic radiation given off by the Sun. On Earth, sunlight is filtered through the atmosphere, and the solar radiation is obvious as daylight when the Sun is above the horizon. This is usually during the hours known as day. Near the poles in summer, sunlight also occurs during the hours known as night and in the winter at the poles sunlight may not occur at any time. When the direct radiation is not blocked by clouds, it is experienced as sunshine, a combination of bright light and heat. Radiant heat directly produced by the radiation of the sun is different from the increase in atmospheric temperature due to the radiative heating of the atmosphere by the sun's radiation."@en .
+atmp:Sunlight rdf:type owl:Class ;
+              rdfs:subClassOf phen:RadiativeHeating .
 
 
 ###  http://sweetontology.net/phenAtmo/Sunlit
-:Sunlit rdf:type owl:Class ;
-        rdfs:subClassOf :WeatherCondition .
+atmp:Sunlit rdf:type owl:Class ;
+            rdfs:subClassOf atmp:WeatherCondition .
 
 
 ###  http://sweetontology.net/phenAtmo/Thermal
-:Thermal rdf:type owl:Class ;
-         rdfs:subClassOf :MeteorologicalPhenomena .
+atmp:Thermal rdf:type owl:Class ;
+             rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/Weather
-:Weather rdf:type owl:Class ;
-         owl:equivalentClass :WeatherCondition ;
-         rdfs:subClassOf :MeteorologicalPhenomena .
+atmp:Weather rdf:type owl:Class ;
+             owl:equivalentClass atmp:WeatherCondition ;
+             rdfs:subClassOf atmp:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmo/WeatherCondition
-:WeatherCondition rdf:type owl:Class .
+atmp:WeatherCondition rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmo/Whiteout
-:Whiteout rdf:type owl:Class ;
-          rdfs:subClassOf :Obscuration ;
-          rdfs:comment "An atmospheric optical phenomenon in which the observer appears to be engulfed in a uniformly white glow."@en .
+atmp:Whiteout rdf:type owl:Class ;
+              rdfs:subClassOf atmp:Obscuration .
 
 
 ###  http://sweetontology.net/phenAtmoFog/Fog
-<http://sweetontology.net/phenAtmoFog/Fog> rdf:type owl:Class .
+fog:Fog rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmoWind/EasterlyWind
-<http://sweetontology.net/phenAtmoWind/EasterlyWind> rdf:type owl:Class .
+wind:EasterlyWind rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lifting
-<http://sweetontology.net/phenFluidInstability/Lifting> rdf:type owl:Class .
+inst:Lifting rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenSystemComplexity/Evolution
-<http://sweetontology.net/phenSystemComplexity/Evolution> rdf:type owl:Class .
+sys:Evolution rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenWave/FluidWave
-<http://sweetontology.net/phenWave/FluidWave> rdf:type owl:Class .
+wave:FluidWave rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer
-<http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer> rdf:type owl:Class .
+boun:MixedLayer rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandOrographic/Mountain
-<http://sweetontology.net/realmLandOrographic/Mountain> rdf:type owl:Class .
+orog:Mountain rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandOrographic/Orographic
-<http://sweetontology.net/realmLandOrographic/Orographic> rdf:type owl:Class .
+orog:Orographic rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciModel/Model
-<http://sweetontology.net/reprSciModel/Model> rdf:type owl:Class .
+mod:Model rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprTimeDay/Nocturnal
-<http://sweetontology.net/reprTimeDay/Nocturnal> rdf:type owl:Class .
+day:Nocturnal rdf:type owl:Class .
 
 
 #################################################################
@@ -292,7 +291,7 @@
 #################################################################
 
 ###  http://sweetontology.net/stateSpaceScale/Mesoscale
-<http://sweetontology.net/stateSpaceScale/Mesoscale> rdf:type owl:NamedIndividual .
+scale:Mesoscale rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

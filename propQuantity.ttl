@@ -3,7 +3,12 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix math: <http://sweetontology.net/reprMath/> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propQuantity> .
 
 <http://sweetontology.net/propQuantity> rdf:type owl:Ontology ;
@@ -15,23 +20,15 @@
                                          owl:versionInfo "3.1.0" .
 
 #################################################################
-#    Annotation properties
-#################################################################
-
-###  http://www.w3.org/2002/07/owl#cardinality
-owl:cardinality rdf:type owl:AnnotationProperty .
-
-
-#################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasUnit
-<http://sweetontology.net/relaSci/hasUnit> rdf:type owl:ObjectProperty .
+screla:hasUnit rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -51,163 +48,161 @@ owl:cardinality rdf:type owl:AnnotationProperty .
 
 
 ###  http://sweetontology.net/propQuantity/BalanceEquation
-:BalanceEquation rdf:type owl:Class ;
-                 owl:equivalentClass :BudgetEquation .
+quan:BalanceEquation rdf:type owl:Class ;
+                     owl:equivalentClass quan:BudgetEquation .
 
 
 ###  http://sweetontology.net/propQuantity/BiologicalQuantity
-:BiologicalQuantity rdf:type owl:Class ;
-                    rdfs:subClassOf <http://sweetontology.net/prop/BiologicalProperty> ,
-                                    :Quantity .
+quan:BiologicalQuantity rdf:type owl:Class ;
+                        rdfs:subClassOf prop:BiologicalProperty ,
+                                        quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/Budget
-:Budget rdf:type owl:Class ;
-        owl:equivalentClass :BudgetEquation .
+quan:Budget rdf:type owl:Class ;
+            owl:equivalentClass quan:BudgetEquation .
 
 
 ###  http://sweetontology.net/propQuantity/BudgetEquation
-:BudgetEquation rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/reprMath/Equation> ;
-                rdfs:comment "In general, an equation expressing a balance of quantities in the sense that the local or individual rates of change are zero."@en .
+quan:BudgetEquation rdf:type owl:Class ;
+                    rdfs:subClassOf math:Equation .
 
 
 ###  http://sweetontology.net/propQuantity/ChemicalQuantity
-:ChemicalQuantity rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/prop/ChemicalProperty> ,
-                                  :Quantity .
+quan:ChemicalQuantity rdf:type owl:Class ;
+                      rdfs:subClassOf prop:ChemicalProperty ,
+                                      quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/ConservedQuantity
-:ConservedQuantity rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/reprMath/Constant> .
+quan:ConservedQuantity rdf:type owl:Class ;
+                       rdfs:subClassOf math:Constant .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticQuantity
-:ElectromagneticQuantity rdf:type owl:Class ;
-                         rdfs:subClassOf <http://sweetontology.net/prop/ElectromagneticRadiationProperty> ,
-                                         :Quantity .
+quan:ElectromagneticQuantity rdf:type owl:Class ;
+                             rdfs:subClassOf prop:ElectromagneticRadiationProperty ,
+                                             quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity
-:ElectromagneticRadiationQuantity rdf:type owl:Class ;
-                                  rdfs:subClassOf <http://sweetontology.net/prop/ElectromagneticRadiationProperty> ,
-                                                  :Quantity .
+quan:ElectromagneticRadiationQuantity rdf:type owl:Class ;
+                                      rdfs:subClassOf prop:ElectromagneticRadiationProperty ,
+                                                      quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/ExtensiveProperty
-:ExtensiveProperty rdf:type owl:Class ;
-                   rdfs:subClassOf :Quantity ;
-                   owl:disjointWith :IntensiveProperty .
+quan:ExtensiveProperty rdf:type owl:Class ;
+                       rdfs:subClassOf quan:Quantity ;
+                       owl:disjointWith quan:IntensiveProperty .
 
 
 ###  http://sweetontology.net/propQuantity/FieldStrength
-:FieldStrength rdf:type owl:Class ;
-               rdfs:subClassOf :PhysicalQuantity .
+quan:FieldStrength rdf:type owl:Class ;
+                   rdfs:subClassOf quan:PhysicalQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/Flux
-:Flux rdf:type owl:Class ;
-      rdfs:subClassOf :VectorQuantity ;
-      rdfs:comment "The rate of flow of some quantity, often used in reference to the flow of some form of energy." .
+quan:Flux rdf:type owl:Class ;
+          rdfs:subClassOf quan:VectorQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/Force
-:Force rdf:type owl:Class ;
-       rdfs:subClassOf :IntensiveProperty ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                         owl:hasValue <http://sweetontology.net/reprSciUnits/newton>
-                       ] .
+quan:Force rdf:type owl:Class ;
+           rdfs:subClassOf quan:IntensiveProperty ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty screla:hasDefaultUnit ;
+                             owl:hasValue units:newton
+                           ] .
 
 
 ###  http://sweetontology.net/propQuantity/IntensiveProperty
-:IntensiveProperty rdf:type owl:Class ;
-                   rdfs:subClassOf :Quantity .
+quan:IntensiveProperty rdf:type owl:Class ;
+                       rdfs:subClassOf quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/IntervalQuantity
-:IntervalQuantity rdf:type owl:Class ;
-                  rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error9> ,
-                                  :ScientificQuantity .
+quan:IntervalQuantity rdf:type owl:Class ;
+                      rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error9> ,
+                                      quan:ScientificQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalConstant
-:PhysicalConstant rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/reprMath/Constant> .
+quan:PhysicalConstant rdf:type owl:Class ;
+                      rdfs:subClassOf math:Constant .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalQuantity
-:PhysicalQuantity rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/prop/PhysicalProperty> ,
-                                  :Quantity .
+quan:PhysicalQuantity rdf:type owl:Class ;
+                      rdfs:subClassOf prop:PhysicalProperty ,
+                                      quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/Potential
-:Potential rdf:type owl:Class ;
-           rdfs:subClassOf :PhysicalQuantity .
+quan:Potential rdf:type owl:Class ;
+               rdfs:subClassOf quan:PhysicalQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/QuantitativeProperty
-:QuantitativeProperty rdf:type owl:Class ;
-                      owl:equivalentClass :Quantity .
+quan:QuantitativeProperty rdf:type owl:Class ;
+                          owl:equivalentClass quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/Quantity
-:Quantity rdf:type owl:Class ;
-          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error8> ,
-                          :ScientificQuantity .
+quan:Quantity rdf:type owl:Class ;
+              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error8> ,
+                              quan:ScientificQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity
-:RadiationMediumInteractionQuantity rdf:type owl:Class ;
-                                    rdfs:subClassOf <http://sweetontology.net/prop/ElectromagneticRadiationProperty> ,
-                                                    :Quantity .
+quan:RadiationMediumInteractionQuantity rdf:type owl:Class ;
+                                        rdfs:subClassOf prop:ElectromagneticRadiationProperty ,
+                                                        quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/ScalarPotential
-:ScalarPotential rdf:type owl:Class ;
-                 rdfs:subClassOf :Potential .
+quan:ScalarPotential rdf:type owl:Class ;
+                     rdfs:subClassOf quan:Potential .
 
 
 ###  http://sweetontology.net/propQuantity/ScientificQuantity
-:ScientificQuantity rdf:type owl:Class ;
-                    rdfs:subClassOf <http://sweetontology.net/prop/Property> ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                                      owl:cardinality "1"^^xsd:nonNegativeInteger
-                                    ] .
+quan:ScientificQuantity rdf:type owl:Class ;
+                        rdfs:subClassOf prop:Property ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty screla:hasUnit ;
+                                          owl:cardinality "1"^^xsd:nonNegativeInteger
+                                        ] .
 
 
 ###  http://sweetontology.net/propQuantity/StokesParameters
-:StokesParameters rdf:type owl:Class ;
-                  rdfs:subClassOf :VectorQuantity .
+quan:StokesParameters rdf:type owl:Class ;
+                      rdfs:subClassOf quan:VectorQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
-:ThermodynamicQuantity rdf:type owl:Class ;
-                       rdfs:subClassOf <http://sweetontology.net/prop/ThermodynamicProperty> ,
-                                       :Quantity .
+quan:ThermodynamicQuantity rdf:type owl:Class ;
+                           rdfs:subClassOf prop:ThermodynamicProperty ,
+                                           quan:Quantity .
 
 
 ###  http://sweetontology.net/propQuantity/VectorPotential
-:VectorPotential rdf:type owl:Class ;
-                 rdfs:subClassOf :Potential ,
-                                 :VectorQuantity .
+quan:VectorPotential rdf:type owl:Class ;
+                     rdfs:subClassOf quan:Potential ,
+                                     quan:VectorQuantity .
 
 
 ###  http://sweetontology.net/propQuantity/VectorQuantity
-:VectorQuantity rdf:type owl:Class ;
-                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error10> ,
-                                :ScientificQuantity .
+quan:VectorQuantity rdf:type owl:Class ;
+                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error10> ,
+                                    quan:ScientificQuantity .
 
 
 ###  http://sweetontology.net/reprMath/Constant
-<http://sweetontology.net/reprMath/Constant> rdf:type owl:Class .
+math:Constant rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMath/Equation
-<http://sweetontology.net/reprMath/Equation> rdf:type owl:Class .
+math:Equation rdf:type owl:Class .
 
 
 #################################################################
@@ -215,16 +210,7 @@ owl:cardinality rdf:type owl:AnnotationProperty .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/newton
-<http://sweetontology.net/reprSciUnits/newton> rdf:type owl:NamedIndividual .
+units:newton rdf:type owl:NamedIndividual .
 
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
-] .
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
- ] .
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

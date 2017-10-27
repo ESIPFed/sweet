@@ -3,7 +3,13 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmo: <http://sweetontology.net/phenAtmo/> .
+@prefix elec: <http://sweetontology.net/propCharge/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix wave: <http://sweetontology.net/phenWave/> .
+@prefix light: <http://sweetontology.net/phenAtmoLightning/> .
+@prefix precip: <http://sweetontology.net/phenAtmoPrecipitation/> .
 @base <http://sweetontology.net/phenAtmoLightning> .
 
 <http://sweetontology.net/phenAtmoLightning> rdf:type owl:Ontology ;
@@ -20,77 +26,70 @@
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoLightning/BallLightning
-:BallLightning rdf:type owl:Class ;
-               rdfs:subClassOf :Lightning ;
-               rdfs:comment "A rare and randomly occurring bright ball of light observed floating or moving through the atmosphere close to the ground."@en .
+light:BallLightning rdf:type owl:Class ;
+                    rdfs:subClassOf light:Lightning .
 
 
 ###  http://sweetontology.net/phenAtmoLightning/BeadedLightning
-:BeadedLightning rdf:type owl:Class ;
-                 rdfs:subClassOf :Lightning ;
-                 rdfs:comment "A particular aspect of a normal lightning flash occasionally seen when the observer happens to view end-on a number of segments of the irregular channel (zigzag lightning) and hence receives an impression of higher luminosity at a series of locations along the channel."@en .
+light:BeadedLightning rdf:type owl:Class ;
+                      rdfs:subClassOf light:Lightning .
 
 
 ###  http://sweetontology.net/phenAtmoLightning/BlueJet
-:BlueJet rdf:type owl:Class ;
-         rdfs:subClassOf :Lightning ;
-         rdfs:comment "Weakly luminous upward propagating discharges, blue in color, emanating from the tops of thunderstorms."@en .
+light:BlueJet rdf:type owl:Class ;
+              rdfs:subClassOf light:Lightning .
 
 
 ###  http://sweetontology.net/phenAtmoLightning/JunctionStreamer
-:JunctionStreamer rdf:type owl:Class ;
-                  rdfs:subClassOf :Lightning ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                    owl:allValuesFrom :Lightning
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                    owl:allValuesFrom <http://sweetontology.net/phenAtmoPrecipitation/Thunderstorm>
-                                  ] ;
-                  rdfs:comment "The process by which negative charge centers at successively more distant locations in a thundercloud are tapped for discharge by successive strokes of cloud-to-ground lightning."@en .
+light:JunctionStreamer rdf:type owl:Class ;
+                       rdfs:subClassOf light:Lightning ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rela:hasPhenomena ;
+                                         owl:allValuesFrom light:Lightning
+                                       ] ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rela:hasPhenomena ;
+                                         owl:allValuesFrom precip:Thunderstorm
+                                       ] .
 
 
 ###  http://sweetontology.net/phenAtmoLightning/Lightning
-:Lightning rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:someValuesFrom <http://sweetontology.net/propCharge/ElectricPotential>
-                           ] ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom :Thunder
-                           ] ;
-           rdfs:comment "Lightning is a transient, high-current electric discharge with pathlengths measured in kilometers. The most common source of lightning is the electric charge separated in ordinary thunderstorm clouds."@en .
+light:Lightning rdf:type owl:Class ;
+                rdfs:subClassOf atmo:MeteorologicalPhenomena ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasPhenomena ;
+                                  owl:someValuesFrom elec:ElectricPotential
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasPhenomena ;
+                                  owl:allValuesFrom light:Thunder
+                                ] .
 
 
 ###  http://sweetontology.net/phenAtmoLightning/ReturnStroke
-:ReturnStroke rdf:type owl:Class ;
-              rdfs:subClassOf :Lightning ;
-              rdfs:comment "The intense luminosity that propagates upward from earth to cloud base in the last phase of each lightning stroke of a cloud-to-ground discharge."@en .
+light:ReturnStroke rdf:type owl:Class ;
+                   rdfs:subClassOf light:Lightning .
 
 
 ###  http://sweetontology.net/phenAtmoLightning/Thunder
-:Thunder rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                           owl:allValuesFrom <http://sweetontology.net/phenWave/Sound>
-                         ] ;
-         rdfs:comment "The sound emitted by rapidly expanding gases along the channel of a lightning discharge."@en .
+light:Thunder rdf:type owl:Class ;
+              rdfs:subClassOf atmo:MeteorologicalPhenomena ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty rela:hasPhenomena ;
+                                owl:allValuesFrom wave:Sound
+                              ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Thunderstorm
-<http://sweetontology.net/phenAtmoPrecipitation/Thunderstorm> rdf:type owl:Class .
+precip:Thunderstorm rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenWave/Sound
-<http://sweetontology.net/phenWave/Sound> rdf:type owl:Class .
+wave:Sound rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propCharge/ElectricPotential
-<http://sweetontology.net/propCharge/ElectricPotential> rdf:type owl:Class .
+elec:ElectricPotential rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

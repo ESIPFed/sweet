@@ -3,7 +3,17 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix inst: <http://sweetontology.net/phenFluidInstability/> .
+@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix rate: <http://sweetontology.net/propTimeFrequency/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://sweetontology.net/reprTime/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propTimeFrequency> .
 
 <http://sweetontology.net/propTimeFrequency> rdf:type owl:Ontology ;
@@ -23,31 +33,31 @@
 #################################################################
 
 ###  http://sweetontology.net/relaMath/derivativeWithRespectTo
-<http://sweetontology.net/relaMath/derivativeWithRespectTo> rdf:type owl:ObjectProperty .
+mrela:derivativeWithRespectTo rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasInput
-<http://sweetontology.net/relaMath/hasInput> rdf:type owl:ObjectProperty .
+mrela:hasInput rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasOutput
-<http://sweetontology.net/relaMath/hasOutput> rdf:type owl:ObjectProperty .
+mrela:hasOutput rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasUnit
-<http://sweetontology.net/relaSci/hasUnit> rdf:type owl:ObjectProperty .
+screla:hasUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-<http://sweetontology.net/relaSci/measureOf> rdf:type owl:ObjectProperty .
+screla:measureOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/rangeOf
-<http://sweetontology.net/relaSci/rangeOf> rdf:type owl:ObjectProperty .
+screla:rangeOf rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -55,130 +65,126 @@
 #################################################################
 
 ###  http://sweetontology.net/propTimeFrequency/Bandwidth
-:Bandwidth rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> ,
-                           :Frequency .
+rate:Bandwidth rdf:type owl:Class ;
+               rdfs:subClassOf prop:WaveProperty ,
+                               rate:Frequency .
 
 
 ###  http://sweetontology.net/propTimeFrequency/BruntVaisalaFrequency
-:BruntVaisalaFrequency rdf:type owl:Class ;
-                       rdfs:subClassOf :Frequency ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
-                                         owl:allValuesFrom <http://sweetontology.net/phenFluidInstability/StaticStability>
-                                       ] ;
-                       rdfs:comment "The frequency at which a displaced parcel will oscillate when displaced vertically within a statically stable environment."@en .
+rate:BruntVaisalaFrequency rdf:type owl:Class ;
+                           rdfs:subClassOf rate:Frequency ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty screla:measureOf ;
+                                             owl:allValuesFrom inst:StaticStability
+                                           ] .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Cadence
-:Cadence rdf:type owl:Class ;
-         rdfs:subClassOf :Frequency .
+rate:Cadence rdf:type owl:Class ;
+             rdfs:subClassOf rate:Frequency .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Convergence
-:Convergence rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaMath/hasOutput> ;
-                               owl:allValuesFrom <http://sweetontology.net/reprMathFunction/VectorField>
-                             ] .
+rate:Convergence rdf:type owl:Class ;
+                 rdfs:subClassOf oper:VectorFieldOperation ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty mrela:hasOutput ;
+                                   owl:allValuesFrom func:VectorField
+                                 ] .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Divergence
-:Divergence rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
-                              owl:allValuesFrom <http://sweetontology.net/reprMathFunction/ScalarField>
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaMath/hasOutput> ;
-                              owl:allValuesFrom <http://sweetontology.net/reprMathFunction/VectorField>
-                            ] ;
-            rdfs:comment "The expansion or spreading out of a vector field; also, a precise measure thereof."@en .
+rate:Divergence rdf:type owl:Class ;
+                rdfs:subClassOf oper:VectorFieldOperation ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty mrela:hasInput ;
+                                  owl:allValuesFrom func:ScalarField
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty mrela:hasOutput ;
+                                  owl:allValuesFrom func:VectorField
+                                ] .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Fertility
-:Fertility rdf:type owl:Class ;
-           rdfs:subClassOf :Rate .
+rate:Fertility rdf:type owl:Class ;
+               rdfs:subClassOf rate:Rate .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Frequency
-:Frequency rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
-                           :Rate ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                             owl:hasValue <http://sweetontology.net/reprSciUnits/hertz>
-                           ] ;
-           rdfs:comment "The rate of recurrence of any periodic phenomenon, often associated with waves of all kinds. Without qualification frequency often means temporal frequency, the rate of recurrence of a time-varying function, but could mean spatial frequency, the rate of recurrence of a space-varying function. Spatial frequency is the reciprocal of the repeat distance (sometimes the wavelength). The dimensions of (temporal) frequency are inverse time. A common unit for frequency is cycle per second, formerly abbreviated cps, but superseded by hertz, abbreviated as Hz."@en .
-
-
-###  http://sweetontology.net/propTimeFrequency/FrequencyBand
-:FrequencyBand rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> ,
+rate:Frequency rdf:type owl:Class ;
+               rdfs:subClassOf quan:PhysicalQuantity ,
+                               rate:Rate ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-                                 owl:allValuesFrom :Frequency
+                                 owl:onProperty screla:hasDefaultUnit ;
+                                 owl:hasValue units:hertz
                                ] .
 
 
-###  http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz
-:FrequencyBand_MHz rdf:type owl:Class ;
-                   rdfs:subClassOf :FrequencyBand ,
+###  http://sweetontology.net/propTimeFrequency/FrequencyBand
+rate:FrequencyBand rdf:type owl:Class ;
+                   rdfs:subClassOf quan:IntervalQuantity ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                                     owl:hasValue <http://sweetontology.net/reprSciUnits/MHz>
+                                     owl:onProperty screla:rangeOf ;
+                                     owl:allValuesFrom rate:Frequency
                                    ] .
 
 
+###  http://sweetontology.net/propTimeFrequency/FrequencyBand_MHz
+rate:FrequencyBand_MHz rdf:type owl:Class ;
+                       rdfs:subClassOf rate:FrequencyBand ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty screla:hasUnit ;
+                                         owl:hasValue units:MHz
+                                       ] .
+
+
 ###  http://sweetontology.net/propTimeFrequency/Incidence
-:Incidence rdf:type owl:Class ;
-           rdfs:subClassOf :Frequency .
+rate:Incidence rdf:type owl:Class ;
+               rdfs:subClassOf rate:Frequency .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Rate
-:Rate rdf:type owl:Class ;
-      owl:equivalentClass :Tendency ;
-      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/PartialDerivative> ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaMath/derivativeWithRespectTo> ;
-                        owl:allValuesFrom <http://sweetontology.net/reprTime/Time>
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                        owl:hasValue <http://sweetontology.net/reprSciUnits/perSecond>
-                      ] .
+rate:Rate rdf:type owl:Class ;
+          owl:equivalentClass rate:Tendency ;
+          rdfs:subClassOf oper:PartialDerivative ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty mrela:derivativeWithRespectTo ;
+                            owl:allValuesFrom time:Time
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty screla:hasDefaultUnit ;
+                            owl:hasValue units:perSecond
+                          ] .
 
 
 ###  http://sweetontology.net/propTimeFrequency/SpreadingRate
-:SpreadingRate rdf:type owl:Class ;
-               rdfs:subClassOf :Rate ;
-               rdfs:comment "The spreading rate is a measure of how fast plate divergence is occurring. [Wikipedia]"@en .
+rate:SpreadingRate rdf:type owl:Class ;
+                   rdfs:subClassOf rate:Rate .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Tendency
-:Tendency rdf:type owl:Class .
+rate:Tendency rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathFunction/ScalarField
-<http://sweetontology.net/reprMathFunction/ScalarField> rdf:type owl:Class .
+func:ScalarField rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathFunction/VectorField
-<http://sweetontology.net/reprMathFunction/VectorField> rdf:type owl:Class .
+func:VectorField rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/PartialDerivative
-<http://sweetontology.net/reprMathOperation/PartialDerivative> rdf:type owl:Class .
+oper:PartialDerivative rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/VectorFieldOperation
-<http://sweetontology.net/reprMathOperation/VectorFieldOperation> rdf:type owl:Class .
+oper:VectorFieldOperation rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprTime/Time
-<http://sweetontology.net/reprTime/Time> rdf:type owl:Class .
+time:Time rdf:type owl:Class .
 
 
 #################################################################
@@ -186,15 +192,15 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/MHz
-<http://sweetontology.net/reprSciUnits/MHz> rdf:type owl:NamedIndividual .
+units:MHz rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/hertz
-<http://sweetontology.net/reprSciUnits/hertz> rdf:type owl:NamedIndividual .
+units:hertz rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/perSecond
-<http://sweetontology.net/reprSciUnits/perSecond> rdf:type owl:NamedIndividual .
+units:perSecond rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

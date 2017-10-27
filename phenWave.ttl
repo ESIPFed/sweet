@@ -1,9 +1,21 @@
 @prefix : <http://sweetontology.net/phenWave/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sol: <http://sweetontology.net/phenSolid/> .
+@prefix sys: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix inst: <http://sweetontology.net/phenFluidInstability/> .
+@prefix phen: <http://sweetontology.net/phen/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
+@prefix sysc: <http://sweetontology.net/phenSystemComplexity/> .
+@prefix tran: <http://sweetontology.net/phenFluidTransport/> .
+@prefix wave: <http://sweetontology.net/phenWave/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
 @base <http://sweetontology.net/phenWave> .
 
 <http://sweetontology.net/phenWave> rdf:type owl:Ontology ;
@@ -26,19 +38,19 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasState
-<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
+rela:hasState rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasOscillationDirection
-<http://sweetontology.net/relaPhysical/hasOscillationDirection> rdf:type owl:ObjectProperty .
+prela:hasOscillationDirection rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasRestoringForce
-<http://sweetontology.net/relaPhysical/hasRestoringForce> rdf:type owl:ObjectProperty .
+prela:hasRestoringForce rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -46,296 +58,277 @@
 #################################################################
 
 ###  http://sweetontology.net/phenWave/Acoustic
-:Acoustic rdf:type owl:Class ;
-          owl:equivalentClass :AcousticWave .
+wave:Acoustic rdf:type owl:Class ;
+              owl:equivalentClass wave:AcousticWave .
 
 
 ###  http://sweetontology.net/phenWave/AcousticGravityWave
-:AcousticGravityWave rdf:type owl:Class ;
-                     rdfs:subClassOf :AcousticWave ,
-                                     :GravityWave ;
-                     rdfs:comment "A wave disturbance with restoring forces that include buoyancy and the elastic compressibility of the fluid medium." ;
-                     rdfs:label "Acoustic Gravity Wave" .
+wave:AcousticGravityWave rdf:type owl:Class ;
+                         rdfs:subClassOf wave:AcousticWave ,
+                                         wave:GravityWave .
 
 
 ###  http://sweetontology.net/phenWave/AcousticWave
-:AcousticWave rdf:type owl:Class ;
-              owl:equivalentClass :Acoustics ,
-                                  :Sound ,
-                                  :SoundWave ;
-              rdfs:subClassOf :Wave ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/relaPhysical/hasRestoringForce> ;
-                                owl:someValuesFrom <http://sweetontology.net/procPhysical/Pressure>
-                              ] .
+wave:AcousticWave rdf:type owl:Class ;
+                  owl:equivalentClass wave:Acoustics ,
+                                      wave:Sound ,
+                                      wave:SoundWave ;
+                  rdfs:subClassOf wave:Wave ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty prela:hasRestoringForce ;
+                                    owl:someValuesFrom proc:Pressure
+                                  ] .
 
 
 ###  http://sweetontology.net/phenWave/Acoustics
-:Acoustics rdf:type owl:Class .
+wave:Acoustics rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenWave/AlfvenWave
-:AlfvenWave rdf:type owl:Class ;
-            rdfs:subClassOf :PlasmaWave .
+wave:AlfvenWave rdf:type owl:Class ;
+                rdfs:subClassOf wave:PlasmaWave .
 
 
 ###  http://sweetontology.net/phenWave/BodyWave
-:BodyWave rdf:type owl:Class ;
-          rdfs:subClassOf :SolidWave ;
-          owl:disjointWith :SurfaceWave .
+wave:BodyWave rdf:type owl:Class ;
+              rdfs:subClassOf wave:SolidWave ;
+              owl:disjointWith wave:SurfaceWave .
 
 
 ###  http://sweetontology.net/phenWave/CapillaryWave
-:CapillaryWave rdf:type owl:Class ;
-               rdfs:subClassOf :Wave .
+wave:CapillaryWave rdf:type owl:Class ;
+                   rdfs:subClassOf wave:Wave .
 
 
 ###  http://sweetontology.net/phenWave/CompressionWave
-:CompressionWave rdf:type owl:Class ;
-                 rdfs:subClassOf :LongitudinalWave .
+wave:CompressionWave rdf:type owl:Class ;
+                     rdfs:subClassOf wave:LongitudinalWave .
 
 
 ###  http://sweetontology.net/phenWave/FluidWave
-:FluidWave rdf:type owl:Class ;
-           rdfs:subClassOf :Wave ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                             owl:hasValue <http://sweetontology.net/statePhysical/Fluid>
-                           ] .
-
-
-###  http://sweetontology.net/phenWave/GravitationalWave
-:GravitationalWave rdf:type owl:Class ;
-                   owl:equivalentClass :GravityWave .
-
-
-###  http://sweetontology.net/phenWave/GravityWave
-:GravityWave rdf:type owl:Class ;
-             rdfs:subClassOf :FluidWave ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaPhysical/hasRestoringForce> ;
-                               owl:someValuesFrom <http://sweetontology.net/phenFluidTransport/Buoyancy>
-                             ] ;
-             rdfs:comment "A wave disturbance in which buoyancy (or reduced gravity) acts as the restoring force on parcels displaced from hydrostatic equilibrium."@en ;
-             rdfs:label "Gravity Wave" .
-
-
-###  http://sweetontology.net/phenWave/HelmholtzWave
-:HelmholtzWave rdf:type owl:Class ;
-               rdfs:subClassOf :GravityWave ;
-               rdfs:comment "An unstable wave in a system of two homogeneous fluids with a velocity discontinuity at the interface."@en .
-
-
-###  http://sweetontology.net/phenWave/InertiaWave
-:InertiaWave rdf:type owl:Class ;
-             owl:equivalentClass :InertialWave ;
-             rdfs:subClassOf :InternalWave ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaPhysical/hasRestoringForce> ;
-                               owl:someValuesFrom <http://sweetontology.net/procPhysical/CoriolisForce>
-                             ] ;
-             rdfs:comment "1. Any wave motion in which no form of energy other than kinetic energy is present. In this general sense, Helmholtz waves, barotropic disturbances, Rossby waves, etc., are inertia waves. 2. More restrictedly, a wave motion in which the source of kinetic energy of the disturbance is the rotation of the fluid about some given axis. In the atmosphere a westerly wind system is such a source, the inertia waves here being, in general, stable. A similar analysis has been applied to smaller vortices, such as the hurricane. See inertial instability"@en .
-
-
-###  http://sweetontology.net/phenWave/InertialWave
-:InertialWave rdf:type owl:Class .
-
-
-###  http://sweetontology.net/phenWave/InternalGravityWave
-:InternalGravityWave rdf:type owl:Class ;
-                     owl:equivalentClass :InternalWave ;
-                     rdfs:subClassOf :GravityWave ,
-                                     :InternalWave ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                       owl:someValuesFrom <http://sweetontology.net/phenFluidInstability/StaticStability>
-                                     ] ;
-                     rdfs:comment "A wave that propagates in density-stratified fluid under the influence of buoyancy forces."@en .
-
-
-###  http://sweetontology.net/phenWave/InternalWave
-:InternalWave rdf:type owl:Class ;
-              owl:disjointWith :SurfaceWave .
-
-
-###  http://sweetontology.net/phenWave/KelvinHelmholtzWave
-:KelvinHelmholtzWave rdf:type owl:Class ;
-                     rdfs:subClassOf :GravityWave ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                       owl:allValuesFrom <http://sweetontology.net/phenFluidInstability/KelvinHelmholtzInstability>
-                                     ] ;
-                     rdfs:comment "A waveform disturbance that arises from Kelvin?Helmholtz instability."@en .
-
-
-###  http://sweetontology.net/phenWave/KelvinWave
-:KelvinWave rdf:type owl:Class ;
-            rdfs:subClassOf :GravityWave ;
-            rdfs:comment "A type of low-frequency gravity wave trapped to a vertical boundary, or the equator, which propagates anticlockwise (in the Northerm Hemisphere) around a basin."@en .
-
-
-###  http://sweetontology.net/phenWave/LongCrestedWave
-:LongCrestedWave rdf:type owl:Class ;
-                 rdfs:subClassOf :SurfaceWave ;
-                 rdfs:comment "Ocean surface waves that are nearly two-dimensional, in that the crests appear very long in comparison with the wavelength, and the energy propagation is concentrated in a narrow band around the mean wave direction."@en .
-
-
-###  http://sweetontology.net/phenWave/LongitudinalWave
-:LongitudinalWave rdf:type owl:Class ;
-                  rdfs:subClassOf :Wave ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaPhysical/hasOscillationDirection> ;
-                                    owl:hasValue <http://sweetontology.net/reprSpaceDirection/Parallel>
-                                  ] ;
-                  rdfs:comment "Longitudinal waves are waves that have vibrations along or parallel to their direction of travel. They include waves in which the motion of the medium is in the same direction as the motion of the wave. Mechanical longitudinal waves have been also referred to as compressional waves or pressure waves"@en .
-
-
-###  http://sweetontology.net/phenWave/MagnetohydrodynamicWave
-:MagnetohydrodynamicWave rdf:type owl:Class ;
-                         rdfs:subClassOf :PlasmaWave .
-
-
-###  http://sweetontology.net/phenWave/PlanetaryWave
-:PlanetaryWave rdf:type owl:Class ;
-               owl:equivalentClass :RossbyWave .
-
-
-###  http://sweetontology.net/phenWave/PlasmaWave
-:PlasmaWave rdf:type owl:Class ;
-            rdfs:subClassOf :Wave ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                              owl:hasValue <http://sweetontology.net/statePhysical/Plasma>
-                            ] .
-
-
-###  http://sweetontology.net/phenWave/RayleighWave
-:RayleighWave rdf:type owl:Class ;
-              rdfs:subClassOf :AcousticWave ,
-                              :SolidWave ,
-                              :SurfaceWave ;
-              rdfs:comment "Rayleigh waves, also called ground roll, are surface waves that travel as ripples similar to those on the surface of water. The existence of these waves was predicted by John William Strutt, Lord Rayleigh, in 1885. They are slower than body waves, roughly 70% of the velocity of S waves, and have been asserted to be visible during an earthquake in an open space like a parking lot where the cars move up and down with the waves. Reports among seismologists suggest that the apparent motion may be due to distortion of the human eye during shaking. Anecdotally, placing people on shake tables causes the room to appear to ripple. In any case, waves of the reported amplitude, wavelength, and velocity of the visible waves have never been recorded instrumentally."@en .
-
-
-###  http://sweetontology.net/phenWave/RossbyWave
-:RossbyWave rdf:type owl:Class ;
-            rdfs:subClassOf :InertialWave ;
-            rdfs:comment "Rossby (or planetary) waves are large-scale motions in the ocean or atmosphere whose restoring force is the variation in Coriolis effect with latitude. The waves were first identified in the atmosphere in 1939 by Carl-Gustaf Arvid Rossby who went on to explain their motion. Rossby waves are a subset of inertial waves"@en .
-
-
-###  http://sweetontology.net/phenWave/Seiche
-:Seiche rdf:type owl:Class ;
-        rdfs:subClassOf :StandingWave ;
-        rdfs:comment "A seiche is a standing wave in an enclosed or partially enclosed body of water. Seiches and seiche-related phenomena have been observed on lakes, reservoirs, bays and seas. The key requirement for formation of a seiche is that the body of water be at least partially bounded, allowing natural phenomena to form a standing wave."@en .
-
-
-###  http://sweetontology.net/phenWave/ShallowWaterWave
-:ShallowWaterWave rdf:type owl:Class ;
-                  rdfs:subClassOf :GravityWave ;
-                  rdfs:comment "An ocean wave with its length sufficiently large compared to the water depth (i.e., 25 or more times the depth)"@en .
-
-
-###  http://sweetontology.net/phenWave/ShearWave
-:ShearWave rdf:type owl:Class ;
-           rdfs:subClassOf :SolidWave ,
-                           :TransverseWave ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaPhysical/hasRestoringForce> ;
-                             owl:someValuesFrom <http://sweetontology.net/phenSolid/Shear>
-                           ] .
-
-
-###  http://sweetontology.net/phenWave/ShockWave
-:ShockWave rdf:type owl:Class ;
-           rdfs:subClassOf :Wave ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom <http://sweetontology.net/phenSystemComplexity/Shock>
-                           ] .
-
-
-###  http://sweetontology.net/phenWave/ShortWave
-:ShortWave rdf:type owl:Class ;
-           rdfs:subClassOf :Wave ;
-           rdfs:comment "With regard to atmospheric circulation, a progressive wave in the horizontal pattern of air motion with dimensions of cyclonic scale, as distinguished from a long wave."@en .
-
-
-###  http://sweetontology.net/phenWave/SolidWave
-:SolidWave rdf:type owl:Class ;
-           rdfs:subClassOf :Wave ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                             owl:hasValue <http://sweetontology.net/statePhysical/Solid>
-                           ] .
-
-
-###  http://sweetontology.net/phenWave/Sound
-:Sound rdf:type owl:Class .
-
-
-###  http://sweetontology.net/phenWave/SoundWave
-:SoundWave rdf:type owl:Class .
-
-
-###  http://sweetontology.net/phenWave/StandingWave
-:StandingWave rdf:type owl:Class ;
-              rdfs:subClassOf :Wave ;
-              owl:disjointWith :TravelingWave ;
-              rdfs:comment "A wave that is stationary with respect to the medium in which it is embedded, for example, two equal gravity waves moving in opposite directions."@en .
-
-
-###  http://sweetontology.net/phenWave/SurfaceWave
-:SurfaceWave rdf:type owl:Class ;
-             rdfs:subClassOf :Wave .
-
-
-###  http://sweetontology.net/phenWave/TopographicWave
-:TopographicWave rdf:type owl:Class ;
-                 rdfs:subClassOf :GravityWave ;
-                 rdfs:comment "Waves with a restoring force arising from variations in depth. The stretching or compression of displaced columns of water generates anomalous vorticity tending to drive them back to their original position." .
-
-
-###  http://sweetontology.net/phenWave/TransverseWave
-:TransverseWave rdf:type owl:Class ;
-                rdfs:subClassOf :Wave ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/relaPhysical/hasOscillationDirection> ;
-                                  owl:hasValue <http://sweetontology.net/reprSpaceDirection/Perpendicular>
-                                ] ;
-                rdfs:comment "A transverse wave is a wave that causes vibration in the medium in a perpendicular direction to its own motion. For example: if a wave moves along the x-axis, its disturbances are in the yz-plane. In other words, it causes medium disturbances across the two-dimensional plane that it is travelling in. Contrary to popular belief, transversal waves do not necessarily move up and down."@en .
-
-
-###  http://sweetontology.net/phenWave/TravelingWave
-:TravelingWave rdf:type owl:Class ;
-               rdfs:subClassOf :Wave .
-
-
-###  http://sweetontology.net/phenWave/Wave
-:Wave rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/phenSystem/Oscillation> .
-
-
-###  http://sweetontology.net/phenWave/WavePhenomena
-:WavePhenomena rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ,
+wave:FluidWave rdf:type owl:Class ;
+               rdfs:subClassOf wave:Wave ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                 owl:someValuesFrom :Wave
+                                 owl:onProperty rela:hasState ;
+                                 owl:hasValue pstate:Fluid
                                ] .
 
 
+###  http://sweetontology.net/phenWave/GravitationalWave
+wave:GravitationalWave rdf:type owl:Class ;
+                       owl:equivalentClass wave:GravityWave .
+
+
+###  http://sweetontology.net/phenWave/GravityWave
+wave:GravityWave rdf:type owl:Class ;
+                 rdfs:subClassOf wave:FluidWave ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty prela:hasRestoringForce ;
+                                   owl:someValuesFrom tran:Buoyancy
+                                 ] .
+
+
+###  http://sweetontology.net/phenWave/HelmholtzWave
+wave:HelmholtzWave rdf:type owl:Class ;
+                   rdfs:subClassOf wave:GravityWave .
+
+
+###  http://sweetontology.net/phenWave/InertiaWave
+wave:InertiaWave rdf:type owl:Class ;
+                 owl:equivalentClass wave:InertialWave ;
+                 rdfs:subClassOf wave:InternalWave ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty prela:hasRestoringForce ;
+                                   owl:someValuesFrom proc:CoriolisForce
+                                 ] .
+
+
+###  http://sweetontology.net/phenWave/InertialWave
+wave:InertialWave rdf:type owl:Class .
+
+
+###  http://sweetontology.net/phenWave/InternalGravityWave
+wave:InternalGravityWave rdf:type owl:Class ;
+                         owl:equivalentClass wave:InternalWave ;
+                         rdfs:subClassOf wave:GravityWave ,
+                                         wave:InternalWave ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty rela:hasState ;
+                                           owl:someValuesFrom inst:StaticStability
+                                         ] .
+
+
+###  http://sweetontology.net/phenWave/InternalWave
+wave:InternalWave rdf:type owl:Class ;
+                  owl:disjointWith wave:SurfaceWave .
+
+
+###  http://sweetontology.net/phenWave/KelvinHelmholtzWave
+wave:KelvinHelmholtzWave rdf:type owl:Class ;
+                         rdfs:subClassOf wave:GravityWave ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty rela:hasState ;
+                                           owl:allValuesFrom inst:KelvinHelmholtzInstability
+                                         ] .
+
+
+###  http://sweetontology.net/phenWave/KelvinWave
+wave:KelvinWave rdf:type owl:Class ;
+                rdfs:subClassOf wave:GravityWave .
+
+
+###  http://sweetontology.net/phenWave/LongCrestedWave
+wave:LongCrestedWave rdf:type owl:Class ;
+                     rdfs:subClassOf wave:SurfaceWave .
+
+
+###  http://sweetontology.net/phenWave/LongitudinalWave
+wave:LongitudinalWave rdf:type owl:Class ;
+                      rdfs:subClassOf wave:Wave ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty prela:hasOscillationDirection ;
+                                        owl:hasValue sdir:Parallel
+                                      ] .
+
+
+###  http://sweetontology.net/phenWave/MagnetohydrodynamicWave
+wave:MagnetohydrodynamicWave rdf:type owl:Class ;
+                             rdfs:subClassOf wave:PlasmaWave .
+
+
+###  http://sweetontology.net/phenWave/PlanetaryWave
+wave:PlanetaryWave rdf:type owl:Class ;
+                   owl:equivalentClass wave:RossbyWave .
+
+
+###  http://sweetontology.net/phenWave/PlasmaWave
+wave:PlasmaWave rdf:type owl:Class ;
+                rdfs:subClassOf wave:Wave ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasState ;
+                                  owl:hasValue pstate:Plasma
+                                ] .
+
+
+###  http://sweetontology.net/phenWave/RayleighWave
+wave:RayleighWave rdf:type owl:Class ;
+                  rdfs:subClassOf wave:AcousticWave ,
+                                  wave:SolidWave ,
+                                  wave:SurfaceWave .
+
+
+###  http://sweetontology.net/phenWave/RossbyWave
+wave:RossbyWave rdf:type owl:Class ;
+                rdfs:subClassOf wave:InertialWave .
+
+
+###  http://sweetontology.net/phenWave/Seiche
+wave:Seiche rdf:type owl:Class ;
+            rdfs:subClassOf wave:StandingWave .
+
+
+###  http://sweetontology.net/phenWave/ShallowWaterWave
+wave:ShallowWaterWave rdf:type owl:Class ;
+                      rdfs:subClassOf wave:GravityWave .
+
+
+###  http://sweetontology.net/phenWave/ShearWave
+wave:ShearWave rdf:type owl:Class ;
+               rdfs:subClassOf wave:SolidWave ,
+                               wave:TransverseWave ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty prela:hasRestoringForce ;
+                                 owl:someValuesFrom sol:Shear
+                               ] .
+
+
+###  http://sweetontology.net/phenWave/ShockWave
+wave:ShockWave rdf:type owl:Class ;
+               rdfs:subClassOf wave:Wave ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty rela:hasPhenomena ;
+                                 owl:allValuesFrom sysc:Shock
+                               ] .
+
+
+###  http://sweetontology.net/phenWave/ShortWave
+wave:ShortWave rdf:type owl:Class ;
+               rdfs:subClassOf wave:Wave .
+
+
+###  http://sweetontology.net/phenWave/SolidWave
+wave:SolidWave rdf:type owl:Class ;
+               rdfs:subClassOf wave:Wave ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty rela:hasState ;
+                                 owl:hasValue pstate:Solid
+                               ] .
+
+
+###  http://sweetontology.net/phenWave/Sound
+wave:Sound rdf:type owl:Class .
+
+
+###  http://sweetontology.net/phenWave/SoundWave
+wave:SoundWave rdf:type owl:Class .
+
+
+###  http://sweetontology.net/phenWave/StandingWave
+wave:StandingWave rdf:type owl:Class ;
+                  rdfs:subClassOf wave:Wave ;
+                  owl:disjointWith wave:TravelingWave .
+
+
+###  http://sweetontology.net/phenWave/SurfaceWave
+wave:SurfaceWave rdf:type owl:Class ;
+                 rdfs:subClassOf wave:Wave .
+
+
+###  http://sweetontology.net/phenWave/TopographicWave
+wave:TopographicWave rdf:type owl:Class ;
+                     rdfs:subClassOf wave:GravityWave .
+
+
+###  http://sweetontology.net/phenWave/TransverseWave
+wave:TransverseWave rdf:type owl:Class ;
+                    rdfs:subClassOf wave:Wave ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty prela:hasOscillationDirection ;
+                                      owl:hasValue sdir:Perpendicular
+                                    ] .
+
+
+###  http://sweetontology.net/phenWave/TravelingWave
+wave:TravelingWave rdf:type owl:Class ;
+                   rdfs:subClassOf wave:Wave .
+
+
+###  http://sweetontology.net/phenWave/Wave
+wave:Wave rdf:type owl:Class ;
+          rdfs:subClassOf sys:Oscillation .
+
+
+###  http://sweetontology.net/phenWave/WavePhenomena
+wave:WavePhenomena rdf:type owl:Class ;
+                   rdfs:subClassOf phen:Phenomena ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rela:hasPhenomena ;
+                                     owl:someValuesFrom wave:Wave
+                                   ] .
+
+
 ###  http://sweetontology.net/phenWave/Whistler
-:Whistler rdf:type owl:Class ;
-          rdfs:subClassOf :PlasmaWave ,
-                          :SoundWave .
+wave:Whistler rdf:type owl:Class ;
+              rdfs:subClassOf wave:PlasmaWave ,
+                              wave:SoundWave .
 
 
 ###  http://sweetontology.net/procPhysical/CoriolisForce
-<http://sweetontology.net/procPhysical/CoriolisForce> rdf:type owl:Class .
+proc:CoriolisForce rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Pressure
-<http://sweetontology.net/procPhysical/Pressure> rdf:type owl:Class .
+proc:Pressure rdf:type owl:Class .
 
 
 #################################################################
@@ -343,23 +336,23 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSpaceDirection/Parallel
-<http://sweetontology.net/reprSpaceDirection/Parallel> rdf:type owl:NamedIndividual .
+sdir:Parallel rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSpaceDirection/Perpendicular
-<http://sweetontology.net/reprSpaceDirection/Perpendicular> rdf:type owl:NamedIndividual .
+sdir:Perpendicular rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Fluid
-<http://sweetontology.net/statePhysical/Fluid> rdf:type owl:NamedIndividual .
+pstate:Fluid rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Plasma
-<http://sweetontology.net/statePhysical/Plasma> rdf:type owl:NamedIndividual .
+pstate:Plasma rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Solid
-<http://sweetontology.net/statePhysical/Solid> rdf:type owl:NamedIndividual .
+pstate:Solid rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

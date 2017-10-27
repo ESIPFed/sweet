@@ -1,9 +1,20 @@
 @prefix : <http://sweetontology.net/realmOceanFeature/> .
+@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix feat: <http://sweetontology.net/realmOceanFeature/> .
+@prefix geol: <http://sweetontology.net/realmGeol/> .
+@prefix mult: <http://sweetontology.net/propSpaceMultidimensional/> .
+@prefix odyn: <http://sweetontology.net/phenOceanDynamics/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ocean: <http://sweetontology.net/realmOcean/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix planet: <http://sweetontology.net/realm/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/realmOceanFeature> .
 
 <http://sweetontology.net/realmOceanFeature> rdf:type owl:Ontology ;
@@ -22,39 +33,15 @@
                                               owl:versionInfo "3.1.0" .
 
 #################################################################
-#    Annotation properties
-#################################################################
-
-###  http://sweetontology.net/relaSci/hasNumericValue
-<http://sweetontology.net/relaSci/hasNumericValue> rdf:type owl:AnnotationProperty .
-
-
-###  http://sweetontology.net/relaSpace/hasArea
-<http://sweetontology.net/relaSpace/hasArea> rdf:type owl:AnnotationProperty .
-
-
-###  http://sweetontology.net/relaSpace/hasAverageDepth
-<http://sweetontology.net/relaSpace/hasAverageDepth> rdf:type owl:AnnotationProperty .
-
-
-###  http://sweetontology.net/relaSpace/hasMaximumDepth
-<http://sweetontology.net/relaSpace/hasMaximumDepth> rdf:type owl:AnnotationProperty .
-
-
-###  http://sweetontology.net/relaSpace/hasVolume
-<http://sweetontology.net/relaSpace/hasVolume> rdf:type owl:AnnotationProperty .
-
-
-#################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaPhysical/hasAstronomicalBody
-<http://sweetontology.net/relaPhysical/hasAstronomicalBody> rdf:type owl:ObjectProperty .
+prela:hasAstronomicalBody rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasUnit
-<http://sweetontology.net/relaSci/hasUnit> rdf:type owl:ObjectProperty .
+screla:hasUnit rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -62,72 +49,70 @@
 #################################################################
 
 ###  http://sweetontology.net/realmOceanFeature/EarthEasternBoundaryCurrent
-:EarthEasternBoundaryCurrent rdf:type owl:Class ;
-                             rdfs:subClassOf <http://sweetontology.net/phenOceanDynamics/EasternBoundaryCurrent> ,
-                                             :EarthOceanCurrent .
+feat:EarthEasternBoundaryCurrent rdf:type owl:Class ;
+                                 rdfs:subClassOf odyn:EasternBoundaryCurrent ,
+                                                 feat:EarthOceanCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/EarthOcean
-:EarthOcean rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/realm/Ocean> ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaPhysical/hasAstronomicalBody> ;
-                              owl:hasValue <http://sweetontology.net/realm/Earth>
-                            ] .
+feat:EarthOcean rdf:type owl:Class ;
+                rdfs:subClassOf planet:Ocean ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty prela:hasAstronomicalBody ;
+                                  owl:hasValue planet:Earth
+                                ] .
 
 
 ###  http://sweetontology.net/realmOceanFeature/EarthOceanCurrent
-:EarthOceanCurrent rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/phenOceanDynamics/OceanCurrent> ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/relaPhysical/hasAstronomicalBody> ;
-                                     owl:hasValue <http://sweetontology.net/realm/Earth>
-                                   ] .
+feat:EarthOceanCurrent rdf:type owl:Class ;
+                       rdfs:subClassOf odyn:OceanCurrent ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty prela:hasAstronomicalBody ;
+                                         owl:hasValue planet:Earth
+                                       ] .
 
 
 ###  http://sweetontology.net/realmOceanFeature/EarthWesternBoundaryCurrent
-:EarthWesternBoundaryCurrent rdf:type owl:Class ;
-                             rdfs:subClassOf <http://sweetontology.net/phenOceanDynamics/WesternBoundaryCurrent> ,
-                                             :EarthOceanCurrent .
+feat:EarthWesternBoundaryCurrent rdf:type owl:Class ;
+                                 rdfs:subClassOf odyn:WesternBoundaryCurrent ,
+                                                 feat:EarthOceanCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/KamchatkaCurrent
-:KamchatkaCurrent rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/phenOceanDynamics/OceanCurrent> ;
-                  rdfs:comment "The western part of the subpolar gyre in the deep (western) part of the Bering Sea."@en .
+feat:KamchatkaCurrent rdf:type owl:Class ;
+                      rdfs:subClassOf odyn:OceanCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/OceanArea
-:OceanArea rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/Area> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                             owl:hasValue <http://sweetontology.net/reprSciUnits/million_km2>
-                           ] .
+feat:OceanArea rdf:type owl:Class ;
+               rdfs:subClassOf mult:Area ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasUnit ;
+                                 owl:hasValue units:million_km2
+                               ] .
 
 
 ###  http://sweetontology.net/realmOceanFeature/OceanDepth
-:OceanDepth rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Depth> ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                              owl:hasValue <http://sweetontology.net/reprSciUnits/meter>
-                            ] .
+feat:OceanDepth rdf:type owl:Class ;
+                rdfs:subClassOf ht:Depth ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty screla:hasUnit ;
+                                  owl:hasValue units:meter
+                                ] .
 
 
 ###  http://sweetontology.net/realmOceanFeature/OceanVolume
-:OceanVolume rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/propSpaceMultidimensional/Volume> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-                               owl:hasValue <http://sweetontology.net/reprSciUnits/million_km3>
-                             ] .
+feat:OceanVolume rdf:type owl:Class ;
+                 rdfs:subClassOf mult:Volume ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasUnit ;
+                                   owl:hasValue units:million_km3
+                                 ] .
 
 
 ###  http://sweetontology.net/realmOceanFeature/YellowSeaWarmCurrent
-:YellowSeaWarmCurrent rdf:type owl:Class ;
-                      rdfs:subClassOf <http://sweetontology.net/phenOceanDynamics/OceanCurrent> ;
-                      rdfs:comment "A surface current flowing northward along the central axis of the Yellow Sea."@en .
+feat:YellowSeaWarmCurrent rdf:type owl:Class ;
+                          rdfs:subClassOf odyn:OceanCurrent .
 
 
 #################################################################
@@ -135,266 +120,230 @@
 #################################################################
 
 ###  http://sweetontology.net/realm/Earth
-<http://sweetontology.net/realm/Earth> rdf:type owl:NamedIndividual .
+planet:Earth rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/realmOceanFeature/AgulhasCurrent
-:AgulhasCurrent rdf:type owl:NamedIndividual ,
-                         :EarthWesternBoundaryCurrent .
+feat:AgulhasCurrent rdf:type owl:NamedIndividual ,
+                             feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/AntarcticCircumpolarCurrent
-:AntarcticCircumpolarCurrent rdf:type owl:NamedIndividual ,
-                                      :EarthOceanCurrent .
+feat:AntarcticCircumpolarCurrent rdf:type owl:NamedIndividual ,
+                                          feat:EarthOceanCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/ArcticOcean
-:ArcticOcean rdf:type owl:NamedIndividual ,
-                      :EarthOcean ;
-             <http://sweetontology.net/relaSpace/hasArea> :pt1million_km2 ;
-             <http://sweetontology.net/relaSpace/hasAverageDepth> :m .
+feat:ArcticOcean rdf:type owl:NamedIndividual ,
+                          feat:EarthOcean .
 
 
 ###  http://sweetontology.net/realmOceanFeature/AtlanticOcean
-:AtlanticOcean rdf:type owl:NamedIndividual ,
-                        :EarthOcean ;
-               <http://sweetontology.net/relaSpace/hasArea> :pt4million_km2 ;
-               <http://sweetontology.net/relaSpace/hasAverageDepth> :m ;
-               <http://sweetontology.net/relaSpace/hasMaximumDepth> :m ;
-               <http://sweetontology.net/relaSpace/hasVolume> :pt6million_km3 .
+feat:AtlanticOcean rdf:type owl:NamedIndividual ,
+                            feat:EarthOcean .
 
 
 ###  http://sweetontology.net/realmOceanFeature/BenguelaCurrent
-:BenguelaCurrent rdf:type owl:NamedIndividual ,
-                          :EarthEasternBoundaryCurrent ,
-                          :EarthOceanCurrent .
+feat:BenguelaCurrent rdf:type owl:NamedIndividual ,
+                              feat:EarthEasternBoundaryCurrent ,
+                              feat:EarthOceanCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/BrazilCurrent
-:BrazilCurrent rdf:type owl:NamedIndividual ,
-                        :EarthWesternBoundaryCurrent .
+feat:BrazilCurrent rdf:type owl:NamedIndividual ,
+                            feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/CaliforniaCurrent
-:CaliforniaCurrent rdf:type owl:NamedIndividual ,
-                            :EarthEasternBoundaryCurrent .
+feat:CaliforniaCurrent rdf:type owl:NamedIndividual ,
+                                feat:EarthEasternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/CanaryCurrent
-:CanaryCurrent rdf:type owl:NamedIndividual ,
-                        :EarthEasternBoundaryCurrent .
+feat:CanaryCurrent rdf:type owl:NamedIndividual ,
+                            feat:EarthEasternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/CaribbeanSea
-:CaribbeanSea rdf:type owl:NamedIndividual ,
-                       :EarthOcean ;
-              <http://sweetontology.net/relaSpace/hasArea> :pt8million_km2 ;
-              <http://sweetontology.net/relaSpace/hasMaximumDepth> :m .
+feat:CaribbeanSea rdf:type owl:NamedIndividual ,
+                           feat:EarthOcean .
 
 
 ###  http://sweetontology.net/realmOceanFeature/DeepOceanCurrent
-:DeepOceanCurrent rdf:type owl:NamedIndividual ,
-                           :EarthOceanCurrent .
+feat:DeepOceanCurrent rdf:type owl:NamedIndividual ,
+                               feat:EarthOceanCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/EastAustraliaCurrent
-:EastAustraliaCurrent rdf:type owl:NamedIndividual ,
-                               :EarthWesternBoundaryCurrent .
+feat:EastAustraliaCurrent rdf:type owl:NamedIndividual ,
+                                   feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/GulfStream
-:GulfStream rdf:type owl:NamedIndividual ,
-                     :EarthWesternBoundaryCurrent .
+feat:GulfStream rdf:type owl:NamedIndividual ,
+                         feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/IndianOcean
-:IndianOcean rdf:type owl:NamedIndividual ,
-                      :EarthOcean ;
-             <http://sweetontology.net/relaSpace/hasArea> :pt4million_km2 ;
-             <http://sweetontology.net/relaSpace/hasAverageDepth> :m ;
-             <http://sweetontology.net/relaSpace/hasMaximumDepth> :m ;
-             <http://sweetontology.net/relaSpace/hasVolume> :pt0million_km3 .
+feat:IndianOcean rdf:type owl:NamedIndividual ,
+                          feat:EarthOcean .
 
 
 ###  http://sweetontology.net/realmOceanFeature/IndianOceanGyre
-:IndianOceanGyre rdf:type owl:NamedIndividual ,
-                          <http://sweetontology.net/phenOceanDynamics/OceanGyre> .
+feat:IndianOceanGyre rdf:type owl:NamedIndividual ,
+                              odyn:OceanGyre .
 
 
 ###  http://sweetontology.net/realmOceanFeature/KurishioCurrent
-:KurishioCurrent rdf:type owl:NamedIndividual ,
-                          :EarthWesternBoundaryCurrent .
+feat:KurishioCurrent rdf:type owl:NamedIndividual ,
+                              feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/LabradorCurrent
-:LabradorCurrent rdf:type owl:NamedIndividual ,
-                          :EarthWesternBoundaryCurrent .
+feat:LabradorCurrent rdf:type owl:NamedIndividual ,
+                              feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/NorthAtlanticCurrent
-:NorthAtlanticCurrent rdf:type owl:NamedIndividual ,
-                               :EarthWesternBoundaryCurrent .
+feat:NorthAtlanticCurrent rdf:type owl:NamedIndividual ,
+                                   feat:EarthWesternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/NorthAtlanticGyre
-:NorthAtlanticGyre rdf:type owl:NamedIndividual ,
-                            <http://sweetontology.net/phenOceanDynamics/OceanGyre> .
+feat:NorthAtlanticGyre rdf:type owl:NamedIndividual ,
+                                odyn:OceanGyre .
 
 
 ###  http://sweetontology.net/realmOceanFeature/NorthPacificGyre
-:NorthPacificGyre rdf:type owl:NamedIndividual ,
-                           <http://sweetontology.net/phenOceanDynamics/OceanGyre> .
+feat:NorthPacificGyre rdf:type owl:NamedIndividual ,
+                               odyn:OceanGyre .
 
 
 ###  http://sweetontology.net/realmOceanFeature/PacificOcean
-:PacificOcean rdf:type owl:NamedIndividual ,
-                       :EarthOcean ;
-              <http://sweetontology.net/relaSpace/hasArea> :pt2million_km2 ;
-              <http://sweetontology.net/relaSpace/hasAverageDepth> :m ;
-              <http://sweetontology.net/relaSpace/hasMaximumDepth> :m ;
-              <http://sweetontology.net/relaSpace/hasVolume> :pt6million_km3 .
+feat:PacificOcean rdf:type owl:NamedIndividual ,
+                           feat:EarthOcean .
 
 
 ###  http://sweetontology.net/realmOceanFeature/PeruCurrent
-:PeruCurrent rdf:type owl:NamedIndividual ,
-                      :EarthEasternBoundaryCurrent .
+feat:PeruCurrent rdf:type owl:NamedIndividual ,
+                          feat:EarthEasternBoundaryCurrent .
 
 
 ###  http://sweetontology.net/realmOceanFeature/SouthAtlanticGyre
-:SouthAtlanticGyre rdf:type owl:NamedIndividual ,
-                            <http://sweetontology.net/phenOceanDynamics/OceanGyre> .
+feat:SouthAtlanticGyre rdf:type owl:NamedIndividual ,
+                                odyn:OceanGyre .
 
 
 ###  http://sweetontology.net/realmOceanFeature/SouthPacificGyre
-:SouthPacificGyre rdf:type owl:NamedIndividual ,
-                           <http://sweetontology.net/phenOceanDynamics/OceanGyre> .
+feat:SouthPacificGyre rdf:type owl:NamedIndividual ,
+                               odyn:OceanGyre .
 
 
 ###  http://sweetontology.net/realmOceanFeature/SouthernOcean
-:SouthernOcean rdf:type owl:NamedIndividual ,
-                        :EarthOcean ;
-               <http://sweetontology.net/relaSpace/hasArea> :pt3million_km2 ;
-               <http://sweetontology.net/relaSpace/hasMaximumDepth> :m .
+feat:SouthernOcean rdf:type owl:NamedIndividual ,
+                            feat:EarthOcean .
 
 
 ###  http://sweetontology.net/realmOceanFeature/1038m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "1038.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/10911m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "10911.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/14pt1million_km2
-:pt1million_km2 rdf:type owl:NamedIndividual ,
-                         :OceanArea ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "14.1"^^xsd:double .
+feat:pt1million_km2 rdf:type owl:NamedIndividual ,
+                             feat:OceanArea .
 
 
 ###  http://sweetontology.net/realmOceanFeature/165pt2million_km2
-:pt2million_km2 rdf:type owl:NamedIndividual ,
-                         :OceanArea ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "165.2"^^xsd:double .
+feat:pt2million_km2 rdf:type owl:NamedIndividual ,
+                             feat:OceanArea .
 
 
 ###  http://sweetontology.net/realmOceanFeature/2pt8million_km2
-:pt8million_km2 rdf:type owl:NamedIndividual ,
-                         :OceanArea ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "2.8"^^xsd:double .
+feat:pt8million_km2 rdf:type owl:NamedIndividual ,
+                             feat:OceanArea .
 
 
 ###  http://sweetontology.net/realmOceanFeature/20pt3million_km2
-:pt3million_km2 rdf:type owl:NamedIndividual ,
-                         :OceanArea ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "20.3"^^xsd:double .
+feat:pt3million_km2 rdf:type owl:NamedIndividual ,
+                             feat:OceanArea .
 
 
 ###  http://sweetontology.net/realmOceanFeature/291pt0million_km3
-:pt0million_km3 rdf:type owl:NamedIndividual ,
-                         :OceanVolume ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "291.0"^^xsd:double .
+feat:pt0million_km3 rdf:type owl:NamedIndividual ,
+                             feat:OceanVolume .
 
 
 ###  http://sweetontology.net/realmOceanFeature/323pt6million_km3
-:pt6million_km3 rdf:type owl:NamedIndividual ,
-                         :OceanVolume ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "323.6"^^xsd:double .
+feat:pt6million_km3 rdf:type owl:NamedIndividual ,
+                             feat:OceanVolume .
 
 
 ###  http://sweetontology.net/realmOceanFeature/3926m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "3926.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/3963m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "3963.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/4282m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "4282.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/707pt6million_km3
-:pt6million_km3 rdf:type owl:NamedIndividual ,
-                         :OceanVolume ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "707.6"^^xsd:double .
+feat:pt6million_km3 rdf:type owl:NamedIndividual ,
+                             feat:OceanVolume .
 
 
 ###  http://sweetontology.net/realmOceanFeature/7235m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "7235.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/73pt4million_km2
-:pt4million_km2 rdf:type owl:NamedIndividual ,
-                         :OceanArea ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "73.4"^^xsd:double .
+feat:pt4million_km2 rdf:type owl:NamedIndividual ,
+                             feat:OceanArea .
 
 
 ###  http://sweetontology.net/realmOceanFeature/7686m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "7686.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/8047m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "8047.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/realmOceanFeature/82pt4million_km2
-:pt4million_km2 rdf:type owl:NamedIndividual ,
-                         :OceanArea ;
-                <http://sweetontology.net/relaSci/hasNumericValue> "82.4"^^xsd:double .
+feat:pt4million_km2 rdf:type owl:NamedIndividual ,
+                             feat:OceanArea .
 
 
 ###  http://sweetontology.net/realmOceanFeature/8605m
-:m rdf:type owl:NamedIndividual ,
-            :OceanDepth ;
-   <http://sweetontology.net/relaSci/hasNumericValue> "8605.0"^^xsd:double .
+feat:m rdf:type owl:NamedIndividual ,
+                feat:OceanDepth .
 
 
 ###  http://sweetontology.net/reprSciUnits/meter
-<http://sweetontology.net/reprSciUnits/meter> rdf:type owl:NamedIndividual .
+units:meter rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/million_km2
-<http://sweetontology.net/reprSciUnits/million_km2> rdf:type owl:NamedIndividual .
+units:million_km2 rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/million_km3
-<http://sweetontology.net/reprSciUnits/million_km3> rdf:type owl:NamedIndividual .
+units:million_km3 rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

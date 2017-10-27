@@ -3,7 +3,13 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix agri: <http://sweetontology.net/humanAgriculture/> .
+@prefix anim: <http://sweetontology.net/matrAnimal/> .
+@prefix comm: <http://sweetontology.net/humanCommerce/> .
+@prefix comp: <http://sweetontology.net/matrCompound/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/humanAgriculture> .
 
 <http://sweetontology.net/humanAgriculture> rdf:type owl:Ontology ;
@@ -20,11 +26,11 @@
 #################################################################
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasSpecies
-<http://sweetontology.net/relaSci/hasSpecies> rdf:type owl:ObjectProperty .
+screla:hasSpecies rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -32,143 +38,142 @@
 #################################################################
 
 ###  http://sweetontology.net/humanAgriculture/Agriculture
-:Agriculture rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/humanCommerce/LandUse> ,
-                             <http://sweetontology.net/humanCommerce/Production> .
+agri:Agriculture rdf:type owl:Class ;
+                 rdfs:subClassOf comm:LandUse ,
+                                 comm:Production .
 
 
 ###  http://sweetontology.net/humanAgriculture/AnimalProduction
-:AnimalProduction rdf:type owl:Class ;
-                  rdfs:subClassOf :Agriculture .
+agri:AnimalProduction rdf:type owl:Class ;
+                      rdfs:subClassOf agri:Agriculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/Apiculture
-:Apiculture rdf:type owl:Class ;
-            owl:equivalentClass :Beekeeping ;
-            rdfs:subClassOf :AnimalProduction .
+agri:Apiculture rdf:type owl:Class ;
+                owl:equivalentClass agri:Beekeeping ;
+                rdfs:subClassOf agri:AnimalProduction .
 
 
 ###  http://sweetontology.net/humanAgriculture/Aquaculture
-:Aquaculture rdf:type owl:Class ;
-             rdfs:subClassOf :Agriculture ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
-                               owl:allValuesFrom <http://sweetontology.net/matrAnimal/MarineAnimal>
-                             ] .
+agri:Aquaculture rdf:type owl:Class ;
+                 rdfs:subClassOf agri:Agriculture ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasSpecies ;
+                                   owl:allValuesFrom anim:MarineAnimal
+                                 ] .
 
 
 ###  http://sweetontology.net/humanAgriculture/Beekeeping
-:Beekeeping rdf:type owl:Class ;
-            rdfs:subClassOf [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
-                              owl:allValuesFrom <http://sweetontology.net/matrAnimal/Bee>
-                            ] .
+agri:Beekeeping rdf:type owl:Class ;
+                rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                  owl:onProperty screla:hasSpecies ;
+                                  owl:allValuesFrom anim:Bee
+                                ] .
 
 
 ###  http://sweetontology.net/humanAgriculture/Breeding
-:Breeding rdf:type owl:Class ;
-          rdfs:subClassOf :AnimalProduction .
+agri:Breeding rdf:type owl:Class ;
+              rdfs:subClassOf agri:AnimalProduction .
 
 
 ###  http://sweetontology.net/humanAgriculture/CropProduction
-:CropProduction rdf:type owl:Class ;
-                rdfs:subClassOf :PlantProduction .
+agri:CropProduction rdf:type owl:Class ;
+                    rdfs:subClassOf agri:PlantProduction .
 
 
 ###  http://sweetontology.net/humanAgriculture/Cultivation
-:Cultivation rdf:type owl:Class ;
-             rdfs:subClassOf :Agriculture .
+agri:Cultivation rdf:type owl:Class ;
+                 rdfs:subClassOf agri:Agriculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/DripIrrigation
-:DripIrrigation rdf:type owl:Class ;
-                rdfs:subClassOf :Agriculture .
+agri:DripIrrigation rdf:type owl:Class ;
+                    rdfs:subClassOf agri:Agriculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/FishProduction
-:FishProduction rdf:type owl:Class ;
-                rdfs:subClassOf :AnimalProduction ,
-                                :Aquaculture .
+agri:FishProduction rdf:type owl:Class ;
+                    rdfs:subClassOf agri:AnimalProduction ,
+                                    agri:Aquaculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/Fishing
-:Fishing rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/humanCommerce/Production> .
+agri:Fishing rdf:type owl:Class ;
+             rdfs:subClassOf comm:Production .
 
 
 ###  http://sweetontology.net/humanAgriculture/Harvesting
-:Harvesting rdf:type owl:Class ;
-            rdfs:subClassOf :PlantProduction .
+agri:Harvesting rdf:type owl:Class ;
+                rdfs:subClassOf agri:PlantProduction .
 
 
 ###  http://sweetontology.net/humanAgriculture/Horticulture
-:Horticulture rdf:type owl:Class ;
-              rdfs:subClassOf :Agriculture ;
-              rdfs:comment "Horticulture is the art and science of the cultivation of plants"@en .
+agri:Horticulture rdf:type owl:Class ;
+                  rdfs:subClassOf agri:Agriculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/Irrigation
-:Irrigation rdf:type owl:Class ;
-            rdfs:subClassOf :SoilCultivation ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                              owl:hasValue <http://sweetontology.net/matrCompound/Water>
-                            ] .
+agri:Irrigation rdf:type owl:Class ;
+                rdfs:subClassOf agri:SoilCultivation ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty crela:hasSubstance ;
+                                  owl:hasValue comp:Water
+                                ] .
 
 
 ###  http://sweetontology.net/humanAgriculture/Logging
-:Logging rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/humanCommerce/Production> .
+agri:Logging rdf:type owl:Class ;
+             rdfs:subClassOf comm:Production .
 
 
 ###  http://sweetontology.net/humanAgriculture/Overfishing
-:Overfishing rdf:type owl:Class ;
-             rdfs:subClassOf :Fishing .
+agri:Overfishing rdf:type owl:Class ;
+                 rdfs:subClassOf agri:Fishing .
 
 
 ###  http://sweetontology.net/humanAgriculture/PlantProduction
-:PlantProduction rdf:type owl:Class ;
-                 rdfs:subClassOf :Agriculture .
+agri:PlantProduction rdf:type owl:Class ;
+                     rdfs:subClassOf agri:Agriculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/Sericulture
-:Sericulture rdf:type owl:Class ;
-             rdfs:subClassOf :AnimalProduction ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
-                               owl:allValuesFrom <http://sweetontology.net/matrAnimal/Silkworm>
-                             ] .
+agri:Sericulture rdf:type owl:Class ;
+                 rdfs:subClassOf agri:AnimalProduction ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasSpecies ;
+                                   owl:allValuesFrom anim:Silkworm
+                                 ] .
 
 
 ###  http://sweetontology.net/humanAgriculture/ShellfishProduction
-:ShellfishProduction rdf:type owl:Class ;
-                     rdfs:subClassOf :AnimalProduction ,
-                                     :Aquaculture .
+agri:ShellfishProduction rdf:type owl:Class ;
+                         rdfs:subClassOf agri:AnimalProduction ,
+                                         agri:Aquaculture .
 
 
 ###  http://sweetontology.net/humanAgriculture/SoilCultivation
-:SoilCultivation rdf:type owl:Class ;
-                 rdfs:subClassOf :Agriculture .
+agri:SoilCultivation rdf:type owl:Class ;
+                     rdfs:subClassOf agri:Agriculture .
 
 
 ###  http://sweetontology.net/humanCommerce/LandUse
-<http://sweetontology.net/humanCommerce/LandUse> rdf:type owl:Class .
+comm:LandUse rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/humanCommerce/Production
-<http://sweetontology.net/humanCommerce/Production> rdf:type owl:Class .
+comm:Production rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrAnimal/Bee
-<http://sweetontology.net/matrAnimal/Bee> rdf:type owl:Class .
+anim:Bee rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrAnimal/MarineAnimal
-<http://sweetontology.net/matrAnimal/MarineAnimal> rdf:type owl:Class .
+anim:MarineAnimal rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrAnimal/Silkworm
-<http://sweetontology.net/matrAnimal/Silkworm> rdf:type owl:Class .
+anim:Silkworm rdf:type owl:Class .
 
 
 #################################################################
@@ -176,7 +181,7 @@
 #################################################################
 
 ###  http://sweetontology.net/matrCompound/Water
-<http://sweetontology.net/matrCompound/Water> rdf:type owl:NamedIndividual .
+comp:Water rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

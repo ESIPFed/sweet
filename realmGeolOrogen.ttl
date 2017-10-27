@@ -1,9 +1,27 @@
 @prefix : <http://sweetontology.net/realmGeolOrogen/> .
+@prefix def: <http://sweetontology.net/phenSolid/> .
+@prefix dir: <http://sweetontology.net/propSpaceDirection/> .
+@prefix ign: <http://sweetontology.net/matrRockIgneous/> .
+@prefix oro: <http://sweetontology.net/realmGeolOrogen/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix tec: <http://sweetontology.net/realmLandTectonic/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix geol: <http://sweetontology.net/phenGeol/> .
+@prefix geom: <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix petr: <http://sweetontology.net/matrRock/> .
+@prefix phen: <http://sweetontology.net/phen/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix tecp: <http://sweetontology.net/phenGeolTectonic/> .
+@prefix basin: <http://sweetontology.net/realmGeolBasin/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix geolr: <http://sweetontology.net/realmGeol/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix geomor: <http://sweetontology.net/phenGeolGeomorphology/> .
 @base <http://sweetontology.net/realmGeolOrogen> .
 
 <http://sweetontology.net/realmGeolOrogen> rdf:type owl:Ontology ;
@@ -32,19 +50,19 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasPlanetaryStructure
-<http://sweetontology.net/relaPhysical/hasPlanetaryStructure> rdf:type owl:ObjectProperty .
+prela:hasPlanetaryStructure rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasAxis
-<http://sweetontology.net/relaSpace/hasAxis> rdf:type owl:ObjectProperty .
+srela:hasAxis rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -52,114 +70,110 @@
 #################################################################
 
 ###  http://sweetontology.net/realmGeolOrogen/Arc
-:Arc rdf:type owl:Class ;
-     rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicFeature> ,
-                     <http://sweetontology.net/reprSpaceGeometry/Arc> .
+oro:Arc rdf:type owl:Class ;
+        rdfs:subClassOf geolr:GeologicFeature ,
+                        geom:Arc .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/ArcAxis
-:ArcAxis rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/propSpaceDirection/Axis> ;
-         rdfs:comment "In a Back-arc basin the arc axis is the line where spreading occurs on the overlying plate of the subduction zone. [Wikipedia]"@en .
+oro:ArcAxis rdf:type owl:Class ;
+            rdfs:subClassOf dir:Axis .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/BackArc
-:BackArc rdf:type owl:Class ;
-         owl:equivalentClass :RearArc ,
-                             :RetroArc ;
-         rdfs:subClassOf :Arc ;
-         rdfs:comment "Back-arc basins (or retro-arc basins) are geologic features, submarine basins associated with island arcs and subduction zones. They are found at some convergent plate boundaries, presently concentrated in the Western Pacific ocean. [Wikipedia]"@en .
+oro:BackArc rdf:type owl:Class ;
+            owl:equivalentClass oro:RearArc ,
+                                oro:RetroArc ;
+            rdfs:subClassOf oro:Arc .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/ForeArc
-:ForeArc rdf:type owl:Class ;
-         rdfs:subClassOf :Arc ,
-                         <http://sweetontology.net/realmLandTectonic/SupraSubductionZoneComplex> ;
-         rdfs:comment "A forearc is a depression in the sea floor located between a subduction zone and an associated volcanic arc. It is typically filled with sediments from the adjacent landmass and the island arc in addition to trapped oceanic crustal material.  [Wikipedia]"@en .
+oro:ForeArc rdf:type owl:Class ;
+            rdfs:subClassOf oro:Arc ,
+                            tec:SupraSubductionZoneComplex .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/MagmaticArc
-:MagmaticArc rdf:type owl:Class ;
-             rdfs:subClassOf :Arc ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
-                               owl:someValuesFrom :ForeArc
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
-                               owl:someValuesFrom :RearArc
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSpace/hasAxis> ;
-                               owl:allValuesFrom :ArcAxis
-                             ] .
+oro:MagmaticArc rdf:type owl:Class ;
+                rdfs:subClassOf oro:Arc ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty prela:hasPlanetaryStructure ;
+                                  owl:someValuesFrom oro:ForeArc
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty prela:hasPlanetaryStructure ;
+                                  owl:someValuesFrom oro:RearArc
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty srela:hasAxis ;
+                                  owl:allValuesFrom oro:ArcAxis
+                                ] .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/Orogen
-:Orogen rdf:type owl:Class ;
-        rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                          owl:someValuesFrom <http://sweetontology.net/phenGeol/OrogenicCollapse>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                          owl:someValuesFrom <http://sweetontology.net/phenGeol/Orogeny>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                          owl:someValuesFrom <http://sweetontology.net/phenSolid/Deformation>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                          owl:someValuesFrom <http://sweetontology.net/matrRock/Melange>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
-                          owl:someValuesFrom <http://sweetontology.net/phenGeolTectonic/Terrane>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
-                          owl:someValuesFrom <http://sweetontology.net/realmGeolBasin/ForelandBasin>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
-                          owl:someValuesFrom <http://sweetontology.net/realmLandTectonic/Suture>
-                        ] ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
-                          owl:someValuesFrom <http://sweetontology.net/realmLandTectonic/ThrustSystem>
-                        ] .
+oro:Orogen rdf:type owl:Class ;
+           rdfs:subClassOf geolr:GeologicProvince ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty rela:hasPhenomena ;
+                             owl:someValuesFrom geol:OrogenicCollapse
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty rela:hasPhenomena ;
+                             owl:someValuesFrom geol:Orogeny
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty rela:hasPhenomena ;
+                             owl:someValuesFrom def:Deformation
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty crela:hasSubstance ;
+                             owl:someValuesFrom petr:Melange
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty prela:hasPlanetaryStructure ;
+                             owl:someValuesFrom tecp:Terrane
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty prela:hasPlanetaryStructure ;
+                             owl:someValuesFrom basin:ForelandBasin
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty prela:hasPlanetaryStructure ;
+                             owl:someValuesFrom tec:Suture
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty prela:hasPlanetaryStructure ;
+                             owl:someValuesFrom tec:ThrustSystem
+                           ] .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/RearArc
-:RearArc rdf:type owl:Class .
+oro:RearArc rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/RemnantArc
-:RemnantArc rdf:type owl:Class ;
-            rdfs:subClassOf :Arc ;
-            rdfs:comment "The remnant arc is what is left on the rear side of the speading zone as athe basin broadens. [Wikipedia]"@en .
+oro:RemnantArc rdf:type owl:Class ;
+               rdfs:subClassOf oro:Arc .
 
 
 ###  http://sweetontology.net/realmGeolOrogen/RetroArc
-:RetroArc rdf:type owl:Class .
+oro:RetroArc rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandTectonic/SupraSubductionZoneComplex
-<http://sweetontology.net/realmLandTectonic/SupraSubductionZoneComplex> rdf:type owl:Class .
+tec:SupraSubductionZoneComplex rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandTectonic/Suture
-<http://sweetontology.net/realmLandTectonic/Suture> rdf:type owl:Class .
+tec:Suture rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandTectonic/ThrustSystem
-<http://sweetontology.net/realmLandTectonic/ThrustSystem> rdf:type owl:Class .
+tec:ThrustSystem rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Arc
-<http://sweetontology.net/reprSpaceGeometry/Arc> rdf:type owl:Class .
+geom:Arc rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

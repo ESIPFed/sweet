@@ -3,7 +3,12 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix geol: <http://sweetontology.net/phenGeol/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix prrela: <http://sweetontology.net/relaProvenance/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
 @base <http://sweetontology.net/matrRock> .
 
 <http://sweetontology.net/matrRock> rdf:type owl:Ontology ;
@@ -20,11 +25,11 @@
 #################################################################
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaProvenance/hasGenesis
-<http://sweetontology.net/relaProvenance/hasGenesis> rdf:type owl:ObjectProperty .
+prrela:hasGenesis rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -43,36 +48,31 @@
 
 ###  http://sweetontology.net/matrRock/Fossil
 :Fossil rdf:type owl:Class ;
-        rdfs:subClassOf <http://sweetontology.net/statePhysical/SubstanceForm> ;
-        rdfs:comment "Fossils  are the preserved remains or traces of animals, plants, and other organisms from the remote past. Fossils vary in size from microscopic, such as single bacterial cells [2] only one micrometer in diameter, to gigantic (macroscopic), such as dinosaurs and trees many meters long and weighing many tons. [Wikipedia]"@en .
+        rdfs:subClassOf pstate:SubstanceForm .
 
 
 ###  http://sweetontology.net/matrRock/HeterogenousRock
 :HeterogenousRock rdf:type owl:Class ;
-                  rdfs:subClassOf :SedimentaryRock ;
-                  rdfs:comment "A heterogeneous or conglomerate is a rock consisting of individual stones that have become cemented together. Conglomerates are sedimentary rocks consisting of rounded fragments and are thus differentiated from breccias, which consist of angular clasts.[1] Both conglomerates and breccias are characterized by clasts larger than sand (>2 mm). [Wikipedia]"@en .
+                  rdfs:subClassOf :SedimentaryRock .
 
 
 ###  http://sweetontology.net/matrRock/Macrofossil
 :Macrofossil rdf:type owl:Class ;
-             rdfs:subClassOf :Fossil ;
-             rdfs:comment "Macrofossils are preserved organic remains large enough to be visible without a microscope. [Wikipedia]"@en .
+             rdfs:subClassOf :Fossil .
 
 
 ###  http://sweetontology.net/matrRock/Melange
 :Melange rdf:type owl:Class ;
-         rdfs:subClassOf :Rock ;
-         rdfs:comment "A mélange is a large scale breccia, a mappable body of rock characterized by a lack of continuous bedding and the inclusion of fragments of rock of all sizes, contained in a fine-grained deformed matrix. The mélange typically consists of a jumble of large blocks of varied lithologies of altered oceanic crustal material and blocks of continental slope sediments in a sheared mudstone matrix. Some larger blocks of rock may be as much as 1 km across. [Wikipedia]"@en .
+         rdfs:subClassOf :Rock .
 
 
 ###  http://sweetontology.net/matrRock/MetamorphicRock
 :MetamorphicRock rdf:type owl:Class ;
                  rdfs:subClassOf :Rock ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/relaProvenance/hasGenesis> ;
-                                   owl:allValuesFrom <http://sweetontology.net/phenGeol/Metamorphic>
-                                 ] ;
-                 rdfs:comment "One of the major groups of rock that makes up the crust of the Earth; consists of pre-existing rock mass in which new minerals or textures are formed at higher temperatures and greater pressures than those present on the Earth's surface [wicktionary]"@en .
+                                   owl:onProperty prrela:hasGenesis ;
+                                   owl:allValuesFrom geol:Metamorphic
+                                 ] .
 
 
 ###  http://sweetontology.net/matrRock/Meteor
@@ -82,42 +82,37 @@
 
 ###  http://sweetontology.net/matrRock/Meteorite
 :Meteorite rdf:type owl:Class ;
-           rdfs:subClassOf :Meteor ;
-           rdfs:comment "Meteoric substances are rocks that have composition significantly different from earth rocks. Meteorites have traditionally been divided into three broad categories: stony meteorites are rocks, mainly composed of silicate minerals; iron meteorites are largely composed of metallic iron-nickel; and, stony-iron meteorites contain large amounts of both metallic and rocky material. [Wikipedia]"@en .
+           rdfs:subClassOf :Meteor .
 
 
 ###  http://sweetontology.net/matrRock/Microfossil
 :Microfossil rdf:type owl:Class ;
-             rdfs:subClassOf :Fossil ;
-             rdfs:comment "Fossils which are of microscopic size such as bacteria. [Wikipedia]"@en .
+             rdfs:subClassOf :Fossil .
 
 
 ###  http://sweetontology.net/matrRock/Molasse
 :Molasse rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/phenGeol/Sedimentary> ;
-         rdfs:comment "Molasse refers to the sandstones, shales and conglomerates formed as terrestrial or shallow marine deposits in front of rising mountain chains deposited in a foreland basin, especially on top of flysch, for example that left from the rising Alps, or erosion in the Himalaya. These deposits are typically the non-marine alluvial and fluvial sediments of lowlands, as compared to deep-water flysch sediments. Sedimentation stops once the orogeny stops, or once the mountains have eroded flat. [Wikipedia]"@en .
+         rdfs:subClassOf geol:Sedimentary .
 
 
 ###  http://sweetontology.net/matrRock/Regolith
 :Regolith rdf:type owl:Class ;
-          rdfs:subClassOf <http://sweetontology.net/matr/Mixture> ;
-          owl:disjointWith :Rock ;
-          rdfs:comment "Regolith (Greek: \"blanket rock\") is a layer of loose, heterogeneous material covering solid rock (bedrock). It includes dust, soil, broken rock, and other related materials  [Wikipedia]"@en .
+          rdfs:subClassOf chem:Mixture ;
+          owl:disjointWith :Rock .
 
 
 ###  http://sweetontology.net/matrRock/Rock
 :Rock rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/matr/Mixture> ,
-                      <http://sweetontology.net/matr/SolidSubstance> ;
-      rdfs:comment "Rock is a naturally occurring solid aggregate of minerals and/or mineraloids.  In general rocks are of three types, namely, igneous, sedimentary, and metamorphic. [Wikipedia]"@en .
+      rdfs:subClassOf chem:Mixture ,
+                      chem:SolidSubstance .
 
 
 ###  http://sweetontology.net/matrRock/RockBody
 :RockBody rdf:type owl:Class ;
-          rdfs:subClassOf <http://sweetontology.net/matr/Mixture> ,
-                          <http://sweetontology.net/matr/SolidSubstance> ,
+          rdfs:subClassOf chem:Mixture ,
+                          chem:SolidSubstance ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                            owl:onProperty crela:hasSubstance ;
                             owl:allValuesFrom :Rock
                           ] .
 
@@ -126,36 +121,35 @@
 :SedimentaryRock rdf:type owl:Class ;
                  rdfs:subClassOf :Rock ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/relaProvenance/hasGenesis> ;
-                                   owl:allValuesFrom <http://sweetontology.net/phenGeol/Sedimentary>
-                                 ] ;
-                 rdfs:comment "One of the major groups of rock that makes up the crust of the Earth; formed by the deposition of either the weathered remains of other rocks, the results of biological activity, or precipitation from solution [wicktionary]"@en .
+                                   owl:onProperty prrela:hasGenesis ;
+                                   owl:allValuesFrom geol:Sedimentary
+                                 ] .
 
 
 ###  http://sweetontology.net/matrRock/Serpentinite
 :Serpentinite rdf:type owl:Class ;
               rdfs:subClassOf :MetamorphicRock ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/relaProvenance/hasGenesis> ;
+                                owl:onProperty prrela:hasGenesis ;
                                 owl:allValuesFrom :Serpentinization
                               ] .
 
 
 ###  http://sweetontology.net/matrRock/Serpentinization
 :Serpentinization rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/phenGeol/Metamorphic> .
+                  rdfs:subClassOf geol:Metamorphic .
 
 
 ###  http://sweetontology.net/phenGeol/Metamorphic
-<http://sweetontology.net/phenGeol/Metamorphic> rdf:type owl:Class .
+geol:Metamorphic rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenGeol/Sedimentary
-<http://sweetontology.net/phenGeol/Sedimentary> rdf:type owl:Class .
+geol:Sedimentary rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/statePhysical/SubstanceForm
-<http://sweetontology.net/statePhysical/SubstanceForm> rdf:type owl:Class .
+pstate:SubstanceForm rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

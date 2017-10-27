@@ -3,7 +3,17 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cons: <http://sweetontology.net/humanEnvirConservation/> .
+@prefix ener: <http://sweetontology.net/propEnergy/> .
+@prefix huma: <http://sweetontology.net/human/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
+@prefix prop: <http://sweetontology.net/prop/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix mener: <http://sweetontology.net/matrEnergy/> .
+@prefix pener: <http://sweetontology.net/phenEnergy/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix water: <http://sweetontology.net/matrWater/> .
 @base <http://sweetontology.net/phenEnergy> .
 
 <http://sweetontology.net/phenEnergy> rdf:type owl:Ontology ;
@@ -24,15 +34,15 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasRole
-<http://sweetontology.net/rela/hasRole> rdf:type owl:ObjectProperty .
+rela:hasRole rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasEnergyProduct
-<http://sweetontology.net/relaPhysical/hasEnergyProduct> rdf:type owl:ObjectProperty .
+prela:hasEnergyProduct rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasEnergySource
-<http://sweetontology.net/relaPhysical/hasEnergySource> rdf:type owl:ObjectProperty .
+prela:hasEnergySource rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -40,187 +50,187 @@
 #################################################################
 
 ###  http://sweetontology.net/phenEnergy/ActiveSolarEnergy
-:ActiveSolarEnergy rdf:type owl:Class ;
-                   rdfs:subClassOf :SolarEnergy ,
-                                   :ThermalCollection .
+pener:ActiveSolarEnergy rdf:type owl:Class ;
+                        rdfs:subClassOf pener:SolarEnergy ,
+                                        pener:ThermalCollection .
 
 
 ###  http://sweetontology.net/phenEnergy/BinaryCycle
-:BinaryCycle rdf:type owl:Class ;
-             rdfs:subClassOf :GeothermalPowerProcess ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-                               owl:allValuesFrom <http://sweetontology.net/matrEnergy/HeatExchanger>
-                             ] .
+pener:BinaryCycle rdf:type owl:Class ;
+                  rdfs:subClassOf pener:GeothermalPowerProcess ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty prela:hasEnergySource ;
+                                    owl:allValuesFrom mener:HeatExchanger
+                                  ] .
 
 
 ###  http://sweetontology.net/phenEnergy/Biopower
-:Biopower rdf:type owl:Class ;
-          rdfs:subClassOf :RenewableEnergySource ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergyProduct> ;
-                            owl:someValuesFrom :Electricity
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-                            owl:allValuesFrom <http://sweetontology.net/matrEnergy/Biomass>
-                          ] .
+pener:Biopower rdf:type owl:Class ;
+               rdfs:subClassOf pener:RenewableEnergySource ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty prela:hasEnergyProduct ;
+                                 owl:someValuesFrom pener:Electricity
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty prela:hasEnergySource ;
+                                 owl:allValuesFrom mener:Biomass
+                               ] .
 
 
 ###  http://sweetontology.net/phenEnergy/ConcentratingSolarPower
-:ConcentratingSolarPower rdf:type owl:Class ;
-                         rdfs:subClassOf :SolarEnergy .
+pener:ConcentratingSolarPower rdf:type owl:Class ;
+                              rdfs:subClassOf pener:SolarEnergy .
 
 
 ###  http://sweetontology.net/phenEnergy/DirectUse
-:DirectUse rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergyProduct> ;
-                             owl:allValuesFrom <http://sweetontology.net/propEnergy/Heat>
-                           ] ;
-           owl:disjointWith :EnergyConversionProcess .
+pener:DirectUse rdf:type owl:Class ;
+                rdfs:subClassOf proc:PhysicalProcess ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty prela:hasEnergyProduct ;
+                                  owl:allValuesFrom ener:Heat
+                                ] ;
+                owl:disjointWith pener:EnergyConversionProcess .
 
 
 ###  http://sweetontology.net/phenEnergy/DrySteam
-:DrySteam rdf:type owl:Class ;
-          rdfs:subClassOf :GeothermalPowerProcess ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-                            owl:allValuesFrom <http://sweetontology.net/matrWater/Steam>
-                          ] .
+pener:DrySteam rdf:type owl:Class ;
+               rdfs:subClassOf pener:GeothermalPowerProcess ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty prela:hasEnergySource ;
+                                 owl:allValuesFrom water:Steam
+                               ] .
 
 
 ###  http://sweetontology.net/phenEnergy/Electricity
-:Electricity rdf:type owl:Class ;
-             owl:equivalentClass :PowerSource ;
-             rdfs:subClassOf :EnergyForm .
+pener:Electricity rdf:type owl:Class ;
+                  owl:equivalentClass pener:PowerSource ;
+                  rdfs:subClassOf pener:EnergyForm .
 
 
 ###  http://sweetontology.net/phenEnergy/ElectricityProduction
-:ElectricityProduction rdf:type owl:Class ;
-                       rdfs:subClassOf :EnergyConversionProcess ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergyProduct> ;
-                                         owl:allValuesFrom :Electricity
-                                       ] .
+pener:ElectricityProduction rdf:type owl:Class ;
+                            rdfs:subClassOf pener:EnergyConversionProcess ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty prela:hasEnergyProduct ;
+                                              owl:allValuesFrom pener:Electricity
+                                            ] .
 
 
 ###  http://sweetontology.net/phenEnergy/EnergyCollection
-:EnergyCollection rdf:type owl:Class ;
-                  rdfs:subClassOf :EnergyForm .
+pener:EnergyCollection rdf:type owl:Class ;
+                       rdfs:subClassOf pener:EnergyForm .
 
 
 ###  http://sweetontology.net/phenEnergy/EnergyConservation
-:EnergyConservation rdf:type owl:Class ;
-                    rdfs:subClassOf <http://sweetontology.net/humanEnvirConservation/Conservation> .
+pener:EnergyConservation rdf:type owl:Class ;
+                         rdfs:subClassOf cons:Conservation .
 
 
 ###  http://sweetontology.net/phenEnergy/EnergyConversionProcess
-:EnergyConversionProcess rdf:type owl:Class ;
-                         rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> .
+pener:EnergyConversionProcess rdf:type owl:Class ;
+                              rdfs:subClassOf proc:PhysicalProcess .
 
 
 ###  http://sweetontology.net/phenEnergy/EnergyForm
-:EnergyForm rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/propEnergy/Energy> .
+pener:EnergyForm rdf:type owl:Class ;
+                 rdfs:subClassOf ener:Energy .
 
 
 ###  http://sweetontology.net/phenEnergy/EnergySource
-:EnergySource rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/propEnergy/Energy> .
+pener:EnergySource rdf:type owl:Class ;
+                   rdfs:subClassOf ener:Energy .
 
 
 ###  http://sweetontology.net/phenEnergy/FlashSteam
-:FlashSteam rdf:type owl:Class ;
-            rdfs:subClassOf :GeothermalPowerProcess ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-                              owl:allValuesFrom <http://sweetontology.net/matrWater/LiquidWater>
-                            ] .
+pener:FlashSteam rdf:type owl:Class ;
+                 rdfs:subClassOf pener:GeothermalPowerProcess ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty prela:hasEnergySource ;
+                                   owl:allValuesFrom water:LiquidWater
+                                 ] .
 
 
 ###  http://sweetontology.net/phenEnergy/Gasification
-:Gasification rdf:type owl:Class ;
-              rdfs:subClassOf :EnergyConversionProcess ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergyProduct> ;
-                                owl:allValuesFrom <http://sweetontology.net/matrEnergy/Fuel>
-                              ] .
+pener:Gasification rdf:type owl:Class ;
+                   rdfs:subClassOf pener:EnergyConversionProcess ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty prela:hasEnergyProduct ;
+                                     owl:allValuesFrom mener:Fuel
+                                   ] .
 
 
 ###  http://sweetontology.net/phenEnergy/Geothermal
-:Geothermal rdf:type owl:Class ;
-            rdfs:subClassOf :RenewableEnergySource .
+pener:Geothermal rdf:type owl:Class ;
+                 rdfs:subClassOf pener:RenewableEnergySource .
 
 
 ###  http://sweetontology.net/phenEnergy/GeothermalPowerProcess
-:GeothermalPowerProcess rdf:type owl:Class ;
-                        rdfs:subClassOf :EnergyConversionProcess ,
-                                        :RenewableEnergySource .
+pener:GeothermalPowerProcess rdf:type owl:Class ;
+                             rdfs:subClassOf pener:EnergyConversionProcess ,
+                                             pener:RenewableEnergySource .
 
 
 ###  http://sweetontology.net/phenEnergy/PassiveSolarEnergy
-:PassiveSolarEnergy rdf:type owl:Class ;
-                    rdfs:subClassOf :SolarEnergy .
+pener:PassiveSolarEnergy rdf:type owl:Class ;
+                         rdfs:subClassOf pener:SolarEnergy .
 
 
 ###  http://sweetontology.net/phenEnergy/Photovoltaics
-:Photovoltaics rdf:type owl:Class ;
-               rdfs:subClassOf :SolarPower .
+pener:Photovoltaics rdf:type owl:Class ;
+                    rdfs:subClassOf pener:SolarPower .
 
 
 ###  http://sweetontology.net/phenEnergy/PowerSource
-:PowerSource rdf:type owl:Class .
+pener:PowerSource rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenEnergy/RenewableEnergySource
-:RenewableEnergySource rdf:type owl:Class ;
-                       rdfs:subClassOf :EnergySource ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty <http://sweetontology.net/rela/hasRole> ;
-                                         owl:allValuesFrom <http://sweetontology.net/humanEnvirConservation/Sustainability>
-                                       ] .
+pener:RenewableEnergySource rdf:type owl:Class ;
+                            rdfs:subClassOf pener:EnergySource ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty rela:hasRole ;
+                                              owl:allValuesFrom cons:Sustainability
+                                            ] .
 
 
 ###  http://sweetontology.net/phenEnergy/SolarEnergy
-:SolarEnergy rdf:type owl:Class ;
-             rdfs:subClassOf :RenewableEnergySource .
+pener:SolarEnergy rdf:type owl:Class ;
+                  rdfs:subClassOf pener:RenewableEnergySource .
 
 
 ###  http://sweetontology.net/phenEnergy/SolarPower
-:SolarPower rdf:type owl:Class ;
-            rdfs:subClassOf :PowerSource ,
-                            :SolarEnergy .
+pener:SolarPower rdf:type owl:Class ;
+                 rdfs:subClassOf pener:PowerSource ,
+                                 pener:SolarEnergy .
 
 
 ###  http://sweetontology.net/phenEnergy/SolarThermalPower
-:SolarThermalPower rdf:type owl:Class ;
-                   rdfs:subClassOf :SolarPower ,
-                                   :ThermalCollection .
+pener:SolarThermalPower rdf:type owl:Class ;
+                        rdfs:subClassOf pener:SolarPower ,
+                                        pener:ThermalCollection .
 
 
 ###  http://sweetontology.net/phenEnergy/ThermalCollection
-:ThermalCollection rdf:type owl:Class ;
-                   rdfs:subClassOf :EnergyCollection .
+pener:ThermalCollection rdf:type owl:Class ;
+                        rdfs:subClassOf pener:EnergyCollection .
 
 
 ###  http://sweetontology.net/phenEnergy/WindEnergy
-:WindEnergy rdf:type owl:Class ;
-            rdfs:subClassOf :PowerSource ,
-                            :RenewableEnergySource .
+pener:WindEnergy rdf:type owl:Class ;
+                 rdfs:subClassOf pener:PowerSource ,
+                                 pener:RenewableEnergySource .
 
 
 ###  http://sweetontology.net/procPhysical/PhysicalProcess
-<http://sweetontology.net/procPhysical/PhysicalProcess> rdf:type owl:Class .
+proc:PhysicalProcess rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propEnergy/Energy
-<http://sweetontology.net/propEnergy/Energy> rdf:type owl:Class .
+ener:Energy rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propEnergy/Heat
-<http://sweetontology.net/propEnergy/Heat> rdf:type owl:Class .
+ener:Heat rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

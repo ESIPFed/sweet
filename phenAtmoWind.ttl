@@ -1,9 +1,20 @@
 @prefix : <http://sweetontology.net/phenAtmoWind/> .
+@prefix dir: <http://sweetontology.net/propSpaceDirection/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pol: <http://sweetontology.net/matrAerosol/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sed: <http://sweetontology.net/matrSediment/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix pres: <http://sweetontology.net/propPressure/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix wind: <http://sweetontology.net/phenAtmoWind/> .
+@prefix aphen: <http://sweetontology.net/phenAtmo/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix fluid: <http://sweetontology.net/phenFluidDynamics/> .
+@prefix pproc: <http://sweetontology.net/procPhysical/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/phenAtmoWind> .
 
 <http://sweetontology.net/phenAtmoWind> rdf:type owl:Ontology ;
@@ -25,15 +36,15 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasCause
-<http://sweetontology.net/relaSci/hasCause> rdf:type owl:ObjectProperty .
+screla:hasCause rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -41,285 +52,263 @@
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoWind/AgeostrophicWind
-:AgeostrophicWind rdf:type owl:Class ;
-                  rdfs:subClassOf :Wind ;
-                  rdfs:comment "The vector difference between the real (or observed) wind and the geostrophic wind" ;
-                  rdfs:label "Ageostrophic Wind" .
+wind:AgeostrophicWind rdf:type owl:Class ;
+                      rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/AtmosphericCirculation
-:AtmosphericCirculation rdf:type owl:Class ;
-                        rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                                        <http://sweetontology.net/phenFluidDynamics/Circulation> .
+wind:AtmosphericCirculation rdf:type owl:Class ;
+                            rdfs:subClassOf aphen:MeteorologicalPhenomena ,
+                                            fluid:Circulation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/AtmosphericPumping
-:AtmosphericPumping rdf:type owl:Class ;
-                    rdfs:subClassOf :GlobalWindCirculation .
+wind:AtmosphericPumping rdf:type owl:Class ;
+                        rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Blowing
-:Blowing rdf:type owl:Class ;
-         rdfs:subClassOf :Wind ;
-         rdfs:comment "When dust, sand, snow, and/or spray is raised by the wind to a height of 6 feet or more" .
+wind:Blowing rdf:type owl:Class ;
+             rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/CrossWind
-:CrossWind rdf:type owl:Class ;
-           rdfs:subClassOf :Wind .
+wind:CrossWind rdf:type owl:Class ;
+               rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Derecho
-:Derecho rdf:type owl:Class ;
-         rdfs:subClassOf :WindStorm ;
-         rdfs:comment "A widespread convectively induced straight-line windstorm."@en .
+wind:Derecho rdf:type owl:Class ;
+             rdfs:subClassOf wind:WindStorm .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Downdraft
-:Downdraft rdf:type owl:Class ;
-           rdfs:subClassOf :Wind ;
-           rdfs:comment "Small-scale downward moving air current in a cumulonimbus cloud."@en .
+wind:Downdraft rdf:type owl:Class ;
+               rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/DrainageWind
-:DrainageWind rdf:type owl:Class ;
-              rdfs:subClassOf :Wind .
+wind:DrainageWind rdf:type owl:Class ;
+                  rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/DustDevil
-:DustDevil rdf:type owl:Class ;
-           rdfs:subClassOf :DustStorm .
+wind:DustDevil rdf:type owl:Class ;
+               rdfs:subClassOf wind:DustStorm .
 
 
 ###  http://sweetontology.net/phenAtmoWind/DustStorm
-:DustStorm rdf:type owl:Class ;
-           rdfs:subClassOf :LocalWind ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                             owl:allValuesFrom <http://sweetontology.net/matrAerosol/Dust>
-                           ] .
+wind:DustStorm rdf:type owl:Class ;
+               rdfs:subClassOf wind:LocalWind ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty crela:hasSubstance ;
+                                 owl:allValuesFrom pol:Dust
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/EasterlyWind
-:EasterlyWind rdf:type owl:Class ;
-              rdfs:subClassOf :GlobalWindCirculation .
+wind:EasterlyWind rdf:type owl:Class ;
+                  rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/EulerianWind
-:EulerianWind rdf:type owl:Class ;
-              rdfs:subClassOf :Wind ;
-              rdfs:comment "In the classification of Jeffreys, a wind motion only in response to the pressure force."@en .
+wind:EulerianWind rdf:type owl:Class ;
+                  rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/GeostrophicWind
-:GeostrophicWind rdf:type owl:Class ;
-                 rdfs:subClassOf :GlobalWindCirculation .
+wind:GeostrophicWind rdf:type owl:Class ;
+                     rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/GlobalWindCirculation
-:GlobalWindCirculation rdf:type owl:Class ;
-                       rdfs:subClassOf :AtmosphericCirculation .
+wind:GlobalWindCirculation rdf:type owl:Class ;
+                           rdfs:subClassOf wind:AtmosphericCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Gust
-:Gust rdf:type owl:Class ;
-      owl:equivalentClass :WindGust ;
-      rdfs:subClassOf :Wind ;
-      rdfs:comment "1. A sudden, brief increase in the speed of the wind. It is of a more transient character than a squall and is followed by a lull or slackening in the wind speed. Generally, winds are least gusty over large water surfaces and most gusty over rough land and near high buildings. According to U.S. weather observing practice, gusts are reported when the peak wind speed reaches at least 16 knots and the variation in wind speed between the peaks and lulls is at least 9 knots. The duration of a gust is usually less than 20 s. 2. With respect to aircraft turbulence, a sharp change in wind speed relative to the aircraft; a sudden increase in airspeed due to fluctuations in the airflow, resulting in increased structural stresses upon the aircraft. 3. (Rare.) Same as cloudburst."@en .
+wind:Gust rdf:type owl:Class ;
+          owl:equivalentClass wind:WindGust ;
+          rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/HadleyCirculation
-:HadleyCirculation rdf:type owl:Class ;
-                   rdfs:subClassOf :GlobalWindCirculation .
+wind:HadleyCirculation rdf:type owl:Class ;
+                       rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/HeadWind
-:HeadWind rdf:type owl:Class ;
-          rdfs:subClassOf :Wind ;
-          rdfs:comment "A wind that opposes the intended progress of an exposed, moving object, for example, rendering an airborne object's airspeed greater than its groundspeed; the opposite of a tailwind."@en .
+wind:HeadWind rdf:type owl:Class ;
+              rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/HotWind
-:HotWind rdf:type owl:Class ;
-         rdfs:subClassOf :Wind ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                           owl:allValuesFrom <http://sweetontology.net/procPhysical/Heating>
-                         ] ;
-         rdfs:comment "General term for winds characterized by intense heat and low relative humidity, such as summertime desert winds or an extreme foehn."@en .
+wind:HotWind rdf:type owl:Class ;
+             rdfs:subClassOf wind:Wind ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty rela:hasPhenomena ;
+                               owl:allValuesFrom pproc:Heating
+                             ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/JetEffectWind
-:JetEffectWind rdf:type owl:Class ;
-               rdfs:subClassOf :Wind ;
-               rdfs:comment "A local wind created by acceleration of the airflow through a gap, constriction, or channel in a mountain range or between ranges."@en .
+wind:JetEffectWind rdf:type owl:Class ;
+                   rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/JetStreak
-:JetStreak rdf:type owl:Class ;
-           rdfs:subClassOf :JetStream ;
-           rdfs:comment "The region of a jet stream axis with the greatest winds."@en .
+wind:JetStreak rdf:type owl:Class ;
+               rdfs:subClassOf wind:JetStream .
 
 
 ###  http://sweetontology.net/phenAtmoWind/JetStream
-:JetStream rdf:type owl:Class ;
-           owl:equivalentClass :JetStreamWind ;
-           rdfs:subClassOf <http://sweetontology.net/phenAtmo/AtmosphericWave> ,
-                           :GlobalWindCirculation ;
-           rdfs:comment "Relatively strong winds concentrated within a narrow stream in the atmosphere."@en .
+wind:JetStream rdf:type owl:Class ;
+               owl:equivalentClass wind:JetStreamWind ;
+               rdfs:subClassOf aphen:AtmosphericWave ,
+                               wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/JetStreamAxis
-:JetStreamAxis rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/propSpaceDirection/Axis> ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                 owl:allValuesFrom :JetStream
-                               ] ;
-               rdfs:comment "The axis of maximum wind speed in a jet stream."@en .
+wind:JetStreamAxis rdf:type owl:Class ;
+                   rdfs:subClassOf dir:Axis ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rela:hasPhenomena ;
+                                     owl:allValuesFrom wind:JetStream
+                                   ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/JetStreamWind
-:JetStreamWind rdf:type owl:Class .
+wind:JetStreamWind rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmoWind/LocalWind
-:LocalWind rdf:type owl:Class ;
-           rdfs:subClassOf :Wind ;
-           rdfs:comment "1. Winds that, over a small area, differ from those that would be appropriate to the general large-scale pressure distribution, or that possess some other peculiarity. Often these winds have names unique to the area where they occur. Local winds may be classified into three main groups. The first includes diurnally varying airflows that are driven by local gradients of surface heat flux (e.g., near the shore of a sea or lake) or by diurnal heating or cooling of the ground surface in areas of sloping or mountainous terrain. These include land and sea breezes, mountain?valley circulations, and drainage and slope winds. The second group consists of winds produced by the interaction of a synoptic-scale flow with orography. These may be further subdivided into barrier jets, gap winds, downslope windstorms, and include such local phenomena as the tehuantepecer, Santa Ana, foehn, mistral, and bora. The third group includes those winds accompanying convective activity, more specifically individual thunderstorms or mesoscale convective systems. These are generally the surface manifestations of precipitation- cooled diverging outflow and in some locations are given special names due to the distinctive character of the weather associated with them (e.g., the haboob). 2. Local or colloquial names given to frequently occurring or particularly noteworthy winds (sometimes because of the bad weather associated with them), usually from a certain direction. Often these names reflect the direction from which the wind comes (e.g., sou'wester, nor'easter)."@en .
+wind:LocalWind rdf:type owl:Class ;
+               rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/MeridionalWind
-:MeridionalWind rdf:type owl:Class ;
-                rdfs:subClassOf :Wind ;
-                rdfs:comment "The wind or wind component along the local meridian, as distinguished from the zonal wind. In a horizontal coordinate system fixed locally with the x axis directed eastward and the y axis northward, the meridional wind is positive if from the south, and negative if from the north."@en .
+wind:MeridionalWind rdf:type owl:Class ;
+                    rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Microburst
-:Microburst rdf:type owl:Class ;
-            rdfs:subClassOf :Wind .
+wind:Microburst rdf:type owl:Class ;
+                rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/SandStorm
-:SandStorm rdf:type owl:Class ;
-           rdfs:subClassOf :Wind ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                             owl:allValuesFrom <http://sweetontology.net/matrSediment/Sand>
-                           ] .
+wind:SandStorm rdf:type owl:Class ;
+               rdfs:subClassOf wind:Wind ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty crela:hasSubstance ;
+                                 owl:allValuesFrom sed:Sand
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Tailwind
-:Tailwind rdf:type owl:Class ;
-          rdfs:subClassOf :Wind ;
-          rdfs:comment "A wind that assists the intended progress of an exposed, moving object, for example, rendering an airborne object's groundspeed greater than its airspeed; the opposite of a headwind."@en .
+wind:Tailwind rdf:type owl:Class ;
+              rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/TertiaryCirculation
-:TertiaryCirculation rdf:type owl:Class ;
-                     rdfs:subClassOf :AtmosphericCirculation ;
-                     rdfs:comment "The generally small, localized atmospheric circulations."@en .
+wind:TertiaryCirculation rdf:type owl:Class ;
+                         rdfs:subClassOf wind:AtmosphericCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/ThermalWind
-:ThermalWind rdf:type owl:Class ;
-             rdfs:subClassOf :Wind ;
-             rdfs:comment "The mean wind-shear vector in geostrophic balance with the gradient of mean temperature of a layer bounded by two isobaric surfaces."@en .
+wind:ThermalWind rdf:type owl:Class ;
+                 rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/TradeWind
-:TradeWind rdf:type owl:Class ;
-           rdfs:subClassOf :GlobalWindCirculation ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom :AtmosphericCirculation
-                           ] ;
-           rdfs:comment "The wind system, occupying most of the Tropics, that blows from the subtropical highs toward the equatorial trough; a major component of the general circulation of the atmosphere."@en .
+wind:TradeWind rdf:type owl:Class ;
+               rdfs:subClassOf wind:GlobalWindCirculation ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty rela:hasPhenomena ;
+                                 owl:allValuesFrom wind:AtmosphericCirculation
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/VeeringWind
-:VeeringWind rdf:type owl:Class ;
-             rdfs:subClassOf :Wind ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                               owl:allValuesFrom <http://sweetontology.net/procPhysical/Rotation>
-                             ] ;
-             rdfs:comment "In the Northern Hemisphere, a wind that rotates in a clockwise direction with increasing height; the opposite of backing wind."@en .
+wind:VeeringWind rdf:type owl:Class ;
+                 rdfs:subClassOf wind:Wind ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:hasPhenomena ;
+                                   owl:allValuesFrom pproc:Rotation
+                                 ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/WalkerCell
-:WalkerCell rdf:type owl:Class ;
-            owl:equivalentClass :WalkerCirculation .
+wind:WalkerCell rdf:type owl:Class ;
+                owl:equivalentClass wind:WalkerCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/WalkerCirculation
-:WalkerCirculation rdf:type owl:Class ;
-                   rdfs:subClassOf :GlobalWindCirculation ;
-                   rdfs:comment "A zonal circulation of the atmosphere confined to equatorial regions and driven principally by the oceanic temperature gradient. In the Pacific, air flows westward from the colder, eastern area to the warm, western ocean, where it acquires warmth and moisture and subsequently rises. A return flow aloft and subsidence over the eastern ocean complete the cell"@en .
+wind:WalkerCirculation rdf:type owl:Class ;
+                       rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/WarmConveyorBelt
-:WarmConveyorBelt rdf:type owl:Class ;
-                  rdfs:subClassOf :GlobalWindCirculation .
+wind:WarmConveyorBelt rdf:type owl:Class ;
+                      rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Wind
-:Wind rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaSci/hasCause> ;
-                        owl:allValuesFrom <http://sweetontology.net/propPressure/PressureGradient>
-                      ] .
+wind:Wind rdf:type owl:Class ;
+          rdfs:subClassOf aphen:MeteorologicalPhenomena ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty screla:hasCause ;
+                            owl:allValuesFrom pres:PressureGradient
+                          ] .
 
 
 ###  http://sweetontology.net/phenAtmoWind/WindGust
-:WindGust rdf:type owl:Class ;
-          rdfs:subClassOf :Wind .
+wind:WindGust rdf:type owl:Class ;
+              rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/WindStorm
-:WindStorm rdf:type owl:Class ;
-           rdfs:subClassOf :Wind .
+wind:WindStorm rdf:type owl:Class ;
+               rdfs:subClassOf wind:Wind .
 
 
 ###  http://sweetontology.net/phenAtmoWind/Windborne
-:Windborne rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> .
+wind:Windborne rdf:type owl:Class ;
+               rdfs:subClassOf aphen:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoWind/ZonalFlow
-:ZonalFlow rdf:type owl:Class ;
-           rdfs:subClassOf :GlobalWindCirculation ;
-           rdfs:comment "In meteorology, the flow of air along a latitude circle; more specifically, the latitudinal (east or west) component of existing flow."@en .
+wind:ZonalFlow rdf:type owl:Class ;
+               rdfs:subClassOf wind:GlobalWindCirculation .
 
 
 ###  http://sweetontology.net/phenAtmoWind/ZonalWind
-:ZonalWind rdf:type owl:Class ;
-           rdfs:subClassOf :GlobalWindCirculation ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom :ZonalFlow
-                           ] .
+wind:ZonalWind rdf:type owl:Class ;
+               rdfs:subClassOf wind:GlobalWindCirculation ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty rela:hasPhenomena ;
+                                 owl:allValuesFrom wind:ZonalFlow
+                               ] .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Circulation
-<http://sweetontology.net/phenFluidDynamics/Circulation> rdf:type owl:Class .
+fluid:Circulation rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Heating
-<http://sweetontology.net/procPhysical/Heating> rdf:type owl:Class .
+pproc:Heating rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Rotation
-<http://sweetontology.net/procPhysical/Rotation> rdf:type owl:Class .
+pproc:Rotation rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propPressure/PressureGradient
-<http://sweetontology.net/propPressure/PressureGradient> rdf:type owl:Class .
+pres:PressureGradient rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Axis
-<http://sweetontology.net/propSpaceDirection/Axis> rdf:type owl:Class .
+dir:Axis rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

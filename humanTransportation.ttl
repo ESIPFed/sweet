@@ -1,9 +1,17 @@
 @prefix : <http://sweetontology.net/humanTransportation/> .
+@prefix hum: <http://sweetontology.net/human/> .
+@prefix jur: <http://sweetontology.net/humanJurisdiction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix comm: <http://sweetontology.net/humanCommerce/> .
+@prefix equi: <http://sweetontology.net/matrEquipment/> .
+@prefix jur2: <http://sweetontology.net/humanJurisdiction/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix hrela: <http://sweetontology.net/relaHuman/> .
+@prefix trans: <http://sweetontology.net/humanTransportation/> .
+@prefix trela: <http://sweetontology.net/relaTime/> .
 @base <http://sweetontology.net/humanTransportation> .
 
 <http://sweetontology.net/humanTransportation> rdf:type owl:Ontology ;
@@ -15,14 +23,6 @@
                                                             <http://sweetontology.net/relaTime> ;
                                                 rdfs:label "SWEET Ontology" ;
                                                 owl:versionInfo "3.1.0" .
-
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://www.w3.org/2002/07/owl#cardinality
-owl:cardinality rdf:type owl:AnnotationProperty .
-
 
 #################################################################
 #    Classes
@@ -37,122 +37,122 @@ owl:cardinality rdf:type owl:AnnotationProperty .
 
 
 ###  http://sweetontology.net/humanTransportation/AirTraffic
-:AirTraffic rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+trans:AirTraffic rdf:type owl:Class ;
+                 rdfs:subClassOf hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/AirTrafficControl
-:AirTrafficControl rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/humanCommerce/Management> ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/relaHuman/hasHumanActivity> ;
-                                     owl:allValuesFrom :AirTraffic
-                                   ] .
+trans:AirTrafficControl rdf:type owl:Class ;
+                        rdfs:subClassOf comm:Management ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty hrela:hasHumanActivity ;
+                                          owl:allValuesFrom trans:AirTraffic
+                                        ] .
 
 
 ###  http://sweetontology.net/humanTransportation/AirTransportation
-:AirTransportation rdf:type owl:Class ;
-                   rdfs:subClassOf :Transportation .
+trans:AirTransportation rdf:type owl:Class ;
+                        rdfs:subClassOf trans:Transportation .
 
 
 ###  http://sweetontology.net/humanTransportation/Arrival
-:Arrival rdf:type owl:Class ;
-         rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error4> ,
-                         <http://sweetontology.net/human/HumanActivity> .
+trans:Arrival rdf:type owl:Class ;
+              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error4> ,
+                              hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/Ascent
-:Ascent rdf:type owl:Class ;
-        rdfs:subClassOf :Departure .
+trans:Ascent rdf:type owl:Class ;
+             rdfs:subClassOf trans:Departure .
 
 
 ###  http://sweetontology.net/humanTransportation/Aviation
-:Aviation rdf:type owl:Class ;
-          rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+trans:Aviation rdf:type owl:Class ;
+               rdfs:subClassOf hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/CivilAviation
-:CivilAviation rdf:type owl:Class ;
-               rdfs:subClassOf :Aviation ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
-                                 owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Civil>
-                               ] .
+trans:CivilAviation rdf:type owl:Class ;
+                    rdfs:subClassOf trans:Aviation ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty hrela:hasJurisdiction ;
+                                      owl:allValuesFrom jur2:Civil
+                                    ] .
 
 
 ###  http://sweetontology.net/humanTransportation/Departure
-:Departure rdf:type owl:Class ;
-           rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error5> ,
-                           <http://sweetontology.net/human/HumanActivity> .
+trans:Departure rdf:type owl:Class ;
+                rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error5> ,
+                                hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/Descent
-:Descent rdf:type owl:Class ;
-         rdfs:subClassOf :Arrival .
+trans:Descent rdf:type owl:Class ;
+              rdfs:subClassOf trans:Arrival .
 
 
 ###  http://sweetontology.net/humanTransportation/Evacuation
-:Evacuation rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+trans:Evacuation rdf:type owl:Class ;
+                 rdfs:subClassOf hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/Flight
-:Flight rdf:type owl:Class ;
-        rdfs:subClassOf :AirTransportation .
+trans:Flight rdf:type owl:Class ;
+             rdfs:subClassOf trans:AirTransportation .
 
 
 ###  http://sweetontology.net/humanTransportation/GroundTransportation
-:GroundTransportation rdf:type owl:Class ;
-                      rdfs:subClassOf :Transportation .
+trans:GroundTransportation rdf:type owl:Class ;
+                           rdfs:subClassOf trans:Transportation .
 
 
 ###  http://sweetontology.net/humanTransportation/Landing
-:Landing rdf:type owl:Class ;
-         rdfs:subClassOf :Arrival .
+trans:Landing rdf:type owl:Class ;
+              rdfs:subClassOf trans:Arrival .
 
 
 ###  http://sweetontology.net/humanTransportation/Liftoff
-:Liftoff rdf:type owl:Class ;
-         rdfs:subClassOf :Departure .
+trans:Liftoff rdf:type owl:Class ;
+              rdfs:subClassOf trans:Departure .
 
 
 ###  http://sweetontology.net/humanTransportation/MilitaryAviation
-:MilitaryAviation rdf:type owl:Class ;
-                  rdfs:subClassOf :Aviation ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
-                                    owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Military>
-                                  ] .
+trans:MilitaryAviation rdf:type owl:Class ;
+                       rdfs:subClassOf trans:Aviation ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty hrela:hasJurisdiction ;
+                                         owl:allValuesFrom jur2:Military
+                                       ] .
 
 
 ###  http://sweetontology.net/humanTransportation/SpaceProgram
-:SpaceProgram rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+trans:SpaceProgram rdf:type owl:Class ;
+                   rdfs:subClassOf hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/SpaceTravel
-:SpaceTravel rdf:type owl:Class ;
-             rdfs:subClassOf :SpaceProgram .
+trans:SpaceTravel rdf:type owl:Class ;
+                  rdfs:subClassOf trans:SpaceProgram .
 
 
 ###  http://sweetontology.net/humanTransportation/Takeoff
-:Takeoff rdf:type owl:Class ;
-         rdfs:subClassOf :Departure .
+trans:Takeoff rdf:type owl:Class ;
+              rdfs:subClassOf trans:Departure .
 
 
 ###  http://sweetontology.net/humanTransportation/Transit
-:Transit rdf:type owl:Class ;
-         rdfs:subClassOf :Transportation .
+trans:Transit rdf:type owl:Class ;
+              rdfs:subClassOf trans:Transportation .
 
 
 ###  http://sweetontology.net/humanTransportation/Transport
-:Transport rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+trans:Transport rdf:type owl:Class ;
+                rdfs:subClassOf hum:HumanActivity .
 
 
 ###  http://sweetontology.net/humanTransportation/Transportation
-:Transportation rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+trans:Transportation rdf:type owl:Class ;
+                     rdfs:subClassOf hum:HumanActivity .
 
 
 #################################################################
@@ -160,20 +160,14 @@ owl:cardinality rdf:type owl:AnnotationProperty .
 #################################################################
 
 ###  http://sweetontology.net/humanTransportation/FAA
-:FAA rdf:type owl:NamedIndividual ,
-              <http://sweetontology.net/humanJurisdiction/FederalGoverningBody> ;
-     owl:sameAs :FederalAviationAdministration .
+trans:FAA rdf:type owl:NamedIndividual ,
+                   jur2:FederalGoverningBody ;
+          owl:sameAs trans:FederalAviationAdministration .
 
 
 ###  http://sweetontology.net/humanTransportation/FederalAviationAdministration
-:FederalAviationAdministration rdf:type owl:NamedIndividual ,
-                                        <http://sweetontology.net/humanJurisdiction/FederalGoverningBody> .
+trans:FederalAviationAdministration rdf:type owl:NamedIndividual ,
+                                             jur2:FederalGoverningBody .
 
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
-] .
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
- ] .
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

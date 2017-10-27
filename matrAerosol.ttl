@@ -3,7 +3,18 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix aero: <http://sweetontology.net/matrAerosol/> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix land: <http://sweetontology.net/realmLandform/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix xten: <http://sweetontology.net/propSpaceDistance/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix solid: <http://sweetontology.net/phenSolid/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix xten2: <http://sweetontology.net/propSpaceDistance/> .
+@prefix mrela2: <http://sweetontology.net/relaMath/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
 @base <http://sweetontology.net/matrAerosol> .
 
 <http://sweetontology.net/matrAerosol> rdf:type owl:Ontology ;
@@ -19,23 +30,15 @@
                                         owl:versionInfo "3.1.0" .
 
 #################################################################
-#    Annotation properties
-#################################################################
-
-###  http://sweetontology.net/relaMath/hasUpperBound
-<http://sweetontology.net/relaMath/hasUpperBound> rdf:type owl:AnnotationProperty .
-
-
-#################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasRealm
-<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
+rela:hasRealm rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/diameter
-<http://sweetontology.net/relaSpace/diameter> rdf:type owl:ObjectProperty .
+srela:diameter rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -43,142 +46,136 @@
 #################################################################
 
 ###  http://sweetontology.net/matrAerosol/Aerosol
-:Aerosol rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/matr/SuspendedSubstance> .
+aero:Aerosol rdf:type owl:Class ;
+             rdfs:subClassOf chem:SuspendedSubstance .
 
 
 ###  http://sweetontology.net/matrAerosol/Ash
-:Ash rdf:type owl:Class ;
-     rdfs:subClassOf <http://sweetontology.net/matr/SolidSubstance> ;
-     rdfs:comment "Fine particles of pulverized rock." .
+aero:Ash rdf:type owl:Class ;
+         rdfs:subClassOf chem:SolidSubstance .
 
 
 ###  http://sweetontology.net/matrAerosol/BlackCarbon
-:BlackCarbon rdf:type owl:Class ;
-             owl:equivalentClass :Soot .
+aero:BlackCarbon rdf:type owl:Class ;
+                 owl:equivalentClass aero:Soot .
 
 
 ###  http://sweetontology.net/matrAerosol/CCN
-:CCN rdf:type owl:Class ;
-     owl:equivalentClass :CloudCondensationNuclei .
+aero:CCN rdf:type owl:Class ;
+         owl:equivalentClass aero:CloudCondensationNuclei .
 
 
 ###  http://sweetontology.net/matrAerosol/CloudCondensationNuclei
-:CloudCondensationNuclei rdf:type owl:Class ;
-                         rdfs:subClassOf :CondensationNuclei .
+aero:CloudCondensationNuclei rdf:type owl:Class ;
+                             rdfs:subClassOf aero:CondensationNuclei .
 
 
 ###  http://sweetontology.net/matrAerosol/CondensationNuclei
-:CondensationNuclei rdf:type owl:Class ;
-                    rdfs:subClassOf <http://sweetontology.net/matr/SolidSubstance> ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://sweetontology.net/rela/hasRole> ;
-                                      owl:allValuesFrom <http://sweetontology.net/phenSolid/Coalescence>
-                                    ] .
+aero:CondensationNuclei rdf:type owl:Class ;
+                        rdfs:subClassOf chem:SolidSubstance ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rela:hasRole ;
+                                          owl:allValuesFrom solid:Coalescence
+                                        ] .
 
 
 ###  http://sweetontology.net/matrAerosol/ContinentalAerosol
-:ContinentalAerosol rdf:type owl:Class ;
-                    rdfs:subClassOf :Aerosol ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-                                      owl:allValuesFrom <http://sweetontology.net/realmLandform/Land>
-                                    ] ;
-                    rdfs:comment "Aerosol having its origin over the continents with industrial, urban, agricultural, forest, and desert sources, with potential for high concentrations of hygroscopic aerosol."@en .
+aero:ContinentalAerosol rdf:type owl:Class ;
+                        rdfs:subClassOf aero:Aerosol ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rela:hasRealm ;
+                                          owl:allValuesFrom land:Land
+                                        ] .
 
 
 ###  http://sweetontology.net/matrAerosol/Dust
-:Dust rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/matr/SolidSubstance> .
+aero:Dust rdf:type owl:Class ;
+          rdfs:subClassOf chem:SolidSubstance .
 
 
 ###  http://sweetontology.net/matrAerosol/FugitiveDust
-:FugitiveDust rdf:type owl:Class ;
-              rdfs:subClassOf :Dust .
+aero:FugitiveDust rdf:type owl:Class ;
+                  rdfs:subClassOf aero:Dust .
 
 
 ###  http://sweetontology.net/matrAerosol/Grain
-:Grain rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/matr/SolidSubstance> ,
-                       <http://sweetontology.net/statePhysical/SubstanceForm> .
+aero:Grain rdf:type owl:Class ;
+           rdfs:subClassOf chem:SolidSubstance ,
+                           pstate:SubstanceForm .
 
 
 ###  http://sweetontology.net/matrAerosol/PM1
-:PM1 rdf:type owl:Class ;
-     rdfs:subClassOf :Particulate ,
-                     [ rdf:type owl:Restriction ;
-                       owl:onProperty <http://sweetontology.net/relaSpace/diameter> ;
-                       owl:hasValue _:genid4
-                     ] .
+aero:PM1 rdf:type owl:Class ;
+         rdfs:subClassOf aero:Particulate ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty srela:diameter ;
+                           owl:hasValue _:genid4
+                         ] .
 
-_:genid4 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron> ;
-          <http://sweetontology.net/relaMath/hasUpperBound> "1.0"^^xsd:double .
+_:genid4 rdf:type xten2:SizeRange_micron .
 
 
 ###  http://sweetontology.net/matrAerosol/PM10
-:PM10 rdf:type owl:Class ;
-      rdfs:subClassOf :Particulate ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaSpace/diameter> ;
-                        owl:hasValue _:genid6
-                      ] .
+aero:PM10 rdf:type owl:Class ;
+          rdfs:subClassOf aero:Particulate ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty srela:diameter ;
+                            owl:hasValue _:genid6
+                          ] .
 
-_:genid6 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron> ;
-          <http://sweetontology.net/relaMath/hasUpperBound> "10.0"^^xsd:double .
+_:genid6 rdf:type xten2:SizeRange_micron .
 
 
 ###  http://sweetontology.net/matrAerosol/PM2point5
-:PM2point5 rdf:type owl:Class ;
-           rdfs:subClassOf :Particulate ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSpace/diameter> ;
-                             owl:hasValue _:genid8
-                           ] .
+aero:PM2point5 rdf:type owl:Class ;
+               rdfs:subClassOf aero:Particulate ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty srela:diameter ;
+                                 owl:hasValue _:genid8
+                               ] .
 
-_:genid8 rdf:type <http://sweetontology.net/propSpaceDistance/SizeRange_micron> ;
-          <http://sweetontology.net/relaMath/hasUpperBound> "2.5"^^xsd:double .
+_:genid8 rdf:type xten2:SizeRange_micron .
 
 
 ###  http://sweetontology.net/matrAerosol/Particulate
-:Particulate rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/matr/SuspendedSubstance> ;
-             rdfs:comment "The term for solid or liquid particles found in a gas.   Some particles are large or dark enough to be seen as soot or smoke."@en .
+aero:Particulate rdf:type owl:Class ;
+                 rdfs:subClassOf chem:SuspendedSubstance .
 
 
 ###  http://sweetontology.net/matrAerosol/Pollen
-:Pollen rdf:type owl:Class ;
-        rdfs:subClassOf :Particulate .
+aero:Pollen rdf:type owl:Class ;
+            rdfs:subClassOf aero:Particulate .
 
 
 ###  http://sweetontology.net/matrAerosol/Smoke
-:Smoke rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/matr/SuspendedSubstance> .
+aero:Smoke rdf:type owl:Class ;
+           rdfs:subClassOf chem:SuspendedSubstance .
 
 
 ###  http://sweetontology.net/matrAerosol/Soot
-:Soot rdf:type owl:Class ;
-      rdfs:subClassOf :Particulate .
+aero:Soot rdf:type owl:Class ;
+          rdfs:subClassOf aero:Particulate .
 
 
 ###  http://sweetontology.net/matrAerosol/Spray
-:Spray rdf:type owl:Class ;
-       rdfs:subClassOf :Aerosol .
+aero:Spray rdf:type owl:Class ;
+           rdfs:subClassOf aero:Aerosol .
 
 
 ###  http://sweetontology.net/phenSolid/Coalescence
-<http://sweetontology.net/phenSolid/Coalescence> rdf:type owl:Class .
+solid:Coalescence rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceDistance/SizeRange_micron
-<http://sweetontology.net/propSpaceDistance/SizeRange_micron> rdf:type owl:Class .
+xten2:SizeRange_micron rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandform/Land
-<http://sweetontology.net/realmLandform/Land> rdf:type owl:Class .
+land:Land rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/statePhysical/SubstanceForm
-<http://sweetontology.net/statePhysical/SubstanceForm> rdf:type owl:Class .
+pstate:SubstanceForm rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

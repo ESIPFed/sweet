@@ -3,7 +3,22 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmo: <http://sweetontology.net/phenAtmo/> .
+@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
+@prefix phen: <http://sweetontology.net/phen/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix cloud: <http://sweetontology.net/phenAtmoCloud/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix hydro: <http://sweetontology.net/realmHydroBody/> .
+@prefix ofeat: <http://sweetontology.net/realmOceanFeature/> .
+@prefix press: <http://sweetontology.net/phenAtmoPressure/> .
+@prefix space: <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
+@prefix water: <http://sweetontology.net/matrWater/> .
+@prefix precip: <http://sweetontology.net/phenAtmoPrecipitation/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/phenAtmoPrecipitation> .
 
 <http://sweetontology.net/phenAtmoPrecipitation> rdf:type owl:Ontology ;
@@ -29,23 +44,23 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasImpact
-<http://sweetontology.net/relaSci/hasImpact> rdf:type owl:ObjectProperty .
+screla:hasImpact rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/clusterOf
-<http://sweetontology.net/relaSpace/clusterOf> rdf:type owl:ObjectProperty .
+srela:clusterOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/originatesFrom
-<http://sweetontology.net/relaSpace/originatesFrom> rdf:type owl:ObjectProperty .
+srela:originatesFrom rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -53,398 +68,364 @@
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/AtmosphericPrecipitation
-:AtmosphericPrecipitation rdf:type owl:Class ;
-                          rdfs:subClassOf <http://sweetontology.net/phen/Precipitation> ,
-                                          <http://sweetontology.net/phenAtmo/AtmosphericPhenomena> .
+precip:AtmosphericPrecipitation rdf:type owl:Class ;
+                                rdfs:subClassOf phen:Precipitation ,
+                                                atmo:AtmosphericPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Blizzard
-:Blizzard rdf:type owl:Class ;
-          rdfs:subClassOf :Snowfall .
+precip:Blizzard rdf:type owl:Class ;
+                rdfs:subClassOf precip:Snowfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/CloudBurst
-:CloudBurst rdf:type owl:Class ;
-            rdfs:subClassOf :HeavyRainfall ;
-            rdfs:comment "In popular terminology, any sudden and heavy fall of rain, almost always of the shower type."@en .
+precip:CloudBurst rdf:type owl:Class ;
+                  rdfs:subClassOf precip:HeavyRainfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/ConvectiveStorm
-:ConvectiveStorm rdf:type owl:Class ;
-                 rdfs:subClassOf :Storm ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                   owl:someValuesFrom <http://sweetontology.net/phenFluidTransport/Convection>
-                                 ] .
+precip:ConvectiveStorm rdf:type owl:Class ;
+                       rdfs:subClassOf precip:Storm ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty rela:hasPhenomena ;
+                                         owl:someValuesFrom trans:Convection
+                                       ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Drizzle
-:Drizzle rdf:type owl:Class ;
-         rdfs:subClassOf :Rainfall ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                           owl:hasValue <http://sweetontology.net/stateRoleImpact/Light>
-                         ] ;
-         rdfs:comment "Very small, numerous, and uniformly distributed water drops that may appear to float while following air currents."@en .
+precip:Drizzle rdf:type owl:Class ;
+               rdfs:subClassOf precip:Rainfall ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasImpact ;
+                                 owl:hasValue impa:Light
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Ecnephias
-:Ecnephias rdf:type owl:Class ;
-           rdfs:subClassOf :Thunderstorm ;
-           rdfs:comment "A squall or thunderstorm in the Mediterranean."@en .
+precip:Ecnephias rdf:type owl:Class ;
+                 rdfs:subClassOf precip:Thunderstorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/FamilyOfTornadoes
-:FamilyOfTornadoes rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Cluster> ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty <http://sweetontology.net/relaSpace/clusterOf> ;
-                                     owl:allValuesFrom :Tornado
-                                   ] ;
-                   rdfs:comment "A sequence of long-lived tornadoes produced by a cyclic supercell storm. Tornadoes touch down at quasi-regular intervals (typically 45 min). Usually a new tornado develops in a new mesocyclone just after an old tornado has decayed in an old, occluded neighboring mesocyclone. Sometimes, two successive tornadoes may overlap in time for a few minutes. The two mesocyclones may rotate partially around each other. If the damage tracks of the tornadoes appear to form a wavy broken line, the family is classified as a series mode. In the more common parallel-mode family, the damage tracks are parallel arcs with each new tornado forming on the right side of its predecessor. The parallel mode is subcategorized into left turn and right turn, according to the direction in which the paths curve."@en .
+precip:FamilyOfTornadoes rdf:type owl:Class ;
+                         rdfs:subClassOf space:Cluster ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty srela:clusterOf ;
+                                           owl:allValuesFrom precip:Tornado
+                                         ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/FreezingRain
-:FreezingRain rdf:type owl:Class ;
-              rdfs:subClassOf :AtmosphericPrecipitation ;
-              rdfs:comment "Rain that falls in liquid form but freezes upon impact to form a coating of glaze upon the ground and on exposed objects." .
+precip:FreezingRain rdf:type owl:Class ;
+                    rdfs:subClassOf precip:AtmosphericPrecipitation .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/GoslingBlast
-:GoslingBlast rdf:type owl:Class ;
-              rdfs:subClassOf :AtmosphericPrecipitation ;
-              rdfs:comment "A sudden squall of rain or sleet in England." ;
-              rdfs:label "Gosling blast" .
+precip:GoslingBlast rdf:type owl:Class ;
+                    rdfs:subClassOf precip:AtmosphericPrecipitation .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/GowkStorm
-:GowkStorm rdf:type owl:Class ;
-           rdfs:subClassOf :Storm ;
-           rdfs:comment "Any disturbed state of the atmosphere, especially as affecting the earth's surface, implying inclement and possibly destructive weather."@en .
+precip:GowkStorm rdf:type owl:Class ;
+                 rdfs:subClassOf precip:Storm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Graupel
-:Graupel rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/matrWater/Ice> .
+precip:Graupel rdf:type owl:Class ;
+               rdfs:subClassOf water:Ice .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/GreenThunderstorm
-:GreenThunderstorm rdf:type owl:Class ;
-                   rdfs:subClassOf :Thunderstorm ;
-                   rdfs:comment "Any thunderstorm that is perceived by observers to be green. The perceptually dominant wavelength of light from green thunderstorms ranges from blue- green to yellow-green. The purity of the color is generally low and the topical mechanism that causes the green appearance is not understood. Although green clouds often occur in conjunction with severe weather, there is no evidence to support anecdotal attributions of the cause of this green to specific characteristics of severe storms, such as hail or tornadoes."@en .
+precip:GreenThunderstorm rdf:type owl:Class ;
+                         rdfs:subClassOf precip:Thunderstorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Hail
-:Hail rdf:type owl:Class ;
-      rdfs:subClassOf :AtmosphericPrecipitation ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                        owl:allValuesFrom <http://sweetontology.net/matrWater/Ice>
-                      ] ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                        owl:hasValue <http://sweetontology.net/stateRoleImpact/Heavy>
-                      ] ;
-      rdfs:comment "Precipitation in the form of balls or irregular lumps of ice, always produced by convective clouds, nearly always cumulonimbus. An individual unit of hail is called a hailstone. By convention, hail has a diameter of 5 mm or more, while smaller particles of similar origin, formerly called small hail, may be classed as either ice pellets or snow pellets. Thunderstorms that are characterized by strong updrafts, large liquid water contents, large cloud-drop sizes, and great vertical height are favorable to hail formation. The destructive effects of hailstorms upon plant and animal life, buildings and property, and aircraft in flight render them a prime object of weather modification studies. In aviation weather observations, hail is encoded A."@en .
+precip:Hail rdf:type owl:Class ;
+            rdfs:subClassOf precip:AtmosphericPrecipitation ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty crela:hasSubstance ;
+                              owl:allValuesFrom water:Ice
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty screla:hasImpact ;
+                              owl:hasValue impa:Heavy
+                            ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/HailStorm
-:HailStorm rdf:type owl:Class ;
-           rdfs:subClassOf :Storm ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom :Hail
-                           ] ;
-           rdfs:comment "Any storm that produces hailstones that fall to the ground; usually used when the amount or size of the hail is considered significant."@en .
+precip:HailStorm rdf:type owl:Class ;
+                 rdfs:subClassOf precip:Storm ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:hasPhenomena ;
+                                   owl:allValuesFrom precip:Hail
+                                 ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/HeatThunderstorm
-:HeatThunderstorm rdf:type owl:Class ;
-                  rdfs:subClassOf :Thunderstorm ;
-                  rdfs:comment "In popular terminology, a thunderstorm of the air mass type that develops near the end of a hot, humid summer day; this term has no precise technical meaning."@en .
+precip:HeatThunderstorm rdf:type owl:Class ;
+                        rdfs:subClassOf precip:Thunderstorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/HeavyRainfall
-:HeavyRainfall rdf:type owl:Class ;
-               rdfs:subClassOf :Rainfall ;
-               rdfs:comment "Rain with a rate of accumulation exceeding a specific value that is geographically dependent."@en .
+precip:HeavyRainfall rdf:type owl:Class ;
+                     rdfs:subClassOf precip:Rainfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/HeavySnowfall
-:HeavySnowfall rdf:type owl:Class ;
-               rdfs:subClassOf :Snowfall .
+precip:HeavySnowfall rdf:type owl:Class ;
+                     rdfs:subClassOf precip:Snowfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/HighLevelThunderstorm
-:HighLevelThunderstorm rdf:type owl:Class ;
-                       rdfs:subClassOf :Thunderstorm ;
-                       rdfs:comment "Generally, a thunderstorm based at a comparatively high altitude in the atmosphere, roughly 2400 m or higher. These storms form most strikingly over arid regions, and frequently their precipitation is evaporated before reaching the earth's surface."@en .
+precip:HighLevelThunderstorm rdf:type owl:Class ;
+                             rdfs:subClassOf precip:Thunderstorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Hurricane
-:Hurricane rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/phenAtmoPressure/TropicalCyclone> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                             owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
-                           ] ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSpace/originatesFrom> ;
-                             owl:hasValue <http://sweetontology.net/realmOceanFeature/AtlanticOcean>
-                           ] .
+precip:Hurricane rdf:type owl:Class ;
+                 rdfs:subClassOf press:TropicalCyclone ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasImpact ;
+                                   owl:hasValue impa:Hazard
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty srela:originatesFrom ;
+                                   owl:hasValue ofeat:AtlanticOcean
+                                 ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/HurricaneBand
-:HurricaneBand rdf:type owl:Class ;
-               rdfs:subClassOf :Hurricane ;
-               rdfs:comment "A hurricane radar band of circular or spiral shape associated with a tropical cyclone (hurricane or typhoon). Made evident by radar observations, hurricane bands typically curve cyclonically inward toward the center of the storm. The bands may be classified as primary if they merge into the eyewall encircling the eye of the storm, or secondary if they are disconnected from the eyewall. Hurricane bands generally move slowly around the center of the storm in the direction of the hurricane circulation. See banded structure."@en .
+precip:HurricaneBand rdf:type owl:Class ;
+                     rdfs:subClassOf precip:Hurricane .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/IcePellet
-:IcePellet rdf:type owl:Class ;
-           owl:equivalentClass :Sleet .
+precip:IcePellet rdf:type owl:Class ;
+                 owl:equivalentClass precip:Sleet .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/IceStorm
-:IceStorm rdf:type owl:Class ;
-          rdfs:subClassOf :Storm ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                            owl:allValuesFrom <http://sweetontology.net/matrWater/Ice>
-                          ] ;
-          rdfs:comment "A storm characterized by a fall of freezing liquid precipitation. The attendant formation of glaze on terrestrial objects creates many hazards."@en .
+precip:IceStorm rdf:type owl:Class ;
+                rdfs:subClassOf precip:Storm ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty crela:hasSubstance ;
+                                  owl:allValuesFrom water:Ice
+                                ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Kaavie
-:Kaavie rdf:type owl:Class ;
-        rdfs:subClassOf :HeavySnowfall ;
-        rdfs:comment "In Scotland, a heavy fall of snow."@en .
+precip:Kaavie rdf:type owl:Class ;
+              rdfs:subClassOf precip:HeavySnowfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Kelsher
-:Kelsher rdf:type owl:Class ;
-         rdfs:subClassOf :HeavyRainfall ;
-         rdfs:comment "In England, a heavy fall of rain."@en .
+precip:Kelsher rdf:type owl:Class ;
+               rdfs:subClassOf precip:HeavyRainfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/LakeEffect
-:LakeEffect rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaSpace/originatesFrom> ;
-                              owl:allValuesFrom <http://sweetontology.net/realmHydroBody/Lake>
-                            ] ;
-            rdfs:comment "Generally, the effect of any lake in modifying the weather about its shore and for some distance downwind. This term is applied specifically to the region about the Great Lakes or the Great Salt Lake. More specifically, lake effect often refers to the generation of sometimes spectacular snowfall amounts to the lee of the Great Lakes as cold air passes over the lake surface, extracting heat and moisture, resulting in cloud formation and snowfall downwind of the lake shore."@en .
+precip:LakeEffect rdf:type owl:Class ;
+                  rdfs:subClassOf atmo:MeteorologicalPhenomena ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty srela:originatesFrom ;
+                                    owl:allValuesFrom hydro:Lake
+                                  ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/LakeEffectSnow
-:LakeEffectSnow rdf:type owl:Class ;
-                owl:equivalentClass :LakeEffectSnowstorm ;
-                rdfs:subClassOf :LakeEffect ,
-                                :Snowfall ;
-                rdfs:comment "Localized, convective snow bands that occur in the lee of lakes when relatively cold airflows over warm water. In the US this phenomenon is most noted along the south and east shores of the Great Lakes during arctic cold-air outbreaks. Snowstorm occurring near or downwind from the shore of a lake resulting from the warming (destabilization) and moistening of relatively cold air during passage over a warm body of water."@en .
+precip:LakeEffectSnow rdf:type owl:Class ;
+                      owl:equivalentClass precip:LakeEffectSnowstorm ;
+                      rdfs:subClassOf precip:LakeEffect ,
+                                      precip:Snowfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/LakeEffectSnowstorm
-:LakeEffectSnowstorm rdf:type owl:Class .
+precip:LakeEffectSnowstorm rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/LambingStorm
-:LambingStorm rdf:type owl:Class ;
-              rdfs:subClassOf :Snowfall ;
-              rdfs:comment "(Also called lamb-blasts, lamb-showers, lamb storm.) A slight fall of snow in the spring in England."@en .
+precip:LambingStorm rdf:type owl:Class ;
+                    rdfs:subClassOf precip:Snowfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/LandLash
-:LandLash rdf:type owl:Class ;
-          rdfs:subClassOf :Rainfall ;
-          rdfs:comment "In England, a heavy fall of rain, accompanied by a high wind."@en .
+precip:LandLash rdf:type owl:Class ;
+                rdfs:subClassOf precip:Rainfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Landspout
-:Landspout rdf:type owl:Class ;
-           rdfs:subClassOf :Tornado ;
-           rdfs:comment "(Rare.) A tornado. 2. Colloquial expression describing tornadoes occurring with a parent cloud in its growth stage and with its vorticity originating in the boundary layer."@en .
+precip:Landspout rdf:type owl:Class ;
+                 rdfs:subClassOf precip:Tornado .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/LocalStorm
-:LocalStorm rdf:type owl:Class ;
-            rdfs:subClassOf :Storm ;
-            rdfs:comment "A storm of mesometeorological scale; thus, thunderstorms, squalls, and tornadoes are often put in this category."@en .
+precip:LocalStorm rdf:type owl:Class ;
+                  rdfs:subClassOf precip:Storm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/MesocycloneSignature
-:MesocycloneSignature rdf:type owl:Class ;
-                      rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
-                      rdfs:comment "The Doppler velocity pattern of a mesocyclone within a severe thunderstorm. In a storm-relative reference frame, the idealized signature is symmetric about the radar viewing direction with marked azimuthal shear across the core region between peak Doppler velocity values of opposite sign. Typical signatures consist of Doppler velocity differences of 25? 75 m s-1 across core diameters of 2?8 km, with resulting azimuthal shear values of 5 ? 10-3 s-1 to 2 ? 10-2 s-1."@en .
+precip:MesocycloneSignature rdf:type owl:Class ;
+                            rdfs:subClassOf atmo:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Mist
-:Mist rdf:type owl:Class ;
-      rdfs:subClassOf :AtmosphericPrecipitation ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                        owl:hasValue <http://sweetontology.net/stateRoleImpact/Light>
-                      ] .
+precip:Mist rdf:type owl:Class ;
+            rdfs:subClassOf precip:AtmosphericPrecipitation ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty screla:hasImpact ;
+                              owl:hasValue impa:Light
+                            ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Monsoon
-:Monsoon rdf:type owl:Class ;
-         rdfs:subClassOf :Storm ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                           owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
-                         ] .
+precip:Monsoon rdf:type owl:Class ;
+               rdfs:subClassOf precip:Storm ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasImpact ;
+                                 owl:hasValue impa:Hazard
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/MulticellConvectiveStorm
-:MulticellConvectiveStorm rdf:type owl:Class ;
-                          rdfs:subClassOf :SplittingConvectiveStorm ;
-                          rdfs:comment "A convective storm system usually composed of a cluster of ordinary convective cells at various stages of their life cycle. New cells within the convective system are generated primarily by either low-level convergence along a preexisting boundary, or by lifting at the leading edge of the system-scale cold pool that was produced by the previous cells. A multicell storm may have a lifetime of several hours, and may also have supercells incorporated as a part of the system as well. See also cell, ordinary cell, supercell, thunderstorm."@en .
+precip:MulticellConvectiveStorm rdf:type owl:Class ;
+                                rdfs:subClassOf precip:SplittingConvectiveStorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/NonSupercellTornado
-:NonSupercellTornado rdf:type owl:Class ;
-                     rdfs:subClassOf :Tornado ;
-                     rdfs:comment "A tornado that occurs with a parent cloud in its growth stage and with its vorticity originating in the boundary layer. The parent cloud does not contain a preexisting midlevel mesocyclone. Landspouts and gustnadoes are examples of the nonsupercell tornado."@en .
+precip:NonSupercellTornado rdf:type owl:Class ;
+                           rdfs:subClassOf precip:Tornado .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/NortheastStorm
-:NortheastStorm rdf:type owl:Class ;
-                rdfs:subClassOf :Storm ;
-                rdfs:comment "A cyclonic storm off the east coast of North America, so called because the winds over the coastal area are from the northeast."@en .
+precip:NortheastStorm rdf:type owl:Class ;
+                      rdfs:subClassOf precip:Storm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/PopUpThunderstorm
-:PopUpThunderstorm rdf:type owl:Class ;
-                   rdfs:subClassOf :Thunderstorm ;
-                   rdfs:comment "An airmass thunderstorm that forms rapidly in an otherwise rain-free environment.   This most often occurs on warm, humid days, in unstable meteorological conditions."@en .
+precip:PopUpThunderstorm rdf:type owl:Class ;
+                         rdfs:subClassOf precip:Thunderstorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/PrefrontalSquallLine
-:PrefrontalSquallLine rdf:type owl:Class ;
-                      rdfs:subClassOf :SquallLine ;
-                      rdfs:comment "A squall line less than about 100 km ahead of a cold front, in the warm sector, having an orientation more or less parallel to the cold front."@en .
+precip:PrefrontalSquallLine rdf:type owl:Class ;
+                            rdfs:subClassOf precip:SquallLine .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Rain
-:Rain rdf:type owl:Class ;
-      owl:equivalentClass :Rainfall ;
-      rdfs:subClassOf :AtmosphericPrecipitation ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                        owl:allValuesFrom <http://sweetontology.net/matrWater/LiquidWater>
-                      ] .
+precip:Rain rdf:type owl:Class ;
+            owl:equivalentClass precip:Rainfall ;
+            rdfs:subClassOf precip:AtmosphericPrecipitation ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty crela:hasSubstance ;
+                              owl:allValuesFrom water:LiquidWater
+                            ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Rainband
-:Rainband rdf:type owl:Class ;
-          rdfs:subClassOf :Rainfall ;
-          rdfs:comment "The complete cloud and precipitation structure associated with an area of rainfall sufficiently elongated that an orientation can be assigned."@en .
+precip:Rainband rdf:type owl:Class ;
+                rdfs:subClassOf precip:Rainfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Rainfall
-:Rainfall rdf:type owl:Class .
+precip:Rainfall rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Shower
-:Shower rdf:type owl:Class ;
-        rdfs:subClassOf :Rainfall .
+precip:Shower rdf:type owl:Class ;
+              rdfs:subClassOf precip:Rainfall .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Sleet
-:Sleet rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/matrWater/Ice> ,
-                       :AtmosphericPrecipitation .
+precip:Sleet rdf:type owl:Class ;
+             rdfs:subClassOf water:Ice ,
+                             precip:AtmosphericPrecipitation .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Snowfall
-:Snowfall rdf:type owl:Class ;
-          rdfs:subClassOf :AtmosphericPrecipitation ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                            owl:allValuesFrom <http://sweetontology.net/matrWater/Snow>
-                          ] .
+precip:Snowfall rdf:type owl:Class ;
+                rdfs:subClassOf precip:AtmosphericPrecipitation ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty crela:hasSubstance ;
+                                  owl:allValuesFrom water:Snow
+                                ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/SplittingConvectiveStorm
-:SplittingConvectiveStorm rdf:type owl:Class ;
-                          rdfs:subClassOf :Storm ;
-                          rdfs:comment "The process by which a single convective cell splits into two supercells, one dominated by cyclonic rotation and the other by anticyclonic rotation, their paths then deviating substantially from each other and other nearby convective cells."@en .
+precip:SplittingConvectiveStorm rdf:type owl:Class ;
+                                rdfs:subClassOf precip:Storm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/SquallLine
-:SquallLine rdf:type owl:Class ;
-            rdfs:subClassOf :Thunderstorm ;
-            rdfs:comment "A line of active thunderstorms, either continuous or with breaks, including contiguous precipitation areas resulting from the existence of the thunderstorms."@en .
+precip:SquallLine rdf:type owl:Class ;
+                  rdfs:subClassOf precip:Thunderstorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Storm
-:Storm rdf:type owl:Class ;
-       rdfs:subClassOf :AtmosphericPrecipitation ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                         owl:hasValue <http://sweetontology.net/stateRoleImpact/Heavy>
-                       ] .
+precip:Storm rdf:type owl:Class ;
+             rdfs:subClassOf precip:AtmosphericPrecipitation ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty screla:hasImpact ;
+                               owl:hasValue impa:Heavy
+                             ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/SupercellConvectiveStorm
-:SupercellConvectiveStorm rdf:type owl:Class ;
-                          rdfs:subClassOf :ConvectiveStorm .
+precip:SupercellConvectiveStorm rdf:type owl:Class ;
+                                rdfs:subClassOf precip:ConvectiveStorm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Thunderstorm
-:Thunderstorm rdf:type owl:Class ;
-              rdfs:subClassOf :Storm .
+precip:Thunderstorm rdf:type owl:Class ;
+                    rdfs:subClassOf precip:Storm .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Tornado
-:Tornado rdf:type owl:Class ;
-         rdfs:subClassOf :Storm ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                           owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
-                         ] .
+precip:Tornado rdf:type owl:Class ;
+               rdfs:subClassOf precip:Storm ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasImpact ;
+                                 owl:hasValue impa:Hazard
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/TropicalStorm
-:TropicalStorm rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/phenAtmoPressure/TropicalCyclone> .
+precip:TropicalStorm rdf:type owl:Class ;
+                     rdfs:subClassOf press:TropicalCyclone .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/Typhoon
-:Typhoon rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/phenAtmoPressure/TropicalCyclone> ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-                           owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
-                         ] ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSpace/originatesFrom> ;
-                           owl:hasValue <http://sweetontology.net/realmOceanFeature/PacificOcean>
-                         ] .
+precip:Typhoon rdf:type owl:Class ;
+               rdfs:subClassOf press:TropicalCyclone ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasImpact ;
+                                 owl:hasValue impa:Hazard
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty srela:originatesFrom ;
+                                 owl:hasValue ofeat:PacificOcean
+                               ] .
 
 
 ###  http://sweetontology.net/phenAtmoPrecipitation/WaterSpout
-:WaterSpout rdf:type owl:Class ;
-            rdfs:subClassOf :Tornado ;
-            rdfs:comment "1. In general, any tornado over a body of water. 2. In its most common form, a nonsupercell tornado over water."@en .
+precip:WaterSpout rdf:type owl:Class ;
+                  rdfs:subClassOf precip:Tornado .
 
 
 ###  http://sweetontology.net/phenAtmoPressure/TropicalCyclone
-<http://sweetontology.net/phenAtmoPressure/TropicalCyclone> rdf:type owl:Class .
+press:TropicalCyclone rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenFluidTransport/Convection
-<http://sweetontology.net/phenFluidTransport/Convection> rdf:type owl:Class .
+trans:Convection rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmHydroBody/Lake
-<http://sweetontology.net/realmHydroBody/Lake> rdf:type owl:Class .
+hydro:Lake rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Cluster
-<http://sweetontology.net/reprSpaceGeometry/Cluster> rdf:type owl:Class .
+space:Cluster rdf:type owl:Class .
 
 
 #################################################################
@@ -452,23 +433,23 @@
 #################################################################
 
 ###  http://sweetontology.net/realmOceanFeature/AtlanticOcean
-<http://sweetontology.net/realmOceanFeature/AtlanticOcean> rdf:type owl:NamedIndividual .
+ofeat:AtlanticOcean rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/realmOceanFeature/PacificOcean
-<http://sweetontology.net/realmOceanFeature/PacificOcean> rdf:type owl:NamedIndividual .
+ofeat:PacificOcean rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateRoleImpact/Hazard
-<http://sweetontology.net/stateRoleImpact/Hazard> rdf:type owl:NamedIndividual .
+impa:Hazard rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateRoleImpact/Heavy
-<http://sweetontology.net/stateRoleImpact/Heavy> rdf:type owl:NamedIndividual .
+impa:Heavy rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateRoleImpact/Light
-<http://sweetontology.net/stateRoleImpact/Light> rdf:type owl:NamedIndividual .
+impa:Light rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

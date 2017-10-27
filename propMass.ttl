@@ -3,7 +3,17 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix conc: <http://sweetontology.net/propMass/> .
+@prefix mult: <http://sweetontology.net/propSpaceMultidimensional/> .
+@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propMass> .
 
 <http://sweetontology.net/propMass> rdf:type owl:Ontology ;
@@ -24,19 +34,19 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasState
-<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
+rela:hasState rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-<http://sweetontology.net/relaMath/hasFirstOperand> rdf:type owl:ObjectProperty .
+mrela:hasFirstOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-<http://sweetontology.net/relaMath/hasSecondOperand> rdf:type owl:ObjectProperty .
+mrela:hasSecondOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -44,248 +54,244 @@
 #################################################################
 
 ###  http://sweetontology.net/propMass/BulkDensity
-:BulkDensity rdf:type owl:Class ;
-             rdfs:subClassOf :Density .
+conc:BulkDensity rdf:type owl:Class ;
+                 rdfs:subClassOf conc:Density .
 
 
 ###  http://sweetontology.net/propMass/Consistence
-:Consistence rdf:type owl:Class ;
-             owl:equivalentClass :Consistency ;
-             rdfs:subClassOf :ConsistenceProperty .
+conc:Consistence rdf:type owl:Class ;
+                 owl:equivalentClass conc:Consistency ;
+                 rdfs:subClassOf conc:ConsistenceProperty .
 
 
 ###  http://sweetontology.net/propMass/ConsistenceProperty
-:ConsistenceProperty rdf:type owl:Class ;
-                     rdfs:subClassOf :MaterialProperty .
+conc:ConsistenceProperty rdf:type owl:Class ;
+                         rdfs:subClassOf conc:MaterialProperty .
 
 
 ###  http://sweetontology.net/propMass/Consistency
-:Consistency rdf:type owl:Class .
+conc:Consistency rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/Content
-:Content rdf:type owl:Class ;
-         rdfs:subClassOf :MassConcentration ,
-                         <http://sweetontology.net/reprMathOperation/Ratio> ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
-                           owl:allValuesFrom <http://sweetontology.net/propSpaceMultidimensional/Area>
-                         ] .
-
-
-###  http://sweetontology.net/propMass/Density
-:Density rdf:type owl:Class ;
-         owl:equivalentClass :MassConcentration ;
-         rdfs:subClassOf <http://sweetontology.net/propQuantity/IntensiveProperty> ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                           owl:hasValue <http://sweetontology.net/reprSciUnits/kilogramPerMeterCubed>
-                         ] ;
-         rdfs:comment "1. The ratio of the mass of any substance to the volume occupied by it (usually expressed in kilograms per cubic meter, but any other unit system may be used); the reciprocal of specific volume."@en .
-
-
-###  http://sweetontology.net/propMass/DissolvedConcentration
-:DissolvedConcentration rdf:type owl:Class ;
-                        rdfs:subClassOf :MassConcentration .
-
-
-###  http://sweetontology.net/propMass/Dosage
-:Dosage rdf:type owl:Class ;
-        owl:equivalentClass :Dose ;
-        rdfs:subClassOf :Mass .
-
-
-###  http://sweetontology.net/propMass/Dose
-:Dose rdf:type owl:Class .
-
-
-###  http://sweetontology.net/propMass/DryWeight
-:DryWeight rdf:type owl:Class ;
-           rdfs:subClassOf :Mass ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                             owl:hasValue <http://sweetontology.net/statePhysical/Dry>
-                           ] .
-
-
-###  http://sweetontology.net/propMass/Ductibility
-:Ductibility rdf:type owl:Class ;
-             rdfs:subClassOf :StrengthProperty .
-
-
-###  http://sweetontology.net/propMass/Elasticity
-:Elasticity rdf:type owl:Class ;
-            rdfs:subClassOf :StrengthProperty .
-
-
-###  http://sweetontology.net/propMass/Flexure
-:Flexure rdf:type owl:Class ;
-         rdfs:subClassOf :StrengthProperty .
-
-
-###  http://sweetontology.net/propMass/Grade
-:Grade rdf:type owl:Class ;
-       rdfs:subClassOf :MassConcentration .
-
-
-###  http://sweetontology.net/propMass/Hardness
-:Hardness rdf:type owl:Class ;
-          rdfs:subClassOf :StrengthProperty .
-
-
-###  http://sweetontology.net/propMass/Malleability
-:Malleability rdf:type owl:Class ;
-              rdfs:subClassOf :StrengthProperty .
-
-
-###  http://sweetontology.net/propMass/Mass
-:Mass rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/propQuantity/ExtensiveProperty> ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                        owl:hasValue <http://sweetontology.net/reprSciUnits/kilogram>
-                      ] .
-
-
-###  http://sweetontology.net/propMass/MassConcentration
-:MassConcentration rdf:type owl:Class .
-
-
-###  http://sweetontology.net/propMass/MassContent
-:MassContent rdf:type owl:Class ;
-             rdfs:subClassOf :Content ,
+conc:Content rdf:type owl:Class ;
+             rdfs:subClassOf conc:MassConcentration ,
+                             oper:Ratio ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
-                               owl:allValuesFrom :Mass
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                               owl:hasValue <http://sweetontology.net/reprSciUnits/kilogramPerMeterSquared>
+                               owl:onProperty mrela:hasSecondOperand ;
+                               owl:allValuesFrom mult:Area
                              ] .
 
 
+###  http://sweetontology.net/propMass/Density
+conc:Density rdf:type owl:Class ;
+             owl:equivalentClass conc:MassConcentration ;
+             rdfs:subClassOf quan:IntensiveProperty ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty screla:hasDefaultUnit ;
+                               owl:hasValue units:kilogramPerMeterCubed
+                             ] .
+
+
+###  http://sweetontology.net/propMass/DissolvedConcentration
+conc:DissolvedConcentration rdf:type owl:Class ;
+                            rdfs:subClassOf conc:MassConcentration .
+
+
+###  http://sweetontology.net/propMass/Dosage
+conc:Dosage rdf:type owl:Class ;
+            owl:equivalentClass conc:Dose ;
+            rdfs:subClassOf conc:Mass .
+
+
+###  http://sweetontology.net/propMass/Dose
+conc:Dose rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propMass/DryWeight
+conc:DryWeight rdf:type owl:Class ;
+               rdfs:subClassOf conc:Mass ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty rela:hasState ;
+                                 owl:hasValue pstate:Dry
+                               ] .
+
+
+###  http://sweetontology.net/propMass/Ductibility
+conc:Ductibility rdf:type owl:Class ;
+                 rdfs:subClassOf conc:StrengthProperty .
+
+
+###  http://sweetontology.net/propMass/Elasticity
+conc:Elasticity rdf:type owl:Class ;
+                rdfs:subClassOf conc:StrengthProperty .
+
+
+###  http://sweetontology.net/propMass/Flexure
+conc:Flexure rdf:type owl:Class ;
+             rdfs:subClassOf conc:StrengthProperty .
+
+
+###  http://sweetontology.net/propMass/Grade
+conc:Grade rdf:type owl:Class ;
+           rdfs:subClassOf conc:MassConcentration .
+
+
+###  http://sweetontology.net/propMass/Hardness
+conc:Hardness rdf:type owl:Class ;
+              rdfs:subClassOf conc:StrengthProperty .
+
+
+###  http://sweetontology.net/propMass/Malleability
+conc:Malleability rdf:type owl:Class ;
+                  rdfs:subClassOf conc:StrengthProperty .
+
+
+###  http://sweetontology.net/propMass/Mass
+conc:Mass rdf:type owl:Class ;
+          rdfs:subClassOf quan:ExtensiveProperty ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty screla:hasDefaultUnit ;
+                            owl:hasValue units:kilogram
+                          ] .
+
+
+###  http://sweetontology.net/propMass/MassConcentration
+conc:MassConcentration rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propMass/MassContent
+conc:MassContent rdf:type owl:Class ;
+                 rdfs:subClassOf conc:Content ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty mrela:hasFirstOperand ;
+                                   owl:allValuesFrom conc:Mass
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasDefaultUnit ;
+                                   owl:hasValue units:kilogramPerMeterSquared
+                                 ] .
+
+
 ###  http://sweetontology.net/propMass/MaterialProperty
-:MaterialProperty rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/prop/PhysicalProperty> .
+conc:MaterialProperty rdf:type owl:Class ;
+                      rdfs:subClassOf prop:PhysicalProperty .
 
 
 ###  http://sweetontology.net/propMass/MeanMolecularWeight
-:MeanMolecularWeight rdf:type owl:Class ;
-                     rdfs:subClassOf :MolecularWeight .
+conc:MeanMolecularWeight rdf:type owl:Class ;
+                         rdfs:subClassOf conc:MolecularWeight .
 
 
 ###  http://sweetontology.net/propMass/MolecularWeight
-:MolecularWeight rdf:type owl:Class ;
-                 rdfs:subClassOf :MassConcentration .
+conc:MolecularWeight rdf:type owl:Class ;
+                     rdfs:subClassOf conc:MassConcentration .
 
 
 ###  http://sweetontology.net/propMass/Moles
-:Moles rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                         owl:hasValue <http://sweetontology.net/reprSciUnits/mole>
-                       ] .
+conc:Moles rdf:type owl:Class ;
+           rdfs:subClassOf quan:Quantity ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty screla:hasDefaultUnit ;
+                             owl:hasValue units:mole
+                           ] .
 
 
 ###  http://sweetontology.net/propMass/OpticalMass
-:OpticalMass rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                               owl:hasValue <http://sweetontology.net/reprSciUnits/kilogram>
-                             ] ;
-             rdfs:comment "The vertical integral of the density of absorbers between two altitudes; used mainly in determining the transmission through an absorbing gas."@en .
+conc:OpticalMass rdf:type owl:Class ;
+                 rdfs:subClassOf quan:RadiationMediumInteractionQuantity ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasDefaultUnit ;
+                                   owl:hasValue units:kilogram
+                                 ] .
 
 
 ###  http://sweetontology.net/propMass/Plasticity
-:Plasticity rdf:type owl:Class ;
-            rdfs:subClassOf :StrengthProperty .
+conc:Plasticity rdf:type owl:Class ;
+                rdfs:subClassOf conc:StrengthProperty .
 
 
 ###  http://sweetontology.net/propMass/PotentialDensity
-:PotentialDensity rdf:type owl:Class ;
-                  rdfs:subClassOf :Density ;
-                  rdfs:comment "The density of a unit of water after it is raised by an adiabatic process to the surface, i.e., determined from in-situ salinity and potential temperature (AGI, 1980). Density that would be reached by a compressible fluid if it were adiabatically compressed or expanded to a standard pressure."@en .
+conc:PotentialDensity rdf:type owl:Class ;
+                      rdfs:subClassOf conc:Density .
 
 
 ###  http://sweetontology.net/propMass/Roughness
-:Roughness rdf:type owl:Class ;
-           rdfs:subClassOf :MaterialProperty .
+conc:Roughness rdf:type owl:Class ;
+               rdfs:subClassOf conc:MaterialProperty .
 
 
 ###  http://sweetontology.net/propMass/SigmaT
-:SigmaT rdf:type owl:Class ;
-        rdfs:subClassOf :Density .
+conc:SigmaT rdf:type owl:Class ;
+            rdfs:subClassOf conc:Density .
 
 
 ###  http://sweetontology.net/propMass/Softness
-:Softness rdf:type owl:Class ;
-          rdfs:subClassOf :StrengthProperty .
+conc:Softness rdf:type owl:Class ;
+              rdfs:subClassOf conc:StrengthProperty .
 
 
 ###  http://sweetontology.net/propMass/SolidProperty
-:SolidProperty rdf:type owl:Class ;
-               rdfs:subClassOf :MaterialProperty .
+conc:SolidProperty rdf:type owl:Class ;
+                   rdfs:subClassOf conc:MaterialProperty .
 
 
 ###  http://sweetontology.net/propMass/Solidity
-:Solidity rdf:type owl:Class ;
-          owl:equivalentClass :Solidness ;
-          rdfs:subClassOf :StrengthProperty .
+conc:Solidity rdf:type owl:Class ;
+              owl:equivalentClass conc:Solidness ;
+              rdfs:subClassOf conc:StrengthProperty .
 
 
 ###  http://sweetontology.net/propMass/Solidness
-:Solidness rdf:type owl:Class .
+conc:Solidness rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/SpecificVolume
-:SpecificVolume rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/propQuantity/IntensiveProperty> ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                  owl:hasValue <http://sweetontology.net/reprSciUnits/meterCubedPerKilogram>
-                                ] ;
-                rdfs:comment "1. The ratio of the mass of any substance to the volume occupied by it (usually expressed in kilograms per cubic meter, but any other unit system may be used); the reciprocal of specific volume."@en .
+conc:SpecificVolume rdf:type owl:Class ;
+                    rdfs:subClassOf quan:IntensiveProperty ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty screla:hasDefaultUnit ;
+                                      owl:hasValue units:meterCubedPerKilogram
+                                    ] .
 
 
 ###  http://sweetontology.net/propMass/StrengthProperty
-:StrengthProperty rdf:type owl:Class ;
-                  rdfs:subClassOf :SolidProperty .
+conc:StrengthProperty rdf:type owl:Class ;
+                      rdfs:subClassOf conc:SolidProperty .
 
 
 ###  http://sweetontology.net/propMass/Structure
-:Structure rdf:type owl:Class ;
-           rdfs:subClassOf :StrengthProperty .
+conc:Structure rdf:type owl:Class ;
+               rdfs:subClassOf conc:StrengthProperty .
 
 
 ###  http://sweetontology.net/propMass/Texture
-:Texture rdf:type owl:Class ;
-         rdfs:subClassOf :ConsistenceProperty .
+conc:Texture rdf:type owl:Class ;
+             rdfs:subClassOf conc:ConsistenceProperty .
 
 
 ###  http://sweetontology.net/propQuantity/ExtensiveProperty
-<http://sweetontology.net/propQuantity/ExtensiveProperty> rdf:type owl:Class .
+quan:ExtensiveProperty rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/IntensiveProperty
-<http://sweetontology.net/propQuantity/IntensiveProperty> rdf:type owl:Class .
+quan:IntensiveProperty rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/Quantity
-<http://sweetontology.net/propQuantity/Quantity> rdf:type owl:Class .
+quan:Quantity rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity
-<http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> rdf:type owl:Class .
+quan:RadiationMediumInteractionQuantity rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceMultidimensional/Area
-<http://sweetontology.net/propSpaceMultidimensional/Area> rdf:type owl:Class .
+mult:Area rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/Ratio
-<http://sweetontology.net/reprMathOperation/Ratio> rdf:type owl:Class .
+oper:Ratio rdf:type owl:Class .
 
 
 #################################################################
@@ -293,27 +299,27 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/kilogram
-<http://sweetontology.net/reprSciUnits/kilogram> rdf:type owl:NamedIndividual .
+units:kilogram rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogramPerMeterCubed
-<http://sweetontology.net/reprSciUnits/kilogramPerMeterCubed> rdf:type owl:NamedIndividual .
+units:kilogramPerMeterCubed rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogramPerMeterSquared
-<http://sweetontology.net/reprSciUnits/kilogramPerMeterSquared> rdf:type owl:NamedIndividual .
+units:kilogramPerMeterSquared rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterCubedPerKilogram
-<http://sweetontology.net/reprSciUnits/meterCubedPerKilogram> rdf:type owl:NamedIndividual .
+units:meterCubedPerKilogram rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/mole
-<http://sweetontology.net/reprSciUnits/mole> rdf:type owl:NamedIndividual .
+units:mole rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Dry
-<http://sweetontology.net/statePhysical/Dry> rdf:type owl:NamedIndividual .
+pstate:Dry rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

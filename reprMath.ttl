@@ -3,7 +3,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix math: <http://sweetontology.net/reprMath/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix repr: <http://sweetontology.net/repr/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix mrela2: <http://sweetontology.net/relaMath/> .
 @base <http://sweetontology.net/reprMath> .
 
 <http://sweetontology.net/reprMath> rdf:type owl:Ontology ;
@@ -17,198 +21,195 @@
 #################################################################
 
 ###  http://sweetontology.net/reprMath/Array
-:Array rdf:type owl:Class ;
-       rdfs:subClassOf :Seq .
+math:Array rdf:type owl:Class ;
+           rdfs:subClassOf math:Seq .
 
 
 ###  http://sweetontology.net/reprMath/Bag
-:Bag rdf:type owl:Class ;
-     owl:equivalentClass :Multiset ;
-     rdfs:subClassOf :Container .
+math:Bag rdf:type owl:Class ;
+         owl:equivalentClass math:Multiset ;
+         rdfs:subClassOf math:Container .
 
 
 ###  http://sweetontology.net/reprMath/Collection
-:Collection rdf:type owl:Class ;
-            rdfs:subClassOf :NumericalEntity .
+math:Collection rdf:type owl:Class ;
+                rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/Constant
-:Constant rdf:type owl:Class ;
-          rdfs:subClassOf :NumericalEntity .
+math:Constant rdf:type owl:Class ;
+              rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/Container
-:Container rdf:type owl:Class ;
-           rdfs:subClassOf :NumericalEntity .
+math:Container rdf:type owl:Class ;
+               rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/Equation
-:Equation rdf:type owl:Class ;
-          rdfs:subClassOf :Relation ;
-          rdfs:comment "An equation is a mathematical statement, in symbols, that two things are exactly the same (or equivalent). [Wikipedia]"@en .
+math:Equation rdf:type owl:Class ;
+              rdfs:subClassOf math:Relation .
 
 
 ###  http://sweetontology.net/reprMath/Exponent
-:Exponent rdf:type owl:Class ;
-          rdfs:subClassOf :NumericalEntity .
+math:Exponent rdf:type owl:Class ;
+              rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/FuzzyPoint
-:FuzzyPoint rdf:type owl:Class ;
-            rdfs:subClassOf :Neighborhood .
+math:FuzzyPoint rdf:type owl:Class ;
+                rdfs:subClassOf math:Neighborhood .
 
 
 ###  http://sweetontology.net/reprMath/FuzzySet
-:FuzzySet rdf:type owl:Class ;
-          rdfs:subClassOf :NumericalEntity .
+math:FuzzySet rdf:type owl:Class ;
+              rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/Inequality
-:Inequality rdf:type owl:Class ;
-            rdfs:subClassOf :Relation .
+math:Inequality rdf:type owl:Class ;
+                rdfs:subClassOf math:Relation .
 
 
 ###  http://sweetontology.net/reprMath/Interval
-:Interval rdf:type owl:Class ;
-          rdfs:subClassOf :NumericalEntity ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaMath/hasDimension> ;
-                            owl:hasValue 1
-                          ] ;
-          owl:disjointWith :Point .
+math:Interval rdf:type owl:Class ;
+              rdfs:subClassOf math:NumericalEntity ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty mrela2:hasDimension ;
+                                owl:hasValue 1
+                              ] ;
+              owl:disjointWith math:Point .
 
 
 ###  http://sweetontology.net/reprMath/Matrix
-:Matrix rdf:type owl:Class ;
-        rdfs:subClassOf :Seq ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
-                          owl:allValuesFrom :Array
-                        ] .
+math:Matrix rdf:type owl:Class ;
+            rdfs:subClassOf math:Seq ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela2:eachElementHasType ;
+                              owl:allValuesFrom math:Array
+                            ] .
 
 
 ###  http://sweetontology.net/reprMath/Multiset
-:Multiset rdf:type owl:Class .
+math:Multiset rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMath/Neighborhood
-:Neighborhood rdf:type owl:Class ;
-              rdfs:subClassOf :NumericalEntity .
+math:Neighborhood rdf:type owl:Class ;
+                  rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/NumericalEntity
-:NumericalEntity rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/repr/Representation> .
+math:NumericalEntity rdf:type owl:Class ;
+                     rdfs:subClassOf repr:Representation .
 
 
 ###  http://sweetontology.net/reprMath/Order
-:Order rdf:type owl:Class ;
-       owl:equivalentClass :Seq .
+math:Order rdf:type owl:Class ;
+           owl:equivalentClass math:Seq .
 
 
 ###  http://sweetontology.net/reprMath/OrderedPair
-:OrderedPair rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/repr/2D> ,
-                             :Array ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
-                               owl:cardinality "1"^^xsd:nonNegativeInteger
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
-                               owl:cardinality "1"^^xsd:nonNegativeInteger
-                             ] .
+math:OrderedPair rdf:type owl:Class ;
+                 rdfs:subClassOf repr:D ,
+                                 math:Array ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty mrela2:hasFirstOperand ;
+                                   owl:cardinality "1"^^xsd:nonNegativeInteger
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty mrela2:hasSecondOperand ;
+                                   owl:cardinality "1"^^xsd:nonNegativeInteger
+                                 ] .
 
 
 ###  http://sweetontology.net/reprMath/OrderedTriple
-:OrderedTriple rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/repr/3D> ,
-                               :Array ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
-                                 owl:cardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
-                                 owl:cardinality "1"^^xsd:nonNegativeInteger
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaMath/hasThirdOperand> ;
-                                 owl:cardinality "1"^^xsd:nonNegativeInteger
-                               ] .
+math:OrderedTriple rdf:type owl:Class ;
+                   rdfs:subClassOf repr:D ,
+                                   math:Array ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty mrela2:hasFirstOperand ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty mrela2:hasSecondOperand ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty mrela2:hasThirdOperand ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] .
 
 
 ###  http://sweetontology.net/reprMath/Point
-:Point rdf:type owl:Class ;
-       rdfs:subClassOf :NumericalEntity ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/relaMath/hasDimension> ;
-                         owl:hasValue 0
-                       ] .
+math:Point rdf:type owl:Class ;
+           rdfs:subClassOf math:NumericalEntity ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty mrela2:hasDimension ;
+                             owl:hasValue 0
+                           ] .
 
 
 ###  http://sweetontology.net/reprMath/Relation
-:Relation rdf:type owl:Class ;
-          rdfs:subClassOf :NumericalEntity ;
-          rdfs:comment "In mathematics, the concept of a relation is a generalization of 2-place relations, such as the relation of equality, less than, greater than, etc.. [Wikipedia]"@en .
+math:Relation rdf:type owl:Class ;
+              rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/Scalar
-:Scalar rdf:type owl:Class ;
-        rdfs:subClassOf :NumericalEntity ;
-        owl:disjointWith :Vector .
+math:Scalar rdf:type owl:Class ;
+            rdfs:subClassOf math:NumericalEntity ;
+            owl:disjointWith math:Vector .
 
 
 ###  http://sweetontology.net/reprMath/Seq
-:Seq rdf:type owl:Class ;
-     owl:equivalentClass :Sequence ;
-     rdfs:subClassOf :Container .
+math:Seq rdf:type owl:Class ;
+         owl:equivalentClass math:Sequence ;
+         rdfs:subClassOf math:Container .
 
 
 ###  http://sweetontology.net/reprMath/Sequence
-:Sequence rdf:type owl:Class .
+math:Sequence rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMath/Set
-:Set rdf:type owl:Class ;
-     rdfs:subClassOf :Bag .
+math:Set rdf:type owl:Class ;
+         rdfs:subClassOf math:Bag .
 
 
 ###  http://sweetontology.net/reprMath/Tensor
-:Tensor rdf:type owl:Class ;
-        rdfs:subClassOf :Seq ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
-                          owl:allValuesFrom :Matrix
-                        ] .
+math:Tensor rdf:type owl:Class ;
+            rdfs:subClassOf math:Seq ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela2:eachElementHasType ;
+                              owl:allValuesFrom math:Matrix
+                            ] .
 
 
 ###  http://sweetontology.net/reprMath/UnorderedPair
-:UnorderedPair rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/repr/2D> ,
-                               :Bag .
+math:UnorderedPair rdf:type owl:Class ;
+                   rdfs:subClassOf repr:D ,
+                                   math:Bag .
 
 
 ###  http://sweetontology.net/reprMath/Variable
-:Variable rdf:type owl:Class ;
-          rdfs:subClassOf :NumericalEntity .
+math:Variable rdf:type owl:Class ;
+              rdfs:subClassOf math:NumericalEntity .
 
 
 ###  http://sweetontology.net/reprMath/Vector
-:Vector rdf:type owl:Class ;
-        rdfs:subClassOf :Array ;
-        rdfs:comment "Any quantity, such as force, velocity, or acceleration, that has both magnitude and direction at each point in space, as opposed to a scalar that has magnitude only."@en .
+math:Vector rdf:type owl:Class ;
+            rdfs:subClassOf math:Array .
 
 
 ###  http://sweetontology.net/reprMath/Vector_3D
-:Vector_3D rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/repr/3D> ,
-                           :Vector .
+math:Vector_3D rdf:type owl:Class ;
+               rdfs:subClassOf repr:D ,
+                               math:Vector .
 
 
 ###  http://sweetontology.net/reprMath/Window
-:Window rdf:type owl:Class ;
-        rdfs:subClassOf :Interval .
+math:Window rdf:type owl:Class ;
+            rdfs:subClassOf math:Interval .
 
 
 #################################################################
@@ -216,10 +217,10 @@
 #################################################################
 
 ###  http://sweetontology.net/reprMath/NormalizedRange
-:NormalizedRange rdf:type owl:NamedIndividual ,
-                          :Interval ;
-                 <http://sweetontology.net/relaMath/hasLowerBound> "0.0"^^xsd:double ;
-                 <http://sweetontology.net/relaMath/hasUpperBound> "1.0"^^xsd:double .
+math:NormalizedRange rdf:type owl:NamedIndividual ,
+                              math:Interval ;
+                     mrela2:hasLowerBound "0.0"^^xsd:double ;
+                     mrela2:hasUpperBound "1.0"^^xsd:double .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

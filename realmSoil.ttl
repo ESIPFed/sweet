@@ -1,9 +1,15 @@
 @prefix : <http://sweetontology.net/realmSoil/> .
+@prefix mix: <http://sweetontology.net/phenMixing/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cate: <http://sweetontology.net/propCategorical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix cstate: <http://sweetontology.net/statePhysical/> .
 @base <http://sweetontology.net/realmSoil> .
 
 <http://sweetontology.net/realmSoil> rdf:type owl:Ontology ;
@@ -29,10 +35,9 @@
 :ActiveLayer rdf:type owl:Class ;
              rdfs:subClassOf :SoilLayer ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/rela/partOf> ;
+                               owl:onProperty rela:partOf ;
                                owl:someValuesFrom :Permafrost
-                             ] ;
-             rdfs:comment "In environments containing permafrost, the active layer is the top layer of soil that thaws during the summer and freezes again during the autumn."@en .
+                             ] .
 
 
 ###  http://sweetontology.net/realmSoil/Alfisol
@@ -74,18 +79,17 @@
 :Gelisol rdf:type owl:Class ;
          rdfs:subClassOf :SoilOrder ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-                           owl:allValuesFrom <http://sweetontology.net/phenMixing/Cryoturbation>
-                         ] ;
-         rdfs:comment "Gelisols are soils of very cold climates which are defined as containing permafrost within two metres of the soil surface. The word Gelisol comes from the Latin gelare meaning to freeze, a reference to the process of cryoturbation that occurs from the alternating thawing and freezing characteristic of Gelisols."@en .
+                           owl:onProperty rela:hasProcess ;
+                           owl:allValuesFrom mix:Cryoturbation
+                         ] .
 
 
 ###  http://sweetontology.net/realmSoil/Ground
 :Ground rdf:type owl:Class ;
         rdfs:subClassOf :SoilLayer ,
                         [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                          owl:hasValue <http://sweetontology.net/statePhysical/Solid>
+                          owl:onProperty rela:hasState ;
+                          owl:hasValue cstate:Solid
                         ] .
 
 
@@ -113,11 +117,11 @@
 :OrganicMatter rdf:type owl:Class ;
                rdfs:subClassOf :SoilLayer ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSpace/above> ;
+                                 owl:onProperty srela:above ;
                                  owl:someValuesFrom :P_Horizon
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty <http://sweetontology.net/relaSpace/above> ;
+                                 owl:onProperty srela:above ;
                                  owl:someValuesFrom :Topsoil
                                ] .
 
@@ -146,8 +150,8 @@
 :Permafrost rdf:type owl:Class ;
             rdfs:subClassOf :SoilLayer ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                              owl:hasValue <http://sweetontology.net/statePhysical/Frozen>
+                              owl:onProperty rela:hasState ;
+                              owl:hasValue cstate:Frozen
                             ] .
 
 
@@ -163,12 +167,12 @@
 
 ###  http://sweetontology.net/realmSoil/SoilLayer
 :SoilLayer rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryLayer> .
+           rdfs:subClassOf realm:PlanetaryLayer .
 
 
 ###  http://sweetontology.net/realmSoil/SoilOrder
 :SoilOrder rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/propCategorical/Classification> .
+           rdfs:subClassOf cate:Classification .
 
 
 ###  http://sweetontology.net/realmSoil/Spodosol
@@ -180,7 +184,7 @@
 :Subsoil rdf:type owl:Class ;
          rdfs:subClassOf :SoilLayer ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSpace/above> ;
+                           owl:onProperty srela:above ;
                            owl:someValuesFrom :ParentRock
                          ] .
 
@@ -204,7 +208,7 @@
 :Talik rdf:type owl:Class ;
        rdfs:subClassOf :SoilLayer ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://sweetontology.net/rela/partOf> ;
+                         owl:onProperty rela:partOf ;
                          owl:allValuesFrom :Permafrost
                        ] .
 
@@ -213,7 +217,7 @@
 :Topsoil rdf:type owl:Class ;
          rdfs:subClassOf :SoilLayer ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/relaSpace/above> ;
+                           owl:onProperty srela:above ;
                            owl:someValuesFrom :Subsoil
                          ] .
 

@@ -1,9 +1,21 @@
 @prefix : <http://sweetontology.net/phenFluidInstability/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sys: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sysc: <http://sweetontology.net/phenSystemComplexity/> .
+@prefix fluid: <http://sweetontology.net/phenFluidDynamics/> .
+@prefix front: <http://sweetontology.net/phenAtmoFront/> .
+@prefix scale: <http://sweetontology.net/stateSpaceScale/> .
+@prefix tempg: <http://sweetontology.net/propTemperatureGradient/> .
+@prefix instab: <http://sweetontology.net/phenFluidInstability/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sstate: <http://sweetontology.net/stateSystem/> .
+@prefix tstate: <http://sweetontology.net/stateThermodynamic/> .
 @base <http://sweetontology.net/phenFluidInstability> .
 
 <http://sweetontology.net/phenFluidInstability> rdf:type owl:Ontology ;
@@ -26,15 +38,15 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasState
-<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
+rela:hasState rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasQuantity
-<http://sweetontology.net/relaSci/hasQuantity> rdf:type owl:ObjectProperty .
+screla:hasQuantity rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -42,142 +54,128 @@
 #################################################################
 
 ###  http://sweetontology.net/phenFluidInstability/AbsoluteInstability
-:AbsoluteInstability rdf:type owl:Class ;
-                     rdfs:subClassOf :FluidInstability ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                       owl:hasValue <http://sweetontology.net/stateThermodynamic/Superadiabatic>
-                                     ] ;
-                     rdfs:comment "state of a layer of atmosphere when it has superadiabatic lapse rate of temperature" ;
-                     rdfs:label "Absolute Instability" .
+instab:AbsoluteInstability rdf:type owl:Class ;
+                           rdfs:subClassOf instab:FluidInstability ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty rela:hasState ;
+                                             owl:hasValue tstate:Superadiabatic
+                                           ] .
 
 
 ###  http://sweetontology.net/phenFluidInstability/ConditionalInstability
-:ConditionalInstability rdf:type owl:Class ;
-                        rdfs:subClassOf :FluidInstability ;
-                        rdfs:comment "The state of a layer of unsaturated air when its lapse rate of temperature is less than the dry-adiabatic lapse rate but greater than the moist-adiabatic lapse rate."@en .
+instab:ConditionalInstability rdf:type owl:Class ;
+                              rdfs:subClassOf instab:FluidInstability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/ConvectiveInstability
-:ConvectiveInstability rdf:type owl:Class ;
-                       rdfs:subClassOf :FluidInstability ;
-                       rdfs:comment "An instability due to the buoyancy force of heavy fluid over light fluid overcoming the stabilizing influence of viscous forces."@en .
+instab:ConvectiveInstability rdf:type owl:Class ;
+                             rdfs:subClassOf instab:FluidInstability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/FluidInstability
-:FluidInstability rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ,
-                                  <http://sweetontology.net/stateSystem/Instability> .
+instab:FluidInstability rdf:type owl:Class ;
+                        rdfs:subClassOf fluid:FluidPhenomena ,
+                                        sstate:Instability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/FreeInstability
-:FreeInstability rdf:type owl:Class ;
-                 rdfs:subClassOf :FluidInstability ;
-                 rdfs:comment "The state of a layer of unsaturated air when its lapse rate of temperature is less than the dry-adiabatic lapse rate but greater than the moist-adiabatic lapse rate."@en .
+instab:FreeInstability rdf:type owl:Class ;
+                       rdfs:subClassOf instab:FluidInstability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/FrontalInversion
-:FrontalInversion rdf:type owl:Class ;
-                  rdfs:subClassOf :Inversion ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                    owl:allValuesFrom <http://sweetontology.net/phenAtmoFront/Front>
-                                  ] ;
-                  rdfs:comment "A temperature inversion (temperature rising with height) in the atmosphere, encountered upon vertical ascent through a sloping front (or frontal zone)."@en .
+instab:FrontalInversion rdf:type owl:Class ;
+                        rdfs:subClassOf instab:Inversion ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty rela:hasPhenomena ;
+                                          owl:allValuesFrom front:Front
+                                        ] .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Inversion
-:Inversion rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSci/hasQuantity> ;
-                             owl:allValuesFrom <http://sweetontology.net/propTemperatureGradient/TemperatureGradient>
-                           ] ;
-           rdfs:comment "In meteorology, a departure from the usual decrease or increase with altitude of the value of an atmospheric quantity; also, the layer through which this departure occurs (the inversion layer), or the lowest altitude at which the departure is found (the base of the inversion)."@en .
+instab:Inversion rdf:type owl:Class ;
+                 rdfs:subClassOf fluid:FluidPhenomena ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasQuantity ;
+                                   owl:allValuesFrom tempg:TemperatureGradient
+                                 ] .
 
 
 ###  http://sweetontology.net/phenFluidInstability/KelvinHelmholtzInstability
-:KelvinHelmholtzInstability rdf:type owl:Class ;
-                            rdfs:subClassOf :FluidInstability ;
-                            rdfs:comment "An instability of the basic flow of an incompressible inviscid fluid in two parallel infinite streams of different velocities and densities."@en .
+instab:KelvinHelmholtzInstability rdf:type owl:Class ;
+                                  rdfs:subClassOf instab:FluidInstability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/LargeReynoldsNumberFlow
-:LargeReynoldsNumberFlow rdf:type owl:Class ;
-                         rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> ;
-                         rdfs:comment "The behavior of a fluid with a Reynolds number typically greater than 1E4 to 1E6, which usually occurs within the atmosphere. The main property of such flows is a constant friction stress within the surface layer that depends only on relative roughness but not on the Reynolds number itself. Thus, molecular viscosity and qualities occurring in flow descriptions that are dependent on the Reynolds number may be totally ignored."@en .
+instab:LargeReynoldsNumberFlow rdf:type owl:Class ;
+                               rdfs:subClassOf fluid:Flow .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lift
-:Lift rdf:type owl:Class ;
-      owl:equivalentClass :Lifting ;
-      rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> .
+instab:Lift rdf:type owl:Class ;
+            owl:equivalentClass instab:Lifting ;
+            rdfs:subClassOf fluid:FluidPhenomena .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lifting
-:Lifting rdf:type owl:Class .
+instab:Lifting rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenFluidInstability/MechanicalTurbulence
-:MechanicalTurbulence rdf:type owl:Class ;
-                      rdfs:subClassOf :Turbulence ;
-                      rdfs:comment "Turbulence produced by shear flow."@en .
+instab:MechanicalTurbulence rdf:type owl:Class ;
+                            rdfs:subClassOf instab:Turbulence .
 
 
 ###  http://sweetontology.net/phenFluidInstability/RayleighTaylorInstability
-:RayleighTaylorInstability rdf:type owl:Class ;
-                           rdfs:subClassOf :FluidInstability .
+instab:RayleighTaylorInstability rdf:type owl:Class ;
+                                 rdfs:subClassOf instab:FluidInstability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/StaticStability
-:StaticStability rdf:type owl:Class ;
-                 rdfs:subClassOf :FluidInstability ;
-                 rdfs:comment "The ability of a fluid at rest to become turbulent or laminar due to the effects of buoyancy."@en .
+instab:StaticStability rdf:type owl:Class ;
+                       rdfs:subClassOf instab:FluidInstability .
 
 
 ###  http://sweetontology.net/phenFluidInstability/TearingMode
-:TearingMode rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/stateSystem/Instability> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                               owl:hasValue <http://sweetontology.net/statePhysical/Plasma>
-                             ] .
+instab:TearingMode rdf:type owl:Class ;
+                   rdfs:subClassOf sstate:Instability ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty rela:hasState ;
+                                     owl:hasValue pstate:Plasma
+                                   ] .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Turbulence
-:Turbulence rdf:type owl:Class ;
-            rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ,
-                            <http://sweetontology.net/phenSystemComplexity/Fluctuation> ;
-            rdfs:comment "Irregular fluctuations occurring in fluid motions."@en .
+instab:Turbulence rdf:type owl:Class ;
+                  rdfs:subClassOf fluid:FluidPhenomena ,
+                                  sysc:Fluctuation .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Wake
-:Wake rdf:type owl:Class ;
-      rdfs:subClassOf :Turbulence ;
-      rdfs:comment "The region of turbulence immediately to the rear of a solid body in motion relative to a fluid"@en .
+instab:Wake rdf:type owl:Class ;
+            rdfs:subClassOf instab:Turbulence .
 
 
 ###  http://sweetontology.net/phenFluidInstability/ZombieTurbulence
-:ZombieTurbulence rdf:type owl:Class ;
-                  rdfs:subClassOf :Turbulence ,
-                                  <http://sweetontology.net/phenSystem/Perturbation> ;
-                  rdfs:comment "The turbulent perturbations of temperature remaining in a stable boundary layer after all turbulent motions have died out."@en .
+instab:ZombieTurbulence rdf:type owl:Class ;
+                        rdfs:subClassOf instab:Turbulence ,
+                                        sys:Perturbation .
 
 
 ###  http://sweetontology.net/phenSystem/Perturbation
-<http://sweetontology.net/phenSystem/Perturbation> rdf:type owl:Class .
+sys:Perturbation rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenSystemComplexity/Fluctuation
-<http://sweetontology.net/phenSystemComplexity/Fluctuation> rdf:type owl:Class .
+sysc:Fluctuation rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propTemperatureGradient/TemperatureGradient
-<http://sweetontology.net/propTemperatureGradient/TemperatureGradient> rdf:type owl:Class .
+tempg:TemperatureGradient rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/stateSystem/Instability
-<http://sweetontology.net/stateSystem/Instability> rdf:type owl:Class .
+sstate:Instability rdf:type owl:Class .
 
 
 #################################################################
@@ -185,11 +183,11 @@
 #################################################################
 
 ###  http://sweetontology.net/statePhysical/Plasma
-<http://sweetontology.net/statePhysical/Plasma> rdf:type owl:NamedIndividual .
+pstate:Plasma rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Superadiabatic
-<http://sweetontology.net/stateThermodynamic/Superadiabatic> rdf:type owl:NamedIndividual .
+tstate:Superadiabatic rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

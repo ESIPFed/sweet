@@ -1,9 +1,19 @@
 @prefix : <http://sweetontology.net/realmLandAeolian/> .
+@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sed: <http://sweetontology.net/matrSediment/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix aeol: <http://sweetontology.net/realmLandAeolian/> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix land: <http://sweetontology.net/realmLandform/> .
+@prefix phen: <http://sweetontology.net/phen/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix geomor: <http://sweetontology.net/phenGeolGeomorphology/> .
 @base <http://sweetontology.net/realmLandAeolian> .
 
 <http://sweetontology.net/realmLandAeolian> rdf:type owl:Ontology ;
@@ -24,15 +34,15 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasSpatialExtent
-<http://sweetontology.net/relaSpace/hasSpatialExtent> rdf:type owl:ObjectProperty .
+srela:hasSpatialExtent rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -40,87 +50,84 @@
 #################################################################
 
 ###  http://sweetontology.net/realmLandAeolian/Aeolian
-:Aeolian rdf:type owl:Class ;
-         owl:equivalentClass :Eolian ;
-         rdfs:subClassOf <http://sweetontology.net/phenGeolGeomorphology/Weathering> ;
-         rdfs:comment "Aeolian (or Eolian or Æolian) processes pertain to the activity of the winds and more specifically, to the winds' ability to shape the surface of the Earth and other planets. Winds may erode, transport, and deposit materials, and are effective agents in regions with sparse vegetation and a large supply of unconsolidated sediments. [Wikipedia]"@en .
+aeol:Aeolian rdf:type owl:Class ;
+             owl:equivalentClass aeol:Eolian ;
+             rdfs:subClassOf geomor:Weathering .
 
 
 ###  http://sweetontology.net/realmLandAeolian/AeolianLandform
-:AeolianLandform rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                   owl:allValuesFrom :Eolian
-                                 ] .
+aeol:AeolianLandform rdf:type owl:Class ;
+                     rdfs:subClassOf land:Landform ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasPhenomena ;
+                                       owl:allValuesFrom aeol:Eolian
+                                     ] .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Barchan
-:Barchan rdf:type owl:Class ;
-         rdfs:subClassOf :Dune .
+aeol:Barchan rdf:type owl:Class ;
+             rdfs:subClassOf aeol:Dune .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Desert
-:Desert rdf:type owl:Class ;
-        rdfs:subClassOf :AeolianLandform ;
-        rdfs:comment "A desert is a landscape form or region that receives very little precipitation."@en .
+aeol:Desert rdf:type owl:Class ;
+            rdfs:subClassOf aeol:AeolianLandform .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Dune
-:Dune rdf:type owl:Class ;
-      owl:equivalentClass :SandDune ;
-      rdfs:subClassOf :AeolianLandform ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                        owl:allValuesFrom <http://sweetontology.net/matrSediment/Sand>
-                      ] ;
-      rdfs:comment "A dune is a hill of sand built by eolian processes. Dunes are subject to different forms and sizes based on their interaction with the wind. Most kinds of dune are longer on the windward side where the sand is pushed up the dune, and a shorter slip face in the lee of the wind. The valley or trough between dunes is called a slack. A dune field is an area covered by extensive sand dunes. Large dune fields are known as ergs"@en .
+aeol:Dune rdf:type owl:Class ;
+          owl:equivalentClass aeol:SandDune ;
+          rdfs:subClassOf aeol:AeolianLandform ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty crela:hasSubstance ;
+                            owl:allValuesFrom sed:Sand
+                          ] .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Eolian
-:Eolian rdf:type owl:Class .
+aeol:Eolian rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Erg
-:Erg rdf:type owl:Class ;
-     rdfs:subClassOf :AeolianLandform .
+aeol:Erg rdf:type owl:Class ;
+         rdfs:subClassOf aeol:AeolianLandform .
 
 
 ###  http://sweetontology.net/realmLandAeolian/HighDesert
-:HighDesert rdf:type owl:Class ;
-            rdfs:subClassOf :Desert ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialExtent> ;
-                              owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/Elevation>
-                            ] .
+aeol:HighDesert rdf:type owl:Class ;
+                rdfs:subClassOf aeol:Desert ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty srela:hasSpatialExtent ;
+                                  owl:allValuesFrom ht:Elevation
+                                ] .
 
 
 ###  http://sweetontology.net/realmLandAeolian/SandDune
-:SandDune rdf:type owl:Class .
+aeol:SandDune rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Seif
-:Seif rdf:type owl:Class ;
-      rdfs:subClassOf :Dune .
+aeol:Seif rdf:type owl:Class ;
+          rdfs:subClassOf aeol:Dune .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Slack
-:Slack rdf:type owl:Class ;
-       rdfs:subClassOf :AeolianLandform .
+aeol:Slack rdf:type owl:Class ;
+           rdfs:subClassOf aeol:AeolianLandform .
 
 
 ###  http://sweetontology.net/realmLandAeolian/SlipFace
-:SlipFace rdf:type owl:Class ;
-          rdfs:subClassOf :AeolianLandform .
+aeol:SlipFace rdf:type owl:Class ;
+              rdfs:subClassOf aeol:AeolianLandform .
 
 
 ###  http://sweetontology.net/realmLandAeolian/Yardang
-:Yardang rdf:type owl:Class ;
-         rdfs:subClassOf :AeolianLandform .
+aeol:Yardang rdf:type owl:Class ;
+             rdfs:subClassOf aeol:AeolianLandform .
 
 
 ###  http://sweetontology.net/realmLandform/Landform
-<http://sweetontology.net/realmLandform/Landform> rdf:type owl:Class .
+land:Landform rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

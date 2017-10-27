@@ -1,9 +1,19 @@
 @prefix : <http://sweetontology.net/propRotation/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rot: <http://sweetontology.net/propRotation/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dyna: <http://sweetontology.net/propSpeed/> .
+@prefix freq: <http://sweetontology.net/propTimeFrequency/> .
+@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix prop: <http://sweetontology.net/prop/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propRotation> .
 
 <http://sweetontology.net/propRotation> rdf:type owl:Ontology ;
@@ -24,11 +34,11 @@
 #################################################################
 
 ###  http://sweetontology.net/relaMath/hasInput
-<http://sweetontology.net/relaMath/hasInput> rdf:type owl:ObjectProperty .
+mrela:hasInput rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasOutput
-<http://sweetontology.net/relaMath/hasOutput> rdf:type owl:ObjectProperty .
+mrela:hasOutput rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -36,160 +46,156 @@
 #################################################################
 
 ###  http://sweetontology.net/propRotation/AbsoluteVorticity
-:AbsoluteVorticity rdf:type owl:Class ;
-                   rdfs:subClassOf :Vorticity ;
-                   rdfs:label "Absolute Vorticity" .
+rot:AbsoluteVorticity rdf:type owl:Class ;
+                      rdfs:subClassOf rot:Vorticity .
 
 
 ###  http://sweetontology.net/propRotation/AngularAcceleration
-:AngularAcceleration rdf:type owl:Class ;
-                     rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> ,
-                                     <http://sweetontology.net/propQuantity/VectorQuantity> ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                       owl:hasValue <http://sweetontology.net/reprSciUnits/radianPerSecondSquared>
-                                     ] .
+rot:AngularAcceleration rdf:type owl:Class ;
+                        rdfs:subClassOf prop:AngularMotionProperty ,
+                                        quan:VectorQuantity ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty screla:hasDefaultUnit ;
+                                          owl:hasValue units:radianPerSecondSquared
+                                        ] .
 
 
 ###  http://sweetontology.net/propRotation/AngularMomentum
-:AngularMomentum rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/propSpeed/Momentum> ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                   owl:hasValue <http://sweetontology.net/reprSciUnits/kilogramRadianPerSecond>
-                                 ] ;
-                 rdfs:comment "In physics, the angular momentum of an object rotating about some reference point is the measure of the extent to which the object will continue to rotate about that point unless acted upon by an external torque. In particular, if a point mass rotates about an axis, then the angular momentum with respect to a point on the axis is related to the mass of the object, the velocity and the distance of the mass to the axis. While the motion associated with linear momentum has no absolute frame of reference, the rotation associated with angular momentum is sometimes spoken of as being measured relative to the fixed stars."@en .
+rot:AngularMomentum rdf:type owl:Class ;
+                    rdfs:subClassOf dyna:Momentum ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty screla:hasDefaultUnit ;
+                                      owl:hasValue units:kilogramRadianPerSecond
+                                    ] .
 
 
 ###  http://sweetontology.net/propRotation/AngularVelocity
-:AngularVelocity rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> ,
-                                 <http://sweetontology.net/propQuantity/VectorQuantity> ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                   owl:hasValue <http://sweetontology.net/reprSciUnits/radianPerSecond>
-                                 ] .
+rot:AngularVelocity rdf:type owl:Class ;
+                    rdfs:subClassOf prop:AngularMotionProperty ,
+                                    quan:VectorQuantity ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty screla:hasDefaultUnit ;
+                                      owl:hasValue units:radianPerSecond
+                                    ] .
 
 
 ###  http://sweetontology.net/propRotation/Circulation
-:Circulation rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/reprMathOperation/LineIntegral> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
-                               owl:allValuesFrom <http://sweetontology.net/reprMathFunction/VectorField>
-                             ] .
+rot:Circulation rdf:type owl:Class ;
+                rdfs:subClassOf oper:LineIntegral ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty mrela:hasInput ;
+                                  owl:allValuesFrom func:VectorField
+                                ] .
 
 
 ###  http://sweetontology.net/propRotation/CoriolisParameter
-:CoriolisParameter rdf:type owl:Class ;
-                   rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalConstant> ,
-                                   <http://sweetontology.net/propTimeFrequency/Frequency> .
+rot:CoriolisParameter rdf:type owl:Class ;
+                      rdfs:subClassOf quan:PhysicalConstant ,
+                                      freq:Frequency .
 
 
 ###  http://sweetontology.net/propRotation/Curl
-:Curl rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ,
-                      [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://sweetontology.net/relaMath/hasOutput> ;
-                        owl:allValuesFrom <http://sweetontology.net/reprMathFunction/VectorField>
-                      ] .
+rot:Curl rdf:type owl:Class ;
+         rdfs:subClassOf oper:VectorFieldOperation ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty mrela:hasOutput ;
+                           owl:allValuesFrom func:VectorField
+                         ] .
 
 
 ###  http://sweetontology.net/propRotation/CyclotronFrequency
-:CyclotronFrequency rdf:type owl:Class ;
-                    owl:equivalentClass :Gyrofrequency .
+rot:CyclotronFrequency rdf:type owl:Class ;
+                       owl:equivalentClass rot:Gyrofrequency .
 
 
 ###  http://sweetontology.net/propRotation/Enstrophy
-:Enstrophy rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> ,
-                           <http://sweetontology.net/propQuantity/PhysicalQuantity> .
+rot:Enstrophy rdf:type owl:Class ;
+              rdfs:subClassOf prop:AngularMotionProperty ,
+                              quan:PhysicalQuantity .
 
 
 ###  http://sweetontology.net/propRotation/ErtelPotentialVorticity
-:ErtelPotentialVorticity rdf:type owl:Class ;
-                         rdfs:subClassOf :PotentialVorticity ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                                           owl:hasValue <http://sweetontology.net/reprSciUnits/perKilogramMeterSquaredPerSecondKelvin>
-                                         ] .
+rot:ErtelPotentialVorticity rdf:type owl:Class ;
+                            rdfs:subClassOf rot:PotentialVorticity ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty screla:hasDefaultUnit ;
+                                              owl:hasValue units:perKilogramMeterSquaredPerSecondKelvin
+                                            ] .
 
 
 ###  http://sweetontology.net/propRotation/Gyrofrequency
-:Gyrofrequency rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/propTimeFrequency/Frequency> .
+rot:Gyrofrequency rdf:type owl:Class ;
+                  rdfs:subClassOf freq:Frequency .
 
 
 ###  http://sweetontology.net/propRotation/Helicity
-:Helicity rdf:type owl:Class ;
-          rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                            owl:hasValue <http://sweetontology.net/reprSciUnits/meterPerSecondSquared>
-                          ] .
+rot:Helicity rdf:type owl:Class ;
+             rdfs:subClassOf oper:VectorFieldOperation ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty screla:hasDefaultUnit ;
+                               owl:hasValue units:meterPerSecondSquared
+                             ] .
 
 
 ###  http://sweetontology.net/propRotation/MomentOfInertia
-:MomentOfInertia rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> ,
-                                 <http://sweetontology.net/propQuantity/PhysicalQuantity> .
+rot:MomentOfInertia rdf:type owl:Class ;
+                    rdfs:subClassOf prop:AngularMotionProperty ,
+                                    quan:PhysicalQuantity .
 
 
 ###  http://sweetontology.net/propRotation/PotentialVorticity
-:PotentialVorticity rdf:type owl:Class ;
-                    rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> ,
-                                    <http://sweetontology.net/propQuantity/PhysicalQuantity> ;
-                    rdfs:comment "The vertically averaged vorticity of a layer divided by layer thickness."@en .
+rot:PotentialVorticity rdf:type owl:Class ;
+                       rdfs:subClassOf prop:AngularMotionProperty ,
+                                       quan:PhysicalQuantity .
 
 
 ###  http://sweetontology.net/propRotation/RelativeVorticity
-:RelativeVorticity rdf:type owl:Class ;
-                   rdfs:subClassOf :Vorticity ;
-                   rdfs:comment "The vorticity as measured in a system of coordinates fixed on the earth's surface.  Usually, only the vertical component of the vorticity is meant."@en .
+rot:RelativeVorticity rdf:type owl:Class ;
+                      rdfs:subClassOf rot:Vorticity .
 
 
 ###  http://sweetontology.net/propRotation/Spin
-:Spin rdf:type owl:Class ;
-      rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> .
+rot:Spin rdf:type owl:Class ;
+         rdfs:subClassOf prop:AngularMotionProperty .
 
 
 ###  http://sweetontology.net/propRotation/Torque
-:Torque rdf:type owl:Class ;
-        rdfs:subClassOf <http://sweetontology.net/prop/AngularMotionProperty> ,
-                        <http://sweetontology.net/propQuantity/VectorQuantity> ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                          owl:hasValue <http://sweetontology.net/reprSciUnits/newtonMeter>
-                        ] .
-
-
-###  http://sweetontology.net/propRotation/Vorticity
-:Vorticity rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ,
+rot:Torque rdf:type owl:Class ;
+           rdfs:subClassOf prop:AngularMotionProperty ,
+                           quan:VectorQuantity ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                             owl:hasValue <http://sweetontology.net/reprSciUnits/perSecond>
+                             owl:onProperty screla:hasDefaultUnit ;
+                             owl:hasValue units:newtonMeter
                            ] .
 
 
+###  http://sweetontology.net/propRotation/Vorticity
+rot:Vorticity rdf:type owl:Class ;
+              rdfs:subClassOf oper:VectorFieldOperation ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty screla:hasDefaultUnit ;
+                                owl:hasValue units:perSecond
+                              ] .
+
+
 ###  http://sweetontology.net/propSpeed/Momentum
-<http://sweetontology.net/propSpeed/Momentum> rdf:type owl:Class .
+dyna:Momentum rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propTimeFrequency/Frequency
-<http://sweetontology.net/propTimeFrequency/Frequency> rdf:type owl:Class .
+freq:Frequency rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathFunction/VectorField
-<http://sweetontology.net/reprMathFunction/VectorField> rdf:type owl:Class .
+func:VectorField rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/LineIntegral
-<http://sweetontology.net/reprMathOperation/LineIntegral> rdf:type owl:Class .
+oper:LineIntegral rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/VectorFieldOperation
-<http://sweetontology.net/reprMathOperation/VectorFieldOperation> rdf:type owl:Class .
+oper:VectorFieldOperation rdf:type owl:Class .
 
 
 #################################################################
@@ -197,31 +203,31 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/kilogramRadianPerSecond
-<http://sweetontology.net/reprSciUnits/kilogramRadianPerSecond> rdf:type owl:NamedIndividual .
+units:kilogramRadianPerSecond rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerSecondSquared
-<http://sweetontology.net/reprSciUnits/meterPerSecondSquared> rdf:type owl:NamedIndividual .
+units:meterPerSecondSquared rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/newtonMeter
-<http://sweetontology.net/reprSciUnits/newtonMeter> rdf:type owl:NamedIndividual .
+units:newtonMeter rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKilogramMeterSquaredPerSecondKelvin
-<http://sweetontology.net/reprSciUnits/perKilogramMeterSquaredPerSecondKelvin> rdf:type owl:NamedIndividual .
+units:perKilogramMeterSquaredPerSecondKelvin rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/perSecond
-<http://sweetontology.net/reprSciUnits/perSecond> rdf:type owl:NamedIndividual .
+units:perSecond rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/radianPerSecond
-<http://sweetontology.net/reprSciUnits/radianPerSecond> rdf:type owl:NamedIndividual .
+units:radianPerSecond rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/radianPerSecondSquared
-<http://sweetontology.net/reprSciUnits/radianPerSecondSquared> rdf:type owl:NamedIndividual .
+units:radianPerSecondSquared rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

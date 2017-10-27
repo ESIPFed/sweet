@@ -3,7 +3,22 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ener: <http://sweetontology.net/propEnergy/> .
+@prefix func: <http://sweetontology.net/propFunction/> .
+@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix part: <http://sweetontology.net/matrParticle/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix seas: <http://sweetontology.net/reprTimeSeason/> .
+@prefix wind: <http://sweetontology.net/phenAtmoWind/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix thermo: <http://sweetontology.net/propTemperature/> .
+@prefix tstate: <http://sweetontology.net/stateThermodynamic/> .
 @base <http://sweetontology.net/propTemperature> .
 
 <http://sweetontology.net/propTemperature> rdf:type owl:Ontology ;
@@ -29,39 +44,39 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasState
-<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
+rela:hasState rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/approximates
-<http://sweetontology.net/relaMath/approximates> rdf:type owl:ObjectProperty .
+mrela:approximates rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-<http://sweetontology.net/relaMath/hasFirstOperand> rdf:type owl:ObjectProperty .
+mrela:hasFirstOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-<http://sweetontology.net/relaMath/hasSecondOperand> rdf:type owl:ObjectProperty .
+mrela:hasSecondOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-<http://sweetontology.net/relaSci/measureOf> rdf:type owl:ObjectProperty .
+screla:measureOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/rangeOf
-<http://sweetontology.net/relaSci/rangeOf> rdf:type owl:ObjectProperty .
+screla:rangeOf rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -69,251 +84,244 @@
 #################################################################
 
 ###  http://sweetontology.net/propTemperature/AntennaTemperature
-:AntennaTemperature rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature ;
-                    rdfs:comment "Antenna temperature is a way of expressing the brightness of a radiation source - it is proportional to the power per unit area emitted by the source. In most cases where it is used it corresponds to the thermodynamic or physical temperature of the source being observed. It thus relates the power emitted by the source to an interesting physical property of that source."@en .
+thermo:AntennaTemperature rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/BoilingPoint
-:BoilingPoint rdf:type owl:Class ;
-              rdfs:subClassOf :Temperature .
+thermo:BoilingPoint rdf:type owl:Class ;
+                    rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/BrightnessTemperature
-:BrightnessTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf :Temperature ;
-                       rdfs:comment "A descriptive measure of radiation in terms of the temperature of a hypothetical blackbody emitting an identical amount of radiation at the same wavelength."@en .
+thermo:BrightnessTemperature rdf:type owl:Class ;
+                             rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/ColdestMonthTemperature
-:ColdestMonthTemperature rdf:type owl:Class ;
-                         rdfs:subClassOf :Temperature ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                           owl:someValuesFrom <http://sweetontology.net/reprTimeSeason/ColdestMonth>
-                                         ] .
+thermo:ColdestMonthTemperature rdf:type owl:Class ;
+                               rdfs:subClassOf thermo:Temperature ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty rela:hasPhenomena ;
+                                                 owl:someValuesFrom seas:ColdestMonth
+                                               ] .
 
 
 ###  http://sweetontology.net/propTemperature/DewPoint
-:DewPoint rdf:type owl:Class ;
-          owl:equivalentClass :DewPointTemperature ;
-          rdfs:subClassOf :Temperature ;
-          rdfs:comment "The temperature to which a given air parcel must be cooled at constant pressure and constant water vapor content in order for saturation to occur."@en .
+thermo:DewPoint rdf:type owl:Class ;
+                owl:equivalentClass thermo:DewPointTemperature ;
+                rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/DewPointDepression
-:DewPointDepression rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature ,
-                                    <http://sweetontology.net/reprMathOperation/Subtraction> ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
-                                      owl:allValuesFrom :DryBulbTemperature
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
-                                      owl:allValuesFrom :DewPointTemperature
-                                    ] .
+thermo:DewPointDepression rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature ,
+                                          oper:Subtraction ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty mrela:hasFirstOperand ;
+                                            owl:allValuesFrom thermo:DryBulbTemperature
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty mrela:hasSecondOperand ;
+                                            owl:allValuesFrom thermo:DewPointTemperature
+                                          ] .
 
 
 ###  http://sweetontology.net/propTemperature/DewPointTemperature
-:DewPointTemperature rdf:type owl:Class .
+thermo:DewPointTemperature rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propTemperature/DryBulbTemperature
-:DryBulbTemperature rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature .
+thermo:DryBulbTemperature rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/EffectiveTemperature
-:EffectiveTemperature rdf:type owl:Class ;
-                      rdfs:subClassOf :Temperature ;
-                      rdfs:comment "The temperature at which motionless saturated air would induce, in a sedentary worker wearing ordinary indoor clothing, the same sensation of comfort as that induced by the actual conditions of temperature, humidity, and air movement. Effective temperature is used as a guide in air-conditioning practice, and, on the comfort chart (American Society of Heating and Air Conditioning Engineers), it appears as a family of curves that serves as one coordinate in defining comfort zones."@en .
+thermo:EffectiveTemperature rdf:type owl:Class ;
+                            rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/ElectronTemperature
-:ElectronTemperature rdf:type owl:Class ;
-                     rdfs:subClassOf :Temperature ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-                                       owl:allValuesFrom <http://sweetontology.net/matrParticle/Electron>
-                                     ] .
+thermo:ElectronTemperature rdf:type owl:Class ;
+                           rdfs:subClassOf thermo:Temperature ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty crela:hasSubstance ;
+                                             owl:allValuesFrom part:Electron
+                                           ] .
 
 
 ###  http://sweetontology.net/propTemperature/EquivalentPotentialTemperature
-:EquivalentPotentialTemperature rdf:type owl:Class ;
-                                rdfs:subClassOf :PotentialTemperature .
+thermo:EquivalentPotentialTemperature rdf:type owl:Class ;
+                                      rdfs:subClassOf thermo:PotentialTemperature .
 
 
 ###  http://sweetontology.net/propTemperature/EquivalentTemperature
-:EquivalentTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf :Temperature .
+thermo:EquivalentTemperature rdf:type owl:Class ;
+                             rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/GlobalWarmingPotential
-:GlobalWarmingPotential rdf:type owl:Class ;
-                        rdfs:subClassOf :Temperature .
+thermo:GlobalWarmingPotential rdf:type owl:Class ;
+                              rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/IonTemperature
-:IonTemperature rdf:type owl:Class ;
-                rdfs:subClassOf :Temperature ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                  owl:hasValue <http://sweetontology.net/statePhysical/IonizedState>
-                                ] .
+thermo:IonTemperature rdf:type owl:Class ;
+                      rdfs:subClassOf thermo:Temperature ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rela:hasState ;
+                                        owl:hasValue pstate:IonizedState
+                                      ] .
 
 
 ###  http://sweetontology.net/propTemperature/KineticTemperature
-:KineticTemperature rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature .
+thermo:KineticTemperature rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/MeanAnnualTemperature
-:MeanAnnualTemperature rdf:type owl:Class ;
-                       rdfs:subClassOf <http://sweetontology.net/propFunction/AnnualAverage> ,
-                                       :Temperature .
+thermo:MeanAnnualTemperature rdf:type owl:Class ;
+                             rdfs:subClassOf func:AnnualAverage ,
+                                             thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/MeanMonthlyTemperature
-:MeanMonthlyTemperature rdf:type owl:Class ;
-                        rdfs:subClassOf <http://sweetontology.net/propFunction/MonthlyAverage> ,
-                                        :Temperature .
+thermo:MeanMonthlyTemperature rdf:type owl:Class ;
+                              rdfs:subClassOf func:MonthlyAverage ,
+                                              thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/MeltingPoint
-:MeltingPoint rdf:type owl:Class ;
-              rdfs:subClassOf :Temperature .
+thermo:MeltingPoint rdf:type owl:Class ;
+                    rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/NeutralTemperature
-:NeutralTemperature rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                      owl:hasValue <http://sweetontology.net/statePhysical/NeutralState>
-                                    ] .
+thermo:NeutralTemperature rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rela:hasState ;
+                                            owl:hasValue pstate:NeutralState
+                                          ] .
 
 
 ###  http://sweetontology.net/propTemperature/PotentialTemperature
-:PotentialTemperature rdf:type owl:Class ;
-                      rdfs:subClassOf :Temperature ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                        owl:hasValue <http://sweetontology.net/stateThermodynamic/Adiabatic>
-                                      ] ;
-                      rdfs:comment "The temperature that a parcel would have if brought adiabatically and reversibly from its initial state to a standard reference pressure, typically 100 kPa."@en .
+thermo:PotentialTemperature rdf:type owl:Class ;
+                            rdfs:subClassOf thermo:Temperature ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty rela:hasState ;
+                                              owl:hasValue tstate:Adiabatic
+                                            ] .
 
 
 ###  http://sweetontology.net/propTemperature/PseudoEquivalentPotentialTemperature
-:PseudoEquivalentPotentialTemperature rdf:type owl:Class ;
-                                      rdfs:subClassOf :Temperature ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty <http://sweetontology.net/relaMath/approximates> ;
-                                                        owl:allValuesFrom :EquivalentPotentialTemperature
-                                                      ] .
+thermo:PseudoEquivalentPotentialTemperature rdf:type owl:Class ;
+                                            rdfs:subClassOf thermo:Temperature ,
+                                                            [ rdf:type owl:Restriction ;
+                                                              owl:onProperty mrela:approximates ;
+                                                              owl:allValuesFrom thermo:EquivalentPotentialTemperature
+                                                            ] .
 
 
 ###  http://sweetontology.net/propTemperature/PseudoEquivalentTemperature
-:PseudoEquivalentTemperature rdf:type owl:Class ;
-                             rdfs:subClassOf :Temperature ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://sweetontology.net/relaMath/approximates> ;
-                                               owl:allValuesFrom :EquivalentTemperature
-                                             ] .
+thermo:PseudoEquivalentTemperature rdf:type owl:Class ;
+                                   rdfs:subClassOf thermo:Temperature ,
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty mrela:approximates ;
+                                                     owl:allValuesFrom thermo:EquivalentTemperature
+                                                   ] .
 
 
 ###  http://sweetontology.net/propTemperature/StaticTemperature
-:StaticTemperature rdf:type owl:Class ;
-                   rdfs:subClassOf :Temperature .
+thermo:StaticTemperature rdf:type owl:Class ;
+                         rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/Temperature
-:Temperature rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
-                               owl:allValuesFrom <http://sweetontology.net/propEnergy/Heat>
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
-                               owl:hasValue <http://sweetontology.net/reprSciUnits/kelvin>
-                             ] .
+thermo:Temperature rdf:type owl:Class ;
+                   rdfs:subClassOf quan:ThermodynamicQuantity ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty screla:measureOf ;
+                                     owl:allValuesFrom ener:Heat
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty screla:hasDefaultUnit ;
+                                     owl:hasValue units:kelvin
+                                   ] .
 
 
 ###  http://sweetontology.net/propTemperature/TemperatureRange
-:TemperatureRange rdf:type owl:Class ;
-                  rdfs:subClassOf <http://sweetontology.net/propQuantity/IntervalQuantity> ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaSci/rangeOf> ;
-                                    owl:allValuesFrom :Temperature
-                                  ] .
+thermo:TemperatureRange rdf:type owl:Class ;
+                        rdfs:subClassOf quan:IntervalQuantity ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty screla:rangeOf ;
+                                          owl:allValuesFrom thermo:Temperature
+                                        ] .
 
 
 ###  http://sweetontology.net/propTemperature/TotalTemperature
-:TotalTemperature rdf:type owl:Class ;
-                  rdfs:subClassOf :Temperature .
+thermo:TotalTemperature rdf:type owl:Class ;
+                        rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/TriplePoint
-:TriplePoint rdf:type owl:Class ;
-             rdfs:subClassOf :Temperature .
+thermo:TriplePoint rdf:type owl:Class ;
+                   rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/VirtualPotentialTemperature
-:VirtualPotentialTemperature rdf:type owl:Class ;
-                             rdfs:subClassOf :PotentialTemperature .
+thermo:VirtualPotentialTemperature rdf:type owl:Class ;
+                                   rdfs:subClassOf thermo:PotentialTemperature .
 
 
 ###  http://sweetontology.net/propTemperature/VirtualTemperature
-:VirtualTemperature rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature .
+thermo:VirtualTemperature rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/WarmestMonthTemperature
-:WarmestMonthTemperature rdf:type owl:Class ;
-                         rdfs:subClassOf :Temperature ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                           owl:someValuesFrom <http://sweetontology.net/reprTimeSeason/WarmestMonth>
-                                         ] .
+thermo:WarmestMonthTemperature rdf:type owl:Class ;
+                               rdfs:subClassOf thermo:Temperature ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty rela:hasPhenomena ;
+                                                 owl:someValuesFrom seas:WarmestMonth
+                                               ] .
 
 
 ###  http://sweetontology.net/propTemperature/WetBulbPotentialTemperature
-:WetBulbPotentialTemperature rdf:type owl:Class ;
-                             rdfs:subClassOf :PotentialTemperature ;
-                             rdfs:comment "The temperature an air parcel would have if cooled from its initial state adiabatically to saturation, and thence brought to 1000 mb by a moist-adiabatic process."@en .
+thermo:WetBulbPotentialTemperature rdf:type owl:Class ;
+                                   rdfs:subClassOf thermo:PotentialTemperature .
 
 
 ###  http://sweetontology.net/propTemperature/WetBulbTemperature
-:WetBulbTemperature rdf:type owl:Class ;
-                    rdfs:subClassOf :Temperature .
+thermo:WetBulbTemperature rdf:type owl:Class ;
+                          rdfs:subClassOf thermo:Temperature .
 
 
 ###  http://sweetontology.net/propTemperature/WindChill
-:WindChill rdf:type owl:Class ;
-           owl:equivalentClass :WindChillIndex .
+thermo:WindChill rdf:type owl:Class ;
+                 owl:equivalentClass thermo:WindChillIndex .
 
 
 ###  http://sweetontology.net/propTemperature/WindChillIndex
-:WindChillIndex rdf:type owl:Class ;
-                rdfs:subClassOf :Temperature ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
-                                  owl:allValuesFrom <http://sweetontology.net/phenAtmoWind/Wind>
-                                ] ;
-                rdfs:comment "A means of quantifying the threat of rapid cooling during breezy or windy conditions that may result in hypothermia in cold conditions."@en .
+thermo:WindChillIndex rdf:type owl:Class ;
+                      rdfs:subClassOf thermo:Temperature ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty screla:measureOf ;
+                                        owl:allValuesFrom wind:Wind
+                                      ] .
 
 
 ###  http://sweetontology.net/reprMathOperation/Subtraction
-<http://sweetontology.net/reprMathOperation/Subtraction> rdf:type owl:Class .
+oper:Subtraction rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprTimeSeason/ColdestMonth
-<http://sweetontology.net/reprTimeSeason/ColdestMonth> rdf:type owl:Class .
+seas:ColdestMonth rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprTimeSeason/WarmestMonth
-<http://sweetontology.net/reprTimeSeason/WarmestMonth> rdf:type owl:Class .
+seas:WarmestMonth rdf:type owl:Class .
 
 
 #################################################################
@@ -321,19 +329,19 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/kelvin
-<http://sweetontology.net/reprSciUnits/kelvin> rdf:type owl:NamedIndividual .
+units:kelvin rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/IonizedState
-<http://sweetontology.net/statePhysical/IonizedState> rdf:type owl:NamedIndividual .
+pstate:IonizedState rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/NeutralState
-<http://sweetontology.net/statePhysical/NeutralState> rdf:type owl:NamedIndividual .
+pstate:NeutralState rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Adiabatic
-<http://sweetontology.net/stateThermodynamic/Adiabatic> rdf:type owl:NamedIndividual .
+tstate:Adiabatic rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

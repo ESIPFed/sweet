@@ -1,9 +1,21 @@
 @prefix : <http://sweetontology.net/phenGeolVolcano/> .
+@prefix ign: <http://sweetontology.net/matrRockIgneous/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix vol: <http://sweetontology.net/phenGeolVolcano/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matrSediment/> .
+@prefix ener: <http://sweetontology.net/propEnergy/> .
+@prefix geol: <http://sweetontology.net/phenGeol/> .
+@prefix mass: <http://sweetontology.net/propMass/> .
+@prefix owlt: <http://www.w3.org/2006/time#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix reac: <http://sweetontology.net/phenReaction/> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix geolr: <http://sweetontology.net/realmGeol/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
 @base <http://sweetontology.net/phenGeolVolcano> .
 
 <http://sweetontology.net/phenGeolVolcano> rdf:type owl:Ontology ;
@@ -25,7 +37,7 @@
 #################################################################
 
 ###  http://sweetontology.net/relaPhysical/hasTransport
-<http://sweetontology.net/relaPhysical/hasTransport> rdf:type owl:ObjectProperty .
+prela:hasTransport rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -33,164 +45,149 @@
 #################################################################
 
 ###  http://sweetontology.net/phenGeolVolcano/EruptionCloud
-:EruptionCloud rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/matrSediment/Ejecta> ,
-                               :VolcanicPhenomena ;
-               rdfs:comment "The column of gases, ash, and larger rock fragments rising from a crater or other vent. If it is of sufficient volume and velocity, this gaseous column may reach many miles into the stratosphere, where high winds will carry it long distances."@en .
+vol:EruptionCloud rdf:type owl:Class ;
+                  rdfs:subClassOf chem:Ejecta ,
+                                  vol:VolcanicPhenomena .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/FlankEruption
-:FlankEruption rdf:type owl:Class ;
-               rdfs:subClassOf :VolcanicEruption ;
-               rdfs:comment "An eruption from the side of a volcano (in contrast to a summit eruption.)"@en .
+vol:FlankEruption rdf:type owl:Class ;
+                  rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/LavaOfTephra
-:LavaOfTephra rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/matrRockIgneous/Lava> ;
-              rdfs:comment "Tephra is air-fall material (of any size) produced by a volcanic eruption regardless of composition or fragment size. [Wikipedia]"@en .
+vol:LavaOfTephra rdf:type owl:Class ;
+                 rdfs:subClassOf ign:Lava .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/MagmaMotion
-:MagmaMotion rdf:type owl:Class ;
-             rdfs:subClassOf :VolcanicActivity .
+vol:MagmaMotion rdf:type owl:Class ;
+                rdfs:subClassOf vol:VolcanicActivity .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/Magmatic
-:Magmatic rdf:type owl:Class ;
-          rdfs:subClassOf :VolcanicEruption ;
-          rdfs:comment "Eruption Type 1 - produce juvenile clasts during explosive decompression from gas release. [Wikipedia]"@en .
+vol:Magmatic rdf:type owl:Class ;
+             rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/MantlePlume
-:MantlePlume rdf:type owl:Class ;
-             owl:equivalentClass :MantleThermalPlume ;
-             rdfs:subClassOf :VolcanicPlume ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-                               owl:allValuesFrom <http://sweetontology.net/realmGeol/Mantle>
-                             ] ;
-             rdfs:comment "A mantle plume is an upwelling of abnormally hot rock within the Earth's mantle. As the heads of mantle plumes can partly melt when they reach shallow depths, they are thought to be the cause of volcanic centers known as hotspots and probably also to have caused flood basalts. [Wikipedia]"@en .
+vol:MantlePlume rdf:type owl:Class ;
+                owl:equivalentClass vol:MantleThermalPlume ;
+                rdfs:subClassOf vol:VolcanicPlume ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasRealm ;
+                                  owl:allValuesFrom geolr:Mantle
+                                ] .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/MantleThermalPlume
-:MantleThermalPlume rdf:type owl:Class .
+vol:MantleThermalPlume rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/NueeArdenteEruption
-:NueeArdenteEruption rdf:type owl:Class ;
-                     owl:equivalentClass :PeleeanEruption .
+vol:NueeArdenteEruption rdf:type owl:Class ;
+                        owl:equivalentClass vol:PeleeanEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/PeleeanEruption
-:PeleeanEruption rdf:type owl:Class ;
-                 rdfs:subClassOf :VolcanicEruption ;
-                 rdfs:comment "In a Peléan eruption or nuée ardente (glowing cloud) eruptions a large amount of gas, dust, ash, and lava fragments are blown out of a central crater, fall back, and form avalanches that move downslope at speeds as great as 160 km per hour. These eruptions are usually associated with silicic magmas. A name for some pyroclastic flows is nuée ardente (French for \"glowing cloud\"); this was first used to describe the disastrous 1902 eruption of Mount Pelée on Martinique.[3] These pyroclastic flows glowed red in the dark. [Wikipedia]"@en .
+vol:PeleeanEruption rdf:type owl:Class ;
+                    rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/PhreaticEruption
-:PhreaticEruption rdf:type owl:Class ;
-                  owl:equivalentClass :SteamBlastEruption ;
-                  rdfs:subClassOf :VolcanicEruption ;
-                  rdfs:comment "Phreatic eruption is an explosion that follows the transformation of groundwater into steam. No incandescent or juvenile material is erupted."@en .
+vol:PhreaticEruption rdf:type owl:Class ;
+                     owl:equivalentClass vol:SteamBlastEruption ;
+                     rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/PhreatomagmaticEruption
-:PhreatomagmaticEruption rdf:type owl:Class ;
-                         rdfs:subClassOf :VolcanicEruption ;
-                         rdfs:comment "Eruption Type 2 - Ejection of entrained particles during steam eruptions. [Wikipedia]"@en .
+vol:PhreatomagmaticEruption rdf:type owl:Class ;
+                            rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/PlinianEruption
-:PlinianEruption rdf:type owl:Class ;
-                 rdfs:subClassOf :VolcanicEruption ;
-                 rdfs:comment "Plinian eruptions are characterized by paroxysmal ejection of large volume of ash and pumice as a well-defined eruption column or \"jet;\" often precedes caldera collapse. The resulting tephra fallout covers an area of more than 500 square kilometers."@en .
+vol:PlinianEruption rdf:type owl:Class ;
+                    rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/SteamBlastEruption
-:SteamBlastEruption rdf:type owl:Class ;
-                    rdfs:comment "A series of hundreds of steam explosions preceding an eruption of the volcano A less intense geothermal event may result in a mud volcano. In 1949, Thomas Jaggar described this kind of activity as steam-blast eruptions. [Wikipedia]"@en .
+vol:SteamBlastEruption rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/StrombolianEruption
-:StrombolianEruption rdf:type owl:Class ;
-                     rdfs:subClassOf :VolcanicEruption ;
-                     rdfs:comment "Strombolian Eruptions are characterised by huge clots of molten lava bursting from the summit crater to form luminous arcs through the sky. Collecting on the flanks of the cone, lava clots combine to stream down the slopes in molten rivulets. The explosions are driven by bursts of gas slugs that rise faster than surrounding magma"@en .
+vol:StrombolianEruption rdf:type owl:Class ;
+                        rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/SummitEruption
-:SummitEruption rdf:type owl:Class ;
-                rdfs:subClassOf :VolcanicEruption .
+vol:SummitEruption rdf:type owl:Class ;
+                   rdfs:subClassOf vol:VolcanicEruption .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/Surge
-:Surge rdf:type owl:Class ;
-       rdfs:subClassOf :VolcanicPlume ;
-       rdfs:comment "A ring-shaped cloud of gas and suspended solid debris that moves radially outward at high velocity as a density flow from the base of a vertical eruption column accompanying a volcanic eruption or crater formation."@en .
+vol:Surge rdf:type owl:Class ;
+          rdfs:subClassOf vol:VolcanicPlume .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/VolcanicActivity
-:VolcanicActivity rdf:type owl:Class ;
-                  owl:equivalentClass :VolcanicPhenomena ;
-                  rdfs:subClassOf <http://sweetontology.net/phenGeol/GeospherePhenomena> ,
-                                  :VolcanicActivity ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                    owl:someValuesFrom :Volcanism
-                                  ] ;
-                  rdfs:comment "A geophysical phenomena involving the extrusion of rock that tends to form mountains or features like mountains over a period of time. [Wikipedia]"@en .
+vol:VolcanicActivity rdf:type owl:Class ;
+                     owl:equivalentClass vol:VolcanicPhenomena ;
+                     rdfs:subClassOf geol:GeospherePhenomena ,
+                                     vol:VolcanicActivity ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasPhenomena ;
+                                       owl:someValuesFrom vol:Volcanism
+                                     ] .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/VolcanicEruption
-:VolcanicEruption rdf:type owl:Class ;
-                  rdfs:subClassOf :VolcanicActivity ,
-                                  <http://sweetontology.net/phenReaction/Eruption> ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaPhysical/hasTransport> ;
-                                    owl:someValuesFrom <http://sweetontology.net/propEnergy/Heat>
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty <http://sweetontology.net/relaPhysical/hasTransport> ;
-                                    owl:someValuesFrom <http://sweetontology.net/propMass/Mass>
-                                  ] ;
-                  rdfs:comment "Moderate to violent ejection of solid or very viscous hot fragments of new lava in short-lived, cannon-like bursts. Ash and fine ash are emitted with gases and ascend to form a cauliflower-like eruption cloud."@en .
+vol:VolcanicEruption rdf:type owl:Class ;
+                     rdfs:subClassOf vol:VolcanicActivity ,
+                                     reac:Eruption ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty prela:hasTransport ;
+                                       owl:someValuesFrom ener:Heat
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty prela:hasTransport ;
+                                       owl:someValuesFrom mass:Mass
+                                     ] .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/VolcanicPhenomena
-:VolcanicPhenomena rdf:type owl:Class .
+vol:VolcanicPhenomena rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/VolcanicPlume
-:VolcanicPlume rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/phenFluidTransport/Plume> ,
-                               :VolcanicPhenomena ;
-               rdfs:comment "An eruption column of hot volcanic ash and gas emitted into the atmosphere during an explosive volcanic eruption. [Wikipedia]"@en .
+vol:VolcanicPlume rdf:type owl:Class ;
+                  rdfs:subClassOf trans:Plume ,
+                                  vol:VolcanicPhenomena .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/Volcanism
-:Volcanism rdf:type owl:Class ;
-           owl:equivalentClass :Vulcanism ;
-           rdfs:subClassOf <http://sweetontology.net/phenGeol/GeologicalPhenomena> .
+vol:Volcanism rdf:type owl:Class ;
+              owl:equivalentClass vol:Vulcanism ;
+              rdfs:subClassOf geol:GeologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenGeolVolcano/Vulcanism
-:Vulcanism rdf:type owl:Class .
+vol:Vulcanism rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenReaction/Eruption
-<http://sweetontology.net/phenReaction/Eruption> rdf:type owl:Class .
+reac:Eruption rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propEnergy/Heat
-<http://sweetontology.net/propEnergy/Heat> rdf:type owl:Class .
+ener:Heat rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/Mass
-<http://sweetontology.net/propMass/Mass> rdf:type owl:Class .
+mass:Mass rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmGeol/Mantle
-<http://sweetontology.net/realmGeol/Mantle> rdf:type owl:Class .
+geolr:Mantle rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

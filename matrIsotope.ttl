@@ -3,7 +3,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix elem: <http://sweetontology.net/matrElement/> .
+@prefix isot: <http://sweetontology.net/matrIsotope/> .
+@prefix owlt: <http://www.w3.org/2006/time#> .
+@prefix part: <http://sweetontology.net/matrParticle/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix cstate: <http://sweetontology.net/stateChemical/> .
 @base <http://sweetontology.net/matrIsotope> .
 
 <http://sweetontology.net/matrIsotope> rdf:type owl:Ontology ;
@@ -19,78 +28,66 @@
                                         owl:versionInfo "3.1.0" .
 
 #################################################################
-#    Annotation properties
-#################################################################
-
-###  http://sweetontology.net/relaChemical/hasNeutrons
-<http://sweetontology.net/relaChemical/hasNeutrons> rdf:type owl:AnnotationProperty .
-
-
-###  http://sweetontology.net/relaChemical/hasSubstance
-<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:AnnotationProperty .
-
-
-#################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/matrIsotope/AlphaParticle
-:AlphaParticle rdf:type owl:Class ;
-               rdfs:subClassOf <http://sweetontology.net/matrParticle/EnergeticParticle> .
+isot:AlphaParticle rdf:type owl:Class ;
+                   rdfs:subClassOf part:EnergeticParticle .
 
 
 ###  http://sweetontology.net/matrIsotope/BetaParticle
-:BetaParticle rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/matrParticle/EnergeticParticle> .
+isot:BetaParticle rdf:type owl:Class ;
+                  rdfs:subClassOf part:EnergeticParticle .
 
 
 ###  http://sweetontology.net/matrIsotope/Isotope
-:Isotope rdf:type owl:Class ;
-         rdfs:subClassOf <http://sweetontology.net/matrElement/Element> .
+isot:Isotope rdf:type owl:Class ;
+             rdfs:subClassOf elem:Element .
 
 
 ###  http://sweetontology.net/matrIsotope/Nuclide
-:Nuclide rdf:type owl:Class ;
-         owl:equivalentClass :Radioisotope .
+isot:Nuclide rdf:type owl:Class ;
+             owl:equivalentClass isot:Radioisotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Radiation
-:Radiation rdf:type owl:Class ;
-           rdfs:subClassOf <http://sweetontology.net/matr/Substance> .
+isot:Radiation rdf:type owl:Class ;
+               rdfs:subClassOf chem:Substance .
 
 
 ###  http://sweetontology.net/matrIsotope/RadioactiveSubstance
-:RadioactiveSubstance rdf:type owl:Class ;
-                      rdfs:subClassOf <http://sweetontology.net/matr/Substance> ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                        owl:hasValue <http://sweetontology.net/stateChemical/Radioactive>
-                                      ] .
+isot:RadioactiveSubstance rdf:type owl:Class ;
+                          rdfs:subClassOf chem:Substance ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rela:hasState ;
+                                            owl:hasValue cstate:Radioactive
+                                          ] .
 
 
 ###  http://sweetontology.net/matrIsotope/Radiocarbon
-:Radiocarbon rdf:type owl:Class ;
-             rdfs:subClassOf :RadioactiveSubstance .
+isot:Radiocarbon rdf:type owl:Class ;
+                 rdfs:subClassOf isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/Radioelement
-:Radioelement rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/matrElement/Element> ,
-                              :RadioactiveSubstance .
+isot:Radioelement rdf:type owl:Class ;
+                  rdfs:subClassOf elem:Element ,
+                                  isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/Radioisotope
-:Radioisotope rdf:type owl:Class ;
-              owl:equivalentClass :Radionuclide ;
-              rdfs:subClassOf :RadioactiveSubstance .
+isot:Radioisotope rdf:type owl:Class ;
+                  owl:equivalentClass isot:Radionuclide ;
+                  rdfs:subClassOf isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/Radionuclide
-:Radionuclide rdf:type owl:Class .
+isot:Radionuclide rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrParticle/EnergeticParticle
-<http://sweetontology.net/matrParticle/EnergeticParticle> rdf:type owl:Class .
+part:EnergeticParticle rdf:type owl:Class .
 
 
 #################################################################
@@ -98,274 +95,206 @@
 #################################################################
 
 ###  http://sweetontology.net/matrIsotope/Al26
-:Al26 rdf:type owl:NamedIndividual ,
-               :Isotope ,
-               :RadioactiveSubstance ;
-      <http://sweetontology.net/relaChemical/hasNeutrons> 26 ;
-      <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Al> .
+isot:Al26 rdf:type owl:NamedIndividual ,
+                   isot:Isotope ,
+                   isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/C12
-:C12 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 6 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/C> .
+isot:C12 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/C13
-:C13 rdf:type owl:NamedIndividual ,
-              :Isotope ,
-              :RadioactiveSubstance ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 7 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/C> .
+isot:C13 rdf:type owl:NamedIndividual ,
+                  isot:Isotope ,
+                  isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/C14
-:C14 rdf:type owl:NamedIndividual ,
-              :Isotope ,
-              :RadioactiveSubstance ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 8 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/C> .
+isot:C14 rdf:type owl:NamedIndividual ,
+                  isot:Isotope ,
+                  isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/D
-:D rdf:type owl:NamedIndividual ,
-            :Isotope ;
-   owl:sameAs :H2 .
+isot:D rdf:type owl:NamedIndividual ,
+                isot:Isotope ;
+       owl:sameAs isot:H2 .
 
 
 ###  http://sweetontology.net/matrIsotope/Deuterium
-:Deuterium rdf:type owl:NamedIndividual ,
-                    :Isotope ;
-           owl:sameAs :H2 .
+isot:Deuterium rdf:type owl:NamedIndividual ,
+                        isot:Isotope ;
+               owl:sameAs isot:H2 .
 
 
 ###  http://sweetontology.net/matrIsotope/H1
-:H1 rdf:type owl:NamedIndividual ,
-             :Isotope ;
-    <http://sweetontology.net/relaChemical/hasNeutrons> 0 ;
-    <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/H> .
+isot:H1 rdf:type owl:NamedIndividual ,
+                 isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/H2
-:H2 rdf:type owl:NamedIndividual ,
-             :Isotope ;
-    <http://sweetontology.net/relaChemical/hasNeutrons> 1 ;
-    <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/H> .
+isot:H2 rdf:type owl:NamedIndividual ,
+                 isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/H3
-:H3 rdf:type owl:NamedIndividual ,
-             :Isotope ;
-    owl:sameAs :T ,
-               :Tritium ;
-    <http://sweetontology.net/relaChemical/hasNeutrons> 2 ;
-    <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/H> .
+isot:H3 rdf:type owl:NamedIndividual ,
+                 isot:Isotope ;
+        owl:sameAs isot:T ,
+                   isot:Tritium .
 
 
 ###  http://sweetontology.net/matrIsotope/He3
-:He3 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 1 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/He> .
+isot:He3 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/He4
-:He4 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 2 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/He> .
+isot:He4 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/K39
-:K39 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 20 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/K> .
+isot:K39 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/K40
-:K40 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 21 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/K> .
+isot:K40 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/K41
-:K41 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 22 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/K> .
+isot:K41 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/N14
-:N14 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 7 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/N> .
+isot:N14 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/N15
-:N15 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 8 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/N> .
+isot:N15 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/O16
-:O16 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 8 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/O> .
+isot:O16 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/O17
-:O17 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 9 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/O> .
+isot:O17 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/O18
-:O18 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 10 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/O> .
+isot:O18 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Pb202
-:Pb202 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 120 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Pb> .
+isot:Pb202 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Pb204
-:Pb204 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 122 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Pb> .
+isot:Pb204 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Pb206
-:Pb206 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 124 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Pb> .
+isot:Pb206 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Pb207
-:Pb207 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 125 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Pb> .
+isot:Pb207 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Pb208
-:Pb208 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 126 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Pb> .
+isot:Pb208 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/S32
-:S32 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 16 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/S> .
+isot:S32 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/S33
-:S33 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 17 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/S> .
+isot:S33 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/S34
-:S34 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 18 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/S> .
+isot:S34 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/S36
-:S36 rdf:type owl:NamedIndividual ,
-              :Isotope ;
-     <http://sweetontology.net/relaChemical/hasNeutrons> 20 ;
-     <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/S> .
+isot:S36 rdf:type owl:NamedIndividual ,
+                  isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/T
-:T rdf:type owl:NamedIndividual ,
-            :Isotope .
+isot:T rdf:type owl:NamedIndividual ,
+                isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Th228
-:Th228 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 138 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Th> .
+isot:Th228 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Th229
-:Th229 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 139 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Th> .
+isot:Th229 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Th230
-:Th230 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 140 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Th> .
+isot:Th230 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Th231
-:Th231 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 141 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Th> .
+isot:Th231 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Th232
-:Th232 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 142 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Th> .
+isot:Th232 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Th234
-:Th234 rdf:type owl:NamedIndividual ,
-                :Isotope ;
-       <http://sweetontology.net/relaChemical/hasNeutrons> 144 ;
-       <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/Th> .
+isot:Th234 rdf:type owl:NamedIndividual ,
+                    isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/Tritium
-:Tritium rdf:type owl:NamedIndividual ,
-                  :Isotope .
+isot:Tritium rdf:type owl:NamedIndividual ,
+                      isot:Isotope .
 
 
 ###  http://sweetontology.net/matrIsotope/U238
-:U238 rdf:type owl:NamedIndividual ,
-               :Isotope ,
-               :RadioactiveSubstance ;
-      <http://sweetontology.net/relaChemical/hasNeutrons> 146 ;
-      <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/U> .
+isot:U238 rdf:type owl:NamedIndividual ,
+                   isot:Isotope ,
+                   isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/matrIsotope/U239
-:U239 rdf:type owl:NamedIndividual ,
-               :Isotope ,
-               :RadioactiveSubstance ;
-      <http://sweetontology.net/relaChemical/hasNeutrons> 147 ;
-      <http://sweetontology.net/relaChemical/hasSubstance> <http://sweetontology.net/matrElement/U> .
+isot:U239 rdf:type owl:NamedIndividual ,
+                   isot:Isotope ,
+                   isot:RadioactiveSubstance .
 
 
 ###  http://sweetontology.net/stateChemical/Radioactive
-<http://sweetontology.net/stateChemical/Radioactive> rdf:type owl:NamedIndividual .
+cstate:Radioactive rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

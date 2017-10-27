@@ -4,6 +4,14 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix star: <http://sweetontology.net/realmAstroStar/> .
+@prefix astro: <http://sweetontology.net/realmAstroBody/> .
+@prefix cproc: <http://sweetontology.net/procChemical/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
 @base <http://sweetontology.net/realmAstroStar> .
 
 <http://sweetontology.net/realmAstroStar> rdf:type owl:Ontology ;
@@ -22,11 +30,11 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasState
-<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
+rela:hasState rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasChemicalReaction
-<http://sweetontology.net/relaChemical/hasChemicalReaction> rdf:type owl:ObjectProperty .
+crela:hasChemicalReaction rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -34,71 +42,71 @@
 #################################################################
 
 ###  http://sweetontology.net/realmAstroStar/ActiveRegion
-:ActiveRegion rdf:type owl:Class ;
-              rdfs:subClassOf :StellarRealm .
+star:ActiveRegion rdf:type owl:Class ;
+                  rdfs:subClassOf star:StellarRealm .
 
 
 ###  http://sweetontology.net/realmAstroStar/Chromosphere
-:Chromosphere rdf:type owl:Class ;
-              rdfs:subClassOf :StellarAtmosphere ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                                owl:hasValue <http://sweetontology.net/statePhysical/Plasma>
-                              ] .
+star:Chromosphere rdf:type owl:Class ;
+                  rdfs:subClassOf star:StellarAtmosphere ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty rela:hasState ;
+                                    owl:hasValue pstate:Plasma
+                                  ] .
 
 
 ###  http://sweetontology.net/realmAstroStar/ConvectionZone
-:ConvectionZone rdf:type owl:Class ;
-                rdfs:subClassOf :StellarInterior ;
-                owl:disjointWith :StellarCore .
+star:ConvectionZone rdf:type owl:Class ;
+                    rdfs:subClassOf star:StellarInterior ;
+                    owl:disjointWith star:StellarCore .
 
 
 ###  http://sweetontology.net/realmAstroStar/Corona
-:Corona rdf:type owl:Class ;
-        rdfs:subClassOf :StellarAtmosphere ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty <http://sweetontology.net/rela/hasState> ;
-                          owl:hasValue <http://sweetontology.net/statePhysical/Plasma>
-                        ] .
+star:Corona rdf:type owl:Class ;
+            rdfs:subClassOf star:StellarAtmosphere ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty rela:hasState ;
+                              owl:hasValue pstate:Plasma
+                            ] .
 
 
 ###  http://sweetontology.net/realmAstroStar/Photosphere
-:Photosphere rdf:type owl:Class ;
-             rdfs:subClassOf :StellarAtmosphere .
+star:Photosphere rdf:type owl:Class ;
+                 rdfs:subClassOf star:StellarAtmosphere .
 
 
 ###  http://sweetontology.net/realmAstroStar/RadiativeZone
-:RadiativeZone rdf:type owl:Class ;
-               rdfs:subClassOf :StellarInterior .
+star:RadiativeZone rdf:type owl:Class ;
+                   rdfs:subClassOf star:StellarInterior .
 
 
 ###  http://sweetontology.net/realmAstroStar/StellarAtmosphere
-:StellarAtmosphere rdf:type owl:Class ;
-                   rdfs:subClassOf :StellarRealm .
+star:StellarAtmosphere rdf:type owl:Class ;
+                       rdfs:subClassOf star:StellarRealm .
 
 
 ###  http://sweetontology.net/realmAstroStar/StellarCore
-:StellarCore rdf:type owl:Class ;
-             rdfs:subClassOf :StellarInterior ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaChemical/hasChemicalReaction> ;
-                               owl:someValuesFrom <http://sweetontology.net/procChemical/NuclearFusion>
-                             ] .
+star:StellarCore rdf:type owl:Class ;
+                 rdfs:subClassOf star:StellarInterior ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty crela:hasChemicalReaction ;
+                                   owl:someValuesFrom cproc:NuclearFusion
+                                 ] .
 
 
 ###  http://sweetontology.net/realmAstroStar/StellarInterior
-:StellarInterior rdf:type owl:Class ;
-                 rdfs:subClassOf :StellarRealm .
+star:StellarInterior rdf:type owl:Class ;
+                     rdfs:subClassOf star:StellarRealm .
 
 
 ###  http://sweetontology.net/realmAstroStar/StellarRealm
-:StellarRealm rdf:type owl:Class ;
-              rdfs:subClassOf <http://sweetontology.net/realm/Realm> .
+star:StellarRealm rdf:type owl:Class ;
+                  rdfs:subClassOf realm:Realm .
 
 
 ###  http://sweetontology.net/realmAstroStar/Tacocline
-:Tacocline rdf:type owl:Class ;
-           rdfs:subClassOf :StellarInterior .
+star:Tacocline rdf:type owl:Class ;
+               rdfs:subClassOf star:StellarInterior .
 
 
 #################################################################
@@ -106,7 +114,7 @@
 #################################################################
 
 ###  http://sweetontology.net/statePhysical/Plasma
-<http://sweetontology.net/statePhysical/Plasma> rdf:type owl:NamedIndividual .
+pstate:Plasma rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

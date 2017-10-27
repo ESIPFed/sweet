@@ -1,9 +1,15 @@
 @prefix : <http://sweetontology.net/reprSpaceReferenceSystem/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix srs: <http://sweetontology.net/reprSpaceReferenceSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix repr: <http://sweetontology.net/repr/> .
+@prefix coord: <http://sweetontology.net/reprSpaceCoordinate/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix space: <http://sweetontology.net/reprSpace/> .
+@prefix mrela2: <http://sweetontology.net/relaMath/> .
 @base <http://sweetontology.net/reprSpaceReferenceSystem> .
 
 <http://sweetontology.net/reprSpaceReferenceSystem> rdf:type owl:Ontology ;
@@ -19,7 +25,7 @@
 #################################################################
 
 ###  http://sweetontology.net/relaMath/hasDimension
-<http://sweetontology.net/relaMath/hasDimension> rdf:type owl:ObjectProperty .
+mrela2:hasDimension rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -27,27 +33,27 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/HorizontalCoordinateSystem
-:HorizontalCoordinateSystem rdf:type owl:Class ;
-                            rdfs:subClassOf :SpatialReferenceSystem .
+srs:HorizontalCoordinateSystem rdf:type owl:Class ;
+                               rdfs:subClassOf srs:SpatialReferenceSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/PolarCoordinates
-:PolarCoordinates rdf:type owl:Class ;
-                  rdfs:subClassOf :HorizontalCoordinateSystem .
+srs:PolarCoordinates rdf:type owl:Class ;
+                     rdfs:subClassOf srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/SpatialReferenceSystem
-:SpatialReferenceSystem rdf:type owl:Class ;
-                        rdfs:subClassOf <http://sweetontology.net/repr/ReferenceFrame> ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty <http://sweetontology.net/relaMath/hasDimension> ;
-                                          owl:allValuesFrom <http://sweetontology.net/reprSpace/Space>
-                                        ] .
+srs:SpatialReferenceSystem rdf:type owl:Class ;
+                           rdfs:subClassOf repr:ReferenceFrame ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty mrela2:hasDimension ;
+                                             owl:allValuesFrom space:Space
+                                           ] .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/VerticalCoordinateSystem
-:VerticalCoordinateSystem rdf:type owl:Class ;
-                          rdfs:subClassOf :SpatialReferenceSystem .
+srs:VerticalCoordinateSystem rdf:type owl:Class ;
+                             rdfs:subClassOf srs:SpatialReferenceSystem .
 
 
 #################################################################
@@ -55,143 +61,142 @@
 #################################################################
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/AlbersConicalEqualArea
-:AlbersConicalEqualArea rdf:type owl:NamedIndividual ,
-                                 :HorizontalCoordinateSystem .
+srs:AlbersConicalEqualArea rdf:type owl:NamedIndividual ,
+                                    srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Astronomical
-:Astronomical rdf:type owl:NamedIndividual ,
-                       :SpatialReferenceSystem ;
-              <http://sweetontology.net/relaMath/coordinate_1> <http://sweetontology.net/reprSpaceCoordinate/RightAscension> ;
-              <http://sweetontology.net/relaMath/coordinate_2> <http://sweetontology.net/reprSpaceCoordinate/Declination> ;
-              rdfs:comment "Coordinate System with its origin on the axis of the Earth and fixed with respect to the stars." .
+srs:Astronomical rdf:type owl:NamedIndividual ,
+                          srs:SpatialReferenceSystem ;
+                 mrela2:coordinate_1 coord:RightAscension ;
+                 mrela2:coordinate_2 coord:Declination .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/AzimuthalEquidistant
-:AzimuthalEquidistant rdf:type owl:NamedIndividual ,
-                               :HorizontalCoordinateSystem .
+srs:AzimuthalEquidistant rdf:type owl:NamedIndividual ,
+                                  srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Cartesian
-:Cartesian rdf:type owl:NamedIndividual ,
-                    :SpatialReferenceSystem ;
-           <http://sweetontology.net/relaMath/coordinate_1> <http://sweetontology.net/reprSpaceCoordinate/X> ;
-           <http://sweetontology.net/relaMath/coordinate_2> <http://sweetontology.net/reprSpaceCoordinate/Y> ;
-           <http://sweetontology.net/relaMath/coordinate_3> <http://sweetontology.net/reprSpaceCoordinate/Z> .
+srs:Cartesian rdf:type owl:NamedIndividual ,
+                       srs:SpatialReferenceSystem ;
+              mrela2:coordinate_1 coord:X ;
+              mrela2:coordinate_2 coord:Y ;
+              mrela2:coordinate_3 coord:Z .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/EquidistantConic
-:EquidistantConic rdf:type owl:NamedIndividual ,
-                           :HorizontalCoordinateSystem .
+srs:EquidistantConic rdf:type owl:NamedIndividual ,
+                              srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Equirectangular
-:Equirectangular rdf:type owl:NamedIndividual ,
-                          :HorizontalCoordinateSystem .
+srs:Equirectangular rdf:type owl:NamedIndividual ,
+                             srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/GeneralVerticalNearSidedPespe
-:GeneralVerticalNearSidedPespe rdf:type owl:NamedIndividual ,
-                                        :HorizontalCoordinateSystem .
+srs:GeneralVerticalNearSidedPespe rdf:type owl:NamedIndividual ,
+                                           srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Geographic
-:Geographic rdf:type owl:NamedIndividual ,
-                     :SpatialReferenceSystem ;
-            <http://sweetontology.net/relaMath/coordinate_1> <http://sweetontology.net/reprSpaceCoordinate/Longitude> .
+srs:Geographic rdf:type owl:NamedIndividual ,
+                        srs:SpatialReferenceSystem ;
+               mrela2:coordinate_1 coord:Longitude .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/LambertConformalConic
-:LambertConformalConic rdf:type owl:NamedIndividual ,
-                                :HorizontalCoordinateSystem .
+srs:LambertConformalConic rdf:type owl:NamedIndividual ,
+                                   srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/LocalPlaner
-:LocalPlaner rdf:type owl:NamedIndividual ,
-                      :HorizontalCoordinateSystem .
+srs:LocalPlaner rdf:type owl:NamedIndividual ,
+                         srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Mercator
-:Mercator rdf:type owl:NamedIndividual ,
-                   :HorizontalCoordinateSystem .
+srs:Mercator rdf:type owl:NamedIndividual ,
+                      srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/MillerCylindrical
-:MillerCylindrical rdf:type owl:NamedIndividual ,
-                            :HorizontalCoordinateSystem .
+srs:MillerCylindrical rdf:type owl:NamedIndividual ,
+                               srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/ModifiedStereographic
-:ModifiedStereographic rdf:type owl:NamedIndividual ,
-                                :HorizontalCoordinateSystem .
+srs:ModifiedStereographic rdf:type owl:NamedIndividual ,
+                                   srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/ObliqueMercator
-:ObliqueMercator rdf:type owl:NamedIndividual ,
-                          :HorizontalCoordinateSystem .
+srs:ObliqueMercator rdf:type owl:NamedIndividual ,
+                             srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/PolarStereographic
-:PolarStereographic rdf:type owl:NamedIndividual ,
-                             :PolarCoordinates .
+srs:PolarStereographic rdf:type owl:NamedIndividual ,
+                                srs:PolarCoordinates .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Polyconic
-:Polyconic rdf:type owl:NamedIndividual ,
-                    :HorizontalCoordinateSystem .
+srs:Polyconic rdf:type owl:NamedIndividual ,
+                       srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Robinson
-:Robinson rdf:type owl:NamedIndividual ,
-                   :HorizontalCoordinateSystem .
+srs:Robinson rdf:type owl:NamedIndividual ,
+                      srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/RotatedLatitudeLongitude
-:RotatedLatitudeLongitude rdf:type owl:NamedIndividual ,
-                                   :SpatialReferenceSystem .
+srs:RotatedLatitudeLongitude rdf:type owl:NamedIndividual ,
+                                      srs:SpatialReferenceSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Sinusoidal
-:Sinusoidal rdf:type owl:NamedIndividual ,
-                     :HorizontalCoordinateSystem .
+srs:Sinusoidal rdf:type owl:NamedIndividual ,
+                        srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/SpaceObliqueMercator
-:SpaceObliqueMercator rdf:type owl:NamedIndividual ,
-                               :HorizontalCoordinateSystem .
+srs:SpaceObliqueMercator rdf:type owl:NamedIndividual ,
+                                  srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/Stereographic
-:Stereographic rdf:type owl:NamedIndividual ,
-                        :HorizontalCoordinateSystem .
+srs:Stereographic rdf:type owl:NamedIndividual ,
+                           srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/TaitBryanAngle
-:TaitBryanAngle rdf:type owl:NamedIndividual ,
-                         :SpatialReferenceSystem ;
-                <http://sweetontology.net/relaMath/coordinate_1> <http://sweetontology.net/reprSpaceCoordinate/Yaw> ;
-                <http://sweetontology.net/relaMath/coordinate_2> <http://sweetontology.net/reprSpaceCoordinate/Pitch> ;
-                <http://sweetontology.net/relaMath/coordinate_3> <http://sweetontology.net/reprSpaceCoordinate/Roll> .
+srs:TaitBryanAngle rdf:type owl:NamedIndividual ,
+                            srs:SpatialReferenceSystem ;
+                   mrela2:coordinate_1 coord:Yaw ;
+                   mrela2:coordinate_2 coord:Pitch ;
+                   mrela2:coordinate_3 coord:Roll .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/TransformedEulerianMean
-:TransformedEulerianMean rdf:type owl:NamedIndividual ,
-                                  :HorizontalCoordinateSystem .
+srs:TransformedEulerianMean rdf:type owl:NamedIndividual ,
+                                     srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/TransverseMercator
-:TransverseMercator rdf:type owl:NamedIndividual ,
-                             :HorizontalCoordinateSystem .
+srs:TransverseMercator rdf:type owl:NamedIndividual ,
+                                srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/UniversalTransverseMercator
-:UniversalTransverseMercator rdf:type owl:NamedIndividual ,
-                                      :HorizontalCoordinateSystem .
+srs:UniversalTransverseMercator rdf:type owl:NamedIndividual ,
+                                         srs:HorizontalCoordinateSystem .
 
 
 ###  http://sweetontology.net/reprSpaceReferenceSystem/VanDeGrinten
-:VanDeGrinten rdf:type owl:NamedIndividual ,
-                       :HorizontalCoordinateSystem .
+srs:VanDeGrinten rdf:type owl:NamedIndividual ,
+                          srs:HorizontalCoordinateSystem .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

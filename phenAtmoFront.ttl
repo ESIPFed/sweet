@@ -3,7 +3,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmo: <http://sweetontology.net/phenAtmo/> .
+@prefix inst: <http://sweetontology.net/phenFluidInstability/> .
+@prefix math: <http://sweetontology.net/reprMathFunction/> .
+@prefix orog: <http://sweetontology.net/realmLandOrographic/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix front: <http://sweetontology.net/phenAtmoFront/> .
+@prefix mwind: <http://sweetontology.net/phenAtmoWindMesoscale/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/phenAtmoFront> .
 
 <http://sweetontology.net/phenAtmoFront> rdf:type owl:Ontology ;
@@ -23,15 +32,15 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
+rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasRealm
-<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
+rela:hasRealm rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/componentOf
-<http://sweetontology.net/relaSci/componentOf> rdf:type owl:ObjectProperty .
+screla:componentOf rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -39,172 +48,154 @@
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoFront/ColdFront
-:ColdFront rdf:type owl:Class ;
-           rdfs:subClassOf :Front ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom <http://sweetontology.net/procPhysical/Cooling>
-                           ] ;
-           owl:disjointWith :WarmFront ;
-           rdfs:comment "Any nonoccluded front, or portion thereof, that moves so that the colder air replaces the warmer air; that is, the leading edge of a relatively cold air mass."@en .
+front:ColdFront rdf:type owl:Class ;
+                rdfs:subClassOf front:Front ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasPhenomena ;
+                                  owl:allValuesFrom proc:Cooling
+                                ] ;
+                owl:disjointWith front:WarmFront .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Damming
-:Damming rdf:type owl:Class ;
-         rdfs:subClassOf :Front ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-                           owl:allValuesFrom <http://sweetontology.net/realmLandOrographic/Orography>
-                         ] .
+front:Damming rdf:type owl:Class ;
+              rdfs:subClassOf front:Front ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty rela:hasRealm ;
+                                owl:allValuesFrom orog:Orography
+                              ] .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Dryline
-:Dryline rdf:type owl:Class ;
-         rdfs:subClassOf :Front ;
-         rdfs:comment "A low-level mesoscale boundary or transition zone hundreds of kilometers in length and up to tens of kilometers in width separating dry air from moist air."@en .
+front:Dryline rdf:type owl:Class ;
+              rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/FalseWarmSector
-:FalseWarmSector rdf:type owl:Class ;
-                 rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
-                 rdfs:comment "The sector, in a horizontal plane, between the occluded front and a secondary cold-front of an occluded cyclone."@en .
+front:FalseWarmSector rdf:type owl:Class ;
+                      rdfs:subClassOf atmo:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Front
-:Front rdf:type owl:Class ;
-       rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                       <http://sweetontology.net/reprMathFunction/Discontinuity> ;
-       rdfs:comment "In meteorology, generally, the interface or transition zone between two air masses of different density" .
+front:Front rdf:type owl:Class ;
+            rdfs:subClassOf atmo:MeteorologicalPhenomena ,
+                            math:Discontinuity .
 
 
 ###  http://sweetontology.net/phenAtmoFront/FrontRegion
-:FrontRegion rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty <http://sweetontology.net/relaSci/componentOf> ;
-                               owl:allValuesFrom :Front
-                             ] .
+front:FrontRegion rdf:type owl:Class ;
+                  rdfs:subClassOf atmo:MeteorologicalPhenomena ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty screla:componentOf ;
+                                    owl:allValuesFrom front:Front
+                                  ] .
 
 
 ###  http://sweetontology.net/phenAtmoFront/FrontalLifting
-:FrontalLifting rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/phenFluidInstability/Lifting> ;
-                rdfs:comment "The forced ascent of the warmer, less dense air at and near a front, occurring whenever the relative velocities of the two air masses are such that they converge at the front."@en .
+front:FrontalLifting rdf:type owl:Class ;
+                     rdfs:subClassOf inst:Lifting .
 
 
 ###  http://sweetontology.net/phenAtmoFront/KataFront
-:KataFront rdf:type owl:Class ;
-           rdfs:subClassOf :Front ;
-           rdfs:comment "A front (usually a cold front) at which the warm air descends the frontal surface (except, presumably, in the lowest layers)."@en .
+front:KataFront rdf:type owl:Class ;
+                rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/KatabaticFront
-:KatabaticFront rdf:type owl:Class ;
-                rdfs:subClassOf :Front ;
-                rdfs:comment "Frontal surface above which air is descending."@en .
+front:KatabaticFront rdf:type owl:Class ;
+                     rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/MediterraneanFront
-:MediterraneanFront rdf:type owl:Class ;
-                    rdfs:subClassOf :Front ;
-                    rdfs:comment "A front that forms in the low pressure zone that covers the Mediterranean between the cold air over Europe and the warm air over the Sahara."@en .
+front:MediterraneanFront rdf:type owl:Class ;
+                         rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/MeiyuFront
-:MeiyuFront rdf:type owl:Class ;
-            rdfs:subClassOf :Front ;
-            rdfs:comment "(Also called baiu front). A quasi-persistent, nearly stationary, east?west-oriented weak baroclinic zone in the lower troposphere that typically stretches from the east China coast, across Taiwan, and eastward into the Pacific, south of Japan. The term ?mei-yu? is the Chinese expression for ?plum rains.? The mei-yu front generally occurs from mid- to late spring through early to midsummer. This low-level baroclinic zone typically lies beneath a confluent jet entrance region aloft situated downstream of the Tibetan Plateau. The mei-yu/baiu front is very significant in the weather and climate of southeast Asia as it serves as the focus for persistent heavy convective rainfall associated with mesoscale convective complexes (MCCs) or mesoscale convective systems (MCSs) that propagate eastward along the baroclinic zone. The moisture source is typically the South China Sea and sometimes the Bay of Bengal. The usual lifting mechanism is low-level warm-air advection in association with a low-level jet on the equatorward flank of the baroclinic zone. Deep ascent and resulting organized MCCs/MCSs are especially favored when the low-level warm-air advection is situated beneath the favorable equatorward jet entrance region aloft."@en .
+front:MeiyuFront rdf:type owl:Class ;
+                 rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Microfront
-:Microfront rdf:type owl:Class ;
-            rdfs:subClassOf :Front ;
-            rdfs:comment "A sharp horizontal temperature contrast of a few degrees Celsius within a width of tens of centimeters to a few meters along the trailing edge of a thermal plume in the surface layer of the atmospheric boundary layer."@en .
+front:Microfront rdf:type owl:Class ;
+                 rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/MoistTongue
-:MoistTongue rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
-             rdfs:comment "An extension or protrusion of moist air into a region of lower moisture content. Cloudiness and precipitation are closely related to moist tongues."@en .
+front:MoistTongue rdf:type owl:Class ;
+                  rdfs:subClassOf atmo:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoFront/OccludedFront
-:OccludedFront rdf:type owl:Class ;
-               rdfs:subClassOf :Front ;
-               rdfs:comment "A front that forms as a cyclone moves deeper into colder air."@en .
+front:OccludedFront rdf:type owl:Class ;
+                    rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/OutflowBoundary
-:OutflowBoundary rdf:type owl:Class ;
-                 rdfs:subClassOf :Front ;
-                 rdfs:comment "A surface boundary formed by the horizontal spreading of thunderstorm-cooled air."@en .
+front:OutflowBoundary rdf:type owl:Class ;
+                      rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/SeaBreezeFront
-:SeaBreezeFront rdf:type owl:Class ;
-                rdfs:subClassOf :Front ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                                  owl:allValuesFrom <http://sweetontology.net/phenAtmoWindMesoscale/SeaBreeze>
-                                ] ;
-                rdfs:comment "The horizontal discontinuity in temperature and humidity that marks the leading edge of the intrusion of cooler, more moist marine air associated with a sea breeze."@en .
+front:SeaBreezeFront rdf:type owl:Class ;
+                     rdfs:subClassOf front:Front ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasPhenomena ;
+                                       owl:allValuesFrom mwind:SeaBreeze
+                                     ] .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Seclusion
-:Seclusion rdf:type owl:Class ;
-           rdfs:subClassOf :Front ;
-           rdfs:comment "A special (and rare) case of the process of occlusion, where the point at which the cold front first overtakes the warm front (or quasi-stationary front) is at some distance from the apex of the wave cyclone."@en .
+front:Seclusion rdf:type owl:Class ;
+                rdfs:subClassOf front:Front .
 
 
 ###  http://sweetontology.net/phenAtmoFront/TransitionZone
-:TransitionZone rdf:type owl:Class ;
-                rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> .
+front:TransitionZone rdf:type owl:Class ;
+                     rdfs:subClassOf atmo:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoFront/TriplePoint
-:TriplePoint rdf:type owl:Class ;
-             rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
-             rdfs:comment "A junction point within the tropics of three distinct air masses, considered to be an ideal point of origin for a tropical cyclone."@en .
+front:TriplePoint rdf:type owl:Class ;
+                  rdfs:subClassOf atmo:MeteorologicalPhenomena .
 
 
 ###  http://sweetontology.net/phenAtmoFront/WarmFront
-:WarmFront rdf:type owl:Class ;
-           rdfs:subClassOf :Front ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-                             owl:allValuesFrom <http://sweetontology.net/procPhysical/Heating>
-                           ] ;
-           rdfs:label "Warm Front" .
+front:WarmFront rdf:type owl:Class ;
+                rdfs:subClassOf front:Front ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasPhenomena ;
+                                  owl:allValuesFrom proc:Heating
+                                ] .
 
 
 ###  http://sweetontology.net/phenAtmoFront/WarmSector
-:WarmSector rdf:type owl:Class ;
-            rdfs:subClassOf :FrontRegion ;
-            rdfs:comment "That area, within the circulation of a wave cyclone, where the warm air is found.  Traditionally, it lies between the cold front and warm front of the storm; in the typical case, the warm sector continually diminishes in size and ultimately disappears (at the surface) as the result of occlusion."@en .
+front:WarmSector rdf:type owl:Class ;
+                 rdfs:subClassOf front:FrontRegion .
 
 
 ###  http://sweetontology.net/phenAtmoWindMesoscale/SeaBreeze
-<http://sweetontology.net/phenAtmoWindMesoscale/SeaBreeze> rdf:type owl:Class .
+mwind:SeaBreeze rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lifting
-<http://sweetontology.net/phenFluidInstability/Lifting> rdf:type owl:Class .
+inst:Lifting rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Cooling
-<http://sweetontology.net/procPhysical/Cooling> rdf:type owl:Class .
+proc:Cooling rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Heating
-<http://sweetontology.net/procPhysical/Heating> rdf:type owl:Class .
+proc:Heating rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandOrographic/Orography
-<http://sweetontology.net/realmLandOrographic/Orography> rdf:type owl:Class .
+orog:Orography rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathFunction/Discontinuity
-<http://sweetontology.net/reprMathFunction/Discontinuity> rdf:type owl:Class .
+math:Discontinuity rdf:type owl:Class .
 
 
 ###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
