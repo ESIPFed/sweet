@@ -1,129 +1,132 @@
-@prefix mod: <http://sweetontology.net/reprSciModel/> .
-@prefix graph: <http://sweetontology.net/reprMathGraph/> .
-@prefix math: <http://sweetontology.net/reprMath/> .
+@base          <http://sweetontology.net/reprMathGraph> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix geom: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mod:   <http://sweetontology.net/reprSciModel/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix math:  <http://sweetontology.net/reprMath/> .
+@prefix geom:  <http://sweetontology.net/reprSpaceGeometry/> .
+@prefix graph: <http://sweetontology.net/reprMathGraph/> .
 
-<http://sweetontology.net/reprMathGraph> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSciModel> , <http://sweetontology.net/reprMath> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/reprSpaceGeometry> .
+graph:Node  a   owl:Class .
 
-<http://sweetontology.net/reprMathGraph/Arc> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/StructuralComponent> , _:node1boamel9bx1 .
+graph:Edge  a            owl:Class ;
+        rdfs:subClassOf  graph:StructuralComponent ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   mrela:hasUnorderedVertexPair
+                         ] .
 
-_:node1boamel9bx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasOrderedVertexPair> ;
-	owl:cardinality "1"^^xsd:nonNegativeInteger .
+graph:Arc  a             owl:Class ;
+        rdfs:subClassOf  graph:StructuralComponent ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   mrela:hasOrderedVertexPair
+                         ] .
 
-<http://sweetontology.net/reprMathGraph/Cycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Path> , <http://sweetontology.net/reprSpaceGeometry/Path> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathGraph/Circuit> .
+graph:WeightedEdge  a    owl:Class ;
+        rdfs:subClassOf  graph:Edge ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   mrela:hasWeight
+                         ] .
 
-<http://sweetontology.net/reprMathGraph/Circuit> a owl:Class .
+graph:Forest  a          owl:Class ;
+        rdfs:subClassOf  graph:Graph .
 
-<http://sweetontology.net/reprMathGraph/Edge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/StructuralComponent> , _:node1boamel9bx2 .
+graph:Tree  a            owl:Class ;
+        rdfs:subClassOf  graph:Graph .
 
-_:node1boamel9bx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasUnorderedVertexPair> ;
-	owl:cardinality "1"^^xsd:nonNegativeInteger .
+graph:Vertice  a  owl:Class .
 
-<http://sweetontology.net/reprMathGraph/Loop> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Edge> .
+graph:StructuralModel
+        a                owl:Class ;
+        rdfs:subClassOf  mod:Model .
 
-<http://sweetontology.net/reprMathGraph/WeightedEdge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Edge> , _:node1boamel9bx3 .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprSpaceGeometry> , <relaMath> , <reprMath> , <reprSciModel> ;
+        owl:versionInfo  "3.1.0" .
 
-_:node1boamel9bx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasWeight> ;
-	owl:cardinality "1"^^xsd:nonNegativeInteger .
+graph:IsolatedVertex  a  owl:Class ;
+        rdfs:subClassOf  graph:Vertex .
 
-<http://sweetontology.net/reprMathGraph/Network> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Graph> , _:node1boamel9bx4 .
+graph:StructuralComponent
+        a                owl:Class ;
+        rdfs:subClassOf  graph:StructuralModel .
 
-_:node1boamel9bx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasWeightedEdge> ;
-	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+graph:OrderedVertexPair
+        a                owl:Class ;
+        rdfs:subClassOf  math:OrderedPair ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  graph:Vertex ;
+                           owl:onProperty     mrela:eachElementHasType
+                         ] .
 
-<http://sweetontology.net/reprMathGraph/Graph> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/StructuralModel> , _:node1boamel9bx5 .
+graph:Cycle  a               owl:Class ;
+        rdfs:subClassOf      geom:Path , graph:Path ;
+        owl:equivalentClass  graph:Circuit .
 
-_:node1boamel9bx5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasVertex> ;
-	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+graph:LeafNode  a        owl:Class ;
+        rdfs:subClassOf  graph:Node .
 
-<http://sweetontology.net/reprMathGraph/Graph> rdfs:subClassOf _:node1boamel9bx6 .
+graph:Circuit  a  owl:Class .
 
-_:node1boamel9bx6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasEdge> ;
-	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+graph:Graph  a           owl:Class ;
+        rdfs:subClassOf  graph:StructuralModel ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      mrela:hasEdge
+                         ] ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      mrela:hasVertex
+                         ] .
 
-<http://sweetontology.net/reprMathGraph/Path> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMath/Array> , _:node1boamel9bx7 .
+graph:Network  a         owl:Class ;
+        rdfs:subClassOf  graph:Graph ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      mrela:hasWeightedEdge
+                         ] .
 
-_:node1boamel9bx7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
-	owl:allValuesFrom <http://sweetontology.net/reprMathGraph/Edge> .
+graph:Loop  a            owl:Class ;
+        rdfs:subClassOf  graph:Edge .
 
-<http://sweetontology.net/reprMathGraph/DirectedGraph> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Graph> , _:node1boamel9bx8 .
+graph:ConnectedGraph  a  owl:Class ;
+        rdfs:subClassOf  graph:Graph .
 
-_:node1boamel9bx8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasArc> ;
-	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+graph:DirectedGraph  a       owl:Class ;
+        rdfs:subClassOf      graph:Graph ;
+        rdfs:subClassOf      [ a                   owl:Restriction ;
+                               owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                               owl:onProperty      mrela:hasArc
+                             ] ;
+        owl:equivalentClass  graph:Digraph .
 
-<http://sweetontology.net/reprMathGraph/DirectedGraph> owl:equivalentClass <http://sweetontology.net/reprMathGraph/Digraph> .
+graph:UnorderedVertexPair
+        a                owl:Class ;
+        rdfs:subClassOf  math:UnorderedPair ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  graph:Vertex ;
+                           owl:onProperty     mrela:eachElementHasType
+                         ] .
 
-<http://sweetontology.net/reprMathGraph/Digraph> a owl:Class .
+graph:Vertex  a              owl:Class ;
+        rdfs:subClassOf      math:Point , graph:StructuralComponent ;
+        owl:equivalentClass  graph:Node , graph:Vertice .
 
-<http://sweetontology.net/reprMathGraph/UndirectedGraph> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Graph> ;
-	owl:disjointWith <http://sweetontology.net/reprMathGraph/DirectedGraph> .
+graph:UndirectedGraph
+        a                 owl:Class ;
+        rdfs:subClassOf   graph:Graph ;
+        owl:disjointWith  graph:DirectedGraph .
 
-<http://sweetontology.net/reprMathGraph/LeafNode> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Node> .
+graph:Digraph  a  owl:Class .
 
-<http://sweetontology.net/reprMathGraph/StructuralModel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciModel/Model> .
-
-<http://sweetontology.net/reprMathGraph/StructuralComponent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/StructuralModel> .
-
-<http://sweetontology.net/reprMathGraph/Vertex> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/StructuralComponent> , <http://sweetontology.net/reprMath/Point> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathGraph/Vertice> , <http://sweetontology.net/reprMathGraph/Node> .
-
-<http://sweetontology.net/reprMathGraph/Vertice> a owl:Class .
-
-<http://sweetontology.net/reprMathGraph/Node> a owl:Class .
-
-<http://sweetontology.net/reprMathGraph/IsolatedVertex> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Vertex> .
-
-<http://sweetontology.net/reprMathGraph/OrderedVertexPair> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMath/OrderedPair> , _:node1boamel9bx9 .
-
-_:node1boamel9bx9 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
-	owl:allValuesFrom <http://sweetontology.net/reprMathGraph/Vertex> .
-
-<http://sweetontology.net/reprMathGraph/UnorderedVertexPair> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMath/UnorderedPair> , _:node1boamel9bx10 .
-
-_:node1boamel9bx10 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
-	owl:allValuesFrom <http://sweetontology.net/reprMathGraph/Vertex> .
-
-<http://sweetontology.net/reprMathGraph/Tree> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Graph> .
-
-<http://sweetontology.net/reprMathGraph/Forest> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Graph> .
-
-<http://sweetontology.net/reprMathGraph/ConnectedGraph> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Graph> .
+graph:Path  a            owl:Class ;
+        rdfs:subClassOf  math:Array ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  graph:Edge ;
+                           owl:onProperty     mrela:eachElementHasType
+                         ] .

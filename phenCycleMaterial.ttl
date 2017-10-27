@@ -1,82 +1,84 @@
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/phenCycleMaterial> .
+@prefix elem:  <http://sweetontology.net/matrElement/> .
+@prefix comp:  <http://sweetontology.net/matrCompound/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix ecol:  <http://sweetontology.net/phenEcology/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix recy:  <http://sweetontology.net/phenCycleMaterial/> .
+@prefix sys:   <http://sweetontology.net/phenSystem/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 @prefix graph: <http://sweetontology.net/reprMathGraph/> .
-@prefix elem: <http://sweetontology.net/matrElement/> .
-@prefix ecol: <http://sweetontology.net/phenEcology/> .
-@prefix recy: <http://sweetontology.net/phenCycleMaterial/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://sweetontology.net/phenCycleMaterial> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenEcology> , <http://sweetontology.net/matrCompound> , <http://sweetontology.net/phenSystem> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/reprMathGraph> , <http://sweetontology.net/matrElement> .
+recy:PhosphorusCycle  a  owl:Class ;
+        rdfs:subClassOf  recy:BiogeochemicalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    elem:Phosphorus ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-<http://sweetontology.net/phenCycleMaterial/MaterialCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Cycle> , _:node1boame3pmx1 .
+recy:NitrogenCycle  a    owl:Class ;
+        rdfs:subClassOf  recy:BiogeochemicalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    elem:Nitrogen ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-_:node1boame3pmx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:cardinality "1"^^xsd:nonNegativeInteger .
+recy:MaterialCycle  a    owl:Class ;
+        rdfs:subClassOf  graph:Cycle ;
+        rdfs:subClassOf  [ a                owl:Restriction ;
+                           owl:cardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty   crela:hasSubstance
+                         ] .
 
-<http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/MaterialCycle> , _:node1boame3pmx2 .
+recy:CarbonCycle  a      owl:Class ;
+        rdfs:subClassOf  recy:BiogeochemicalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    elem:Carbon ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-_:node1boame3pmx2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenEcology/EcologicalPhenomena> ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> .
+recy:NutrientCycling  a  owl:Class ;
+        rdfs:subClassOf  sys:Recycling , recy:BiogeochemicalCycle .
 
-<http://sweetontology.net/phenCycleMaterial/CarbonCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> , _:node1boame3pmx3 .
+recy:HydrologicalCycle
+        a       owl:Class .
 
-_:node1boame3pmx3 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/matrElement/Carbon> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
+recy:OxygenCycle  a      owl:Class ;
+        rdfs:subClassOf  recy:BiogeochemicalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    elem:Oxygen ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-<http://sweetontology.net/phenCycleMaterial/NitrogenCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> , _:node1boame3pmx4 .
+recy:SulfurCycle  a      owl:Class ;
+        rdfs:subClassOf  recy:BiogeochemicalCycle ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    elem:Sulfur ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-_:node1boame3pmx4 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/matrElement/Nitrogen> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
+recy:HydrologicCycle  a      owl:Class ;
+        rdfs:subClassOf      recy:MaterialCycle ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    comp:Water ;
+                               owl:onProperty  crela:hasSubstance
+                             ] ;
+        owl:equivalentClass  recy:WaterCycle , recy:HydrologicalCycle .
 
-<http://sweetontology.net/phenCycleMaterial/OxygenCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> , _:node1boame3pmx5 .
+recy:WaterCycle  a  owl:Class .
 
-_:node1boame3pmx5 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/matrElement/Oxygen> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <phenSystem> , <relaChemical> , <phenEcology> , <reprMathGraph> , <matrElement> , <rela> , <matrCompound> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenCycleMaterial/PhosphorusCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> , _:node1boame3pmx6 .
-
-_:node1boame3pmx6 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/matrElement/Phosphorus> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
-
-<http://sweetontology.net/phenCycleMaterial/SulfurCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> , _:node1boame3pmx7 .
-
-_:node1boame3pmx7 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/matrElement/Sulfur> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
-
-<http://sweetontology.net/phenCycleMaterial/HydrologicCycle> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/MaterialCycle> , _:node1boame3pmx8 .
-
-_:node1boame3pmx8 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/matrCompound/Water> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
-
-<http://sweetontology.net/phenCycleMaterial/HydrologicCycle> owl:equivalentClass <http://sweetontology.net/phenCycleMaterial/HydrologicalCycle> , <http://sweetontology.net/phenCycleMaterial/WaterCycle> .
-
-<http://sweetontology.net/phenCycleMaterial/HydrologicalCycle> a owl:Class .
-
-<http://sweetontology.net/phenCycleMaterial/WaterCycle> a owl:Class .
-
-<http://sweetontology.net/phenCycleMaterial/NutrientCycling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle> , <http://sweetontology.net/phenSystem/Recycling> .
+recy:BiogeochemicalCycle
+        a                owl:Class ;
+        rdfs:subClassOf  recy:MaterialCycle ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  ecol:EcologicalPhenomena ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .

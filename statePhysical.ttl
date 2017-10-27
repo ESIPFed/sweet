@@ -1,232 +1,235 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix sstate: <http://sweetontology.net/stateSystem/> .
-@prefix comp: <http://sweetontology.net/matrCompound/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix charge: <http://sweetontology.net/propCharge/> .
-@prefix velo: <http://sweetontology.net/propSpeed/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
+@base          <http://sweetontology.net/statePhysical> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix comp:  <http://sweetontology.net/matrCompound/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix charge: <http://sweetontology.net/propCharge/> .
+@prefix velo:  <http://sweetontology.net/propSpeed/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix diml: <http://sweetontology.net/propDimensionlessRatio/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix diml:  <http://sweetontology.net/propDimensionlessRatio/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sstate: <http://sweetontology.net/stateSystem/> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix ordi:  <http://sweetontology.net/propOrdinal/> .
 
-<http://sweetontology.net/statePhysical> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/state> , <http://sweetontology.net/propOrdinal> , <http://sweetontology.net/propCharge> , <http://sweetontology.net/matrCompound> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/matr> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/propSpeed> , <http://sweetontology.net/propDimensionlessRatio> .
+pstate:Charged  a          pstate:PhysicalState ;
+        owl:differentFrom  pstate:Neutral .
 
-pstate:StateOfMatter a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+pstate:NeutralState  a  pstate:PhysicalState .
 
-pstate:SubstanceForm a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+pstate:Dry  a              pstate:MoistureState ;
+        owl:differentFrom  pstate:Moist .
 
-pstate:MoistureState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState , _:node1boamep5cx1 .
+pstate:WaveState  a      owl:Class ;
+        rdfs:subClassOf  pstate:PhysicalState .
 
-_:node1boamep5cx1 a owl:Restriction ;
-	owl:hasValue comp:Water ;
-	owl:onProperty crela:hasSubstance .
+pstate:SpeedState  a     owl:Class ;
+        rdfs:subClassOf  pstate:PhysicalState .
 
-pstate:PhysicalState a owl:Class ;
-	rdfs:subClassOf state:State .
+pstate:Filtered  a  pstate:WaveState .
 
-pstate:WaveState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+pstate:Fragment  a  pstate:SubstanceForm .
 
-pstate:SpeedState a owl:Class ;
-	rdfs:subClassOf pstate:PhysicalState .
+pstate:Hypogravity  a      pstate:PhysicalState ;
+        owl:differentFrom  pstate:Hypergravity .
 
-pstate:Neutral a pstate:PhysicalState ;
-	prela:hasCharge "0"^^xsd:integer ;
-	owl:sameAs pstate:NeutralState ;
-	owl:differentFrom pstate:IonizedState .
+pstate:Ionized  a   pstate:PhysicalState ;
+        owl:sameAs  pstate:IonizedState .
 
-pstate:NeutralState a pstate:PhysicalState .
+pstate:Wet  a   pstate:MoistureState .
 
-pstate:NonThermalPlasma a pstate:PhysicalState ;
-	owl:differentFrom pstate:ThermalPlasma .
+pstate:Bubble  a  pstate:SubstanceForm .
 
-pstate:ThermalPlasma a pstate:PhysicalState .
+pstate:Constructive  a  pstate:WaveState .
 
-pstate:Ferroelectric a pstate:PhysicalState .
+pstate:Gaseous  a           pstate:StateOfMatter ;
+        mrela:approximates  pstate:Gas .
 
-pstate:Burned a pstate:PhysicalState .
+pstate:Dissolved  a  pstate:SubstanceForm .
 
-pstate:Radiative a pstate:PhysicalState .
+pstate:Liquid  a           pstate:StateOfMatter ;
+        owl:differentFrom  pstate:Gas .
 
-pstate:Peraelectric a pstate:PhysicalState ;
-	owl:differentFrom pstate:Ferroelectric .
+pstate:Slow  a  pstate:SpeedState .
 
-pstate:Ionized a pstate:PhysicalState ;
-	owl:sameAs pstate:IonizedState .
+pstate:Calm  a  pstate:SpeedState .
 
-pstate:IonizedState a pstate:PhysicalState .
+pstate:Ferroelectric  a  pstate:PhysicalState .
 
-pstate:QuasiNeutral a pstate:PhysicalState ;
-	mrela:approximates pstate:Neutral .
+pstate:Permeable  a  pstate:MoistureState .
 
-pstate:Charged a pstate:PhysicalState ;
-	owl:differentFrom pstate:Neutral .
+pstate:StateOfMatter  a  owl:Class ;
+        rdfs:subClassOf  pstate:PhysicalState .
 
-pstate:Hypergravity a pstate:PhysicalState .
+pstate:Isochoric  a  sstate:EquilibriumState .
 
-pstate:Hypogravity a pstate:PhysicalState ;
-	owl:differentFrom pstate:Hypergravity .
+pstate:Quiescent  a  pstate:SpeedState .
 
-pstate:ZeroG a pstate:PhysicalState .
+pstate:Moist  a  pstate:MoistureState .
 
-pstate:Fluid a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Solid .
+pstate:Heavy  a  pstate:RainState .
 
-pstate:Solid a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Gas ;
-	owl:sameAs pstate:Frozen .
+pstate:Pillow  a  pstate:SubstanceForm .
 
-pstate:Frozen a pstate:PhysicalState .
+pstate:Subsonic  a        pstate:SpeedState ;
+        prela:slowerThan  diml:SonicMachNumber .
 
-pstate:Gas a pstate:StateOfMatter ;
-	owl:sameAs pstate:Vapor .
+pstate:Destructive  a      pstate:WaveState ;
+        owl:differentFrom  pstate:Constructive .
 
-pstate:Vapor a pstate:StateOfMatter .
+pstate:Hygroscopic  a  pstate:MoistureState .
 
-pstate:Plasma a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Solid .
+pstate:Intermittent  a  pstate:RainState .
 
-pstate:Liquid a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Gas .
+pstate:Eddy  a  pstate:WaveState .
 
-pstate:Gaseous a pstate:StateOfMatter ;
-	mrela:approximates pstate:Gas .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <propOrdinal> , <matr> , <relaMath> , <propSpeed> , <relaPhysical> , <stateSystem> , <matrCompound> , <propDimensionlessRatio> , <propCharge> , <relaChemical> , <state> ;
+        owl:versionInfo  "3.1.0" .
 
-pstate:Condensed a pstate:StateOfMatter ;
-	owl:differentFrom pstate:Gas .
+pstate:Pellicular  a  pstate:SubstanceForm .
 
-pstate:Isobaric a sstate:EquilibriumState .
+pstate:Peraelectric  a     pstate:PhysicalState ;
+        owl:differentFrom  pstate:Ferroelectric .
 
-pstate:Isochoric a sstate:EquilibriumState .
+pstate:Isobaric  a  sstate:EquilibriumState .
 
-pstate:Isohalic a sstate:EquilibriumState .
+pstate:PhysicalState  a  owl:Class ;
+        rdfs:subClassOf  state:State .
 
-pstate:Isostatic a sstate:EquilibriumState ;
-	owl:sameAs pstate:Isostacy .
+pstate:Gale  a  pstate:SpeedState .
 
-pstate:Isostacy a sstate:EquilibriumState .
+pstate:NonThermalPlasma
+        a                  pstate:PhysicalState ;
+        owl:differentFrom  pstate:ThermalPlasma .
 
-pstate:NormalMode a sstate:EquilibriumState ;
-	owl:sameAs pstate:FreeOscillation .
+pstate:Supersonic  a      pstate:SpeedState ;
+        prela:fasterThan  diml:SonicMachNumber .
 
-pstate:FreeOscillation a sstate:EquilibriumState .
+pstate:Fluid  a            pstate:StateOfMatter ;
+        owl:differentFrom  pstate:Solid .
 
-pstate:Suspended a pstate:SubstanceForm .
+pstate:Droplet  a     pstate:SubstanceForm ;
+        rdfs:comment  "A small spherical particle of any liquid; in meteorology, particularly a water droplet."@en .
 
-pstate:Diluted a pstate:SubstanceForm .
+pstate:Scattered  a  pstate:RainState .
 
-pstate:Dissolved a pstate:SubstanceForm .
+pstate:Porous  a  pstate:MoistureState .
 
-pstate:Film a pstate:SubstanceForm .
+pstate:Solid  a            pstate:StateOfMatter ;
+        owl:differentFrom  pstate:Gas ;
+        owl:sameAs         pstate:Frozen .
 
-pstate:Floating a pstate:SubstanceForm .
+pstate:Floating  a  pstate:SubstanceForm .
 
-pstate:Fragment a pstate:SubstanceForm .
+pstate:Burned  a  pstate:PhysicalState .
 
-pstate:Pellicular a pstate:SubstanceForm .
+pstate:NormalMode  a  sstate:EquilibriumState ;
+        owl:sameAs  pstate:FreeOscillation .
 
-pstate:Pillow a pstate:SubstanceForm .
+pstate:Severe  a  pstate:RainState .
 
-pstate:Particle a pstate:SubstanceForm .
+pstate:Neutral  a          pstate:PhysicalState ;
+        prela:hasCharge    0 ;
+        owl:differentFrom  pstate:IonizedState ;
+        owl:sameAs         pstate:NeutralState .
 
-pstate:Bubble a pstate:SubstanceForm .
+pstate:Radiative  a  pstate:PhysicalState .
 
-pstate:Droplet a pstate:SubstanceForm ;
-	rdfs:comment "A small spherical particle of any liquid; in meteorology, particularly a water droplet."@en .
+pstate:Isohalic  a  sstate:EquilibriumState .
 
-pstate:RainState a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty , _:node1boamep5cx2 .
+pstate:LowFrequency  a     pstate:WaveState ;
+        owl:differentFrom  pstate:HighFrequency .
 
-_:node1boamep5cx2 a owl:Restriction ;
-	owl:hasValue comp:Water ;
-	owl:onProperty crela:hasSubstance .
+pstate:Impermeable  a      pstate:MoistureState ;
+        owl:differentFrom  pstate:Permeable .
 
-pstate:Light a pstate:RainState .
+pstate:HighFrequency  a  pstate:WaveState .
 
-pstate:Occasional a pstate:RainState .
+pstate:IonizedState  a  pstate:PhysicalState .
 
-pstate:Intermittent a pstate:RainState .
+pstate:MoistureState  a  owl:Class ;
+        rdfs:subClassOf  pstate:PhysicalState ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    comp:Water ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-pstate:Scattered a pstate:RainState .
+pstate:Suspended  a  pstate:SubstanceForm .
 
-pstate:Heavy a pstate:RainState .
+pstate:Gentle  a  pstate:SpeedState .
 
-pstate:Severe a pstate:RainState .
+pstate:Gas  a       pstate:StateOfMatter ;
+        owl:sameAs  pstate:Vapor .
 
-pstate:Deiced a pstate:MoistureState .
+pstate:FreeOscillation
+        a       sstate:EquilibriumState .
 
-pstate:Dry a pstate:MoistureState ;
-	owl:differentFrom pstate:Moist .
+pstate:Particle  a  pstate:SubstanceForm .
 
-pstate:Humid a pstate:MoistureState ;
-	owl:sameAs pstate:Moist .
+pstate:Zonal  a            pstate:WaveState ;
+        owl:differentFrom  pstate:Eddy .
 
-pstate:Moist a pstate:MoistureState .
+pstate:Isostatic  a  sstate:EquilibriumState ;
+        owl:sameAs  pstate:Isostacy .
 
-pstate:Wet a pstate:MoistureState .
+pstate:Vapor  a  pstate:StateOfMatter .
 
-pstate:Hydrophobic a pstate:MoistureState .
+pstate:Occasional  a  pstate:RainState .
 
-pstate:Impermeable a pstate:MoistureState ;
-	owl:differentFrom pstate:Permeable .
+pstate:Condensed  a        pstate:StateOfMatter ;
+        owl:differentFrom  pstate:Gas .
 
-pstate:Permeable a pstate:MoistureState .
+pstate:Fast  a            pstate:SpeedState ;
+        prela:fasterThan  pstate:Calm , pstate:Slow .
 
-pstate:Porous a pstate:MoistureState .
+pstate:Frozen  a  pstate:PhysicalState .
 
-pstate:Hydrophilic a pstate:MoistureState ;
-	owl:differentFrom pstate:Hydrophobic .
+pstate:ThermalPlasma  a  pstate:PhysicalState .
 
-pstate:Hygroscopic a pstate:MoistureState .
+pstate:Hydrophobic  a  pstate:MoistureState .
 
-pstate:Hydrolyzable a pstate:MoistureState .
+pstate:Plasma  a           pstate:StateOfMatter ;
+        owl:differentFrom  pstate:Solid .
 
-pstate:Constructive a pstate:WaveState .
+pstate:Deiced  a  pstate:MoistureState .
 
-pstate:Destructive a pstate:WaveState ;
-	owl:differentFrom pstate:Constructive .
+pstate:Rapid  a           pstate:SpeedState ;
+        prela:fasterThan  pstate:Calm , pstate:Slow .
 
-pstate:HighFrequency a pstate:WaveState .
+pstate:Hydrophilic  a      pstate:MoistureState ;
+        owl:differentFrom  pstate:Hydrophobic .
 
-pstate:LowFrequency a pstate:WaveState ;
-	owl:differentFrom pstate:HighFrequency .
+pstate:QuasiNeutral  a      pstate:PhysicalState ;
+        mrela:approximates  pstate:Neutral .
 
-pstate:Filtered a pstate:WaveState .
+pstate:ZeroG  a  pstate:PhysicalState .
 
-pstate:Eddy a pstate:WaveState .
+pstate:Film  a  pstate:SubstanceForm .
 
-pstate:Zonal a pstate:WaveState ;
-	owl:differentFrom pstate:Eddy .
+pstate:Isostacy  a  sstate:EquilibriumState .
 
-pstate:Subsonic a pstate:SpeedState ;
-	prela:slowerThan diml:SonicMachNumber .
+pstate:SubstanceForm  a  owl:Class ;
+        rdfs:subClassOf  pstate:PhysicalState .
 
-pstate:Supersonic a pstate:SpeedState ;
-	prela:fasterThan diml:SonicMachNumber .
+pstate:Diluted  a  pstate:SubstanceForm .
 
-pstate:Quiescent a pstate:SpeedState .
+pstate:Light  a  pstate:RainState .
 
-pstate:Slow a pstate:SpeedState .
+pstate:RainState  a      owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    comp:Water ;
+                           owl:onProperty  crela:hasSubstance
+                         ] .
 
-pstate:Gentle a pstate:SpeedState .
+pstate:Hydrolyzable  a  pstate:MoistureState .
 
-pstate:Calm a pstate:SpeedState .
+pstate:Humid  a     pstate:MoistureState ;
+        owl:sameAs  pstate:Moist .
 
-pstate:Gale a pstate:SpeedState .
-
-pstate:Fast a pstate:SpeedState ;
-	prela:fasterThan pstate:Slow , pstate:Calm .
-
-pstate:Rapid a pstate:SpeedState ;
-	prela:fasterThan pstate:Slow , pstate:Calm .
+pstate:Hypergravity  a  pstate:PhysicalState .

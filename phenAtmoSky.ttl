@@ -1,77 +1,80 @@
-@prefix phen: <http://sweetontology.net/phen/> .
-@prefix sky: <http://sweetontology.net/phenAtmoSky/> .
-@prefix fog: <http://sweetontology.net/phenAtmoFog/> .
-@prefix atmo: <http://sweetontology.net/phenAtmo/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/phenAtmoSky> .
 @prefix waves: <http://sweetontology.net/procWave/> .
+@prefix sky:   <http://sweetontology.net/phenAtmoSky/> .
+@prefix phen:  <http://sweetontology.net/phen/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix atmo:  <http://sweetontology.net/phenAtmo/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix eimpa: <http://sweetontology.net/phenEnvirImpact/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix fog:   <http://sweetontology.net/phenAtmoFog/> .
 
-<http://sweetontology.net/phenAtmoSky> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenAtmo> , <http://sweetontology.net/phen> , <http://sweetontology.net/rela> , <http://sweetontology.net/phenAtmoFog> , <http://sweetontology.net/procWave> , <http://sweetontology.net/phenEnvirImpact> .
+sky:AirPollution  a      owl:Class ;
+        rdfs:comment     "The presence of substances in the atmosphere, particularly those that do not occur naturally" ;
+        rdfs:label       "Air Pollution" ;
+        rdfs:subClassOf  eimpa:Pollution , atmo:AtmosphericPhenomena .
 
-<http://sweetontology.net/phenAtmoSky/Airglow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> .
+sky:Sunlit  a            owl:Class ;
+        rdfs:subClassOf  atmo:WeatherCondition .
 
-<http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/AtmosphericPhenomena> , _:node1boame2ohx1 .
+sky:ZodiacalLight  a     owl:Class ;
+        rdfs:subClassOf  sky:AtmosphericLightEmission .
 
-_:node1boame2ohx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/procWave/Emission> .
+sky:PhotochemicalAirPollution
+        a                owl:Class ;
+        rdfs:comment     "Type of air pollution, such as Los Angeles smog, associated with the buildup of oxidation products formed from the degradation of hydrocarbons, etc."@en ;
+        rdfs:subClassOf  sky:AirPollution .
 
-<http://sweetontology.net/phenAtmoSky/Aurora> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> ;
-	rdfs:comment "The sporadic radiant emission from the upper atmosphere over the middle and high latitudes"@en .
+sky:Rainbow  a           owl:Class ;
+        rdfs:subClassOf  atmo:MeteorologicalPhenomena .
 
-<http://sweetontology.net/phenAtmoSky/AuroralSubstorm> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> ;
-	owl:equivalentClass <http://sweetontology.net/phenAtmoSky/MagneticSubstorm> .
+sky:IndoorAirQuality  a  owl:Class ;
+        rdfs:subClassOf  sky:AirQuality .
 
-<http://sweetontology.net/phenAtmoSky/MagneticSubstorm> a owl:Class .
+sky:Sunlight  a          owl:Class ;
+        rdfs:comment     "Sunlight, in the broad sense, is the total spectrum of the electromagnetic radiation given off by the Sun. On Earth, sunlight is filtered through the atmosphere, and the solar radiation is obvious as daylight when the Sun is above the horizon. This is usually during the hours known as day. Near the poles in summer, sunlight also occurs during the hours known as night and in the winter at the poles sunlight may not occur at any time. When the direct radiation is not blocked by clouds, it is experienced as sunshine, a combination of bright light and heat. Radiant heat directly produced by the radiation of the sun is different from the increase in atmospheric temperature due to the radiative heating of the atmosphere by the sun's radiation."@en ;
+        rdfs:subClassOf  phen:RadiativeHeating .
 
-<http://sweetontology.net/phenAtmoSky/ZodiacalLight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> .
+sky:Aurora  a            owl:Class ;
+        rdfs:comment     "The sporadic radiant emission from the upper atmosphere over the middle and high latitudes"@en ;
+        rdfs:subClassOf  sky:AtmosphericLightEmission .
 
-<http://sweetontology.net/phenAtmoSky/AirPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/AtmosphericPhenomena> , <http://sweetontology.net/phenEnvirImpact/Pollution> ;
-	rdfs:comment "The presence of substances in the atmosphere, particularly those that do not occur naturally" ;
-	rdfs:label "Air Pollution" .
+sky:AtmosphericLightEmission
+        a                owl:Class ;
+        rdfs:subClassOf  atmo:AtmosphericPhenomena ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  waves:Emission ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/phenAtmoSky/AirQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirPollution> .
+sky:Airglow  a           owl:Class ;
+        rdfs:subClassOf  sky:AtmosphericLightEmission .
 
-<http://sweetontology.net/phenAtmoSky/IndoorAirQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirQuality> .
+sky:OzoneDepletion  a  owl:Class .
 
-<http://sweetontology.net/phenAtmoSky/OzoneHole> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirPollution> ;
-	owl:equivalentClass <http://sweetontology.net/phenAtmoSky/OzoneDepletion> .
+sky:OzoneHole  a             owl:Class ;
+        rdfs:subClassOf      sky:AirPollution ;
+        owl:equivalentClass  sky:OzoneDepletion .
 
-<http://sweetontology.net/phenAtmoSky/OzoneDepletion> a owl:Class .
+sky:Whiteout  a          owl:Class ;
+        rdfs:comment     "An atmospheric optical phenomenon in which the observer appears to be engulfed in a uniformly white glow."@en ;
+        rdfs:subClassOf  sky:Obscuration .
 
-<http://sweetontology.net/phenAtmoSky/PhotochemicalAirPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirPollution> ;
-	rdfs:comment "Type of air pollution, such as Los Angeles smog, associated with the buildup of oxidation products formed from the degradation of hydrocarbons, etc."@en .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <phenEnvirImpact> , <procWave> , <phenAtmoFog> , <rela> , <phen> , <phenAtmo> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenAtmoSky/Sunlit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/WeatherCondition> .
+sky:Obscuration  a       owl:Class ;
+        rdfs:subClassOf  fog:Fog .
 
-<http://sweetontology.net/phenAtmoSky/Obscuration> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoFog/Fog> .
+sky:AuroralSubstorm  a       owl:Class ;
+        rdfs:subClassOf      sky:AtmosphericLightEmission ;
+        owl:equivalentClass  sky:MagneticSubstorm .
 
-<http://sweetontology.net/phenAtmoSky/Whiteout> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/Obscuration> ;
-	rdfs:comment "An atmospheric optical phenomenon in which the observer appears to be engulfed in a uniformly white glow."@en .
+sky:AirQuality  a        owl:Class ;
+        rdfs:subClassOf  sky:AirPollution .
 
-<http://sweetontology.net/phenAtmoSky/Rainbow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> .
-
-<http://sweetontology.net/phenAtmoSky/Sunlight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/RadiativeHeating> ;
-	rdfs:comment "Sunlight, in the broad sense, is the total spectrum of the electromagnetic radiation given off by the Sun. On Earth, sunlight is filtered through the atmosphere, and the solar radiation is obvious as daylight when the Sun is above the horizon. This is usually during the hours known as day. Near the poles in summer, sunlight also occurs during the hours known as night and in the winter at the poles sunlight may not occur at any time. When the direct radiation is not blocked by clouds, it is experienced as sunshine, a combination of bright light and heat. Radiant heat directly produced by the radiation of the sun is different from the increase in atmospheric temperature due to the radiative heating of the atmosphere by the sun's radiation."@en .
+sky:MagneticSubstorm  a  owl:Class .

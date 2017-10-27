@@ -1,122 +1,128 @@
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix dec: <http://sweetontology.net/humanDecision/> .
-@prefix graph: <http://sweetontology.net/reprMathGraph/> .
+@base          <http://sweetontology.net/humanDecision> .
+@prefix dec:   <http://sweetontology.net/humanDecision/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix prop:  <http://sweetontology.net/prop/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix oper:  <http://sweetontology.net/reprMathOperation/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix human: <http://sweetontology.net/human/> .
 @prefix hrela: <http://sweetontology.net/relaHuman/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix graph: <http://sweetontology.net/reprMathGraph/> .
 
-<http://sweetontology.net/humanDecision> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/prop> , <http://sweetontology.net/human> , <http://sweetontology.net/relaHuman> , <http://sweetontology.net/reprMathOperation> , <http://sweetontology.net/reprMathGraph> .
+dec:ControlStrategy  a   owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Allocation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:EnvironmentalControlObjective
+        a                owl:Class ;
+        rdfs:subClassOf  dec:Objective , dec:ControlStrategy .
 
-<http://sweetontology.net/humanDecision/Attribute> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:Choice  a            owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/BeliefNetwork> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:BeliefNetwork  a     owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Choice> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:LocationAllocation
+        a                owl:Class ;
+        rdfs:comment     "Spatial allocation is primarily concerned with designating what kinds of activities can or will be done where on the landscape. Land-use zoning is a typical example of a spatial allocation problem in which the landscape is divided up into a set of multiple alternative uses such as industrial, commercial, residential, etc. Allocation to a particular use usually depends on intrinsic properties of the individual parcels as well as adjacency constraints."@en ;
+        rdfs:subClassOf  dec:Allocation .
 
-<http://sweetontology.net/humanDecision/ControlStrategy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:DecisionActivity  a  owl:Class ;
+        rdfs:subClassOf  human:HumanActivity .
 
-<http://sweetontology.net/humanDecision/ConsumerBehavior> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/SocialBehavior> .
+dec:Optimize  a              owl:Class ;
+        rdfs:subClassOf      oper:OperationOnFunction , dec:DecisionActivity ;
+        owl:equivalentClass  dec:Optimization .
 
-<http://sweetontology.net/humanDecision/Criteria> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:Multiobjective  a    owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "2"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      hrela:hasObjective
+                         ] .
 
-<http://sweetontology.net/humanDecision/Decision> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:DecisionTree  a      owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity , graph:Tree .
 
-<http://sweetontology.net/humanDecision/DecisionActivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> .
+dec:DSS  a      owl:Class .
 
-<http://sweetontology.net/humanDecision/DecisionMaker> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> , <http://sweetontology.net/prop/Role> .
+dec:Valuation  a         owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/DecisionSupportSystem> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> ;
-	owl:equivalentClass <http://sweetontology.net/humanDecision/DSS> .
+dec:Objective  a         owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/DSS> a owl:Class .
+dec:Multiattribute  a    owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "2"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      hrela:hasAttribute
+                         ] .
 
-<http://sweetontology.net/humanDecision/DecisionTree> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Tree> , <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:MultipleDecisionMaker
+        a                owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "2"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      hrela:hasDecisionMaker
+                         ] .
 
-<http://sweetontology.net/humanDecision/EnvironmentalControlObjective> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/ControlStrategy> , <http://sweetontology.net/humanDecision/Objective> .
+dec:Decision  a          owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Evaluation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:Attribute  a         owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/GroupConsensus> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:Screening  a         owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/LocationAllocation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/Allocation> ;
-	rdfs:comment "Spatial allocation is primarily concerned with designating what kinds of activities can or will be done where on the landscape. Land-use zoning is a typical example of a spatial allocation problem in which the landscape is divided up into a set of multiple alternative uses such as industrial, commercial, residential, etc. Allocation to a particular use usually depends on intrinsic properties of the individual parcels as well as adjacency constraints."@en .
+dec:SolutionStrategy  a  owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/MultipleDecisionMaker> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> , _:node1boamdsm1x1 .
+dec:GroupConsensus  a    owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-_:node1boamdsm1x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/hasDecisionMaker> ;
-	owl:minCardinality "2"^^xsd:nonNegativeInteger .
+dec:Evaluation  a        owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Multiattribute> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> , _:node1boamdsm1x2 .
+dec:DecisionMaker  a     owl:Class ;
+        rdfs:subClassOf  prop:Role , dec:DecisionActivity .
 
-_:node1boamdsm1x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/hasAttribute> ;
-	owl:minCardinality "2"^^xsd:nonNegativeInteger .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprMathGraph> , <reprMathOperation> , <relaHuman> , <human> , <prop> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/humanDecision/Multiobjective> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> , _:node1boamdsm1x3 .
+dec:Weighting  a         owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-_:node1boamdsm1x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaHuman/hasObjective> ;
-	owl:minCardinality "2"^^xsd:nonNegativeInteger .
+dec:Ranking  a           owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Objective> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:Optimization  a  owl:Class .
 
-<http://sweetontology.net/humanDecision/Optimize> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> , <http://sweetontology.net/reprMathOperation/OperationOnFunction> ;
-	owl:equivalentClass <http://sweetontology.net/humanDecision/Optimization> .
+dec:Allocation  a        owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Optimization> a owl:Class .
+dec:Scenario  a          owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Preference> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:Preference  a        owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Ranking> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:ConsumerBehavior  a  owl:Class ;
+        rdfs:subClassOf  human:SocialBehavior .
 
-<http://sweetontology.net/humanDecision/ResourceAllocation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/Allocation> ;
-	rdfs:comment "Resource allocation has two meanings. One meaning refers to allocating a resource such as forest land to two or more designated uses. For example, forest land units could be allocated to timber production, recreation, etc. The second meaning is in the sense of allocating management resources. This second meaning is concerned with allocating time, materials, personnel, budget to landscape elements to accomplish meanegement objectives such as protection, restoration, timber production, etc."@en .
+dec:Criteria  a          owl:Class ;
+        rdfs:subClassOf  dec:DecisionActivity .
 
-<http://sweetontology.net/humanDecision/Scenario> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:DecisionSupportSystem
+        a                    owl:Class ;
+        rdfs:subClassOf      dec:DecisionActivity ;
+        owl:equivalentClass  dec:DSS .
 
-<http://sweetontology.net/humanDecision/Screening> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
-
-<http://sweetontology.net/humanDecision/SolutionStrategy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
-
-<http://sweetontology.net/humanDecision/Valuation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
-
-<http://sweetontology.net/humanDecision/Weighting> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/humanDecision/DecisionActivity> .
+dec:ResourceAllocation
+        a                owl:Class ;
+        rdfs:comment     "Resource allocation has two meanings. One meaning refers to allocating a resource such as forest land to two or more designated uses. For example, forest land units could be allocated to timber production, recreation, etc. The second meaning is in the sense of allocating management resources. This second meaning is concerned with allocating time, materials, personnel, budget to landscape elements to accomplish meanegement objectives such as protection, restoration, timber production, etc."@en ;
+        rdfs:subClassOf  dec:Allocation .

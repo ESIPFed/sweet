@@ -1,200 +1,215 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix solid: <http://sweetontology.net/phenSolid/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@base          <http://sweetontology.net/propFraction> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix med: <http://sweetontology.net/propFraction/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix chem: <http://sweetontology.net/propChemical/> .
-@prefix mass: <http://sweetontology.net/propMass/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem:  <http://sweetontology.net/propChemical/> .
+@prefix solid: <http://sweetontology.net/phenSolid/> .
+@prefix quan:  <http://sweetontology.net/propQuantity/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix prop:  <http://sweetontology.net/prop/> .
+@prefix mass:  <http://sweetontology.net/propMass/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix med:   <http://sweetontology.net/propFraction/> .
 
-<http://sweetontology.net/propFraction> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propMass> , <http://sweetontology.net/propFraction> , <http://sweetontology.net/prop> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/propChemical> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/phenSolid> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/relaMath> .
+med:Reflectance  a       owl:Class ;
+        rdfs:comment     "A general term referring to the radiation reflected from, or scattered back through, a given surface in response to radiation incident on the surface with the same wavelength or wavelength range."@en ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:WaveProperty .
 
-<http://sweetontology.net/propFraction/FractionalQuantity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> , _:node1boamea75x1 .
+med:Emittance  a  owl:Class .
 
-_:node1boamea75x1 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/normalizedUnit> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+med:Transmittance  a     owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:WaveProperty .
 
-<http://sweetontology.net/propFraction/Albedo> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> , <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	rdfs:comment "The ratio of reflected flux density to incident flux density, referenced to some surface." ;
-	rdfs:label "Albedo" .
+med:Porousness  a  owl:Class .
 
-<http://sweetontology.net/propFraction/BondAlbedo> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Albedo> .
+med:PartialCorrelation
+        a                owl:Class ;
+        rdfs:subClassOf  med:Correlation .
 
-<http://sweetontology.net/propFraction/Transparency> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:MassFraction  a      owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Absorptance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:AvailableWaterCapacity
+        a                owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , mass:ConsistenceProperty .
 
-<http://sweetontology.net/propFraction/Reflectance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	rdfs:comment "A general term referring to the radiation reflected from, or scattered back through, a given surface in response to radiation incident on the surface with the same wavelength or wavelength range."@en .
+med:FractionPhotosyntheticActiveRadiation
+        a       owl:Class .
 
-<http://sweetontology.net/propFraction/Absorptivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:JointProbability  a  owl:Class ;
+        rdfs:subClassOf  med:Probability .
 
-<http://sweetontology.net/propFraction/Reflectivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:FractionalQuantity
+        a                owl:Class ;
+        rdfs:subClassOf  quan:Quantity ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:normalizedUnit ;
+                           owl:onProperty  screla:hasDefaultUnit
+                         ] .
 
-<http://sweetontology.net/propFraction/Refractivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:CloudCover  a        owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Transmittance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Efficiency  a        owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/CloudCover> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Absorptivity  a      owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:WaveProperty .
 
-<http://sweetontology.net/propFraction/Efficiency> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:MoleConcentration
+        a                    owl:Class ;
+        rdfs:subClassOf      med:FractionalQuantity ;
+        owl:equivalentClass  med:MolarConcentration .
 
-<http://sweetontology.net/propFraction/FPAR> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	owl:equivalentClass <http://sweetontology.net/propFraction/FractionPhotosyntheticActiveRadiation> .
+med:CrossCorrelation  a  owl:Class ;
+        rdfs:subClassOf  med:Correlation .
 
-<http://sweetontology.net/propFraction/FractionPhotosyntheticActiveRadiation> a owl:Class .
+med:Albedo  a            owl:Class ;
+        rdfs:comment     "The ratio of reflected flux density to incident flux density, referenced to some surface." ;
+        rdfs:label       "Albedo" ;
+        rdfs:subClassOf  med:FractionalQuantity , quan:RadiationMediumInteractionQuantity .
 
-<http://sweetontology.net/propFraction/Metallicity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:DifferentialWaterCapacity
+        a                owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , mass:ConsistenceProperty .
 
-<http://sweetontology.net/propFraction/Bioavailability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/BiologicalProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Likelihood  a        owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Porosity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMass/ConsistenceProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	owl:equivalentClass <http://sweetontology.net/propFraction/Porousness> ;
-	rdfs:subClassOf _:node1boamea75x2 .
+med:MolarConcentration
+        a       owl:Class .
 
-_:node1boamea75x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
-	owl:allValuesFrom <http://sweetontology.net/phenSolid/PoreSpace> .
+med:CapacityFactor  a    owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Porousness> a owl:Class .
+med:AirSpaceRatio  a     owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , mass:ConsistenceProperty .
 
-<http://sweetontology.net/propFraction/AirSpaceRatio> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMass/ConsistenceProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:BondAlbedo  a        owl:Class ;
+        rdfs:subClassOf  med:Albedo .
 
-<http://sweetontology.net/propFraction/EffectivePorosity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Porosity> .
+med:FieldCapacity  a     owl:Class ;
+        rdfs:subClassOf  chem:WaterConcentration , med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/MoleConcentration> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	owl:equivalentClass <http://sweetontology.net/propFraction/MolarConcentration> .
+med:FPAR  a                  owl:Class ;
+        rdfs:subClassOf      med:FractionalQuantity ;
+        owl:equivalentClass  med:FractionPhotosyntheticActiveRadiation .
 
-<http://sweetontology.net/propFraction/MolarConcentration> a owl:Class .
+med:Absorptance  a       owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:WaveProperty .
 
-<http://sweetontology.net/propFraction/MoleFraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Probability  a       owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/MoleRatio> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Coherence  a         owl:Class ;
+        rdfs:subClassOf  med:BivariateStatisticalSummary .
 
-<http://sweetontology.net/propFraction/MixingRatio> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	rdfs:label "Mixing Ratio" .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <prop> , <relaSci> , <> , <phenSolid> , <reprSciUnits> , <propChemical> , <relaMath> , <propMass> , <propQuantity> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/propFraction/MassFraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:RelativeHumidity  a  owl:Class ;
+        rdfs:subClassOf  med:Humidity .
 
-<http://sweetontology.net/propFraction/VolumeFraction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Porosity  a              owl:Class ;
+        rdfs:subClassOf      med:FractionalQuantity , mass:ConsistenceProperty ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  solid:PoreSpace ;
+                               owl:onProperty     screla:measureOf
+                             ] ;
+        owl:equivalentClass  med:Porousness .
 
-<http://sweetontology.net/propFraction/VolumeMixingRatio> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:SaturationMixingRatio
+        a                owl:Class ;
+        rdfs:comment     "A thermodynamic function of state; the value of the mixing ratio of saturated air at the given temperature and pressure."@en ;
+        rdfs:subClassOf  chem:SaturationProperty , med:MixingRatio .
 
-<http://sweetontology.net/propFraction/SaturationMixingRatio> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/MixingRatio> , <http://sweetontology.net/propChemical/SaturationProperty> ;
-	rdfs:comment "A thermodynamic function of state; the value of the mixing ratio of saturated air at the given temperature and pressure."@en .
+med:RankCorrelation  a   owl:Class ;
+        rdfs:subClassOf  med:Correlation .
 
-<http://sweetontology.net/propFraction/Humidity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propChemical/WaterConcentration> , <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	rdfs:comment "1. Generally, some measure of the water vapor content of air. The multiplicity of humidity measures is partly due to different methods of measurement and partly because the conservative measures (mixing ratio, specific humidity) cover an extremely wide dynamic range, as a result of the rapid variation of saturation vapor pressure with temperature. 2. Popularly, same as relative humidity."@en .
+med:MarketShare  a       owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/RelativeHumidity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Humidity> .
+med:Refractivity  a      owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:WaveProperty .
 
-<http://sweetontology.net/propFraction/SpecificHumidity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Humidity> ;
-	rdfs:comment "In a system of moist air, the (dimensionless) ratio of the mass of water vapor to the total mass of the system."@en .
+med:Covariance  a        owl:Class ;
+        rdfs:subClassOf  med:BivariateStatisticalSummary .
 
-<http://sweetontology.net/propFraction/FieldCapacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> , <http://sweetontology.net/propChemical/WaterConcentration> .
+med:SpecificHumidity  a  owl:Class ;
+        rdfs:comment     "In a system of moist air, the (dimensionless) ratio of the mass of water vapor to the total mass of the system."@en ;
+        rdfs:subClassOf  med:Humidity .
 
-<http://sweetontology.net/propFraction/CapacityFactor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:MoleFraction  a      owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Emissivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> , <http://sweetontology.net/propFraction/FractionalQuantity> ;
-	owl:equivalentClass <http://sweetontology.net/propFraction/Emittance> .
+med:WaterHoldingCapacity
+        a                owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , mass:ConsistenceProperty .
 
-<http://sweetontology.net/propFraction/Emittance> a owl:Class .
+med:ConditionalProbability
+        a                owl:Class ;
+        rdfs:subClassOf  med:Probability ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:minCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onProperty      mrela:hasCondition
+                         ] .
 
-<http://sweetontology.net/propFraction/WaterHoldingCapacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMass/ConsistenceProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:MoleRatio  a         owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/AvailableWaterCapacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMass/ConsistenceProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Reflectivity  a      owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:WaveProperty .
 
-<http://sweetontology.net/propFraction/DifferentialWaterCapacity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propMass/ConsistenceProperty> , <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:EffectivePorosity
+        a                owl:Class ;
+        rdfs:subClassOf  med:Porosity .
 
-<http://sweetontology.net/propFraction/DegreeOfIonization> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:VolumeMixingRatio
+        a                owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/MarketShare> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:PearsonProductMomentCorrelation
+        a                owl:Class ;
+        rdfs:subClassOf  med:Correlation .
 
-<http://sweetontology.net/propFraction/Probability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:Correlation  a       owl:Class ;
+        rdfs:subClassOf  med:BivariateStatisticalSummary .
 
-<http://sweetontology.net/propFraction/ConditionalProbability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Probability> , _:node1boamea75x3 .
+med:VolumeFraction  a    owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-_:node1boamea75x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasCondition> ;
-	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+med:Metallicity  a       owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/JointProbability> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Probability> .
+med:pValue  a            owl:Class ;
+        rdfs:subClassOf  med:Probability .
 
-<http://sweetontology.net/propFraction/pValue> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Probability> .
+med:Transparency  a      owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , quan:RadiationMediumInteractionQuantity .
 
-<http://sweetontology.net/propFraction/Likelihood> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/FractionalQuantity> .
+med:BivariateStatisticalSummary
+        a                owl:Class ;
+        rdfs:subClassOf  prop:StatisticalSummary .
 
-<http://sweetontology.net/propFraction/BivariateStatisticalSummary> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/StatisticalSummary> .
+med:MixingRatio  a       owl:Class ;
+        rdfs:label       "Mixing Ratio" ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Coherence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/BivariateStatisticalSummary> .
+med:Bioavailability  a   owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity , prop:BiologicalProperty .
 
-<http://sweetontology.net/propFraction/Correlation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/BivariateStatisticalSummary> .
+med:DegreeOfIonization
+        a                owl:Class ;
+        rdfs:subClassOf  med:FractionalQuantity .
 
-<http://sweetontology.net/propFraction/Covariance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/BivariateStatisticalSummary> .
+med:Emissivity  a            owl:Class ;
+        rdfs:subClassOf      med:FractionalQuantity , quan:ElectromagneticRadiationQuantity ;
+        owl:equivalentClass  med:Emittance .
 
-<http://sweetontology.net/propFraction/CrossCorrelation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Correlation> .
-
-<http://sweetontology.net/propFraction/PartialCorrelation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Correlation> .
-
-<http://sweetontology.net/propFraction/PearsonProductMomentCorrelation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Correlation> .
-
-<http://sweetontology.net/propFraction/RankCorrelation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propFraction/Correlation> .
+med:Humidity  a          owl:Class ;
+        rdfs:comment     "1. Generally, some measure of the water vapor content of air. The multiplicity of humidity measures is partly due to different methods of measurement and partly because the conservative measures (mixing ratio, specific humidity) cover an extremely wide dynamic range, as a result of the rapid variation of saturation vapor pressure with temperature. 2. Popularly, same as relative humidity."@en ;
+        rdfs:subClassOf  med:FractionalQuantity , chem:WaterConcentration .

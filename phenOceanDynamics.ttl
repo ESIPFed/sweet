@@ -1,135 +1,146 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix odyn: <http://sweetontology.net/phenOceanDynamics/> .
-@prefix ocea: <http://sweetontology.net/phenOcean/> .
-@prefix mix: <http://sweetontology.net/phenMixing/> .
-@prefix oceac: <http://sweetontology.net/phenOceanCoastal/> .
-@prefix scale: <http://sweetontology.net/stateSpaceScale/> .
-@prefix seis: <http://sweetontology.net/phenGeolSeismicity/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@base          <http://sweetontology.net/phenOceanDynamics> .
+@prefix ocea:  <http://sweetontology.net/phenOcean/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix seis:  <http://sweetontology.net/phenGeolSeismicity/> .
+@prefix scale: <http://sweetontology.net/stateSpaceScale/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdir:  <http://sweetontology.net/reprSpaceDirection/> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix therm: <http://sweetontology.net/stateThermodynamic/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix oceac: <http://sweetontology.net/phenOceanCoastal/> .
+@prefix odyn:  <http://sweetontology.net/phenOceanDynamics/> .
 @prefix fluid: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix mix:   <http://sweetontology.net/phenMixing/> .
+@prefix therm: <http://sweetontology.net/stateThermodynamic/> .
 
-<http://sweetontology.net/phenOceanDynamics> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpaceDirection> , <http://sweetontology.net/phenOcean> , <http://sweetontology.net/phenGeolSeismicity> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaPhysical> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/stateThermodynamic> , <http://sweetontology.net/phenOceanCoastal> , <http://sweetontology.net/stateSpaceScale> , <http://sweetontology.net/phenMixing> , <http://sweetontology.net/phenFluidDynamics> .
+odyn:OceanCirculation
+        a                owl:Class ;
+        rdfs:subClassOf  ocea:OceanPhenomena , fluid:Circulation .
 
-odyn:OceanGyre a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Gyre> , <http://sweetontology.net/phenOcean/OceanPhenomena> .
+odyn:OceanGyre  a        owl:Class ;
+        rdfs:subClassOf  ocea:OceanPhenomena , fluid:Gyre .
 
-odyn:MesoscaleEddy a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Eddy> , _:node1boame6f6x1 .
+odyn:OceanMixing  a      owl:Class ;
+        rdfs:comment     "Any process or series of processes by which parcels of ocean water with different properties are brought into intimate small-scale contact, so that molecular diffusion erases the differences between them."@en ;
+        rdfs:subClassOf  mix:Mixing , ocea:OceanPhenomena .
 
-_:node1boame6f6x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
-	owl:hasValue <http://sweetontology.net/stateSpaceScale/Mesoscale> .
+odyn:BoundaryCurrent  a  owl:Class ;
+        rdfs:subClassOf  odyn:OceanCurrent .
 
-odyn:MesoscaleEddy owl:equivalentClass odyn:ModeEddy ;
-	rdfs:comment "In oceanography, densely packed, irregularly oval- shaped high and low pressure centers roughly 400 km (240 miles) in diameter in which current intensities are typically tenfold greater than the local means."@en .
+odyn:EasternBoundaryCurrent
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:BoundaryCurrent .
 
-odyn:ModeEddy a owl:Class .
+odyn:WesternIntensification
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:BoundaryCurrent .
 
-odyn:OceanMixing a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenOcean/OceanPhenomena> , <http://sweetontology.net/phenMixing/Mixing> ;
-	rdfs:comment "Any process or series of processes by which parcels of ocean water with different properties are brought into intimate small-scale contact, so that molecular diffusion erases the differences between them."@en .
+odyn:OceanCurrent  a     owl:Class ;
+        rdfs:subClassOf  odyn:OceanCirculation .
 
-odyn:ColdCoreCell a owl:Class ;
-	rdfs:subClassOf odyn:OceanGyre , _:node1boame6f6x2 .
+odyn:TurbidityCurrent
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:OceanCurrent .
 
-_:node1boame6f6x2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/stateThermodynamic/Cool> ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasTemperatureRange> .
+odyn:LittoralCurrent  a  owl:Class .
 
-odyn:WarmCoreCell a owl:Class ;
-	rdfs:subClassOf odyn:OceanGyre , _:node1boame6f6x3 .
+odyn:LoopCurrent  a      owl:Class ;
+        rdfs:subClassOf  odyn:OceanCurrent .
 
-_:node1boame6f6x3 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/stateThermodynamic/Warm> ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasTemperatureRange> .
+odyn:MesoscaleEddy  a        owl:Class ;
+        rdfs:comment         "In oceanography, densely packed, irregularly oval- shaped high and low pressure centers roughly 400 km (240 miles) in diameter in which current intensities are typically tenfold greater than the local means."@en ;
+        rdfs:subClassOf      fluid:Eddy ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    scale:Mesoscale ;
+                               owl:onProperty  srela:hasSpatialScale
+                             ] ;
+        owl:equivalentClass  odyn:ModeEddy .
 
-odyn:Tsunami a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicWave> , <http://sweetontology.net/phenOcean/OceanPhenomena> ;
-	owl:equivalentClass odyn:TidalWave ;
-	rdfs:comment "Waves generated by seismic activity."@en .
+odyn:Upwelling  a        owl:Class ;
+        rdfs:comment     "An ascending motion of subsurface water by which water from deeper layers is brought into the surface layer and is removed from the area of upwelling by divergent horizontal flow."@en ;
+        rdfs:subClassOf  odyn:OceanCirculation ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sdir:Up ;
+                           owl:onProperty  srela:hasDirection
+                         ] .
 
-odyn:TidalWave a owl:Class .
+odyn:WindDrivenCirculation
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:OceanCirculation .
 
-odyn:Downwelling a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation , _:node1boame6f6x4 .
+odyn:ColdCoreCell  a     owl:Class ;
+        rdfs:subClassOf  odyn:OceanGyre ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    therm:Cool ;
+                           owl:onProperty  prela:hasTemperatureRange
+                         ] .
 
-_:node1boame6f6x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
-	owl:hasValue <http://sweetontology.net/reprSpaceDirection/Down> .
+odyn:CircumpolarCurrent
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:OceanCurrent .
 
-odyn:LangmuirCirculation a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation ;
-	rdfs:comment "Roll circulations approximately aligned with the surface stress vector that frequently occur in the upper boundary layer of oceans or lakes. Although similar in form to atmospheric longitudinal roll vortices, Langmuir circulations are thought to be driven by nonlinear interactions between the surface gravity wave field and the larger-scale turbulent motions within the mixed layer. They are sometimes called windrows because they form lines of surface debris or bubbles in their surface convergence zones. Their spatial scale is related to the depth of the mixed layer and their characteristic velocity is on the order of 8u*, where u* is the friction velocity in water. As a result of this scaling, Langmuir circulations generally require surface winds of at least 8 m s-1 in order to form. See coherent structures, longitudinal rolls."@en .
+odyn:ModeEddy  a  owl:Class .
 
-odyn:BoundaryCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCurrent .
+odyn:LongshoreCurrent
+        a                    owl:Class ;
+        rdfs:comment         "(Also called littoral current.) The resultant current produced by waves being deflected at an angle by the shore. In this case the current runs roughly parallel to the shoreline. The longshore current is capable of carrying a certain amount of material as long as its velocity remains fairly constant; however, any obstruction, such as a submarine rock ridge or a land point cutting across the path of the current, will cause loss of velocity and consequent loss of carrying power."@en ;
+        rdfs:subClassOf      odyn:OceanCurrent ;
+        owl:equivalentClass  odyn:LittoralCurrent .
 
-odyn:CircumpolarCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCurrent .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprSpaceDirection> , <phenGeolSeismicity> , <phenOcean> , <phenFluidDynamics> , <stateSpaceScale> , <relaPhysical> , <phenMixing> , <stateThermodynamic> , <relaSpace> , <rela> , <phenOceanCoastal> ;
+        owl:versionInfo  "3.1.0" .
 
-odyn:EasternBoundaryCurrent a owl:Class ;
-	rdfs:subClassOf odyn:BoundaryCurrent .
+odyn:Downwelling  a      owl:Class ;
+        rdfs:subClassOf  odyn:OceanCirculation ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    sdir:Down ;
+                           owl:onProperty  srela:hasDirection
+                         ] .
 
-odyn:LongshoreCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCurrent ;
-	rdfs:comment "(Also called littoral current.) The resultant current produced by waves being deflected at an angle by the shore. In this case the current runs roughly parallel to the shoreline. The longshore current is capable of carrying a certain amount of material as long as its velocity remains fairly constant; however, any obstruction, such as a submarine rock ridge or a land point cutting across the path of the current, will cause loss of velocity and consequent loss of carrying power."@en ;
-	owl:equivalentClass odyn:LittoralCurrent .
+odyn:TidalWave  a  owl:Class .
 
-odyn:LittoralCurrent a owl:Class .
+odyn:WesternBoundaryCurrent
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:BoundaryCurrent .
 
-odyn:LoopCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCurrent .
+odyn:WarmCoreCell  a     owl:Class ;
+        rdfs:subClassOf  odyn:OceanGyre ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    therm:Warm ;
+                           owl:onProperty  prela:hasTemperatureRange
+                         ] .
 
-odyn:OceanCirculation a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Circulation> , <http://sweetontology.net/phenOcean/OceanPhenomena> .
+odyn:Tsunami  a              owl:Class ;
+        rdfs:comment         "Waves generated by seismic activity."@en ;
+        rdfs:subClassOf      ocea:OceanPhenomena , seis:SeismicWave ;
+        owl:equivalentClass  odyn:TidalWave .
 
-odyn:OceanConveyorBelt a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation ;
-	rdfs:comment "The global recirculation of water masses that determines today's climate."@en .
+odyn:SecondaryCirculation
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:OceanCirculation .
 
-odyn:SecondaryCirculation a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation .
+odyn:TidalCurrent  a     owl:Class ;
+        rdfs:subClassOf  odyn:OceanCurrent ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  oceac:OceanTide ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-odyn:ThermohalineCirculation a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation .
+odyn:OceanConveyorBelt
+        a                owl:Class ;
+        rdfs:comment     "The global recirculation of water masses that determines today's climate."@en ;
+        rdfs:subClassOf  odyn:OceanCirculation .
 
-odyn:OceanCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation .
+odyn:ThermohalineCirculation
+        a                owl:Class ;
+        rdfs:subClassOf  odyn:OceanCirculation .
 
-odyn:TidalCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCurrent , _:node1boame6f6x5 .
-
-_:node1boame6f6x5 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/phenOceanCoastal/OceanTide> ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> .
-
-odyn:TurbidityCurrent a owl:Class ;
-	rdfs:subClassOf odyn:OceanCurrent .
-
-odyn:Upwelling a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation , _:node1boame6f6x6 .
-
-_:node1boame6f6x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
-	owl:hasValue <http://sweetontology.net/reprSpaceDirection/Up> .
-
-odyn:Upwelling rdfs:comment "An ascending motion of subsurface water by which water from deeper layers is brought into the surface layer and is removed from the area of upwelling by divergent horizontal flow."@en .
-
-odyn:WindDrivenCirculation a owl:Class ;
-	rdfs:subClassOf odyn:OceanCirculation .
-
-odyn:WesternBoundaryCurrent a owl:Class ;
-	rdfs:subClassOf odyn:BoundaryCurrent .
-
-odyn:WesternIntensification a owl:Class ;
-	rdfs:subClassOf odyn:BoundaryCurrent .
+odyn:LangmuirCirculation
+        a                owl:Class ;
+        rdfs:comment     "Roll circulations approximately aligned with the surface stress vector that frequently occur in the upper boundary layer of oceans or lakes. Although similar in form to atmospheric longitudinal roll vortices, Langmuir circulations are thought to be driven by nonlinear interactions between the surface gravity wave field and the larger-scale turbulent motions within the mixed layer. They are sometimes called windrows because they form lines of surface debris or bubbles in their surface convergence zones. Their spatial scale is related to the depth of the mixed layer and their characteristic velocity is on the order of 8u*, where u* is the friction velocity in water. As a result of this scaling, Langmuir circulations generally require surface winds of at least 8 m s-1 in order to form. See coherent structures, longitudinal rolls."@en ;
+        rdfs:subClassOf  odyn:OceanCirculation .

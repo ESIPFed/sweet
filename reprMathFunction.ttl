@@ -1,262 +1,270 @@
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
-@prefix math: <http://sweetontology.net/reprMath/> .
+@base          <http://sweetontology.net/reprMathFunction> .
+@prefix repr:  <http://sweetontology.net/repr/> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix quan:  <http://sweetontology.net/propQuantity/> .
+@prefix func:  <http://sweetontology.net/reprMathFunction/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix oper:  <http://sweetontology.net/reprMathOperation/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix math:  <http://sweetontology.net/reprMath/> .
 
-<http://sweetontology.net/reprMathFunction> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/reprMathOperation> , <http://sweetontology.net/repr> , <http://sweetontology.net/propQuantity> .
+func:Logarithmic  a      owl:Class ;
+        rdfs:subClassOf  func:TranscendentalFunction .
 
-<http://sweetontology.net/reprMathFunction/AlgebraicFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
+func:NormalizedFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:Function .
 
-<http://sweetontology.net/reprMathFunction/BinaryFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/DiscreteFunction> .
+func:Linear  a               owl:Class ;
+        rdfs:subClassOf      func:Polynomial ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    1 ;
+                               owl:onProperty  mrela:hasDegree
+                             ] ;
+        owl:equivalentClass  func:Affine .
 
-<http://sweetontology.net/reprMathFunction/Bivariate> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
+func:Dirac  a            owl:Class ;
+        rdfs:subClassOf  func:Function .
 
-<http://sweetontology.net/reprMathFunction/BoxCar> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/AlgebraicFunction> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/SquareWave> .
+func:Quadratic  a        owl:Class ;
+        rdfs:subClassOf  func:Polynomial ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    2 ;
+                           owl:onProperty  mrela:hasDegree
+                         ] .
 
-<http://sweetontology.net/reprMathFunction/SquareWave> a owl:Class .
+func:Well  a             owl:Class ;
+        rdfs:subClassOf  func:Function .
 
-<http://sweetontology.net/reprMathFunction/ChiSquare> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/DistributionFunction> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/ChiSquareDistribution> .
+func:DiscreteFunction
+        a       owl:Class .
 
-<http://sweetontology.net/reprMathFunction/ChiSquareDistribution> a owl:Class .
+func:ExponentialDecay
+        a                owl:Class ;
+        rdfs:subClassOf  func:ExponentialFunction .
 
-<http://sweetontology.net/reprMathFunction/Continuous> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
+func:Cosine  a           owl:Class ;
+        rdfs:subClassOf  func:TrigonometricFunction .
 
-<http://sweetontology.net/reprMathFunction/Cubic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Polynomial> , _:node1boamekvnx1 .
+func:Polynomial  a       owl:Class ;
+        rdfs:subClassOf  func:AlgebraicFunction .
+
+func:Nonlinear  a         owl:Class ;
+        rdfs:subClassOf   func:Function ;
+        owl:disjointWith  func:Linear .
+
+func:AlgebraicFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:CubicSpline  a      owl:Class ;
+        rdfs:subClassOf  func:Cubic .
+
+func:Affine  a  owl:Class .
+
+func:ProbabilityDensityFunction
+        a                    owl:Class ;
+        rdfs:subClassOf      func:NormalizedFunction ;
+        owl:equivalentClass  func:pdf .
+
+func:pdf  a     owl:Class .
+
+func:VectorField  a      owl:Class ;
+        rdfs:subClassOf  func:VectorFunction , func:Field .
 
-_:node1boamekvnx1 a owl:Restriction ;
-	owl:hasValue "3"^^xsd:integer ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDegree> .
+func:BinaryFunction  a   owl:Class ;
+        rdfs:subClassOf  func:DiscreteFunction .
+
+func:BasisFunction  a    owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:Quartic  a          owl:Class ;
+        rdfs:subClassOf  func:Polynomial ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    4 ;
+                           owl:onProperty  mrela:hasDegree
+                         ] .
+
+func:MaxwellBoltzmannDistribution
+        a                owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:ScalarField  a      owl:Class ;
+        rdfs:subClassOf  func:ScalarFunction .
+
+func:UtilityFunction  a  owl:Class ;
+        rdfs:subClassOf  func:OptimizationFunction .
+
+func:SquareWave  a  owl:Class .
+
+func:RadialBasisFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:BasisFunction .
+
+func:PowerLaw  a         owl:Class ;
+        rdfs:subClassOf  func:PowerFunction .
 
-<http://sweetontology.net/reprMathFunction/Dirac> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/Discrete> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/DiscreteFunction> .
-
-<http://sweetontology.net/reprMathFunction/DiscreteFunction> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/DistributionFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/NormalizedFunction> .
-
-<http://sweetontology.net/reprMathFunction/ExponentialFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/TranscendentalFunction> .
-
-<http://sweetontology.net/reprMathFunction/ExponentialGrowth> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/ExponentialFunction> .
-
-<http://sweetontology.net/reprMathFunction/ExponentialDecay> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/ExponentialFunction> .
-
-<http://sweetontology.net/reprMathFunction/Filter> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/Function> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> , _:node1boamekvnx2 .
-
-_:node1boamekvnx2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/repr/IndependentVariable> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasInput> .
-
-<http://sweetontology.net/reprMathFunction/Function> rdfs:subClassOf _:node1boamekvnx3 .
-
-_:node1boamekvnx3 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/repr/DependentVariable> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasOutput> .
-
-<http://sweetontology.net/reprMathFunction/Kernel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Filter> .
-
-<http://sweetontology.net/reprMathFunction/Linear> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Polynomial> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/Affine> ;
-	rdfs:subClassOf _:node1boamekvnx4 .
-
-_:node1boamekvnx4 a owl:Restriction ;
-	owl:hasValue "1"^^xsd:integer ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDegree> .
-
-<http://sweetontology.net/reprMathFunction/Affine> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/Logistic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/TranscendentalFunction> .
-
-<http://sweetontology.net/reprMathFunction/Logarithmic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/TranscendentalFunction> .
-
-<http://sweetontology.net/reprMathFunction/Nonlinear> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:disjointWith <http://sweetontology.net/reprMathFunction/Linear> .
-
-<http://sweetontology.net/reprMathFunction/Normal> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/DistributionFunction> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/NormalDistribution> .
-
-<http://sweetontology.net/reprMathFunction/NormalDistribution> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/NormalizedFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/OptimizationFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/Polynomial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/AlgebraicFunction> .
-
-<http://sweetontology.net/reprMathFunction/PowerFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/ProbabilityDensityFunction> a owl:Class ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/pdf> ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/NormalizedFunction> .
-
-<http://sweetontology.net/reprMathFunction/pdf> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/ProbabilityDistributionFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/NormalizedFunction> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/cdf> .
-
-<http://sweetontology.net/reprMathFunction/cdf> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/Quadratic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Polynomial> , _:node1boamekvnx5 .
-
-_:node1boamekvnx5 a owl:Restriction ;
-	owl:hasValue "2"^^xsd:integer ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDegree> .
-
-<http://sweetontology.net/reprMathFunction/Quartic> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Polynomial> , _:node1boamekvnx6 .
-
-_:node1boamekvnx6 a owl:Restriction ;
-	owl:hasValue "4"^^xsd:integer ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasDegree> .
-
-<http://sweetontology.net/reprMathFunction/ScalarFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> , _:node1boamekvnx7 .
-
-_:node1boamekvnx7 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprMath/Scalar> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasOutput> .
-
-<http://sweetontology.net/reprMathFunction/TranscendentalFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:disjointWith <http://sweetontology.net/reprMathFunction/AlgebraicFunction> .
-
-<http://sweetontology.net/reprMathFunction/TrigonometricFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/TranscendentalFunction> .
-
-<http://sweetontology.net/reprMathFunction/UtilityFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/OptimizationFunction> .
-
-<http://sweetontology.net/reprMathFunction/Well> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/Step> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/VectorFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> , _:node1boamekvnx8 .
-
-_:node1boamekvnx8 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprMath/Vector> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasInput> .
-
-<http://sweetontology.net/reprMathFunction/VectorQuantity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> , _:node1boamekvnx9 .
-
-_:node1boamekvnx9 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprMath/Vector> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasOutput> .
-
-<http://sweetontology.net/reprMathFunction/TensorFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> , _:node1boamekvnx10 .
-
-_:node1boamekvnx10 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/reprMath/Tensor> ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasInput> .
-
-<http://sweetontology.net/reprMathFunction/Field> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> , _:node1boamekvnx11 .
-
-_:node1boamekvnx11 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialDistribution> ;
-	owl:allValuesFrom <http://sweetontology.net/propQuantity/Quantity> .
-
-<http://sweetontology.net/reprMathFunction/VectorField> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Field> , <http://sweetontology.net/reprMathFunction/VectorFunction> .
-
-<http://sweetontology.net/reprMathFunction/TensorField> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Field> , <http://sweetontology.net/reprMathFunction/TensorFunction> .
-
-<http://sweetontology.net/reprMathFunction/ScalarField> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/ScalarFunction> .
-
-<http://sweetontology.net/reprMathFunction/Continuous> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/Continuity> .
-
-<http://sweetontology.net/reprMathFunction/Continuity> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/Discrete> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:disjointWith <http://sweetontology.net/reprMathFunction/Continuous> .
-
-<http://sweetontology.net/reprMathFunction/Discontinuous> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/Discontinuity> ;
-	owl:disjointWith <http://sweetontology.net/reprMathFunction/Continuous> ;
-	rdfs:comment "A point in the range of a function at which it is undefined or not continuous [Wiktionary]"@en .
-
-<http://sweetontology.net/reprMathFunction/Discontinuity> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/MaxwellBoltzmannDistribution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/RadialBasisFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/BasisFunction> .
-
-<http://sweetontology.net/reprMathFunction/BasisFunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> .
-
-<http://sweetontology.net/reprMathFunction/BSpline> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/CubicSpline> .
-
-<http://sweetontology.net/reprMathFunction/CubicSpline> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Cubic> .
-
-<http://sweetontology.net/reprMathFunction/Sin> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/TrigonometricFunction> .
-
-<http://sweetontology.net/reprMathFunction/Cosine> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/TrigonometricFunction> .
-
-<http://sweetontology.net/reprMathFunction/Profile> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
-	owl:equivalentClass <http://sweetontology.net/reprMathFunction/Horizon> , <http://sweetontology.net/reprMathFunction/VerticalProfile> .
-
-<http://sweetontology.net/reprMathFunction/Horizon> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/VerticalProfile> a owl:Class .
-
-<http://sweetontology.net/reprMathFunction/PowerLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/PowerFunction> .
+func:Continuous  a           owl:Class ;
+        rdfs:subClassOf      func:Function ;
+        owl:equivalentClass  func:Continuity .
+
+func:Logistic  a         owl:Class ;
+        rdfs:subClassOf  func:TranscendentalFunction .
+
+func:Filter  a           owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:Bivariate  a        owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:DistributionFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:NormalizedFunction .
+
+func:Step  a             owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:Normal  a               owl:Class ;
+        rdfs:subClassOf      func:DistributionFunction ;
+        owl:equivalentClass  func:NormalDistribution .
+
+func:Kernel  a           owl:Class ;
+        rdfs:subClassOf  func:Filter .
+
+func:Discontinuity  a  owl:Class .
+
+func:Function  a         owl:Class ;
+        rdfs:subClassOf  oper:Operation ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  repr:DependentVariable ;
+                           owl:onProperty     mrela:hasOutput
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  repr:IndependentVariable ;
+                           owl:onProperty     mrela:hasInput
+                         ] .
+
+func:ProbabilityDistributionFunction
+        a                    owl:Class ;
+        rdfs:subClassOf      func:NormalizedFunction ;
+        owl:equivalentClass  func:cdf .
+
+func:Field  a            owl:Class ;
+        rdfs:subClassOf  func:Function ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  quan:Quantity ;
+                           owl:onProperty     srela:hasSpatialDistribution
+                         ] .
+
+func:TrigonometricFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:TranscendentalFunction .
+
+func:ExponentialFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:TranscendentalFunction .
+
+func:ExponentialGrowth
+        a                owl:Class ;
+        rdfs:subClassOf  func:ExponentialFunction .
+
+func:Sin  a              owl:Class ;
+        rdfs:subClassOf  func:TrigonometricFunction .
+
+func:BoxCar  a               owl:Class ;
+        rdfs:subClassOf      func:AlgebraicFunction ;
+        owl:equivalentClass  func:SquareWave .
+
+func:NormalDistribution
+        a       owl:Class .
+
+func:TensorField  a      owl:Class ;
+        rdfs:subClassOf  func:TensorFunction , func:Field .
+
+func:Discrete  a             owl:Class ;
+        rdfs:subClassOf      func:Function ;
+        owl:disjointWith     func:Continuous ;
+        owl:equivalentClass  func:DiscreteFunction .
+
+func:VectorQuantity  a   owl:Class ;
+        rdfs:subClassOf  func:Function ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  math:Vector ;
+                           owl:onProperty     mrela:hasOutput
+                         ] .
+
+func:cdf  a     owl:Class .
+
+func:Horizon  a  owl:Class .
+
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <propQuantity> , <repr> , <reprMathOperation> , <relaSpace> , <relaMath> , <reprMath> ;
+        owl:versionInfo  "3.1.0" .
+
+func:TensorFunction  a   owl:Class ;
+        rdfs:subClassOf  func:Function ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  math:Tensor ;
+                           owl:onProperty     mrela:hasInput
+                         ] .
+
+func:Profile  a              owl:Class ;
+        rdfs:subClassOf      func:Function ;
+        owl:equivalentClass  func:VerticalProfile , func:Horizon .
+
+func:PowerFunction  a    owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:BSpline  a          owl:Class ;
+        rdfs:subClassOf  func:CubicSpline .
+
+func:ScalarFunction  a   owl:Class ;
+        rdfs:subClassOf  func:Function ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  math:Scalar ;
+                           owl:onProperty     mrela:hasOutput
+                         ] .
+
+func:Cubic  a            owl:Class ;
+        rdfs:subClassOf  func:Polynomial ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    3 ;
+                           owl:onProperty  mrela:hasDegree
+                         ] .
+
+func:Discontinuous  a        owl:Class ;
+        rdfs:comment         "A point in the range of a function at which it is undefined or not continuous [Wiktionary]"@en ;
+        rdfs:subClassOf      func:Function ;
+        owl:disjointWith     func:Continuous ;
+        owl:equivalentClass  func:Discontinuity .
+
+func:ChiSquareDistribution
+        a       owl:Class .
+
+func:OptimizationFunction
+        a                owl:Class ;
+        rdfs:subClassOf  func:Function .
+
+func:ChiSquare  a            owl:Class ;
+        rdfs:subClassOf      func:DistributionFunction ;
+        owl:equivalentClass  func:ChiSquareDistribution .
+
+func:TranscendentalFunction
+        a                 owl:Class ;
+        rdfs:subClassOf   func:Function ;
+        owl:disjointWith  func:AlgebraicFunction .
+
+func:VectorFunction  a   owl:Class ;
+        rdfs:subClassOf  func:Function ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  math:Vector ;
+                           owl:onProperty     mrela:hasInput
+                         ] .
+
+func:VerticalProfile  a  owl:Class .
+
+func:Continuity  a  owl:Class .

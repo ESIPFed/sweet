@@ -1,90 +1,85 @@
-@prefix wave: <http://sweetontology.net/procWave/> .
-@prefix wind: <http://sweetontology.net/phenAtmoWind/> .
-@prefix pres: <http://sweetontology.net/propPressure/> .
-@prefix prec: <http://sweetontology.net/phenAtmoPrecipitation/> .
-@prefix mod: <http://sweetontology.net/reprSciModel/> .
-@prefix velo: <http://sweetontology.net/propSpeed/> .
+@base          <http://sweetontology.net/reprSciLaw> .
+@prefix law:   <http://sweetontology.net/reprSciLaw/> .
+@prefix mod:   <http://sweetontology.net/reprSciModel/> .
+@prefix pres:  <http://sweetontology.net/propPressure/> .
+@prefix velo:  <http://sweetontology.net/propSpeed/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix law: <http://sweetontology.net/reprSciLaw/> .
-@prefix know: <http://sweetontology.net/repr/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix wave:  <http://sweetontology.net/procWave/> .
+@prefix prec:  <http://sweetontology.net/phenAtmoPrecipitation/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix know:  <http://sweetontology.net/repr/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix wind:  <http://sweetontology.net/phenAtmoWind/> .
 
-<http://sweetontology.net/reprSciLaw> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/procWave> , <http://sweetontology.net/reprSciModel> , <http://sweetontology.net/propSpeed> , <http://sweetontology.net/phenAtmoWind> , <http://sweetontology.net/propPressure> , <http://sweetontology.net/phenAtmoPrecipitation> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/repr> , <http://sweetontology.net/rela> .
+law:PhysicalLaw  a       owl:Class ;
+        rdfs:subClassOf  know:Knowledge .
 
-<http://sweetontology.net/reprSciLaw/MathematicalTheorem> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Knowledge> .
+law:DarcysLaw  a         owl:Class ;
+        rdfs:subClassOf  law:EmpiricalLaw .
 
-<http://sweetontology.net/reprSciLaw/EmpiricalLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Knowledge> .
+law:EmpiricalLaw  a      owl:Class ;
+        rdfs:subClassOf  know:Knowledge .
 
-<http://sweetontology.net/reprSciLaw/PhysicalLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Knowledge> .
+law:Z_RRelation  a       owl:Class ;
+        rdfs:comment     "A relationship between radar reflectivity factor Z (mm6 m-3) and rain rate R (mm h-1)."@en ;
+        rdfs:subClassOf  law:EmpiricalLaw ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  prec:Rainfall ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/reprSciLaw/BouguerLaw> a owl:Class ;
-	rdfs:subClassOf _:node1boamem4lx1 .
+law:BernoulliTheorem  a  owl:Class ;
+        rdfs:comment     "As originally formulated, a statement of the conservation of energy (per unit mass) for an inviscid fluid in steady motion."@en ;
+        rdfs:subClassOf  law:PhysicalLaw ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasProperty ;
+                           owl:someValuesFrom  velo:Velocity
+                         ] .
 
-_:node1boamem4lx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-	owl:allValuesFrom <http://sweetontology.net/procWave/Attenuation> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <phenAtmoWind> , <propPressure> , <repr> , <propSpeed> , <procWave> , <reprSciModel> , <phenAtmoPrecipitation> , <statePhysical> , <rela> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/reprSciLaw/BouguerLaw> rdfs:subClassOf <http://sweetontology.net/reprSciLaw/EmpiricalLaw> ;
-	rdfs:comment "Attenuation of a beam of light by an optically homogeneous (transparent) medium." .
+law:HookesLaw  a         owl:Class ;
+        rdfs:subClassOf  law:EmpiricalLaw .
 
-<http://sweetontology.net/reprSciLaw/DarcysLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/EmpiricalLaw> .
+law:WalthersLaw  a       owl:Class ;
+        rdfs:subClassOf  law:EmpiricalLaw .
 
-<http://sweetontology.net/reprSciLaw/HookesLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/EmpiricalLaw> .
+law:BouguerLaw  a        owl:Class ;
+        rdfs:comment     "Attenuation of a beam of light by an optically homogeneous (transparent) medium." ;
+        rdfs:subClassOf  law:EmpiricalLaw ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  wave:Attenuation ;
+                           owl:onProperty     rela:hasProcess
+                         ] .
 
-<http://sweetontology.net/reprSciLaw/StokesLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciModel/PhysicalApproximation> .
+law:MathematicalTheorem
+        a                owl:Class ;
+        rdfs:subClassOf  know:Knowledge .
 
-<http://sweetontology.net/reprSciLaw/IdealGasLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/PhysicalLaw> , _:node1boamem4lx2 .
+law:IdealGasLaw  a       owl:Class ;
+        rdfs:subClassOf  law:PhysicalLaw ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-_:node1boamem4lx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
+law:StokesLaw  a         owl:Class ;
+        rdfs:subClassOf  mod:PhysicalApproximation .
 
-<http://sweetontology.net/reprSciLaw/BernoulliTheorem> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/PhysicalLaw> , _:node1boamem4lx3 .
-
-_:node1boamem4lx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProperty> ;
-	owl:someValuesFrom <http://sweetontology.net/propSpeed/Velocity> .
-
-<http://sweetontology.net/reprSciLaw/BernoulliTheorem> rdfs:comment "As originally formulated, a statement of the conservation of energy (per unit mass) for an inviscid fluid in steady motion."@en .
-
-<http://sweetontology.net/reprSciLaw/BuysBallotLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/EmpiricalLaw> , _:node1boamem4lx4 .
-
-_:node1boamem4lx4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenAtmoWind/Wind> .
-
-<http://sweetontology.net/reprSciLaw/BuysBallotLaw> rdfs:subClassOf _:node1boamem4lx5 .
-
-_:node1boamem4lx5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProperty> ;
-	owl:someValuesFrom <http://sweetontology.net/propPressure/Pressure> .
-
-<http://sweetontology.net/reprSciLaw/BuysBallotLaw> rdfs:comment "A law describing the relationship of the horizontal wind direction in the atmosphere to the pressure distribution."@en .
-
-<http://sweetontology.net/reprSciLaw/WalthersLaw> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/EmpiricalLaw> .
-
-<http://sweetontology.net/reprSciLaw/Z_RRelation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciLaw/EmpiricalLaw> , _:node1boamem4lx6 .
-
-_:node1boamem4lx6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenAtmoPrecipitation/Rainfall> .
-
-<http://sweetontology.net/reprSciLaw/Z_RRelation> rdfs:comment "A relationship between radar reflectivity factor Z (mm6 m-3) and rain rate R (mm h-1)."@en .
+law:BuysBallotLaw  a     owl:Class ;
+        rdfs:comment     "A law describing the relationship of the horizontal wind direction in the atmosphere to the pressure distribution."@en ;
+        rdfs:subClassOf  law:EmpiricalLaw ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasProperty ;
+                           owl:someValuesFrom  pres:Pressure
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  wind:Wind ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .

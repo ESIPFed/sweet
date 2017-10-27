@@ -1,100 +1,105 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix math: <http://sweetontology.net/reprMath/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix flux: <http://sweetontology.net/propEnergyFlux/> .
-@prefix time: <http://sweetontology.net/reprTime/> .
+@base          <http://sweetontology.net/propOrdinal> .
+@prefix repr:  <http://sweetontology.net/repr/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix prop:  <http://sweetontology.net/prop/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix flux:  <http://sweetontology.net/propEnergyFlux/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time:  <http://sweetontology.net/reprTime/> .
+@prefix math:  <http://sweetontology.net/reprMath/> .
+@prefix ordi:  <http://sweetontology.net/propOrdinal/> .
 @prefix screla: <http://sweetontology.net/relaSci/> .
 
-<http://sweetontology.net/propOrdinal> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/prop> , <http://sweetontology.net/repr> , <http://sweetontology.net/reprTime> , <http://sweetontology.net/reprMath> , <http://sweetontology.net/propEnergyFlux> , <http://sweetontology.net/relaSci> .
+ordi:Level  a            owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Impact a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:EducationalLevel
+        a                owl:Class ;
+        rdfs:subClassOf  ordi:Level .
 
-ordi:Trust a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty ;
-	owl:equivalentClass ordi:Belief .
+ordi:Qualifier  a        owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Belief a owl:Class .
+ordi:TrophicLevel  a     owl:Class ;
+        rdfs:subClassOf  ordi:Level .
 
-ordi:SpectralLine a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty .
+ordi:Luster  a           owl:Class ;
+        rdfs:subClassOf  ordi:Color .
 
-ordi:OrdinalProperty a owl:Class ;
-	rdfs:subClassOf prop:Property , repr:OrdinalScale .
+ordi:ProcessingLevel  a  owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Gradation a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:Condition  a        owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Quality a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:Pigment  a          owl:Class ;
+        rdfs:subClassOf  ordi:Color .
 
-ordi:Qualifier a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:Color  a            owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Condition a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:FlareClass  a       owl:Class ;
+        rdfs:subClassOf  prop:PhysicalProperty ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  flux:EnergyFlux ;
+                           owl:onProperty     screla:measureOf
+                         ] .
 
-ordi:Level a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:SpectralBand  a     owl:Class ;
+        rdfs:subClassOf  math:Interval , prop:PhysicalProperty .
 
-ordi:TrophicLevel a owl:Class ;
-	rdfs:subClassOf ordi:Level .
+ordi:Streak  a           owl:Class ;
+        rdfs:comment     "Color of the powder of a substance." ;
+        rdfs:subClassOf  ordi:Color .
 
-ordi:MineralAssessment a owl:Class ;
-	rdfs:subClassOf ordi:Level .
+ordi:Trust  a                owl:Class ;
+        rdfs:subClassOf      ordi:OrdinalProperty ;
+        owl:equivalentClass  ordi:Belief .
 
-ordi:EducationalLevel a owl:Class ;
-	rdfs:subClassOf ordi:Level .
+ordi:Age  a              owl:Class ;
+        rdfs:subClassOf  time:Time .
 
-ordi:Color a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:Quality  a          owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Pigment a owl:Class ;
-	rdfs:subClassOf ordi:Color .
+ordi:Impact  a           owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Streak a owl:Class ;
-	rdfs:subClassOf ordi:Color ;
-	rdfs:comment "Color of the powder of a substance." .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaSci> , <propEnergyFlux> , <reprMath> , <reprTime> , <repr> , <prop> ;
+        owl:versionInfo  "3.1.0" .
 
-ordi:Luster a owl:Class ;
-	rdfs:subClassOf ordi:Color .
+ordi:Belief  a  owl:Class .
 
-ordi:Visibility a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:ActivityLevel  a    owl:Class ;
+        rdfs:subClassOf  prop:SystemProperty , ordi:OrdinalProperty .
 
-ordi:ActivityLevel a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty , prop:SystemProperty .
+ordi:ElectromagneticSpectrum
+        a                owl:Class ;
+        rdfs:comment     "The electromagnetic (EM) spectrum is the range of all possible electromagnetic radiation. The electromagnetic spectrum (usually just spectrum) of an object is the characteristic distribution of electromagnetic radiation from that object."@en ;
+        rdfs:subClassOf  ordi:SpectralBand .
 
-ordi:SpatialScale a owl:Class ;
-	rdfs:subClassOf repr:OrdinalScale .
+ordi:MineralAssessment
+        a                owl:Class ;
+        rdfs:subClassOf  ordi:Level .
 
-ordi:ElectromagneticSpectrum a owl:Class ;
-	rdfs:subClassOf ordi:SpectralBand ;
-	rdfs:comment "The electromagnetic (EM) spectrum is the range of all possible electromagnetic radiation. The electromagnetic spectrum (usually just spectrum) of an object is the characteristic distribution of electromagnetic radiation from that object."@en .
+ordi:SpectralLine  a     owl:Class ;
+        rdfs:subClassOf  prop:PhysicalProperty .
 
-ordi:SpectralBand a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty , math:Interval .
+ordi:Gradation  a        owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:FlareClass a owl:Class ;
-	rdfs:subClassOf prop:PhysicalProperty , _:node1boameav2x1 .
+ordi:TemperatureRange
+        a                owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-_:node1boameav2x1 a owl:Restriction ;
-	owl:onProperty screla:measureOf ;
-	owl:allValuesFrom flux:EnergyFlux .
+ordi:Visibility  a       owl:Class ;
+        rdfs:subClassOf  ordi:OrdinalProperty .
 
-ordi:Age a owl:Class ;
-	rdfs:subClassOf time:Time .
+ordi:SpatialScale  a     owl:Class ;
+        rdfs:subClassOf  repr:OrdinalScale .
 
-ordi:TemperatureRange a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
-
-ordi:ProcessingLevel a owl:Class ;
-	rdfs:subClassOf ordi:OrdinalProperty .
+ordi:OrdinalProperty  a  owl:Class ;
+        rdfs:subClassOf  repr:OrdinalScale , prop:Property .

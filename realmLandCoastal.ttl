@@ -1,173 +1,169 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix ocea: <http://sweetontology.net/phenOceanCoastal/> .
-@prefix land: <http://sweetontology.net/realmLandform/> .
+@base          <http://sweetontology.net/realmLandCoastal> .
 @prefix coast: <http://sweetontology.net/realmLandCoastal/> .
-@prefix body: <http://sweetontology.net/realmHydroBody/> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix sgeo: <http://sweetontology.net/stateRoleGeographic/> .
+@prefix ocea:  <http://sweetontology.net/phenOceanCoastal/> .
 @prefix ocean: <http://sweetontology.net/realmOcean/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix planet: <http://sweetontology.net/realm/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix land:  <http://sweetontology.net/realmLandform/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sgeo:  <http://sweetontology.net/stateRoleGeographic/> .
+@prefix body:  <http://sweetontology.net/realmHydroBody/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/realmLandCoastal> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/realmHydroBody> , <http://sweetontology.net/realmLandform> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/rela> , <http://sweetontology.net/stateRoleGeographic> , <http://sweetontology.net/realmOcean> , <http://sweetontology.net/phenOceanCoastal> , <http://sweetontology.net/realm> .
+coast:Riparian  a            owl:Class ;
+        rdfs:comment         "A riparian zone is the interface between land and a flowing surface water body. Plant communities along the river margins are called riparian vegetation, characterized by hydrophilic plants. Riparian zones are significant in ecology, environmental management, and civil engineering due to their role in soil conservation, their biodiversity, and the influence they have on aquatic ecosystems. Riparian zones occur in many forms including grassland, woodland, wetland or even non-vegetative. In some regions the terms riparian woodland, riparian forest, riparian buffer zone or riparian strip are used to characterize a riparian zone."@en ;
+        rdfs:subClassOf      coast:CoastalRegion ;
+        owl:equivalentClass  coast:RiparianZone .
 
-<http://sweetontology.net/realmLandCoastal/Beach> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> , _:node1boameg68x1 .
+coast:Island  a          owl:Class ;
+        rdfs:subClassOf  land:Landform ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  body:BodyOfWater ;
+                           owl:onProperty     srela:surroundedBy
+                         ] .
 
-_:node1boameg68x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/isAdjacentTo> ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydroBody/BodyOfWater> .
+coast:BarrierIsland  a   owl:Class ;
+        rdfs:subClassOf  coast:Island .
 
-<http://sweetontology.net/realmLandCoastal/Beach> rdfs:comment "A beach, or strand, is a geological landform consisting of loose rock particles - such as sand, gravel, shingle, pebbles, cobble - or even shell fragments, along the shoreline of a body of water. Beaches occur along coastal areas, where wave or current action deposits and reworks sediments, or at the margin of land along a lake or river subject to erosion caused by rainfall. Beaches are not necessarily found in conjunction with salt water, such as the ocean, in all instances. A seashore beach is merely one type of beach but it is the most commonly associated with the perception of the word beach."@en .
+coast:Shore  a               owl:Class ;
+        rdfs:comment         "A shore or shoreline is the fringe of land at the edge of a large body of water, such as an ocean, sea, or lake."@en ;
+        rdfs:subClassOf      coast:CoastalRegion , land:Land ;
+        owl:equivalentClass  coast:Shoreline .
 
-<http://sweetontology.net/realmLandCoastal/Shore> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Land> , <http://sweetontology.net/realmLandCoastal/CoastalRegion> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandCoastal/Shoreline> ;
-	rdfs:comment "A shore or shoreline is the fringe of land at the edge of a large body of water, such as an ocean, sea, or lake."@en .
+coast:Cove  a            owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/Shoreline> a owl:Class .
+coast:Beach  a           owl:Class ;
+        rdfs:comment     "A beach, or strand, is a geological landform consisting of loose rock particles - such as sand, gravel, shingle, pebbles, cobble - or even shell fragments, along the shoreline of a body of water. Beaches occur along coastal areas, where wave or current action deposits and reworks sediments, or at the margin of land along a lake or river subject to erosion caused by rainfall. Beaches are not necessarily found in conjunction with salt water, such as the ocean, in all instances. A seashore beach is merely one type of beach but it is the most commonly associated with the perception of the word beach."@en ;
+        rdfs:subClassOf  land:Landform ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  body:BodyOfWater ;
+                           owl:onProperty     srela:isAdjacentTo
+                         ] .
 
-<http://sweetontology.net/realmLandCoastal/IntertidalZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandCoastal/Intertidal> , <http://sweetontology.net/realmLandCoastal/Littoral> , <http://sweetontology.net/realmLandCoastal/LittoralZone> , <http://sweetontology.net/realmLandCoastal/TidePool> ;
-	rdfs:subClassOf _:node1boameg68x2 .
+coast:Hinterland  a      owl:Class ;
+        rdfs:subClassOf  land:LandRegion .
 
-_:node1boameg68x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenOceanCoastal/OceanTide> .
+coast:Key  a             owl:Class ;
+        rdfs:subClassOf  coast:Island .
 
-<http://sweetontology.net/realmLandCoastal/IntertidalZone> rdfs:comment "The intertidal zone, also known as the littoral zone, in marine aquatic environments is the area of the foreshore and seabed that is exposed to the air at low tide and submerged at high tide, for example, the area between tide marks."@en .
+coast:Littoral  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/LittoralZone> a owl:Class .
+coast:MudFlat  a         owl:Class ;
+        rdfs:subClassOf  coast:CoastalLandform .
 
-<http://sweetontology.net/realmLandCoastal/Littoral> a owl:Class .
+coast:WaveCutPlatform
+        a                    owl:Class ;
+        rdfs:subClassOf      coast:CoastalRegion ;
+        owl:equivalentClass  coast:ShorePlatform .
 
-<http://sweetontology.net/realmLandCoastal/Intertidal> a owl:Class .
+coast:Tombolo  a         owl:Class ;
+        rdfs:subClassOf  coast:Bar .
 
-<http://sweetontology.net/realmLandCoastal/TidePool> a owl:Class .
+coast:Atoll  a           owl:Class ;
+        rdfs:subClassOf  coast:Island .
 
-<http://sweetontology.net/realmLandCoastal/Tidal> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:Supratidal  a      owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/Supratidal> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:Harbor  a          owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/Updrift> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:CoastalRegion  a       owl:Class ;
+        rdfs:subClassOf      planet:PlanetaryRealm ;
+        rdfs:subClassOf      [ a                   owl:Restriction ;
+                               owl:onProperty      srela:hasCommon2DBorderWith ;
+                               owl:someValuesFrom  planet:Land
+                             ] ;
+        rdfs:subClassOf      [ a                   owl:Restriction ;
+                               owl:onProperty      srela:hasCommon2DBorderWith ;
+                               owl:someValuesFrom  ocean:OceanRegion
+                             ] ;
+        owl:equivalentClass  coast:Coastal .
 
-<http://sweetontology.net/realmLandCoastal/WaveCutPlatform> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandCoastal/ShorePlatform> .
+coast:DeltaBar  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/ShorePlatform> a owl:Class .
+coast:CoastalLandform
+        a                owl:Class ;
+        rdfs:subClassOf  land:Landform ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasRealm ;
+                           owl:someValuesFrom  coast:CoastalRegion
+                         ] .
 
-<http://sweetontology.net/realmLandCoastal/WaveAttackZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:Delta  a           owl:Class ;
+        rdfs:comment     "A delta is a landform where the mouth of a river flows into an ocean, sea, desert, estuary, lake or another river. It builds up sediment outwards into the flat area which the river's flow encounters (as a deltaic deposit) transported by the water and set down as the currents slow. Deltaic deposits of larger, heavily-laden rivers are characterized by the main channel dividing amongst often substantial land masses into multiple streams known as distributaries. These divide and come together again to form a maze of active and inactive channels."@en ;
+        rdfs:subClassOf  coast:CoastalLandform ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasRealm ;
+                           owl:someValuesFrom  body:River
+                         ] .
 
-<http://sweetontology.net/realmLandCoastal/CoastalMargin> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateRoleGeographic/Margin> , <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:IslandArc  a       owl:Class ;
+        rdfs:subClassOf  coast:CoastalLandform .
 
-<http://sweetontology.net/realmLandCoastal/CoastalPlain> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Plain> , <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:Updrift  a         owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/CoastalRegion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryRealm> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandCoastal/Coastal> ;
-	rdfs:subClassOf _:node1boameg68x3 .
+coast:Bar  a                 owl:Class ;
+        rdfs:subClassOf      coast:Spit , coast:Delta ;
+        owl:equivalentClass  coast:DeltaBar .
 
-_:node1boameg68x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasCommon2DBorderWith> ;
-	owl:someValuesFrom <http://sweetontology.net/realmOcean/OceanRegion> .
+coast:Isthmus  a         owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/CoastalRegion> rdfs:subClassOf _:node1boameg68x4 .
+coast:Shoal  a           owl:Class ;
+        rdfs:comment     "A shoal is a somewhat linear landform within or extending into a body of water, typically comprised of sand, silt or small pebbles. Alternatively termed sandbar or sandbank, a bar is characteristically long and narrow (linear) and develops where a stream or ocean current promote deposition of granular material, resulting in localized shallowing (shoaling) of the water. Bars can appear in the sea, in a lake, or in a river. Alternatively a bar may separate a lake from the sea, as in the case of an ayre. They are typically composed of sand, although could be of any granular matter that the moving water has access to and is capable of shifting around (for example, soil, silt, gravel, cobble, shingle, or even boulders). The grain size of the material comprising a bar is related to the size of the waves or the strength of the currents moving the material, but the availability of material to be worked by waves and currents is also important."@en ;
+        rdfs:subClassOf  coast:CoastalLandform .
 
-_:node1boameg68x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/hasCommon2DBorderWith> ;
-	owl:someValuesFrom <http://sweetontology.net/realm/Land> .
+coast:CoastalMargin  a   owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion , sgeo:Margin .
 
-<http://sweetontology.net/realmLandCoastal/Coastal> a owl:Class .
+<Arch>  a                owl:Class ;
+        rdfs:subClassOf  coast:CoastalLandform .
 
-<http://sweetontology.net/realmLandCoastal/Riparian> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandCoastal/RiparianZone> ;
-	rdfs:comment "A riparian zone is the interface between land and a flowing surface water body. Plant communities along the river margins are called riparian vegetation, characterized by hydrophilic plants. Riparian zones are significant in ecology, environmental management, and civil engineering due to their role in soil conservation, their biodiversity, and the influence they have on aquatic ecosystems. Riparian zones occur in many forms including grassland, woodland, wetland or even non-vegetative. In some regions the terms riparian woodland, riparian forest, riparian buffer zone or riparian strip are used to characterize a riparian zone."@en .
+coast:ShorePlatform  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/RiparianZone> a owl:Class .
+coast:Shoreline  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/CoastalLandform> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> , _:node1boameg68x5 .
+coast:LittoralZone  a  owl:Class .
 
-_:node1boameg68x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:someValuesFrom <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:TidePool  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/Cove> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:Intertidal  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/Delta> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalLandform> , _:node1boameg68x6 .
+coast:CoastalPlain  a    owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion , land:Plain .
 
-_:node1boameg68x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:someValuesFrom <http://sweetontology.net/realmHydroBody/River> .
+coast:RiparianZone  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/Delta> rdfs:comment "A delta is a landform where the mouth of a river flows into an ocean, sea, desert, estuary, lake or another river. It builds up sediment outwards into the flat area which the river's flow encounters (as a deltaic deposit) transported by the water and set down as the currents slow. Deltaic deposits of larger, heavily-laden rivers are characterized by the main channel dividing amongst often substantial land masses into multiple streams known as distributaries. These divide and come together again to form a maze of active and inactive channels."@en .
+coast:Terracette  a      owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/Bar> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/Delta> , <http://sweetontology.net/realmLandCoastal/Spit> ;
-	owl:equivalentClass <http://sweetontology.net/realmLandCoastal/DeltaBar> .
+coast:Spit  a            owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/DeltaBar> a owl:Class .
+coast:IntertidalZone  a      owl:Class ;
+        rdfs:comment         "The intertidal zone, also known as the littoral zone, in marine aquatic environments is the area of the foreshore and seabed that is exposed to the air at low tide and submerged at high tide, for example, the area between tide marks."@en ;
+        rdfs:subClassOf      coast:CoastalRegion ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  ocea:OceanTide ;
+                               owl:onProperty     rela:hasPhenomena
+                             ] ;
+        owl:equivalentClass  coast:TidePool , coast:LittoralZone , coast:Littoral , coast:Intertidal .
 
-<http://sweetontology.net/realmLandCoastal/Spit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <realmLandform> , <realmOcean> , <realm> , <stateRoleGeographic> , <relaSpace> , <realmHydroBody> , <phenOceanCoastal> , <rela> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/realmLandCoastal/Tombolo> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/Bar> .
+coast:Tidal  a           owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .
 
-<http://sweetontology.net/realmLandCoastal/Terracette> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
+coast:Coastal  a  owl:Class .
 
-<http://sweetontology.net/realmLandCoastal/Harbor> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
-
-<http://sweetontology.net/realmLandCoastal/Hinterland> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/LandRegion> .
-
-<http://sweetontology.net/realmLandCoastal/Isthmus> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalRegion> .
-
-<http://sweetontology.net/realmLandCoastal/Shoal> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalLandform> ;
-	rdfs:comment "A shoal is a somewhat linear landform within or extending into a body of water, typically comprised of sand, silt or small pebbles. Alternatively termed sandbar or sandbank, a bar is characteristically long and narrow (linear) and develops where a stream or ocean current promote deposition of granular material, resulting in localized shallowing (shoaling) of the water. Bars can appear in the sea, in a lake, or in a river. Alternatively a bar may separate a lake from the sea, as in the case of an ayre. They are typically composed of sand, although could be of any granular matter that the moving water has access to and is capable of shifting around (for example, soil, silt, gravel, cobble, shingle, or even boulders). The grain size of the material comprising a bar is related to the size of the waves or the strength of the currents moving the material, but the availability of material to be worked by waves and currents is also important."@en .
-
-<http://sweetontology.net/realmLandCoastal/MudFlat> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalLandform> .
-
-<http://sweetontology.net/Arch> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalLandform> .
-
-<http://sweetontology.net/realmLandCoastal/Atoll> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/Island> .
-
-<http://sweetontology.net/realmLandCoastal/BarrierIsland> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/Island> .
-
-<http://sweetontology.net/realmLandCoastal/Island> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandform/Landform> , _:node1boameg68x7 .
-
-_:node1boameg68x7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSpace/surroundedBy> ;
-	owl:allValuesFrom <http://sweetontology.net/realmHydroBody/BodyOfWater> .
-
-<http://sweetontology.net/realmLandCoastal/IslandArc> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/CoastalLandform> .
-
-<http://sweetontology.net/realmLandCoastal/Key> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmLandCoastal/Island> .
+coast:WaveAttackZone  a  owl:Class ;
+        rdfs:subClassOf  coast:CoastalRegion .

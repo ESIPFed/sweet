@@ -1,63 +1,65 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@base          <http://sweetontology.net/realmAstroStar> .
 @prefix astro: <http://sweetontology.net/realmAstroBody/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix cproc: <http://sweetontology.net/procChemical/> .
-@prefix state: <http://sweetontology.net/state/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix star: <http://sweetontology.net/realmAstroStar/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix star:  <http://sweetontology.net/realmAstroStar/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix realm: <http://sweetontology.net/realm/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://sweetontology.net/state/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix cproc: <http://sweetontology.net/procChemical/> .
 
-<http://sweetontology.net/realmAstroStar> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/realm> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/rela> , <http://sweetontology.net/procChemical> , <http://sweetontology.net/state> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/realmAstroBody> .
+star:StellarInterior  a  owl:Class ;
+        rdfs:subClassOf  star:StellarRealm .
 
-<http://sweetontology.net/realmAstroStar/ActiveRegion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarRealm> .
+star:RadiativeZone  a    owl:Class ;
+        rdfs:subClassOf  star:StellarInterior .
 
-<http://sweetontology.net/realmAstroStar/Chromosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarAtmosphere> , _:node1boamedmvx1 .
+star:StellarAtmosphere
+        a                owl:Class ;
+        rdfs:subClassOf  star:StellarRealm .
 
-_:node1boamedmvx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Plasma> .
+star:Tacocline  a        owl:Class ;
+        rdfs:subClassOf  star:StellarInterior .
 
-<http://sweetontology.net/realmAstroStar/Corona> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarAtmosphere> , _:node1boamedmvx2 .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <procChemical> , <realm> , <rela> , <relaChemical> , <statePhysical> , <realmAstroBody> , <state> ;
+        owl:versionInfo  "3.1.0" .
 
-_:node1boamedmvx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Plasma> .
+star:Chromosphere  a     owl:Class ;
+        rdfs:subClassOf  star:StellarAtmosphere ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Plasma ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realmAstroStar/Photosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarAtmosphere> .
+star:Photosphere  a      owl:Class ;
+        rdfs:subClassOf  star:StellarAtmosphere .
 
-<http://sweetontology.net/realmAstroStar/StellarAtmosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarRealm> .
+star:Corona  a           owl:Class ;
+        rdfs:subClassOf  star:StellarAtmosphere ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Plasma ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realmAstroStar/StellarInterior> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarRealm> .
+star:StellarRealm  a     owl:Class ;
+        rdfs:subClassOf  realm:Realm .
 
-<http://sweetontology.net/realmAstroStar/ConvectionZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarInterior> ;
-	owl:disjointWith <http://sweetontology.net/realmAstroStar/StellarCore> .
+star:StellarCore  a      owl:Class ;
+        rdfs:subClassOf  star:StellarInterior ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      crela:hasChemicalReaction ;
+                           owl:someValuesFrom  cproc:NuclearFusion
+                         ] .
 
-<http://sweetontology.net/realmAstroStar/RadiativeZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarInterior> .
+star:ConvectionZone  a    owl:Class ;
+        rdfs:subClassOf   star:StellarInterior ;
+        owl:disjointWith  star:StellarCore .
 
-<http://sweetontology.net/realmAstroStar/StellarCore> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarInterior> , _:node1boamedmvx3 .
-
-_:node1boamedmvx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasChemicalReaction> ;
-	owl:someValuesFrom <http://sweetontology.net/procChemical/NuclearFusion> .
-
-<http://sweetontology.net/realmAstroStar/StellarRealm> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realm/Realm> .
-
-<http://sweetontology.net/realmAstroStar/Tacocline> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAstroStar/StellarInterior> .
+star:ActiveRegion  a     owl:Class ;
+        rdfs:subClassOf  star:StellarRealm .

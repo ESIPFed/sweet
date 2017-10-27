@@ -1,193 +1,207 @@
+@base          <http://sweetontology.net/phenEnvirImpact> .
+@prefix surf:  <http://sweetontology.net/propSpaceHeight/> .
 @prefix brole: <http://sweetontology.net/stateRoleBiological/> .
-@prefix phen: <http://sweetontology.net/phen/> .
-@prefix impa: <http://sweetontology.net/stateRoleImpact/> .
-@prefix sed: <http://sweetontology.net/matrSediment/> .
-@prefix eimpa: <http://sweetontology.net/phenEnvirImpact/> .
+@prefix allo:  <http://sweetontology.net/matrElementalMolecule/> .
+@prefix impa:  <http://sweetontology.net/stateRoleImpact/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sys:   <http://sweetontology.net/phenSystem/> .
+@prefix sed:   <http://sweetontology.net/matrSediment/> .
+@prefix cstate: <http://sweetontology.net/stateChemical/> .
+@prefix ecol:  <http://sweetontology.net/phenEcology/> .
+@prefix phen:  <http://sweetontology.net/phen/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix noise: <http://sweetontology.net/phenWaveNoise/> .
 @prefix realm: <http://sweetontology.net/realm/> .
-@prefix ecol: <http://sweetontology.net/phenEcology/> .
-@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix eimpa: <http://sweetontology.net/phenEnvirImpact/> .
 @prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix surf: <http://sweetontology.net/propSpaceHeight/> .
-@prefix cstate: <http://sweetontology.net/stateChemical/> .
-@prefix sys: <http://sweetontology.net/phenSystem/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/phenEnvirImpact> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/stateRoleBiological> , <http://sweetontology.net/realm> , <http://sweetontology.net/phenWaveNoise> , <http://sweetontology.net/phen> , <http://sweetontology.net/stateRoleImpact> , <http://sweetontology.net/phenEcology> , <http://sweetontology.net/propSpaceHeight> , <http://sweetontology.net/matrElementalMolecule> , <http://sweetontology.net/matrSediment> , <http://sweetontology.net/stateChemical> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/phenSystem> .
+eimpa:LandEnvironmentalImpact
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpactOn ;
+                           owl:someValuesFrom  realm:Land
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/Contamination> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
+eimpa:SoilLoss  a        owl:Class ;
+        rdfs:subClassOf  eimpa:LandEnvironmentalImpact ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:decrease ;
+                           owl:someValuesFrom  sed:Soil
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> , _:node1boame4c5x1 .
+eimpa:HabitatConversion
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpactOn ;
+                           owl:someValuesFrom  brole:Habitat
+                         ] .
 
-_:node1boame4c5x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard> .
+eimpa:WaterPollution  a  owl:Class ;
+        rdfs:subClassOf  eimpa:Pollution ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpactOn ;
+                           owl:someValuesFrom  realm:Hydrosphere
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/Extinction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> ;
-	owl:equivalentClass <http://sweetontology.net/phenEnvirImpact/SpeciesExtinction> .
+eimpa:EnvironmentalImpact
+        a                owl:Class ;
+        rdfs:subClassOf  phen:Phenomena ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    impa:Hazard ;
+                           owl:onProperty  screla:hasImpact
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/SpeciesExtinction> a owl:Class .
+eimpa:OilSpill  a        owl:Class ;
+        rdfs:subClassOf  eimpa:Spill .
 
-<http://sweetontology.net/phenEnvirImpact/HabitatConversion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> , _:node1boame4c5x2 .
+eimpa:Desertification
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:LandEnvironmentalImpact .
 
-_:node1boame4c5x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
-	owl:someValuesFrom <http://sweetontology.net/stateRoleBiological/Habitat> .
+eimpa:Pollution  a       owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/HabitatFragmentation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/HabitatConversion> ;
-	rdfs:comment "Habitat fragmentation is a process of environmental change important in evolution and conservation biology. As the name implies, it describes the emergence of discontinuities (fragmentation) in an organism's preferred environment (habitat). Habitat fragmentation can be caused by geological processes that slowly alter the layout of the physical environment or by human activity such as land conversion, which can alter the environment on a much faster time scale. The former is suspected of being one of the major causes of speciation. The latter is causative in extinctions of many species. Habitat fragmentation is frequently caused by humans when native vegetation is cleared for human activities such as agriculture, rural development or urbanization. Habitats which were once continuous become divided into separate fragments. After intensive clearing, the separate fragments tend to be very small islands isolated from each other by crop land, pasture, pavement, or even barren land. The latter is often the result of slash and burn farming in tropical forests. The term habitat fragmentation can be considered to include six discrete processes: Reduction in the total area of the habitat, increase in the amount of edge, decrease in the amount of interior habitat, isolation of one habitat fragment from other areas of habitat, breaking up of one patch of habitat into several smaller patches, and Decrease in the average size of each patch of habitat."@en .
+eimpa:SaltWaterIntrusion
+        a                owl:Class ;
+        rdfs:comment     "The movement of salt water into fresh water aquifers."@en ;
+        rdfs:subClassOf  eimpa:WaterPollution .
 
-<http://sweetontology.net/phenEnvirImpact/InvasiveSpecies> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
+eimpa:AirQuality  a      owl:Class ;
+        rdfs:subClassOf  eimpa:AirPollution .
 
-<http://sweetontology.net/phenEnvirImpact/MassExtinctionEvent> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> , <http://sweetontology.net/phen/ExtremeEvent> , _:node1boame4c5x3 .
+eimpa:Aridification  a   owl:Class ;
+        rdfs:subClassOf  eimpa:LandEnvironmentalImpact .
 
-_:node1boame4c5x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
-	owl:someValuesFrom <http://sweetontology.net/phenEnvirImpact/Extinction> .
+eimpa:AirPollution  a    owl:Class ;
+        rdfs:comment     "The presence of substances in the atmosphere, particularly those that do not occur naturally" ;
+        rdfs:label       "Air Pollution" ;
+        rdfs:subClassOf  eimpa:Pollution ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpactOn ;
+                           owl:someValuesFrom  realm:Atmosphere
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/Pollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
+eimpa:Spill  a           owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/RangeChange> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
+eimpa:Deforestation  a   owl:Class ;
+        rdfs:subClassOf  eimpa:LandEnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/Toxicity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
+eimpa:DeadZone  a        owl:Class ;
+        rdfs:subClassOf  eimpa:OceanEnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/NoisePollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/Pollution> , _:node1boame4c5x4 .
+eimpa:RangeChange  a     owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-_:node1boame4c5x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
-	owl:someValuesFrom <http://sweetontology.net/phenWaveNoise/Noise> .
+eimpa:IndoorAirQuality
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:AirQuality .
 
-<http://sweetontology.net/phenEnvirImpact/NutrientLoading> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
+eimpa:OzoneHole  a           owl:Class ;
+        rdfs:subClassOf      eimpa:AirPollution ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    allo:Ozone ;
+                               owl:onProperty  screla:decrease
+                             ] ;
+        owl:equivalentClass  eimpa:OzoneDepletion .
 
-<http://sweetontology.net/phenEnvirImpact/Aridification> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact> .
+eimpa:Eutrophication  a  owl:Class ;
+        rdfs:subClassOf  eimpa:OceanEnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/Deforestation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact> .
+eimpa:WaterQuality  a    owl:Class ;
+        rdfs:subClassOf  eimpa:WaterPollution .
 
-<http://sweetontology.net/phenEnvirImpact/Desertification> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact> .
+eimpa:AlgalBloom  a      owl:Class ;
+        rdfs:subClassOf  eimpa:OceanEnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/LandDegradation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact> .
+eimpa:SeaLevelRise  a    owl:Class ;
+        rdfs:subClassOf  eimpa:OceanEnvironmentalImpact ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  surf:SeaLevel ;
+                           owl:onProperty     screla:rise
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> , _:node1boame4c5x5 .
+eimpa:Extinction  a          owl:Class ;
+        rdfs:subClassOf      eimpa:EnvironmentalImpact ;
+        owl:equivalentClass  eimpa:SpeciesExtinction .
 
-_:node1boame4c5x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
-	owl:someValuesFrom <http://sweetontology.net/realm/Land> .
+eimpa:Upconing  a        owl:Class ;
+        rdfs:comment     "Process by which saline water underlying freshwater in an aquifer rises upward into the freshwater zone as a result of pumping water from the freshwater zone."@en ;
+        rdfs:subClassOf  eimpa:SaltWaterIntrusion .
 
-<http://sweetontology.net/phenEnvirImpact/SoilLoss> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact> , _:node1boame4c5x6 .
+eimpa:LandDegradation
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:LandEnvironmentalImpact .
 
-_:node1boame4c5x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/decrease> ;
-	owl:someValuesFrom <http://sweetontology.net/matrSediment/Soil> .
+eimpa:NoisePollution  a  owl:Class ;
+        rdfs:subClassOf  eimpa:Pollution ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpactOn ;
+                           owl:someValuesFrom  noise:Noise
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/AlgalBloom> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> .
+eimpa:Contamination  a   owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/CoralBleaching> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> .
+eimpa:NutrientLoading
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/DeadZone> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaSci> , <propSpaceHeight> , <matrElementalMolecule> , <stateRoleImpact> , <phen> , <stateRoleBiological> , <phenEcology> , <rela> , <phenSystem> , <matrSediment> , <phenWaveNoise> , <realm> , <stateChemical> ;
+        owl:versionInfo  "3.1.0" .
 
-<http://sweetontology.net/phenEnvirImpact/SeaLevelRise> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> , _:node1boame4c5x7 .
+eimpa:InvasiveSpecies
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-_:node1boame4c5x7 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/SeaLevel> ;
-	owl:onProperty <http://sweetontology.net/relaSci/rise> .
+eimpa:OzoneDepletion  a  owl:Class .
 
-<http://sweetontology.net/phenEnvirImpact/OceanAcidification> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> , _:node1boame4c5x8 .
+eimpa:OceanAcidification
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:OceanEnvironmentalImpact ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    cstate:Acid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-_:node1boame4c5x8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/stateChemical/Acid> .
+eimpa:Toxicity  a        owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> , _:node1boame4c5x9 .
+eimpa:PhotochemicalAirPollution
+        a                owl:Class ;
+        rdfs:comment     "Type of air pollution, such as Los Angeles smog, associated with the buildup of oxidation products formed from the degradation of hydrocarbons, etc."@en ;
+        rdfs:subClassOf  eimpa:AirPollution .
 
-_:node1boame4c5x9 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
-	owl:someValuesFrom <http://sweetontology.net/realm/Ocean> .
+eimpa:HabitatFragmentation
+        a                owl:Class ;
+        rdfs:comment     "Habitat fragmentation is a process of environmental change important in evolution and conservation biology. As the name implies, it describes the emergence of discontinuities (fragmentation) in an organism's preferred environment (habitat). Habitat fragmentation can be caused by geological processes that slowly alter the layout of the physical environment or by human activity such as land conversion, which can alter the environment on a much faster time scale. The former is suspected of being one of the major causes of speciation. The latter is causative in extinctions of many species. Habitat fragmentation is frequently caused by humans when native vegetation is cleared for human activities such as agriculture, rural development or urbanization. Habitats which were once continuous become divided into separate fragments. After intensive clearing, the separate fragments tend to be very small islands isolated from each other by crop land, pasture, pavement, or even barren land. The latter is often the result of slash and burn farming in tropical forests. The term habitat fragmentation can be considered to include six discrete processes: Reduction in the total area of the habitat, increase in the amount of edge, decrease in the amount of interior habitat, isolation of one habitat fragment from other areas of habitat, breaking up of one patch of habitat into several smaller patches, and Decrease in the average size of each patch of habitat."@en ;
+        rdfs:subClassOf  eimpa:HabitatConversion .
 
-<http://sweetontology.net/phenEnvirImpact/Eutrophication> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact> .
+eimpa:MassExtinctionEvent
+        a                owl:Class ;
+        rdfs:subClassOf  phen:ExtremeEvent , eimpa:EnvironmentalImpact ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpact ;
+                           owl:someValuesFrom  eimpa:Extinction
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/SaltWaterIntrusion> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/WaterPollution> ;
-	rdfs:comment "The movement of salt water into fresh water aquifers."@en .
+eimpa:CoralBleaching  a  owl:Class ;
+        rdfs:subClassOf  eimpa:OceanEnvironmentalImpact .
 
-<http://sweetontology.net/phenEnvirImpact/Upconing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/SaltWaterIntrusion> ;
-	rdfs:comment "Process by which saline water underlying freshwater in an aquifer rises upward into the freshwater zone as a result of pumping water from the freshwater zone."@en .
+eimpa:OceanEnvironmentalImpact
+        a                owl:Class ;
+        rdfs:subClassOf  eimpa:EnvironmentalImpact ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      screla:hasImpactOn ;
+                           owl:someValuesFrom  realm:Ocean
+                         ] .
 
-<http://sweetontology.net/phenEnvirImpact/WaterPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/Pollution> , _:node1boame4c5x10 .
-
-_:node1boame4c5x10 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
-	owl:someValuesFrom <http://sweetontology.net/realm/Hydrosphere> .
-
-<http://sweetontology.net/phenEnvirImpact/WaterQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/WaterPollution> .
-
-<http://sweetontology.net/phenEnvirImpact/OilSpill> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/Spill> .
-
-<http://sweetontology.net/phenEnvirImpact/Spill> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact> .
-
-<http://sweetontology.net/phenEnvirImpact/AirPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/Pollution> , _:node1boame4c5x11 .
-
-_:node1boame4c5x11 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
-	owl:someValuesFrom <http://sweetontology.net/realm/Atmosphere> .
-
-<http://sweetontology.net/phenEnvirImpact/AirPollution> rdfs:comment "The presence of substances in the atmosphere, particularly those that do not occur naturally" ;
-	rdfs:label "Air Pollution" .
-
-<http://sweetontology.net/phenEnvirImpact/AirQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/AirPollution> .
-
-<http://sweetontology.net/phenEnvirImpact/IndoorAirQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/AirQuality> .
-
-<http://sweetontology.net/phenEnvirImpact/OzoneHole> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/AirPollution> , _:node1boame4c5x12 .
-
-_:node1boame4c5x12 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/decrease> ;
-	owl:hasValue <http://sweetontology.net/matrElementalMolecule/Ozone> .
-
-<http://sweetontology.net/phenEnvirImpact/OzoneHole> owl:equivalentClass <http://sweetontology.net/phenEnvirImpact/OzoneDepletion> .
-
-<http://sweetontology.net/phenEnvirImpact/OzoneDepletion> a owl:Class .
-
-<http://sweetontology.net/phenEnvirImpact/PhotochemicalAirPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenEnvirImpact/AirPollution> ;
-	rdfs:comment "Type of air pollution, such as Los Angeles smog, associated with the buildup of oxidation products formed from the degradation of hydrocarbons, etc."@en .
+eimpa:SpeciesExtinction
+        a       owl:Class .

@@ -1,167 +1,149 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix phys: <http://sweetontology.net/procPhysical/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@base          <http://sweetontology.net/procStateChange> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix sstate: <http://sweetontology.net/stateSystem/> .
+@prefix phys:  <http://sweetontology.net/procPhysical/> .
+@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix statec: <http://sweetontology.net/procStateChange/> .
 
-<http://sweetontology.net/procStateChange> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/procPhysical> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/relaPhysical> .
+statec:Evaporation  a    owl:Class ;
+        rdfs:subClassOf  statec:Vaporization .
 
-<http://sweetontology.net/procStateChange/StateChange> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
-	owl:equivalentClass <http://sweetontology.net/procStateChange/PhaseTransition> ;
-	rdfs:subClassOf _:node1boame848x1 .
+statec:Liquiefaction  a  owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Liquid ;
+                           owl:onProperty  prela:to
+                         ] .
 
-_:node1boame848x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:allValuesFrom <http://sweetontology.net/statePhysical/StateOfMatter> .
+statec:Boiling  a        owl:Class ;
+        rdfs:subClassOf  statec:Vaporization .
 
-<http://sweetontology.net/procStateChange/StateChange> rdfs:subClassOf _:node1boame848x2 .
+statec:StateChange  a        owl:Class ;
+        rdfs:comment         "change of state by state variable change" ;
+        rdfs:label           "State Change" ;
+        rdfs:subClassOf      phys:PhysicalProcess ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  pstate:StateOfMatter ;
+                               owl:onProperty     prela:to
+                             ] ;
+        rdfs:subClassOf      [ a                  owl:Restriction ;
+                               owl:allValuesFrom  pstate:StateOfMatter ;
+                               owl:onProperty     prela:from
+                             ] ;
+        owl:equivalentClass  statec:PhaseTransition .
 
-_:node1boame848x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:allValuesFrom <http://sweetontology.net/statePhysical/StateOfMatter> .
+statec:Ionization  a     owl:Class ;
+        rdfs:comment     "Ionization is the physical process of converting an atom or molecule into an ion by changing the difference between the number of protons and electrons. This process works slightly differently depending on whether an ion with a positive or a negative electric charge is being produced. A positive electric charge is produced when an electron bond to an atom or molecule absorbs enough energy from an external source to escape from the electric potential barrier that originally confined it, where the amount of energy required is called the Ionization potential. A negative electric charge is produced when a free electron collides with an atom and is subsequently caught inside the electric potential barrier, releasing any excess energy."@en ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:IonizedState ;
+                           owl:onProperty  prela:to
+                         ] .
 
-<http://sweetontology.net/procStateChange/StateChange> rdfs:comment "change of state by state variable change" ;
-	rdfs:label "State Change" .
+statec:Deposition  a     owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  prela:from
+                         ] .
 
-<http://sweetontology.net/procStateChange/PhaseTransition> a owl:Class .
+statec:Photoionization
+        a                owl:Class ;
+        rdfs:subClassOf  statec:Ionization .
 
-<http://sweetontology.net/procStateChange/Boiling> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/Vaporization> .
+statec:Gasification  a   owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  prela:to
+                         ] .
 
-<http://sweetontology.net/procStateChange/Evaporation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/Vaporization> .
+statec:Deionization  a   owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:NeutralState ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:IonizedState ;
+                           owl:onProperty  prela:from
+                         ] .
 
-<http://sweetontology.net/procStateChange/Sublimation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x3 .
+statec:Refreezing  a     owl:Class ;
+        rdfs:subClassOf  statec:Freezing .
 
-_:node1boame848x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
+statec:Condensation  a   owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Liquid ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  prela:from
+                         ] .
 
-<http://sweetontology.net/procStateChange/Sublimation> rdfs:subClassOf _:node1boame848x4 .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaPhysical> , <statePhysical> , <stateSystem> , <procPhysical> ;
+        owl:versionInfo  "3.1.0" .
 
-_:node1boame848x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
+statec:Vaporization  a   owl:Class ;
+        rdfs:comment     "The physical process by which a liquid is transformed to the gaseous state; the opposite of condensation."@en ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Liquid ;
+                           owl:onProperty  prela:from
+                         ] .
 
-<http://sweetontology.net/procStateChange/Vaporization> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x5 .
+statec:Thawing  a        owl:Class ;
+        rdfs:subClassOf  statec:Melting .
 
-_:node1boame848x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> .
+statec:PhaseTransition
+        a       owl:Class .
 
-<http://sweetontology.net/procStateChange/Vaporization> rdfs:subClassOf _:node1boame848x6 .
+statec:Freezing  a       owl:Class ;
+        rdfs:comment     "The phase transition of a substance passing from the liquid to the solid state; solidification; the opposite of fusion."@en ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Liquid ;
+                           owl:onProperty  prela:from
+                         ] .
 
-_:node1boame848x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
+statec:Melting  a        owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Liquid ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  prela:from
+                         ] .
 
-<http://sweetontology.net/procStateChange/Vaporization> rdfs:comment "The physical process by which a liquid is transformed to the gaseous state; the opposite of condensation."@en .
-
-<http://sweetontology.net/procStateChange/Melting> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x7 .
-
-_:node1boame848x7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
-
-<http://sweetontology.net/procStateChange/Melting> rdfs:subClassOf _:node1boame848x8 .
-
-_:node1boame848x8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> .
-
-<http://sweetontology.net/procStateChange/Thawing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/Melting> .
-
-<http://sweetontology.net/procStateChange/Condensation> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x9 .
-
-_:node1boame848x9 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
-
-<http://sweetontology.net/procStateChange/Condensation> rdfs:subClassOf _:node1boame848x10 .
-
-_:node1boame848x10 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> .
-
-<http://sweetontology.net/procStateChange/Deposition> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x11 .
-
-_:node1boame848x11 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
-
-<http://sweetontology.net/procStateChange/Deposition> rdfs:subClassOf _:node1boame848x12 .
-
-_:node1boame848x12 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
-
-<http://sweetontology.net/procStateChange/Refreezing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/Freezing> .
-
-<http://sweetontology.net/procStateChange/Freezing> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x13 .
-
-_:node1boame848x13 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> .
-
-<http://sweetontology.net/procStateChange/Freezing> rdfs:subClassOf _:node1boame848x14 .
-
-_:node1boame848x14 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Solid> .
-
-<http://sweetontology.net/procStateChange/Freezing> rdfs:comment "The phase transition of a substance passing from the liquid to the solid state; solidification; the opposite of fusion."@en .
-
-<http://sweetontology.net/procStateChange/Deionization> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x15 .
-
-_:node1boame848x15 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/from> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/IonizedState> .
-
-<http://sweetontology.net/procStateChange/Deionization> rdfs:subClassOf _:node1boame848x16 .
-
-_:node1boame848x16 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/NeutralState> .
-
-<http://sweetontology.net/procStateChange/Ionization> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x17 .
-
-_:node1boame848x17 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/IonizedState> .
-
-<http://sweetontology.net/procStateChange/Ionization> rdfs:comment "Ionization is the physical process of converting an atom or molecule into an ion by changing the difference between the number of protons and electrons. This process works slightly differently depending on whether an ion with a positive or a negative electric charge is being produced. A positive electric charge is produced when an electron bond to an atom or molecule absorbs enough energy from an external source to escape from the electric potential barrier that originally confined it, where the amount of energy required is called the Ionization potential. A negative electric charge is produced when a free electron collides with an atom and is subsequently caught inside the electric potential barrier, releasing any excess energy."@en .
-
-<http://sweetontology.net/procStateChange/Photoionization> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/Ionization> .
-
-<http://sweetontology.net/procStateChange/Gasification> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x18 .
-
-_:node1boame848x18 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Gas> .
-
-<http://sweetontology.net/procStateChange/Liquiefaction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/procStateChange/StateChange> , _:node1boame848x19 .
-
-_:node1boame848x19 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/to> ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> .
+statec:Sublimation  a    owl:Class ;
+        rdfs:subClassOf  statec:StateChange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Gas ;
+                           owl:onProperty  prela:to
+                         ] ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    pstate:Solid ;
+                           owl:onProperty  prela:from
+                         ] .

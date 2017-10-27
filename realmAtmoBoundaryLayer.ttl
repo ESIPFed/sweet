@@ -1,108 +1,109 @@
-@prefix atmo: <http://sweetontology.net/realmAtmo/> .
-@prefix boun: <http://sweetontology.net/realmAtmoBoundaryLayer/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix atmp: <http://sweetontology.net/phenAtmo/> .
-@prefix mix: <http://sweetontology.net/phenMixing/> .
-@prefix inst: <http://sweetontology.net/phenFluidInstability/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
-@prefix cont: <http://sweetontology.net/stateSolid/> .
-@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
+@base          <http://sweetontology.net/realmAtmoBoundaryLayer> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix boun:  <http://sweetontology.net/realmAtmoBoundaryLayer/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ht:    <http://sweetontology.net/propSpaceHeight/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix inst:  <http://sweetontology.net/phenFluidInstability/> .
+@prefix atmo:  <http://sweetontology.net/realmAtmo/> .
 @prefix realm: <http://sweetontology.net/realm/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmp:  <http://sweetontology.net/phenAtmo/> .
+@prefix cont:  <http://sweetontology.net/stateSolid/> .
+@prefix mix:   <http://sweetontology.net/phenMixing/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
+@prefix trans: <http://sweetontology.net/phenFluidTransport/> .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/stateSolid> , <http://sweetontology.net/phenFluidInstability> , <http://sweetontology.net/propSpaceHeight> , <http://sweetontology.net/rela> , <http://sweetontology.net/phenMixing> , <http://sweetontology.net/phenAtmo> , <http://sweetontology.net/realmAtmo> , <http://sweetontology.net/phenFluidTransport> , <http://sweetontology.net/realm> .
+boun:MixedLayer  a       owl:Class ;
+        rdfs:comment     "A type of atmospheric boundary layer characterized by vigorous turbulence tending to stir and uniformly mix, primarily in the vertical, quantities such as conservative tracer concentrations, potential temperature, and momentum or wind speed."@en ;
+        rdfs:subClassOf  boun:BoundaryLayer ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  inst:Turbulence ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmo/AtmosphereLayer> ;
-	owl:equivalentClass <http://sweetontology.net/realmAtmoBoundaryLayer/BoundaryLayer> ;
-	rdfs:comment "The bottom layer of the troposphere that is in contact with the surface of the earth."@en .
+boun:SkinLayer  a        owl:Class ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/BoundaryLayer> a owl:Class .
+boun:MechanicalInternalBoundaryLayer
+        a                owl:Class ;
+        rdfs:comment     "(Abbreviated MIBL.) An internal boundary layer caused by advection of air across a discontinuity in surface roughness. When the new surface is rougher than the old one, the MIBL depth grows roughly as the 0.8 power of the ratio of the two roughness lengths. In this example, the MIBL grows to include the whole surface layer."@en ;
+        rdfs:subClassOf  boun:InternalBoundaryLayer ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  trans:Advection ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/ConstantFluxLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> ;
-	rdfs:comment "A layer of air tens of meters thick at the bottom of the atmosphere where the variation of vertical turbulent flux with altitude is less than 10% of its magnitude."@en .
+boun:WellMixedLayer  a   owl:Class ;
+        rdfs:comment     "A type of atmospheric boundary layer characterized by vigorous turbulence tending to stir and uniformly mix, primarily in the vertical, quantities such as conservative tracer concentrations, potential temperature, and momentum or wind speed."@en ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  mix:Mixing ;
+                           owl:onProperty     rela:hasPhenomena
+                         ] .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/InternalBoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> ;
-	rdfs:comment "A layer within the atmosphere bounded below by the surface, and above by a more or less sharp discontinuity in some atmospheric property. Internal boundary layers are associated with the horizontal advection of air across a discontinuity in some property of the surface (e.g., aerodynamic roughness length or surface heat flux) and can be viewed as layers in which the atmosphere is adjusting to new surface properties. See thermal internal boundary layer, mechanical internal boundary layer."@en .
+boun:AtmosphericBoundaryLayer
+        a                    owl:Class ;
+        rdfs:comment         "The bottom layer of the troposphere that is in contact with the surface of the earth."@en ;
+        rdfs:subClassOf      atmo:AtmosphereLayer ;
+        owl:equivalentClass  boun:BoundaryLayer .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/MechanicalInternalBoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/InternalBoundaryLayer> , _:node1boamedvux1 .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <stateSolid> , <phenFluidInstability> , <realmAtmo> , <realm> , <rela> , <phenAtmo> , <phenMixing> , <phenFluidTransport> , <propSpaceHeight> ;
+        owl:versionInfo  "3.1.0" .
 
-_:node1boamedvux1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenFluidTransport/Advection> .
+boun:ConstantFluxLayer
+        a                owl:Class ;
+        rdfs:comment     "A layer of air tens of meters thick at the bottom of the atmosphere where the variation of vertical turbulent flux with altitude is less than 10% of its magnitude."@en ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/MechanicalInternalBoundaryLayer> rdfs:comment "(Abbreviated MIBL.) An internal boundary layer caused by advection of air across a discontinuity in surface roughness. When the new surface is rougher than the old one, the MIBL depth grows roughly as the 0.8 power of the ratio of the two roughness lengths. In this example, the MIBL grows to include the whole surface layer."@en .
+boun:RoughnessSublayer
+        a                owl:Class ;
+        rdfs:comment     "Same as transition layer. The lowest atmospheric layer immediately adjacent to a surface covered with relatively large roughness elements such as stones, vegetation, trees, or buildings."@en ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    cont:Rough ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer> a owl:Class ;
-	rdfs:subClassOf _:node1boamedvux2 .
+boun:PlanetaryBoundaryLayer
+        a                    owl:Class ;
+        rdfs:comment         "The bottom layer of the troposphere that is in contact with the surface of the earth.   It is often turbulent and is capped by a statically stable layer of air or temperature inversion."@en ;
+        rdfs:subClassOf      [ a                   owl:Restriction ;
+                               owl:onProperty      rela:hasRealm ;
+                               owl:someValuesFrom  realm:Atmosphere
+                             ] ;
+        owl:equivalentClass  boun:BoundaryLayer .
 
-_:node1boamedvux2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenFluidInstability/Turbulence> .
+boun:Cap  a              owl:Class ;
+        rdfs:comment     "A region of negative buoyancy below an existing level of free convection (LFC) where energy must be supplied to the parcel to maintain its ascent." ;
+        rdfs:subClassOf  ht:Level .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer> rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/BoundaryLayer> ;
-	rdfs:comment "A type of atmospheric boundary layer characterized by vigorous turbulence tending to stir and uniformly mix, primarily in the vertical, quantities such as conservative tracer concentrations, potential temperature, and momentum or wind speed."@en .
+boun:BoundaryLayer  a  owl:Class .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/NocturnalBoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/BoundaryLayer> , _:node1boamedvux3 .
+boun:NocturnalBoundaryLayer
+        a                owl:Class ;
+        rdfs:comment     "The cool layer of air adjacent to the ground that forms at night. At night under clear skies, radiation to space cools the land surface, which in turn cools the adjacent air through processes of molecular conduction, turbulence, and radiative transfer. This causes a stable boundary layer to form and grow to depths of a few hundreds of meters, depending on the season. Many interacting processes can occur within the statically stable nocturnal boundary layer: patchy sporadic turbulence, internal gravity waves, drainage flows, inertial oscillations, and nocturnal jets."@en ;
+        rdfs:subClassOf  boun:BoundaryLayer ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      rela:hasPhenomena ;
+                           owl:someValuesFrom  atmp:NocturnalCooling
+                         ] .
 
-_:node1boamedvux3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:someValuesFrom <http://sweetontology.net/phenAtmo/NocturnalCooling> .
+boun:ResidualLayer  a    owl:Class ;
+        rdfs:comment     "The middle portion of the nocturnal atmospheric boundary layer characterized by weak sporadic turbulence and initially uniformly mixed potential temperature and pollutants remaining from the mixed layer of the previous day."@en ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/NocturnalBoundaryLayer> rdfs:comment "The cool layer of air adjacent to the ground that forms at night. At night under clear skies, radiation to space cools the land surface, which in turn cools the adjacent air through processes of molecular conduction, turbulence, and radiative transfer. This causes a stable boundary layer to form and grow to depths of a few hundreds of meters, depending on the season. Many interacting processes can occur within the statically stable nocturnal boundary layer: patchy sporadic turbulence, internal gravity waves, drainage flows, inertial oscillations, and nocturnal jets."@en .
+boun:InternalBoundaryLayer
+        a                owl:Class ;
+        rdfs:comment     "A layer within the atmosphere bounded below by the surface, and above by a more or less sharp discontinuity in some atmospheric property. Internal boundary layers are associated with the horizontal advection of air across a discontinuity in some property of the surface (e.g., aerodynamic roughness length or surface heat flux) and can be viewed as layers in which the atmosphere is adjusting to new surface properties. See thermal internal boundary layer, mechanical internal boundary layer."@en ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/OuterLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/BoundaryLayer> ;
-	rdfs:comment "For flow over a hill, the top layer in the boundary layer that accelerates relative to its upstream value due to the Bernoulli effect."@en .
+boun:StableBoundaryLayer
+        a                owl:Class ;
+        rdfs:subClassOf  boun:AtmosphericBoundaryLayer .
 
-<http://sweetontology.net/realmAtmoBoundaryLayer/PlanetaryBoundaryLayer> a owl:Class ;
-	owl:equivalentClass <http://sweetontology.net/realmAtmoBoundaryLayer/BoundaryLayer> ;
-	rdfs:subClassOf _:node1boamedvux4 .
-
-_:node1boamedvux4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
-	owl:someValuesFrom <http://sweetontology.net/realm/Atmosphere> .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/PlanetaryBoundaryLayer> rdfs:comment "The bottom layer of the troposphere that is in contact with the surface of the earth.   It is often turbulent and is capped by a statically stable layer of air or temperature inversion."@en .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/ResidualLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> ;
-	rdfs:comment "The middle portion of the nocturnal atmospheric boundary layer characterized by weak sporadic turbulence and initially uniformly mixed potential temperature and pollutants remaining from the mixed layer of the previous day."@en .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/RoughnessSublayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> , _:node1boamedvux5 .
-
-_:node1boamedvux5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> ;
-	owl:hasValue <http://sweetontology.net/stateSolid/Rough> .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/RoughnessSublayer> rdfs:comment "Same as transition layer. The lowest atmospheric layer immediately adjacent to a surface covered with relatively large roughness elements such as stones, vegetation, trees, or buildings."@en .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/SkinLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/StableBoundaryLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/WellMixedLayer> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmAtmoBoundaryLayer/AtmosphericBoundaryLayer> , _:node1boamedvux6 .
-
-_:node1boamedvux6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/phenMixing/Mixing> .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/WellMixedLayer> rdfs:comment "A type of atmospheric boundary layer characterized by vigorous turbulence tending to stir and uniformly mix, primarily in the vertical, quantities such as conservative tracer concentrations, potential temperature, and momentum or wind speed."@en .
-
-<http://sweetontology.net/realmAtmoBoundaryLayer/Cap> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/Level> ;
-	rdfs:comment "A region of negative buoyancy below an existing level of free convection (LFC) where energy must be supplied to the parcel to maintain its ascent." .
+boun:OuterLayer  a       owl:Class ;
+        rdfs:comment     "For flow over a hill, the top layer in the boundary layer that accelerates relative to its upstream value due to the Bernoulli effect."@en ;
+        rdfs:subClassOf  boun:BoundaryLayer .

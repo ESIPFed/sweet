@@ -1,158 +1,172 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix ht: <http://sweetontology.net/propSpaceHeight/> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix func: <http://sweetontology.net/propFunction/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix seas: <http://sweetontology.net/reprTimeSeason/> .
+@base          <http://sweetontology.net/propSpaceThickness> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix pres:  <http://sweetontology.net/propPressure/> .
 @prefix trela: <http://sweetontology.net/relaTime/> .
-@prefix thic: <http://sweetontology.net/propSpaceThickness/> .
-@prefix pres: <http://sweetontology.net/propPressure/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix cstate: <http://sweetontology.net/statePhysical/> .
+@prefix quan:  <http://sweetontology.net/propQuantity/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix ht:    <http://sweetontology.net/propSpaceHeight/> .
 @prefix water: <http://sweetontology.net/matrWater/> .
+@prefix seas:  <http://sweetontology.net/reprTimeSeason/> .
+@prefix cstate: <http://sweetontology.net/statePhysical/> .
+@prefix func:  <http://sweetontology.net/propFunction/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix prop:  <http://sweetontology.net/prop/> .
+@prefix thic:  <http://sweetontology.net/propSpaceThickness/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix rela:  <http://sweetontology.net/rela/> .
 
-<http://sweetontology.net/propSpaceThickness> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/prop> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/propPressure> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/relaTime> , <http://sweetontology.net/rela> , <http://sweetontology.net/reprTimeSeason> , <http://sweetontology.net/propFunction> , <http://sweetontology.net/propSpaceHeight> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/matrWater> .
+thic:Snowpack  a         owl:Class ;
+        rdfs:subClassOf  thic:SnowCover .
 
-thic:EquivalentThickness a owl:Class ;
-	rdfs:subClassOf thic:Thickness .
+thic:SWE  a     owl:Class .
 
-thic:PressureThickness a owl:Class ;
-	rdfs:subClassOf thic:Thickness , _:node1boamecd2x1 .
+thic:StreamStage  a      owl:Class ;
+        rdfs:subClassOf  thic:StageHeight .
 
-_:node1boamecd2x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
-	owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure> .
+thic:GaugeHeight  a      owl:Class ;
+        rdfs:subClassOf  thic:WaterHeight .
 
-thic:Thickness a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/VerticalExtent> , <http://sweetontology.net/propQuantity/PhysicalQuantity> .
+thic:AverageDrySeasonPrecipitation
+        a                owl:Class ;
+        rdfs:subClassOf  func:AnnualAverage , thic:Precipitation ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      trela:hasTime ;
+                           owl:someValuesFrom  seas:DrySeason
+                         ] .
 
-thic:SnowWaterEquivalent a owl:Class ;
-	rdfs:subClassOf thic:LiquidWaterEquivalent ;
-	owl:equivalentClass thic:SWE .
+thic:LiquidWaterEquivalent
+        a                    owl:Class ;
+        rdfs:subClassOf      thic:WaterContent ;
+        owl:equivalentClass  thic:LWE .
 
-thic:SWE a owl:Class .
+thic:OpticalDepth  a         owl:Class ;
+        rdfs:comment         "The optical thickness measured vertically above some given altitude.  Optical depth is dimensionless and may be used to specify many different radiative characteristics of the atmosphere."@en ;
+        rdfs:subClassOf      quan:RadiationMediumInteractionQuantity ;
+        rdfs:subClassOf      [ a               owl:Restriction ;
+                               owl:hasValue    units:dimensionlessUnit ;
+                               owl:onProperty  screla:hasDefaultUnit
+                             ] ;
+        owl:equivalentClass  thic:OpticalThickness .
 
-thic:LiquidWaterEquivalent a owl:Class ;
-	rdfs:subClassOf thic:WaterContent ;
-	owl:equivalentClass thic:LWE .
+thic:StageHeight  a      owl:Class ;
+        rdfs:subClassOf  thic:WaterHeight .
 
-thic:LWE a owl:Class .
+thic:EquivalentThickness
+        a                owl:Class ;
+        rdfs:subClassOf  thic:Thickness .
 
-thic:PrecipitableWater a owl:Class ;
-	rdfs:subClassOf thic:WaterContent ;
-	rdfs:comment "The total atmospheric water vapor contained in a vertical column of unit cross-sectional area extending between any two specified levels."@en .
+thic:PressureThickness
+        a                owl:Class ;
+        rdfs:subClassOf  thic:Thickness ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  pres:Pressure ;
+                           owl:onProperty     rela:hasProcess
+                         ] .
 
-thic:Precipitation a owl:Class ;
-	rdfs:subClassOf thic:WaterContent .
+thic:SnowWaterEquivalent
+        a                    owl:Class ;
+        rdfs:subClassOf      thic:LiquidWaterEquivalent ;
+        owl:equivalentClass  thic:SWE .
 
-thic:PrecipitationRange a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/HeightRange> , thic:Precipitation .
+thic:AnnualHalfPotentialEvapotranspiration
+        a       thic:HalfPotentialEvapotranspiration .
 
-thic:PrecipitationRange_cm a owl:Class ;
-	rdfs:subClassOf thic:PrecipitationRange , _:node1boamecd2x2 .
+thic:LWE  a     owl:Class .
 
-_:node1boamecd2x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/centimeter> .
+thic:AverageMonthlyPrecipitation
+        a                owl:Class ;
+        rdfs:subClassOf  func:MonthlyAverage , thic:Precipitation .
 
-thic:WaterContent a owl:Class ;
-	rdfs:subClassOf thic:Thickness , _:node1boamecd2x3 .
+thic:TotalHead  a        owl:Class ;
+        rdfs:subClassOf  thic:FluidHead .
 
-_:node1boamecd2x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasChemical> ;
-	owl:allValuesFrom <http://sweetontology.net/matrWater/LiquidWater> .
+thic:Thickness  a        owl:Class ;
+        rdfs:subClassOf  quan:PhysicalQuantity , ht:VerticalExtent .
 
-thic:SnowCover a owl:Class ;
-	rdfs:subClassOf thic:Thickness , _:node1boamecd2x4 .
+thic:HalfPotentialEvapotranspiration
+        a                owl:Class ;
+        rdfs:subClassOf  thic:Evapotranspiration .
 
-_:node1boamecd2x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:allValuesFrom <http://sweetontology.net/matrWater/Snow> .
+thic:Precipitation  a    owl:Class ;
+        rdfs:subClassOf  thic:WaterContent .
 
-thic:SnowCover rdfs:comment "The depth of snow that has fallen."@en .
+thic:Evapotranspiration
+        a                owl:Class ;
+        rdfs:subClassOf  thic:Thickness .
 
-thic:Snowpack a owl:Class ;
-	rdfs:subClassOf thic:SnowCover .
+thic:HydraulicHead  a    owl:Class ;
+        rdfs:subClassOf  thic:FluidHead ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    cstate:Liquid ;
+                           owl:onProperty  rela:hasState
+                         ] .
 
-thic:FluidHead a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/prop/FluidProperty> , thic:Thickness .
+thic:StaticHead  a       owl:Class ;
+        rdfs:subClassOf  thic:FluidHead .
 
-thic:HydraulicHead a owl:Class ;
-	rdfs:subClassOf thic:FluidHead , _:node1boamecd2x5 .
+thic:OpticalThickness
+        a       owl:Class .
 
-_:node1boamecd2x5 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/statePhysical/Liquid> ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <reprSciUnits> , <propQuantity> , <propSpaceHeight> , <reprTimeSeason> , <relaChemical> , <propFunction> , <matrWater> , <statePhysical> , <rela> , <relaTime> , <prop> , <relaSci> , <propPressure> ;
+        owl:versionInfo  "3.1.0" .
 
-thic:StaticHead a owl:Class ;
-	rdfs:subClassOf thic:FluidHead .
+thic:SnowCover  a        owl:Class ;
+        rdfs:comment     "The depth of snow that has fallen."@en ;
+        rdfs:subClassOf  thic:Thickness ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  water:Snow ;
+                           owl:onProperty     crela:hasSubstance
+                         ] .
 
-thic:TotalHead a owl:Class ;
-	rdfs:subClassOf thic:FluidHead .
+thic:FluidHead  a        owl:Class ;
+        rdfs:subClassOf  thic:Thickness , prop:FluidProperty .
 
-thic:GaugeHeight a owl:Class ;
-	rdfs:subClassOf thic:WaterHeight .
+thic:PrecipitableWater
+        a                owl:Class ;
+        rdfs:comment     "The total atmospheric water vapor contained in a vertical column of unit cross-sectional area extending between any two specified levels."@en ;
+        rdfs:subClassOf  thic:WaterContent .
 
-thic:LakeStage a owl:Class ;
-	rdfs:subClassOf thic:StageHeight .
+thic:LakeStage  a        owl:Class ;
+        rdfs:subClassOf  thic:StageHeight .
 
-thic:StageHeight a owl:Class ;
-	rdfs:subClassOf thic:WaterHeight .
+thic:PotentialEvapotranspiration
+        a                owl:Class ;
+        rdfs:subClassOf  thic:Evapotranspiration .
 
-thic:StreamStage a owl:Class ;
-	rdfs:subClassOf thic:StageHeight .
+thic:AverageAnnualPrecipitation
+        a                owl:Class ;
+        rdfs:subClassOf  func:AnnualAverage , thic:Precipitation .
 
-thic:WaterHeight a owl:Class ;
-	rdfs:subClassOf thic:Thickness , _:node1boamecd2x6 .
+thic:PrecipitationRange
+        a                owl:Class ;
+        rdfs:subClassOf  thic:Precipitation , ht:HeightRange .
 
-_:node1boamecd2x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
-	owl:allValuesFrom <http://sweetontology.net/matrWater/LiquidWater> .
+thic:PrecipitationRange_cm
+        a                owl:Class ;
+        rdfs:subClassOf  thic:PrecipitationRange ;
+        rdfs:subClassOf  [ a               owl:Restriction ;
+                           owl:hasValue    units:centimeter ;
+                           owl:onProperty  screla:hasUnit
+                         ] .
 
-thic:Evapotranspiration a owl:Class ;
-	rdfs:subClassOf thic:Thickness .
+thic:AnnualPotentialEvapotranspiration
+        a       thic:PotentialEvapotranspiration .
 
-thic:PotentialEvapotranspiration a owl:Class ;
-	rdfs:subClassOf thic:Evapotranspiration .
+thic:WaterHeight  a      owl:Class ;
+        rdfs:subClassOf  thic:Thickness ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  water:LiquidWater ;
+                           owl:onProperty     crela:hasSubstance
+                         ] .
 
-thic:HalfPotentialEvapotranspiration a owl:Class ;
-	rdfs:subClassOf thic:Evapotranspiration .
-
-thic:OpticalDepth a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ;
-	owl:equivalentClass thic:OpticalThickness ;
-	rdfs:subClassOf _:node1boamecd2x7 .
-
-_:node1boamecd2x7 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/dimensionlessUnit> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
-
-thic:OpticalDepth rdfs:comment "The optical thickness measured vertically above some given altitude.  Optical depth is dimensionless and may be used to specify many different radiative characteristics of the atmosphere."@en .
-
-thic:OpticalThickness a owl:Class .
-
-thic:AverageMonthlyPrecipitation a owl:Class ;
-	rdfs:subClassOf thic:Precipitation , <http://sweetontology.net/propFunction/MonthlyAverage> .
-
-thic:AverageAnnualPrecipitation a owl:Class ;
-	rdfs:subClassOf thic:Precipitation , <http://sweetontology.net/propFunction/AnnualAverage> .
-
-thic:AverageDrySeasonPrecipitation a owl:Class ;
-	rdfs:subClassOf thic:Precipitation , <http://sweetontology.net/propFunction/AnnualAverage> , _:node1boamecd2x8 .
-
-_:node1boamecd2x8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaTime/hasTime> ;
-	owl:someValuesFrom <http://sweetontology.net/reprTimeSeason/DrySeason> .
-
-thic:AnnualPotentialEvapotranspiration a thic:PotentialEvapotranspiration .
-
-thic:AnnualHalfPotentialEvapotranspiration a thic:HalfPotentialEvapotranspiration .
+thic:WaterContent  a     owl:Class ;
+        rdfs:subClassOf  thic:Thickness ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  water:LiquidWater ;
+                           owl:onProperty     crela:hasChemical
+                         ] .

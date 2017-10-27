@@ -1,59 +1,60 @@
+@base          <http://sweetontology.net/reprTimeDay> .
+@prefix owlt:  <http://www.w3.org/2006/time#> .
 @prefix trela: <http://sweetontology.net/relaTime/> .
-@prefix day: <http://sweetontology.net/reprTimeDay/> .
-@prefix owlt: <http://www.w3.org/2006/time#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix day:   <http://sweetontology.net/reprTimeDay/> .
 
-<http://sweetontology.net/reprTimeDay> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaTime> .
+day:Dawn  a              owl:Class ;
+        rdfs:subClassOf  day:Twilight .
 
-day:Noon a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+day:Sunset  a            owl:Class ;
+        rdfs:subClassOf  owlt:Instant ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      trela:startOf ;
+                           owl:someValuesFrom  day:Evening
+                         ] .
 
-day:Day a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval .
+day:Midnight  a          owl:Class ;
+        rdfs:subClassOf  owlt:Instant .
 
-day:Daytime a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval .
+day:Sunrise  a           owl:Class ;
+        rdfs:subClassOf  owlt:Instant ;
+        rdfs:subClassOf  [ a                   owl:Restriction ;
+                           owl:onProperty      trela:startOf ;
+                           owl:someValuesFrom  day:Morning
+                         ] .
 
-day:Midnight a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+day:Dusk  a              owl:Class ;
+        rdfs:subClassOf  day:Twilight .
 
-day:Nighttime a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval ;
-	owl:equivalentClass day:Nocturnal .
+day:Day  a               owl:Class ;
+        rdfs:subClassOf  owlt:ProperInterval .
 
-day:Nocturnal a owl:Class .
+day:Evening  a           owl:Class ;
+        rdfs:subClassOf  day:Nighttime .
 
-day:Evening a owl:Class ;
-	rdfs:subClassOf day:Nighttime .
+day:Twilight  a          owl:Class ;
+        rdfs:subClassOf  owlt:ProperInterval .
 
-day:Morning a owl:Class ;
-	rdfs:subClassOf day:Daytime .
+day:Noon  a              owl:Class ;
+        rdfs:subClassOf  owlt:Instant .
 
-day:Sunset a owl:Class ;
-	rdfs:subClassOf owlt:Instant , _:node1boamenrlx1 .
+day:Nocturnal  a  owl:Class .
 
-_:node1boamenrlx1 a owl:Restriction ;
-	owl:someValuesFrom day:Evening ;
-	owl:onProperty trela:startOf .
+day:Daytime  a           owl:Class ;
+        rdfs:subClassOf  owlt:ProperInterval .
 
-day:Sunrise a owl:Class ;
-	rdfs:subClassOf owlt:Instant , _:node1boamenrlx2 .
+day:Nighttime  a             owl:Class ;
+        rdfs:subClassOf      owlt:ProperInterval ;
+        owl:equivalentClass  day:Nocturnal .
 
-_:node1boamenrlx2 a owl:Restriction ;
-	owl:someValuesFrom day:Morning ;
-	owl:onProperty trela:startOf .
+day:Morning  a           owl:Class ;
+        rdfs:subClassOf  day:Daytime .
 
-day:Dawn a owl:Class ;
-	rdfs:subClassOf day:Twilight .
-
-day:Dusk a owl:Class ;
-	rdfs:subClassOf day:Twilight .
-
-day:Twilight a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval .
+<>      a                owl:Ontology ;
+        rdfs:label       "SWEET Ontology" ;
+        owl:imports      <relaTime> ;
+        owl:versionInfo  "3.1.0" .
