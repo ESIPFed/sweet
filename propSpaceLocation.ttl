@@ -1,60 +1,118 @@
+@prefix : <http://sweetontology.net/propSpaceLocation/> .
 @prefix obj: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix space: <http://sweetontology.net/propSpace/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix loca: <http://sweetontology.net/propSpaceLocation/> .
-@prefix sstate: <http://sweetontology.net/stateSystem/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix loca: <http://sweetontology.net/propSpaceLocation/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix space: <http://sweetontology.net/propSpace/> .
+@prefix sstate: <http://sweetontology.net/stateSystem/> .
+@base <http://sweetontology.net/propSpaceLocation> .
 
-<http://sweetontology.net/propSpaceLocation> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpaceGeometry> , <http://sweetontology.net/stateSystem> , <http://sweetontology.net/propSpace> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/rela> .
+<http://sweetontology.net/propSpaceLocation> rdf:type owl:Ontology ;
+                                              owl:imports <http://sweetontology.net/propSpace> ,
+                                                          <http://sweetontology.net/rela> ,
+                                                          <http://sweetontology.net/relaMath> ,
+                                                          <http://sweetontology.net/reprSpaceGeometry> ,
+                                                          <http://sweetontology.net/stateSystem> ;
+                                              rdfs:label "SWEET Ontology" ;
+                                              owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/propSpaceLocation/Center> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/propSpaceLocation/ControlPoint> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> .
+###  http://sweetontology.net/rela/hasState
+rela:hasState rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/propSpaceLocation/Epicenter> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Center> .
 
-<http://sweetontology.net/propSpaceLocation/Focus> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> ;
-	owl:equivalentClass <http://sweetontology.net/propSpaceLocation/Focii> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/propSpaceLocation/Focii> a owl:Class .
+###  http://org.semanticweb.owlapi/error#Error11
+<http://org.semanticweb.owlapi/error#Error11> rdf:type owl:Class .
 
-<http://sweetontology.net/propSpaceLocation/Location> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Point> , <http://sweetontology.net/propSpace/SpatialProperty> , _:node1boamec3kx1 .
 
-_:node1boamec3kx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/hasCoordinates> ;
-	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+###  http://sweetontology.net/propSpaceLocation/Center
+loca:Center rdf:type owl:Class ;
+            rdfs:subClassOf loca:Location .
 
-<http://sweetontology.net/propSpaceLocation/Location> owl:equivalentClass <http://sweetontology.net/propSpaceLocation/Position> .
 
-<http://sweetontology.net/propSpaceLocation/Position> a owl:Class .
+###  http://sweetontology.net/propSpaceLocation/CenterOfMass
+loca:CenterOfMass rdf:type owl:Class ;
+                  rdfs:subClassOf loca:Center .
 
-<http://sweetontology.net/propSpaceLocation/CenterOfMass> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Center> .
 
-<http://sweetontology.net/propSpaceLocation/LagrangianPoint> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> , _:node1boamec3kx2 .
+###  http://sweetontology.net/propSpaceLocation/ControlPoint
+loca:ControlPoint rdf:type owl:Class ;
+                  rdfs:subClassOf loca:Location .
 
-_:node1boamec3kx2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/stateSystem/Equilibrium> ;
-	owl:onProperty <http://sweetontology.net/rela/hasState> .
 
-<http://sweetontology.net/propSpaceLocation/MirrorPoint> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> .
+###  http://sweetontology.net/propSpaceLocation/Epicenter
+loca:Epicenter rdf:type owl:Class ;
+               rdfs:subClassOf loca:Center .
 
-<http://sweetontology.net/propSpaceLocation/SubsolarPoint> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> .
 
-<http://sweetontology.net/propSpaceLocation/Nadir> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceLocation/Location> .
+###  http://sweetontology.net/propSpaceLocation/Focii
+loca:Focii rdf:type owl:Class ;
+           owl:equivalentClass loca:Focus .
+
+
+###  http://sweetontology.net/propSpaceLocation/Focus
+loca:Focus rdf:type owl:Class ;
+           rdfs:subClassOf loca:Location .
+
+
+###  http://sweetontology.net/propSpaceLocation/LagrangianPoint
+loca:LagrangianPoint rdf:type owl:Class ;
+                     rdfs:subClassOf loca:Location ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasState ;
+                                       owl:hasValue sstate:Equilibrium
+                                     ] .
+
+
+###  http://sweetontology.net/propSpaceLocation/Location
+loca:Location rdf:type owl:Class ;
+              owl:equivalentClass loca:Position ;
+              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error11> ,
+                              space:SpatialProperty ,
+                              obj:Point .
+
+
+###  http://sweetontology.net/propSpaceLocation/MirrorPoint
+loca:MirrorPoint rdf:type owl:Class ;
+                 rdfs:subClassOf loca:Location .
+
+
+###  http://sweetontology.net/propSpaceLocation/Nadir
+loca:Nadir rdf:type owl:Class ;
+           rdfs:subClassOf loca:Location .
+
+
+###  http://sweetontology.net/propSpaceLocation/Position
+loca:Position rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propSpaceLocation/SubsolarPoint
+loca:SubsolarPoint rdf:type owl:Class ;
+                   rdfs:subClassOf loca:Location .
+
+
+###  http://sweetontology.net/reprSpaceGeometry/Point
+obj:Point rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/stateSystem/Equilibrium
+sstate:Equilibrium rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

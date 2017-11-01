@@ -1,109 +1,200 @@
+@prefix : <http://sweetontology.net/relaTime/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix freq: <http://sweetontology.net/propTimeFrequency/> .
+@prefix owlt: <http://www.w3.org/2006/time#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rela: <http://sweetontology.net/relaMath/> .
 @prefix time: <http://sweetontology.net/propTime/> .
 @prefix trep: <http://sweetontology.net/reprTime/> .
-@prefix freq: <http://sweetontology.net/propTimeFrequency/> .
-@prefix trela: <http://sweetontology.net/relaTime/> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix owlt: <http://www.w3.org/2006/time#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix trela: <http://sweetontology.net/relaTime/> .
+@base <http://sweetontology.net/relaTime> .
 
-<http://sweetontology.net/relaTime> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/propTime> , <http://sweetontology.net/reprTime> , <http://sweetontology.net/propTimeFrequency> .
+<http://sweetontology.net/relaTime> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/propTime> ,
+                                                 <http://sweetontology.net/propTimeFrequency> ,
+                                                 <http://sweetontology.net/relaMath> ,
+                                                 <http://sweetontology.net/relaSpace> ,
+                                                 <http://sweetontology.net/reprTime> ;
+                                     rdfs:label "SWEET Ontology" ;
+                                     owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/relaTime/hasTime> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propTime/Time> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/relaTime/hasNHTime> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasTime> , <http://sweetontology.net/relaSpace/inNH> .
+###  http://sweetontology.net/relaTime/beginning
+trela:beginning rdf:type owl:ObjectProperty ;
+                owl:equivalentProperty trela:hasStartTime .
 
-<http://sweetontology.net/relaTime/hasSHTime> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasTime> , <http://sweetontology.net/relaSpace/inSH> .
 
-<http://sweetontology.net/relaTime/hasTimeReference> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprTime/TimeReference> ;
-	owl:equivalentProperty <http://sweetontology.net/relaTime/hasTemporalReference> .
+###  http://sweetontology.net/relaTime/end
+trela:end rdf:type owl:ObjectProperty ;
+          owl:equivalentProperty trela:hasEndTime .
 
-<http://sweetontology.net/relaTime/hasTemporalReference> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaTime/olderThan> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/propTime/Time> ;
-	rdfs:range <http://sweetontology.net/propTime/Time> ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> .
+###  http://sweetontology.net/relaTime/endOf
+trela:endOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owlt:after .
 
-<http://sweetontology.net/relaTime/youngerThan> a owl:ObjectProperty ;
-	owl:inverseOf <http://sweetontology.net/relaTime/olderThan> .
 
-<http://sweetontology.net/relaTime/moreFrequentThan> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/propTimeFrequency/Frequency> ;
-	rdfs:range <http://sweetontology.net/propTimeFrequency/Frequency> ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> .
+###  http://sweetontology.net/relaTime/halfLife
+trela:halfLife rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf trela:hasDuration .
 
-<http://sweetontology.net/relaTime/lessFrequentThan> a owl:ObjectProperty ;
-	owl:inverseOf <http://sweetontology.net/relaTime/moreFrequentThan> .
 
-<http://sweetontology.net/relaTime/temporalPartOf> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/propTime/Time> ;
-	rdfs:range <http://sweetontology.net/propTime/Time> ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/subsetOf> .
+###  http://sweetontology.net/relaTime/hasAverageDuration
+trela:hasAverageDuration rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf trela:hasDuration .
 
-<http://sweetontology.net/relaTime/startOf> a owl:ObjectProperty ;
-	rdfs:subPropertyOf owlt:before .
 
-<http://sweetontology.net/relaTime/endOf> a owl:ObjectProperty ;
-	rdfs:subPropertyOf owlt:after .
+###  http://sweetontology.net/relaTime/hasBeginning
+trela:hasBeginning rdf:type owl:ObjectProperty ;
+                   owl:equivalentProperty trela:hasStartTime .
 
-<http://sweetontology.net/relaTime/dayOfYear> a owl:DatatypeProperty .
 
-<http://sweetontology.net/relaTime/hasPeriod> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propTime/Period> .
+###  http://sweetontology.net/relaTime/hasDuration
+trela:hasDuration rdf:type owl:ObjectProperty ;
+                  rdfs:range time:Duration .
 
-<http://sweetontology.net/relaTime/hasDuration> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propTime/Duration> .
 
-<http://sweetontology.net/relaTime/hasAverageDuration> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasDuration> .
+###  http://sweetontology.net/relaTime/hasEnd
+trela:hasEnd rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty trela:hasEndTime .
 
-<http://sweetontology.net/relaTime/hasStartTime> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasTime> ;
-	rdfs:range <http://sweetontology.net/propTime/StartTime> ;
-	owl:equivalentProperty <http://sweetontology.net/relaTime/beginning> , <http://sweetontology.net/relaTime/hasBeginning> , <http://sweetontology.net/relaTime/start> , <http://sweetontology.net/relaTime/hasStart> .
 
-<http://sweetontology.net/relaTime/beginning> a owl:ObjectProperty .
+###  http://sweetontology.net/relaTime/hasEndTime
+trela:hasEndTime rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf trela:hasTime ;
+                 rdfs:range time:EndTime .
 
-<http://sweetontology.net/relaTime/hasBeginning> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaTime/start> a owl:ObjectProperty .
+###  http://sweetontology.net/relaTime/hasFrequency
+trela:hasFrequency rdf:type owl:ObjectProperty ;
+                   rdfs:range freq:Frequency .
 
-<http://sweetontology.net/relaTime/hasStart> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaTime/hasEndTime> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasTime> ;
-	rdfs:range <http://sweetontology.net/propTime/EndTime> ;
-	owl:equivalentProperty <http://sweetontology.net/relaTime/end> , <http://sweetontology.net/relaTime/hasEnd> .
+###  http://sweetontology.net/relaTime/hasNHTime
+trela:hasNHTime rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf srela:inNH ,
+                                   trela:hasTime .
 
-<http://sweetontology.net/relaTime/end> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaTime/hasEnd> a owl:ObjectProperty .
+###  http://sweetontology.net/relaTime/hasPeriod
+trela:hasPeriod rdf:type owl:ObjectProperty ;
+                rdfs:range time:Period .
 
-<http://sweetontology.net/relaTime/hasFrequency> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propTimeFrequency/Frequency> .
 
-<http://sweetontology.net/relaTime/halfLife> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasDuration> .
+###  http://sweetontology.net/relaTime/hasSHTime
+trela:hasSHTime rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf srela:inSH ,
+                                   trela:hasTime .
 
-owlt:after a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/greaterThan> .
 
-owlt:before a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/lessThan> .
+###  http://sweetontology.net/relaTime/hasStart
+trela:hasStart rdf:type owl:ObjectProperty ;
+               owl:equivalentProperty trela:hasStartTime .
 
-owlt:hasBeginning a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasStartTime> .
 
-owlt:hasEnd a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaTime/hasEndTime> .
+###  http://sweetontology.net/relaTime/hasStartTime
+trela:hasStartTime rdf:type owl:ObjectProperty ;
+                   owl:equivalentProperty trela:start ;
+                   rdfs:subPropertyOf trela:hasTime ;
+                   rdfs:range time:StartTime .
+
+
+###  http://sweetontology.net/relaTime/hasTemporalReference
+trela:hasTemporalReference rdf:type owl:ObjectProperty ;
+                           owl:equivalentProperty trela:hasTimeReference .
+
+
+###  http://sweetontology.net/relaTime/hasTime
+trela:hasTime rdf:type owl:ObjectProperty ;
+              rdfs:range time:Time .
+
+
+###  http://sweetontology.net/relaTime/hasTimeReference
+trela:hasTimeReference rdf:type owl:ObjectProperty ;
+                       rdfs:range trep:TimeReference .
+
+
+###  http://sweetontology.net/relaTime/lessFrequentThan
+trela:lessFrequentThan rdf:type owl:ObjectProperty ;
+                       owl:inverseOf trela:moreFrequentThan .
+
+
+###  http://sweetontology.net/relaTime/moreFrequentThan
+trela:moreFrequentThan rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf rela:greaterThan ;
+                       rdfs:domain freq:Frequency ;
+                       rdfs:range freq:Frequency .
+
+
+###  http://sweetontology.net/relaTime/olderThan
+trela:olderThan rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf rela:greaterThan ;
+                rdfs:domain time:Time ;
+                rdfs:range time:Time .
+
+
+###  http://sweetontology.net/relaTime/start
+trela:start rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaTime/startOf
+trela:startOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owlt:before .
+
+
+###  http://sweetontology.net/relaTime/temporalPartOf
+trela:temporalPartOf rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf rela:subsetOf ;
+                     rdfs:domain time:Time ;
+                     rdfs:range time:Time .
+
+
+###  http://sweetontology.net/relaTime/youngerThan
+trela:youngerThan rdf:type owl:ObjectProperty ;
+                  owl:inverseOf trela:olderThan .
+
+
+###  http://www.w3.org/2006/time#after
+owlt:after rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf rela:greaterThan .
+
+
+###  http://www.w3.org/2006/time#before
+owlt:before rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf rela:lessThan .
+
+
+###  http://www.w3.org/2006/time#hasBeginning
+owlt:hasBeginning rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf trela:hasStartTime .
+
+
+###  http://www.w3.org/2006/time#hasEnd
+owlt:hasEnd rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf trela:hasEndTime .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://sweetontology.net/relaTime/dayOfYear
+trela:dayOfYear rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://sweetontology.net/reprTime/TimeReference
+trep:TimeReference rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

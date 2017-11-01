@@ -1,105 +1,132 @@
-@prefix scyc: <http://sweetontology.net/stateTimeCycle/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix : <http://sweetontology.net/stateTimeCycle/> .
 @prefix cyc: <http://sweetontology.net/phenCycle/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scyc: <http://sweetontology.net/stateTimeCycle/> .
+@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@base <http://sweetontology.net/stateTimeCycle> .
 
-<http://sweetontology.net/stateTimeCycle> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenCycle> , <http://sweetontology.net/statePhysical> , <http://sweetontology.net/relaMath> .
+<http://sweetontology.net/stateTimeCycle> rdf:type owl:Ontology ;
+                                           owl:imports <http://sweetontology.net/phenCycle> ,
+                                                       <http://sweetontology.net/relaMath> ,
+                                                       <http://sweetontology.net/statePhysical> ;
+                                           rdfs:label "SWEET Ontology" ;
+                                           owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/stateTimeCycle/OscillationState> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/statePhysical/PhysicalState> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/stateTimeCycle/ElNino> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x1 .
+###  http://sweetontology.net/stateTimeCycle/ElNino
+scyc:ElNino rdf:type owl:Class ;
+            rdfs:subClassOf scyc:OscillationState ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela:maximumOf ;
+                              owl:someValuesFrom cyc:ENSO
+                            ] .
 
-_:node1boameru6x1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/maximumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/ENSO> .
 
-<http://sweetontology.net/stateTimeCycle/ElNino> rdfs:comment "A significant increase in sea surface temperature over the eastern and central equatorial Pacific that occurs at irregular intervals, generally ranging between two and seven years."@en .
+###  http://sweetontology.net/stateTimeCycle/HighTide
+scyc:HighTide rdf:type owl:Class ;
+              rdfs:subClassOf scyc:OscillationState ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty mrela:maximumOf ;
+                                owl:someValuesFrom cyc:Tide
+                              ] .
 
-<http://sweetontology.net/stateTimeCycle/LaNina> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x2 .
 
-_:node1boameru6x2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/minimumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/ENSO> .
+###  http://sweetontology.net/stateTimeCycle/IceAge
+scyc:IceAge rdf:type owl:Class ;
+            rdfs:subClassOf scyc:OscillationState ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela:maximumOf ;
+                              owl:someValuesFrom cyc:IceAgeCycle
+                            ] .
 
-<http://sweetontology.net/stateTimeCycle/LaNina> rdfs:comment "The most common of several names given toa significant decrease in sea surface temperature (\"cold events\") in the central and eastern equatorial Pacific.  La Nina is the counterpart to the El Nino \"warm event,\" and its spatial and temporal evolution in the equatorial Pacific is, to a considerable extent, the mirror image of El Nino, although La Nina events tend to be somewhat less regular in their behavior and duration."@en .
 
-<http://sweetontology.net/stateTimeCycle/SolarMaximum> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x3 .
+###  http://sweetontology.net/stateTimeCycle/Interglacial
+scyc:Interglacial rdf:type owl:Class ;
+                  rdfs:subClassOf scyc:OscillationState ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mrela:minimumOf ;
+                                    owl:someValuesFrom cyc:IceAgeCycle
+                                  ] .
 
-_:node1boameru6x3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/maximumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/SolarCycle> .
 
-<http://sweetontology.net/stateTimeCycle/SolarMinimum> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x4 .
+###  http://sweetontology.net/stateTimeCycle/LaNina
+scyc:LaNina rdf:type owl:Class ;
+            rdfs:subClassOf scyc:OscillationState ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela:minimumOf ;
+                              owl:someValuesFrom cyc:ENSO
+                            ] .
 
-_:node1boameru6x4 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/minimumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/SolarCycle> .
 
-<http://sweetontology.net/stateTimeCycle/MaunderMinimum> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/SolarMinimum> .
+###  http://sweetontology.net/stateTimeCycle/LowTide
+scyc:LowTide rdf:type owl:Class ;
+             rdfs:subClassOf scyc:OscillationState ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty mrela:minimumOf ;
+                               owl:someValuesFrom cyc:Tide
+                             ] .
 
-<http://sweetontology.net/stateTimeCycle/HighTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x5 .
 
-_:node1boameru6x5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/maximumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/Tide> .
+###  http://sweetontology.net/stateTimeCycle/MaunderMinimum
+scyc:MaunderMinimum rdf:type owl:Class ;
+                    rdfs:subClassOf scyc:SolarMinimum .
 
-<http://sweetontology.net/stateTimeCycle/LowTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x6 .
 
-_:node1boameru6x6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/minimumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/Tide> .
+###  http://sweetontology.net/stateTimeCycle/NeapTide
+scyc:NeapTide rdf:type owl:Class ;
+              rdfs:subClassOf scyc:OscillationState ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty mrela:maximumOf ;
+                                owl:someValuesFrom scyc:LowTide
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty mrela:minimumOf ;
+                                owl:someValuesFrom scyc:HighTide
+                              ] .
 
-<http://sweetontology.net/stateTimeCycle/SpringTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x7 .
 
-_:node1boameru6x7 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/minimumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/stateTimeCycle/LowTide> .
+###  http://sweetontology.net/stateTimeCycle/OscillationState
+scyc:OscillationState rdf:type owl:Class ;
+                      rdfs:subClassOf pstate:PhysicalState .
 
-<http://sweetontology.net/stateTimeCycle/SpringTide> rdfs:subClassOf _:node1boameru6x8 .
 
-_:node1boameru6x8 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/maximumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/stateTimeCycle/HighTide> .
+###  http://sweetontology.net/stateTimeCycle/SolarMaximum
+scyc:SolarMaximum rdf:type owl:Class ;
+                  rdfs:subClassOf scyc:OscillationState ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mrela:maximumOf ;
+                                    owl:someValuesFrom cyc:SolarCycle
+                                  ] .
 
-<http://sweetontology.net/stateTimeCycle/NeapTide> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x9 .
 
-_:node1boameru6x9 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/maximumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/stateTimeCycle/LowTide> .
+###  http://sweetontology.net/stateTimeCycle/SolarMinimum
+scyc:SolarMinimum rdf:type owl:Class ;
+                  rdfs:subClassOf scyc:OscillationState ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty mrela:minimumOf ;
+                                    owl:someValuesFrom cyc:SolarCycle
+                                  ] .
 
-<http://sweetontology.net/stateTimeCycle/NeapTide> rdfs:subClassOf _:node1boameru6x10 .
 
-_:node1boameru6x10 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/minimumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/stateTimeCycle/HighTide> .
+###  http://sweetontology.net/stateTimeCycle/SpringTide
+scyc:SpringTide rdf:type owl:Class ;
+                rdfs:subClassOf scyc:OscillationState ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty mrela:maximumOf ;
+                                  owl:someValuesFrom scyc:HighTide
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty mrela:minimumOf ;
+                                  owl:someValuesFrom scyc:LowTide
+                                ] .
 
-<http://sweetontology.net/stateTimeCycle/IceAge> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x11 .
 
-_:node1boameru6x11 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/maximumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/IceAgeCycle> .
-
-<http://sweetontology.net/stateTimeCycle/Interglacial> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/stateTimeCycle/OscillationState> , _:node1boameru6x12 .
-
-_:node1boameru6x12 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaMath/minimumOf> ;
-	owl:someValuesFrom <http://sweetontology.net/phenCycle/IceAgeCycle> .
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

@@ -1,492 +1,814 @@
+@prefix : <http://sweetontology.net/matrOrganicCompound/> .
+@prefix org: <http://sweetontology.net/matrOrganicCompound/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
 @prefix chem: <http://sweetontology.net/matr/> .
 @prefix comp: <http://sweetontology.net/matrCompound/> .
+@prefix elem: <http://sweetontology.net/matrElement/> .
+@prefix orga: <http://sweetontology.net/matrOrganicCompound/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rela: <http://sweetontology.net/rela/> .
 @prefix brole: <http://sweetontology.net/stateRoleBiological/> .
-@prefix crole: <http://sweetontology.net/stateRoleChemical/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix elem: <http://sweetontology.net/matrElement/> .
-@prefix allo: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix org: <http://sweetontology.net/matrOrganicCompound/> .
-@prefix orga: <http://sweetontology.net/matrOrganicCompound/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix crole: <http://sweetontology.net/stateRoleChemical/> .
+@base <http://sweetontology.net/matrOrganicCompound> .
 
-<http://sweetontology.net/matrOrganicCompound> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrElement> , <http://sweetontology.net/matrCompound> , <http://sweetontology.net/stateRoleChemical> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/stateRoleBiological> , <http://sweetontology.net/rela> , <http://sweetontology.net/matrElementalMolecule> , <http://sweetontology.net/matr> .
+<http://sweetontology.net/matrOrganicCompound> rdf:type owl:Ontology ;
+                                                owl:imports <http://sweetontology.net/matr> ,
+                                                            <http://sweetontology.net/matrCompound> ,
+                                                            <http://sweetontology.net/matrElement> ,
+                                                            <http://sweetontology.net/matrElementalMolecule> ,
+                                                            <http://sweetontology.net/rela> ,
+                                                            <http://sweetontology.net/relaChemical> ,
+                                                            <http://sweetontology.net/stateRoleBiological> ,
+                                                            <http://sweetontology.net/stateRoleChemical> ;
+                                                rdfs:label "SWEET Ontology" ;
+                                                owl:versionInfo "3.1.0" .
 
-orga:OrganicSubstance a owl:Class ;
-	rdfs:subClassOf chem:Substance ;
-	owl:disjointWith chem:InorganicSubstance ;
-	rdfs:subClassOf _:node1boame0gix1 .
+#################################################################
+#    Object Properties
+#################################################################
 
-_:node1boame0gix1 a owl:Restriction ;
-	owl:hasValue elem:C ;
-	owl:onProperty crela:hasChemical .
+###  http://sweetontology.net/relaChemical/hasChemical
+crela:hasChemical rdf:type owl:ObjectProperty .
 
-orga:OrganicCompound a owl:Class ;
-	rdfs:subClassOf orga:OrganicSubstance , comp:Compound .
 
-orga:HCFC a owl:Class ;
-	rdfs:subClassOf orga:CFC ;
-	owl:equivalentClass orga:Hydrochlorofluorocarbon .
+###  http://sweetontology.net/relaChemical/hasChemical_1
+crela:hasChemical_1 rdf:type owl:ObjectProperty .
 
-orga:Hydrochlorofluorocarbon a owl:Class .
 
-orga:CFC a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound ;
-	owl:equivalentClass orga:Chlorofluorocarbon .
+###  http://sweetontology.net/relaChemical/hasChemical_2
+crela:hasChemical_2 rdf:type owl:ObjectProperty .
 
-orga:Chlorofluorocarbon a owl:Class .
 
-orga:ChlorinatedHydrocarbon a owl:Class ;
-	rdfs:subClassOf orga:Organochloride ;
-	rdfs:comment "Chlorinated hydrocarbons consist of simple hydrocarbons in which one or more hydrogen atoms have been replaced with chlorine." .
+###  http://sweetontology.net/relaChemical/hasSubstance
+crela:hasSubstance rdf:type owl:ObjectProperty .
 
-orga:Organochloride a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound , _:node1boame0gix2 .
 
-_:node1boame0gix2 a owl:Restriction ;
-	owl:hasValue elem:Cl ;
-	owl:onProperty crela:hasChemical .
+#################################################################
+#    Classes
+#################################################################
 
-orga:Organochloride rdfs:comment "An organochloride, organochlorine, or chlorocarbon, is an organic compound containing at least one covalently bonded chlorine atom. Their wide structural variety and divergent chemical properties lead to a broad range of uses." .
+###  http://sweetontology.net/matr/InorganicSubstance
+chem:InorganicSubstance owl:disjointWith orga:OrganicSubstance .
 
-orga:VolatileOrganicCompound a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound ;
-	owl:equivalentClass orga:VOC .
 
-orga:VOC a owl:Class .
+###  http://sweetontology.net/matrOrganicCompound/Alkane
+orga:Alkane rdf:type owl:Class ;
+            rdfs:subClassOf orga:Hydrocarbon .
 
-orga:NonMethaneVolatileOrganicCompound a owl:Class ;
-	rdfs:subClassOf orga:VOC ;
-	owl:equivalentClass orga:NMVOC .
 
-orga:NMVOC a owl:Class .
+###  http://sweetontology.net/matrOrganicCompound/Alkene
+orga:Alkene rdf:type owl:Class ;
+            rdfs:subClassOf orga:Hydrocarbon .
 
-orga:Halon a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound .
 
-orga:HCFC a owl:Class ;
-	rdfs:subClassOf orga:CFC ;
-	owl:equivalentClass orga:Hydrochlorofluorocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CFC
+orga:CFC rdf:type owl:Class ;
+         owl:equivalentClass orga:Chlorofluorocarbon ;
+         rdfs:subClassOf orga:OrganicCompound .
 
-orga:Hydrochlorofluorocarbon a owl:Class .
 
-orga:CFC a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound ;
-	owl:equivalentClass orga:Chlorofluorocarbon .
+###  http://sweetontology.net/matrOrganicCompound/ChlorinatedHydrocarbon
+orga:ChlorinatedHydrocarbon rdf:type owl:Class ;
+                            rdfs:subClassOf orga:Organochloride .
 
-orga:Chlorofluorocarbon a owl:Class .
 
-orga:Alkane a owl:Class ;
-	rdfs:subClassOf orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/Chlorofluorocarbon
+orga:Chlorofluorocarbon rdf:type owl:Class .
 
-orga:Alkene a owl:Class ;
-	rdfs:subClassOf orga:Hydrocarbon .
 
-orga:Hydrocarbon a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound ;
-	owl:equivalentClass orga:HC ;
-	rdfs:subClassOf _:node1boame0gix3 .
+###  http://sweetontology.net/matrOrganicCompound/Chlorophyll
+orga:Chlorophyll rdf:type owl:Class ;
+                 rdfs:subClassOf orga:OrganicCompound .
 
-_:node1boame0gix3 a owl:Restriction ;
-	owl:hasValue allo:Cx ;
-	owl:onProperty crela:hasChemical_1 .
 
-orga:Hydrocarbon rdfs:subClassOf _:node1boame0gix4 .
+###  http://sweetontology.net/matrOrganicCompound/ClathrateHydrate
+orga:ClathrateHydrate rdf:type owl:Class ;
+                      owl:equivalentClass orga:GasHydrate ;
+                      rdfs:subClassOf comp:Clathrate .
 
-_:node1boame0gix4 a owl:Restriction ;
-	owl:hasValue allo:Hx ;
-	owl:onProperty crela:hasChemical_2 .
 
-orga:HC a owl:Class .
+###  http://sweetontology.net/matrOrganicCompound/GasHydrate
+orga:GasHydrate rdf:type owl:Class .
 
-orga:Carbonyl a orga:OrganicCompound .
 
-orga:CCl4 a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:Cl4 .
+###  http://sweetontology.net/matrOrganicCompound/HC
+orga:HC rdf:type owl:Class ;
+        owl:equivalentClass orga:Hydrocarbon .
 
-orga:CF4 a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:F4 ;
-	owl:sameAs orga:CarbonTetrafluoride , orga:CarbonTetrafluoromethane , orga:Freon14 .
 
-orga:CarbonTetrafluoride a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/HCFC
+orga:HCFC rdf:type owl:Class ;
+          owl:equivalentClass orga:Hydrochlorofluorocarbon ;
+          rdfs:subClassOf orga:CFC .
 
-orga:CarbonTetrafluoromethane a orga:OrganicCompound .
 
-orga:Freon14 a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Halon
+orga:Halon rdf:type owl:Class ;
+           rdfs:subClassOf orga:OrganicCompound .
 
-orga:C2H3NO5 a orga:OrganicCompound ;
-	crela:hasChemical_1 allo:C2 ;
-	crela:hasChemical_2 allo:H3 ;
-	crela:hasChemical_3 elem:N ;
-	crela:hasChemical_4 allo:O5 ;
-	owl:sameAs orga:PeroxyacetylNitrate , orga:PAN .
 
-orga:PeroxyacetylNitrate a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Hydrocarbon
+orga:Hydrocarbon rdf:type owl:Class ;
+                 rdfs:subClassOf orga:OrganicCompound ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty crela:hasChemical_1 ;
+                                   owl:hasValue allo:Cx
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty crela:hasChemical_2 ;
+                                   owl:hasValue allo:Hx
+                                 ] .
 
-orga:PAN a orga:OrganicCompound .
 
-orga:C2H6O a orga:OrganicCompound ;
-	crela:hasChemical_1 allo:C2 ;
-	crela:hasChemical_2 allo:H6 ;
-	crela:hasChemical_3 elem:O ;
-	rela:hasRole crole:Solvent ;
-	owl:sameAs orga:Ethanol .
+###  http://sweetontology.net/matrOrganicCompound/Hydrochlorofluorocarbon
+orga:Hydrochlorofluorocarbon rdf:type owl:Class .
 
-orga:Ethanol a orga:OrganicCompound .
 
-orga:CH2O2 a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:H2 ;
-	crela:hasChemical_3 allo:O2 ;
-	owl:sameAs orga:FormicAcid , orga:MethanoicAcid .
+###  http://sweetontology.net/matrOrganicCompound/MethaneClathrate
+orga:MethaneClathrate rdf:type owl:Class ;
+                      owl:equivalentClass orga:MethaneHydrate ,
+                                          orga:MethaneIce ;
+                      rdfs:subClassOf orga:ClathrateHydrate ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty crela:hasSubstance ;
+                                        owl:hasValue orga:Methane
+                                      ] .
 
-orga:FormicAcid a orga:OrganicCompound .
 
-orga:MethanoicAcid a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/MethaneHydrate
+orga:MethaneHydrate rdf:type owl:Class .
 
-orga:C2H6S a orga:OrganicCompound ;
-	crela:hasChemical_1 allo:C2 ;
-	crela:hasChemical_2 allo:H6 ;
-	crela:hasChemical_3 elem:S ;
-	owl:sameAs orga:DimethylSulfide , orga:DMS .
 
-orga:DimethylSulfide a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/MethaneIce
+orga:MethaneIce rdf:type owl:Class .
 
-orga:DMS a orga:OrganicCompound .
 
-orga:CH2CHCN a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:H2 ;
-	crela:hasChemical_3 elem:C ;
-	crela:hasChemical_4 elem:H ;
-	crela:hasChemical_5 elem:C ;
-	crela:hasChemical_6 elem:N ;
-	owl:sameAs orga:Acrylonitrile .
+###  http://sweetontology.net/matrOrganicCompound/NMVOC
+orga:NMVOC rdf:type owl:Class ;
+           owl:equivalentClass orga:NonMethaneVolatileOrganicCompound .
 
-orga:Acrylonitrile a orga:OrganicCompound .
 
-orga:CH2O a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:H2 ;
-	crela:hasChemical_3 elem:O ;
-	owl:sameAs orga:Formaldehyde .
+###  http://sweetontology.net/matrOrganicCompound/NonMethaneVolatileOrganicCompound
+orga:NonMethaneVolatileOrganicCompound rdf:type owl:Class ;
+                                       rdfs:subClassOf orga:VOC .
 
-orga:Formaldehyde a orga:OrganicCompound .
 
-orga:CH3CN a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:H3 ;
-	crela:hasChemical_3 elem:O ;
-	crela:hasChemical_4 elem:N ;
-	owl:sameAs orga:MethylCyanide , orga:Acetonitrile .
+###  http://sweetontology.net/matrOrganicCompound/OrganicCompound
+orga:OrganicCompound rdf:type owl:Class ;
+                     rdfs:subClassOf comp:Compound ,
+                                     orga:OrganicSubstance .
 
-orga:MethylCyanide a orga:OrganicCompound .
 
-orga:Acetonitrile a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/OrganicSubstance
+orga:OrganicSubstance rdf:type owl:Class ;
+                      rdfs:subClassOf chem:Substance ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty crela:hasChemical ;
+                                        owl:hasValue elem:C
+                                      ] .
 
-orga:CH3COOH a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:H3 ;
-	crela:hasChemical_3 elem:C ;
-	crela:hasChemical_4 allo:O2 ;
-	crela:hasChemical_5 elem:H ;
-	owl:sameAs orga:EthanoicAcid .
 
-orga:EthanoicAcid a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Organochloride
+orga:Organochloride rdf:type owl:Class ;
+                    rdfs:subClassOf orga:OrganicCompound ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty crela:hasChemical ;
+                                      owl:hasValue elem:Cl
+                                    ] .
 
-orga:C3H4O a orga:OrganicCompound ;
-	crela:hasChemical_1 allo:C3 ;
-	crela:hasChemical_2 allo:H4 ;
-	crela:hasChemical_3 elem:O ;
-	owl:sameAs orga:Acrolein .
 
-orga:Acrolein a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/VOC
+orga:VOC rdf:type owl:Class ;
+         owl:equivalentClass orga:VolatileOrganicCompound .
 
-orga:C5H12O a orga:OrganicCompound ;
-	crela:hasChemical_1 allo:C5 ;
-	crela:hasChemical_2 allo:H12 ;
-	crela:hasChemical_3 elem:O ;
-	owl:sameAs orga:MTBE , orga:MethylTertButylEther .
 
-orga:MTBE a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/VolatileOrganicCompound
+orga:VolatileOrganicCompound rdf:type owl:Class ;
+                             rdfs:subClassOf orga:OrganicCompound .
 
-orga:MethylTertButylEther a orga:OrganicCompound .
 
-orga:CaCO3 a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:Ca ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 allo:O3 ;
-	owl:sameAs orga:CalciumCarbonate .
+#################################################################
+#    Individuals
+#################################################################
 
-orga:CalciumCarbonate a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Acenaphthene
+orga:Acenaphthene rdf:type owl:NamedIndividual ,
+                           orga:Hydrocarbon ;
+                  owl:sameAs orga:C12H10 .
 
-orga:HCH a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 elem:H ;
-	owl:sameAs orga:Hexachlorocyclohexane .
 
-orga:Hexachlorocyclohexane a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Acenaphthylene
+orga:Acenaphthylene rdf:type owl:NamedIndividual ,
+                             orga:Hydrocarbon ;
+                    owl:sameAs orga:C12H8 .
 
-orga:Aldrin a orga:OrganicCompound ;
-	rela:hasRole brole:Pesticide .
 
-orga:PCB a orga:OrganicCompound ;
-	rela:hasRole brole:Pesticide ;
-	owl:sameAs orga:PolychlorinatedBiphenyl .
+###  http://sweetontology.net/matrOrganicCompound/Acetonitrile
+orga:Acetonitrile rdf:type owl:NamedIndividual ,
+                           orga:OrganicCompound ;
+                  owl:sameAs orga:CH3CN .
 
-orga:PolychlorinatedBiphenyl a orga:OrganicCompound .
 
-orga:Hexachlorobiphenyl a orga:OrganicCompound ;
-	owl:sameAs orga:PCB153 .
+###  http://sweetontology.net/matrOrganicCompound/Acrolein
+orga:Acrolein rdf:type owl:NamedIndividual ,
+                       orga:OrganicCompound ;
+              owl:sameAs orga:C3H4O .
 
-orga:PCB153 a orga:OrganicCompound .
 
-orga:MethylBromide a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Acrylonitrile
+orga:Acrylonitrile rdf:type owl:NamedIndividual ,
+                            orga:OrganicCompound ;
+                   owl:sameAs orga:CH2CHCN .
 
-orga:MethylChloride a orga:OrganicCompound .
 
-orga:HydrogenCyanide a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Aldrin
+orga:Aldrin rdf:type owl:NamedIndividual ,
+                     orga:OrganicCompound ;
+            rela:hasRole brole:Pesticide .
 
-orga:Silk a orga:OrganicCompound .
 
-orga:Hydrofluorocarbon a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/Benzene
+orga:Benzene rdf:type owl:NamedIndividual ,
+                      orga:Hydrocarbon ;
+             owl:sameAs orga:C6H6 .
 
-orga:Chlorophyll a owl:Class ;
-	rdfs:subClassOf orga:OrganicCompound ;
-	rdfs:comment "Chlorophyll is a green pigment found in most plants, algae, and cyanobacteria. Chlorophyll absorbs light most strongly in the blue and red but poorly in the green portions of the electromagnetic spectrum, hence the green color of chlorophyll-containing tissues like plant leaves."@en .
 
-orga:ChlorophyllA a orga:Chlorophyll .
+###  http://sweetontology.net/matrOrganicCompound/Benzol
+orga:Benzol rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon ;
+            owl:sameAs orga:C6H6 .
 
-orga:Pheophytin a orga:Chlorophyll .
 
-orga:FC a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:F ;
-	crela:hasChemical_2 elem:C ;
-	owl:sameAs orga:Fluorocarbon .
+###  http://sweetontology.net/matrOrganicCompound/Butane
+orga:Butane rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon ;
+            owl:sameAs orga:C4H10 .
 
-orga:Fluorocarbon a orga:OrganicCompound .
 
-orga:HCN a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 elem:N ;
-	owl:sameAs orga:HydrogenCyanide .
+###  http://sweetontology.net/matrOrganicCompound/C10H16
+orga:C10H16 rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon .
 
-orga:HydrogenCyanide a orga:OrganicCompound .
 
-orga:OCS a orga:OrganicCompound ;
-	crela:hasChemical_1 elem:O ;
-	crela:hasChemical_2 elem:C ;
-	crela:hasChemical_3 elem:S ;
-	owl:sameAs orga:CarbonylSulfide .
+###  http://sweetontology.net/matrOrganicCompound/C12H10
+orga:C12H10 rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon .
 
-orga:CarbonylSulfide a orga:OrganicCompound .
 
-orga:Carbohydrate a orga:OrganicCompound .
+###  http://sweetontology.net/matrOrganicCompound/C12H8
+orga:C12H8 rdf:type owl:NamedIndividual ,
+                    orga:Hydrocarbon .
 
-orga:CBrF2 a orga:Halon ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 elem:Br ;
-	crela:hasChemical_3 allo:F2 ;
-	owl:sameAs orga:Halon1202 .
 
-orga:Halon1202 a orga:Halon .
+###  http://sweetontology.net/matrOrganicCompound/C2Br2F4
+orga:C2Br2F4 rdf:type owl:NamedIndividual ,
+                      orga:Halon ;
+             owl:sameAs orga:C2F4Br2 ,
+                        orga:Dibromotetrafluoroethane ,
+                        orga:Halon2402 .
 
-orga:CF2ClBr a orga:Halon ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:F2 ;
-	crela:hasChemical_3 elem:Cl ;
-	crela:hasChemical_4 elem:Br ;
-	owl:sameAs orga:Halon1211 .
 
-orga:Halon1211 a orga:Halon .
+###  http://sweetontology.net/matrOrganicCompound/C2F4Br2
+orga:C2F4Br2 rdf:type owl:NamedIndividual ,
+                      orga:Halon .
 
-orga:CBrF3 a orga:Halon ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 elem:Br ;
-	crela:hasChemical_3 allo:F3 ;
-	owl:sameAs orga:Halon1301 .
 
-orga:Halon1301 a orga:Halon .
+###  http://sweetontology.net/matrOrganicCompound/C2H3NO5
+orga:C2H3NO5 rdf:type owl:NamedIndividual ,
+                      orga:OrganicCompound ;
+             owl:sameAs orga:PAN ,
+                        orga:PeroxyacetylNitrate .
 
-orga:C2Br2F4 a orga:Halon ;
-	crela:hasChemical_1 allo:C2 ;
-	crela:hasChemical_2 allo:Br2 ;
-	crela:hasChemical_3 allo:F4 ;
-	owl:sameAs orga:Halon2402 , orga:C2F4Br2 , orga:Dibromotetrafluoroethane .
 
-orga:Halon2402 a orga:Halon .
+###  http://sweetontology.net/matrOrganicCompound/C2H4
+orga:C2H4 rdf:type owl:NamedIndividual ,
+                   orga:Alkene ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:Ethene .
 
-orga:C2F4Br2 a orga:Halon .
 
-orga:Dibromotetrafluoroethane a orga:Halon .
+###  http://sweetontology.net/matrOrganicCompound/C2H6
+orga:C2H6 rdf:type owl:NamedIndividual ,
+                   orga:Alkane ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:Ethane .
 
-orga:CCl2F2 a orga:CFC ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:Cl2 ;
-	crela:hasChemical_3 allo:F2 ;
-	owl:sameAs orga:Freon12 , orga:Dichlorodifluoromethane .
 
-orga:Freon12 a orga:CFC .
+###  http://sweetontology.net/matrOrganicCompound/C2H6O
+orga:C2H6O rdf:type owl:NamedIndividual ,
+                    orga:OrganicCompound ;
+           owl:sameAs orga:Ethanol ;
+           rela:hasRole crole:Solvent .
 
-orga:Dichlorodifluoromethane a orga:CFC .
 
-orga:CFC11 a orga:CFC .
+###  http://sweetontology.net/matrOrganicCompound/C2H6S
+orga:C2H6S rdf:type owl:NamedIndividual ,
+                    orga:OrganicCompound ;
+           owl:sameAs orga:DMS ,
+                      orga:DimethylSulfide .
 
-orga:CFC113 a orga:CFC .
 
-orga:CFC113a a orga:CFC .
+###  http://sweetontology.net/matrOrganicCompound/C3H4O
+orga:C3H4O rdf:type owl:NamedIndividual ,
+                    orga:OrganicCompound .
 
-orga:CFC114 a orga:CFC .
 
-orga:CFC115 a orga:CFC .
+###  http://sweetontology.net/matrOrganicCompound/C3H6
+orga:C3H6 rdf:type owl:NamedIndividual ,
+                   orga:Alkene ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:Propene .
 
-orga:CFC12 a orga:CFC .
 
-orga:HClFC a orga:HCFC ;
-	crela:hasChemical_1 elem:H ;
-	crela:hasChemical_2 elem:Cl ;
-	crela:hasChemical_3 elem:F ;
-	crela:hasChemical_4 elem:C .
+###  http://sweetontology.net/matrOrganicCompound/C3H8
+orga:C3H8 rdf:type owl:NamedIndividual ,
+                   orga:Alkane ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:Propane .
 
-orga:HCFC140a a orga:HCFC .
 
-orga:HCFC141b a orga:HCFC .
+###  http://sweetontology.net/matrOrganicCompound/C4H10
+orga:C4H10 rdf:type owl:NamedIndividual ,
+                    orga:Alkane ,
+                    orga:Hydrocarbon .
 
-orga:HCFC142b a orga:HCFC .
 
-orga:HCFC22 a orga:HCFC .
+###  http://sweetontology.net/matrOrganicCompound/C5H12O
+orga:C5H12O rdf:type owl:NamedIndividual ,
+                     orga:OrganicCompound ;
+            owl:sameAs orga:MTBE ,
+                       orga:MethylTertButylEther .
 
-orga:CH4 a orga:Hydrocarbon , orga:Alkane ;
-	crela:hasChemical_1 elem:C ;
-	crela:hasChemical_2 allo:H4 ;
-	owl:sameAs orga:Methane .
 
-orga:Methane a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/C5H8
+orga:C5H8 rdf:type owl:NamedIndividual ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:Isoprene .
 
-orga:C2H4 a orga:Hydrocarbon , orga:Alkene ;
-	crela:hasChemical_1 allo:C2 ;
-	crela:hasChemical_2 allo:H4 ;
-	owl:sameAs orga:Ethene .
 
-orga:Ethene a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/C6H6
+orga:C6H6 rdf:type owl:NamedIndividual ,
+                   orga:Hydrocarbon .
 
-orga:C2H6 a orga:Hydrocarbon , orga:Alkane ;
-	crela:hasChemical_1 allo:C2 ;
-	crela:hasChemical_2 allo:H6 ;
-	owl:sameAs orga:Ethane .
 
-orga:Ethane a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/C7H8
+orga:C7H8 rdf:type owl:NamedIndividual ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:Toluene .
 
-orga:C3H6 a orga:Hydrocarbon , orga:Alkene ;
-	crela:hasChemical_1 allo:C3 ;
-	crela:hasChemical_2 allo:H6 ;
-	owl:sameAs orga:Propene .
 
-orga:Propene a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/C8H10
+orga:C8H10 rdf:type owl:NamedIndividual ,
+                    orga:Hydrocarbon ;
+           owl:sameAs orga:Xylene .
 
-orga:C3H8 a orga:Hydrocarbon , orga:Alkane ;
-	crela:hasChemical_1 allo:C3 ;
-	crela:hasChemical_2 allo:H8 ;
-	owl:sameAs orga:Propane .
 
-orga:Propane a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CBrF2
+orga:CBrF2 rdf:type owl:NamedIndividual ,
+                    orga:Halon ;
+           owl:sameAs orga:Halon1202 .
 
-orga:C4H10 a orga:Hydrocarbon , orga:Alkane ;
-	crela:hasChemical_1 allo:C4 ;
-	crela:hasChemical_2 allo:H10 ;
-	owl:sameAs orga:Butane .
 
-orga:Butane a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CBrF3
+orga:CBrF3 rdf:type owl:NamedIndividual ,
+                    orga:Halon ;
+           owl:sameAs orga:Halon1301 .
 
-orga:C5H8 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C5 ;
-	crela:hasChemical_2 allo:H8 ;
-	owl:sameAs orga:Isoprene .
 
-orga:Isoprene a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CCl2F2
+orga:CCl2F2 rdf:type owl:NamedIndividual ,
+                     orga:CFC ;
+            owl:sameAs orga:Dichlorodifluoromethane ,
+                       orga:Freon12 .
 
-orga:C12H8 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C12 ;
-	crela:hasChemical_2 allo:H8 ;
-	owl:sameAs orga:Acenaphthylene .
 
-orga:Acenaphthylene a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CCl4
+orga:CCl4 rdf:type owl:NamedIndividual ,
+                   orga:OrganicCompound .
 
-orga:C12H10 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C12 ;
-	crela:hasChemical_2 allo:H10 ;
-	owl:sameAs orga:Acenaphthene .
 
-orga:Acenaphthene a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CF2ClBr
+orga:CF2ClBr rdf:type owl:NamedIndividual ,
+                      orga:Halon ;
+             owl:sameAs orga:Halon1211 .
 
-orga:C6H6 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C6 ;
-	crela:hasChemical_2 allo:H6 ;
-	owl:sameAs orga:Benzene , orga:Benzol .
 
-orga:Benzene a orga:Hydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CF4
+orga:CF4 rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound ;
+         owl:sameAs orga:CarbonTetrafluoride ,
+                    orga:CarbonTetrafluoromethane ,
+                    orga:Freon14 .
 
-orga:Benzol a orga:Hydrocarbon .
 
-orga:C7H8 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C7 ;
-	crela:hasChemical_2 allo:H8 ;
-	owl:sameAs orga:Toluene .
+###  http://sweetontology.net/matrOrganicCompound/CFC11
+orga:CFC11 rdf:type owl:NamedIndividual ,
+                    orga:CFC .
 
-orga:Toluene a orga:Hydrocarbon .
 
-orga:C8H10 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C8 ;
-	crela:hasChemical_2 allo:H10 ;
-	owl:sameAs orga:Xylene .
+###  http://sweetontology.net/matrOrganicCompound/CFC113
+orga:CFC113 rdf:type owl:NamedIndividual ,
+                     orga:CFC .
 
-orga:Xylene a orga:Hydrocarbon .
 
-orga:C10H16 a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C10 ;
-	crela:hasChemical_2 allo:H16 .
+###  http://sweetontology.net/matrOrganicCompound/CFC113a
+orga:CFC113a rdf:type owl:NamedIndividual ,
+                      orga:CFC .
 
-orga:Pinene a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C10 ;
-	crela:hasChemical_2 allo:H16 .
 
-orga:Limonene a orga:Hydrocarbon ;
-	crela:hasChemical_1 allo:C10 ;
-	crela:hasChemical_2 allo:H16 .
+###  http://sweetontology.net/matrOrganicCompound/CFC114
+orga:CFC114 rdf:type owl:NamedIndividual ,
+                     orga:CFC .
 
-orga:Terpene a orga:Hydrocarbon .
 
-orga:NMHC a orga:Hydrocarbon ;
-	owl:differentFrom orga:Methane ;
-	owl:sameAs orga:NonMethaneHydrocarbon .
+###  http://sweetontology.net/matrOrganicCompound/CFC115
+orga:CFC115 rdf:type owl:NamedIndividual ,
+                     orga:CFC .
 
-orga:NonMethaneHydrocarbon a orga:Hydrocarbon .
 
-orga:ClathrateHydrate a owl:Class ;
-	rdfs:subClassOf comp:Clathrate ;
-	owl:equivalentClass orga:GasHydrate .
+###  http://sweetontology.net/matrOrganicCompound/CFC12
+orga:CFC12 rdf:type owl:NamedIndividual ,
+                    orga:CFC .
 
-orga:GasHydrate a owl:Class .
 
-orga:MethaneClathrate a owl:Class ;
-	rdfs:subClassOf orga:ClathrateHydrate , _:node1boame0gix5 .
+###  http://sweetontology.net/matrOrganicCompound/CH2CHCN
+orga:CH2CHCN rdf:type owl:NamedIndividual ,
+                      orga:OrganicCompound .
 
-_:node1boame0gix5 a owl:Restriction ;
-	owl:hasValue orga:Methane ;
-	owl:onProperty crela:hasSubstance .
 
-orga:MethaneClathrate owl:equivalentClass orga:MethaneHydrate , orga:MethaneIce .
+###  http://sweetontology.net/matrOrganicCompound/CH2O
+orga:CH2O rdf:type owl:NamedIndividual ,
+                   orga:OrganicCompound ;
+          owl:sameAs orga:Formaldehyde .
 
-orga:MethaneHydrate a owl:Class .
 
-orga:MethaneIce a owl:Class .
+###  http://sweetontology.net/matrOrganicCompound/CH2O2
+orga:CH2O2 rdf:type owl:NamedIndividual ,
+                    orga:OrganicCompound ;
+           owl:sameAs orga:FormicAcid ,
+                      orga:MethanoicAcid .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CH3CN
+orga:CH3CN rdf:type owl:NamedIndividual ,
+                    orga:OrganicCompound ;
+           owl:sameAs orga:MethylCyanide .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CH3COOH
+orga:CH3COOH rdf:type owl:NamedIndividual ,
+                      orga:OrganicCompound ;
+             owl:sameAs orga:EthanoicAcid .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CH4
+orga:CH4 rdf:type owl:NamedIndividual ,
+                  orga:Alkane ,
+                  orga:Hydrocarbon ;
+         owl:sameAs orga:Methane .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CaCO3
+orga:CaCO3 rdf:type owl:NamedIndividual ,
+                    orga:OrganicCompound ;
+           owl:sameAs orga:CalciumCarbonate .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CalciumCarbonate
+orga:CalciumCarbonate rdf:type owl:NamedIndividual ,
+                               orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Carbohydrate
+orga:Carbohydrate rdf:type owl:NamedIndividual ,
+                           orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CarbonTetrafluoride
+orga:CarbonTetrafluoride rdf:type owl:NamedIndividual ,
+                                  orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CarbonTetrafluoromethane
+orga:CarbonTetrafluoromethane rdf:type owl:NamedIndividual ,
+                                       orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Carbonyl
+orga:Carbonyl rdf:type owl:NamedIndividual ,
+                       orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/CarbonylSulfide
+orga:CarbonylSulfide rdf:type owl:NamedIndividual ,
+                              orga:OrganicCompound ;
+                     owl:sameAs orga:OCS .
+
+
+###  http://sweetontology.net/matrOrganicCompound/ChlorophyllA
+orga:ChlorophyllA rdf:type owl:NamedIndividual ,
+                           orga:Chlorophyll .
+
+
+###  http://sweetontology.net/matrOrganicCompound/DMS
+orga:DMS rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Dibromotetrafluoroethane
+orga:Dibromotetrafluoroethane rdf:type owl:NamedIndividual ,
+                                       orga:Halon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Dichlorodifluoromethane
+orga:Dichlorodifluoromethane rdf:type owl:NamedIndividual ,
+                                      orga:CFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/DimethylSulfide
+orga:DimethylSulfide rdf:type owl:NamedIndividual ,
+                              orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Ethane
+orga:Ethane rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/EthanoicAcid
+orga:EthanoicAcid rdf:type owl:NamedIndividual ,
+                           orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Ethanol
+orga:Ethanol rdf:type owl:NamedIndividual ,
+                      orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Ethene
+orga:Ethene rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/FC
+orga:FC rdf:type owl:NamedIndividual ,
+                 orga:OrganicCompound ;
+        owl:sameAs orga:Fluorocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Fluorocarbon
+orga:Fluorocarbon rdf:type owl:NamedIndividual ,
+                           orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Formaldehyde
+orga:Formaldehyde rdf:type owl:NamedIndividual ,
+                           orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/FormicAcid
+orga:FormicAcid rdf:type owl:NamedIndividual ,
+                         orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Freon12
+orga:Freon12 rdf:type owl:NamedIndividual ,
+                      orga:CFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Freon14
+orga:Freon14 rdf:type owl:NamedIndividual ,
+                      orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HCFC140a
+orga:HCFC140a rdf:type owl:NamedIndividual ,
+                       orga:HCFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HCFC141b
+orga:HCFC141b rdf:type owl:NamedIndividual ,
+                       orga:HCFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HCFC142b
+orga:HCFC142b rdf:type owl:NamedIndividual ,
+                       orga:HCFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HCFC22
+orga:HCFC22 rdf:type owl:NamedIndividual ,
+                     orga:HCFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HCH
+orga:HCH rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound ;
+         owl:sameAs orga:Hexachlorocyclohexane .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HCN
+orga:HCN rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound ;
+         owl:sameAs orga:HydrogenCyanide .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HClFC
+orga:HClFC rdf:type owl:NamedIndividual ,
+                    orga:HCFC .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Halon1202
+orga:Halon1202 rdf:type owl:NamedIndividual ,
+                        orga:Halon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Halon1211
+orga:Halon1211 rdf:type owl:NamedIndividual ,
+                        orga:Halon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Halon1301
+orga:Halon1301 rdf:type owl:NamedIndividual ,
+                        orga:Halon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Halon2402
+orga:Halon2402 rdf:type owl:NamedIndividual ,
+                        orga:Halon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Hexachlorobiphenyl
+orga:Hexachlorobiphenyl rdf:type owl:NamedIndividual ,
+                                 orga:OrganicCompound ;
+                        owl:sameAs orga:PCB153 .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Hexachlorocyclohexane
+orga:Hexachlorocyclohexane rdf:type owl:NamedIndividual ,
+                                    orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Hydrofluorocarbon
+orga:Hydrofluorocarbon rdf:type owl:NamedIndividual ,
+                                orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/HydrogenCyanide
+orga:HydrogenCyanide rdf:type owl:NamedIndividual ,
+                              orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Isoprene
+orga:Isoprene rdf:type owl:NamedIndividual ,
+                       orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Limonene
+orga:Limonene rdf:type owl:NamedIndividual ,
+                       orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/MTBE
+orga:MTBE rdf:type owl:NamedIndividual ,
+                   orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Methane
+orga:Methane rdf:type owl:NamedIndividual ,
+                      orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/MethanoicAcid
+orga:MethanoicAcid rdf:type owl:NamedIndividual ,
+                            orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/MethylBromide
+orga:MethylBromide rdf:type owl:NamedIndividual ,
+                            orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/MethylChloride
+orga:MethylChloride rdf:type owl:NamedIndividual ,
+                             orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/MethylCyanide
+orga:MethylCyanide rdf:type owl:NamedIndividual ,
+                            orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/MethylTertButylEther
+orga:MethylTertButylEther rdf:type owl:NamedIndividual ,
+                                   orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/NMHC
+orga:NMHC rdf:type owl:NamedIndividual ,
+                   orga:Hydrocarbon ;
+          owl:sameAs orga:NonMethaneHydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/NonMethaneHydrocarbon
+orga:NonMethaneHydrocarbon rdf:type owl:NamedIndividual ,
+                                    orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/OCS
+orga:OCS rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/PAN
+orga:PAN rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/PCB
+orga:PCB rdf:type owl:NamedIndividual ,
+                  orga:OrganicCompound ;
+         owl:sameAs orga:PolychlorinatedBiphenyl ;
+         rela:hasRole brole:Pesticide .
+
+
+###  http://sweetontology.net/matrOrganicCompound/PCB153
+orga:PCB153 rdf:type owl:NamedIndividual ,
+                     orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/PeroxyacetylNitrate
+orga:PeroxyacetylNitrate rdf:type owl:NamedIndividual ,
+                                  orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Pheophytin
+orga:Pheophytin rdf:type owl:NamedIndividual ,
+                         orga:Chlorophyll .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Pinene
+orga:Pinene rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/PolychlorinatedBiphenyl
+orga:PolychlorinatedBiphenyl rdf:type owl:NamedIndividual ,
+                                      orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Propane
+orga:Propane rdf:type owl:NamedIndividual ,
+                      orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Propene
+orga:Propene rdf:type owl:NamedIndividual ,
+                      orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Silk
+orga:Silk rdf:type owl:NamedIndividual ,
+                   orga:OrganicCompound .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Terpene
+orga:Terpene rdf:type owl:NamedIndividual ,
+                      orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Toluene
+orga:Toluene rdf:type owl:NamedIndividual ,
+                      orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/matrOrganicCompound/Xylene
+orga:Xylene rdf:type owl:NamedIndividual ,
+                     orga:Hydrocarbon .
+
+
+###  http://sweetontology.net/stateRoleBiological/Pesticide
+brole:Pesticide rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/stateRoleChemical/Solvent
+crole:Solvent rdf:type owl:NamedIndividual .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDifferent ;
+  owl:distinctMembers ( orga:Methane
+                        orga:NMHC
+                      )
+] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

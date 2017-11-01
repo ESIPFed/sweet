@@ -1,77 +1,128 @@
-@prefix phen: <http://sweetontology.net/phen/> .
-@prefix sky: <http://sweetontology.net/phenAtmoSky/> .
+@prefix : <http://sweetontology.net/phenAtmoSky/> .
 @prefix fog: <http://sweetontology.net/phenAtmoFog/> .
-@prefix atmo: <http://sweetontology.net/phenAtmo/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix waves: <http://sweetontology.net/procWave/> .
-@prefix eimpa: <http://sweetontology.net/phenEnvirImpact/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sky: <http://sweetontology.net/phenAtmoSky/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix atmo: <http://sweetontology.net/phenAtmo/> .
+@prefix phen: <http://sweetontology.net/phen/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix eimpa: <http://sweetontology.net/phenEnvirImpact/> .
+@prefix waves: <http://sweetontology.net/procWave/> .
+@base <http://sweetontology.net/phenAtmoSky> .
 
-<http://sweetontology.net/phenAtmoSky> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/phenAtmo> , <http://sweetontology.net/phen> , <http://sweetontology.net/rela> , <http://sweetontology.net/phenAtmoFog> , <http://sweetontology.net/procWave> , <http://sweetontology.net/phenEnvirImpact> .
+<http://sweetontology.net/phenAtmoSky> rdf:type owl:Ontology ;
+                                        owl:imports <http://sweetontology.net/phen> ,
+                                                    <http://sweetontology.net/phenAtmo> ,
+                                                    <http://sweetontology.net/phenAtmoFog> ,
+                                                    <http://sweetontology.net/phenEnvirImpact> ,
+                                                    <http://sweetontology.net/procWave> ,
+                                                    <http://sweetontology.net/rela> ;
+                                        rdfs:label "SWEET Ontology" ;
+                                        owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/phenAtmoSky/Airglow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/AtmosphericPhenomena> , _:node1boame2ohx1 .
+###  http://sweetontology.net/phenAtmoSky/AirPollution
+sky:AirPollution rdf:type owl:Class ;
+                 rdfs:subClassOf atmo:AtmosphericPhenomena ,
+                                 eimpa:Pollution .
 
-_:node1boame2ohx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:allValuesFrom <http://sweetontology.net/procWave/Emission> .
 
-<http://sweetontology.net/phenAtmoSky/Aurora> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> ;
-	rdfs:comment "The sporadic radiant emission from the upper atmosphere over the middle and high latitudes"@en .
+###  http://sweetontology.net/phenAtmoSky/AirQuality
+sky:AirQuality rdf:type owl:Class ;
+               rdfs:subClassOf sky:AirPollution .
 
-<http://sweetontology.net/phenAtmoSky/AuroralSubstorm> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> ;
-	owl:equivalentClass <http://sweetontology.net/phenAtmoSky/MagneticSubstorm> .
 
-<http://sweetontology.net/phenAtmoSky/MagneticSubstorm> a owl:Class .
+###  http://sweetontology.net/phenAtmoSky/Airglow
+sky:Airglow rdf:type owl:Class ;
+            rdfs:subClassOf sky:AtmosphericLightEmission .
 
-<http://sweetontology.net/phenAtmoSky/ZodiacalLight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission> .
 
-<http://sweetontology.net/phenAtmoSky/AirPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/AtmosphericPhenomena> , <http://sweetontology.net/phenEnvirImpact/Pollution> ;
-	rdfs:comment "The presence of substances in the atmosphere, particularly those that do not occur naturally" ;
-	rdfs:label "Air Pollution" .
+###  http://sweetontology.net/phenAtmoSky/AtmosphericLightEmission
+sky:AtmosphericLightEmission rdf:type owl:Class ;
+                             rdfs:subClassOf atmo:AtmosphericPhenomena ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty rela:hasPhenomena ;
+                                               owl:allValuesFrom waves:Emission
+                                             ] .
 
-<http://sweetontology.net/phenAtmoSky/AirQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirPollution> .
 
-<http://sweetontology.net/phenAtmoSky/IndoorAirQuality> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirQuality> .
+###  http://sweetontology.net/phenAtmoSky/Aurora
+sky:Aurora rdf:type owl:Class ;
+           rdfs:subClassOf sky:AtmosphericLightEmission .
 
-<http://sweetontology.net/phenAtmoSky/OzoneHole> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirPollution> ;
-	owl:equivalentClass <http://sweetontology.net/phenAtmoSky/OzoneDepletion> .
 
-<http://sweetontology.net/phenAtmoSky/OzoneDepletion> a owl:Class .
+###  http://sweetontology.net/phenAtmoSky/AuroralSubstorm
+sky:AuroralSubstorm rdf:type owl:Class ;
+                    owl:equivalentClass sky:MagneticSubstorm ;
+                    rdfs:subClassOf sky:AtmosphericLightEmission .
 
-<http://sweetontology.net/phenAtmoSky/PhotochemicalAirPollution> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/AirPollution> ;
-	rdfs:comment "Type of air pollution, such as Los Angeles smog, associated with the buildup of oxidation products formed from the degradation of hydrocarbons, etc."@en .
 
-<http://sweetontology.net/phenAtmoSky/Sunlit> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/WeatherCondition> .
+###  http://sweetontology.net/phenAtmoSky/IndoorAirQuality
+sky:IndoorAirQuality rdf:type owl:Class ;
+                     rdfs:subClassOf sky:AirQuality .
 
-<http://sweetontology.net/phenAtmoSky/Obscuration> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoFog/Fog> .
 
-<http://sweetontology.net/phenAtmoSky/Whiteout> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmoSky/Obscuration> ;
-	rdfs:comment "An atmospheric optical phenomenon in which the observer appears to be engulfed in a uniformly white glow."@en .
+###  http://sweetontology.net/phenAtmoSky/MagneticSubstorm
+sky:MagneticSubstorm rdf:type owl:Class .
 
-<http://sweetontology.net/phenAtmoSky/Rainbow> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> .
 
-<http://sweetontology.net/phenAtmoSky/Sunlight> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/phen/RadiativeHeating> ;
-	rdfs:comment "Sunlight, in the broad sense, is the total spectrum of the electromagnetic radiation given off by the Sun. On Earth, sunlight is filtered through the atmosphere, and the solar radiation is obvious as daylight when the Sun is above the horizon. This is usually during the hours known as day. Near the poles in summer, sunlight also occurs during the hours known as night and in the winter at the poles sunlight may not occur at any time. When the direct radiation is not blocked by clouds, it is experienced as sunshine, a combination of bright light and heat. Radiant heat directly produced by the radiation of the sun is different from the increase in atmospheric temperature due to the radiative heating of the atmosphere by the sun's radiation."@en .
+###  http://sweetontology.net/phenAtmoSky/Obscuration
+sky:Obscuration rdf:type owl:Class ;
+                rdfs:subClassOf fog:Fog .
+
+
+###  http://sweetontology.net/phenAtmoSky/OzoneDepletion
+sky:OzoneDepletion rdf:type owl:Class ;
+                   owl:equivalentClass sky:OzoneHole .
+
+
+###  http://sweetontology.net/phenAtmoSky/OzoneHole
+sky:OzoneHole rdf:type owl:Class ;
+              rdfs:subClassOf sky:AirPollution .
+
+
+###  http://sweetontology.net/phenAtmoSky/PhotochemicalAirPollution
+sky:PhotochemicalAirPollution rdf:type owl:Class ;
+                              rdfs:subClassOf sky:AirPollution .
+
+
+###  http://sweetontology.net/phenAtmoSky/Rainbow
+sky:Rainbow rdf:type owl:Class ;
+            rdfs:subClassOf atmo:MeteorologicalPhenomena .
+
+
+###  http://sweetontology.net/phenAtmoSky/Sunlight
+sky:Sunlight rdf:type owl:Class ;
+             rdfs:subClassOf phen:RadiativeHeating .
+
+
+###  http://sweetontology.net/phenAtmoSky/Sunlit
+sky:Sunlit rdf:type owl:Class ;
+           rdfs:subClassOf atmo:WeatherCondition .
+
+
+###  http://sweetontology.net/phenAtmoSky/Whiteout
+sky:Whiteout rdf:type owl:Class ;
+             rdfs:subClassOf sky:Obscuration .
+
+
+###  http://sweetontology.net/phenAtmoSky/ZodiacalLight
+sky:ZodiacalLight rdf:type owl:Class ;
+                  rdfs:subClassOf sky:AtmosphericLightEmission .
+
+
+###  http://sweetontology.net/phenEnvirImpact/Pollution
+eimpa:Pollution rdf:type owl:Class .
+
+
+###  http://sweetontology.net/procWave/Emission
+waves:Emission rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

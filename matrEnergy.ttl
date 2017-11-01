@@ -1,104 +1,192 @@
+@prefix : <http://sweetontology.net/matrEnergy/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix comp: <http://sweetontology.net/reprSciComponent/> .
 @prefix infr: <http://sweetontology.net/matrEquipment/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix mener: <http://sweetontology.net/matrEnergy/> .
 @prefix pener: <http://sweetontology.net/phenEnergy/> .
 @prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix comp: <http://sweetontology.net/reprSciComponent/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@base <http://sweetontology.net/matrEnergy> .
 
-<http://sweetontology.net/matrEnergy> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrEquipment> , <http://sweetontology.net/reprSciComponent> , <http://sweetontology.net/phenEnergy> , <http://sweetontology.net/relaPhysical> .
+<http://sweetontology.net/matrEnergy> rdf:type owl:Ontology ;
+                                       owl:imports <http://sweetontology.net/matrEquipment> ,
+                                                   <http://sweetontology.net/phenEnergy> ,
+                                                   <http://sweetontology.net/relaPhysical> ,
+                                                   <http://sweetontology.net/reprSciComponent> ;
+                                       rdfs:label "SWEET Ontology" ;
+                                       owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/matrEnergy/Battery> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyStorage> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/matrEnergy/Biodiesel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/Biofuel> .
+###  http://sweetontology.net/relaPhysical/hasEnergySource
+prela:hasEnergySource rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/matrEnergy/Biofuel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/Fuel> , _:node1boamdv3lx1 .
 
-_:node1boamdv3lx1 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-	owl:allValuesFrom <http://sweetontology.net/matrEnergy/Biomass> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/matrEnergy/Biomass> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyStorage> .
+###  http://sweetontology.net/matrEnergy/Battery
+mener:Battery rdf:type owl:Class ;
+              rdfs:subClassOf mener:EnergyStorage .
 
-<http://sweetontology.net/matrEnergy/CompundParabolicConcentrator> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyCollector> .
 
-<http://sweetontology.net/matrEnergy/EnergyCollector> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> .
+###  http://sweetontology.net/matrEnergy/Biodiesel
+mener:Biodiesel rdf:type owl:Class ;
+                rdfs:subClassOf mener:Biofuel .
 
-<http://sweetontology.net/matrEnergy/EnergyConversionDevice> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> .
 
-<http://sweetontology.net/matrEnergy/EnergyDistributionSystem> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> .
+###  http://sweetontology.net/matrEnergy/Biofuel
+mener:Biofuel rdf:type owl:Class ;
+              rdfs:subClassOf mener:Fuel ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty prela:hasEnergySource ;
+                                owl:allValuesFrom mener:Biomass
+                              ] .
 
-<http://sweetontology.net/matrEnergy/EnergyStorage> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprSciComponent/Storage> .
 
-<http://sweetontology.net/matrEnergy/Ethanol> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/Biofuel> .
+###  http://sweetontology.net/matrEnergy/Biomass
+mener:Biomass rdf:type owl:Class ;
+              rdfs:subClassOf mener:EnergyStorage .
 
-<http://sweetontology.net/matrEnergy/FlatPlateCollector> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyCollector> .
 
-<http://sweetontology.net/matrEnergy/Fuel> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyStorage> .
+###  http://sweetontology.net/matrEnergy/CompundParabolicConcentrator
+mener:CompundParabolicConcentrator rdf:type owl:Class ;
+                                   rdfs:subClassOf mener:EnergyCollector .
 
-<http://sweetontology.net/matrEnergy/FuelCell> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyStorage> .
 
-<http://sweetontology.net/matrEnergy/GeothermalPowerPlant> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/PowerPlant> , _:node1boamdv3lx2 .
+###  http://sweetontology.net/matrEnergy/EnergyCollector
+mener:EnergyCollector rdf:type owl:Class ;
+                      rdfs:subClassOf infr:Infrastructure .
 
-_:node1boamdv3lx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-	owl:allValuesFrom <http://sweetontology.net/phenEnergy/Geothermal> .
 
-<http://sweetontology.net/matrEnergy/Heater> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyConversionDevice> .
+###  http://sweetontology.net/matrEnergy/EnergyConversionDevice
+mener:EnergyConversionDevice rdf:type owl:Class ;
+                             rdfs:subClassOf infr:Infrastructure .
 
-<http://sweetontology.net/matrEnergy/HeatExchanger> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyDistributionSystem> .
 
-<http://sweetontology.net/matrEnergy/HeatPump> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyDistributionSystem> .
+###  http://sweetontology.net/matrEnergy/EnergyDistributionSystem
+mener:EnergyDistributionSystem rdf:type owl:Class ;
+                               rdfs:subClassOf infr:Infrastructure .
 
-<http://sweetontology.net/matrEnergy/HydrogenEnergy> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyStorage> .
 
-<http://sweetontology.net/matrEnergy/ParabolicTrough> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyCollector> .
+###  http://sweetontology.net/matrEnergy/EnergyStorage
+mener:EnergyStorage rdf:type owl:Class ;
+                    rdfs:subClassOf comp:Storage .
 
-<http://sweetontology.net/matrEnergy/PhotovoltaicCell> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyCollector> , _:node1boamdv3lx3 .
 
-_:node1boamdv3lx3 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
-	owl:allValuesFrom <http://sweetontology.net/phenEnergy/SolarPower> .
+###  http://sweetontology.net/matrEnergy/Ethanol
+mener:Ethanol rdf:type owl:Class ;
+              rdfs:subClassOf mener:Biofuel .
 
-<http://sweetontology.net/matrEnergy/PowerGrid> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyDistributionSystem> .
 
-<http://sweetontology.net/matrEnergy/PowerPlant> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyConversionDevice> .
+###  http://sweetontology.net/matrEnergy/FlatPlateCollector
+mener:FlatPlateCollector rdf:type owl:Class ;
+                         rdfs:subClassOf mener:EnergyCollector .
 
-<http://sweetontology.net/matrEnergy/PowerTransmissionFacility> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> .
 
-<http://sweetontology.net/matrEnergy/Refrigerator> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyConversionDevice> .
+###  http://sweetontology.net/matrEnergy/Fuel
+mener:Fuel rdf:type owl:Class ;
+           rdfs:subClassOf mener:EnergyStorage .
 
-<http://sweetontology.net/matrEnergy/SmartGrid> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/PowerGrid> .
 
-<http://sweetontology.net/matrEnergy/TubularCollector> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matrEnergy/EnergyCollector> .
+###  http://sweetontology.net/matrEnergy/FuelCell
+mener:FuelCell rdf:type owl:Class ;
+               rdfs:subClassOf mener:EnergyStorage .
+
+
+###  http://sweetontology.net/matrEnergy/GeothermalPowerPlant
+mener:GeothermalPowerPlant rdf:type owl:Class ;
+                           rdfs:subClassOf mener:PowerPlant ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty prela:hasEnergySource ;
+                                             owl:allValuesFrom pener:Geothermal
+                                           ] .
+
+
+###  http://sweetontology.net/matrEnergy/HeatExchanger
+mener:HeatExchanger rdf:type owl:Class ;
+                    rdfs:subClassOf mener:EnergyDistributionSystem .
+
+
+###  http://sweetontology.net/matrEnergy/HeatPump
+mener:HeatPump rdf:type owl:Class ;
+               rdfs:subClassOf mener:EnergyDistributionSystem .
+
+
+###  http://sweetontology.net/matrEnergy/Heater
+mener:Heater rdf:type owl:Class ;
+             rdfs:subClassOf mener:EnergyConversionDevice .
+
+
+###  http://sweetontology.net/matrEnergy/HydrogenEnergy
+mener:HydrogenEnergy rdf:type owl:Class ;
+                     rdfs:subClassOf mener:EnergyStorage .
+
+
+###  http://sweetontology.net/matrEnergy/ParabolicTrough
+mener:ParabolicTrough rdf:type owl:Class ;
+                      rdfs:subClassOf mener:EnergyCollector .
+
+
+###  http://sweetontology.net/matrEnergy/PhotovoltaicCell
+mener:PhotovoltaicCell rdf:type owl:Class ;
+                       rdfs:subClassOf mener:EnergyCollector ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty prela:hasEnergySource ;
+                                         owl:allValuesFrom pener:SolarPower
+                                       ] .
+
+
+###  http://sweetontology.net/matrEnergy/PowerGrid
+mener:PowerGrid rdf:type owl:Class ;
+                rdfs:subClassOf mener:EnergyDistributionSystem .
+
+
+###  http://sweetontology.net/matrEnergy/PowerPlant
+mener:PowerPlant rdf:type owl:Class ;
+                 rdfs:subClassOf mener:EnergyConversionDevice .
+
+
+###  http://sweetontology.net/matrEnergy/PowerTransmissionFacility
+mener:PowerTransmissionFacility rdf:type owl:Class ;
+                                rdfs:subClassOf infr:Infrastructure .
+
+
+###  http://sweetontology.net/matrEnergy/Refrigerator
+mener:Refrigerator rdf:type owl:Class ;
+                   rdfs:subClassOf mener:EnergyConversionDevice .
+
+
+###  http://sweetontology.net/matrEnergy/SmartGrid
+mener:SmartGrid rdf:type owl:Class ;
+                rdfs:subClassOf mener:PowerGrid .
+
+
+###  http://sweetontology.net/matrEnergy/TubularCollector
+mener:TubularCollector rdf:type owl:Class ;
+                       rdfs:subClassOf mener:EnergyCollector .
+
+
+###  http://sweetontology.net/matrEquipment/Infrastructure
+infr:Infrastructure rdf:type owl:Class .
+
+
+###  http://sweetontology.net/phenEnergy/Geothermal
+pener:Geothermal rdf:type owl:Class .
+
+
+###  http://sweetontology.net/phenEnergy/SolarPower
+pener:SolarPower rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprSciComponent/Storage
+comp:Storage rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

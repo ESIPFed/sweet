@@ -1,41 +1,73 @@
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix petr: <http://sweetontology.net/matrRock/> .
-@prefix geol: <http://sweetontology.net/realmGeol/> .
-@prefix chem: <http://sweetontology.net/matr/> .
+@prefix : <http://sweetontology.net/realmGeolOceanic/> .
 @prefix oce: <http://sweetontology.net/realmGeolOceanic/> .
-@prefix ocean: <http://sweetontology.net/realmOcean/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix chem: <http://sweetontology.net/matr/> .
+@prefix geol: <http://sweetontology.net/realmGeol/> .
+@prefix petr: <http://sweetontology.net/matrRock/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rela: <http://sweetontology.net/rela/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ocean: <http://sweetontology.net/realmOcean/> .
+@base <http://sweetontology.net/realmGeolOceanic> .
 
-<http://sweetontology.net/realmGeolOceanic> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrRock> , <http://sweetontology.net/realmGeol> , <http://sweetontology.net/matr> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaChemical> , <http://sweetontology.net/realmOcean> .
+<http://sweetontology.net/realmGeolOceanic> rdf:type owl:Ontology ;
+                                             owl:imports <http://sweetontology.net/matr> ,
+                                                         <http://sweetontology.net/matrRock> ,
+                                                         <http://sweetontology.net/realmGeol> ,
+                                                         <http://sweetontology.net/realmOcean> ,
+                                                         <http://sweetontology.net/rela> ,
+                                                         <http://sweetontology.net/relaChemical> ;
+                                             rdfs:label "SWEET Ontology" ;
+                                             owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/realmGeolOceanic/AccretionaryPrism> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/matr/Mixture> , <http://sweetontology.net/realmGeol/GeologicStructure> , _:node1boameff1x1 .
+#################################################################
+#    Object Properties
+#################################################################
 
-_:node1boameff1x1 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/matrRock/Melange> ;
-	owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> .
+###  http://sweetontology.net/rela/partOf
+rela:partOf rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/realmGeolOceanic/AccretionaryPrism> rdfs:comment "An accretionary wedge or accretionary prism is formed from sediments that are accreted onto the non-subducting tectonic plate at a convergent plate boundary. Most of the material in the accretionary wedge consists of marine sediments scraped off from the downgoing slab of oceanic crust but in some cases includes the erosional products of volcanic island arcs formed on the overriding plate. [Wikipedia]"@en .
 
-<http://sweetontology.net/realmGeolOceanic/OceanicLithosphere> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmGeol/Lithosphere> , <http://sweetontology.net/realmOcean/OceanRegion> ;
-	owl:equivalentClass <http://sweetontology.net/realmGeolOceanic/Submarine> ;
-	rdfs:comment "Oceanic lithosphere is typically about 50-100 km thick (but beneath the mid-ocean ridges is no thicker than the crust). Oceanic lithosphere consists mainly of mafic crust and ultramafic mantle and is denser than continental lithosphere, for which the mantle is associated with crust made of felsic rocks. The crust is distinguished from the upper mantle by the change in chemical composition that takes place at the Moho discontinuity. Oceanic lithosphere thickens as it ages and moves away from the mid-ocean ridge. This thickening occurs by conductive cooling, which converts hot asthenosphere into lithospheric mantle, and causes the oceanic lithosphere to become increasingly dense with age. Oceanic lithosphere is less dense than asthenosphere for a few tens of millions of years, but after this becomes increasingly denser than asthenosphere. The gravitational instability of mature oceanic lithosphere has the effect that at subduction zones the oceanic lithosphere invariably sinks underneath the overriding lithosphere, which can be oceanic or continental. New oceanic lithosphere is constantly being produced at mid-ocean ridges and is recycled back to the mantle at subduction zones. As a result, oceanic lithosphere is much younger than continental lithosphere: the oldest oceanic lithosphere is about 170 million years old, while parts of the continental lithosphere are billions of years old." .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/realmGeolOceanic/Submarine> a owl:Class .
+###  http://sweetontology.net/realmGeolOceanic/AccretionaryPrism
+oce:AccretionaryPrism rdf:type owl:Class ;
+                      rdfs:subClassOf chem:Mixture ,
+                                      geol:GeologicStructure ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty crela:hasSubstance ;
+                                        owl:allValuesFrom petr:Melange
+                                      ] .
 
-<http://sweetontology.net/realmGeolOceanic/OceanicCrust> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/realmGeol/Crust> , <http://sweetontology.net/realmOcean/OceanRegion> , _:node1boameff1x2 .
 
-_:node1boameff1x2 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/realmGeolOceanic/OceanicLithosphere> ;
-	owl:onProperty <http://sweetontology.net/rela/partOf> .
+###  http://sweetontology.net/realmGeolOceanic/OceanicCrust
+oce:OceanicCrust rdf:type owl:Class ;
+                 rdfs:subClassOf geol:Crust ,
+                                 ocean:OceanRegion ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rela:partOf ;
+                                   owl:allValuesFrom oce:OceanicLithosphere
+                                 ] .
 
-<http://sweetontology.net/realmGeolOceanic/OceanicCrust> rdfs:comment "The oceanic crust is 5 km (3 mi) to 10 km (6 mi) thick and is composed primarily of basalt, diabase, and gabbro. [Wikipedia]"@en .
+
+###  http://sweetontology.net/realmGeolOceanic/OceanicLithosphere
+oce:OceanicLithosphere rdf:type owl:Class ;
+                       owl:equivalentClass oce:Submarine ;
+                       rdfs:subClassOf geol:Lithosphere ,
+                                       ocean:OceanRegion .
+
+
+###  http://sweetontology.net/realmGeolOceanic/Submarine
+oce:Submarine rdf:type owl:Class .
+
+
+###  http://sweetontology.net/realmOcean/OceanRegion
+ocean:OceanRegion rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

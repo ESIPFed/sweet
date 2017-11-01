@@ -1,133 +1,266 @@
+@prefix : <http://sweetontology.net/reprSpaceCoordinate/> .
+@prefix dir: <http://sweetontology.net/propSpaceDirection/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix repr: <http://sweetontology.net/repr/> .
-@prefix dir: <http://sweetontology.net/propSpaceDirection/> .
+@prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
 @prefix coord: <http://sweetontology.net/reprSpaceCoordinate/> .
 @prefix srela: <http://sweetontology.net/relaSpace/> .
 @prefix srela2: <http://sweetontology.net/relaSpace/> .
+@base <http://sweetontology.net/reprSpaceCoordinate> .
 
-<http://sweetontology.net/reprSpaceCoordinate> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSpaceDirection> , <http://sweetontology.net/propSpaceDirection> , <http://sweetontology.net/relaSpace> , <http://sweetontology.net/repr> .
+<http://sweetontology.net/reprSpaceCoordinate> rdf:type owl:Ontology ;
+                                                owl:imports <http://sweetontology.net/propSpaceDirection> ,
+                                                            <http://sweetontology.net/relaSpace> ,
+                                                            <http://sweetontology.net/repr> ,
+                                                            <http://sweetontology.net/reprSpaceDirection> ;
+                                                rdfs:label "SWEET Ontology" ;
+                                                owl:versionInfo "3.1.0" .
 
-coord:Vertical a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Coordinate> ;
-	owl:equivalentClass coord:VerticalCoordinate ;
-	rdfs:subClassOf _:node1boamen0nx1 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamen0nx1 a owl:Restriction ;
-	owl:onProperty srela2:hasDirection ;
-	owl:hasValue <http://sweetontology.net/reprSpaceDirection/Up> .
+###  http://sweetontology.net/reprSpaceCoordinate/AngularCoordinate
+coord:AngularCoordinate rdf:type owl:Class ;
+                        rdfs:subClassOf repr:Coordinate .
 
-coord:VerticalCoordinate a owl:Class .
 
-coord:HorizontalCoordinate a owl:Class ;
-	rdfs:subClassOf _:node1boamen0nx2 .
+###  http://sweetontology.net/reprSpaceCoordinate/Equator
+coord:Equator rdf:type owl:Class ;
+              rdfs:subClassOf dir:Direction ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty srela2:perpendicularTo ;
+                                owl:allValuesFrom coord:Pole
+                              ] .
 
-_:node1boamen0nx2 a owl:Restriction ;
-	owl:onProperty srela2:orthogonalTo ;
-	owl:allValuesFrom coord:VerticalCoordinate .
 
-coord:HorizontalCoordinate rdfs:subClassOf <http://sweetontology.net/repr/Coordinate> .
+###  http://sweetontology.net/reprSpaceCoordinate/HorizontalCoordinate
+coord:HorizontalCoordinate rdf:type owl:Class ;
+                           rdfs:subClassOf repr:Coordinate ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty srela2:orthogonalTo ;
+                                             owl:allValuesFrom coord:VerticalCoordinate
+                                           ] .
 
-coord:AngularCoordinate a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/repr/Coordinate> .
 
-coord:X a coord:HorizontalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/East> .
+###  http://sweetontology.net/reprSpaceCoordinate/MagneticPole
+coord:MagneticPole rdf:type owl:Class ;
+                   rdfs:subClassOf coord:Pole .
 
-coord:Y a coord:HorizontalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/North> .
 
-coord:Z a coord:VerticalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/Up> .
+###  http://sweetontology.net/reprSpaceCoordinate/Meridian
+coord:Meridian rdf:type owl:Class ;
+               rdfs:subClassOf coord:HorizontalCoordinate .
 
-coord:Level a coord:VerticalCoordinate .
 
-coord:Pressure a coord:VerticalCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/Pole
+coord:Pole rdf:type owl:Class ;
+           rdfs:subClassOf dir:Direction .
 
-coord:Elevation a coord:VerticalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/Up> ;
-	owl:sameAs coord:Height .
 
-coord:Height a coord:VerticalCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/PrimeMeridian
+coord:PrimeMeridian rdf:type owl:Class ;
+                    rdfs:subClassOf coord:Meridian .
 
-coord:Depth a coord:VerticalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/Down> .
 
-coord:PotentialDensity a coord:VerticalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/Down> .
+###  http://sweetontology.net/reprSpaceCoordinate/Vertical
+coord:Vertical rdf:type owl:Class ;
+               owl:equivalentClass coord:VerticalCoordinate ;
+               rdfs:subClassOf repr:Coordinate ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty srela2:hasDirection ;
+                                 owl:hasValue sdir:Up
+                               ] .
 
-coord:HybridHeight a coord:VerticalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/Up> .
 
-coord:HybridSigma a coord:VerticalCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/VerticalCoordinate
+coord:VerticalCoordinate rdf:type owl:Class .
 
-coord:R a coord:HorizontalCoordinate .
 
-coord:S a coord:VerticalCoordinate .
+#################################################################
+#    Individuals
+#################################################################
 
-coord:Sigma a coord:VerticalCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/Colatitude
+coord:Colatitude rdf:type owl:NamedIndividual ,
+                          coord:HorizontalCoordinate ;
+                 srela2:hasDirection sdir:South .
 
-coord:SigmaNaught a coord:VerticalCoordinate .
 
-coord:Theta a coord:AngularCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/Declination
+coord:Declination rdf:type owl:NamedIndividual ,
+                           coord:AngularCoordinate .
 
-coord:ZoneCode a coord:HorizontalCoordinate .
 
-coord:Latitude a coord:HorizontalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/North> .
+###  http://sweetontology.net/reprSpaceCoordinate/Depth
+coord:Depth rdf:type owl:NamedIndividual ,
+                     coord:VerticalCoordinate ;
+            srela2:hasDirection sdir:Down .
 
-coord:Colatitude a coord:HorizontalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/South> .
 
-coord:Longitude a coord:HorizontalCoordinate ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/East> .
+###  http://sweetontology.net/reprSpaceCoordinate/Elevation
+coord:Elevation rdf:type owl:NamedIndividual ,
+                         coord:VerticalCoordinate ;
+                owl:sameAs coord:Height ;
+                srela2:hasDirection sdir:Up .
 
-coord:RightAscension a coord:AngularCoordinate ;
-	owl:sameAs coord:RA .
 
-coord:RA a coord:AngularCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/Height
+coord:Height rdf:type owl:NamedIndividual ,
+                      coord:VerticalCoordinate .
 
-coord:Declination a coord:AngularCoordinate .
 
-coord:Roll a coord:AngularCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/HybridHeight
+coord:HybridHeight rdf:type owl:NamedIndividual ,
+                            coord:VerticalCoordinate ;
+                   srela2:hasDirection sdir:Up .
 
-coord:Pitch a coord:AngularCoordinate .
 
-coord:Yaw a coord:AngularCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/HybridSigma
+coord:HybridSigma rdf:type owl:NamedIndividual ,
+                           coord:VerticalCoordinate .
 
-coord:PrimeMeridian a owl:Class ;
-	rdfs:subClassOf coord:Meridian .
 
-coord:Meridian a owl:Class ;
-	rdfs:subClassOf coord:HorizontalCoordinate .
+###  http://sweetontology.net/reprSpaceCoordinate/Latitude
+coord:Latitude rdf:type owl:NamedIndividual ,
+                        coord:HorizontalCoordinate ;
+               srela2:hasDirection sdir:North .
 
-coord:Equator a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceDirection/Direction> , _:node1boamen0nx3 .
 
-_:node1boamen0nx3 a owl:Restriction ;
-	owl:onProperty srela2:perpendicularTo ;
-	owl:allValuesFrom coord:Pole .
+###  http://sweetontology.net/reprSpaceCoordinate/Level
+coord:Level rdf:type owl:NamedIndividual ,
+                     coord:VerticalCoordinate .
 
-coord:MagneticPole a owl:Class ;
-	rdfs:subClassOf coord:Pole .
 
-coord:Pole a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propSpaceDirection/Direction> .
+###  http://sweetontology.net/reprSpaceCoordinate/Longitude
+coord:Longitude rdf:type owl:NamedIndividual ,
+                         coord:HorizontalCoordinate ;
+                srela2:hasDirection sdir:East .
 
-coord:SouthPole a coord:Pole ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/South> .
 
-coord:NorthPole a coord:Pole ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/North> .
+###  http://sweetontology.net/reprSpaceCoordinate/NorthMagneticPole
+coord:NorthMagneticPole rdf:type owl:NamedIndividual ,
+                                 coord:MagneticPole ;
+                        srela2:hasDirection sdir:North .
 
-coord:SouthMagneticPole a coord:MagneticPole ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/South> .
 
-coord:NorthMagneticPole a coord:MagneticPole ;
-	srela2:hasDirection <http://sweetontology.net/reprSpaceDirection/North> .
+###  http://sweetontology.net/reprSpaceCoordinate/NorthPole
+coord:NorthPole rdf:type owl:NamedIndividual ,
+                         coord:Pole ;
+                srela2:hasDirection sdir:North .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Pitch
+coord:Pitch rdf:type owl:NamedIndividual ,
+                     coord:AngularCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/PotentialDensity
+coord:PotentialDensity rdf:type owl:NamedIndividual ,
+                                coord:VerticalCoordinate ;
+                       srela2:hasDirection sdir:Down .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Pressure
+coord:Pressure rdf:type owl:NamedIndividual ,
+                        coord:VerticalCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/R
+coord:R rdf:type owl:NamedIndividual ,
+                 coord:HorizontalCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/RA
+coord:RA rdf:type owl:NamedIndividual ,
+                  coord:AngularCoordinate ;
+         owl:sameAs coord:RightAscension .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/RightAscension
+coord:RightAscension rdf:type owl:NamedIndividual ,
+                              coord:AngularCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Roll
+coord:Roll rdf:type owl:NamedIndividual ,
+                    coord:AngularCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/S
+coord:S rdf:type owl:NamedIndividual ,
+                 coord:VerticalCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Sigma
+coord:Sigma rdf:type owl:NamedIndividual ,
+                     coord:VerticalCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/SigmaNaught
+coord:SigmaNaught rdf:type owl:NamedIndividual ,
+                           coord:VerticalCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/SouthMagneticPole
+coord:SouthMagneticPole rdf:type owl:NamedIndividual ,
+                                 coord:MagneticPole ;
+                        srela2:hasDirection sdir:South .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/SouthPole
+coord:SouthPole rdf:type owl:NamedIndividual ,
+                         coord:Pole ;
+                srela2:hasDirection sdir:South .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Theta
+coord:Theta rdf:type owl:NamedIndividual ,
+                     coord:AngularCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/X
+coord:X rdf:type owl:NamedIndividual ,
+                 coord:HorizontalCoordinate ;
+        srela2:hasDirection sdir:East .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Y
+coord:Y rdf:type owl:NamedIndividual ,
+                 coord:HorizontalCoordinate ;
+        srela2:hasDirection sdir:North .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Yaw
+coord:Yaw rdf:type owl:NamedIndividual ,
+                   coord:AngularCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/Z
+coord:Z rdf:type owl:NamedIndividual ,
+                 coord:VerticalCoordinate ;
+        srela2:hasDirection sdir:Up .
+
+
+###  http://sweetontology.net/reprSpaceCoordinate/ZoneCode
+coord:ZoneCode rdf:type owl:NamedIndividual ,
+                        coord:HorizontalCoordinate .
+
+
+###  http://sweetontology.net/reprSpaceDirection/East
+sdir:East rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSpaceDirection/North
+sdir:North rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSpaceDirection/South
+sdir:South rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

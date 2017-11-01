@@ -1,75 +1,168 @@
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix cond: <http://sweetontology.net/propConductivity/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix mass: <http://sweetontology.net/propMass/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix : <http://sweetontology.net/propConductivity/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cond: <http://sweetontology.net/propConductivity/> .
+@prefix mass: <http://sweetontology.net/propMass/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/propConductivity> .
 
-<http://sweetontology.net/propConductivity> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/propMass> .
+<http://sweetontology.net/propConductivity> rdf:type owl:Ontology ;
+                                             owl:imports <http://sweetontology.net/propMass> ,
+                                                         <http://sweetontology.net/propQuantity> ,
+                                                         <http://sweetontology.net/relaSci> ,
+                                                         <http://sweetontology.net/reprSciUnits> ;
+                                             rdfs:label "SWEET Ontology" ;
+                                             owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/propConductivity/Conductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/propConductivity/ThermalConductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> , <http://sweetontology.net/propConductivity/Conductivity> , _:node1boame981x1 .
+###  http://sweetontology.net/relaSci/hasDefaultUnit
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
-_:node1boame981x1 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/wattPerMeterPerKelvin> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-<http://sweetontology.net/propConductivity/PedersenConductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propConductivity/ElectricalConductivity> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/propConductivity/HallConductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propConductivity/ElectricalConductivity> .
+###  http://sweetontology.net/propConductivity/Conductance
+cond:Conductance rdf:type owl:Class ;
+                 rdfs:subClassOf quan:ElectromagneticQuantity ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasDefaultUnit ;
+                                   owl:hasValue units:siemens
+                                 ] .
 
-<http://sweetontology.net/propConductivity/ElectricalConductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> , <http://sweetontology.net/propConductivity/Conductivity> , _:node1boame981x2 .
 
-_:node1boame981x2 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/siemensPerMeter> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+###  http://sweetontology.net/propConductivity/Conductivity
+cond:Conductivity rdf:type owl:Class ;
+                  rdfs:subClassOf quan:PhysicalQuantity .
 
-<http://sweetontology.net/propConductivity/Conductance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> , _:node1boame981x3 .
 
-_:node1boame981x3 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/siemens> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+###  http://sweetontology.net/propConductivity/ElectricalConductivity
+cond:ElectricalConductivity rdf:type owl:Class ;
+                            rdfs:subClassOf cond:Conductivity ,
+                                            quan:ElectromagneticQuantity ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty screla:hasDefaultUnit ;
+                                              owl:hasValue units:siemensPerMeter
+                                            ] .
 
-<http://sweetontology.net/propConductivity/SpecificConductance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> , _:node1boame981x4 .
 
-_:node1boame981x4 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/siemensPerKilogram> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+###  http://sweetontology.net/propConductivity/HallConductivity
+cond:HallConductivity rdf:type owl:Class ;
+                      rdfs:subClassOf cond:ElectricalConductivity .
 
-<http://sweetontology.net/propConductivity/Resistance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propConductivity/Impedance> .
 
-<http://sweetontology.net/propConductivity/Resistivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> , _:node1boame981x5 .
+###  http://sweetontology.net/propConductivity/HydraulicConductivity
+cond:HydraulicConductivity rdf:type owl:Class ;
+                           rdfs:subClassOf cond:Conductivity ,
+                                           mass:ConsistenceProperty ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty screla:hasDefaultUnit ;
+                                             owl:hasValue units:meterPerSecond
+                                           ] .
 
-_:node1boame981x5 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/ohmMeter> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-<http://sweetontology.net/propConductivity/Impedance> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> , _:node1boame981x6 .
+###  http://sweetontology.net/propConductivity/Impedance
+cond:Impedance rdf:type owl:Class ;
+               rdfs:subClassOf quan:PhysicalQuantity ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasDefaultUnit ;
+                                 owl:hasValue units:ohm
+                               ] .
 
-_:node1boame981x6 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/ohm> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-<http://sweetontology.net/propConductivity/HydraulicConductivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propConductivity/Conductivity> , <http://sweetontology.net/propMass/ConsistenceProperty> , _:node1boame981x7 .
+###  http://sweetontology.net/propConductivity/PedersenConductivity
+cond:PedersenConductivity rdf:type owl:Class ;
+                          rdfs:subClassOf cond:ElectricalConductivity .
 
-_:node1boame981x7 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/meterPerSecond> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+
+###  http://sweetontology.net/propConductivity/Resistance
+cond:Resistance rdf:type owl:Class ;
+                rdfs:subClassOf cond:Impedance .
+
+
+###  http://sweetontology.net/propConductivity/Resistivity
+cond:Resistivity rdf:type owl:Class ;
+                 rdfs:subClassOf quan:PhysicalQuantity ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasDefaultUnit ;
+                                   owl:hasValue units:ohmMeter
+                                 ] .
+
+
+###  http://sweetontology.net/propConductivity/SpecificConductance
+cond:SpecificConductance rdf:type owl:Class ;
+                         rdfs:subClassOf quan:PhysicalQuantity ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty screla:hasDefaultUnit ;
+                                           owl:hasValue units:siemensPerKilogram
+                                         ] .
+
+
+###  http://sweetontology.net/propConductivity/ThermalConductivity
+cond:ThermalConductivity rdf:type owl:Class ;
+                         rdfs:subClassOf cond:Conductivity ,
+                                         quan:ThermodynamicQuantity ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty screla:hasDefaultUnit ;
+                                           owl:hasValue units:wattPerMeterPerKelvin
+                                         ] .
+
+
+###  http://sweetontology.net/propMass/ConsistenceProperty
+mass:ConsistenceProperty rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propQuantity/ElectromagneticQuantity
+quan:ElectromagneticQuantity rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propQuantity/PhysicalQuantity
+quan:PhysicalQuantity rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
+quan:ThermodynamicQuantity rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/meterPerSecond
+units:meterPerSecond rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/ohm
+units:ohm rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/ohmMeter
+units:ohmMeter rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/siemens
+units:siemens rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/siemensPerKilogram
+units:siemensPerKilogram rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/siemensPerMeter
+units:siemensPerMeter rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/wattPerMeterPerKelvin
+units:wattPerMeterPerKelvin rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

@@ -1,83 +1,143 @@
-@prefix matr: <http://sweetontology.net/matr/> .
-@prefix proc: <http://sweetontology.net/procChemical/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix crela: <http://sweetontology.net/relaChemical/> .
+@prefix : <http://sweetontology.net/relaChemical/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix matr: <http://sweetontology.net/matr/> .
+@prefix proc: <http://sweetontology.net/procChemical/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix crela: <http://sweetontology.net/relaChemical/> .
+@base <http://sweetontology.net/relaChemical> .
 
-<http://sweetontology.net/relaChemical> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matr> , <http://sweetontology.net/procChemical> , <http://sweetontology.net/rela> .
+<http://sweetontology.net/relaChemical> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/matr> ,
+                                                     <http://sweetontology.net/procChemical> ,
+                                                     <http://sweetontology.net/rela> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-crela:hasBaseNeutrons a owl:DatatypeProperty ;
-	rdfs:domain matr:Chemical ;
-	rdfs:range xsd:integer .
+#################################################################
+#    Object Properties
+#################################################################
 
-crela:hasProtons a owl:DatatypeProperty ;
-	rdfs:range xsd:integer ;
-	owl:equivalentProperty crela:atomicNumber .
+###  http://sweetontology.net/relaChemical/atomicMass
+crela:atomicMass rdf:type owl:ObjectProperty ;
+                 owl:equivalentProperty crela:atomicWeight ;
+                 rdfs:domain matr:ChemicalSubstance .
 
-crela:atomicNumber a owl:DatatypeProperty .
 
-crela:hasChemical a owl:ObjectProperty ;
-	owl:equivalentProperty crela:hasSubstance , crela:hasMaterial ;
-	rdfs:range matr:Chemical .
+###  http://sweetontology.net/relaChemical/atomicWeight
+crela:atomicWeight rdf:type owl:ObjectProperty .
 
-crela:hasSubstance a owl:ObjectProperty .
 
-crela:hasMaterial a owl:ObjectProperty .
+###  http://sweetontology.net/relaChemical/hasChemical
+crela:hasChemical rdf:type owl:ObjectProperty ;
+                  owl:equivalentProperty crela:hasMaterial ,
+                                         crela:hasSubstance ;
+                  rdfs:range matr:Chemical .
 
-crela:hasChemical_1 a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasChemical_2 a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
+###  http://sweetontology.net/relaChemical/hasChemicalProcess
+crela:hasChemicalProcess rdf:type owl:ObjectProperty ;
+                         owl:equivalentProperty crela:hasChemicalReaction ;
+                         rdfs:subPropertyOf rela:hasProcess ;
+                         rdfs:range proc:ChemicalProcess .
 
-crela:hasChemical_3 a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasChemical_4 a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
+###  http://sweetontology.net/relaChemical/hasChemicalReaction
+crela:hasChemicalReaction rdf:type owl:ObjectProperty .
 
-crela:hasChemical_5 a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasChemical_6 a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
+###  http://sweetontology.net/relaChemical/hasChemicalRole
+crela:hasChemicalRole rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf rela:hasRole .
 
-crela:hasPrimarySubstance a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasMedium a owl:ObjectProperty ;
-	rdfs:subPropertyOf crela:hasSubstance ;
-	rdfs:range matr:Medium .
+###  http://sweetontology.net/relaChemical/hasChemical_1
+crela:hasChemical_1 rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crela:hasSubstance .
 
-crela:atomicMass a owl:ObjectProperty ;
-	rdfs:domain matr:ChemicalSubstance ;
-	owl:equivalentProperty crela:atomicWeight .
 
-crela:atomicWeight a owl:ObjectProperty .
+###  http://sweetontology.net/relaChemical/hasChemical_2
+crela:hasChemical_2 rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasAtoms a owl:DatatypeProperty ;
-	rdfs:domain matr:Chemical ;
-	rdfs:range xsd:integer .
 
-crela:hasNeutrons a owl:DatatypeProperty ;
-	rdfs:domain matr:Chemical ;
-	rdfs:range xsd:integer .
+###  http://sweetontology.net/relaChemical/hasChemical_3
+crela:hasChemical_3 rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasChemicalRole a owl:ObjectProperty ;
-	rdfs:subPropertyOf rela:hasRole .
 
-crela:hasChemicalProcess a owl:ObjectProperty ;
-	rdfs:subPropertyOf rela:hasProcess ;
-	rdfs:range proc:ChemicalProcess ;
-	owl:equivalentProperty crela:hasChemicalReaction .
+###  http://sweetontology.net/relaChemical/hasChemical_4
+crela:hasChemical_4 rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crela:hasSubstance .
 
-crela:hasChemicalReaction a owl:ObjectProperty .
 
-crela:hasReactionProduct a owl:ObjectProperty ;
-	rdfs:domain proc:ChemicalProcess .
+###  http://sweetontology.net/relaChemical/hasChemical_5
+crela:hasChemical_5 rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crela:hasSubstance .
+
+
+###  http://sweetontology.net/relaChemical/hasChemical_6
+crela:hasChemical_6 rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf crela:hasSubstance .
+
+
+###  http://sweetontology.net/relaChemical/hasMaterial
+crela:hasMaterial rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaChemical/hasMedium
+crela:hasMedium rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf crela:hasSubstance ;
+                rdfs:range matr:Medium .
+
+
+###  http://sweetontology.net/relaChemical/hasPrimarySubstance
+crela:hasPrimarySubstance rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf crela:hasSubstance .
+
+
+###  http://sweetontology.net/relaChemical/hasReactionProduct
+crela:hasReactionProduct rdf:type owl:ObjectProperty ;
+                         rdfs:domain proc:ChemicalProcess .
+
+
+###  http://sweetontology.net/relaChemical/hasSubstance
+crela:hasSubstance rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://sweetontology.net/relaChemical/atomicNumber
+crela:atomicNumber rdf:type owl:DatatypeProperty ;
+                   owl:equivalentProperty crela:hasProtons .
+
+
+###  http://sweetontology.net/relaChemical/hasAtoms
+crela:hasAtoms rdf:type owl:DatatypeProperty ;
+               rdfs:domain matr:Chemical ;
+               rdfs:range xsd:integer .
+
+
+###  http://sweetontology.net/relaChemical/hasBaseNeutrons
+crela:hasBaseNeutrons rdf:type owl:DatatypeProperty ;
+                      rdfs:domain matr:Chemical ;
+                      rdfs:range xsd:integer .
+
+
+###  http://sweetontology.net/relaChemical/hasNeutrons
+crela:hasNeutrons rdf:type owl:DatatypeProperty ;
+                  rdfs:domain matr:Chemical ;
+                  rdfs:range xsd:integer .
+
+
+###  http://sweetontology.net/relaChemical/hasProtons
+crela:hasProtons rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:integer .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

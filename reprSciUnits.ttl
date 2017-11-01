@@ -1,585 +1,1157 @@
+@prefix : <http://sweetontology.net/reprSciUnits/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix repr: <http://sweetontology.net/repr/> .
 @prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/reprSciUnits> .
 
-<http://sweetontology.net/reprSciUnits> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/repr> , <http://sweetontology.net/relaMath> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/reprMathOperation> .
+<http://sweetontology.net/reprSciUnits> rdf:type owl:Ontology ;
+                                         owl:imports <http://sweetontology.net/relaMath> ,
+                                                     <http://sweetontology.net/relaSci> ,
+                                                     <http://sweetontology.net/repr> ,
+                                                     <http://sweetontology.net/reprMathOperation> ;
+                                         rdfs:label "SWEET Ontology" ;
+                                         owl:versionInfo "3.1.0" .
 
-units:UnitDerivedByShifting a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit .
+#################################################################
+#    Classes
+#################################################################
 
-units:UnitDerivedByScaling a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit .
+###  http://sweetontology.net/reprSciUnits/BaseUnit
+units:BaseUnit rdf:type owl:Class ;
+               rdfs:subClassOf units:Unit ;
+               owl:disjointWith units:ComplexUnit .
 
-units:UnitDefinedByProduct a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit , oper:Product .
 
-units:UnitDerivedByRaisingToPower a owl:Class ;
-	rdfs:subClassOf units:ComplexUnit .
+###  http://sweetontology.net/reprSciUnits/ComplexUnit
+units:ComplexUnit rdf:type owl:Class ;
+                  rdfs:subClassOf units:Unit .
 
-units:BaseUnit a owl:Class ;
-	rdfs:subClassOf units:Unit .
 
-units:ComplexUnit a owl:Class ;
-	rdfs:subClassOf units:Unit ;
-	owl:disjointWith units:BaseUnit .
+###  http://sweetontology.net/reprSciUnits/LogarithmicUnit
+units:LogarithmicUnit rdf:type owl:Class ;
+                      rdfs:subClassOf units:Unit ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty mrela:hasScale ;
+                                        owl:allValuesFrom repr:LogarithmicScale
+                                      ] .
 
-units:Unit a owl:Class ;
-	rdfs:subClassOf repr:Measurement .
 
-units:Prefix a owl:Class ;
-	rdfs:subClassOf repr:Measurement .
+###  http://sweetontology.net/reprSciUnits/Prefix
+units:Prefix rdf:type owl:Class ;
+             rdfs:subClassOf repr:Measurement .
 
-units:LogarithmicUnit a owl:Class ;
-	rdfs:subClassOf units:Unit , _:node1btb0r2nbx1 .
 
-_:node1btb0r2nbx1 a owl:Restriction ;
-	owl:onProperty mrela:hasScale ;
-	owl:allValuesFrom repr:LogarithmicScale .
+###  http://sweetontology.net/reprSciUnits/Unit
+units:Unit rdf:type owl:Class ;
+           rdfs:subClassOf repr:Measurement .
 
-units:kilo a units:Prefix ;
-	screla:hasNumericValue "1e3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "k"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:giga a units:Prefix ;
-	screla:hasSymbol "G"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e9"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/UnitDefinedByProduct
+units:UnitDefinedByProduct rdf:type owl:Class ;
+                           rdfs:subClassOf oper:Product ,
+                                           units:ComplexUnit .
 
-units:tera a units:Prefix ;
-	screla:hasSymbol "T"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e12"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:peta a units:Prefix ;
-	screla:hasSymbol "P"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e15"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/UnitDerivedByRaisingToPower
+units:UnitDerivedByRaisingToPower rdf:type owl:Class ;
+                                  rdfs:subClassOf units:ComplexUnit .
 
-units:exa a units:Prefix ;
-	screla:hasSymbol "E"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e18"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:micro a units:Prefix ;
-	screla:hasNumericValue "1E-6"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/UnitDerivedByScaling
+units:UnitDerivedByScaling rdf:type owl:Class ;
+                           rdfs:subClassOf units:ComplexUnit .
 
-units:milli a units:Prefix ;
-	screla:hasSymbol "m"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1E-3"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:centi a units:Prefix ;
-	screla:hasSymbol "c"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1E-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/UnitDerivedByShifting
+units:UnitDerivedByShifting rdf:type owl:Class ;
+                            rdfs:subClassOf units:ComplexUnit .
 
-units:hecto a units:Prefix ;
-	screla:hasNumericValue "1e2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "h"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:nano a units:Prefix ;
-	screla:hasNumericValue "1E-9"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "n"^^<http://www.w3.org/2001/XMLSchema#string> .
+#################################################################
+#    Individuals
+#################################################################
 
-units:deca a units:Prefix ;
-	screla:hasNumericValue "10"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasSymbol "da"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/FNU
+units:FNU rdf:type owl:NamedIndividual ,
+                   units:Unit ;
+          owl:sameAs units:FTU .
 
-units:mega a units:Prefix ;
-	screla:hasSymbol "M"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasNumericValue "1e6"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:meter a units:BaseUnit ;
-	screla:hasSymbol "m"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	owl:sameAs units:metre .
+###  http://sweetontology.net/reprSciUnits/FTU
+units:FTU rdf:type owl:NamedIndividual ,
+                   units:Unit ;
+          owl:sameAs units:FormazinTurbidityUnit .
 
-units:metre a units:BaseUnit .
 
-units:kilogram a units:BaseUnit ;
-	screla:hasSymbol "kg"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/FormazinTurbidityUnit
+units:FormazinTurbidityUnit rdf:type owl:NamedIndividual ,
+                                     units:Unit .
 
-units:ampere a units:BaseUnit ;
-	screla:hasSymbol "a"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:steradian a units:BaseUnit ;
-	screla:hasSymbol "sr"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/MHz
+units:MHz rdf:type owl:NamedIndividual ,
+                   units:UnitDerivedByScaling ;
+          owl:sameAs units:megahertz .
 
-units:second a units:BaseUnit ;
-	screla:hasSymbol "s"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:radian a units:BaseUnit ;
-	screla:hasSymbol "rad"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/MYA
+units:MYA rdf:type owl:NamedIndividual ,
+                   units:UnitDerivedByScaling ;
+          screla:hasBaseUnit units:year ;
+          mrela:hasScalingNumber "1000.0"^^xsd:double .
 
-units:candela a units:BaseUnit ;
-	screla:hasSymbol "cd"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:kelvin a units:BaseUnit ;
-	screla:hasSymbol "K"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/ampere
+units:ampere rdf:type owl:NamedIndividual ,
+                      units:BaseUnit ;
+             screla:hasSymbol "a" .
 
-units:dimensionlessUnit a units:BaseUnit .
 
-units:normalizedUnit a units:BaseUnit .
+###  http://sweetontology.net/reprSciUnits/amperePerMeter
+units:amperePerMeter rdf:type owl:NamedIndividual ,
+                              units:UnitDefinedByProduct ;
+                     mrela:hasOperand units:ampere ,
+                                      units:perMeter .
 
-units:ratio a units:BaseUnit .
 
-units:volumeRatio a units:BaseUnit .
+###  http://sweetontology.net/reprSciUnits/amperePerMeterSquared
+units:amperePerMeterSquared rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:ampere ,
+                                             units:perMeterSquared .
 
-units:mole a units:BaseUnit ;
-	screla:hasSymbol "mol"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:perMeterSquared a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:meter ;
-	mrela:toThePower "-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/ampereSquared
+units:ampereSquared rdf:type owl:NamedIndividual ,
+                             units:UnitDerivedByRaisingToPower ;
+                    screla:hasBaseUnit units:ampere ;
+                    mrela:toThePower "2.0"^^xsd:double .
 
-units:perMeterCubed a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meter .
 
-units:perMeter a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:meter ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/arcminute
+units:arcminute rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:radian ;
+                mrela:hasScalingNumber "2.909E-4"^^xsd:double .
 
-units:meterSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meter .
 
-units:meterCubed a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meter .
+###  http://sweetontology.net/reprSciUnits/arcsecond
+units:arcsecond rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:radian ;
+                mrela:hasScalingNumber "4.848E-6"^^xsd:double .
 
-units:perKilogram a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:kilogram ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:perAmpere a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:ampere ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/candela
+units:candela rdf:type owl:NamedIndividual ,
+                       units:BaseUnit ;
+              screla:hasSymbol "cd" .
 
-units:siemens a units:UnitDerivedByRaisingToPower ;
-	screla:hasSymbol "G"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ohm .
 
-units:perTesla a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:tesla .
+###  http://sweetontology.net/reprSciUnits/candelaPerMeterSquared
+units:candelaPerMeterSquared rdf:type owl:NamedIndividual ,
+                                      units:UnitDefinedByProduct ;
+                             mrela:hasOperand units:candela ,
+                                              units:perMeterSquared .
 
-units:ampereSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ampere .
 
-units:perAmpereSquared a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:ampere ;
-	mrela:toThePower "-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/centi
+units:centi rdf:type owl:NamedIndividual ,
+                     units:Prefix ;
+            screla:hasNumericValue "0.01"^^xsd:double ;
+            screla:hasSymbol "c" .
 
-units:perVolt a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volt .
 
-units:perSecond a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second ;
-	owl:sameAs units:hertz ;
-	screla:hasSymbol "Hz"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/centimeter
+units:centimeter rdf:type owl:NamedIndividual ,
+                          units:UnitDerivedByScaling ;
+                 screla:hasBaseUnit units:meter ;
+                 screla:hasPrefix units:centi ;
+                 mrela:hasScalingNumber "0.01"^^xsd:double .
 
-units:hertz a units:UnitDerivedByRaisingToPower .
 
-units:perSecondSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+###  http://sweetontology.net/reprSciUnits/century
+units:century rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByScaling ;
+              screla:hasBaseUnit units:second ;
+              mrela:hasScalingNumber "3.1556926E9"^^xsd:double .
 
-units:perSecondCubed a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-3"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
 
-units:secondSquared a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "2"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+###  http://sweetontology.net/reprSciUnits/coulomb
+units:coulomb rdf:type owl:NamedIndividual ,
+                       units:UnitDefinedByProduct ;
+              mrela:hasOperand units:ampere ,
+                               units:second ;
+              screla:hasSymbol "C" .
 
-units:perCandela a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:candela ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:perSteradian a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:steradian .
+###  http://sweetontology.net/reprSciUnits/coulombMeter
+units:coulombMeter rdf:type owl:NamedIndividual ,
+                            units:UnitDefinedByProduct ;
+                   mrela:hasOperand units:coulomb ,
+                                    units:meter .
 
-units:perKelvin a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:kelvin ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:perRadian a units:UnitDerivedByRaisingToPower ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:radian .
+###  http://sweetontology.net/reprSciUnits/coulombPerMeterCubed
+units:coulombPerMeterCubed rdf:type owl:NamedIndividual ,
+                                    units:UnitDefinedByProduct ;
+                           mrela:hasOperand units:coulomb ,
+                                            units:perMeterCubed .
 
-units:perPascal a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:pascal ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:perMole a units:UnitDerivedByRaisingToPower ;
-	screla:hasBaseUnit units:mole ;
-	mrela:toThePower "-1"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/coulombPerMeterSquared
+units:coulombPerMeterSquared rdf:type owl:NamedIndividual ,
+                                      units:UnitDefinedByProduct ;
+                             mrela:hasOperand units:coulomb ,
+                                              units:perMeterSquared .
 
-units:millimeter a units:UnitDerivedByScaling ;
-	screla:hasPrefix units:milli ;
-	screla:hasBaseUnit units:meter ;
-	mrela:hasScalingNumber "1.E-3"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:micrometer a units:UnitDerivedByScaling ;
-	screla:hasPrefix units:micro ;
-	screla:hasBaseUnit units:meter ;
-	mrela:hasScalingNumber "1.E-6"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	owl:sameAs units:micron .
+###  http://sweetontology.net/reprSciUnits/day
+units:day rdf:type owl:NamedIndividual ,
+                   units:UnitDerivedByScaling ;
+          screla:hasBaseUnit units:second ;
+          mrela:hasScalingNumber "86400.0"^^xsd:double .
 
-units:micron a units:UnitDerivedByScaling .
 
-units:nanometer a units:UnitDerivedByScaling ;
-	screla:hasPrefix units:nano ;
-	screla:hasBaseUnit units:meter ;
-	mrela:hasScalingNumber "1.E-9"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/db
+units:db rdf:type owl:NamedIndividual ,
+                  units:LogarithmicUnit .
 
-units:kilometer a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:meter ;
-	screla:hasPrefix units:kilo ;
-	mrela:hasScalingNumber "1000."^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:centimeter a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:meter ;
-	screla:hasPrefix units:centi ;
-	mrela:hasScalingNumber "1.E-2"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/deca
+units:deca rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "10.0"^^xsd:double ;
+           screla:hasSymbol "da" .
 
-units:permil a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
 
-units:kilohertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:kilo ;
-	mrela:hasScalingNumber "1000."^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/decade
+units:decade rdf:type owl:NamedIndividual ,
+                      units:UnitDerivedByScaling ;
+             screla:hasBaseUnit units:second ;
+             mrela:hasScalingNumber "3.1556926E8"^^xsd:double .
 
-units:megahertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:mega ;
-	mrela:hasScalingNumber "1.E6"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	owl:sameAs units:MHz .
 
-units:MHz a units:UnitDerivedByScaling .
+###  http://sweetontology.net/reprSciUnits/degreeC
+units:degreeC rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByShifting ;
+              screla:hasBaseUnit units:kelvin ;
+              mrela:hasShiftingNumber "-273.0"^^xsd:double ;
+              screla:hasSymbol "C" .
 
-units:gigahertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:giga ;
-	mrela:hasScalingNumber "1.E9"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:terahertz a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:hertz ;
-	screla:hasPrefix units:tera ;
-	mrela:hasScalingNumber "1.E12"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/degreeF
+units:degreeF rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByShifting ;
+              screla:hasBaseUnit units:degreeC ;
+              mrela:hasScalingNumber "1.8"^^xsd:double ;
+              mrela:hasShiftingNumber "32.0"^^xsd:double .
 
-units:degrees a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:radian ;
-	mrela:hasScalingNumber "57.2957795"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:kilometerPerHour a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:meterPerSecond ;
-	mrela:hasScalingNumber "0.27777777"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/degrees
+units:degrees rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByScaling ;
+              screla:hasBaseUnit units:radian ;
+              mrela:hasScalingNumber "57.2957795"^^xsd:double .
 
-units:percent a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.01"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
 
-units:perMil a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+###  http://sweetontology.net/reprSciUnits/dimensionlessUnit
+units:dimensionlessUnit rdf:type owl:NamedIndividual ,
+                                 units:BaseUnit .
 
-units:ppb a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
 
-units:ppt a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
+###  http://sweetontology.net/reprSciUnits/exa
+units:exa rdf:type owl:NamedIndividual ,
+                   units:Prefix ;
+          screla:hasNumericValue "1.0E18"^^xsd:double ;
+          screla:hasSymbol "E" .
 
-units:ppm a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:ratio .
 
-units:minute a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "60"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/farad
+units:farad rdf:type owl:NamedIndividual ,
+                     units:UnitDefinedByProduct ;
+            mrela:hasOperand units:coulomb ,
+                             units:perVolt ;
+            screla:hasSymbol "F" .
 
-units:hour a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "3600"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:day a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "86400"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/faradPerMeter
+units:faradPerMeter rdf:type owl:NamedIndividual ,
+                             units:UnitDefinedByProduct ;
+                    mrela:hasOperand units:farad ,
+                                     units:perMeter .
 
-units:week a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "604800"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:month a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "2629744"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+###  http://sweetontology.net/reprSciUnits/giga
+units:giga rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "1.0E9"^^xsd:double ;
+           screla:hasSymbol "G" .
 
-units:season a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "7889232"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
 
-units:year a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "31556926"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+###  http://sweetontology.net/reprSciUnits/gigahertz
+units:gigahertz rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:hertz ;
+                screla:hasPrefix units:giga ;
+                mrela:hasScalingNumber "1.0E9"^^xsd:double .
 
-units:decade a units:UnitDerivedByScaling ;
-	screla:hasBaseUnit units:second ;
-	mrela:hasScalingNumber "315569260"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:century a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "3.1556926E09"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:second .
+###  http://sweetontology.net/reprSciUnits/hecto
+units:hecto rdf:type owl:NamedIndividual ,
+                     units:Prefix ;
+            screla:hasNumericValue "100.0"^^xsd:double ;
+            screla:hasSymbol "h" .
 
-units:millenium a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1000"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:year .
 
-units:arcsecond a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "4.848E-6"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:radian .
+###  http://sweetontology.net/reprSciUnits/henry
+units:henry rdf:type owl:NamedIndividual ,
+                     units:UnitDefinedByProduct ;
+            mrela:hasOperand units:kilogram ,
+                             units:meterSquared ,
+                             units:perAmpereSquared ,
+                             units:perSecondSquared .
 
-units:arcminute a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "2.909E-4"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:radian .
 
-units:ppbv a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volumeRatio .
+###  http://sweetontology.net/reprSciUnits/henryPerMeter
+units:henryPerMeter rdf:type owl:NamedIndividual ,
+                             units:UnitDefinedByProduct ;
+                    mrela:hasOperand units:henry ,
+                                     units:perMeter .
 
-units:pptv a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000000000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volumeRatio .
 
-units:ppmv a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "0.000001"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:volumeRatio .
+###  http://sweetontology.net/reprSciUnits/hertz
+units:hertz rdf:type owl:NamedIndividual ,
+                     units:UnitDerivedByRaisingToPower ;
+            owl:sameAs units:perSecond .
 
-units:MYA a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1000"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:year .
 
-units:million_km2 a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1e-12"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meterSquared .
+###  http://sweetontology.net/reprSciUnits/hour
+units:hour rdf:type owl:NamedIndividual ,
+                    units:UnitDerivedByScaling ;
+           screla:hasBaseUnit units:second ;
+           mrela:hasScalingNumber "3600.0"^^xsd:double .
 
-units:million_km3 a units:UnitDerivedByScaling ;
-	mrela:hasScalingNumber "1e-15"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	screla:hasBaseUnit units:meterCubed .
 
-units:degreeF a units:UnitDerivedByShifting ;
-	screla:hasBaseUnit units:degreeC ;
-	mrela:hasShiftingNumber "32"^^<http://www.w3.org/2001/XMLSchema#double> ;
-	mrela:hasScalingNumber "1.8"^^<http://www.w3.org/2001/XMLSchema#double> .
+###  http://sweetontology.net/reprSciUnits/joule
+units:joule rdf:type owl:NamedIndividual ,
+                     units:UnitDefinedByProduct ;
+            mrela:hasOperand units:kilogram ,
+                             units:perSecondSquared ;
+            screla:hasSymbol "J" .
 
-units:degreeC a units:UnitDerivedByShifting ;
-	screla:hasSymbol "C"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	screla:hasBaseUnit units:kelvin ;
-	mrela:hasShiftingNumber "-273"^^<http://www.w3.org/2001/XMLSchema#double> .
 
-units:kilogramPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:kilogram .
+###  http://sweetontology.net/reprSciUnits/joulePerKelvin
+units:joulePerKelvin rdf:type owl:NamedIndividual ,
+                              units:UnitDefinedByProduct ;
+                     mrela:hasOperand units:joule ,
+                                      units:perKelvin .
 
-units:kilogramPerMeterCubed a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterCubed , units:kilogram .
 
-units:farad a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perVolt , units:coulomb ;
-	screla:hasSymbol "F"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/joulePerKilogram
+units:joulePerKilogram rdf:type owl:NamedIndividual ,
+                                units:UnitDefinedByProduct ;
+                       mrela:hasOperand units:joule ,
+                                        units:perKilogram .
 
-units:coulomb a units:UnitDefinedByProduct ;
-	screla:hasSymbol "C"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:second , units:ampere .
 
-units:coulombMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:coulomb , units:meter .
+###  http://sweetontology.net/reprSciUnits/joulePerKilogramPerKelvin
+units:joulePerKilogramPerKelvin rdf:type owl:NamedIndividual ,
+                                         units:UnitDefinedByProduct ;
+                                mrela:hasOperand units:joule ,
+                                                 units:perKelvin ,
+                                                 units:perKilogram .
 
-units:coulombPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:coulomb , units:perMeterSquared .
 
-units:coulombPerMeterCubed a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:coulomb , units:perMeterCubed .
+###  http://sweetontology.net/reprSciUnits/joulePerMeterCubedPerKelvin
+units:joulePerMeterCubedPerKelvin rdf:type owl:NamedIndividual ,
+                                           units:UnitDefinedByProduct ;
+                                  mrela:hasOperand units:joule ,
+                                                   units:perKelvin ,
+                                                   units:perMeterCubed .
 
-units:voltPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:volt , units:perMeter .
 
-units:tesla a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:weber .
+###  http://sweetontology.net/reprSciUnits/joulePerMeterSquared
+units:joulePerMeterSquared rdf:type owl:NamedIndividual ,
+                                    units:UnitDefinedByProduct ;
+                           mrela:hasOperand units:joule ,
+                                            units:perMeterSquared .
 
-units:joulePerTesla a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:joule , units:perTesla .
 
-units:siemensPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:siemens , units:perMeter .
+###  http://sweetontology.net/reprSciUnits/joulePerMolePerKelvin
+units:joulePerMolePerKelvin rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:joule ,
+                                             units:perKelvin ,
+                                             units:perMole .
 
-units:siemensPerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:siemens , units:perKilogram .
 
-units:henry a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:perAmpereSquared , units:meterSquared , units:kilogram .
+###  http://sweetontology.net/reprSciUnits/joulePerTesla
+units:joulePerTesla rdf:type owl:NamedIndividual ,
+                             units:UnitDefinedByProduct ;
+                    mrela:hasOperand units:joule ,
+                                     units:perTesla .
 
-units:henryPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:henry , units:perMeter .
 
-units:faradPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:farad , units:perMeter .
+###  http://sweetontology.net/reprSciUnits/jouleSecond
+units:jouleSecond rdf:type owl:NamedIndividual ,
+                           units:UnitDefinedByProduct ;
+                  mrela:hasOperand units:joule ,
+                                   units:second .
 
-units:ohm a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondCubed , units:perAmpereSquared , units:meterSquared , units:kilogram .
 
-units:ohmMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:ohm , units:meter .
+###  http://sweetontology.net/reprSciUnits/kelvin
+units:kelvin rdf:type owl:NamedIndividual ,
+                      units:BaseUnit ;
+             screla:hasSymbol "K" .
 
-units:amperePerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeter , units:ampere .
 
-units:amperePerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:ampere .
+###  http://sweetontology.net/reprSciUnits/kelvinPerMeter
+units:kelvinPerMeter rdf:type owl:NamedIndividual ,
+                              units:UnitDefinedByProduct ;
+                     mrela:hasOperand units:kelvin ,
+                                      units:perMeter .
 
-units:lumen a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:steradian , units:candela .
 
-units:volt a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondCubed , units:perAmpere , units:meterSquared , units:kilogram ;
-	screla:hasSymbol "V"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/kilo
+units:kilo rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "1000.0"^^xsd:double ;
+           screla:hasSymbol "k" .
 
-units:weber a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:perAmpere , units:meterSquared , units:kilogram .
 
-units:lux a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:candela , units:lumen ;
-	screla:hasSymbol "Lx"^^<http://www.w3.org/2001/XMLSchema#string> .
+###  http://sweetontology.net/reprSciUnits/kilogram
+units:kilogram rdf:type owl:NamedIndividual ,
+                        units:BaseUnit ;
+               screla:hasSymbol "kg" .
 
-units:radianPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:radian .
 
-units:kilogramRadianPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:radian , units:kilogram .
+###  http://sweetontology.net/reprSciUnits/kilogramMeterPerSecond
+units:kilogramMeterPerSecond rdf:type owl:NamedIndividual ,
+                                      units:UnitDefinedByProduct ;
+                             mrela:hasOperand units:kilogram ,
+                                              units:meter ,
+                                              units:perSecond .
 
-units:radianPerSecondSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:radian .
 
-units:wattPerMeterSquaredPerSteradian a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSteradian , units:wattPerMeterSquared .
+###  http://sweetontology.net/reprSciUnits/kilogramPerMeterCubed
+units:kilogramPerMeterCubed rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:kilogram ,
+                                             units:perMeterCubed .
 
-units:wattPerMeterSquaredPerSteradianPerWavelength a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSteradian , units:perMeter , units:wattPerMeterSquared .
 
-units:wattPerMeterSquaredPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:wattPerMeterSquared .
+###  http://sweetontology.net/reprSciUnits/kilogramPerMeterSquared
+units:kilogramPerMeterSquared rdf:type owl:NamedIndividual ,
+                                       units:UnitDefinedByProduct ;
+                              mrela:hasOperand units:kilogram ,
+                                               units:perMeterSquared .
 
-units:candelaPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:candela .
 
-units:meterPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:meter .
+###  http://sweetontology.net/reprSciUnits/kilogramRadianPerSecond
+units:kilogramRadianPerSecond rdf:type owl:NamedIndividual ,
+                                       units:UnitDefinedByProduct ;
+                              mrela:hasOperand units:kilogram ,
+                                               units:perSecond ,
+                                               units:radian .
 
-units:kelvinPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:kelvin , units:perMeter .
 
-units:wattPerMeterPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:watt , units:perMeter , units:perKelvin .
+###  http://sweetontology.net/reprSciUnits/kilohertz
+units:kilohertz rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:hertz ;
+                screla:hasPrefix units:kilo ;
+                mrela:hasScalingNumber "1000.0"^^xsd:double .
 
-units:meterCubedPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:meterCubed , units:perKelvin .
 
-units:meterCubedPerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:meterCubed , units:perKilogram .
+###  http://sweetontology.net/reprSciUnits/kilometer
+units:kilometer rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:meter ;
+                screla:hasPrefix units:kilo ;
+                mrela:hasScalingNumber "1000.0"^^xsd:double .
 
-units:newtonMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:meter , units:newton .
 
-units:perKilogramMeterSquaredPerSecondKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:perKilogram , units:meterSquared , units:kelvin .
+###  http://sweetontology.net/reprSciUnits/kilometerPerHour
+units:kilometerPerHour rdf:type owl:NamedIndividual ,
+                                units:UnitDerivedByScaling ;
+                       screla:hasBaseUnit units:meterPerSecond ;
+                       mrela:hasScalingNumber "0.27777777"^^xsd:double .
 
-units:joulePerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:joule .
 
-units:joulePerKilogramPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:perKelvin , units:joule .
+###  http://sweetontology.net/reprSciUnits/lumen
+units:lumen rdf:type owl:NamedIndividual ,
+                     units:UnitDefinedByProduct ;
+            mrela:hasOperand units:candela ,
+                             units:steradian .
 
-units:joulePerMeterCubedPerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterCubed , units:perKelvin , units:joule .
 
-units:jouleSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:second , units:joule .
+###  http://sweetontology.net/reprSciUnits/lux
+units:lux rdf:type owl:NamedIndividual ,
+                   units:UnitDefinedByProduct ;
+          mrela:hasOperand units:candela ,
+                           units:lumen ,
+                           units:perMeterSquared ;
+          screla:hasSymbol "Lx" .
 
-units:meterPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meter .
 
-units:meterPerSecondSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:meter .
+###  http://sweetontology.net/reprSciUnits/mega
+units:mega rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "1000000.0"^^xsd:double ;
+           screla:hasSymbol "M" .
 
-units:watt a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:joule , units:perSecond .
 
-units:joule a units:UnitDefinedByProduct ;
-	screla:hasSymbol "J"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:kilogram , units:perSecondSquared .
+###  http://sweetontology.net/reprSciUnits/megahertz
+units:megahertz rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:hertz ;
+                screla:hasPrefix units:mega ;
+                mrela:hasScalingNumber "1000000.0"^^xsd:double .
 
-units:wattPerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:watt , units:perMeterSquared .
 
-units:kilogramMeterPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meter , units:kilogram .
+###  http://sweetontology.net/reprSciUnits/meter
+units:meter rdf:type owl:NamedIndividual ,
+                     units:BaseUnit ;
+            owl:sameAs units:metre ;
+            screla:hasSymbol "m" .
 
-units:newton a units:UnitDefinedByProduct ;
-	screla:hasSymbol "N"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:perSecondSquared , units:meter , units:kilogram .
 
-units:pascal a units:UnitDefinedByProduct ;
-	screla:hasSymbol "Pa"^^<http://www.w3.org/2001/XMLSchema#string> ;
-	mrela:hasOperand units:perMeterSquared , units:newton .
+###  http://sweetontology.net/reprSciUnits/meterCubed
+units:meterCubed rdf:type owl:NamedIndividual ,
+                          units:UnitDerivedByRaisingToPower ;
+                 screla:hasBaseUnit units:meter ;
+                 mrela:toThePower "3.0"^^xsd:double .
 
-units:pascalPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:pascal ;
-	screla:hasSymbol "pa/s"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-units:newtonPerMeter a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:newton , units:perMeter .
+###  http://sweetontology.net/reprSciUnits/meterCubedPerKelvin
+units:meterCubedPerKelvin rdf:type owl:NamedIndividual ,
+                                   units:UnitDefinedByProduct ;
+                          mrela:hasOperand units:meterCubed ,
+                                           units:perKelvin .
 
-units:meterSquaredPerSecondSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecondSquared , units:meterSquared .
 
-units:meterSquaredPerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:meterSquared .
+###  http://sweetontology.net/reprSciUnits/meterCubedPerKilogram
+units:meterCubedPerKilogram rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:meterCubed ,
+                                             units:perKilogram .
 
-units:joulePerKilogram a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:joule .
 
-units:joulePerMeterSquared a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perMeterSquared , units:joule .
+###  http://sweetontology.net/reprSciUnits/meterCubedPerSecond
+units:meterCubedPerSecond rdf:type owl:NamedIndividual ,
+                                   units:UnitDefinedByProduct ;
+                          mrela:hasOperand units:meterCubed ,
+                                           units:perSecond .
 
-units:pascalSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:second , units:pascal .
 
-units:meterSquaredPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meterSquared .
+###  http://sweetontology.net/reprSciUnits/meterPerKelvin
+units:meterPerKelvin rdf:type owl:NamedIndividual ,
+                              units:UnitDefinedByProduct ;
+                     mrela:hasOperand units:meter ,
+                                      units:perKelvin .
 
-units:meterCubedPerSecond a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perSecond , units:meterCubed .
 
-units:perKilogramMole a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKilogram , units:mole .
+###  http://sweetontology.net/reprSciUnits/meterPerSecond
+units:meterPerSecond rdf:type owl:NamedIndividual ,
+                              units:UnitDefinedByProduct ;
+                     mrela:hasOperand units:meter ,
+                                      units:perSecond .
 
-units:joulePerMolePerKelvin a units:UnitDefinedByProduct ;
-	mrela:hasOperand units:perKelvin , units:perMole , units:joule .
 
-units:FTU a units:Unit ;
-	owl:sameAs units:FormazinTurbidityUnit , units:FNU .
+###  http://sweetontology.net/reprSciUnits/meterPerSecondSquared
+units:meterPerSecondSquared rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:meter ,
+                                             units:perSecondSquared .
 
-units:FormazinTurbidityUnit a units:Unit .
 
-units:FNU a units:Unit .
+###  http://sweetontology.net/reprSciUnits/meterSquared
+units:meterSquared rdf:type owl:NamedIndividual ,
+                            units:UnitDerivedByRaisingToPower ;
+                   screla:hasBaseUnit units:meter ;
+                   mrela:toThePower "2.0"^^xsd:double .
 
-units:db a units:LogarithmicUnit .
+
+###  http://sweetontology.net/reprSciUnits/meterSquaredPerKilogram
+units:meterSquaredPerKilogram rdf:type owl:NamedIndividual ,
+                                       units:UnitDefinedByProduct ;
+                              mrela:hasOperand units:meterSquared ,
+                                               units:perKilogram .
+
+
+###  http://sweetontology.net/reprSciUnits/meterSquaredPerSecond
+units:meterSquaredPerSecond rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:meterSquared ,
+                                             units:perSecond .
+
+
+###  http://sweetontology.net/reprSciUnits/meterSquaredPerSecondSquared
+units:meterSquaredPerSecondSquared rdf:type owl:NamedIndividual ,
+                                            units:UnitDefinedByProduct ;
+                                   mrela:hasOperand units:meterSquared ,
+                                                    units:perSecondSquared .
+
+
+###  http://sweetontology.net/reprSciUnits/metre
+units:metre rdf:type owl:NamedIndividual ,
+                     units:BaseUnit .
+
+
+###  http://sweetontology.net/reprSciUnits/micro
+units:micro rdf:type owl:NamedIndividual ,
+                     units:Prefix ;
+            screla:hasNumericValue "1.0E-6"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/micrometer
+units:micrometer rdf:type owl:NamedIndividual ,
+                          units:UnitDerivedByScaling ;
+                 owl:sameAs units:micron ;
+                 screla:hasBaseUnit units:meter ;
+                 screla:hasPrefix units:micro ;
+                 mrela:hasScalingNumber "1.0E-6"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/micron
+units:micron rdf:type owl:NamedIndividual ,
+                      units:UnitDerivedByScaling .
+
+
+###  http://sweetontology.net/reprSciUnits/millenium
+units:millenium rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:year ;
+                mrela:hasScalingNumber "1000.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/milli
+units:milli rdf:type owl:NamedIndividual ,
+                     units:Prefix ;
+            screla:hasNumericValue "0.001"^^xsd:double ;
+            screla:hasSymbol "m" .
+
+
+###  http://sweetontology.net/reprSciUnits/millimeter
+units:millimeter rdf:type owl:NamedIndividual ,
+                          units:UnitDerivedByScaling ;
+                 screla:hasBaseUnit units:meter ;
+                 screla:hasPrefix units:milli ;
+                 mrela:hasScalingNumber "0.001"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/million_km2
+units:million_km2 rdf:type owl:NamedIndividual ,
+                           units:UnitDerivedByScaling ;
+                  screla:hasBaseUnit units:meterSquared ;
+                  mrela:hasScalingNumber "1.0E-12"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/million_km3
+units:million_km3 rdf:type owl:NamedIndividual ,
+                           units:UnitDerivedByScaling ;
+                  screla:hasBaseUnit units:meterCubed ;
+                  mrela:hasScalingNumber "1.0E-15"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/minute
+units:minute rdf:type owl:NamedIndividual ,
+                      units:UnitDerivedByScaling ;
+             screla:hasBaseUnit units:second ;
+             mrela:hasScalingNumber "60.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/mole
+units:mole rdf:type owl:NamedIndividual ,
+                    units:BaseUnit ;
+           screla:hasSymbol "mol" .
+
+
+###  http://sweetontology.net/reprSciUnits/month
+units:month rdf:type owl:NamedIndividual ,
+                     units:UnitDerivedByScaling ;
+            screla:hasBaseUnit units:second ;
+            mrela:hasScalingNumber "2629744.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/nano
+units:nano rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "1.0E-9"^^xsd:double ;
+           screla:hasSymbol "n" .
+
+
+###  http://sweetontology.net/reprSciUnits/nanometer
+units:nanometer rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:meter ;
+                screla:hasPrefix units:nano ;
+                mrela:hasScalingNumber "1.0E-9"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/newton
+units:newton rdf:type owl:NamedIndividual ,
+                      units:UnitDefinedByProduct ;
+             mrela:hasOperand units:kilogram ,
+                              units:meter ,
+                              units:perSecondSquared ;
+             screla:hasSymbol "N" .
+
+
+###  http://sweetontology.net/reprSciUnits/newtonMeter
+units:newtonMeter rdf:type owl:NamedIndividual ,
+                           units:UnitDefinedByProduct ;
+                  mrela:hasOperand units:meter ,
+                                   units:newton .
+
+
+###  http://sweetontology.net/reprSciUnits/newtonPerMeter
+units:newtonPerMeter rdf:type owl:NamedIndividual ,
+                              units:UnitDefinedByProduct ;
+                     mrela:hasOperand units:newton ,
+                                      units:perMeter .
+
+
+###  http://sweetontology.net/reprSciUnits/normalizedUnit
+units:normalizedUnit rdf:type owl:NamedIndividual ,
+                              units:BaseUnit .
+
+
+###  http://sweetontology.net/reprSciUnits/ohm
+units:ohm rdf:type owl:NamedIndividual ,
+                   units:UnitDefinedByProduct ;
+          mrela:hasOperand units:kilogram ,
+                           units:meterSquared ,
+                           units:perAmpereSquared ,
+                           units:perSecondCubed .
+
+
+###  http://sweetontology.net/reprSciUnits/ohmMeter
+units:ohmMeter rdf:type owl:NamedIndividual ,
+                        units:UnitDefinedByProduct ;
+               mrela:hasOperand units:meter ,
+                                units:ohm .
+
+
+###  http://sweetontology.net/reprSciUnits/pascal
+units:pascal rdf:type owl:NamedIndividual ,
+                      units:UnitDefinedByProduct ;
+             mrela:hasOperand units:newton ,
+                              units:perMeterSquared ;
+             screla:hasSymbol "Pa" .
+
+
+###  http://sweetontology.net/reprSciUnits/pascalPerSecond
+units:pascalPerSecond rdf:type owl:NamedIndividual ,
+                               units:UnitDefinedByProduct ;
+                      mrela:hasOperand units:pascal ,
+                                       units:perSecond ;
+                      screla:hasSymbol "pa/s" .
+
+
+###  http://sweetontology.net/reprSciUnits/pascalSecond
+units:pascalSecond rdf:type owl:NamedIndividual ,
+                            units:UnitDefinedByProduct ;
+                   mrela:hasOperand units:pascal ,
+                                    units:second .
+
+
+###  http://sweetontology.net/reprSciUnits/perAmpere
+units:perAmpere rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByRaisingToPower ;
+                screla:hasBaseUnit units:ampere ;
+                mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perAmpereSquared
+units:perAmpereSquared rdf:type owl:NamedIndividual ,
+                                units:UnitDerivedByRaisingToPower ;
+                       screla:hasBaseUnit units:ampere ;
+                       mrela:toThePower "-2.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perCandela
+units:perCandela rdf:type owl:NamedIndividual ,
+                          units:UnitDerivedByRaisingToPower ;
+                 screla:hasBaseUnit units:candela ;
+                 mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perKelvin
+units:perKelvin rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByRaisingToPower ;
+                screla:hasBaseUnit units:kelvin ;
+                mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perKilogram
+units:perKilogram rdf:type owl:NamedIndividual ,
+                           units:UnitDerivedByRaisingToPower ;
+                  screla:hasBaseUnit units:kilogram ;
+                  mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perKilogramMeterSquaredPerSecondKelvin
+units:perKilogramMeterSquaredPerSecondKelvin rdf:type owl:NamedIndividual ,
+                                                      units:UnitDefinedByProduct ;
+                                             mrela:hasOperand units:kelvin ,
+                                                              units:meterSquared ,
+                                                              units:perKilogram ,
+                                                              units:perSecond .
+
+
+###  http://sweetontology.net/reprSciUnits/perKilogramMole
+units:perKilogramMole rdf:type owl:NamedIndividual ,
+                               units:UnitDefinedByProduct ;
+                      mrela:hasOperand units:mole ,
+                                       units:perKilogram .
+
+
+###  http://sweetontology.net/reprSciUnits/perMeter
+units:perMeter rdf:type owl:NamedIndividual ,
+                        units:UnitDerivedByRaisingToPower ;
+               screla:hasBaseUnit units:meter ;
+               mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perMeterCubed
+units:perMeterCubed rdf:type owl:NamedIndividual ,
+                             units:UnitDerivedByRaisingToPower ;
+                    screla:hasBaseUnit units:meter ;
+                    mrela:toThePower "-3.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perMeterSquared
+units:perMeterSquared rdf:type owl:NamedIndividual ,
+                               units:UnitDerivedByRaisingToPower ;
+                      screla:hasBaseUnit units:meter ;
+                      mrela:toThePower "-2.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perMil
+units:perMil rdf:type owl:NamedIndividual ,
+                      units:UnitDerivedByScaling ;
+             screla:hasBaseUnit units:ratio ;
+             mrela:hasScalingNumber "0.001"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perMole
+units:perMole rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByRaisingToPower ;
+              screla:hasBaseUnit units:mole ;
+              mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perPascal
+units:perPascal rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByRaisingToPower ;
+                screla:hasBaseUnit units:pascal ;
+                mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perRadian
+units:perRadian rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByRaisingToPower ;
+                screla:hasBaseUnit units:radian ;
+                mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perSecond
+units:perSecond rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByRaisingToPower ;
+                screla:hasBaseUnit units:second ;
+                mrela:toThePower "-1.0"^^xsd:double ;
+                screla:hasSymbol "Hz" .
+
+
+###  http://sweetontology.net/reprSciUnits/perSecondCubed
+units:perSecondCubed rdf:type owl:NamedIndividual ,
+                              units:UnitDerivedByRaisingToPower ;
+                     screla:hasBaseUnit units:second ;
+                     mrela:toThePower "-3.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perSecondSquared
+units:perSecondSquared rdf:type owl:NamedIndividual ,
+                                units:UnitDerivedByRaisingToPower ;
+                       screla:hasBaseUnit units:second ;
+                       mrela:toThePower "-2.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perSteradian
+units:perSteradian rdf:type owl:NamedIndividual ,
+                            units:UnitDerivedByRaisingToPower ;
+                   screla:hasBaseUnit units:steradian ;
+                   mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perTesla
+units:perTesla rdf:type owl:NamedIndividual ,
+                        units:UnitDerivedByRaisingToPower ;
+               screla:hasBaseUnit units:tesla ;
+               mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/perVolt
+units:perVolt rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByRaisingToPower ;
+              screla:hasBaseUnit units:volt ;
+              mrela:toThePower "-1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/percent
+units:percent rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByScaling ;
+              screla:hasBaseUnit units:ratio ;
+              mrela:hasScalingNumber "0.01"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/permil
+units:permil rdf:type owl:NamedIndividual ,
+                      units:UnitDerivedByScaling ;
+             screla:hasBaseUnit units:ratio ;
+             mrela:hasScalingNumber "0.001"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/peta
+units:peta rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "1.0E15"^^xsd:double ;
+           screla:hasSymbol "P" .
+
+
+###  http://sweetontology.net/reprSciUnits/ppb
+units:ppb rdf:type owl:NamedIndividual ,
+                   units:UnitDerivedByScaling ;
+          screla:hasBaseUnit units:ratio ;
+          mrela:hasScalingNumber "1.0E-9"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/ppbv
+units:ppbv rdf:type owl:NamedIndividual ,
+                    units:UnitDerivedByScaling ;
+           screla:hasBaseUnit units:volumeRatio ;
+           mrela:hasScalingNumber "1.0E-9"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/ppm
+units:ppm rdf:type owl:NamedIndividual ,
+                   units:UnitDerivedByScaling ;
+          screla:hasBaseUnit units:ratio ;
+          mrela:hasScalingNumber "1.0E-6"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/ppmv
+units:ppmv rdf:type owl:NamedIndividual ,
+                    units:UnitDerivedByScaling ;
+           screla:hasBaseUnit units:volumeRatio ;
+           mrela:hasScalingNumber "1.0E-6"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/ppt
+units:ppt rdf:type owl:NamedIndividual ,
+                   units:UnitDerivedByScaling ;
+          screla:hasBaseUnit units:ratio ;
+          mrela:hasScalingNumber "1.0E-12"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/pptv
+units:pptv rdf:type owl:NamedIndividual ,
+                    units:UnitDerivedByScaling ;
+           screla:hasBaseUnit units:volumeRatio ;
+           mrela:hasScalingNumber "1.0E-12"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/radian
+units:radian rdf:type owl:NamedIndividual ,
+                      units:BaseUnit ;
+             screla:hasSymbol "rad" .
+
+
+###  http://sweetontology.net/reprSciUnits/radianPerSecond
+units:radianPerSecond rdf:type owl:NamedIndividual ,
+                               units:UnitDefinedByProduct ;
+                      mrela:hasOperand units:perSecond ,
+                                       units:radian .
+
+
+###  http://sweetontology.net/reprSciUnits/radianPerSecondSquared
+units:radianPerSecondSquared rdf:type owl:NamedIndividual ,
+                                      units:UnitDefinedByProduct ;
+                             mrela:hasOperand units:perSecondSquared ,
+                                              units:radian .
+
+
+###  http://sweetontology.net/reprSciUnits/ratio
+units:ratio rdf:type owl:NamedIndividual ,
+                     units:BaseUnit .
+
+
+###  http://sweetontology.net/reprSciUnits/season
+units:season rdf:type owl:NamedIndividual ,
+                      units:UnitDerivedByScaling ;
+             screla:hasBaseUnit units:second ;
+             mrela:hasScalingNumber "7889232.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/second
+units:second rdf:type owl:NamedIndividual ,
+                      units:BaseUnit ;
+             screla:hasSymbol "s" .
+
+
+###  http://sweetontology.net/reprSciUnits/secondSquared
+units:secondSquared rdf:type owl:NamedIndividual ,
+                             units:UnitDerivedByRaisingToPower ;
+                    screla:hasBaseUnit units:second ;
+                    mrela:toThePower "2.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/siemens
+units:siemens rdf:type owl:NamedIndividual ,
+                       units:UnitDerivedByRaisingToPower ;
+              screla:hasBaseUnit units:ohm ;
+              mrela:toThePower "-1.0"^^xsd:double ;
+              screla:hasSymbol "G" .
+
+
+###  http://sweetontology.net/reprSciUnits/siemensPerKilogram
+units:siemensPerKilogram rdf:type owl:NamedIndividual ,
+                                  units:UnitDefinedByProduct ;
+                         mrela:hasOperand units:perKilogram ,
+                                          units:siemens .
+
+
+###  http://sweetontology.net/reprSciUnits/siemensPerMeter
+units:siemensPerMeter rdf:type owl:NamedIndividual ,
+                               units:UnitDefinedByProduct ;
+                      mrela:hasOperand units:perMeter ,
+                                       units:siemens .
+
+
+###  http://sweetontology.net/reprSciUnits/steradian
+units:steradian rdf:type owl:NamedIndividual ,
+                         units:BaseUnit ;
+                screla:hasSymbol "sr" .
+
+
+###  http://sweetontology.net/reprSciUnits/tera
+units:tera rdf:type owl:NamedIndividual ,
+                    units:Prefix ;
+           screla:hasNumericValue "1.0E12"^^xsd:double ;
+           screla:hasSymbol "T" .
+
+
+###  http://sweetontology.net/reprSciUnits/terahertz
+units:terahertz rdf:type owl:NamedIndividual ,
+                         units:UnitDerivedByScaling ;
+                screla:hasBaseUnit units:hertz ;
+                screla:hasPrefix units:tera ;
+                mrela:hasScalingNumber "1.0E12"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/tesla
+units:tesla rdf:type owl:NamedIndividual ,
+                     units:UnitDefinedByProduct ;
+            mrela:hasOperand units:perMeterSquared ,
+                             units:weber .
+
+
+###  http://sweetontology.net/reprSciUnits/volt
+units:volt rdf:type owl:NamedIndividual ,
+                    units:UnitDefinedByProduct ;
+           mrela:hasOperand units:kilogram ,
+                            units:meterSquared ,
+                            units:perAmpere ,
+                            units:perSecondCubed ;
+           screla:hasSymbol "V" .
+
+
+###  http://sweetontology.net/reprSciUnits/voltPerMeter
+units:voltPerMeter rdf:type owl:NamedIndividual ,
+                            units:UnitDefinedByProduct ;
+                   mrela:hasOperand units:perMeter ,
+                                    units:volt .
+
+
+###  http://sweetontology.net/reprSciUnits/volumeRatio
+units:volumeRatio rdf:type owl:NamedIndividual ,
+                           units:BaseUnit .
+
+
+###  http://sweetontology.net/reprSciUnits/watt
+units:watt rdf:type owl:NamedIndividual ,
+                    units:UnitDefinedByProduct ;
+           mrela:hasOperand units:joule ,
+                            units:perSecond .
+
+
+###  http://sweetontology.net/reprSciUnits/wattPerMeterPerKelvin
+units:wattPerMeterPerKelvin rdf:type owl:NamedIndividual ,
+                                     units:UnitDefinedByProduct ;
+                            mrela:hasOperand units:perKelvin ,
+                                             units:perMeter ,
+                                             units:watt .
+
+
+###  http://sweetontology.net/reprSciUnits/wattPerMeterSquared
+units:wattPerMeterSquared rdf:type owl:NamedIndividual ,
+                                   units:UnitDefinedByProduct ;
+                          mrela:hasOperand units:perMeterSquared ,
+                                           units:watt .
+
+
+###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerKelvin
+units:wattPerMeterSquaredPerKelvin rdf:type owl:NamedIndividual ,
+                                            units:UnitDefinedByProduct ;
+                                   mrela:hasOperand units:perKelvin ,
+                                                    units:wattPerMeterSquared .
+
+
+###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradian
+units:wattPerMeterSquaredPerSteradian rdf:type owl:NamedIndividual ,
+                                               units:UnitDefinedByProduct ;
+                                      mrela:hasOperand units:perSteradian ,
+                                                       units:wattPerMeterSquared .
+
+
+###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradianPerWavelength
+units:wattPerMeterSquaredPerSteradianPerWavelength rdf:type owl:NamedIndividual ,
+                                                            units:UnitDefinedByProduct ;
+                                                   mrela:hasOperand units:perMeter ,
+                                                                    units:perSteradian ,
+                                                                    units:wattPerMeterSquared .
+
+
+###  http://sweetontology.net/reprSciUnits/weber
+units:weber rdf:type owl:NamedIndividual ,
+                     units:UnitDefinedByProduct ;
+            mrela:hasOperand units:kilogram ,
+                             units:meterSquared ,
+                             units:perAmpere ,
+                             units:perSecondSquared .
+
+
+###  http://sweetontology.net/reprSciUnits/week
+units:week rdf:type owl:NamedIndividual ,
+                    units:UnitDerivedByScaling ;
+           screla:hasBaseUnit units:second ;
+           mrela:hasScalingNumber "604800.0"^^xsd:double .
+
+
+###  http://sweetontology.net/reprSciUnits/year
+units:year rdf:type owl:NamedIndividual ,
+                    units:UnitDerivedByScaling ;
+           screla:hasBaseUnit units:second ;
+           mrela:hasScalingNumber "3.1556926E7"^^xsd:double .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
