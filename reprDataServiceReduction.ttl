@@ -1,80 +1,95 @@
+@prefix : <http://sweetontology.net/reprDataServiceReduction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix prop: <http://sweetontology.net/prop/> .
-@prefix prrela: <http://sweetontology.net/relaProvenance/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prop: <http://sweetontology.net/prop/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix redu: <http://sweetontology.net/reprDataServiceReduction/> .
 @prefix serv: <http://sweetontology.net/reprDataService/> .
 @prefix spac: <http://sweetontology.net/reprSpace/> .
 @prefix time: <http://sweetontology.net/reprTime/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prrela: <http://sweetontology.net/relaProvenance/> .
+@base <http://sweetontology.net/reprDataServiceReduction> .
 
-<http://sweetontology.net/reprDataServiceReduction>
-  rdf:type owl:Ontology ;
-  rdfs:label "SWEET Ontology" ;
-  owl:imports <http://sweetontology.net/prop> ;
-  owl:imports <http://sweetontology.net/relaProvenance> ;
-  owl:imports <http://sweetontology.net/reprDataService> ;
-  owl:imports <http://sweetontology.net/reprSpace> ;
-  owl:imports <http://sweetontology.net/reprTime> ;
-  owl:versionInfo "3.1.0" ;
-.
-redu:Binning
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:DataReductionService ;
-.
-redu:DataMining
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:Subset ;
-  owl:equivalentClass redu:Mining ;
-.
-redu:DataReductionService
-  rdf:type owl:Class ;
-  rdfs:subClassOf serv:DataService ;
-.
-redu:Mining
-  rdf:type owl:Class ;
-.
-redu:Normalization
-  rdf:type owl:Class ;
-.
-redu:Normalize
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:DataReductionService ;
-  owl:equivalentClass redu:Normalization ;
-.
-redu:ParameterSubset
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:Subset ;
-  rdfs:subClassOf [
-      rdf:type owl:Restriction ;
-      owl:onProperty prrela:reductionIn ;
-      owl:someValuesFrom prop:PhysicalProperty ;
-    ] ;
-.
-redu:SpatialSubset
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:Subset ;
-  rdfs:subClassOf [
-      rdf:type owl:Restriction ;
-      owl:onProperty prrela:reductionIn ;
-      owl:someValuesFrom spac:Space ;
-    ] ;
-.
-redu:Subsample
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:DataReductionService ;
-.
-redu:Subset
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:DataReductionService ;
-.
-redu:TemporalSubset
-  rdf:type owl:Class ;
-  rdfs:subClassOf redu:Subset ;
-  rdfs:subClassOf [
-      rdf:type owl:Restriction ;
-      owl:onProperty prrela:reductionIn ;
-      owl:someValuesFrom time:Time ;
-    ] ;
-.
+<http://sweetontology.net/reprDataServiceReduction> rdf:type owl:Ontology ;
+                                                     owl:imports <http://sweetontology.net/prop> ,
+                                                                 <http://sweetontology.net/relaProvenance> ,
+                                                                 <http://sweetontology.net/reprDataService> ,
+                                                                 <http://sweetontology.net/reprSpace> ,
+                                                                 <http://sweetontology.net/reprTime> ;
+                                                     rdfs:label "SWEET Ontology" ;
+                                                     owl:versionInfo "3.1.0" .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://sweetontology.net/reprDataServiceReduction/Binning
+redu:Binning rdf:type owl:Class ;
+             rdfs:subClassOf redu:DataReductionService .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/DataMining
+redu:DataMining rdf:type owl:Class ;
+                owl:equivalentClass redu:Mining ;
+                rdfs:subClassOf redu:Subset .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/DataReductionService
+redu:DataReductionService rdf:type owl:Class ;
+                          rdfs:subClassOf serv:DataService .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/Mining
+redu:Mining rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/Normalization
+redu:Normalization rdf:type owl:Class ;
+                   owl:equivalentClass redu:Normalize .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/Normalize
+redu:Normalize rdf:type owl:Class ;
+               rdfs:subClassOf redu:DataReductionService .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/ParameterSubset
+redu:ParameterSubset rdf:type owl:Class ;
+                     rdfs:subClassOf redu:Subset ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty prrela:reductionIn ;
+                                       owl:someValuesFrom prop:PhysicalProperty
+                                     ] .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/SpatialSubset
+redu:SpatialSubset rdf:type owl:Class ;
+                   rdfs:subClassOf redu:Subset ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty prrela:reductionIn ;
+                                     owl:someValuesFrom spac:Space
+                                   ] .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/Subsample
+redu:Subsample rdf:type owl:Class ;
+               rdfs:subClassOf redu:DataReductionService .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/Subset
+redu:Subset rdf:type owl:Class ;
+            rdfs:subClassOf redu:DataReductionService .
+
+
+###  http://sweetontology.net/reprDataServiceReduction/TemporalSubset
+redu:TemporalSubset rdf:type owl:Class ;
+                    rdfs:subClassOf redu:Subset ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty prrela:reductionIn ;
+                                      owl:someValuesFrom time:Time
+                                    ] .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

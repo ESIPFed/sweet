@@ -1,176 +1,313 @@
+@prefix : <http://sweetontology.net/propTime/> .
+@prefix ext: <http://sweetontology.net/propTime/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix ext: <http://sweetontology.net/propTime/> .
-@prefix time: <http://sweetontology.net/reprTime/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix func: <http://sweetontology.net/propFunction/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix seas: <http://sweetontology.net/reprTimeSeason/> .
-@prefix zone: <http://sweetontology.net/realmClimateZone/> .
 @prefix hydr: <http://sweetontology.net/phenHydro/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix owlt: <http://www.w3.org/2006/time#> .
 @prefix math: <http://sweetontology.net/reprMath/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix trela: <http://sweetontology.net/relaTime/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix owlt: <http://www.w3.org/2006/time#> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix seas: <http://sweetontology.net/reprTimeSeason/> .
+@prefix time: <http://sweetontology.net/reprTime/> .
+@prefix zone: <http://sweetontology.net/realmClimateZone/> .
+@prefix trela: <http://sweetontology.net/relaTime/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/propTime> .
 
-<http://sweetontology.net/propTime> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/relaTime> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/rela> , <http://sweetontology.net/propQuantity> , <http://sweetontology.net/propFunction> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/reprTime> , <http://sweetontology.net/reprTimeSeason> , <http://sweetontology.net/phenHydro> , <http://sweetontology.net/realmClimateZone> .
+<http://sweetontology.net/propTime> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/phenHydro> ,
+                                                 <http://sweetontology.net/propFunction> ,
+                                                 <http://sweetontology.net/propQuantity> ,
+                                                 <http://sweetontology.net/realmClimateZone> ,
+                                                 <http://sweetontology.net/rela> ,
+                                                 <http://sweetontology.net/relaSci> ,
+                                                 <http://sweetontology.net/relaTime> ,
+                                                 <http://sweetontology.net/reprMath> ,
+                                                 <http://sweetontology.net/reprSciUnits> ,
+                                                 <http://sweetontology.net/reprTime> ,
+                                                 <http://sweetontology.net/reprTimeSeason> ;
+                                     rdfs:label "SWEET Ontology" ;
+                                     owl:versionInfo "3.1.0" .
 
-ext:Time a owl:Class ;
-	rdfs:subClassOf quan:PhysicalQuantity , _:node1boamecvnx1 .
+#################################################################
+#    Object Properties
+#################################################################
 
-_:node1boamecvnx1 a owl:Restriction ;
-	owl:hasValue units:second ;
-	owl:onProperty screla:hasDefaultUnit .
+###  http://sweetontology.net/relaTime/hasEndTime
+trela:hasEndTime rdf:type owl:ObjectProperty .
 
-ext:Time rdfs:comment "This is a reference to time as a dependent variable"@en .
 
-ext:Age a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval .
+###  http://sweetontology.net/relaTime/hasStartTime
+trela:hasStartTime rdf:type owl:ObjectProperty .
 
-ext:Cycle a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval , _:node1boamecvnx2 .
 
-_:node1boamecvnx2 a owl:Restriction ;
-	owl:allValuesFrom ext:Period ;
-	owl:onProperty trela:hasTime .
+#################################################################
+#    Classes
+#################################################################
 
-ext:Delay a owl:Class ;
-	rdfs:subClassOf owlt:Interval .
+###  http://sweetontology.net/propTime/Age
+ext:Age rdf:type owl:Class ;
+        rdfs:subClassOf owlt:ProperInterval .
 
-ext:Latency a owl:Class ;
-	rdfs:subClassOf ext:Delay .
 
-ext:Period a owl:Class ;
-	rdfs:subClassOf owlt:ProperInterval .
+###  http://sweetontology.net/propTime/AverageITCZDominanceDuration
+ext:AverageITCZDominanceDuration rdf:type owl:Class ;
+                                 rdfs:subClassOf func:AnnualAverage ,
+                                                 ext:ITCZDominanceDuration .
 
-ext:ResidenceTime a owl:Class ;
-	rdfs:subClassOf ext:Duration .
 
-ext:DoublingTime a owl:Class ;
-	rdfs:subClassOf ext:Duration .
+###  http://sweetontology.net/propTime/AverageSnowCoverDuration
+ext:AverageSnowCoverDuration rdf:type owl:Class ;
+                             rdfs:subClassOf func:AnnualAverage ,
+                                             ext:SnowCoverDuration .
 
-ext:EFoldingTime a owl:Class ;
-	rdfs:subClassOf ext:Duration .
 
-ext:Timestamp a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+###  http://sweetontology.net/propTime/AverageWinterDuration
+ext:AverageWinterDuration rdf:type owl:Class ;
+                          rdfs:subClassOf func:AnnualAverage ,
+                                          ext:WinterDuration .
 
-ext:Duration a owl:Class ;
-	rdfs:subClassOf ext:TemporalRange , math:Interval ;
-	owl:equivalentClass ext:DurationDescription , ext:TimeInterval .
 
-ext:DurationDescription a owl:Class .
+###  http://sweetontology.net/propTime/CurrentTime
+ext:CurrentTime rdf:type owl:Class ;
+                rdfs:subClassOf owlt:Instant .
 
-ext:TimeInterval a owl:Class .
 
-ext:TemporalRange a owl:Class ;
-	rdfs:subClassOf quan:IntervalQuantity , _:node1boamecvnx3 .
+###  http://sweetontology.net/propTime/Cycle
+ext:Cycle rdf:type owl:Class ;
+          rdfs:subClassOf owlt:ProperInterval ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty trela:hasTime ;
+                            owl:allValuesFrom ext:Period
+                          ] .
 
-_:node1boamecvnx3 a owl:Restriction ;
-	owl:onProperty screla:rangeOf ;
-	owl:allValuesFrom ext:Time .
 
-ext:TemporalRange owl:equivalentClass ext:TimeRange .
+###  http://sweetontology.net/propTime/Delay
+ext:Delay rdf:type owl:Class ;
+          rdfs:subClassOf owlt:Interval .
 
-ext:TimeRange a owl:Class .
 
-ext:TemporalExtent a owl:Class ;
-	rdfs:subClassOf time:TemporalEntity .
+###  http://sweetontology.net/propTime/DoublingTime
+ext:DoublingTime rdf:type owl:Class ;
+                 rdfs:subClassOf ext:Duration .
 
-ext:TimePeriod a owl:Class ;
-	rdfs:subClassOf ext:Duration , _:node1boamecvnx4 .
 
-_:node1boamecvnx4 a owl:Restriction ;
-	owl:allValuesFrom ext:Time ;
-	owl:onProperty trela:hasStartTime .
+###  http://sweetontology.net/propTime/Duration
+ext:Duration rdf:type owl:Class ;
+             owl:equivalentClass ext:DurationDescription ,
+                                 ext:TimeInterval ;
+             rdfs:subClassOf ext:TemporalRange ,
+                             math:Interval .
 
-ext:TimePeriod rdfs:subClassOf _:node1boamecvnx5 .
 
-_:node1boamecvnx5 a owl:Restriction ;
-	owl:allValuesFrom time:Time ;
-	owl:onProperty trela:hasEndTime .
+###  http://sweetontology.net/propTime/DurationDescription
+ext:DurationDescription rdf:type owl:Class .
 
-ext:Repose a owl:Class ;
-	rdfs:subClassOf owlt:Interval ;
-	rdfs:comment "The interval of time between volcanic eruptions."@en .
 
-ext:Hydroperiod a owl:Class ;
-	rdfs:subClassOf ext:Period .
+###  http://sweetontology.net/propTime/EFoldingTime
+ext:EFoldingTime rdf:type owl:Class ;
+                 rdfs:subClassOf ext:Duration .
 
-ext:Episode a owl:Class ;
-	rdfs:subClassOf ext:Exposure ;
-	owl:equivalentClass ext:Episodic .
 
-ext:Episodic a owl:Class .
+###  http://sweetontology.net/propTime/EndTime
+ext:EndTime rdf:type owl:Class ;
+            rdfs:subClassOf owlt:Instant .
 
-ext:Exposure a owl:Class ;
-	rdfs:subClassOf owlt:Interval .
 
-ext:CurrentTime a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+###  http://sweetontology.net/propTime/Episode
+ext:Episode rdf:type owl:Class ;
+            owl:equivalentClass ext:Episodic ;
+            rdfs:subClassOf ext:Exposure .
 
-ext:StartTime a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
 
-ext:EndTime a owl:Class ;
-	rdfs:subClassOf owlt:Instant .
+###  http://sweetontology.net/propTime/Episodic
+ext:Episodic rdf:type owl:Class .
 
-ext:MonthRange a owl:Class ;
-	rdfs:subClassOf ext:Duration , _:node1boamecvnx6 .
 
-_:node1boamecvnx6 a owl:Restriction ;
-	owl:hasValue units:month ;
-	owl:onProperty screla:hasUnit .
+###  http://sweetontology.net/propTime/Exposure
+ext:Exposure rdf:type owl:Class ;
+             rdfs:subClassOf owlt:Interval .
 
-ext:TimeStep a owl:Class ;
-	rdfs:subClassOf ext:Duration .
 
-ext:GeologicTime a owl:Class ;
-	rdfs:subClassOf time:TimeReference , _:node1boamecvnx7 .
+###  http://sweetontology.net/propTime/GeologicTime
+ext:GeologicTime rdf:type owl:Class ;
+                 rdfs:subClassOf time:TimeReference ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty screla:hasUnit ;
+                                   owl:hasValue units:MYA
+                                 ] .
 
-_:node1boamecvnx7 a owl:Restriction ;
-	owl:onProperty screla:hasUnit ;
-	owl:hasValue units:MYA .
 
-ext:GeologicTime rdfs:comment "The geologic time scale is a chronologic schema (or idealized model) relating stratigraphy to time that is used by geologists, paleontologists and other earth scientists to describe the timing and relationships between events that have occurred during the history of the Earth.  [Wikipedia]"@en .
+###  http://sweetontology.net/propTime/Hydroperiod
+ext:Hydroperiod rdf:type owl:Class ;
+                rdfs:subClassOf ext:Period .
 
-ext:AverageSnowCoverDuration a owl:Class ;
-	rdfs:subClassOf func:AnnualAverage , ext:SnowCoverDuration .
 
-ext:AverageWinterDuration a owl:Class ;
-	rdfs:subClassOf func:AnnualAverage , ext:WinterDuration .
+###  http://sweetontology.net/propTime/ITCZDominanceDuration
+ext:ITCZDominanceDuration rdf:type owl:Class ;
+                          rdfs:subClassOf ext:Duration ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty rela:hasPhenomena ;
+                                            owl:someValuesFrom zone:ITCZ
+                                          ] .
 
-ext:AverageITCZDominanceDuration a owl:Class ;
-	rdfs:subClassOf func:AnnualAverage , ext:ITCZDominanceDuration .
 
-ext:SnowCoverDuration a owl:Class ;
-	rdfs:subClassOf ext:Duration , _:node1boamecvnx8 .
+###  http://sweetontology.net/propTime/Latency
+ext:Latency rdf:type owl:Class ;
+            rdfs:subClassOf ext:Delay .
 
-_:node1boamecvnx8 a owl:Restriction ;
-	owl:onProperty rela:hasPhenomena ;
-	owl:someValuesFrom hydr:SnowCover .
 
-ext:WinterDuration a owl:Class ;
-	rdfs:subClassOf ext:Duration , _:node1boamecvnx9 .
+###  http://sweetontology.net/propTime/MonthRange
+ext:MonthRange rdf:type owl:Class ;
+               rdfs:subClassOf ext:Duration ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty screla:hasUnit ;
+                                 owl:hasValue units:month
+                               ] .
 
-_:node1boamecvnx9 a owl:Restriction ;
-	owl:onProperty trela:hasTime ;
-	owl:hasValue seas:Winter .
 
-ext:ITCZDominanceDuration a owl:Class ;
-	rdfs:subClassOf ext:Duration , _:node1boamecvnx10 .
+###  http://sweetontology.net/propTime/Period
+ext:Period rdf:type owl:Class ;
+           rdfs:subClassOf owlt:ProperInterval .
 
-_:node1boamecvnx10 a owl:Restriction ;
-	owl:onProperty rela:hasPhenomena ;
-	owl:someValuesFrom zone:ITCZ .
 
-owlt:ProperInterval a owl:Class ;
-	rdfs:subClassOf ext:TimeRange .
+###  http://sweetontology.net/propTime/Repose
+ext:Repose rdf:type owl:Class ;
+           rdfs:subClassOf owlt:Interval .
 
-owlt:Interval a owl:Class ;
-	rdfs:subClassOf ext:TimeRange .
+
+###  http://sweetontology.net/propTime/ResidenceTime
+ext:ResidenceTime rdf:type owl:Class ;
+                  rdfs:subClassOf ext:Duration .
+
+
+###  http://sweetontology.net/propTime/SnowCoverDuration
+ext:SnowCoverDuration rdf:type owl:Class ;
+                      rdfs:subClassOf ext:Duration ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rela:hasPhenomena ;
+                                        owl:someValuesFrom hydr:SnowCover
+                                      ] .
+
+
+###  http://sweetontology.net/propTime/StartTime
+ext:StartTime rdf:type owl:Class ;
+              rdfs:subClassOf owlt:Instant .
+
+
+###  http://sweetontology.net/propTime/TemporalExtent
+ext:TemporalExtent rdf:type owl:Class ;
+                   rdfs:subClassOf time:TemporalEntity .
+
+
+###  http://sweetontology.net/propTime/TemporalRange
+ext:TemporalRange rdf:type owl:Class ;
+                  owl:equivalentClass ext:TimeRange ;
+                  rdfs:subClassOf quan:IntervalQuantity ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty screla:rangeOf ;
+                                    owl:allValuesFrom ext:Time
+                                  ] .
+
+
+###  http://sweetontology.net/propTime/Time
+ext:Time rdf:type owl:Class ;
+         rdfs:subClassOf quan:PhysicalQuantity ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty screla:hasDefaultUnit ;
+                           owl:hasValue units:second
+                         ] .
+
+
+###  http://sweetontology.net/propTime/TimeInterval
+ext:TimeInterval rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propTime/TimePeriod
+ext:TimePeriod rdf:type owl:Class ;
+               rdfs:subClassOf ext:Duration ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty trela:hasEndTime ;
+                                 owl:allValuesFrom time:Time
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty trela:hasStartTime ;
+                                 owl:allValuesFrom ext:Time
+                               ] .
+
+
+###  http://sweetontology.net/propTime/TimeRange
+ext:TimeRange rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propTime/TimeStep
+ext:TimeStep rdf:type owl:Class ;
+             rdfs:subClassOf ext:Duration .
+
+
+###  http://sweetontology.net/propTime/Timestamp
+ext:Timestamp rdf:type owl:Class ;
+              rdfs:subClassOf owlt:Instant .
+
+
+###  http://sweetontology.net/propTime/WinterDuration
+ext:WinterDuration rdf:type owl:Class ;
+                   rdfs:subClassOf ext:Duration ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty trela:hasTime ;
+                                     owl:hasValue seas:Winter
+                                   ] .
+
+
+###  http://sweetontology.net/realmClimateZone/ITCZ
+zone:ITCZ rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/Interval
+math:Interval rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprTime/TemporalEntity
+time:TemporalEntity rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprTime/TimeReference
+time:TimeReference rdf:type owl:Class .
+
+
+###  http://www.w3.org/2006/time#Instant
+owlt:Instant rdf:type owl:Class .
+
+
+###  http://www.w3.org/2006/time#Interval
+owlt:Interval rdf:type owl:Class ;
+              rdfs:subClassOf ext:TimeRange .
+
+
+###  http://www.w3.org/2006/time#ProperInterval
+owlt:ProperInterval rdf:type owl:Class ;
+                    rdfs:subClassOf ext:TimeRange .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/MYA
+units:MYA rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/second
+units:second rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprTimeSeason/Winter
+seas:Winter rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

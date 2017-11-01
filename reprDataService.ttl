@@ -1,98 +1,137 @@
-@prefix dsrepr: <http://sweetontology.net/reprDataService/> .
-@prefix huma: <http://sweetontology.net/human/> .
+@prefix : <http://sweetontology.net/reprDataService/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix prrela: <http://sweetontology.net/relaProvenance/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix huma: <http://sweetontology.net/human/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix solu: <http://sweetontology.net/reprMathSolution/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dsrepr: <http://sweetontology.net/reprDataService/> .
+@prefix prrela: <http://sweetontology.net/relaProvenance/> .
+@base <http://sweetontology.net/reprDataService> .
 
-<http://sweetontology.net/reprDataService>
-  rdf:type owl:Ontology ;
-  rdfs:label "SWEET Ontology" ;
-  owl:imports <http://sweetontology.net/human> ;
-  owl:imports <http://sweetontology.net/relaProvenance> ;
-  owl:imports <http://sweetontology.net/reprMathSolution> ;
-  owl:versionInfo "3.1.0" ;
-.
-dsrepr:Access
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-  owl:equivalentClass dsrepr:Accessing ;
-.
-dsrepr:Accessing
-  rdf:type owl:Class ;
-.
-dsrepr:Bzip2
-  rdf:type dsrepr:CompressionMethod ;
-.
-dsrepr:Compression
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-.
-dsrepr:CompressionMethod
-  rdf:type owl:Class ;
-  rdfs:subClassOf solu:Algorithm ;
-  rdfs:subClassOf [
-      rdf:type owl:Restriction ;
-      owl:allValuesFrom dsrepr:Compression ;
-      owl:onProperty prrela:hasDataService ;
-    ] ;
-.
-dsrepr:DODS
-  rdf:type dsrepr:InterfaceProtocol ;
-.
-dsrepr:DataService
-  rdf:type owl:Class ;
-  rdfs:subClassOf huma:Service ;
-.
-dsrepr:DataSynchronization
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-.
-dsrepr:Discover
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-  owl:equivalentClass dsrepr:Discovery ;
-  owl:equivalentClass dsrepr:DiscoveryService ;
-.
-dsrepr:Discovery
-  rdf:type owl:Class ;
-.
-dsrepr:DiscoveryService
-  rdf:type owl:Class ;
-.
-dsrepr:FormatConversion
-  rdf:type owl:Class ;
-.
-dsrepr:Gzip
-  rdf:type dsrepr:CompressionMethod ;
-.
-dsrepr:InterfaceProtocol
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-.
-dsrepr:OPeNDAP
-  rdf:type dsrepr:InterfaceProtocol ;
-  owl:sameAs dsrepr:DODS ;
-.
-dsrepr:PostProcessing
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-.
-dsrepr:PreProcessing
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-.
-dsrepr:Reformat
-  rdf:type owl:Class ;
-  rdfs:subClassOf dsrepr:DataService ;
-  owl:equivalentClass dsrepr:FormatConversion ;
-  owl:equivalentClass dsrepr:Reformatting ;
-.
-dsrepr:Reformatting
-  rdf:type owl:Class ;
-.
-dsrepr:Z
-  rdf:type dsrepr:CompressionMethod ;
-.
+<http://sweetontology.net/reprDataService> rdf:type owl:Ontology ;
+                                            owl:imports <http://sweetontology.net/human> ,
+                                                        <http://sweetontology.net/relaProvenance> ,
+                                                        <http://sweetontology.net/reprMathSolution> ;
+                                            rdfs:label "SWEET Ontology" ;
+                                            owl:versionInfo "3.1.0" .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://sweetontology.net/reprDataService/Access
+dsrepr:Access rdf:type owl:Class ;
+              owl:equivalentClass dsrepr:Accessing ;
+              rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/Accessing
+dsrepr:Accessing rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataService/Compression
+dsrepr:Compression rdf:type owl:Class ;
+                   rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/CompressionMethod
+dsrepr:CompressionMethod rdf:type owl:Class ;
+                         rdfs:subClassOf solu:Algorithm ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty prrela:hasDataService ;
+                                           owl:allValuesFrom dsrepr:Compression
+                                         ] .
+
+
+###  http://sweetontology.net/reprDataService/DataService
+dsrepr:DataService rdf:type owl:Class ;
+                   rdfs:subClassOf huma:Service .
+
+
+###  http://sweetontology.net/reprDataService/DataSynchronization
+dsrepr:DataSynchronization rdf:type owl:Class ;
+                           rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/Discover
+dsrepr:Discover rdf:type owl:Class ;
+                owl:equivalentClass dsrepr:Discovery ,
+                                    dsrepr:DiscoveryService ;
+                rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/Discovery
+dsrepr:Discovery rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataService/DiscoveryService
+dsrepr:DiscoveryService rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprDataService/FormatConversion
+dsrepr:FormatConversion rdf:type owl:Class ;
+                        owl:equivalentClass dsrepr:Reformat .
+
+
+###  http://sweetontology.net/reprDataService/InterfaceProtocol
+dsrepr:InterfaceProtocol rdf:type owl:Class ;
+                         rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/PostProcessing
+dsrepr:PostProcessing rdf:type owl:Class ;
+                      rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/PreProcessing
+dsrepr:PreProcessing rdf:type owl:Class ;
+                     rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/Reformat
+dsrepr:Reformat rdf:type owl:Class ;
+                owl:equivalentClass dsrepr:Reformatting ;
+                rdfs:subClassOf dsrepr:DataService .
+
+
+###  http://sweetontology.net/reprDataService/Reformatting
+dsrepr:Reformatting rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathSolution/Algorithm
+solu:Algorithm rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprDataService/Bzip2
+dsrepr:Bzip2 rdf:type owl:NamedIndividual ,
+                      dsrepr:CompressionMethod .
+
+
+###  http://sweetontology.net/reprDataService/DODS
+dsrepr:DODS rdf:type owl:NamedIndividual ,
+                     dsrepr:InterfaceProtocol ;
+            owl:sameAs dsrepr:OPeNDAP .
+
+
+###  http://sweetontology.net/reprDataService/Gzip
+dsrepr:Gzip rdf:type owl:NamedIndividual ,
+                     dsrepr:CompressionMethod .
+
+
+###  http://sweetontology.net/reprDataService/OPeNDAP
+dsrepr:OPeNDAP rdf:type owl:NamedIndividual ,
+                        dsrepr:InterfaceProtocol .
+
+
+###  http://sweetontology.net/reprDataService/Z
+dsrepr:Z rdf:type owl:NamedIndividual ,
+                  dsrepr:CompressionMethod .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

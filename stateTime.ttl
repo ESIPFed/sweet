@@ -1,165 +1,296 @@
-@prefix time: <http://sweetontology.net/propTime/> .
-@prefix stime: <http://sweetontology.net/stateTime/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix ordi: <http://sweetontology.net/propOrdinal/> .
-@prefix mtime: <http://sweetontology.net/reprTime/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix trela: <http://sweetontology.net/relaTime/> .
+@prefix : <http://sweetontology.net/stateTime/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ordi: <http://sweetontology.net/propOrdinal/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://sweetontology.net/propTime/> .
+@prefix mtime: <http://sweetontology.net/reprTime/> .
+@prefix stime: <http://sweetontology.net/stateTime/> .
+@prefix trela: <http://sweetontology.net/relaTime/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/stateTime> .
 
-<http://sweetontology.net/stateTime> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propTime> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/relaTime> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/reprTime> , <http://sweetontology.net/propOrdinal> .
+<http://sweetontology.net/stateTime> rdf:type owl:Ontology ;
+                                      owl:imports <http://sweetontology.net/propOrdinal> ,
+                                                  <http://sweetontology.net/propTime> ,
+                                                  <http://sweetontology.net/relaSci> ,
+                                                  <http://sweetontology.net/relaTime> ,
+                                                  <http://sweetontology.net/reprSciUnits> ,
+                                                  <http://sweetontology.net/reprTime> ;
+                                      rdfs:label "SWEET Ontology" ;
+                                      owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/stateTime/1hour> a time:Duration ;
-	screla:hasNumericValue "1"^^xsd:double ;
-	screla:hasUnit units:hour .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/stateTime/12hour> a time:Duration ;
-	screla:hasNumericValue "12"^^xsd:double ;
-	screla:hasUnit units:hour .
+###  http://sweetontology.net/stateTime/Age
+stime:Age rdf:type owl:Class ;
+          rdfs:subClassOf stime:GeologicTimeUnit ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty trela:temporalPartOf ;
+                            owl:someValuesFrom stime:Epoch
+                          ] .
 
-<http://sweetontology.net/stateTime/1day> a time:Duration ;
-	screla:hasNumericValue "1"^^xsd:double ;
-	screla:hasUnit units:day .
 
-<http://sweetontology.net/stateTime/5day> a time:Duration ;
-	screla:hasNumericValue "5"^^xsd:double ;
-	screla:hasUnit units:day .
+###  http://sweetontology.net/stateTime/Eon
+stime:Eon rdf:type owl:Class ;
+          rdfs:subClassOf stime:GeologicTimeUnit ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty trela:temporalPartOf ;
+                            owl:someValuesFrom stime:Supereon
+                          ] .
 
-<http://sweetontology.net/stateTime/1week> a time:Duration ;
-	screla:hasNumericValue "1"^^xsd:double ;
-	screla:hasUnit units:week .
 
-<http://sweetontology.net/stateTime/2week> a time:Duration ;
-	screla:hasNumericValue "2"^^xsd:double ;
-	screla:hasUnit units:week .
+###  http://sweetontology.net/stateTime/Epoch
+stime:Epoch rdf:type owl:Class ;
+            rdfs:subClassOf stime:GeologicTimeUnit ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty trela:temporalPartOf ;
+                              owl:someValuesFrom stime:Period
+                            ] .
 
-<http://sweetontology.net/stateTime/1month> a time:Duration ;
-	screla:hasNumericValue "1"^^xsd:double ;
-	screla:hasUnit units:month .
 
-<http://sweetontology.net/stateTime/3month> a time:Duration ;
-	screla:hasNumericValue "3"^^xsd:double ;
-	screla:hasUnit units:month .
+###  http://sweetontology.net/stateTime/Era
+stime:Era rdf:type owl:Class ;
+          rdfs:subClassOf stime:GeologicTimeUnit ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty trela:temporalPartOf ;
+                            owl:someValuesFrom stime:Eon
+                          ] .
 
-<http://sweetontology.net/stateTime/6month> a time:Duration ;
-	screla:hasNumericValue "6"^^xsd:double ;
-	screla:hasUnit units:month .
 
-<http://sweetontology.net/stateTime/1year> a time:Duration ;
-	screla:hasNumericValue "1"^^xsd:double ;
-	screla:hasUnit units:year .
+###  http://sweetontology.net/stateTime/GeologicTimeUnit
+stime:GeologicTimeUnit rdf:type owl:Class ;
+                       rdfs:subClassOf time:Duration .
 
-<http://sweetontology.net/stateTime/2year> a time:Duration ;
-	screla:hasNumericValue "2"^^xsd:double ;
-	screla:hasUnit units:year .
 
-<http://sweetontology.net/stateTime/10year> a time:Duration ;
-	screla:hasNumericValue "10"^^xsd:double ;
-	screla:hasUnit units:year .
+###  http://sweetontology.net/stateTime/NeotectonicPeriod
+stime:NeotectonicPeriod rdf:type owl:Class ;
+                        rdfs:subClassOf mtime:TimeReference .
 
-stime:ShortLived a time:Duration .
 
-stime:Age a owl:Class ;
-	rdfs:subClassOf stime:GeologicTimeUnit , _:node1boamerp7x1 .
+###  http://sweetontology.net/stateTime/Period
+stime:Period rdf:type owl:Class ;
+             rdfs:subClassOf stime:GeologicTimeUnit ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty trela:temporalPartOf ;
+                               owl:someValuesFrom stime:Era
+                             ] .
 
-_:node1boamerp7x1 a owl:Restriction ;
-	owl:onProperty trela:temporalPartOf ;
-	owl:someValuesFrom stime:Epoch .
 
-stime:Age rdfs:comment "Epochs are divided into ages [millions of years] [Wikipedia]"@en .
+###  http://sweetontology.net/stateTime/Supereon
+stime:Supereon rdf:type owl:Class ;
+               rdfs:subClassOf stime:GeologicTimeUnit .
 
-stime:Epoch a owl:Class ;
-	rdfs:subClassOf stime:GeologicTimeUnit , _:node1boamerp7x2 .
 
-_:node1boamerp7x2 a owl:Restriction ;
-	owl:onProperty trela:temporalPartOf ;
-	owl:someValuesFrom stime:Period .
+#################################################################
+#    Individuals
+#################################################################
 
-stime:Epoch rdfs:comment "Periods are divided into epochs [tens of millions of years] [Wikipedia]"@en .
+###  http://sweetontology.net/reprSciUnits/day
+units:day rdf:type owl:NamedIndividual .
 
-stime:Period a owl:Class ;
-	rdfs:subClassOf stime:GeologicTimeUnit , _:node1boamerp7x3 .
 
-_:node1boamerp7x3 a owl:Restriction ;
-	owl:onProperty trela:temporalPartOf ;
-	owl:someValuesFrom stime:Era .
+###  http://sweetontology.net/reprSciUnits/hour
+units:hour rdf:type owl:NamedIndividual .
 
-stime:Period rdfs:comment "Eras are divided into periods. [Wikipedia]"@en .
 
-stime:Era a owl:Class ;
-	rdfs:subClassOf stime:GeologicTimeUnit , _:node1boamerp7x4 .
+###  http://sweetontology.net/reprSciUnits/month
+units:month rdf:type owl:NamedIndividual .
 
-_:node1boamerp7x4 a owl:Restriction ;
-	owl:onProperty trela:temporalPartOf ;
-	owl:someValuesFrom stime:Eon .
 
-stime:Era rdfs:comment "Eons are divided into eras [several hundred million years] [Wikipedia]"@en .
+###  http://sweetontology.net/reprSciUnits/week
+units:week rdf:type owl:NamedIndividual .
 
-stime:Eon a owl:Class ;
-	rdfs:subClassOf stime:GeologicTimeUnit , _:node1boamerp7x5 .
 
-_:node1boamerp7x5 a owl:Restriction ;
-	owl:onProperty trela:temporalPartOf ;
-	owl:someValuesFrom stime:Supereon .
+###  http://sweetontology.net/reprSciUnits/year
+units:year rdf:type owl:NamedIndividual .
 
-stime:Eon rdfs:comment "Supereons are divided into eons.  [billions of years] [Wikipedia]"@en .
 
-stime:Supereon a owl:Class ;
-	rdfs:subClassOf stime:GeologicTimeUnit ;
-	rdfs:comment "The largest defined unit of time is the supereon, composed of eons.] [Wikipedia]"@en .
+###  http://sweetontology.net/stateTime/Ancient
+stime:Ancient rdf:type owl:NamedIndividual ,
+                       ordi:Age ;
+              trela:olderThan stime:New .
 
-stime:GeologicTimeUnit a owl:Class ;
-	rdfs:subClassOf time:Duration ;
-	rdfs:comment "The subdivisions of geologic time. The table of geologic time spans are dates and nomenclature defined by the International Commission on Stratigraphy. [Wikipedia]"@en .
 
-stime:NeotectonicPeriod a owl:Class ;
-	rdfs:subClassOf mtime:TimeReference .
+###  http://sweetontology.net/stateTime/Antiquated
+stime:Antiquated rdf:type owl:NamedIndividual ,
+                          ordi:Age ;
+                 trela:olderThan stime:New .
 
-stime:Ancient a ordi:Age ;
-	trela:olderThan stime:New .
 
-stime:Antiquated a ordi:Age ;
-	trela:olderThan stime:New .
+###  http://sweetontology.net/stateTime/Antique
+stime:Antique rdf:type owl:NamedIndividual ,
+                       ordi:Age ;
+              trela:olderThan stime:New .
 
-stime:Antique a ordi:Age ;
-	trela:olderThan stime:New .
 
-stime:Fresh a ordi:Age .
+###  http://sweetontology.net/stateTime/Fresh
+stime:Fresh rdf:type owl:NamedIndividual ,
+                     ordi:Age .
 
-stime:Incipient a ordi:Age .
 
-stime:Lifetime a ordi:Age .
+###  http://sweetontology.net/stateTime/Future
+stime:Future rdf:type owl:NamedIndividual ,
+                      ordi:Age .
 
-stime:New a ordi:Age .
 
-stime:Young a ordi:Age .
+###  http://sweetontology.net/stateTime/Immature
+stime:Immature rdf:type owl:NamedIndividual ,
+                        ordi:Age .
 
-stime:Old a ordi:Age ;
-	trela:olderThan stime:Young , stime:New .
 
-stime:Past a ordi:Age ;
-	trela:olderThan stime:Present .
+###  http://sweetontology.net/stateTime/Incipient
+stime:Incipient rdf:type owl:NamedIndividual ,
+                         ordi:Age .
 
-stime:Present a ordi:Age ;
-	trela:olderThan stime:Future .
 
-stime:Future a ordi:Age .
+###  http://sweetontology.net/stateTime/Lifetime
+stime:Lifetime rdf:type owl:NamedIndividual ,
+                        ordi:Age .
 
-stime:Prehistoric a ordi:Age .
 
-stime:Primordial a ordi:Age .
+###  http://sweetontology.net/stateTime/Mature
+stime:Mature rdf:type owl:NamedIndividual ,
+                      ordi:Age ;
+             trela:olderThan stime:Immature .
 
-stime:Recent a ordi:Age .
 
-stime:Immature a ordi:Age .
+###  http://sweetontology.net/stateTime/New
+stime:New rdf:type owl:NamedIndividual ,
+                   ordi:Age .
 
-stime:Mature a ordi:Age ;
-	trela:olderThan stime:Immature .
 
-stime:Young a ordi:Age .
+###  http://sweetontology.net/stateTime/Old
+stime:Old rdf:type owl:NamedIndividual ,
+                   ordi:Age ;
+          trela:olderThan stime:New ,
+                          stime:Young .
+
+
+###  http://sweetontology.net/stateTime/Past
+stime:Past rdf:type owl:NamedIndividual ,
+                    ordi:Age ;
+           trela:olderThan stime:Present .
+
+
+###  http://sweetontology.net/stateTime/Prehistoric
+stime:Prehistoric rdf:type owl:NamedIndividual ,
+                           ordi:Age .
+
+
+###  http://sweetontology.net/stateTime/Present
+stime:Present rdf:type owl:NamedIndividual ,
+                       ordi:Age ;
+              trela:olderThan stime:Future .
+
+
+###  http://sweetontology.net/stateTime/Primordial
+stime:Primordial rdf:type owl:NamedIndividual ,
+                          ordi:Age .
+
+
+###  http://sweetontology.net/stateTime/Recent
+stime:Recent rdf:type owl:NamedIndividual ,
+                      ordi:Age .
+
+
+###  http://sweetontology.net/stateTime/ShortLived
+stime:ShortLived rdf:type owl:NamedIndividual ,
+                          time:Duration .
+
+
+###  http://sweetontology.net/stateTime/Young
+stime:Young rdf:type owl:NamedIndividual ,
+                     ordi:Age .
+
+
+###  http://sweetontology.net/stateTime/1day
+stime:day rdf:type owl:NamedIndividual ,
+                   time:Duration ;
+          screla:hasUnit units:day ;
+          screla:hasNumericValue "1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/1hour
+stime:hour rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:hour ;
+           screla:hasNumericValue "1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/1month
+stime:month rdf:type owl:NamedIndividual ,
+                     time:Duration ;
+            screla:hasUnit units:month ;
+            screla:hasNumericValue "1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/1week
+stime:week rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:week ;
+           screla:hasNumericValue "1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/1year
+stime:year rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:year ;
+           screla:hasNumericValue "1.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/10year
+stime:year rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:year ;
+           screla:hasNumericValue "10.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/12hour
+stime:hour rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:hour ;
+           screla:hasNumericValue "12.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/2week
+stime:week rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:week ;
+           screla:hasNumericValue "2.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/2year
+stime:year rdf:type owl:NamedIndividual ,
+                    time:Duration ;
+           screla:hasUnit units:year ;
+           screla:hasNumericValue "2.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/3month
+stime:month rdf:type owl:NamedIndividual ,
+                     time:Duration ;
+            screla:hasUnit units:month ;
+            screla:hasNumericValue "3.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/5day
+stime:day rdf:type owl:NamedIndividual ,
+                   time:Duration ;
+          screla:hasUnit units:day ;
+          screla:hasNumericValue "5.0"^^xsd:double .
+
+
+###  http://sweetontology.net/stateTime/6month
+stime:month rdf:type owl:NamedIndividual ,
+                     time:Duration ;
+            screla:hasUnit units:month ;
+            screla:hasNumericValue "6.0"^^xsd:double .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

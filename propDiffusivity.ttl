@@ -1,81 +1,159 @@
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix diff: <http://sweetontology.net/propDiffusivity/> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
-@prefix wave: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
-@prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix rate: <http://sweetontology.net/propTimeFrequency/> .
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix : <http://sweetontology.net/propDiffusivity/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix diff: <http://sweetontology.net/propDiffusivity/> .
+@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix proc: <http://sweetontology.net/procPhysical/> .
+@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix rate: <http://sweetontology.net/propTimeFrequency/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/rela/> .
+@prefix wave: <http://sweetontology.net/phenFluidDynamics/> .
+@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/propDiffusivity> .
 
-<http://sweetontology.net/propDiffusivity> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/propQuantity> , <http://sweetontology.net/reprSciUnits> , <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/phenFluidDynamics> , <http://sweetontology.net/procPhysical> , <http://sweetontology.net/propTimeFrequency> , <http://sweetontology.net/rela> , <http://sweetontology.net/relaSci> .
+<http://sweetontology.net/propDiffusivity> rdf:type owl:Ontology ;
+                                            owl:imports <http://sweetontology.net/phenFluidDynamics> ,
+                                                        <http://sweetontology.net/procPhysical> ,
+                                                        <http://sweetontology.net/propQuantity> ,
+                                                        <http://sweetontology.net/propTimeFrequency> ,
+                                                        <http://sweetontology.net/rela> ,
+                                                        <http://sweetontology.net/relaSci> ,
+                                                        <http://sweetontology.net/reprMathFunction> ,
+                                                        <http://sweetontology.net/reprSciUnits> ;
+                                            rdfs:label "SWEET Ontology" ;
+                                            owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/propDiffusivity/Transmissivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/DiffusivityQuantity> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/propDiffusivity/DiffusivityQuantity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> , _:node1boame9ksx1 .
+###  http://sweetontology.net/relaSci/hasDefaultUnit
+screla:hasDefaultUnit rdf:type owl:ObjectProperty .
 
-_:node1boame9ksx1 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/meterSquaredPerSecond> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
 
-<http://sweetontology.net/propDiffusivity/Diffusivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/DiffusivityQuantity> .
+###  http://sweetontology.net/relaSci/measureOf
+screla:measureOf rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/propDiffusivity/EddyDiffusivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/Diffusivity> , _:node1boame9ksx2 .
 
-_:node1boame9ksx2 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:someValuesFrom <http://sweetontology.net/phenFluidDynamics/Eddy> .
+#################################################################
+#    Classes
+#################################################################
 
-<http://sweetontology.net/propDiffusivity/EddyDiffusivity> rdfs:comment "The exchange coefficient for the diffusion of a conservative property by eddies in a turbulent flow."@en .
+###  http://sweetontology.net/propDiffusivity/Confluence
+diff:Confluence rdf:type owl:Class ;
+                rdfs:subClassOf diff:DiffusivityQuantity ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasPhenomena ;
+                                  owl:someValuesFrom rate:Convergence
+                                ] .
 
-<http://sweetontology.net/propDiffusivity/KinematicViscosity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/DiffusivityQuantity> , _:node1boame9ksx3 .
 
-_:node1boame9ksx3 a owl:Restriction ;
-	owl:allValuesFrom <http://sweetontology.net/procPhysical/ViscousForce> ;
-	owl:onProperty <http://sweetontology.net/relaSci/measureOf> .
+###  http://sweetontology.net/propDiffusivity/Diffluence
+diff:Diffluence rdf:type owl:Class ;
+                rdfs:subClassOf diff:DiffusivityQuantity ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty rela:hasPhenomena ;
+                                  owl:someValuesFrom rate:Divergence
+                                ] .
 
-<http://sweetontology.net/propDiffusivity/ThermalDiffusivity> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/Diffusivity> , <http://sweetontology.net/propQuantity/ThermodynamicQuantity> .
 
-<http://sweetontology.net/propDiffusivity/MeridionalOvertuningStreamfunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/Streamfunction> .
+###  http://sweetontology.net/propDiffusivity/Diffusivity
+diff:Diffusivity rdf:type owl:Class ;
+                 rdfs:subClassOf diff:DiffusivityQuantity .
 
-<http://sweetontology.net/propDiffusivity/Streamfunction> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/reprMathFunction/VectorQuantity> , _:node1boame9ksx4 .
 
-_:node1boame9ksx4 a owl:Restriction ;
-	owl:hasValue <http://sweetontology.net/reprSciUnits/meterCubedPerSecond> ;
-	owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> .
+###  http://sweetontology.net/propDiffusivity/DiffusivityQuantity
+diff:DiffusivityQuantity rdf:type owl:Class ;
+                         rdfs:subClassOf quan:PhysicalQuantity ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty screla:hasDefaultUnit ;
+                                           owl:hasValue units:meterSquaredPerSecond
+                                         ] .
 
-<http://sweetontology.net/propDiffusivity/VelocityPotential> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/DiffusivityQuantity> , <http://sweetontology.net/reprMathFunction/VectorQuantity> .
 
-<http://sweetontology.net/propDiffusivity/Diffluence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/DiffusivityQuantity> , _:node1boame9ksx5 .
+###  http://sweetontology.net/propDiffusivity/EddyDiffusivity
+diff:EddyDiffusivity rdf:type owl:Class ;
+                     rdfs:subClassOf diff:Diffusivity ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty rela:hasPhenomena ;
+                                       owl:someValuesFrom wave:Eddy
+                                     ] .
 
-_:node1boame9ksx5 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:someValuesFrom <http://sweetontology.net/propTimeFrequency/Divergence> .
 
-<http://sweetontology.net/propDiffusivity/Diffluence> rdfs:comment "The rate at which adjacent flow diverges along an axis oriented normal to the flow at the point in question; the opposite of confluence."@en .
+###  http://sweetontology.net/propDiffusivity/KinematicViscosity
+diff:KinematicViscosity rdf:type owl:Class ;
+                        rdfs:subClassOf diff:DiffusivityQuantity ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty screla:measureOf ;
+                                          owl:allValuesFrom proc:ViscousForce
+                                        ] .
 
-<http://sweetontology.net/propDiffusivity/Confluence> a owl:Class ;
-	rdfs:subClassOf <http://sweetontology.net/propDiffusivity/DiffusivityQuantity> , _:node1boame9ksx6 .
 
-_:node1boame9ksx6 a owl:Restriction ;
-	owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
-	owl:someValuesFrom <http://sweetontology.net/propTimeFrequency/Convergence> .
+###  http://sweetontology.net/propDiffusivity/MeridionalOvertuningStreamfunction
+diff:MeridionalOvertuningStreamfunction rdf:type owl:Class ;
+                                        rdfs:subClassOf diff:Streamfunction .
 
-<http://sweetontology.net/propDiffusivity/Confluence> rdfs:comment "The rate at which adjacent flow is converging along an axis oriented normal to the flow at the point in question."@en .
+
+###  http://sweetontology.net/propDiffusivity/Streamfunction
+diff:Streamfunction rdf:type owl:Class ;
+                    rdfs:subClassOf func:VectorQuantity ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty screla:hasDefaultUnit ;
+                                      owl:hasValue units:meterCubedPerSecond
+                                    ] .
+
+
+###  http://sweetontology.net/propDiffusivity/ThermalDiffusivity
+diff:ThermalDiffusivity rdf:type owl:Class ;
+                        rdfs:subClassOf diff:Diffusivity ,
+                                        quan:ThermodynamicQuantity .
+
+
+###  http://sweetontology.net/propDiffusivity/Transmissivity
+diff:Transmissivity rdf:type owl:Class ;
+                    rdfs:subClassOf diff:DiffusivityQuantity .
+
+
+###  http://sweetontology.net/propDiffusivity/VelocityPotential
+diff:VelocityPotential rdf:type owl:Class ;
+                       rdfs:subClassOf diff:DiffusivityQuantity ,
+                                       func:VectorQuantity .
+
+
+###  http://sweetontology.net/propQuantity/PhysicalQuantity
+quan:PhysicalQuantity rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
+quan:ThermodynamicQuantity rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propTimeFrequency/Convergence
+rate:Convergence rdf:type owl:Class .
+
+
+###  http://sweetontology.net/propTimeFrequency/Divergence
+rate:Divergence rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunction/VectorQuantity
+func:VectorQuantity rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://sweetontology.net/reprSciUnits/meterCubedPerSecond
+units:meterCubedPerSecond rdf:type owl:NamedIndividual .
+
+
+###  http://sweetontology.net/reprSciUnits/meterSquaredPerSecond
+units:meterSquaredPerSecond rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

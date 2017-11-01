@@ -1,153 +1,205 @@
-@prefix tech: <http://sweetontology.net/humanTechReadiness/> .
-@prefix equi: <http://sweetontology.net/matrEquipment/> .
-@prefix res: <http://sweetontology.net/humanResearch/> .
-@prefix repr: <http://sweetontology.net/repr/> .
-@prefix hrela: <http://sweetontology.net/relaHuman/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix : <http://sweetontology.net/humanTechReadiness/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix res: <http://sweetontology.net/humanResearch/> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix equi: <http://sweetontology.net/matrEquipment/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix repr: <http://sweetontology.net/repr/> .
+@prefix tech: <http://sweetontology.net/humanTechReadiness/> .
+@prefix hrela: <http://sweetontology.net/relaHuman/> .
+@prefix screla: <http://sweetontology.net/relaSci/> .
+@base <http://sweetontology.net/humanTechReadiness> .
 
-<http://sweetontology.net/humanTechReadiness> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/matrEquipment> , <http://sweetontology.net/repr> , <http://sweetontology.net/relaHuman> , <http://sweetontology.net/relaSci> , <http://sweetontology.net/humanResearch> .
+<http://sweetontology.net/humanTechReadiness> rdf:type owl:Ontology ;
+                                               owl:imports <http://sweetontology.net/humanResearch> ,
+                                                           <http://sweetontology.net/matrEquipment> ,
+                                                           <http://sweetontology.net/relaHuman> ,
+                                                           <http://sweetontology.net/relaSci> ,
+                                                           <http://sweetontology.net/repr> ;
+                                               rdfs:label "SWEET Ontology" ;
+                                               owl:versionInfo "3.1.0" .
 
-tech:Technology a owl:Class ;
-	rdfs:subClassOf equi:Infrastructure .
+#################################################################
+#    Object Properties
+#################################################################
 
-tech:TechnologyReadiness a owl:Class ;
-	rdfs:subClassOf repr:Knowledge , _:node1boamdtpox1 .
+###  http://sweetontology.net/relaHuman/readinessOf
+hrela:readinessOf rdf:type owl:ObjectProperty .
 
-_:node1boamdtpox1 a owl:Restriction ;
-	owl:onProperty hrela:readinessOf ;
-	owl:allValuesFrom tech:Technology .
 
-tech:TechnologyReadinessLevel a owl:Class ;
-	rdfs:subClassOf repr:OrdinalScale ;
-	owl:equivalentClass tech:TRL ;
-	rdfs:subClassOf _:node1boamdtpox2 .
+###  http://sweetontology.net/relaHuman/successIn
+hrela:successIn rdf:type owl:ObjectProperty .
 
-_:node1boamdtpox2 a owl:Restriction ;
-	owl:onProperty screla:measureOf ;
-	owl:allValuesFrom tech:TechnologyReadiness .
 
-tech:TRL a owl:Class .
+###  http://sweetontology.net/relaSci/measureOf
+screla:measureOf rdf:type owl:ObjectProperty .
 
-tech:TRL1 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox3 .
 
-_:node1boamdtpox3 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "1"^^xsd:integer .
+#################################################################
+#    Data properties
+#################################################################
 
-tech:TRL1 rdfs:subClassOf _:node1boamdtpox4 .
+###  http://sweetontology.net/relaHuman/hasTRL
+hrela:hasTRL rdf:type owl:DatatypeProperty .
 
-_:node1boamdtpox4 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:Result .
 
-tech:TRL2 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox5 .
+#################################################################
+#    Classes
+#################################################################
 
-_:node1boamdtpox5 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "2"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/TRL
+tech:TRL rdf:type owl:Class ;
+         owl:equivalentClass tech:TechnologyReadinessLevel .
 
-tech:TRL2 rdfs:subClassOf _:node1boamdtpox6 .
 
-_:node1boamdtpox6 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:AppliedResearch .
+###  http://sweetontology.net/humanTechReadiness/TRL1
+tech:TRL1 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:Result
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 1
+                          ] .
 
-tech:TRL3 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox7 .
 
-_:node1boamdtpox7 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "3"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/TRL2
+tech:TRL2 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:AppliedResearch
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 2
+                          ] .
 
-tech:TRL3 rdfs:subClassOf _:node1boamdtpox8 .
 
-_:node1boamdtpox8 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:ProofOfConcept .
+###  http://sweetontology.net/humanTechReadiness/TRL3
+tech:TRL3 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:ProofOfConcept
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 3
+                          ] .
 
-tech:TRL4 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox9 .
 
-_:node1boamdtpox9 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "4"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/TRL4
+tech:TRL4 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:LaboratoryEnvironment
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 4
+                          ] .
 
-tech:TRL4 rdfs:subClassOf _:node1boamdtpox10 .
 
-_:node1boamdtpox10 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:LaboratoryEnvironment .
+###  http://sweetontology.net/humanTechReadiness/TRL5
+tech:TRL5 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:RepresentativeEnvironment
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 5
+                          ] .
 
-tech:TRL5 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox11 .
 
-_:node1boamdtpox11 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "5"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/TRL6
+tech:TRL6 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:EndToEndEnvironment
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 6
+                          ] .
 
-tech:TRL5 rdfs:subClassOf _:node1boamdtpox12 .
 
-_:node1boamdtpox12 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:RepresentativeEnvironment .
+###  http://sweetontology.net/humanTechReadiness/TRL7
+tech:TRL7 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:OperationalEnvironment
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 7
+                          ] .
 
-tech:TRL6 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox13 .
 
-_:node1boamdtpox13 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "6"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/TRL8
+tech:TRL8 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:VerifiedValidatedEnvironment
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 8
+                          ] .
 
-tech:TRL6 rdfs:subClassOf _:node1boamdtpox14 .
 
-_:node1boamdtpox14 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:EndToEndEnvironment .
+###  http://sweetontology.net/humanTechReadiness/TRL9
+tech:TRL9 rdf:type owl:Class ;
+          rdfs:subClassOf tech:TRL ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:successIn ;
+                            owl:allValuesFrom res:MissionTestedEnvironment
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty hrela:hasTRL ;
+                            owl:hasValue 9
+                          ] .
 
-tech:TRL7 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox15 .
 
-_:node1boamdtpox15 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "7"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/Technology
+tech:Technology rdf:type owl:Class ;
+                rdfs:subClassOf equi:Infrastructure .
 
-tech:TRL7 rdfs:subClassOf _:node1boamdtpox16 .
 
-_:node1boamdtpox16 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:OperationalEnvironment .
+###  http://sweetontology.net/humanTechReadiness/TechnologyReadiness
+tech:TechnologyReadiness rdf:type owl:Class ;
+                         rdfs:subClassOf repr:Knowledge ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty hrela:readinessOf ;
+                                           owl:allValuesFrom tech:Technology
+                                         ] .
 
-tech:TRL8 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox17 .
 
-_:node1boamdtpox17 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "8"^^xsd:integer .
+###  http://sweetontology.net/humanTechReadiness/TechnologyReadinessLevel
+tech:TechnologyReadinessLevel rdf:type owl:Class ;
+                              rdfs:subClassOf repr:OrdinalScale ,
+                                              [ rdf:type owl:Restriction ;
+                                                owl:onProperty screla:measureOf ;
+                                                owl:allValuesFrom tech:TechnologyReadiness
+                                              ] .
 
-tech:TRL8 rdfs:subClassOf _:node1boamdtpox18 .
 
-_:node1boamdtpox18 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:VerifiedValidatedEnvironment .
+###  http://sweetontology.net/matrEquipment/Infrastructure
+equi:Infrastructure rdf:type owl:Class .
 
-tech:TRL9 a owl:Class ;
-	rdfs:subClassOf tech:TRL , _:node1boamdtpox19 .
 
-_:node1boamdtpox19 a owl:Restriction ;
-	owl:onProperty hrela:hasTRL ;
-	owl:hasValue "9"^^xsd:integer .
+###  http://sweetontology.net/repr/OrdinalScale
+repr:OrdinalScale rdf:type owl:Class .
 
-tech:TRL9 rdfs:subClassOf _:node1boamdtpox20 .
 
-_:node1boamdtpox20 a owl:Restriction ;
-	owl:onProperty hrela:successIn ;
-	owl:allValuesFrom res:MissionTestedEnvironment .
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/

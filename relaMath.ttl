@@ -1,278 +1,565 @@
-@prefix math: <http://sweetontology.net/reprMath/> .
-@prefix diff: <http://sweetontology.net/propDifference/> .
-@prefix graph: <http://sweetontology.net/reprMathGraph/> .
-@prefix pstat: <http://sweetontology.net/propFunction/> .
-@prefix stat: <http://sweetontology.net/reprMathStatistics/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
-@prefix func: <http://sweetontology.net/reprMathFunction/> .
-@prefix rela: <http://sweetontology.net/relaMath/> .
-@prefix repr: <http://sweetontology.net/repr/> .
+@prefix : <http://sweetontology.net/relaMath/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix diff: <http://sweetontology.net/propDifference/> .
+@prefix func: <http://sweetontology.net/reprMathFunction/> .
+@prefix math: <http://sweetontology.net/reprMath/> .
+@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rela: <http://sweetontology.net/relaMath/> .
+@prefix repr: <http://sweetontology.net/repr/> .
+@prefix stat: <http://sweetontology.net/reprMathStatistics/> .
+@prefix graph: <http://sweetontology.net/reprMathGraph/> .
+@prefix pstat: <http://sweetontology.net/propFunction/> .
+@base <http://sweetontology.net/relaMath> .
 
-<http://sweetontology.net/relaMath> a owl:Ontology ;
-	owl:versionInfo "3.1.0" ;
-	rdfs:label "SWEET Ontology" ;
-	owl:imports <http://sweetontology.net/reprMath> , <http://sweetontology.net/reprMathGraph> , <http://sweetontology.net/propFunction> , <http://sweetontology.net/reprMathFunction> , <http://sweetontology.net/reprMathOperation> , <http://sweetontology.net/propDifference> , <http://sweetontology.net/reprMathStatistics> , <http://sweetontology.net/repr> .
+<http://sweetontology.net/relaMath> rdf:type owl:Ontology ;
+                                     owl:imports <http://sweetontology.net/propDifference> ,
+                                                 <http://sweetontology.net/propFunction> ,
+                                                 <http://sweetontology.net/repr> ,
+                                                 <http://sweetontology.net/reprMath> ,
+                                                 <http://sweetontology.net/reprMathFunction> ,
+                                                 <http://sweetontology.net/reprMathGraph> ,
+                                                 <http://sweetontology.net/reprMathOperation> ,
+                                                 <http://sweetontology.net/reprMathStatistics> ;
+                                     rdfs:label "SWEET Ontology" ;
+                                     owl:versionInfo "3.1.0" .
 
-<http://sweetontology.net/relaMath/hasInterval> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMath/Interval> .
+#################################################################
+#    Object Properties
+#################################################################
 
-<http://sweetontology.net/relaMath/hasOperand> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMath/NumericalEntity> ;
-	rdfs:range <http://sweetontology.net/reprMath/NumericalEntity> .
+###  http://sweetontology.net/relaMath/approximates
+rela:approximates rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasOrderedPair> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMath/OrderedPair> .
 
-<http://sweetontology.net/relaMath/hasUnorderedPair> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMath/UnorderedPair> .
+###  http://sweetontology.net/relaMath/averageOver
+rela:averageOver rdf:type owl:ObjectProperty ;
+                 rdfs:domain pstat:Average .
 
-<http://sweetontology.net/relaMath/hasFirstOperand> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasOperand> .
 
-<http://sweetontology.net/relaMath/hasSecondOperand> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasOperand> .
+###  http://sweetontology.net/relaMath/basedOn
+rela:basedOn rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasThirdOperand> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasOperand> .
 
-<http://sweetontology.net/relaMath/hasExponent> a owl:ObjectProperty .
+###  http://sweetontology.net/relaMath/coordinate_1
+rela:coordinate_1 rdf:type owl:ObjectProperty ;
+                  rdfs:range repr:Coordinate .
 
-<http://sweetontology.net/relaMath/hasConstant> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/eachElementHasType> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMath/NumericalEntity> .
+###  http://sweetontology.net/relaMath/coordinate_2
+rela:coordinate_2 rdf:type owl:ObjectProperty ;
+                  rdfs:range repr:Coordinate .
 
-<http://sweetontology.net/relaMath/isomorphic> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> .
 
-<http://sweetontology.net/relaMath/projection> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/subsetOf> .
+###  http://sweetontology.net/relaMath/coordinate_3
+rela:coordinate_3 rdf:type owl:ObjectProperty ;
+                  rdfs:range repr:Coordinate .
 
-<http://sweetontology.net/relaMath/equals> a owl:ObjectProperty , owl:SymmetricProperty , owl:TransitiveProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> .
 
-<http://sweetontology.net/relaMath/inequality> a owl:ObjectProperty , owl:TransitiveProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> .
+###  http://sweetontology.net/relaMath/coordinate_4
+rela:coordinate_4 rdf:type owl:ObjectProperty ;
+                  rdfs:range repr:Coordinate .
 
-<http://sweetontology.net/relaMath/relation> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/ordinalRelation> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> ;
-	a owl:TransitiveProperty .
+###  http://sweetontology.net/relaMath/derivativeWithRespectTo
+rela:derivativeWithRespectTo rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/greaterThan> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/ordinalRelation> , <http://sweetontology.net/relaMath/inequality> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/lessThanOrEqual> .
 
-<http://sweetontology.net/relaMath/greaterThanOrEqual> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/ordinalRelation> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/lessThan> .
+###  http://sweetontology.net/relaMath/deviationFrom
+rela:deviationFrom rdf:type owl:ObjectProperty ;
+                   rdfs:domain diff:Deviation .
 
-<http://sweetontology.net/relaMath/lessThan> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/ordinalRelation> , <http://sweetontology.net/relaMath/inequality> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/greaterThanOrEqual> .
 
-<http://sweetontology.net/relaMath/lessThanOrEqual> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/ordinalRelation> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/greaterThan> .
+###  http://sweetontology.net/relaMath/dividedBy
+rela:dividedBy rdf:type owl:ObjectProperty ;
+               owl:inverseOf rela:productOf ;
+               rdfs:range oper:Quotient .
 
-<http://sweetontology.net/relaMath/fuzzyGreaterThan> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> .
 
-<http://sweetontology.net/relaMath/fuzzyLessThan> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> .
+###  http://sweetontology.net/relaMath/eachElementHasType
+rela:eachElementHasType rdf:type owl:ObjectProperty ;
+                        rdfs:range math:NumericalEntity .
 
-<http://sweetontology.net/relaMath/setRelation> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMath/Set> ;
-	rdfs:range <http://sweetontology.net/reprMath/Set> ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/relation> .
 
-<http://sweetontology.net/relaMath/setExclusion> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/setRelation> .
+###  http://sweetontology.net/relaMath/equals
+rela:equals rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf rela:relation ;
+            rdf:type owl:SymmetricProperty ,
+                     owl:TransitiveProperty .
 
-<http://sweetontology.net/relaMath/subsetOf> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/setRelation> .
 
-<http://sweetontology.net/relaMath/supersetOf> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/setRelation> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/subsetOf> .
+###  http://sweetontology.net/relaMath/estimateOf
+rela:estimateOf rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasField> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathFunction/Field> .
 
-<http://sweetontology.net/relaMath/hasFunction> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathFunction/Function> .
+###  http://sweetontology.net/relaMath/fuzzyGreaterThan
+rela:fuzzyGreaterThan rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf rela:relation .
 
-<http://sweetontology.net/relaMath/hasVertex> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathGraph/Vertex> .
 
-<http://sweetontology.net/relaMath/hasArc> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathGraph/Arc> ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasEdge> .
+###  http://sweetontology.net/relaMath/fuzzyLessThan
+rela:fuzzyLessThan rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf rela:relation .
 
-<http://sweetontology.net/relaMath/hasEdge> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathGraph/Edge> .
 
-<http://sweetontology.net/relaMath/hasWeightedEdge> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathGraph/WeightedEdge> .
+###  http://sweetontology.net/relaMath/greaterThan
+rela:greaterThan rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf rela:inequality ,
+                                    rela:ordinalRelation ;
+                 owl:inverseOf rela:lessThanOrEqual .
 
-<http://sweetontology.net/relaMath/hasOrderedVertexPair> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasOrderedPair> ;
-	rdfs:range <http://sweetontology.net/reprMathGraph/OrderedVertexPair> .
 
-<http://sweetontology.net/relaMath/hasUnorderedVertexPair> a owl:ObjectProperty ;
-	rdfs:subPropertyOf <http://sweetontology.net/relaMath/hasUnorderedPair> ;
-	rdfs:range <http://sweetontology.net/reprMathGraph/UnorderedVertexPair> .
+###  http://sweetontology.net/relaMath/greaterThanOrEqual
+rela:greaterThanOrEqual rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf rela:ordinalRelation ;
+                        owl:inverseOf rela:lessThan .
 
-<http://sweetontology.net/relaMath/hasGradient> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/derivativeWithRespectTo> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMathOperation/Derivative> .
+###  http://sweetontology.net/relaMath/hasArc
+rela:hasArc rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf rela:hasEdge ;
+            rdfs:range graph:Arc .
 
-<http://sweetontology.net/relaMath/isDerivativeOf> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/withRespectTo> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMathOperation/Integral> ;
-	rdfs:range <http://sweetontology.net/reprMath/Variable> .
+###  http://sweetontology.net/relaMath/hasAverage
+rela:hasAverage rdf:type owl:ObjectProperty ;
+                rdfs:domain math:Seq ;
+                rdfs:range pstat:Average .
 
-<http://sweetontology.net/relaMath/hasInput> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMathOperation/Operation> ;
-	rdfs:range <http://sweetontology.net/reprMath/NumericalEntity> .
 
-<http://sweetontology.net/relaMath/hasOutput> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMathOperation/Operation> ;
-	rdfs:range <http://sweetontology.net/reprMath/NumericalEntity> .
+###  http://sweetontology.net/relaMath/hasBasisFunction
+rela:hasBasisFunction rdf:type owl:ObjectProperty ;
+                      rdfs:range func:BasisFunction .
 
-<http://sweetontology.net/relaMath/minus> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathOperation/Difference> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/plus> .
 
-<http://sweetontology.net/relaMath/plus> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathOperation/Sum> .
+###  http://sweetontology.net/relaMath/hasCondition
+rela:hasCondition rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/productOf> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathOperation/Product> ;
-	owl:equivalentProperty <http://sweetontology.net/relaMath/times> .
 
-<http://sweetontology.net/relaMath/times> a owl:ObjectProperty .
+###  http://sweetontology.net/relaMath/hasConstant
+rela:hasConstant rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/dividedBy> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathOperation/Quotient> ;
-	owl:inverseOf <http://sweetontology.net/relaMath/productOf> .
 
-<http://sweetontology.net/relaMath/approximates> a owl:ObjectProperty .
+###  http://sweetontology.net/relaMath/hasCoordinates
+rela:hasCoordinates rdf:type owl:ObjectProperty ;
+                    rdfs:range repr:Coordinates .
 
-<http://sweetontology.net/relaMath/basedOn> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasTest> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathStatistics/HypothesisTest> .
+###  http://sweetontology.net/relaMath/hasEdge
+rela:hasEdge rdf:type owl:ObjectProperty ;
+             rdfs:range graph:Edge .
 
-<http://sweetontology.net/relaMath/hasStatisticalDistribution> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathStatistics/StatisticalDistribution> .
 
-<http://sweetontology.net/relaMath/deviationFrom> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/propDifference/Deviation> .
+###  http://sweetontology.net/relaMath/hasExponent
+rela:hasExponent rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasMaximum> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propFunction/Maximum> .
 
-<http://sweetontology.net/relaMath/hasMinimum> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propFunction/Minimum> .
+###  http://sweetontology.net/relaMath/hasField
+rela:hasField rdf:type owl:ObjectProperty ;
+              rdfs:range func:Field .
 
-<http://sweetontology.net/relaMath/minimumOf> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/maximumOf> a owl:ObjectProperty .
+###  http://sweetontology.net/relaMath/hasFirstOperand
+rela:hasFirstOperand rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf rela:hasOperand .
 
-<http://sweetontology.net/relaMath/hasThreshold> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/propFunction/Threshold> .
 
-<http://sweetontology.net/relaMath/estimateOf> a owl:ObjectProperty .
+###  http://sweetontology.net/relaMath/hasFunction
+rela:hasFunction rdf:type owl:ObjectProperty ;
+                 rdfs:range func:Function .
 
-<http://sweetontology.net/relaMath/averageOver> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/propFunction/Average> .
 
-<http://sweetontology.net/relaMath/hasAverage> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/reprMath/Seq> ;
-	rdfs:range <http://sweetontology.net/propFunction/Average> .
+###  http://sweetontology.net/relaMath/hasGradient
+rela:hasGradient rdf:type owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasCondition> a owl:ObjectProperty .
 
-<http://sweetontology.net/relaMath/hasLowerBound> a owl:DatatypeProperty ;
-	owl:equivalentProperty <http://sweetontology.net/relaMath/lowerBound> .
+###  http://sweetontology.net/relaMath/hasInput
+rela:hasInput rdf:type owl:ObjectProperty ;
+              rdfs:range math:NumericalEntity .
 
-<http://sweetontology.net/relaMath/lowerBound> a owl:DatatypeProperty .
 
-<http://sweetontology.net/relaMath/hasUpperBound> a owl:DatatypeProperty ;
-	owl:equivalentProperty <http://sweetontology.net/relaMath/upperBound> .
+###  http://sweetontology.net/relaMath/hasInterval
+rela:hasInterval rdf:type owl:ObjectProperty ;
+                 rdfs:range math:Interval .
 
-<http://sweetontology.net/relaMath/upperBound> a owl:DatatypeProperty .
 
-<http://sweetontology.net/relaMath/hasError> a owl:DatatypeProperty ;
-	rdfs:range xsd:double .
+###  http://sweetontology.net/relaMath/hasMaximum
+rela:hasMaximum rdf:type owl:ObjectProperty ;
+                rdfs:range pstat:Maximum .
 
-<http://sweetontology.net/relaMath/hasTolerance> a owl:DatatypeProperty ;
-	rdfs:range xsd:double ;
-	owl:equivalentProperty <http://sweetontology.net/relaMath/tolerance> .
 
-<http://sweetontology.net/relaMath/tolerance> a owl:DatatypeProperty .
+###  http://sweetontology.net/relaMath/hasMinimum
+rela:hasMinimum rdf:type owl:ObjectProperty ;
+                rdfs:range pstat:Minimum .
 
-<http://sweetontology.net/relaMath/hasWeight> a owl:DatatypeProperty ;
-	rdfs:domain <http://sweetontology.net/reprMathGraph/Edge> .
 
-<http://sweetontology.net/relaMath/hasBase> a owl:DatatypeProperty ;
-	rdfs:domain <http://sweetontology.net/reprMathOperation/Logarithm> .
+###  http://sweetontology.net/relaMath/hasOperand
+rela:hasOperand rdf:type owl:ObjectProperty ;
+                rdfs:range math:NumericalEntity .
 
-<http://sweetontology.net/relaMath/toThePower> a owl:DatatypeProperty ;
-	rdfs:range xsd:double .
 
-<http://sweetontology.net/relaMath/hasIntegerValue> a owl:DatatypeProperty ;
-	rdfs:range xsd:integer .
+###  http://sweetontology.net/relaMath/hasOrderedPair
+rela:hasOrderedPair rdf:type owl:ObjectProperty ;
+                    rdfs:range math:OrderedPair .
 
-<http://sweetontology.net/relaMath/hasDegree> a owl:DatatypeProperty .
 
-<http://sweetontology.net/relaMath/hasOrder> a owl:DatatypeProperty ;
-	rdfs:range xsd:integer .
+###  http://sweetontology.net/relaMath/hasOrderedVertexPair
+rela:hasOrderedVertexPair rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf rela:hasOrderedPair ;
+                          rdfs:range graph:OrderedVertexPair .
 
-<http://sweetontology.net/relaMath/hasRepresentation> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/repr/Representation> ;
-	owl:equivalentProperty <http://sweetontology.net/relaMath/representationOf> .
 
-<http://sweetontology.net/relaMath/representationOf> a owl:ObjectProperty .
+###  http://sweetontology.net/relaMath/hasOutput
+rela:hasOutput rdf:type owl:ObjectProperty ;
+               rdfs:range math:NumericalEntity .
 
-<http://sweetontology.net/relaMath/coordinate_1> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/repr/CoordinateSystem> ;
-	rdfs:range <http://sweetontology.net/repr/Coordinate> .
 
-<http://sweetontology.net/relaMath/coordinate_2> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/repr/CoordinateSystem> ;
-	rdfs:range <http://sweetontology.net/repr/Coordinate> .
+###  http://sweetontology.net/relaMath/hasRepresentation
+rela:hasRepresentation rdf:type owl:ObjectProperty ;
+                       owl:equivalentProperty rela:representationOf ;
+                       rdfs:range repr:Representation .
 
-<http://sweetontology.net/relaMath/coordinate_3> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/repr/CoordinateSystem> ;
-	rdfs:range <http://sweetontology.net/repr/Coordinate> .
 
-<http://sweetontology.net/relaMath/coordinate_4> a owl:ObjectProperty ;
-	rdfs:domain <http://sweetontology.net/repr/CoordinateSystem> ;
-	rdfs:range <http://sweetontology.net/repr/Coordinate> .
+###  http://sweetontology.net/relaMath/hasScale
+rela:hasScale rdf:type owl:ObjectProperty ;
+              rdfs:range repr:Scale .
 
-<http://sweetontology.net/relaMath/hasDimension> a owl:DatatypeProperty ;
-	rdfs:range xsd:integer .
 
-<http://sweetontology.net/relaMath/hasCoordinates> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/repr/Coordinates> .
+###  http://sweetontology.net/relaMath/hasSecondOperand
+rela:hasSecondOperand rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf rela:hasOperand .
 
-<http://sweetontology.net/relaMath/hasScale> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/repr/Scale> .
 
-<http://sweetontology.net/relaMath/hasBasisFunction> a owl:ObjectProperty ;
-	rdfs:range <http://sweetontology.net/reprMathFunction/BasisFunction> .
+###  http://sweetontology.net/relaMath/hasStatisticalDistribution
+rela:hasStatisticalDistribution rdf:type owl:ObjectProperty ;
+                                rdfs:range stat:StatisticalDistribution .
 
-<http://sweetontology.net/relaMath/hasScalingNumber> a owl:DatatypeProperty ;
-	rdfs:range xsd:double .
 
-<http://sweetontology.net/relaMath/hasShiftingNumber> a owl:DatatypeProperty ;
-	rdfs:range xsd:double .
+###  http://sweetontology.net/relaMath/hasTest
+rela:hasTest rdf:type owl:ObjectProperty ;
+             rdfs:range stat:HypothesisTest .
+
+
+###  http://sweetontology.net/relaMath/hasThirdOperand
+rela:hasThirdOperand rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf rela:hasOperand .
+
+
+###  http://sweetontology.net/relaMath/hasThreshold
+rela:hasThreshold rdf:type owl:ObjectProperty ;
+                  rdfs:range pstat:Threshold .
+
+
+###  http://sweetontology.net/relaMath/hasUnorderedPair
+rela:hasUnorderedPair rdf:type owl:ObjectProperty ;
+                      rdfs:range math:UnorderedPair .
+
+
+###  http://sweetontology.net/relaMath/hasUnorderedVertexPair
+rela:hasUnorderedVertexPair rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf rela:hasUnorderedPair ;
+                            rdfs:range graph:UnorderedVertexPair .
+
+
+###  http://sweetontology.net/relaMath/hasVertex
+rela:hasVertex rdf:type owl:ObjectProperty ;
+               rdfs:range graph:Vertex .
+
+
+###  http://sweetontology.net/relaMath/hasWeightedEdge
+rela:hasWeightedEdge rdf:type owl:ObjectProperty ;
+                     rdfs:range graph:WeightedEdge .
+
+
+###  http://sweetontology.net/relaMath/inequality
+rela:inequality rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf rela:relation ;
+                rdf:type owl:TransitiveProperty .
+
+
+###  http://sweetontology.net/relaMath/isDerivativeOf
+rela:isDerivativeOf rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaMath/isomorphic
+rela:isomorphic rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf rela:relation .
+
+
+###  http://sweetontology.net/relaMath/lessThan
+rela:lessThan rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf rela:inequality ,
+                                 rela:ordinalRelation .
+
+
+###  http://sweetontology.net/relaMath/lessThanOrEqual
+rela:lessThanOrEqual rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf rela:ordinalRelation .
+
+
+###  http://sweetontology.net/relaMath/maximumOf
+rela:maximumOf rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaMath/minimumOf
+rela:minimumOf rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaMath/minus
+rela:minus rdf:type owl:ObjectProperty ;
+           owl:inverseOf rela:plus ;
+           rdfs:range oper:Difference .
+
+
+###  http://sweetontology.net/relaMath/ordinalRelation
+rela:ordinalRelation rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf rela:relation ;
+                     rdf:type owl:TransitiveProperty .
+
+
+###  http://sweetontology.net/relaMath/plus
+rela:plus rdf:type owl:ObjectProperty ;
+          rdfs:range oper:Sum .
+
+
+###  http://sweetontology.net/relaMath/productOf
+rela:productOf rdf:type owl:ObjectProperty ;
+               owl:equivalentProperty rela:times ;
+               rdfs:range oper:Product .
+
+
+###  http://sweetontology.net/relaMath/projection
+rela:projection rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf rela:subsetOf .
+
+
+###  http://sweetontology.net/relaMath/relation
+rela:relation rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaMath/representationOf
+rela:representationOf rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaMath/setExclusion
+rela:setExclusion rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf rela:setRelation .
+
+
+###  http://sweetontology.net/relaMath/setRelation
+rela:setRelation rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf rela:relation ;
+                 rdfs:range math:Set .
+
+
+###  http://sweetontology.net/relaMath/subsetOf
+rela:subsetOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf rela:setRelation .
+
+
+###  http://sweetontology.net/relaMath/supersetOf
+rela:supersetOf rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf rela:setRelation ;
+                owl:inverseOf rela:subsetOf .
+
+
+###  http://sweetontology.net/relaMath/times
+rela:times rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaMath/withRespectTo
+rela:withRespectTo rdf:type owl:ObjectProperty ;
+                   rdfs:range math:Variable .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://sweetontology.net/relaMath/hasBase
+rela:hasBase rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaMath/hasDegree
+rela:hasDegree rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaMath/hasDimension
+rela:hasDimension rdf:type owl:DatatypeProperty ;
+                  rdfs:range xsd:integer .
+
+
+###  http://sweetontology.net/relaMath/hasError
+rela:hasError rdf:type owl:DatatypeProperty ;
+              rdfs:range xsd:double .
+
+
+###  http://sweetontology.net/relaMath/hasIntegerValue
+rela:hasIntegerValue rdf:type owl:DatatypeProperty ;
+                     rdfs:range xsd:integer .
+
+
+###  http://sweetontology.net/relaMath/hasLowerBound
+rela:hasLowerBound rdf:type owl:DatatypeProperty ;
+                   owl:equivalentProperty rela:lowerBound .
+
+
+###  http://sweetontology.net/relaMath/hasOrder
+rela:hasOrder rdf:type owl:DatatypeProperty ;
+              rdfs:range xsd:integer .
+
+
+###  http://sweetontology.net/relaMath/hasScalingNumber
+rela:hasScalingNumber rdf:type owl:DatatypeProperty ;
+                      rdfs:range xsd:double .
+
+
+###  http://sweetontology.net/relaMath/hasShiftingNumber
+rela:hasShiftingNumber rdf:type owl:DatatypeProperty ;
+                       rdfs:range xsd:double .
+
+
+###  http://sweetontology.net/relaMath/hasTolerance
+rela:hasTolerance rdf:type owl:DatatypeProperty ;
+                  owl:equivalentProperty rela:tolerance ;
+                  rdfs:range xsd:double .
+
+
+###  http://sweetontology.net/relaMath/hasUpperBound
+rela:hasUpperBound rdf:type owl:DatatypeProperty ;
+                   owl:equivalentProperty rela:upperBound .
+
+
+###  http://sweetontology.net/relaMath/hasWeight
+rela:hasWeight rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaMath/lowerBound
+rela:lowerBound rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaMath/toThePower
+rela:toThePower rdf:type owl:DatatypeProperty ;
+                rdfs:range xsd:double .
+
+
+###  http://sweetontology.net/relaMath/tolerance
+rela:tolerance rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaMath/upperBound
+rela:upperBound rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://sweetontology.net/repr/Coordinate
+repr:Coordinate rdf:type owl:Class .
+
+
+###  http://sweetontology.net/repr/Coordinates
+repr:Coordinates rdf:type owl:Class .
+
+
+###  http://sweetontology.net/repr/Representation
+repr:Representation rdf:type owl:Class .
+
+
+###  http://sweetontology.net/repr/Scale
+repr:Scale rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/Interval
+math:Interval rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/NumericalEntity
+math:NumericalEntity rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/OrderedPair
+math:OrderedPair rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/Seq
+math:Seq rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/Set
+math:Set rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/UnorderedPair
+math:UnorderedPair rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMath/Variable
+math:Variable rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunction/BasisFunction
+func:BasisFunction rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunction/Field
+func:Field rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathFunction/Function
+func:Function rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathGraph/Arc
+graph:Arc rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathGraph/Edge
+graph:Edge rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathGraph/OrderedVertexPair
+graph:OrderedVertexPair rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathGraph/UnorderedVertexPair
+graph:UnorderedVertexPair rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathGraph/Vertex
+graph:Vertex rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathGraph/WeightedEdge
+graph:WeightedEdge rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathOperation/Difference
+oper:Difference rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathOperation/Product
+oper:Product rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathOperation/Quotient
+oper:Quotient rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathOperation/Sum
+oper:Sum rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathStatistics/HypothesisTest
+stat:HypothesisTest rdf:type owl:Class .
+
+
+###  http://sweetontology.net/reprMathStatistics/StatisticalDistribution
+stat:StatisticalDistribution rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
