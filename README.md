@@ -16,6 +16,13 @@ Details of how HTTP requests against http://sweetontology.net are processed can 
 # SWEET IRI Patterns for Ontologies and thier Terms
 See the relevant [wiki documentation](https://github.com/ESIPFed/sweet/wiki/SWEET-IRI-Patterns-for-Ontologies-and-their-Terms).
 
+# Live OWL Documentation Environment
+[Live OWL Documentation Environment](http://www.github.com/essepuntato/LODE) (LODE), is a service that automatically extracts classes, object properties, data properties, named individuals, annotation properties, general axioms and namespace declarations from an OWL and OWL2 ontology, and renders them as ordered lists, together with their textual definitions, in a human-readable HTML page designed for browsing and navigation by means of embedded links.
+
+We use LODE to render SWEET in a human readable manner. For user browsing convenience, we cache the LODE visualizations and make them available at
+
+https://esipfed.github.io/stc/sweet_lode/sweetAll.html
+
 # Community
 SWEET is governed by the [ESIP Semantic Technologies Committee](http://wiki.esipfed.org/index.php/Semantic_Technologies) (STC) meaning that all proposed changes are evaluated by a number of subject matter experts. If you would like to learn more about SWEET, or are interested in joining the community, please join our community mailing [list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb).
 
