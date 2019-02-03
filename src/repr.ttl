@@ -1,4 +1,4 @@
-@prefix : <http://sweetontology.net/repr/> .
+@prefix : <http://sweetontology.net/repr#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -12,8 +12,8 @@
 <http://sweetontology.net/repr> rdf:type owl:Ontology ;
                                  owl:imports <http://sweetontology.net/relaMath> ,
                                              <http://sweetontology.net/reprMath> ;
-                                 rdfs:label "SWEET Ontology Representation" ;
-                                 owl:versionInfo "3.2.0" .
+                                 owl:versionInfo "3.2.0" ;
+                                 rdfs:label "SWEET Ontology Representation" .
 
 #################################################################
 #    Classes
@@ -36,6 +36,12 @@ repr:Component rdf:type owl:Class ;
                owl:equivalentClass repr:Coordinate .
 
 
+###  http://sweetontology.net/repr/ControlledVariable
+repr:ControlledVariable rdf:type owl:Class ;
+                        rdfs:subClassOf math:Variable ;
+                        rdfs:comment "A controlled variable or constant variable is a variable that does not change during an experiment. Example: In the experiment measuring the effect of temperature on solubility, controlled variable could include the source of water used in the experiment, the size and type of containers used to mix chemicals, and the amount of mixing time allowed for each solution."^^rdfs:Literal .
+
+
 ###  http://sweetontology.net/repr/Coordinate
 repr:Coordinate rdf:type owl:Class ;
                 rdfs:subClassOf math:Scalar .
@@ -55,9 +61,27 @@ repr:Coordinates rdf:type owl:Class ;
                                  ] .
 
 
+###  http://sweetontology.net/repr/D
+repr:D rdf:type owl:Class ;
+       rdfs:subClassOf repr:Representation ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty mrela:hasDimension ;
+                         owl:hasValue 1
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty mrela:hasDimension ;
+                         owl:hasValue 2
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty mrela:hasDimension ;
+                         owl:hasValue 3
+                       ] .
+
+
 ###  http://sweetontology.net/repr/DependentVariable
 repr:DependentVariable rdf:type owl:Class ;
-                       rdfs:subClassOf math:Variable .
+                       rdfs:subClassOf math:Variable ;
+                       rdfs:comment "A dependent variable is the variable that you measure or observe. The dependent variable gets its name because it is the factor that is dependent on the state of the independent variable. Example: In the experiment measuring the effect of temperature on solubility, solubility would be the dependent variable."^^rdfs:Literal .
 
 
 ###  http://sweetontology.net/repr/Dimension
@@ -65,9 +89,16 @@ repr:Dimension rdf:type owl:Class ;
                rdfs:subClassOf repr:Representation .
 
 
+###  http://sweetontology.net/repr/ExtraneousVariable
+repr:ExtraneousVariable rdf:type owl:Class ;
+                        rdfs:subClassOf math:Variable ;
+                        rdfs:comment "Extraneous variables are 'extra' variables that may influence the outcome of an experiment but aren't taken into account during measurement. Ideally, these variables won't impact the final conclusion drawn by the experiment, but they may introduce error into scientific results. Examples of extraneous variables include accidents, factors you either can't control or can't measure or factors you consider unimportant. Every experiment has extraneous variables. Example: You are conducting an experiment to see which paper airplane design flies longest. You may consider the color of the paper to be an extraneous variable. You note in your lab book that different colors of papers were used. Ideally, this variable does not affect your outcome."^^rdfs:Literal .
+
+
 ###  http://sweetontology.net/repr/IndependentVariable
 repr:IndependentVariable rdf:type owl:Class ;
-                         rdfs:subClassOf math:Variable .
+                         rdfs:subClassOf math:Variable ;
+                         rdfs:comment "An independent variable is the one condition that you change in an experiment. Example: In an experiment measuring the effect of temperature on solubility, the independent variable is temperature."^^rdfs:Literal .
 
 
 ###  http://sweetontology.net/repr/IntervalScale
@@ -130,33 +161,6 @@ repr:Scale rdf:type owl:Class ;
            rdfs:subClassOf repr:Representation .
 
 
-###  http://sweetontology.net/repr/1D
-repr:D rdf:type owl:Class ;
-       rdfs:subClassOf repr:Representation ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty mrela:hasDimension ;
-                         owl:hasValue 1
-                       ] .
-
-
-###  http://sweetontology.net/repr/2D
-repr:D rdf:type owl:Class ;
-       rdfs:subClassOf repr:Representation ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty mrela:hasDimension ;
-                         owl:hasValue 2
-                       ] .
-
-
-###  http://sweetontology.net/repr/3D
-repr:D rdf:type owl:Class ;
-       rdfs:subClassOf repr:Representation ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty mrela:hasDimension ;
-                         owl:hasValue 3
-                       ] .
-
-
 ###  http://sweetontology.net/reprMath/Array
 math:Array rdf:type owl:Class .
 
@@ -170,7 +174,8 @@ math:Scalar rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMath/Variable
-math:Variable rdf:type owl:Class .
+math:Variable rdf:type owl:Class ;
+              rdfs:comment "Variables are an important part of science projects and experiments. A variable is any factor that can be controlled, changed, or measured in an experiment. Scientific experiments have several types of variables. The independent and dependent variables are the ones usually plotted on a chart or graph, but there are other types of variables you may encounter."^^rdfs:Literal .
 
 
 #################################################################
@@ -228,4 +233,4 @@ repr:Synoptic rdf:type owl:NamedIndividual ,
 ] .
 
 
-###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
+###  Generated by the OWL API (version 4.2.5.20160517-0735) https://github.com/owlcs/owlapi
