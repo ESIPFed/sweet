@@ -1,6 +1,6 @@
 # SWEET Ontologies
 
-<img src="http://www.esipfed.org/sites/default/files/esip-logo.png" align="right" width="300" />
+<img src="https://www.esipfed.org/wp-content/uploads/2018/12/esip-transparent-background.png" align="right" width="300" />
 
 <a href="http://wiki.esipfed.org/index.php/Semantic_Technologies">![](http://badge.esipfed.org/semanticweb.svg?display=logo)</a>
 
