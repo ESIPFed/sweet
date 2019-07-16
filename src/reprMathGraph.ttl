@@ -20,49 +20,16 @@
                                           owl:versionInfo "3.2.0" .
 
 #################################################################
-#    Annotation properties
-#################################################################
-
-###  http://www.w3.org/2002/07/owl#minCardinality
-owl:minCardinality rdf:type owl:AnnotationProperty .
-
-
-#################################################################
 #    Classes
 #################################################################
 
-###  http://org.semanticweb.owlapi/error#Error10
-<http://org.semanticweb.owlapi/error#Error10> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error11
-<http://org.semanticweb.owlapi/error#Error11> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error12
-<http://org.semanticweb.owlapi/error#Error12> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error13
-<http://org.semanticweb.owlapi/error#Error13> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error14
-<http://org.semanticweb.owlapi/error#Error14> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error15
-<http://org.semanticweb.owlapi/error#Error15> rdf:type owl:Class .
-
-
-###  http://org.semanticweb.owlapi/error#Error9
-<http://org.semanticweb.owlapi/error#Error9> rdf:type owl:Class .
-
-
 ###  http://sweetontology.net/reprMathGraph/Arc
 graph:Arc rdf:type owl:Class ;
-          rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error11> ,
-                          graph:StructuralComponent ;
+          rdfs:subClassOf graph:StructuralComponent ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty mrela:hasOrderedVertexPair ;
+                            owl:cardinality "1"^^xsd:nonNegativeInteger
+                          ] ;
           rdfs:label "arc"@en .
 
 
@@ -93,16 +60,22 @@ graph:Digraph rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprMathGraph/DirectedGraph
 graph:DirectedGraph rdf:type owl:Class ;
-                    rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error9> ,
-                                    graph:Graph ;
+                    rdfs:subClassOf graph:Graph ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty mrela:hasArc ;
+                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
+                                    ] ;
                     owl:disjointWith graph:UndirectedGraph ;
                     rdfs:label "directed graph"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/Edge
 graph:Edge rdf:type owl:Class ;
-           rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error13> ,
-                           graph:StructuralComponent ;
+           rdfs:subClassOf graph:StructuralComponent ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty mrela:hasUnorderedVertexPair ;
+                             owl:cardinality "1"^^xsd:nonNegativeInteger
+                           ] ;
            rdfs:label "edge"@en .
 
 
@@ -114,9 +87,15 @@ graph:Forest rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprMathGraph/Graph
 graph:Graph rdf:type owl:Class ;
-            rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error14> ,
-                            <http://org.semanticweb.owlapi/error#Error15> ,
-                            graph:StructuralModel ;
+            rdfs:subClassOf graph:StructuralModel ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela:hasEdge ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty mrela:hasVertex ;
+                              owl:minCardinality "1"^^xsd:nonNegativeInteger
+                            ] ;
             rdfs:label "graph"@en .
 
 
@@ -140,8 +119,11 @@ graph:Loop rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprMathGraph/Network
 graph:Network rdf:type owl:Class ;
-              rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error10> ,
-                              graph:Graph ;
+              rdfs:subClassOf graph:Graph ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty mrela:hasWeightedEdge ;
+                                owl:minCardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
               rdfs:label "network"@en .
 
 
@@ -220,8 +202,11 @@ graph:Vertice rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprMathGraph/WeightedEdge
 graph:WeightedEdge rdf:type owl:Class ;
-                   rdfs:subClassOf <http://org.semanticweb.owlapi/error#Error12> ,
-                                   graph:Edge ;
+                   rdfs:subClassOf graph:Edge ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty mrela:hasWeight ;
+                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                   ] ;
                    rdfs:label "weighted edge"@en .
 
 
@@ -231,27 +216,5 @@ mod:Model rdf:type owl:Class .
 
 ###  http://sweetontology.net/reprSpaceGeometry/Path
 geom:Path rdf:type owl:Class .
-
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
-] .
-
-[ owl:minCardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:minCardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:minCardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:cardinality "1"^^xsd:nonNegativeInteger
- ] .
-
-[ owl:minCardinality "1"^^xsd:nonNegativeInteger
- ] .
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
