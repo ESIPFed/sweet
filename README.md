@@ -13,7 +13,7 @@ SWEET is a highly modular ontology suite with ~6000 concepts in ~200 separate on
 # SWEET as Linked Data
 Details of how HTTP requests against http://sweetontology.net are processed can be found [here](https://github.com/ESIPFed/sweet/wiki/sweetontology.net).
 
-# SWEET IRI Patterns for Ontologies and thier Terms
+# SWEET IRI Patterns for Ontologies and their Terms
 See the relevant [wiki documentation](https://github.com/ESIPFed/sweet/wiki/SWEET-IRI-Patterns-for-Ontologies-and-their-Terms).
 
 # Live OWL Documentation Environment
