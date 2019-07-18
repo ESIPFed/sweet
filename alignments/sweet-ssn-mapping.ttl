@@ -9,7 +9,6 @@
 
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix mod: <http://sweetontology.net/reprSciModel/> .
 @prefix organization: <http://www.w3.org/ns/org#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prop: <http://sweetontology.net/prop/> .
@@ -25,11 +24,26 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://sweetontology.net/alignment/ssn>
-  a owl:Ontology ;
+  rdf:type owl:Ontology ;
   dcterms:created "2017-10-25"^^xsd:date ;
   dcterms:creator [
-      a foaf:Person ;
-      organization:memberOf <https://ror.org/03qn8fb07> ;
+      rdf:type foaf:Person ;
+      organization:hasMembership [
+          rdf:type organization:Membership ;
+          organization:memberDuring [
+              rdf:type time:Interval ;
+              time:hasBeginning [
+                  rdf:type time:Instant ;
+                  time:inXSDDateTimeStamp "2012-12-01T00:00:00+08:00"^^xsd:dateTimeStamp ;
+                ] ;
+            ] ;
+          organization:organization <http://csiro.au> ;
+          organization:organization <http://dbpedia.org/resource/CSIRO> ;
+          organization:role [
+              rdf:type organization:Role ;
+              rdfs:label "Research Scientist" ;
+            ] ;
+        ] ;
       foaf:family_name "Cox" ;
       foaf:firstName "Simon J D" ;
       foaf:mbox <mailto:simon.cox@csiro.au> ;
@@ -37,7 +51,6 @@
       foaf:publications <http://orcid.org/0000-0002-3884-3420> ;
       foaf:workInfoHomepage <http://people.csiro.au/Simon-Cox> ;
     ] ;
-  dcterms:modified "2019-07-16"^^xsd:date ;
   voaf:reliesOn <http://sweetontology.net/sweetAll> ;
   voaf:reliesOn sosa: ;
   voaf:reliesOn ssn: ;
@@ -50,7 +63,7 @@
   owl:imports <http://www.w3.org/ns/org> ;
   owl:imports ssn: ;
   owl:imports foaf: ;
-  owl:versionInfo "3.2.0" ;
+  owl:versionInfo "3.3.0" ;
 .
 res:Observation
   rdfs:subClassOf sosa:Observation ;
@@ -61,85 +74,12 @@ res:Result
 res:Variable
   rdfs:subClassOf ssn:Property ;
 .
-res:res_Observation-subClassOf-sosa_Observation
-  a rdf:Statement ;
-  dcterms:created "2017-10-25"^^xsd:date ;
-  dcterms:creator <http://orcid.org/0000-0002-3884-3420> ;
-  dcterms:provenance [
-      a dcterms:ProvenanceStatement ;
-      rdfs:comment "Manual assertion" ;
-    ] ;
-  rdf:object sosa:Observation ;
-  rdf:predicate rdfs:subClassOf ;
-  rdf:subject res:Observation ;
-.
-res:res_Result-subClassOf-sosa_Result
-  a rdf:Statement ;
-  dcterms:created "2017-10-25"^^xsd:date ;
-  dcterms:creator <http://orcid.org/0000-0002-3884-3420> ;
-  dcterms:provenance [
-      a dcterms:ProvenanceStatement ;
-      rdfs:comment "Manual assertion" ;
-    ] ;
-  rdf:object sosa:Result ;
-  rdf:predicate rdfs:subClassOf ;
-  rdf:subject res:Result ;
-.
-res:res_Variable-subClassOf-ssn_Property
-  a rdf:Statement ;
-  dcterms:created "2017-10-25"^^xsd:date ;
-  dcterms:creator <http://orcid.org/0000-0002-3884-3420> ;
-  dcterms:provenance [
-      a dcterms:ProvenanceStatement ;
-      rdfs:comment "Manual assertion" ;
-    ] ;
-  rdf:object ssn:Property ;
-  rdf:predicate rdfs:subClassOf ;
-  rdf:subject res:Variable ;
-  rdfs:comment "Not quite sure about alignment to ssn:Property here" ;
-.
 prop:Property
   owl:equivalentClass ssn:Property ;
-.
-prop:prop_Property-equivalentClass-ssn_Property
-  a rdf:Statement ;
-  dcterms:created "2017-10-25"^^xsd:date ;
-  dcterms:creator <http://orcid.org/0000-0002-3884-3420> ;
-  dcterms:provenance [
-      a dcterms:ProvenanceStatement ;
-      rdfs:comment "Manual assertion" ;
-    ] ;
-  rdf:object ssn:Property ;
-  rdf:predicate owl:equivalentClass ;
-  rdf:subject prop:Property ;
 .
 mod:Sample
   rdfs:subClassOf sosa:Sample ;
 .
 mod:Sampling
   rdfs:subClassOf sosa:Sampling ;
-.
-mod:mod_Sample-subClassOf-sosa_Sample
-  a rdf:Statement ;
-  dcterms:created "2019-07-16"^^xsd:date ;
-  dcterms:creator <http://orcid.org/0000-0002-3884-3420> ;
-  dcterms:provenance [
-      a dcterms:ProvenanceStatement ;
-      rdfs:comment "Manual assertion" ;
-    ] ;
-  rdf:object sosa:Sample ;
-  rdf:predicate rdfs:subClassOf ;
-  rdf:subject mod:Sample ;
-.
-mod:mod_Sampling-subClassOf-sosa_Sampling
-  a rdf:Statement ;
-  dcterms:created "2019-07-16"^^xsd:date ;
-  dcterms:creator <http://orcid.org/0000-0002-3884-3420> ;
-  dcterms:provenance [
-      a dcterms:ProvenanceStatement ;
-      rdfs:comment "Manual assertion" ;
-    ] ;
-  rdf:object sosa:Sampling ;
-  rdf:predicate rdfs:subClassOf ;
-  rdf:subject mod:Sampling ;
 .

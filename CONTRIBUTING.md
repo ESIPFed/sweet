@@ -61,7 +61,11 @@ See the [user guide](https://help.github.com/desktop/guides/) for more in depth 
 Github Desktop does not seem to have a 'rebase' option; clicking 'Pull Origin' will generate a commit that synchronizes your local repo with the online master. In general this shouldn't be a problem unless multiple people are working on different branches, in which case things can get confusing. See [this discussion](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) for more information. 
 
 # Discussion of SWEET issues 
-If you wish to discuss SWEET issues with the STC, please contact us via the [WG email list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb). 
+If you wish to discuss SWEET issues with the STC, please contact us via the [WG email list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb).
+
+## Avoiding presence of http://org.semanticweb.owlapi/error#Error(n) in contributions when editing using Protege
+
+We have noticed that the rogue IRI http://org.semanticweb.owlapi/error#Error(n) can be inadventently written to files when a contributor saves thier work locally before contributing. Although we are not entirely sure about why this happens, we think that it stems from bug(s) in the underlying [OWLAPI](http://owlcs.github.io/owlapi/) (used a dependency within Protege) which is used to format and write data to the files. Please review you contribution carefully and pay extra attention to the presence of this annoying anomaly.
 
 ## Before you write a new request, please consider the following: 
 
