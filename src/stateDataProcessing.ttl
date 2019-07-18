@@ -8,7 +8,6 @@
 @prefix geos: <http://sweetontology.net/reprDataServiceGeospatial/> .
 @prefix ordi: <http://sweetontology.net/propOrdinal/> .
 @prefix prod: <http://sweetontology.net/reprDataProduct/> .
-@prefix sciprov: <http://sweetontology.net/reprSciProvenance/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix redu: <http://sweetontology.net/reprDataServiceReduction/> .
 @prefix serv: <http://sweetontology.net/reprDataService/> .
@@ -17,6 +16,7 @@
 @prefix dstate: <http://sweetontology.net/stateDataProcessing/> .
 @prefix prrela: <http://sweetontology.net/relaProvenance/> .
 @prefix sstate: <http://sweetontology.net/stateSystem/> .
+@prefix sciprov: <http://sweetontology.net/reprSciProvenance/> .
 @base <http://sweetontology.net/stateDataProcessing> .
 
 <http://sweetontology.net/stateDataProcessing> rdf:type owl:Ontology ;
@@ -32,12 +32,28 @@
                                                             <http://sweetontology.net/reprSciModel> ,
                                                             <http://sweetontology.net/reprSciProvenance> ,
                                                             <http://sweetontology.net/stateSystem> ;
-                                                rdfs:label "SWEET Ontology" ;
-                                                owl:versionInfo "3.2.0" .
+                                                rdfs:label "SWEET Ontology State Data Processing" ;
+                                                owl:versionInfo "3.3.0" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://sweetontology.net/relaProvenance/hadProcess
+prrela:hadProcess rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaProvenance/hasDataModel
+prrela:hasDataModel rdf:type owl:ObjectProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
+
+###  http://sweetontology.net/propOrdinal/ProcessingLevel
+ordi:ProcessingLevel rdf:type owl:Class .
+
 
 ###  http://sweetontology.net/stateDataProcessing/Archived
 dstate:Archived rdf:type owl:Class ;
@@ -45,7 +61,8 @@ dstate:Archived rdf:type owl:Class ;
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty prrela:hadProcess ;
                                   owl:someValuesFrom prod:Archive
-                                ] .
+                                ] ;
+                rdfs:label "archived"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Binned
@@ -54,7 +71,8 @@ dstate:Binned rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hadProcess ;
                                 owl:someValuesFrom redu:Binning
-                              ] .
+                              ] ;
+              rdfs:label "binned"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Calibrated
@@ -63,7 +81,8 @@ dstate:Calibrated rdf:type owl:Class ;
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty prrela:hadProcess ;
                                     owl:someValuesFrom vali:Calibration
-                                  ] .
+                                  ] ;
+                  rdfs:label "calibrated"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Clustered
@@ -72,12 +91,14 @@ dstate:Clustered rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty prrela:hadProcess ;
                                    owl:someValuesFrom anal:Clustering
-                                 ] .
+                                 ] ;
+                 rdfs:label "clustered"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/DataState
 dstate:DataState rdf:type owl:Class ;
-                 rdfs:subClassOf sstate:SystemState .
+                 rdfs:subClassOf sstate:SystemState ;
+                 rdfs:label "data state"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Georeferenced
@@ -86,7 +107,8 @@ dstate:Georeferenced rdf:type owl:Class ;
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty prrela:hadProcess ;
                                        owl:someValuesFrom geos:Georeferencing
-                                     ] .
+                                     ] ;
+                     rdfs:label "georeferenced"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Gridded
@@ -95,7 +117,8 @@ dstate:Gridded rdf:type owl:Class ;
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty prrela:hadProcess ;
                                  owl:someValuesFrom geos:Gridding
-                               ] .
+                               ] ;
+               rdfs:label "gridded"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Interpolated
@@ -104,27 +127,32 @@ dstate:Interpolated rdf:type owl:Class ;
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty prrela:hadProcess ;
                                       owl:someValuesFrom anal:Interpolation
-                                    ] .
+                                    ] ;
+                    rdfs:label "interpolated"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/L1
 dstate:L1 rdf:type owl:Class ;
-          owl:equivalentClass dstate:Level1 .
+          owl:equivalentClass dstate:Level1 ;
+          rdfs:label "l1"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/L2
 dstate:L2 rdf:type owl:Class ;
-          owl:equivalentClass dstate:Level2 .
+          owl:equivalentClass dstate:Level2 ;
+          rdfs:label "l2"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/L3
 dstate:L3 rdf:type owl:Class ;
-          owl:equivalentClass dstate:Level3 .
+          owl:equivalentClass dstate:Level3 ;
+          rdfs:label "l3"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/L4
 dstate:L4 rdf:type owl:Class ;
-          owl:equivalentClass dstate:Level4 .
+          owl:equivalentClass dstate:Level4 ;
+          rdfs:label "l4"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Level1
@@ -133,7 +161,8 @@ dstate:Level1 rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hadProcess ;
                                 owl:someValuesFrom geos:Geolocation
-                              ] .
+                              ] ;
+              rdfs:label "level1"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Level2
@@ -146,7 +175,8 @@ dstate:Level2 rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hasDataModel ;
                                 owl:allValuesFrom mod:Swath
-                              ] .
+                              ] ;
+              rdfs:label "level2"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Level3
@@ -159,7 +189,8 @@ dstate:Level3 rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hasDataModel ;
                                 owl:allValuesFrom mod:Grid
-                              ] .
+                              ] ;
+              rdfs:label "level3"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Level4
@@ -168,7 +199,8 @@ dstate:Level4 rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hadProcess ;
                                 owl:someValuesFrom anal:Assimilation
-                              ] .
+                              ] ;
+              rdfs:label "level4"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Mapped
@@ -177,7 +209,8 @@ dstate:Mapped rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hadProcess ;
                                 owl:someValuesFrom geos:Mapping
-                              ] .
+                              ] ;
+              rdfs:label "mapped"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Mined
@@ -186,7 +219,8 @@ dstate:Mined rdf:type owl:Class ;
                              [ rdf:type owl:Restriction ;
                                owl:onProperty prrela:hadProcess ;
                                owl:someValuesFrom redu:Mining
-                             ] .
+                             ] ;
+             rdfs:label "mined"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Normalized
@@ -195,7 +229,8 @@ dstate:Normalized rdf:type owl:Class ;
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty prrela:hadProcess ;
                                     owl:someValuesFrom redu:Normalization
-                                  ] .
+                                  ] ;
+                  rdfs:label "normalized"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Parameterized
@@ -204,7 +239,8 @@ dstate:Parameterized rdf:type owl:Class ;
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty prrela:hadProcess ;
                                        owl:someValuesFrom anal:Parameterize
-                                     ] .
+                                     ] ;
+                     rdfs:label "parameterized"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Plotted
@@ -213,12 +249,14 @@ dstate:Plotted rdf:type owl:Class ;
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty prrela:hadProcess ;
                                  owl:someValuesFrom anal:Plot
-                               ] .
+                               ] ;
+               rdfs:label "plotted"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Processed
 dstate:Processed rdf:type owl:Class ;
-                 rdfs:subClassOf dstate:DataState .
+                 rdfs:subClassOf dstate:DataState ;
+                 rdfs:label "processed"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Reanalyzed
@@ -227,7 +265,8 @@ dstate:Reanalyzed rdf:type owl:Class ;
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty prrela:hadProcess ;
                                     owl:someValuesFrom anal:Reanalysis
-                                  ] .
+                                  ] ;
+                  rdfs:label "reanalyzed"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Reconstructed
@@ -236,7 +275,8 @@ dstate:Reconstructed rdf:type owl:Class ;
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty prrela:hadProcess ;
                                        owl:someValuesFrom sciprov:Reconstruction
-                                     ] .
+                                     ] ;
+                     rdfs:label "reconstructed"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Reformatted
@@ -245,7 +285,8 @@ dstate:Reformatted rdf:type owl:Class ;
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty prrela:hadProcess ;
                                      owl:someValuesFrom serv:Reformat
-                                   ] .
+                                   ] ;
+                   rdfs:label "reformatted"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Regridded
@@ -254,7 +295,8 @@ dstate:Regridded rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty prrela:hadProcess ;
                                    owl:someValuesFrom geos:Regridding
-                                 ] .
+                                 ] ;
+                 rdfs:label "regridded"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Scaled
@@ -263,7 +305,8 @@ dstate:Scaled rdf:type owl:Class ;
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty prrela:hadProcess ;
                                 owl:someValuesFrom prod:Scaling
-                              ] .
+                              ] ;
+              rdfs:label "scaled"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Subsetted
@@ -272,7 +315,8 @@ dstate:Subsetted rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty prrela:hadProcess ;
                                    owl:someValuesFrom redu:Subset
-                                 ] .
+                                 ] ;
+                 rdfs:label "subsetted"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Trained
@@ -281,7 +325,8 @@ dstate:Trained rdf:type owl:Class ;
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty prrela:hadProcess ;
                                  owl:someValuesFrom anal:Training
-                               ] .
+                               ] ;
+               rdfs:label "trained"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Validated
@@ -290,7 +335,8 @@ dstate:Validated rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty prrela:hadProcess ;
                                    owl:someValuesFrom vali:Validation
-                                 ] .
+                                 ] ;
+                 rdfs:label "validated"@en .
 
 
 ###  http://sweetontology.net/stateDataProcessing/Verifed
@@ -299,11 +345,12 @@ dstate:Verifed rdf:type owl:Class ;
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty prrela:hadProcess ;
                                  owl:someValuesFrom vali:Verification
-                               ] .
+                               ] ;
+               rdfs:label "verifed"@en .
 
 
 ###  http://sweetontology.net/stateSystem/SystemState
 sstate:SystemState rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 5.1.2.2017-10-13T07:13:07Z) https://github.com/owlcs/owlapi/
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
