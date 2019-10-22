@@ -1,8 +1,6 @@
 # SWEET Ontologies
 
-<img src="https://www.esipfed.org/wp-content/uploads/2018/12/esip-transparent-background.png" align="right" width="300" />
-
-<a href="http://wiki.esipfed.org/index.php/Semantic_Technologies">![](http://badge.esipfed.org/semanticweb.svg?display=logo)</a>
+<img src="https://www.esipfed.org/wp-content/uploads/2016/12/ESIP-final-logo.png" align="right" width="300" />
 
 # Introduction
 Official repository for Semantic Web for Earth and Environmental Terminology (SWEET) Ontologies.
