@@ -6,19 +6,19 @@
 @prefix dist: <http://sweetontology.net/propSpaceDistance/> .
 @prefix mass: <http://sweetontology.net/propMass/> .
 @prefix mult: <http://sweetontology.net/propSpaceMultidimensional/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
 @prefix pres: <http://sweetontology.net/propPressure/> .
 @prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix prop: <http://sweetontology.net/prop/> .
+@prefix soprop: <http://sweetontology.net/prop/> .
 @prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rate: <http://sweetontology.net/propTimeFrequency/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix sdir: <http://sweetontology.net/reprSpaceDirection/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propPressure> .
 
 <http://sweetontology.net/propPressure> rdf:type owl:Ontology ;
@@ -48,31 +48,31 @@ rela:hasProperty rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/derivativeWithRespectTo
-mrela:derivativeWithRespectTo rdf:type owl:ObjectProperty .
+sorelm:derivativeWithRespectTo rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-mrela:hasFirstOperand rdf:type owl:ObjectProperty .
+sorelm:hasFirstOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-mrela:hasSecondOperand rdf:type owl:ObjectProperty .
+sorelm:hasSecondOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/isDerivativeOf
-mrela:isDerivativeOf rdf:type owl:ObjectProperty .
+sorelm:isDerivativeOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-screla:hasDefaultUnit rdf:type owl:ObjectProperty .
+sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-screla:measureOf rdf:type owl:ObjectProperty .
+sorelsc:measureOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasDirection
-srela:hasDirection rdf:type owl:ObjectProperty .
+sorelsp:hasDirection rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -113,7 +113,7 @@ pres:BulkModulus rdf:type owl:Class ;
 pres:Compressibility rdf:type owl:Class ;
                      rdfs:subClassOf quan:PhysicalQuantity ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty screla:hasDefaultUnit ;
+                                       owl:onProperty sorelsc:hasDefaultUnit ;
                                        owl:hasValue units:perPascal
                                      ] ;
                      rdfs:label "compressibility"@en .
@@ -177,17 +177,17 @@ pres:PartialPressure rdf:type owl:Class ;
 ###  http://sweetontology.net/propPressure/Pressure
 pres:Pressure rdf:type owl:Class ;
               rdfs:subClassOf quan:IntensiveProperty ,
-                              oper:Ratio ,
+                              sorepmo:Ratio ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty mrela:hasFirstOperand ;
+                                owl:onProperty sorelm:hasFirstOperand ;
                                 owl:allValuesFrom quan:Force
                               ] ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty mrela:hasSecondOperand ;
+                                owl:onProperty sorelm:hasSecondOperand ;
                                 owl:allValuesFrom mult:Area
                               ] ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty screla:hasDefaultUnit ;
+                                owl:onProperty sorelsc:hasDefaultUnit ;
                                 owl:hasValue units:pascal
                               ] ;
               rdfs:label "pressure"@en .
@@ -196,13 +196,13 @@ pres:Pressure rdf:type owl:Class ;
 ###  http://sweetontology.net/propPressure/PressureGradient
 pres:PressureGradient rdf:type owl:Class ;
                       rdfs:subClassOf quan:PhysicalQuantity ,
-                                      oper:Gradient ,
+                                      sorepmo:Gradient ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty mrela:derivativeWithRespectTo ;
+                                        owl:onProperty sorelm:derivativeWithRespectTo ;
                                         owl:allValuesFrom dist:Distance
                                       ] ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty mrela:isDerivativeOf ;
+                                        owl:onProperty sorelm:isDerivativeOf ;
                                         owl:allValuesFrom pres:Pressure
                                       ] ;
                       rdfs:label "pressure gradient"@en .
@@ -212,7 +212,7 @@ pres:PressureGradient rdf:type owl:Class ;
 pres:PressureTendency rdf:type owl:Class ;
                       rdfs:subClassOf rate:Tendency ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty rela:hasProperty ;
+                                        owl:onProperty sorel:hasProperty ;
                                         owl:allValuesFrom pres:Pressure
                                       ] ;
                       rdfs:label "pressure tendency"@en .
@@ -229,7 +229,7 @@ pres:ShearModulus rdf:type owl:Class ;
                   rdfs:subClassOf mass:MaterialProperty ,
                                   quan:PhysicalQuantity ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty srela:hasDirection ;
+                                    owl:onProperty sorelsp:hasDirection ;
                                     owl:hasValue sdir:Shear
                                   ] ;
                   rdfs:label "shear modulus"@en .
@@ -239,7 +239,7 @@ pres:ShearModulus rdf:type owl:Class ;
 pres:ShearStress rdf:type owl:Class ;
                  rdfs:subClassOf pres:Stress ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty srela:hasDirection ;
+                                   owl:onProperty sorelsp:hasDirection ;
                                    owl:hasValue sdir:Shear
                                  ] ;
                  owl:disjointWith pres:TensileStress ;
@@ -257,7 +257,7 @@ pres:Stiffness rdf:type owl:Class ;
                rdfs:subClassOf mass:StrengthProperty ,
                                quan:PhysicalQuantity ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty screla:hasDefaultUnit ;
+                                 owl:onProperty sorelsc:hasDefaultUnit ;
                                  owl:hasValue units:newtonPerMeter
                                ] ;
                rdfs:label "stiffness"@en .
@@ -284,10 +284,10 @@ pres:Suction rdf:type owl:Class ;
 ###  http://sweetontology.net/propPressure/SurfaceTension
 pres:SurfaceTension rdf:type owl:Class ;
                     rdfs:subClassOf proc:Tension ,
-                                    prop:FluidProperty ,
+                                    soprop:FluidProperty ,
                                     quan:PhysicalQuantity ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty screla:hasDefaultUnit ;
+                                      owl:onProperty sorelsc:hasDefaultUnit ;
                                       owl:hasValue units:newtonPerMeter
                                     ] ;
                     rdfs:label "surface tension"@en .
@@ -303,7 +303,7 @@ pres:TensileStrength rdf:type owl:Class ;
 pres:TensileStress rdf:type owl:Class ;
                    rdfs:subClassOf pres:Stress ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty srela:hasDirection ;
+                                     owl:onProperty sorelsp:hasDirection ;
                                      owl:hasValue sdir:Perpendicular
                                    ] ;
                    rdfs:label "tensile stress"@en .
@@ -317,14 +317,14 @@ pres:TotalPressure rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propPressure/Viscosity
 pres:Viscosity rdf:type owl:Class ;
-               rdfs:subClassOf prop:FluidProperty ,
+               rdfs:subClassOf soprop:FluidProperty ,
                                quan:PhysicalQuantity ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty screla:measureOf ;
+                                 owl:onProperty sorelsc:measureOf ;
                                  owl:allValuesFrom proc:ViscousForce
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty screla:hasDefaultUnit ;
+                                 owl:onProperty sorelsc:hasDefaultUnit ;
                                  owl:hasValue units:pascalSecond
                                ] ;
                rdfs:label "viscosity"@en .

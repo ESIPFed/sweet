@@ -9,17 +9,17 @@
 @prefix conc: <http://sweetontology.net/propMass/> .
 @prefix elem: <http://sweetontology.net/matrElement/> .
 @prefix indx: <http://sweetontology.net/propIndex/> .
-@prefix prop: <http://sweetontology.net/prop/> .
+@prefix soprop: <http://sweetontology.net/prop/> .
 @prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix repr: <http://sweetontology.net/repr/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
+@prefix sorep: <http://sweetontology.net/repr/> .
 @prefix chemp: <http://sweetontology.net/propChemical/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
 @prefix cstate: <http://sweetontology.net/stateChemical/> .
 @prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propChemical> .
 
 <http://sweetontology.net/propChemical> rdf:type owl:Ontology ;
@@ -50,11 +50,11 @@ rela:hasProperty rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-screla:hasDefaultUnit rdf:type owl:ObjectProperty .
+sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-screla:measureOf rdf:type owl:ObjectProperty .
+sorelsc:measureOf rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -69,7 +69,7 @@ chemp:Abundance rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/Acidity
 chemp:Acidity rdf:type owl:Class ;
-              rdfs:subClassOf prop:ChemicalProperty ;
+              rdfs:subClassOf soprop:ChemicalProperty ;
               rdfs:label "acidity"@en .
 
 
@@ -89,7 +89,7 @@ chemp:Alkaline rdf:type owl:Class ;
 chemp:Alkalinity rdf:type owl:Class ;
                  owl:equivalentClass chemp:Basic ,
                                      chemp:Basicity ;
-                 rdfs:subClassOf prop:ChemicalProperty ;
+                 rdfs:subClassOf soprop:ChemicalProperty ;
                  rdfs:label "alkalinity"@en .
 
 
@@ -148,14 +148,14 @@ chemp:ChemicalOxygenDemand rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/Composition
 chemp:Composition rdf:type owl:Class ;
-                  rdfs:subClassOf prop:ChemicalProperty ;
+                  rdfs:subClassOf soprop:ChemicalProperty ;
                   rdfs:label "composition"@en .
 
 
 ###  http://sweetontology.net/propChemical/Constituent
 chemp:Constituent rdf:type owl:Class ;
                   rdfs:subClassOf conc:ConsistenceProperty ,
-                                  repr:Component ;
+                                  sorep:Component ;
                   rdfs:label "constituent"@en .
 
 
@@ -180,7 +180,7 @@ chemp:HplusConcentration rdf:type owl:Class ;
 chemp:IonComposition rdf:type owl:Class ;
                      rdfs:subClassOf chemp:Composition ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty rela:hasState ;
+                                       owl:onProperty sorel:hasState ;
                                        owl:hasValue pstate:IonizedState
                                      ] ;
                      rdfs:label "ion composition"@en .
@@ -206,13 +206,13 @@ chemp:OxygenDemand rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/Purity
 chemp:Purity rdf:type owl:Class ;
-             rdfs:subClassOf prop:ChemicalProperty ;
+             rdfs:subClassOf soprop:ChemicalProperty ;
              rdfs:label "purity"@en .
 
 
 ###  http://sweetontology.net/propChemical/Reactivity
 chemp:Reactivity rdf:type owl:Class ;
-                 rdfs:subClassOf prop:ReactionProperty ;
+                 rdfs:subClassOf soprop:ReactionProperty ;
                  rdfs:label "reactivity"@en .
 
 
@@ -230,7 +230,7 @@ chemp:Salinity rdf:type owl:Class ;
                                  owl:allValuesFrom ion:SaltIon
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty screla:hasDefaultUnit ;
+                                 owl:onProperty sorelsc:hasDefaultUnit ;
                                  owl:hasValue units:perMil
                                ] ;
                rdfs:label "salinity"@en .
@@ -244,9 +244,9 @@ chemp:SaturationPoint rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/SaturationProperty
 chemp:SaturationProperty rdf:type owl:Class ;
-                         rdfs:subClassOf prop:Property ,
+                         rdfs:subClassOf soprop:Property ,
                                          [ rdf:type owl:Restriction ;
-                                           owl:onProperty rela:hasProperty ;
+                                           owl:onProperty sorel:hasProperty ;
                                            owl:hasValue cstate:Saturation
                                          ] ;
                          rdfs:label "saturation property"@en .
@@ -266,7 +266,7 @@ chemp:Sodicity rdf:type owl:Class ;
 chemp:SodiumAdsorptionRatio rdf:type owl:Class ;
                             rdfs:subClassOf indx:WaterQualityIndex ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty screla:measureOf ;
+                                              owl:onProperty sorelsc:measureOf ;
                                               owl:allValuesFrom chemp:Sodicity
                                             ] ;
                             rdfs:label "sodium adsorption ratio"@en .
@@ -274,7 +274,7 @@ chemp:SodiumAdsorptionRatio rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/Solubility
 chemp:Solubility rdf:type owl:Class ;
-                 rdfs:subClassOf prop:ReactionProperty ;
+                 rdfs:subClassOf soprop:ReactionProperty ;
                  rdfs:label "solubility"@en .
 
 
@@ -322,7 +322,7 @@ chemp:TotalSuspendedSolids rdf:type owl:Class ;
 chemp:WashLoad rdf:type owl:Class ;
                rdfs:subClassOf chemp:Load ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty rela:hasState ;
+                                 owl:onProperty sorel:hasState ;
                                  owl:hasValue pstate:Floating
                                ] ;
                rdfs:label "wash load"@en .

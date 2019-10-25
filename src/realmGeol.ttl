@@ -5,13 +5,13 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix geol: <http://sweetontology.net/realmGeol/> .
 @prefix petr: <http://sweetontology.net/matrRock/> .
-@prefix prop: <http://sweetontology.net/propSpace/> .
+@prefix soprop: <http://sweetontology.net/propSpace/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
+@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
 @prefix planet: <http://sweetontology.net/realm/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/realmGeol> .
 
 <http://sweetontology.net/realmGeol> rdf:type owl:Ontology ;
@@ -34,19 +34,19 @@ rela:hasRealm rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasPlanetaryStructure
-prela:hasPlanetaryStructure rdf:type owl:ObjectProperty .
+sorelph:hasPlanetaryStructure rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/containsMaterial
-screla:containsMaterial rdf:type owl:ObjectProperty .
+sorelsc:containsMaterial rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasLowerBoundary
-srela:hasLowerBoundary rdf:type owl:ObjectProperty .
+sorelsp:hasLowerBoundary rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasUpperBoundary
-srela:hasUpperBoundary rdf:type owl:ObjectProperty .
+sorelsp:hasUpperBoundary rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -121,7 +121,7 @@ geol:Crust rdf:type owl:Class ;
            owl:equivalentClass geol:SkinLayer ;
            rdfs:subClassOf geol:GeosphereLayer ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty srela:hasLowerBoundary ;
+                             owl:onProperty sorelsp:hasLowerBoundary ;
                              owl:allValuesFrom geol:Moho
                            ] ;
            rdfs:label "crust"@en .
@@ -147,7 +147,7 @@ geol:Dike rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmGeol/Fabric
 geol:Fabric rdf:type owl:Class ;
-            rdfs:subClassOf prop:Configuration ;
+            rdfs:subClassOf soprop:Configuration ;
             rdfs:label "fabric"@en .
 
 
@@ -161,7 +161,7 @@ geol:GeologicBoundary rdf:type owl:Class ;
 geol:GeologicFeature rdf:type owl:Class ;
                      rdfs:subClassOf planet:PlanetaryRealm ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty rela:hasRealm ;
+                                       owl:onProperty sorel:hasRealm ;
                                        owl:allValuesFrom planet:Geosphere
                                      ] ;
                      rdfs:label "geologic feature"@en .
@@ -177,7 +177,7 @@ geol:GeologicProvince rdf:type owl:Class ;
 geol:GeologicStructure rdf:type owl:Class ;
                        rdfs:subClassOf planet:Geosphere ,
                                        [ rdf:type owl:Restriction ;
-                                         owl:onProperty rela:hasRealm ;
+                                         owl:onProperty sorel:hasRealm ;
                                          owl:allValuesFrom planet:Geosphere
                                        ] ;
                        rdfs:label "geologic structure"@en .
@@ -188,7 +188,7 @@ geol:GeosphereLayer rdf:type owl:Class ;
                     rdfs:subClassOf planet:PlanetaryLayer ,
                                     geol:Subsurface ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty rela:hasRealm ;
+                                      owl:onProperty sorel:hasRealm ;
                                       owl:allValuesFrom planet:Geosphere
                                     ] ;
                     rdfs:label "geosphere layer"@en .
@@ -229,7 +229,7 @@ geol:LehmannDiscontinuity rdf:type owl:Class ;
 geol:Lithosphere rdf:type owl:Class ;
                  rdfs:subClassOf geol:GeosphereLayer ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty screla:containsMaterial ;
+                                   owl:onProperty sorelsc:containsMaterial ;
                                    owl:allValuesFrom petr:Rock
                                  ] ;
                  rdfs:label "lithosphere"@en .
@@ -251,7 +251,7 @@ geol:LowerMantle rdf:type owl:Class ;
 geol:Mantle rdf:type owl:Class ;
             rdfs:subClassOf geol:GeosphereLayer ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty srela:hasUpperBoundary ;
+                              owl:onProperty sorelsp:hasUpperBoundary ;
                               owl:allValuesFrom geol:Moho
                             ] ;
             rdfs:label "mantle"@en .
@@ -325,7 +325,7 @@ geol:TransitionalCrust rdf:type owl:Class ;
 geol:TransitionalLithosphere rdf:type owl:Class ;
                              rdfs:subClassOf geol:GeosphereLayer ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty prela:hasPlanetaryStructure ;
+                                               owl:onProperty sorelph:hasPlanetaryStructure ;
                                                owl:someValuesFrom geol:TransitionalCrust
                                              ] ;
                              rdfs:label "transitional lithosphere"@en .

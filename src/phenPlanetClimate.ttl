@@ -6,15 +6,15 @@
 @prefix diff: <http://sweetontology.net/propDifference/> .
 @prefix mass: <http://sweetontology.net/propChemical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix stat: <http://sweetontology.net/propFunction/> .
 @prefix temp: <http://sweetontology.net/propTemperature/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
 @prefix scale: <http://sweetontology.net/stateSpaceScale/> .
 @prefix space: <http://sweetontology.net/reprSpace/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
 @prefix planet: <http://sweetontology.net/phen/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @prefix climate: <http://sweetontology.net/phenPlanetClimate/> .
 @base <http://sweetontology.net/phenPlanetClimate> .
 
@@ -42,15 +42,15 @@ rela:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/averageOver
-mrela:averageOver rdf:type owl:ObjectProperty .
+sorelm:averageOver rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/deviationFrom
-mrela:deviationFrom rdf:type owl:ObjectProperty .
+sorelm:deviationFrom rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasQuantity
-screla:hasQuantity rdf:type owl:ObjectProperty .
+sorelsc:hasQuantity rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -65,11 +65,11 @@ climate:Climate rdf:type owl:Class ;
                 rdfs:subClassOf planet:PlanetaryPhenomena ,
                                 stat:TemporalAverage ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty screla:hasQuantity ;
+                                  owl:onProperty sorelsc:hasQuantity ;
                                   owl:someValuesFrom mass:Moisture
                                 ] ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty screla:hasQuantity ;
+                                  owl:onProperty sorelsc:hasQuantity ;
                                   owl:someValuesFrom temp:Temperature
                                 ] ;
                 rdfs:label "climate"@en .
@@ -81,7 +81,7 @@ climate:ClimateAnomaly rdf:type owl:Class ;
                        rdfs:subClassOf climate:ClimatePhenomena ,
                                        diff:Anomaly ,
                                        [ rdf:type owl:Restriction ;
-                                         owl:onProperty mrela:deviationFrom ;
+                                         owl:onProperty sorelm:deviationFrom ;
                                          owl:someValuesFrom climate:Climate
                                        ] ;
                        rdfs:label "climate anomaly"@en .
@@ -129,7 +129,7 @@ climate:Drought rdf:type owl:Class ;
 climate:GlobalChange rdf:type owl:Class ;
                      rdfs:subClassOf climate:ClimatePhenomena ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty srela:hasSpatialScale ;
+                                       owl:onProperty sorelsp:hasSpatialScale ;
                                        owl:hasValue scale:Global
                                      ] ;
                      rdfs:label "global change"@en .
@@ -140,11 +140,11 @@ climate:GlobalClimate rdf:type owl:Class ;
                       rdfs:subClassOf climate:Climate ,
                                       stat:Average ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty mrela:averageOver ;
+                                        owl:onProperty sorelm:averageOver ;
                                         owl:someValuesFrom space:Space
                                       ] ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty srela:hasSpatialScale ;
+                                        owl:onProperty sorelsp:hasSpatialScale ;
                                         owl:hasValue scale:Global
                                       ] ;
                       rdfs:label "global climate"@en .
@@ -154,7 +154,7 @@ climate:GlobalClimate rdf:type owl:Class ;
 climate:GlobalWarming rdf:type owl:Class ;
                       rdfs:subClassOf climate:GlobalChange ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty rela:hasPhenomena ;
+                                        owl:onProperty sorel:hasPhenomena ;
                                         owl:allValuesFrom climate:GreenhouseEffect
                                       ] ;
                       rdfs:label "global warming"@en .
@@ -170,7 +170,7 @@ climate:GreenhouseEffect rdf:type owl:Class ;
 climate:HeatIsland rdf:type owl:Class ;
                    rdfs:subClassOf climate:ClimatePhenomena ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty srela:hasSpatialScale ;
+                                     owl:onProperty sorelsp:hasSpatialScale ;
                                      owl:hasValue scale:Microscale
                                    ] ;
                    rdfs:label "heat island"@en .
@@ -186,7 +186,7 @@ climate:LocalClimate rdf:type owl:Class ;
 climate:Mesoclimate rdf:type owl:Class ;
                     rdfs:subClassOf climate:Climate ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty srela:hasSpatialScale ;
+                                      owl:onProperty sorelsp:hasSpatialScale ;
                                       owl:hasValue scale:Mesoscale
                                     ] ;
                     rdfs:label "mesoclimate"@en .
@@ -196,7 +196,7 @@ climate:Mesoclimate rdf:type owl:Class ;
 climate:Microclimate rdf:type owl:Class ;
                      rdfs:subClassOf climate:Climate ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty srela:hasSpatialScale ;
+                                       owl:onProperty sorelsp:hasSpatialScale ;
                                        owl:hasValue scale:Microscale
                                      ] ;
                      rdfs:label "microclimate"@en .
@@ -206,7 +206,7 @@ climate:Microclimate rdf:type owl:Class ;
 climate:MoistureClimate rdf:type owl:Class ;
                         rdfs:subClassOf climate:Climate ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty screla:hasQuantity ;
+                                          owl:onProperty sorelsc:hasQuantity ;
                                           owl:someValuesFrom mass:Moisture
                                         ] ;
                         rdfs:label "moisture climate"@en .
@@ -216,7 +216,7 @@ climate:MoistureClimate rdf:type owl:Class ;
 climate:NuclearWinter rdf:type owl:Class ;
                       rdfs:subClassOf climate:ClimatePhenomena ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty srela:hasSpatialScale ;
+                                        owl:onProperty sorelsp:hasSpatialScale ;
                                         owl:hasValue scale:Global
                                       ] ;
                       rdfs:label "nuclear winter"@en .
@@ -238,7 +238,7 @@ climate:RegionalClimate rdf:type owl:Class ;
 climate:ThermalClimate rdf:type owl:Class ;
                        rdfs:subClassOf climate:Climate ,
                                        [ rdf:type owl:Restriction ;
-                                         owl:onProperty screla:hasQuantity ;
+                                         owl:onProperty sorelsc:hasQuantity ;
                                          owl:someValuesFrom temp:Temperature
                                        ] ;
                        rdfs:label "thermal climate"@en .

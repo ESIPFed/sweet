@@ -8,11 +8,11 @@
 @prefix inst: <http://sweetontology.net/phenFluidInstability/> .
 @prefix poll: <http://sweetontology.net/matrAerosol/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
+@prefix sorea: <http://sweetontology.net/realm/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
 @prefix thermo: <http://sweetontology.net/propTemperatureGradient/> .
 @base <http://sweetontology.net/realmAtmo> .
 
@@ -46,15 +46,15 @@ crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/dTdh
-prela:dTdh rdf:type owl:ObjectProperty .
+sorelph:dTdh rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasLowerBoundary
-srela:hasLowerBoundary rdf:type owl:ObjectProperty .
+sorelsp:hasLowerBoundary rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasUpperBoundary
-srela:hasUpperBoundary rdf:type owl:ObjectProperty .
+sorelsp:hasUpperBoundary rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -63,10 +63,10 @@ srela:hasUpperBoundary rdf:type owl:ObjectProperty .
 
 ###  http://sweetontology.net/realmAtmo/AtmosphereLayer
 atmo:AtmosphereLayer rdf:type owl:Class ;
-                     rdfs:subClassOf realm:PlanetaryLayer ,
+                     rdfs:subClassOf sorea:PlanetaryLayer ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty rela:hasRealm ;
-                                       owl:someValuesFrom realm:Atmosphere
+                                       owl:onProperty sorel:hasRealm ;
+                                       owl:someValuesFrom sorea:Atmosphere
                                      ] ;
                      rdfs:label "atmosphere layer"@en .
 
@@ -82,7 +82,7 @@ atmo:InversionLayer rdf:type owl:Class ;
                     owl:equivalentClass atmo:TemperatureInversionLayer ;
                     rdfs:subClassOf atmo:AtmosphereLayer ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty rela:hasPhenomena ;
+                                      owl:onProperty sorel:hasPhenomena ;
                                       owl:someValuesFrom inst:Inversion
                                     ] ;
                     rdfs:label "inversion layer"@en .
@@ -106,7 +106,7 @@ atmo:LowerAtmosphere rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmAtmo/Mesopause
 atmo:Mesopause rdf:type owl:Class ;
-               rdfs:subClassOf realm:PlanetaryBoundary ;
+               rdfs:subClassOf sorea:PlanetaryBoundary ;
                rdfs:label "mesopause"@en .
 
 
@@ -114,15 +114,15 @@ atmo:Mesopause rdf:type owl:Class ;
 atmo:Mesosphere rdf:type owl:Class ;
                 rdfs:subClassOf atmo:AtmosphereLayer ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty srela:hasLowerBoundary ;
+                                  owl:onProperty sorelsp:hasLowerBoundary ;
                                   owl:allValuesFrom atmo:Stratopause
                                 ] ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty srela:hasUpperBoundary ;
+                                  owl:onProperty sorelsp:hasUpperBoundary ;
                                   owl:allValuesFrom atmo:Mesopause
                                 ] ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty prela:dTdh ;
+                                  owl:onProperty sorelph:dTdh ;
                                   owl:hasValue thermo:NegativeSlope
                                 ] ;
                 rdfs:label "mesosphere"@en .
@@ -142,7 +142,7 @@ atmo:OzoneLayer rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmAtmo/Stratopause
 atmo:Stratopause rdf:type owl:Class ;
-                 rdfs:subClassOf realm:PlanetaryBoundary ;
+                 rdfs:subClassOf sorea:PlanetaryBoundary ;
                  rdfs:label "stratopause"@en .
 
 
@@ -150,15 +150,15 @@ atmo:Stratopause rdf:type owl:Class ;
 atmo:Stratosphere rdf:type owl:Class ;
                   rdfs:subClassOf atmo:AtmosphereLayer ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty srela:hasLowerBoundary ;
+                                    owl:onProperty sorelsp:hasLowerBoundary ;
                                     owl:allValuesFrom atmo:Tropopause
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty srela:hasUpperBoundary ;
+                                    owl:onProperty sorelsp:hasUpperBoundary ;
                                     owl:allValuesFrom atmo:Stratopause
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty prela:dTdh ;
+                                    owl:onProperty sorelph:dTdh ;
                                     owl:hasValue thermo:PositiveSlope
                                   ] ;
                   rdfs:label "stratosphere"@en .
@@ -173,11 +173,11 @@ atmo:TemperatureInversionLayer rdf:type owl:Class ;
 atmo:Thermosphere rdf:type owl:Class ;
                   rdfs:subClassOf atmo:AtmosphereLayer ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty srela:hasLowerBoundary ;
+                                    owl:onProperty sorelsp:hasLowerBoundary ;
                                     owl:allValuesFrom atmo:Mesopause
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty prela:dTdh ;
+                                    owl:onProperty sorelph:dTdh ;
                                     owl:hasValue thermo:PositiveSlope
                                   ] ;
                   rdfs:label "thermosphere"@en .
@@ -185,7 +185,7 @@ atmo:Thermosphere rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmAtmo/Tropopause
 atmo:Tropopause rdf:type owl:Class ;
-                rdfs:subClassOf realm:PlanetaryBoundary ;
+                rdfs:subClassOf sorea:PlanetaryBoundary ;
                 rdfs:label "tropopause"@en .
 
 
@@ -193,15 +193,15 @@ atmo:Tropopause rdf:type owl:Class ;
 atmo:Troposphere rdf:type owl:Class ;
                  rdfs:subClassOf atmo:AtmosphereLayer ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty srela:hasLowerBoundary ;
-                                   owl:allValuesFrom realm:PlanetarySurface
+                                   owl:onProperty sorelsp:hasLowerBoundary ;
+                                   owl:allValuesFrom sorea:PlanetarySurface
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty srela:hasUpperBoundary ;
+                                   owl:onProperty sorelsp:hasUpperBoundary ;
                                    owl:allValuesFrom atmo:Tropopause
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty prela:dTdh ;
+                                   owl:onProperty sorelph:dTdh ;
                                    owl:hasValue thermo:NegativeSlope
                                  ] ;
                  rdfs:label "troposphere"@en .

@@ -5,15 +5,15 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix conc: <http://sweetontology.net/propMass/> .
 @prefix mult: <http://sweetontology.net/propSpaceMultidimensional/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
-@prefix prop: <http://sweetontology.net/prop/> .
+@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
+@prefix soprop: <http://sweetontology.net/prop/> .
 @prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
 @prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propMass> .
 
 <http://sweetontology.net/propMass> rdf:type owl:Ontology ;
@@ -38,15 +38,15 @@ rela:hasState rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-mrela:hasFirstOperand rdf:type owl:ObjectProperty .
+sorelm:hasFirstOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-mrela:hasSecondOperand rdf:type owl:ObjectProperty .
+sorelm:hasSecondOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-screla:hasDefaultUnit rdf:type owl:ObjectProperty .
+sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -80,9 +80,9 @@ conc:Consistency rdf:type owl:Class ;
 ###  http://sweetontology.net/propMass/Content
 conc:Content rdf:type owl:Class ;
              rdfs:subClassOf conc:MassConcentration ,
-                             oper:Ratio ,
+                             sorepmo:Ratio ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty mrela:hasSecondOperand ;
+                               owl:onProperty sorelm:hasSecondOperand ;
                                owl:allValuesFrom mult:Area
                              ] ;
              rdfs:label "content"@en .
@@ -93,7 +93,7 @@ conc:Density rdf:type owl:Class ;
              owl:equivalentClass conc:MassConcentration ;
              rdfs:subClassOf quan:IntensiveProperty ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty screla:hasDefaultUnit ;
+                               owl:onProperty sorelsc:hasDefaultUnit ;
                                owl:hasValue units:kilogramPerMeterCubed
                              ] ;
              rdfs:label "density"@en .
@@ -121,7 +121,7 @@ conc:Dose rdf:type owl:Class ;
 conc:DryWeight rdf:type owl:Class ;
                rdfs:subClassOf conc:Mass ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty rela:hasState ;
+                                 owl:onProperty sorel:hasState ;
                                  owl:hasValue pstate:Dry
                                ] ;
                rdfs:label "dry weight"@en .
@@ -167,7 +167,7 @@ conc:Malleability rdf:type owl:Class ;
 conc:Mass rdf:type owl:Class ;
           rdfs:subClassOf quan:ExtensiveProperty ,
                           [ rdf:type owl:Restriction ;
-                            owl:onProperty screla:hasDefaultUnit ;
+                            owl:onProperty sorelsc:hasDefaultUnit ;
                             owl:hasValue units:kilogram
                           ] ;
           rdfs:label "mass"@en .
@@ -182,11 +182,11 @@ conc:MassConcentration rdf:type owl:Class ;
 conc:MassContent rdf:type owl:Class ;
                  rdfs:subClassOf conc:Content ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty mrela:hasFirstOperand ;
+                                   owl:onProperty sorelm:hasFirstOperand ;
                                    owl:allValuesFrom conc:Mass
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty screla:hasDefaultUnit ;
+                                   owl:onProperty sorelsc:hasDefaultUnit ;
                                    owl:hasValue units:kilogramPerMeterSquared
                                  ] ;
                  rdfs:label "mass content"@en .
@@ -194,7 +194,7 @@ conc:MassContent rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propMass/MaterialProperty
 conc:MaterialProperty rdf:type owl:Class ;
-                      rdfs:subClassOf prop:PhysicalProperty ;
+                      rdfs:subClassOf soprop:PhysicalProperty ;
                       rdfs:label "material property"@en .
 
 
@@ -214,7 +214,7 @@ conc:MolecularWeight rdf:type owl:Class ;
 conc:Moles rdf:type owl:Class ;
            rdfs:subClassOf quan:Quantity ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty screla:hasDefaultUnit ;
+                             owl:onProperty sorelsc:hasDefaultUnit ;
                              owl:hasValue units:mole
                            ] ;
            rdfs:label "moles"@en .
@@ -224,7 +224,7 @@ conc:Moles rdf:type owl:Class ;
 conc:OpticalMass rdf:type owl:Class ;
                  rdfs:subClassOf quan:RadiationMediumInteractionQuantity ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty screla:hasDefaultUnit ;
+                                   owl:onProperty sorelsc:hasDefaultUnit ;
                                    owl:hasValue units:kilogram
                                  ] ;
                  rdfs:label "optical mass"@en .
@@ -282,7 +282,7 @@ conc:Solidness rdf:type owl:Class ;
 conc:SpecificVolume rdf:type owl:Class ;
                     rdfs:subClassOf quan:IntensiveProperty ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty screla:hasDefaultUnit ;
+                                      owl:onProperty sorelsc:hasDefaultUnit ;
                                       owl:hasValue units:meterCubedPerKilogram
                                     ] ;
                     rdfs:label "specific volume"@en .

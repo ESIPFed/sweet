@@ -6,16 +6,16 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix conc: <http://sweetontology.net/propChemical/> .
 @prefix cryo: <http://sweetontology.net/realmCryo/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix xten: <http://sweetontology.net/propSpaceDistance/> .
 @prefix bproc: <http://sweetontology.net/phenBiol/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
 @prefix ocean: <http://sweetontology.net/realmOcean/> .
-@prefix realm: <http://sweetontology.net/realm/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorea: <http://sweetontology.net/realm/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @prefix thermo: <http://sweetontology.net/propTemperatureGradient/> .
 @base <http://sweetontology.net/realmOcean> .
 
@@ -52,23 +52,23 @@ rela:partOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasGradient
-mrela:hasGradient rdf:type owl:ObjectProperty .
+sorelm:hasGradient rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasQuantity
-screla:hasQuantity rdf:type owl:ObjectProperty .
+sorelsc:hasQuantity rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/above
-srela:above rdf:type owl:ObjectProperty .
+sorelsp:above rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/below
-srela:below rdf:type owl:ObjectProperty .
+sorelsp:below rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/surroundedBy
-srela:surroundedBy rdf:type owl:ObjectProperty .
+sorelsp:surroundedBy rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -97,11 +97,11 @@ ocean:AbyssopelagicZone rdf:type owl:Class ;
 ocean:AphoticZone rdf:type owl:Class ;
                   rdfs:subClassOf ocean:WaterBodyLayer ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty screla:hasQuantity ;
+                                    owl:onProperty sorelsc:hasQuantity ;
                                     owl:allValuesFrom med:Turbidity
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty srela:below ;
+                                    owl:onProperty sorelsp:below ;
                                     owl:allValuesFrom ocean:PhoticZone
                                   ] ;
                   rdfs:label "aphotic zone"@en .
@@ -129,7 +129,7 @@ ocean:BathypelagicZone rdf:type owl:Class ;
 ocean:BenthicZone rdf:type owl:Class ;
                   rdfs:subClassOf ocean:WaterBodyLayer ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty srela:below ;
+                                    owl:onProperty sorelsp:below ;
                                     owl:allValuesFrom ocean:DemersalZone
                                   ] ;
                   rdfs:label "benthic zone"@en .
@@ -139,11 +139,11 @@ ocean:BenthicZone rdf:type owl:Class ;
 ocean:DemersalZone rdf:type owl:Class ;
                    rdfs:subClassOf ocean:WaterBodyLayer ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty rela:hasRealm ;
+                                     owl:onProperty sorel:hasRealm ;
                                      owl:allValuesFrom ocean:ProfundalZone
                                    ] ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty srela:above ;
+                                     owl:onProperty sorelsp:above ;
                                      owl:allValuesFrom ocean:BenthicZone
                                    ] ;
                    rdfs:label "demersal zone"@en .
@@ -165,7 +165,7 @@ ocean:Hadal rdf:type owl:Class ;
 ocean:Halocline rdf:type owl:Class ;
                 rdfs:subClassOf ocean:WaterBodyLayer ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty mrela:hasGradient ;
+                                  owl:onProperty sorelm:hasGradient ;
                                   owl:allValuesFrom conc:Salinity
                                 ] ;
                 rdfs:label "halocline"@en .
@@ -175,7 +175,7 @@ ocean:Halocline rdf:type owl:Class ;
 ocean:LimneticZone rdf:type owl:Class ;
                    rdfs:subClassOf ocean:WaterBodyLayer ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty srela:above ;
+                                     owl:onProperty sorelsp:above ;
                                      owl:allValuesFrom ocean:ProfundalZone
                                    ] ;
                    rdfs:label "limnetic zone"@en .
@@ -201,10 +201,10 @@ ocean:NeriticZone rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmOcean/OceanRegion
 ocean:OceanRegion rdf:type owl:Class ;
-                  rdfs:subClassOf realm:PlanetaryRealm ,
+                  rdfs:subClassOf sorea:PlanetaryRealm ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty rela:hasRealm ;
-                                    owl:allValuesFrom realm:Ocean
+                                    owl:onProperty sorel:hasRealm ;
+                                    owl:allValuesFrom sorea:Ocean
                                   ] ;
                   rdfs:label "ocean region"@en .
 
@@ -219,7 +219,7 @@ ocean:OpenOcean rdf:type owl:Class ;
 ocean:PelagicSubZone rdf:type owl:Class ;
                      rdfs:subClassOf ocean:OceanRegion ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty rela:partOf ;
+                                       owl:onProperty sorel:partOf ;
                                        owl:allValuesFrom ocean:PelagicZone
                                      ] ;
                      rdfs:label "pelagic sub zone"@en .
@@ -235,15 +235,15 @@ ocean:PelagicZone rdf:type owl:Class ;
 ocean:PhoticZone rdf:type owl:Class ;
                  rdfs:subClassOf ocean:WaterBodyLayer ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty rela:hasPhenomena ;
+                                   owl:onProperty sorel:hasPhenomena ;
                                    owl:allValuesFrom bproc:Photosynthesis
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty screla:hasQuantity ;
+                                   owl:onProperty sorelsc:hasQuantity ;
                                    owl:allValuesFrom med:Turbidity
                                  ] ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty srela:above ;
+                                   owl:onProperty sorelsp:above ;
                                    owl:allValuesFrom ocean:AphoticZone
                                  ] ;
                  rdfs:label "photic zone"@en .
@@ -253,7 +253,7 @@ ocean:PhoticZone rdf:type owl:Class ;
 ocean:Polynya rdf:type owl:Class ;
               rdfs:subClassOf ocean:OceanRegion ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty srela:surroundedBy ;
+                                owl:onProperty sorelsp:surroundedBy ;
                                 owl:allValuesFrom cryo:SeaIce
                               ] ;
               rdfs:label "polynya"@en .
@@ -263,7 +263,7 @@ ocean:Polynya rdf:type owl:Class ;
 ocean:ProfundalZone rdf:type owl:Class ;
                     rdfs:subClassOf ocean:WaterBodyLayer ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty rela:hasRealm ;
+                                      owl:onProperty sorel:hasRealm ;
                                       owl:allValuesFrom ocean:AphoticZone
                                     ] ;
                     rdfs:label "profundal zone"@en .
@@ -273,7 +273,7 @@ ocean:ProfundalZone rdf:type owl:Class ;
 ocean:Pycnocline rdf:type owl:Class ;
                  rdfs:subClassOf ocean:WaterBodyLayer ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty mrela:hasGradient ;
+                                   owl:onProperty sorelm:hasGradient ;
                                    owl:allValuesFrom conc:Salinity
                                  ] ;
                  rdfs:label "pycnocline"@en .
@@ -283,7 +283,7 @@ ocean:Pycnocline rdf:type owl:Class ;
 ocean:Thermocline rdf:type owl:Class ;
                   rdfs:subClassOf ocean:WaterBodyLayer ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty screla:hasQuantity ;
+                                    owl:onProperty sorelsc:hasQuantity ;
                                     owl:allValuesFrom thermo:TemperatureGradient
                                   ] ;
                   rdfs:label "thermocline"@en .
@@ -291,10 +291,10 @@ ocean:Thermocline rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmOcean/WaterBodyLayer
 ocean:WaterBodyLayer rdf:type owl:Class ;
-                     rdfs:subClassOf realm:PlanetaryLayer ,
+                     rdfs:subClassOf sorea:PlanetaryLayer ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty rela:hasRealm ;
-                                       owl:allValuesFrom realm:Ocean
+                                       owl:onProperty sorel:hasRealm ;
+                                       owl:allValuesFrom sorea:Ocean
                                      ] ;
                      rdfs:label "water body layer"@en .
 

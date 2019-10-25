@@ -4,14 +4,14 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix body: <http://sweetontology.net/realmHydroBody/> .
-@prefix land: <http://sweetontology.net/realmLandform/> .
+@prefix soreal: <http://sweetontology.net/realmLandform/> .
 @prefix ocea: <http://sweetontology.net/phenOceanCoastal/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix sgeo: <http://sweetontology.net/stateRoleGeographic/> .
 @prefix coast: <http://sweetontology.net/realmLandCoastal/> .
 @prefix ocean: <http://sweetontology.net/realmOcean/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
 @prefix planet: <http://sweetontology.net/realm/> .
 @base <http://sweetontology.net/realmLandCoastal> .
 
@@ -40,15 +40,15 @@ rela:hasRealm rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasCommon2DBorderWith
-srela:hasCommon2DBorderWith rdf:type owl:ObjectProperty .
+sorelsp:hasCommon2DBorderWith rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/isAdjacentTo
-srela:isAdjacentTo rdf:type owl:ObjectProperty .
+sorelsp:isAdjacentTo rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/surroundedBy
-srela:surroundedBy rdf:type owl:ObjectProperty .
+sorelsp:surroundedBy rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -82,9 +82,9 @@ coast:BarrierIsland rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmLandCoastal/Beach
 coast:Beach rdf:type owl:Class ;
-            rdfs:subClassOf land:Landform ,
+            rdfs:subClassOf soreal:Landform ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty srela:isAdjacentTo ;
+                              owl:onProperty sorelsp:isAdjacentTo ;
                               owl:allValuesFrom body:BodyOfWater
                             ] ;
             rdfs:label "beach"@en .
@@ -98,9 +98,9 @@ coast:Coastal rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmLandCoastal/CoastalLandform
 coast:CoastalLandform rdf:type owl:Class ;
-                      rdfs:subClassOf land:Landform ,
+                      rdfs:subClassOf soreal:Landform ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty rela:hasRealm ;
+                                        owl:onProperty sorel:hasRealm ;
                                         owl:someValuesFrom coast:CoastalRegion
                                       ] ;
                       rdfs:label "coastal landform"@en .
@@ -116,7 +116,7 @@ coast:CoastalMargin rdf:type owl:Class ;
 ###  http://sweetontology.net/realmLandCoastal/CoastalPlain
 coast:CoastalPlain rdf:type owl:Class ;
                    rdfs:subClassOf coast:CoastalRegion ,
-                                   land:Plain ;
+                                   soreal:Plain ;
                    rdfs:label "coastal plain"@en .
 
 
@@ -124,11 +124,11 @@ coast:CoastalPlain rdf:type owl:Class ;
 coast:CoastalRegion rdf:type owl:Class ;
                     rdfs:subClassOf planet:PlanetaryRealm ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty srela:hasCommon2DBorderWith ;
+                                      owl:onProperty sorelsp:hasCommon2DBorderWith ;
                                       owl:someValuesFrom planet:Land
                                     ] ,
                                     [ rdf:type owl:Restriction ;
-                                      owl:onProperty srela:hasCommon2DBorderWith ;
+                                      owl:onProperty sorelsp:hasCommon2DBorderWith ;
                                       owl:someValuesFrom ocean:OceanRegion
                                     ] ;
                     rdfs:label "coastal region"@en .
@@ -144,7 +144,7 @@ coast:Cove rdf:type owl:Class ;
 coast:Delta rdf:type owl:Class ;
             rdfs:subClassOf coast:CoastalLandform ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty rela:hasRealm ;
+                              owl:onProperty sorel:hasRealm ;
                               owl:someValuesFrom body:River
                             ] ;
             rdfs:label "delta"@en .
@@ -163,7 +163,7 @@ coast:Harbor rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmLandCoastal/Hinterland
 coast:Hinterland rdf:type owl:Class ;
-                 rdfs:subClassOf land:LandRegion ;
+                 rdfs:subClassOf soreal:LandRegion ;
                  rdfs:label "hinterland"@en .
 
 
@@ -180,7 +180,7 @@ coast:IntertidalZone rdf:type owl:Class ;
                                          coast:TidePool ;
                      rdfs:subClassOf coast:CoastalRegion ,
                                      [ rdf:type owl:Restriction ;
-                                       owl:onProperty rela:hasPhenomena ;
+                                       owl:onProperty sorel:hasPhenomena ;
                                        owl:allValuesFrom ocea:OceanTide
                                      ] ;
                      rdfs:label "intertidal zone"@en .
@@ -188,9 +188,9 @@ coast:IntertidalZone rdf:type owl:Class ;
 
 ###  http://sweetontology.net/realmLandCoastal/Island
 coast:Island rdf:type owl:Class ;
-             rdfs:subClassOf land:Landform ,
+             rdfs:subClassOf soreal:Landform ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty srela:surroundedBy ;
+                               owl:onProperty sorelsp:surroundedBy ;
                                owl:allValuesFrom body:BodyOfWater
                              ] ;
              rdfs:label "island"@en .
@@ -252,7 +252,7 @@ coast:Shoal rdf:type owl:Class ;
 coast:Shore rdf:type owl:Class ;
             owl:equivalentClass coast:Shoreline ;
             rdfs:subClassOf coast:CoastalRegion ,
-                            land:Land ;
+                            soreal:Land ;
             rdfs:label "shore"@en .
 
 

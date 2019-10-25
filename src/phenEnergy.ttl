@@ -3,16 +3,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix cons: <http://sweetontology.net/humanEnvirConservation/> .
+@prefix sohuecons: <http://sweetontology.net/humanEnvirConservation/> .
 @prefix ener: <http://sweetontology.net/propEnergy/> .
-@prefix huma: <http://sweetontology.net/human/> .
+@prefix sohu: <http://sweetontology.net/human/> .
 @prefix proc: <http://sweetontology.net/procPhysical/> .
-@prefix prop: <http://sweetontology.net/prop/> .
+@prefix soprop: <http://sweetontology.net/prop/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix mener: <http://sweetontology.net/matrEnergy/> .
 @prefix pener: <http://sweetontology.net/phenEnergy/> .
-@prefix prela: <http://sweetontology.net/relaPhysical/> .
+@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
 @prefix water: <http://sweetontology.net/matrWater/> .
 @base <http://sweetontology.net/phenEnergy> .
 
@@ -38,11 +38,11 @@ rela:hasRole rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasEnergyProduct
-prela:hasEnergyProduct rdf:type owl:ObjectProperty .
+sorelph:hasEnergyProduct rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasEnergySource
-prela:hasEnergySource rdf:type owl:ObjectProperty .
+sorelph:hasEnergySource rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -60,7 +60,7 @@ pener:ActiveSolarEnergy rdf:type owl:Class ;
 pener:BinaryCycle rdf:type owl:Class ;
                   rdfs:subClassOf pener:GeothermalPowerProcess ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty prela:hasEnergySource ;
+                                    owl:onProperty sorelph:hasEnergySource ;
                                     owl:allValuesFrom mener:HeatExchanger
                                   ] ;
                   rdfs:label "binary cycle"@en .
@@ -70,11 +70,11 @@ pener:BinaryCycle rdf:type owl:Class ;
 pener:Biopower rdf:type owl:Class ;
                rdfs:subClassOf pener:RenewableEnergySource ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty prela:hasEnergyProduct ;
+                                 owl:onProperty sorelph:hasEnergyProduct ;
                                  owl:someValuesFrom pener:Electricity
                                ] ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty prela:hasEnergySource ;
+                                 owl:onProperty sorelph:hasEnergySource ;
                                  owl:allValuesFrom mener:Biomass
                                ] ;
                rdfs:label "biopower"@en .
@@ -90,7 +90,7 @@ pener:ConcentratingSolarPower rdf:type owl:Class ;
 pener:DirectUse rdf:type owl:Class ;
                 rdfs:subClassOf proc:PhysicalProcess ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty prela:hasEnergyProduct ;
+                                  owl:onProperty sorelph:hasEnergyProduct ;
                                   owl:allValuesFrom ener:Heat
                                 ] ;
                 owl:disjointWith pener:EnergyConversionProcess ;
@@ -101,7 +101,7 @@ pener:DirectUse rdf:type owl:Class ;
 pener:DrySteam rdf:type owl:Class ;
                rdfs:subClassOf pener:GeothermalPowerProcess ,
                                [ rdf:type owl:Restriction ;
-                                 owl:onProperty prela:hasEnergySource ;
+                                 owl:onProperty sorelph:hasEnergySource ;
                                  owl:allValuesFrom water:Steam
                                ] ;
                rdfs:label "dry steam"@en .
@@ -118,7 +118,7 @@ pener:Electricity rdf:type owl:Class ;
 pener:ElectricityProduction rdf:type owl:Class ;
                             rdfs:subClassOf pener:EnergyConversionProcess ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty prela:hasEnergyProduct ;
+                                              owl:onProperty sorelph:hasEnergyProduct ;
                                               owl:allValuesFrom pener:Electricity
                                             ] ;
                             rdfs:label "electricity production"@en .
@@ -132,7 +132,7 @@ pener:EnergyCollection rdf:type owl:Class ;
 
 ###  http://sweetontology.net/phenEnergy/EnergyConservation
 pener:EnergyConservation rdf:type owl:Class ;
-                         rdfs:subClassOf cons:Conservation ;
+                         rdfs:subClassOf sohuecons:Conservation ;
                          rdfs:label "energy conservation"@en .
 
 
@@ -158,7 +158,7 @@ pener:EnergySource rdf:type owl:Class ;
 pener:FlashSteam rdf:type owl:Class ;
                  rdfs:subClassOf pener:GeothermalPowerProcess ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty prela:hasEnergySource ;
+                                   owl:onProperty sorelph:hasEnergySource ;
                                    owl:allValuesFrom water:LiquidWater
                                  ] ;
                  rdfs:label "flash steam"@en .
@@ -168,7 +168,7 @@ pener:FlashSteam rdf:type owl:Class ;
 pener:Gasification rdf:type owl:Class ;
                    rdfs:subClassOf pener:EnergyConversionProcess ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty prela:hasEnergyProduct ;
+                                     owl:onProperty sorelph:hasEnergyProduct ;
                                      owl:allValuesFrom mener:Fuel
                                    ] ;
                    rdfs:label "gasification"@en .
@@ -208,8 +208,8 @@ pener:PowerSource rdf:type owl:Class ;
 pener:RenewableEnergySource rdf:type owl:Class ;
                             rdfs:subClassOf pener:EnergySource ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty rela:hasRole ;
-                                              owl:allValuesFrom cons:Sustainability
+                                              owl:onProperty sorel:hasRole ;
+                                              owl:allValuesFrom sohuecons:Sustainability
                                             ] ;
                             rdfs:label "renewable energy source"@en .
 

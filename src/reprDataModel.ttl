@@ -7,12 +7,12 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix data: <http://sweetontology.net/reprDataProduct/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix repr: <http://sweetontology.net/repr/> .
+@prefix sorep: <http://sweetontology.net/repr/> .
 @prefix time: <http://sweetontology.net/reprTime/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
 @prefix obj3d: <http://sweetontology.net/reprSpaceGeometry3D/> .
 @prefix space: <http://sweetontology.net/reprSpace/> .
-@prefix srela: <http://sweetontology.net/relaSpace/> .
+@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
 @prefix dmrepr: <http://sweetontology.net/reprDataModel/> .
 @base <http://sweetontology.net/reprDataModel> .
 
@@ -34,11 +34,11 @@
 #################################################################
 
 ###  http://sweetontology.net/relaMath/representationOf
-mrela:representationOf rdf:type owl:ObjectProperty .
+sorelm:representationOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasGeometricalObject
-srela:hasGeometricalObject rdf:type owl:ObjectProperty .
+sorelsp:hasGeometricalObject rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -59,13 +59,13 @@ dmrepr:Cell rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprDataModel/Character
 dmrepr:Character rdf:type owl:Class ;
-                 rdfs:subClassOf repr:Representation ;
+                 rdfs:subClassOf sorep:Representation ;
                  rdfs:label "character"@en .
 
 
 ###  http://sweetontology.net/reprDataModel/Column
 dmrepr:Column rdf:type owl:Class ;
-              rdfs:subClassOf repr:Dimension ;
+              rdfs:subClassOf sorep:Dimension ;
               rdfs:label "column"@en .
 
 
@@ -73,7 +73,7 @@ dmrepr:Column rdf:type owl:Class ;
 dmrepr:DataModel rdf:type owl:Class ;
                  rdfs:subClassOf mod:Model ,
                                  [ rdf:type owl:Restriction ;
-                                   owl:onProperty mrela:representationOf ;
+                                   owl:onProperty sorelm:representationOf ;
                                    owl:allValuesFrom data:Data
                                  ] ;
                  rdfs:label "data model"@en .
@@ -81,7 +81,7 @@ dmrepr:DataModel rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprDataModel/DataStructure
 dmrepr:DataStructure rdf:type owl:Class ;
-                     rdfs:subClassOf repr:Representation ;
+                     rdfs:subClassOf sorep:Representation ;
                      rdfs:label "data structure"@en .
 
 
@@ -102,7 +102,7 @@ dmrepr:Grid rdf:type owl:Class ;
             rdfs:subClassOf dmrepr:DataModel ,
                             dmrepr:Raster ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty srela:hasGeometricalObject ;
+                              owl:onProperty sorelsp:hasGeometricalObject ;
                               owl:someValuesFrom obj:Rectangle
                             ] ;
             rdfs:label "grid"@en .
@@ -110,13 +110,13 @@ dmrepr:Grid rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprDataModel/Increment
 dmrepr:Increment rdf:type owl:Class ;
-                 rdfs:subClassOf repr:Scale ;
+                 rdfs:subClassOf sorep:Scale ;
                  rdfs:label "increment"@en .
 
 
 ###  http://sweetontology.net/reprDataModel/Parameter
 dmrepr:Parameter rdf:type owl:Class ;
-                 rdfs:subClassOf repr:Dimension ;
+                 rdfs:subClassOf sorep:Dimension ;
                  rdfs:label "parameter"@en .
 
 
@@ -124,7 +124,7 @@ dmrepr:Parameter rdf:type owl:Class ;
 dmrepr:Point rdf:type owl:Class ;
              rdfs:subClassOf dmrepr:DataModel ,
                              [ rdf:type owl:Restriction ;
-                               owl:onProperty srela:hasGeometricalObject ;
+                               owl:onProperty sorelsp:hasGeometricalObject ;
                                owl:allValuesFrom obj:Point
                              ] ;
              rdfs:label "point"@en .
@@ -150,15 +150,15 @@ dmrepr:Resolution rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprDataModel/Row
 dmrepr:Row rdf:type owl:Class ;
-           rdfs:subClassOf repr:Dimension ;
+           rdfs:subClassOf sorep:Dimension ;
            rdfs:label "row"@en .
 
 
 ###  http://sweetontology.net/reprDataModel/SpatialRepresentation
 dmrepr:SpatialRepresentation rdf:type owl:Class ;
-                             rdfs:subClassOf repr:Representation ,
+                             rdfs:subClassOf sorep:Representation ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty mrela:representationOf ;
+                                               owl:onProperty sorelm:representationOf ;
                                                owl:allValuesFrom space:Space
                                              ] ;
                              rdfs:label "spatial representation"@en .
@@ -180,7 +180,7 @@ dmrepr:Swath rdf:type owl:Class ;
 dmrepr:Swath_2D rdf:type owl:Class ;
                 rdfs:subClassOf dmrepr:Swath ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty srela:hasGeometricalObject ;
+                                  owl:onProperty sorelsp:hasGeometricalObject ;
                                   owl:allValuesFrom obj:GeometricalObject_2D
                                 ] ;
                 rdfs:label "swath 2d"@en .
@@ -190,7 +190,7 @@ dmrepr:Swath_2D rdf:type owl:Class ;
 dmrepr:Swath_3D rdf:type owl:Class ;
                 rdfs:subClassOf dmrepr:Swath ,
                                 [ rdf:type owl:Restriction ;
-                                  owl:onProperty srela:hasGeometricalObject ;
+                                  owl:onProperty sorelsp:hasGeometricalObject ;
                                   owl:allValuesFrom obj3d:GeometricalObject_3D
                                 ] ;
                 rdfs:label "swath 3d"@en .
@@ -198,9 +198,9 @@ dmrepr:Swath_3D rdf:type owl:Class ;
 
 ###  http://sweetontology.net/reprDataModel/TemporalRepresentation
 dmrepr:TemporalRepresentation rdf:type owl:Class ;
-                              rdfs:subClassOf repr:Representation ,
+                              rdfs:subClassOf sorep:Representation ,
                                               [ rdf:type owl:Restriction ;
-                                                owl:onProperty mrela:representationOf ;
+                                                owl:onProperty sorelm:representationOf ;
                                                 owl:allValuesFrom time:Time
                                               ] ;
                               rdfs:label "temporal representation"@en .

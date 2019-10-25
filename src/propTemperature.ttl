@@ -5,20 +5,20 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ener: <http://sweetontology.net/propEnergy/> .
 @prefix func: <http://sweetontology.net/propFunction/> .
-@prefix oper: <http://sweetontology.net/reprMathOperation/> .
+@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
 @prefix part: <http://sweetontology.net/matrParticle/> .
 @prefix quan: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix rela: <http://sweetontology.net/rela/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix seas: <http://sweetontology.net/reprTimeSeason/> .
 @prefix wind: <http://sweetontology.net/phenAtmoWind/> .
 @prefix crela: <http://sweetontology.net/relaChemical/> .
-@prefix mrela: <http://sweetontology.net/relaMath/> .
+@prefix sorelm: <http://sweetontology.net/relaMath/> .
 @prefix units: <http://sweetontology.net/reprSciUnits/> .
 @prefix pstate: <http://sweetontology.net/statePhysical/> .
-@prefix screla: <http://sweetontology.net/relaSci/> .
+@prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @prefix thermo: <http://sweetontology.net/propTemperature/> .
-@prefix tstate: <http://sweetontology.net/stateThermodynamic/> .
+@prefix sostth: <http://sweetontology.net/stateThermodynamic/> .
 @base <http://sweetontology.net/propTemperature> .
 
 <http://sweetontology.net/propTemperature> rdf:type owl:Ontology ;
@@ -56,27 +56,27 @@ crela:hasSubstance rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/approximates
-mrela:approximates rdf:type owl:ObjectProperty .
+sorelm:approximates rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-mrela:hasFirstOperand rdf:type owl:ObjectProperty .
+sorelm:hasFirstOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-mrela:hasSecondOperand rdf:type owl:ObjectProperty .
+sorelm:hasSecondOperand rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-screla:hasDefaultUnit rdf:type owl:ObjectProperty .
+sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-screla:measureOf rdf:type owl:ObjectProperty .
+sorelsc:measureOf rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/rangeOf
-screla:rangeOf rdf:type owl:ObjectProperty .
+sorelsc:rangeOf rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -105,7 +105,7 @@ thermo:BrightnessTemperature rdf:type owl:Class ;
 thermo:ColdestMonthTemperature rdf:type owl:Class ;
                                rdfs:subClassOf thermo:Temperature ,
                                                [ rdf:type owl:Restriction ;
-                                                 owl:onProperty rela:hasPhenomena ;
+                                                 owl:onProperty sorel:hasPhenomena ;
                                                  owl:someValuesFrom seas:ColdestMonth
                                                ] ;
                                rdfs:label "coldest month temperature"@en .
@@ -121,13 +121,13 @@ thermo:DewPoint rdf:type owl:Class ;
 ###  http://sweetontology.net/propTemperature/DewPointDepression
 thermo:DewPointDepression rdf:type owl:Class ;
                           rdfs:subClassOf thermo:Temperature ,
-                                          oper:Subtraction ,
+                                          sorepmo:Subtraction ,
                                           [ rdf:type owl:Restriction ;
-                                            owl:onProperty mrela:hasFirstOperand ;
+                                            owl:onProperty sorelm:hasFirstOperand ;
                                             owl:allValuesFrom thermo:DryBulbTemperature
                                           ] ,
                                           [ rdf:type owl:Restriction ;
-                                            owl:onProperty mrela:hasSecondOperand ;
+                                            owl:onProperty sorelm:hasSecondOperand ;
                                             owl:allValuesFrom thermo:DewPointTemperature
                                           ] ;
                           rdfs:label "dew point depression"@en .
@@ -182,7 +182,7 @@ thermo:GlobalWarmingPotential rdf:type owl:Class ;
 thermo:IonTemperature rdf:type owl:Class ;
                       rdfs:subClassOf thermo:Temperature ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty rela:hasState ;
+                                        owl:onProperty sorel:hasState ;
                                         owl:hasValue pstate:IonizedState
                                       ] ;
                       rdfs:label "ion temperature"@en .
@@ -218,7 +218,7 @@ thermo:MeltingPoint rdf:type owl:Class ;
 thermo:NeutralTemperature rdf:type owl:Class ;
                           rdfs:subClassOf thermo:Temperature ,
                                           [ rdf:type owl:Restriction ;
-                                            owl:onProperty rela:hasState ;
+                                            owl:onProperty sorel:hasState ;
                                             owl:hasValue pstate:NeutralState
                                           ] ;
                           rdfs:label "neutral temperature"@en .
@@ -228,8 +228,8 @@ thermo:NeutralTemperature rdf:type owl:Class ;
 thermo:PotentialTemperature rdf:type owl:Class ;
                             rdfs:subClassOf thermo:Temperature ,
                                             [ rdf:type owl:Restriction ;
-                                              owl:onProperty rela:hasState ;
-                                              owl:hasValue tstate:Adiabatic
+                                              owl:onProperty sorel:hasState ;
+                                              owl:hasValue sostth:Adiabatic
                                             ] ;
                             rdfs:label "potential temperature"@en .
 
@@ -238,7 +238,7 @@ thermo:PotentialTemperature rdf:type owl:Class ;
 thermo:PseudoEquivalentPotentialTemperature rdf:type owl:Class ;
                                             rdfs:subClassOf thermo:Temperature ,
                                                             [ rdf:type owl:Restriction ;
-                                                              owl:onProperty mrela:approximates ;
+                                                              owl:onProperty sorelm:approximates ;
                                                               owl:allValuesFrom thermo:EquivalentPotentialTemperature
                                                             ] ;
                                             rdfs:label "pseudo equivalent potential temperature"@en .
@@ -248,7 +248,7 @@ thermo:PseudoEquivalentPotentialTemperature rdf:type owl:Class ;
 thermo:PseudoEquivalentTemperature rdf:type owl:Class ;
                                    rdfs:subClassOf thermo:Temperature ,
                                                    [ rdf:type owl:Restriction ;
-                                                     owl:onProperty mrela:approximates ;
+                                                     owl:onProperty sorelm:approximates ;
                                                      owl:allValuesFrom thermo:EquivalentTemperature
                                                    ] ;
                                    rdfs:label "pseudo equivalent temperature"@en .
@@ -264,11 +264,11 @@ thermo:StaticTemperature rdf:type owl:Class ;
 thermo:Temperature rdf:type owl:Class ;
                    rdfs:subClassOf quan:ThermodynamicQuantity ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty screla:measureOf ;
+                                     owl:onProperty sorelsc:measureOf ;
                                      owl:allValuesFrom ener:Heat
                                    ] ,
                                    [ rdf:type owl:Restriction ;
-                                     owl:onProperty screla:hasDefaultUnit ;
+                                     owl:onProperty sorelsc:hasDefaultUnit ;
                                      owl:hasValue units:kelvin
                                    ] ;
                    rdfs:label "temperature"@en .
@@ -278,7 +278,7 @@ thermo:Temperature rdf:type owl:Class ;
 thermo:TemperatureRange rdf:type owl:Class ;
                         rdfs:subClassOf quan:IntervalQuantity ,
                                         [ rdf:type owl:Restriction ;
-                                          owl:onProperty screla:rangeOf ;
+                                          owl:onProperty sorelsc:rangeOf ;
                                           owl:allValuesFrom thermo:Temperature
                                         ] ;
                         rdfs:label "temperature range"@en .
@@ -312,7 +312,7 @@ thermo:VirtualTemperature rdf:type owl:Class ;
 thermo:WarmestMonthTemperature rdf:type owl:Class ;
                                rdfs:subClassOf thermo:Temperature ,
                                                [ rdf:type owl:Restriction ;
-                                                 owl:onProperty rela:hasPhenomena ;
+                                                 owl:onProperty sorel:hasPhenomena ;
                                                  owl:someValuesFrom seas:WarmestMonth
                                                ] ;
                                rdfs:label "warmest month temperature"@en .
@@ -340,7 +340,7 @@ thermo:WindChill rdf:type owl:Class ;
 thermo:WindChillIndex rdf:type owl:Class ;
                       rdfs:subClassOf thermo:Temperature ,
                                       [ rdf:type owl:Restriction ;
-                                        owl:onProperty screla:measureOf ;
+                                        owl:onProperty sorelsc:measureOf ;
                                         owl:allValuesFrom wind:Wind
                                       ] ;
                       rdfs:label "wind chill index"@en .
@@ -375,7 +375,7 @@ pstate:NeutralState rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Adiabatic
-tstate:Adiabatic rdf:type owl:NamedIndividual .
+sostth:Adiabatic rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
