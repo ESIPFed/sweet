@@ -3,16 +3,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sorel: <http://sweetontology.net/rela/> .
 @prefix sorep: <http://sweetontology.net/repr/> .
-@prefix seis: <http://sweetontology.net/phenGeolSeismicity/> .
-@prefix star: <http://sweetontology.net/phenStar/> .
+@prefix sophgs: <http://sweetontology.net/phenGeolSeismicity/> .
+@prefix sophst: <http://sweetontology.net/phenStar/> .
 @prefix sopropef: <http://sweetontology.net/propEnergyFlux/> .
 @prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
-@prefix energy: <http://sweetontology.net/propEnergy/> .
+@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
+@prefix soprope: <http://sweetontology.net/propEnergy/> .
 @prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @prefix screla2: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propEnergyFlux> .
@@ -35,7 +35,7 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-rela:hasPhenomena rdf:type owl:ObjectProperty .
+sorel:hasPhenomena rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/transportOf
@@ -76,7 +76,7 @@ sopropef:Brightness rdf:type owl:Class ;
                  rdfs:subClassOf sopropef:Luminance ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty screla2:hasDefaultUnit ;
-                                   owl:hasValue units:wattPerMeterSquaredPerSteradianPerWavelength
+                                   owl:hasValue sorepsu:wattPerMeterSquaredPerSteradianPerWavelength
                                  ] ;
                  rdfs:label "brightness"@en .
 
@@ -98,21 +98,21 @@ sopropef:EarthquakeScale rdf:type owl:Class ;
                       rdfs:subClassOf sorep:LogarithmicScale ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty sorel:hasPhenomena ;
-                                        owl:allValuesFrom seis:Earthquake
+                                        owl:allValuesFrom sophgs:Earthquake
                                       ] ,
                                       [ rdf:type owl:Restriction ;
                                         owl:onProperty screla2:hasUnit ;
-                                        owl:hasValue units:db
+                                        owl:hasValue sorepsu:db
                                       ] ;
                       rdfs:label "earthquake scale"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/EnergyFlux
 sopropef:EnergyFlux rdf:type owl:Class ;
-                 rdfs:subClassOf quan:Flux ,
+                 rdfs:subClassOf sopropq:Flux ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty sorelph:transportOf ;
-                                   owl:someValuesFrom energy:Energy
+                                   owl:someValuesFrom soprope:Energy
                                  ] ;
                  rdfs:label "energy flux"@en .
 
@@ -122,7 +122,7 @@ sopropef:EnergyFlux_Wm2 rdf:type owl:Class ;
                      rdfs:subClassOf sopropef:EnergyFlux ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty screla2:hasUnit ;
-                                       owl:hasValue units:wattPerMeterSquared
+                                       owl:hasValue sorepsu:wattPerMeterSquared
                                      ] ;
                      rdfs:label "energy flux wm2"@en .
 
@@ -130,10 +130,10 @@ sopropef:EnergyFlux_Wm2 rdf:type owl:Class ;
 ###  http://sweetontology.net/propEnergyFlux/FluxDensity
 sopropef:FluxDensity rdf:type owl:Class ;
                   owl:equivalentClass sopropef:Intensity ;
-                  rdfs:subClassOf quan:Flux ,
+                  rdfs:subClassOf sopropq:Flux ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty screla2:hasDefaultUnit ;
-                                    owl:hasValue units:wattPerMeterSquared
+                                    owl:hasValue sorepsu:wattPerMeterSquared
                                   ] ;
                   rdfs:label "flux density"@en .
 
@@ -155,7 +155,7 @@ sopropef:Illuminance rdf:type owl:Class ;
                   rdfs:subClassOf sopropef:EnergyFlux ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty screla2:hasDefaultUnit ;
-                                    owl:hasValue units:lux
+                                    owl:hasValue sorepsu:lux
                                   ] ;
                   rdfs:label "illuminance"@en .
 
@@ -174,16 +174,16 @@ sopropef:Intensity rdf:type owl:Class ;
 ###  http://sweetontology.net/propEnergyFlux/Irradiance
 sopropef:Irradiance rdf:type owl:Class ;
                  rdfs:subClassOf sopropef:FluxDensity ,
-                                 quan:ElectromagneticRadiationQuantity ;
+                                 sopropq:ElectromagneticRadiationQuantity ;
                  rdfs:label "irradiance"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Luminance
 sopropef:Luminance rdf:type owl:Class ;
-                rdfs:subClassOf quan:ElectromagneticRadiationQuantity ,
+                rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ,
                                 [ rdf:type owl:Restriction ;
                                   owl:onProperty screla2:hasDefaultUnit ;
-                                  owl:hasValue units:candelaPerMeterSquared
+                                  owl:hasValue sorepsu:candelaPerMeterSquared
                                 ] ;
                 rdfs:label "luminance"@en .
 
@@ -193,27 +193,27 @@ sopropef:LuminousFlux rdf:type owl:Class ;
                    rdfs:subClassOf sopropef:EnergyFlux ,
                                    [ rdf:type owl:Restriction ;
                                      owl:onProperty screla2:hasDefaultUnit ;
-                                     owl:hasValue units:lumen
+                                     owl:hasValue sorepsu:lumen
                                    ] ;
                    rdfs:label "luminous flux"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/LuminousIntensity
 sopropef:LuminousIntensity rdf:type owl:Class ;
-                        rdfs:subClassOf quan:ElectromagneticRadiationQuantity ,
+                        rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ,
                                         [ rdf:type owl:Restriction ;
                                           owl:onProperty screla2:hasDefaultUnit ;
-                                          owl:hasValue units:candela
+                                          owl:hasValue sorepsu:candela
                                         ] ;
                         rdfs:label "luminous intensity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Opacity
 sopropef:Opacity rdf:type owl:Class ;
-              rdfs:subClassOf quan:RadiationMediumInteractionQuantity ,
+              rdfs:subClassOf sopropq:RadiationMediumInteractionQuantity ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty screla2:hasDefaultUnit ;
-                                owl:hasValue units:meterSquaredPerKilogram
+                                owl:hasValue sorepsu:meterSquaredPerKilogram
                               ] ;
               rdfs:label "opacity"@en .
 
@@ -226,10 +226,10 @@ sopropef:PoyntingVector rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propEnergyFlux/Radiance
 sopropef:Radiance rdf:type owl:Class ;
-               rdfs:subClassOf quan:ElectromagneticRadiationQuantity ,
+               rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty screla2:hasDefaultUnit ;
-                                 owl:hasValue units:wattPerMeterSquaredPerSteradian
+                                 owl:hasValue sorepsu:wattPerMeterSquaredPerSteradian
                                ] ;
                rdfs:label "radiance"@en .
 
@@ -274,7 +274,7 @@ sopropef:SolarForcing rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propEnergyFlux/SolarRadiation
 sopropef:SolarRadiation rdf:type owl:Class ;
-                     rdfs:subClassOf quan:ElectromagneticRadiationQuantity ;
+                     rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ;
                      rdfs:label "solar radiation"@en .
 
 
@@ -298,32 +298,32 @@ sopropef:TerrestrialRadiation rdf:type owl:Class ;
 ###  http://sweetontology.net/propEnergyFlux/ThermalFlux
 sopropef:ThermalFlux rdf:type owl:Class ;
                   rdfs:subClassOf sopropef:EnergyFlux ,
-                                  quan:ThermodynamicQuantity ;
+                                  sopropq:ThermodynamicQuantity ;
                   rdfs:label "thermal flux"@en .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity
-quan:ElectromagneticRadiationQuantity rdf:type owl:Class .
+sopropq:ElectromagneticRadiationQuantity rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/Flux
-quan:Flux rdf:type owl:Class .
+sopropq:Flux rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalConstant
-quan:PhysicalConstant rdf:type owl:Class .
+sopropq:PhysicalConstant rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity
-quan:RadiationMediumInteractionQuantity rdf:type owl:Class .
+sopropq:RadiationMediumInteractionQuantity rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
-quan:ThermodynamicQuantity rdf:type owl:Class .
+sopropq:ThermodynamicQuantity rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/repr/LogarithmicScale
-repr:LogarithmicScale rdf:type owl:Class .
+sorep:LogarithmicScale rdf:type owl:Class .
 
 
 #################################################################
@@ -331,51 +331,51 @@ repr:LogarithmicScale rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/phenStar/Sun
-star:Sun rdf:type owl:NamedIndividual .
+sophst:Sun rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SolarConstant
 sopropef:SolarConstant rdf:type owl:NamedIndividual ,
                              sopropef:RadiativeFlux ,
-                             quan:PhysicalConstant ;
-                    screla2:hasSource star:Sun ;
+                             sopropq:PhysicalConstant ;
+                    screla2:hasSource sophst:Sun ;
                     rdfs:label "solar constant"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/candela
-units:candela rdf:type owl:NamedIndividual .
+sorepsu:candela rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/candelaPerMeterSquared
-units:candelaPerMeterSquared rdf:type owl:NamedIndividual .
+sorepsu:candelaPerMeterSquared rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/db
-units:db rdf:type owl:NamedIndividual .
+sorepsu:db rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/lumen
-units:lumen rdf:type owl:NamedIndividual .
+sorepsu:lumen rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/lux
-units:lux rdf:type owl:NamedIndividual .
+sorepsu:lux rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquaredPerKilogram
-units:meterSquaredPerKilogram rdf:type owl:NamedIndividual .
+sorepsu:meterSquaredPerKilogram rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquared
-units:wattPerMeterSquared rdf:type owl:NamedIndividual .
+sorepsu:wattPerMeterSquared rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradian
-units:wattPerMeterSquaredPerSteradian rdf:type owl:NamedIndividual .
+sorepsu:wattPerMeterSquaredPerSteradian rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradianPerWavelength
-units:wattPerMeterSquaredPerSteradianPerWavelength rdf:type owl:NamedIndividual .
+sorepsu:wattPerMeterSquaredPerSteradianPerWavelength rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

@@ -1,5 +1,5 @@
 @prefix : <http://sweetontology.net/propChemical/> .
-@prefix ion: <http://sweetontology.net/matrIon/> .
+@prefix somaio: <http://sweetontology.net/matrIon/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -7,18 +7,18 @@
 @prefix soma: <http://sweetontology.net/matr/> .
 @prefix somac: <http://sweetontology.net/matrCompound/> .
 @prefix sopropm: <http://sweetontology.net/propMass/> .
-@prefix elem: <http://sweetontology.net/matrElement/> .
-@prefix indx: <http://sweetontology.net/propIndex/> .
+@prefix somael: <http://sweetontology.net/matrElement/> .
+@prefix sopropi: <http://sweetontology.net/propIndex/> .
 @prefix soprop: <http://sweetontology.net/prop/> .
-@prefix quan: <http://sweetontology.net/propQuantity/> .
+@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sorel: <http://sweetontology.net/rela/> .
 @prefix sorep: <http://sweetontology.net/repr/> .
 @prefix sopropche: <http://sweetontology.net/propChemical/> .
 @prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix units: <http://sweetontology.net/reprSciUnits/> .
+@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
 @prefix sostc: <http://sweetontology.net/stateChemical/> .
-@prefix pstate: <http://sweetontology.net/statePhysical/> .
+@prefix sostp: <http://sweetontology.net/statePhysical/> .
 @prefix sorelsc: <http://sweetontology.net/relaSci/> .
 @base <http://sweetontology.net/propChemical> .
 
@@ -46,7 +46,7 @@
 #################################################################
 
 ###  http://sweetontology.net/rela/hasProperty
-rela:hasProperty rdf:type owl:ObjectProperty .
+sorel:hasProperty rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
@@ -168,10 +168,10 @@ sopropche:DissolvedLoad rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/HplusConcentration
 sopropche:HplusConcentration rdf:type owl:Class ;
-                         rdfs:subClassOf quan:ChemicalQuantity ,
+                         rdfs:subClassOf sopropq:ChemicalQuantity ,
                                          [ rdf:type owl:Restriction ;
                                            owl:onProperty sorelch:hasSubstance ;
-                                           owl:hasValue ion:Hplus
+                                           owl:hasValue somaio:Hplus
                                          ] ;
                          rdfs:label "hplus concentration"@en .
 
@@ -181,7 +181,7 @@ sopropche:IonComposition rdf:type owl:Class ;
                      rdfs:subClassOf sopropche:Composition ,
                                      [ rdf:type owl:Restriction ;
                                        owl:onProperty sorel:hasState ;
-                                       owl:hasValue pstate:IonizedState
+                                       owl:hasValue sostp:IonizedState
                                      ] ;
                      rdfs:label "ion composition"@en .
 
@@ -227,11 +227,11 @@ sopropche:Salinity rdf:type owl:Class ;
                rdfs:subClassOf sopropm:MassConcentration ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty sorelch:hasSubstance ;
-                                 owl:allValuesFrom ion:SaltIon
+                                 owl:allValuesFrom somaio:SaltIon
                                ] ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty sorelsc:hasDefaultUnit ;
-                                 owl:hasValue units:perMil
+                                 owl:hasValue sorepsu:perMil
                                ] ;
                rdfs:label "salinity"@en .
 
@@ -257,14 +257,14 @@ sopropche:Sodicity rdf:type owl:Class ;
                rdfs:subClassOf sopropm:MassConcentration ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty sorelch:hasSubstance ;
-                                 owl:hasValue elem:Sodium
+                                 owl:hasValue somael:Sodium
                                ] ;
                rdfs:label "sodicity"@en .
 
 
 ###  http://sweetontology.net/propChemical/SodiumAdsorptionRatio
 sopropche:SodiumAdsorptionRatio rdf:type owl:Class ;
-                            rdfs:subClassOf indx:WaterQualityIndex ,
+                            rdfs:subClassOf sopropi:WaterQualityIndex ,
                                             [ rdf:type owl:Restriction ;
                                               owl:onProperty sorelsc:measureOf ;
                                               owl:allValuesFrom sopropche:Sodicity
@@ -323,7 +323,7 @@ sopropche:WashLoad rdf:type owl:Class ;
                rdfs:subClassOf sopropche:Load ,
                                [ rdf:type owl:Restriction ;
                                  owl:onProperty sorel:hasState ;
-                                 owl:hasValue pstate:Floating
+                                 owl:hasValue sostp:Floating
                                ] ;
                rdfs:label "wash load"@en .
 
@@ -346,12 +346,12 @@ sopropche:Zoomass rdf:type owl:Class ;
 
 ###  http://sweetontology.net/propChemical/pH
 sopropche:pH rdf:type owl:Class ;
-         rdfs:subClassOf quan:ChemicalQuantity ;
+         rdfs:subClassOf sopropq:ChemicalQuantity ;
          rdfs:label "ph"@en .
 
 
 ###  http://sweetontology.net/propIndex/WaterQualityIndex
-indx:WaterQualityIndex rdf:type owl:Class .
+sopropi:WaterQualityIndex rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/ConsistenceProperty
@@ -371,11 +371,11 @@ sopropm:MassConcentration rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ChemicalQuantity
-quan:ChemicalQuantity rdf:type owl:Class .
+sopropq:ChemicalQuantity rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/repr/Component
-repr:Component rdf:type owl:Class .
+sorep:Component rdf:type owl:Class .
 
 
 #################################################################
@@ -383,7 +383,7 @@ repr:Component rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/perMil
-units:perMil rdf:type owl:NamedIndividual .
+sorepsu:perMil rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateChemical/Saturation
@@ -391,11 +391,11 @@ sostc:Saturation rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/Floating
-pstate:Floating rdf:type owl:NamedIndividual .
+sostp:Floating rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/statePhysical/IonizedState
-pstate:IonizedState rdf:type owl:NamedIndividual .
+sostp:IonizedState rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
