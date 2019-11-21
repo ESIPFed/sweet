@@ -1,5 +1,10 @@
 # SWEET Ontologies
 
+[![Chat on Slack](https://img.shields.io/badge/chat-on%20slack-ff69b4.svg)](https://esip-all.slack.com/) on channel #sweetontology 
+
+[![License](https://img.shields.io/github/license/esipfed/sweet.svg?maxAge=2592000)](http://www.apache.org/licenses/LICENSE-2.0)
+
+
 <img src="https://www.esipfed.org/wp-content/uploads/2016/12/ESIP-final-logo.png" align="right" width="300" />
 
 # Introduction
