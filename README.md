@@ -2,9 +2,6 @@
 
 [![Chat on Slack](https://img.shields.io/badge/chat-on%20slack-ff69b4.svg)](https://esip-all.slack.com/) on channel #sweetontology 
 
-[![License](https://img.shields.io/github/license/esipfed/sweet.svg?maxAge=2592000)](http://www.apache.org/licenses/LICENSE-2.0)
-
-
 <img src="https://www.esipfed.org/wp-content/uploads/2016/12/ESIP-final-logo.png" align="right" width="300" />
 
 # Introduction
@@ -34,5 +31,17 @@ Additionally, if you wish to discuss SWEET issues with the STC, please contact u
 The sweetall.ttl ontology imports all the other sweet components via URL. If you are offline, or working on updates that require using the local copies of the ontology files, copy the catalog-v001.xml file from the root directory of the repository into the src directory before opening sweetall.ttl in Protege. 
 
 # License
-SWEET is licensed permissively under the [Apache License v2.0](https://www.apache.org/licenses/LICENSE-2.0) a
-copy of which ships with this source code.
+SWEET is licensed permissively under the [CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+<p xmlns:dct="http://purl.org/dc/terms/">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <a rel="dct:publisher"
+     href="https://github.com/ESIPFed/sweet">
+    <span property="dct:title">SWEET Ontology Developers</span></a>
+  have waived all copyright and related or neighboring rights to the
+  <span property="dct:title">Semantic Web for Earth and Environmental Terminology (SWEET) Ontology Suite</span>.
+</p>
