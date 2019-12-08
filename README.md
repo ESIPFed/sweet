@@ -30,8 +30,8 @@ Additionally, if you wish to discuss SWEET issues with the STC, please contact u
 # Using local copies of ontology
 The sweetall.ttl ontology imports all the other sweet components via URL. If you are offline, or working on updates that require using the local copies of the ontology files, copy the catalog-v001.xml file from the root directory of the repository into the src directory before opening sweetall.ttl in Protege. 
 
-# License
-SWEET is licensed permissively under the [CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
+# License/Copyright
+SWEET is availabse under the [CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
 <p xmlns:dct="http://purl.org/dc/terms/">
   <a rel="license"
      href="http://creativecommons.org/publicdomain/zero/1.0/">
@@ -45,3 +45,5 @@ SWEET is licensed permissively under the [CC0 1.0 Universal Public Domain Dedica
   have waived all copyright and related or neighboring rights to the
   <span property="dct:title">Semantic Web for Earth and Environmental Terminology (SWEET) Ontology Suite</span>.
 </p>
+
+Prior to SWEET 3.5.0, SWEET was licensed under the Apache License v2. For more information on the change, see [here](https://github.com/ESIPFed/sweet/issues/173).
