@@ -45,5 +45,6 @@ SWEET is availabse under the [CC0 1.0 Universal Public Domain Dedication](https:
   have waived all copyright and related or neighboring rights to the
   <span property="dct:title">Semantic Web for Earth and Environmental Terminology (SWEET) Ontology Suite</span>.
 </p>
+A copy of the CC0-1.0 ships with this repository.
 
 Prior to SWEET 3.5.0, SWEET was licensed under the Apache License v2. For more information on the change, see [here](https://github.com/ESIPFed/sweet/issues/173).
