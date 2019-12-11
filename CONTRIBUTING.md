@@ -2,7 +2,7 @@
 
 The development process for SWEET follows the [Review-then-Commit](https://www.apache.org/foundation/glossary.html#ReviewThenCommit) software development process. For more information, see the Subsection below
 
-## How to work with us on Github, using git commant line:
+## How to work with us on Github, using git command line:
 The following is the SWEET Github development workflow:
 * create a local copy of the ESIPFed sweet repo ```git clone https://github.com/esipfed/sweet.git```
 * cd to the new repo directory ```cd sweet```
