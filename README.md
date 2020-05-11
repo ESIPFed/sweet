@@ -25,7 +25,7 @@ SWEET is governed by the [ESIP Semantic Technologies Committee](http://wiki.esip
 # Development
 Please see the [CONTRIBUTING documentation](https://github.com/ESIPFed/sweet/blob/master/CONTRIBUTING.md).
 
-Additionally, if you wish to discuss SWEET issues with the STC, please contact us via the [WG email list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb). 
+Additionally, if you wish to discuss SWEET issues with the STC, please contact us via the [WG email list](http://lists.esipfed.org/mailman/listinfo/esip-semantictech). 
 
 # Using local copies of ontology
 The sweetall.ttl ontology imports all the other sweet components via URL. If you are offline, or working on updates that require using the local copies of the ontology files, copy the catalog-v001.xml file from the root directory of the repository into the src directory before opening sweetall.ttl in Protege. 
