@@ -7,6 +7,13 @@
 # Introduction
 Official repository for Semantic Web for Earth and Environmental Terminology (SWEET) Ontologies.
 
+[View in pyLODE](https://sweetontology.net/sweetAll) &nbsp; 
+[View in WebVowl](http://www.visualdataweb.de/webvowl/#iri=https://raw.githubusercontent.com/ESIPFed/sweet/master/src/sweetAll.ttl) &nbsp; 
+[View in ESIP COR](http://cor.esipfed.org/ont?iri=http://sweetontology.net/sweetAll) <br/>
+[View in GitHub](https://github.com/ESIPFed/sweet/blob/master/src/sweetAll.ttl) &nbsp;&nbsp;&nbsp; 
+[View raw RDF](https://raw.githubusercontent.com/ESIPFed/sweet/master/src/sweetAll.ttl) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+[Download RDF](http://cor.esipfed.org/ont/api/v0/ont%3Firi=http://sweetontology.net/sweetAll)  
+
 # What is SWEET?
 SWEET is a highly modular ontology suite with ~6000 concepts in ~200 separate ontologies covering Earth system science. SWEET is a mid-level ontology and consists of nine top-level concepts that can be used as a foundation for domain-specific ontologies that extend these top-level SWEET components. SWEET’s own domain-specific ontologies, which extend the upper level ontologies, can provide users interested in further developing a particular domain with a solid set of concepts to get started. SWEET ontologies are written in [W3C Turtle](https://www.w3.org/TR/turtle/); the Terse RDF Triple Language and are publicly available under the [Apache License v2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
