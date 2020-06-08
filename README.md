@@ -17,7 +17,7 @@ Official repository for Semantic Web for Earth and Environmental Terminology (SW
     <tr>
       <td><a href="https://github.com/ESIPFed/sweet/blob/master/src/sweetAll.ttl">View in GitHub</a></td>
       <td><a href="https://raw.githubusercontent.com/ESIPFed/sweet/master/src/sweetAll.ttl">View raw RDF</a></td>
-      <td><a href="http://cor.esipfed.org/ont/api/v0/ont%3Firi=http://sweetontology.net/sweetAll">Download RDF</a></td>
+      <td><a href="http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=http://sweetontology.net/sweetAll">Download RDF</a></td>
     </tr>
   </tbody>
 </table>
