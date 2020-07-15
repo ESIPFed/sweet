@@ -1,36 +1,37 @@
-@prefix : <http://sweetontology.net/stateThermodynamic/> .
+@prefix : <http://sweetontology.net/stateThermodynamic#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropo: <http://sweetontology.net/propOrdinal/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sopropt: <http://sweetontology.net/propTemperature/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sostp: <http://sweetontology.net/statePhysical/> .
-@prefix sostsy: <http://sweetontology.net/stateSystem/> .
-@prefix sostth: <http://sweetontology.net/stateThermodynamic/> .
-@base <http://sweetontology.net/stateThermodynamic> .
+@base <http://sweetontology.net/stateThermodynamic#> .
 
 <http://sweetontology.net/stateThermodynamic> rdf:type owl:Ontology ;
+                                               owl:versionIRI <Optional[http://sweetontology.net/stateThermodynamic]/3.6.0> ;
                                                owl:imports <http://sweetontology.net/propOrdinal> ,
                                                            <http://sweetontology.net/propTemperature> ,
                                                            <http://sweetontology.net/relaMath> ,
                                                            <http://sweetontology.net/relaPhysical> ,
                                                            <http://sweetontology.net/statePhysical> ,
                                                            <http://sweetontology.net/stateSystem> ;
+                                               <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                                rdfs:label "SWEET Ontology State Thermodynamic" ;
-                                               dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                               owl:versionInfo "3.5.0" .
+                                               owl:versionInfo "3.6.0" .
 
 #################################################################
-#    Object properties
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaPhysical/warmerThan
-sorelph:warmerThan rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/warmerThan> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -38,13 +39,14 @@ sorelph:warmerThan rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propOrdinal/TemperatureRange
-sopropo:TemperatureRange rdf:type owl:Class .
+<http://sweetontology.net/propOrdinal/TemperatureRange> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/stateThermodynamic/ThermodynamicState
-sostth:ThermodynamicState rdf:type owl:Class ;
-                          rdfs:subClassOf sostp:PhysicalState ;
-                          rdfs:label "thermodynamic state"@en .
+<http://sweetontology.net/stateThermodynamic/ThermodynamicState> rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <http://sweetontology.net/statePhysical/PhysicalState> ;
+                                                                 rdfs:comment "state of a thermodynamic system at some point in time; variables/properties comprising the state"@en ;
+                                                                 rdfs:label "thermodynamic state"@en .
 
 
 #################################################################
@@ -52,148 +54,148 @@ sostth:ThermodynamicState rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/stateThermodynamic/Adiabatic
-sostth:Adiabatic rdf:type owl:NamedIndividual ,
-                          sostth:ThermodynamicState ;
-                 rdfs:label "adiabatic"@en .
+<http://sweetontology.net/stateThermodynamic/Adiabatic> rdf:type owl:NamedIndividual ,
+                                                                 <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                        rdfs:label "adiabatic"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/BlackBody
-sostth:BlackBody rdf:type owl:NamedIndividual ,
-                          sostth:ThermodynamicState ;
-                 rdfs:label "black body"@en .
+<http://sweetontology.net/stateThermodynamic/BlackBody> rdf:type owl:NamedIndividual ,
+                                                                 <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                        rdfs:label "black body"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/BoilingHot
-sostth:BoilingHot rdf:type owl:NamedIndividual ,
-                           sopropo:TemperatureRange ;
-                  sorelph:warmerThan sostth:Warm ;
-                  rdfs:label "boiling hot"@en .
+<http://sweetontology.net/stateThermodynamic/BoilingHot> rdf:type owl:NamedIndividual ,
+                                                                  <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                         <http://sweetontology.net/relaPhysical/warmerThan> <http://sweetontology.net/stateThermodynamic/Warm> ;
+                                                         rdfs:label "boiling hot"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Cold
-sostth:Cold rdf:type owl:NamedIndividual ,
-                     sopropo:TemperatureRange ;
-            rdfs:label "cold"@en .
+<http://sweetontology.net/stateThermodynamic/Cold> rdf:type owl:NamedIndividual ,
+                                                            <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                   rdfs:label "cold"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Cool
-sostth:Cool rdf:type owl:NamedIndividual ,
-                     sopropo:TemperatureRange ;
-            sorelph:warmerThan sostth:Cold ,
-                             sostth:FreezingCold ;
-            rdfs:label "cool"@en .
+<http://sweetontology.net/stateThermodynamic/Cool> rdf:type owl:NamedIndividual ,
+                                                            <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                   <http://sweetontology.net/relaPhysical/warmerThan> <http://sweetontology.net/stateThermodynamic/Cold> ,
+                                                                                                      <http://sweetontology.net/stateThermodynamic/FreezingCold> ;
+                                                   rdfs:label "cool"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Diabatic
-sostth:Diabatic rdf:type owl:NamedIndividual ,
-                         sostth:ThermodynamicState ;
-                rdfs:label "diabatic"@en .
+<http://sweetontology.net/stateThermodynamic/Diabatic> rdf:type owl:NamedIndividual ,
+                                                                <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                       rdfs:label "diabatic"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/DryAdiabat
-sostth:DryAdiabat rdf:type owl:NamedIndividual ,
-                           sostth:ThermodynamicState ;
-                  owl:sameAs sostth:DryAdiabatic ;
-                  rdfs:label "dry adiabat"@en .
+<http://sweetontology.net/stateThermodynamic/DryAdiabat> rdf:type owl:NamedIndividual ,
+                                                                  <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                         owl:sameAs <http://sweetontology.net/stateThermodynamic/DryAdiabatic> ;
+                                                         rdfs:label "dry adiabat"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/DryAdiabatic
-sostth:DryAdiabatic rdf:type owl:NamedIndividual ,
-                             sostth:ThermodynamicState ;
-                    rdfs:label "dry adiabatic"@en .
+<http://sweetontology.net/stateThermodynamic/DryAdiabatic> rdf:type owl:NamedIndividual ,
+                                                                    <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                           rdfs:label "dry adiabatic"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/FreezingCold
-sostth:FreezingCold rdf:type owl:NamedIndividual ,
-                             sopropo:TemperatureRange ;
-                    rdfs:label "freezing cold"@en .
+<http://sweetontology.net/stateThermodynamic/FreezingCold> rdf:type owl:NamedIndividual ,
+                                                                    <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                           rdfs:label "freezing cold"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Hot
-sostth:Hot rdf:type owl:NamedIndividual ,
-                    sopropo:TemperatureRange ;
-           sorelph:warmerThan sostth:Warm ;
-           rdfs:label "hot"@en .
+<http://sweetontology.net/stateThermodynamic/Hot> rdf:type owl:NamedIndividual ,
+                                                           <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                  <http://sweetontology.net/relaPhysical/warmerThan> <http://sweetontology.net/stateThermodynamic/Warm> ;
+                                                  rdfs:label "hot"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Inversion
-sostth:Inversion rdf:type owl:NamedIndividual ,
-                          sostth:ThermodynamicState ;
-                 rdfs:label "inversion"@en .
+<http://sweetontology.net/stateThermodynamic/Inversion> rdf:type owl:NamedIndividual ,
+                                                                 <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                        rdfs:label "inversion"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Isentropic
-sostth:Isentropic rdf:type owl:NamedIndividual ,
-                           sostth:ThermodynamicState ;
-                  rdfs:label "isentropic"@en .
+<http://sweetontology.net/stateThermodynamic/Isentropic> rdf:type owl:NamedIndividual ,
+                                                                  <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                         rdfs:label "isentropic"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Isothermal
-sostth:Isothermal rdf:type owl:NamedIndividual ,
-                           sostth:ThermodynamicState ;
-                  rdfs:label "isothermal"@en .
+<http://sweetontology.net/stateThermodynamic/Isothermal> rdf:type owl:NamedIndividual ,
+                                                                  <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                         rdfs:label "isothermal"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/LTE
-sostth:LTE rdf:type owl:NamedIndividual ,
-                    sostth:ThermodynamicState ;
-           owl:sameAs sostth:LocalThermodynamicEquilibrium ;
-           rdfs:label "lte"@en .
+<http://sweetontology.net/stateThermodynamic/LTE> rdf:type owl:NamedIndividual ,
+                                                           <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                  owl:sameAs <http://sweetontology.net/stateThermodynamic/LocalThermodynamicEquilibrium> ;
+                                                  rdfs:label "lte"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/LocalThermodynamicEquilibrium
-sostth:LocalThermodynamicEquilibrium rdf:type owl:NamedIndividual ,
-                                              sostsy:EquilibriumState ,
-                                              sostth:ThermodynamicState ;
-                                     rdfs:label "local thermodynamic equilibrium"@en .
+<http://sweetontology.net/stateThermodynamic/LocalThermodynamicEquilibrium> rdf:type owl:NamedIndividual ,
+                                                                                     <http://sweetontology.net/stateSystem/EquilibriumState> ,
+                                                                                     <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                                            rdfs:label "local thermodynamic equilibrium"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Lukewarm
-sostth:Lukewarm rdf:type owl:NamedIndividual ,
-                         sopropo:TemperatureRange ;
-                owl:sameAs sostth:Tepid ;
-                sorelph:warmerThan sostth:Cool ;
-                rdfs:label "lukewarm"@en .
+<http://sweetontology.net/stateThermodynamic/Lukewarm> rdf:type owl:NamedIndividual ,
+                                                                <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                       owl:sameAs <http://sweetontology.net/stateThermodynamic/Tepid> ;
+                                                       <http://sweetontology.net/relaPhysical/warmerThan> <http://sweetontology.net/stateThermodynamic/Cool> ;
+                                                       rdfs:label "lukewarm"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/MaximumEntropy
-sostth:MaximumEntropy rdf:type owl:NamedIndividual ,
-                               sostsy:EquilibriumState ,
-                               sostth:ThermodynamicState ;
-                      rdfs:label "maximum entropy"@en .
+<http://sweetontology.net/stateThermodynamic/MaximumEntropy> rdf:type owl:NamedIndividual ,
+                                                                      <http://sweetontology.net/stateSystem/EquilibriumState> ,
+                                                                      <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                             rdfs:label "maximum entropy"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Pseudoadiabatic
-sostth:Pseudoadiabatic rdf:type owl:NamedIndividual ,
-                                sostth:ThermodynamicState ;
-                       sorelm:approximates sostth:Adiabatic ;
-                       rdfs:label "pseudoadiabatic"@en .
+<http://sweetontology.net/stateThermodynamic/Pseudoadiabatic> rdf:type owl:NamedIndividual ,
+                                                                       <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                              <http://sweetontology.net/relaMath/approximates> <http://sweetontology.net/stateThermodynamic/Adiabatic> ;
+                                                              rdfs:label "pseudoadiabatic"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Superadiabatic
-sostth:Superadiabatic rdf:type owl:NamedIndividual ,
-                               sostth:ThermodynamicState ;
-                      rdfs:label "superadiabatic"@en .
+<http://sweetontology.net/stateThermodynamic/Superadiabatic> rdf:type owl:NamedIndividual ,
+                                                                      <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                             rdfs:label "superadiabatic"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Tepid
-sostth:Tepid rdf:type owl:NamedIndividual ,
-                      sopropo:TemperatureRange ;
-             rdfs:label "tepid"@en .
+<http://sweetontology.net/stateThermodynamic/Tepid> rdf:type owl:NamedIndividual ,
+                                                             <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                    rdfs:label "tepid"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/ThermodynamicEquilibrium
-sostth:ThermodynamicEquilibrium rdf:type owl:NamedIndividual ,
-                                         sostsy:EquilibriumState ,
-                                         sostth:ThermodynamicState ;
-                                rdfs:label "thermodynamic equilibrium"@en .
+<http://sweetontology.net/stateThermodynamic/ThermodynamicEquilibrium> rdf:type owl:NamedIndividual ,
+                                                                                <http://sweetontology.net/stateSystem/EquilibriumState> ,
+                                                                                <http://sweetontology.net/stateThermodynamic/ThermodynamicState> ;
+                                                                       rdfs:label "thermodynamic equilibrium"@en .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Warm
-sostth:Warm rdf:type owl:NamedIndividual ,
-                     sopropo:TemperatureRange ;
-            sorelph:warmerThan sostth:Lukewarm ;
-            rdfs:label "warm"@en .
+<http://sweetontology.net/stateThermodynamic/Warm> rdf:type owl:NamedIndividual ,
+                                                            <http://sweetontology.net/propOrdinal/TemperatureRange> ;
+                                                   <http://sweetontology.net/relaPhysical/warmerThan> <http://sweetontology.net/stateThermodynamic/Lukewarm> ;
+                                                   rdfs:label "warm"@en .
 
 
 #################################################################
@@ -201,17 +203,17 @@ sostth:Warm rdf:type owl:NamedIndividual ,
 #################################################################
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( sostth:Adiabatic
-                        sostth:Diabatic
+  owl:distinctMembers ( <http://sweetontology.net/stateThermodynamic/Adiabatic>
+                        <http://sweetontology.net/stateThermodynamic/Diabatic>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( sostth:Adiabatic
-                        sostth:Superadiabatic
+  owl:distinctMembers ( <http://sweetontology.net/stateThermodynamic/Adiabatic>
+                        <http://sweetontology.net/stateThermodynamic/Superadiabatic>
                       )
 ] .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

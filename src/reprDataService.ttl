@@ -1,30 +1,34 @@
-@prefix : <http://sweetontology.net/reprDataService/> .
+@prefix : <http://sweetontology.net/reprDataService#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sohu: <http://sweetontology.net/human/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorepmso: <http://sweetontology.net/reprMathSolution/> .
-@prefix sorepds: <http://sweetontology.net/reprDataService/> .
-@prefix sorelpr: <http://sweetontology.net/relaProvenance/> .
-@base <http://sweetontology.net/reprDataService> .
+@base <http://sweetontology.net/reprDataService#> .
 
 <http://sweetontology.net/reprDataService> rdf:type owl:Ontology ;
+                                            owl:versionIRI <Optional[http://sweetontology.net/reprDataService]/3.6.0> ;
                                             owl:imports <http://sweetontology.net/human> ,
                                                         <http://sweetontology.net/relaProvenance> ,
                                                         <http://sweetontology.net/reprMathSolution> ;
+                                            <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                             rdfs:label "SWEET Ontology Representation Data Service" ;
-                                            dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                            owl:versionInfo "3.5.0" .
+                                            owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaProvenance/hasDataService
-sorelpr:hasDataService rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaProvenance/hasDataService> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -32,105 +36,109 @@ sorelpr:hasDataService rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/human/Service
-sohu:Service rdf:type owl:Class .
+<http://sweetontology.net/human/Service> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprDataService/Access
-sorepds:Access rdf:type owl:Class ;
-              owl:equivalentClass sorepds:Accessing ;
-              rdfs:subClassOf sorepds:DataService ;
-              rdfs:label "access"@en .
+<http://sweetontology.net/reprDataService/Access> rdf:type owl:Class ;
+                                                  owl:equivalentClass <http://sweetontology.net/reprDataService/Accessing> ;
+                                                  rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                  rdfs:comment "system call of the Linux kernel"@en ;
+                                                  rdfs:label "access"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Accessing
-sorepds:Accessing rdf:type owl:Class ;
-                 rdfs:label "accessing"@en .
+<http://sweetontology.net/reprDataService/Accessing> rdf:type owl:Class ;
+                                                     rdfs:label "accessing"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Compression
-sorepds:Compression rdf:type owl:Class ;
-                   rdfs:subClassOf sorepds:DataService ;
-                   rdfs:label "compression"@en .
+<http://sweetontology.net/reprDataService/Compression> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                       rdfs:comment "application of inward (\"pushing\") forces to a material or structure"@en ;
+                                                       rdfs:label "compression"@en .
 
 
 ###  http://sweetontology.net/reprDataService/CompressionMethod
-sorepds:CompressionMethod rdf:type owl:Class ;
-                         rdfs:subClassOf sorepmso:Algorithm ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelpr:hasDataService ;
-                                           owl:allValuesFrom sorepds:Compression
-                                         ] ;
-                         rdfs:label "compression method"@en .
+<http://sweetontology.net/reprDataService/CompressionMethod> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/reprMathSolution/Algorithm> ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://sweetontology.net/relaProvenance/hasDataService> ;
+                                                                               owl:allValuesFrom <http://sweetontology.net/reprDataService/Compression>
+                                                                             ] ;
+                                                             rdfs:label "compression method"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DataService
-sorepds:DataService rdf:type owl:Class ;
-                   rdfs:subClassOf sohu:Service ;
-                   rdfs:label "data service"@en .
+<http://sweetontology.net/reprDataService/DataService> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/human/Service> ;
+                                                       rdfs:label "data service"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DataSynchronization
-sorepds:DataSynchronization rdf:type owl:Class ;
-                           rdfs:subClassOf sorepds:DataService ;
-                           rdfs:label "data synchronization"@en .
+<http://sweetontology.net/reprDataService/DataSynchronization> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                               rdfs:comment "consistency among data from a source to a target data storage and vice versa"@en ;
+                                                               rdfs:label "data synchronization"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Discover
-sorepds:Discover rdf:type owl:Class ;
-                owl:equivalentClass sorepds:Discovery ,
-                                    sorepds:DiscoveryService ;
-                rdfs:subClassOf sorepds:DataService ;
-                rdfs:label "discover"@en .
+<http://sweetontology.net/reprDataService/Discover> rdf:type owl:Class ;
+                                                    owl:equivalentClass <http://sweetontology.net/reprDataService/Discovery> ,
+                                                                        <http://sweetontology.net/reprDataService/DiscoveryService> ;
+                                                    rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                    rdfs:label "discover"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Discovery
-sorepds:Discovery rdf:type owl:Class ;
-                 rdfs:label "discovery"@en .
+<http://sweetontology.net/reprDataService/Discovery> rdf:type owl:Class ;
+                                                     rdfs:comment "act of detecting something new"@en ;
+                                                     rdfs:label "discovery"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DiscoveryService
-sorepds:DiscoveryService rdf:type owl:Class ;
-                        rdfs:label "discovery service"@en .
+<http://sweetontology.net/reprDataService/DiscoveryService> rdf:type owl:Class ;
+                                                            rdfs:label "discovery service"@en .
 
 
 ###  http://sweetontology.net/reprDataService/FormatConversion
-sorepds:FormatConversion rdf:type owl:Class ;
-                        owl:equivalentClass sorepds:Reformat ;
-                        rdfs:label "format conversion"@en .
+<http://sweetontology.net/reprDataService/FormatConversion> rdf:type owl:Class ;
+                                                            owl:equivalentClass <http://sweetontology.net/reprDataService/Reformat> ;
+                                                            rdfs:label "format conversion"@en .
 
 
 ###  http://sweetontology.net/reprDataService/InterfaceProtocol
-sorepds:InterfaceProtocol rdf:type owl:Class ;
-                         rdfs:subClassOf sorepds:DataService ;
-                         rdfs:label "interface protocol"@en .
+<http://sweetontology.net/reprDataService/InterfaceProtocol> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                             rdfs:label "interface protocol"@en .
 
 
 ###  http://sweetontology.net/reprDataService/PostProcessing
-sorepds:PostProcessing rdf:type owl:Class ;
-                      rdfs:subClassOf sorepds:DataService ;
-                      rdfs:label "post processing"@en .
+<http://sweetontology.net/reprDataService/PostProcessing> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                          rdfs:label "post processing"@en .
 
 
 ###  http://sweetontology.net/reprDataService/PreProcessing
-sorepds:PreProcessing rdf:type owl:Class ;
-                     rdfs:subClassOf sorepds:DataService ;
-                     rdfs:label "pre processing"@en .
+<http://sweetontology.net/reprDataService/PreProcessing> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                         rdfs:label "pre processing"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Reformat
-sorepds:Reformat rdf:type owl:Class ;
-                owl:equivalentClass sorepds:Reformatting ;
-                rdfs:subClassOf sorepds:DataService ;
-                rdfs:label "reformat"@en .
+<http://sweetontology.net/reprDataService/Reformat> rdf:type owl:Class ;
+                                                    owl:equivalentClass <http://sweetontology.net/reprDataService/Reformatting> ;
+                                                    rdfs:subClassOf <http://sweetontology.net/reprDataService/DataService> ;
+                                                    rdfs:label "reformat"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Reformatting
-sorepds:Reformatting rdf:type owl:Class ;
-                    rdfs:label "reformatting"@en .
+<http://sweetontology.net/reprDataService/Reformatting> rdf:type owl:Class ;
+                                                        rdfs:label "reformatting"@en .
 
 
 ###  http://sweetontology.net/reprMathSolution/Algorithm
-sorepmso:Algorithm rdf:type owl:Class .
+<http://sweetontology.net/reprMathSolution/Algorithm> rdf:type owl:Class .
 
 
 #################################################################
@@ -138,34 +146,34 @@ sorepmso:Algorithm rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprDataService/Bzip2
-sorepds:Bzip2 rdf:type owl:NamedIndividual ,
-                      sorepds:CompressionMethod ;
-             rdfs:label "bzip2"@en .
+<http://sweetontology.net/reprDataService/Bzip2> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/reprDataService/CompressionMethod> ;
+                                                 rdfs:label "bzip2"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DODS
-sorepds:DODS rdf:type owl:NamedIndividual ,
-                     sorepds:InterfaceProtocol ;
-            owl:sameAs sorepds:OPeNDAP ;
-            rdfs:label "dods"@en .
+<http://sweetontology.net/reprDataService/DODS> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/reprDataService/InterfaceProtocol> ;
+                                                owl:sameAs <http://sweetontology.net/reprDataService/OPeNDAP> ;
+                                                rdfs:label "dods"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Gzip
-sorepds:Gzip rdf:type owl:NamedIndividual ,
-                     sorepds:CompressionMethod ;
-            rdfs:label "gzip"@en .
+<http://sweetontology.net/reprDataService/Gzip> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/reprDataService/CompressionMethod> ;
+                                                rdfs:label "gzip"@en .
 
 
 ###  http://sweetontology.net/reprDataService/OPeNDAP
-sorepds:OPeNDAP rdf:type owl:NamedIndividual ,
-                        sorepds:InterfaceProtocol ;
-               rdfs:label "opendap"@en .
+<http://sweetontology.net/reprDataService/OPeNDAP> rdf:type owl:NamedIndividual ,
+                                                            <http://sweetontology.net/reprDataService/InterfaceProtocol> ;
+                                                   rdfs:label "opendap"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Z
-sorepds:Z rdf:type owl:NamedIndividual ,
-                  sorepds:CompressionMethod ;
-         rdfs:label "z"@en .
+<http://sweetontology.net/reprDataService/Z> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/reprDataService/CompressionMethod> ;
+                                             rdfs:label "z"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

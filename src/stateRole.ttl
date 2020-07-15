@@ -1,38 +1,40 @@
-@prefix : <http://sweetontology.net/stateRole/> .
+@prefix : <http://sweetontology.net/stateRole#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropo: <http://sweetontology.net/propOrdinal/> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sostro: <http://sweetontology.net/stateRole/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/stateRole> .
+@base <http://sweetontology.net/stateRole#> .
 
 <http://sweetontology.net/stateRole> rdf:type owl:Ontology ;
+                                      owl:versionIRI <Optional[http://sweetontology.net/stateRole]/3.6.0> ;
                                       owl:imports <http://sweetontology.net/procPhysical> ,
                                                   <http://sweetontology.net/prop> ,
                                                   <http://sweetontology.net/propOrdinal> ,
                                                   <http://sweetontology.net/rela> ,
                                                   <http://sweetontology.net/relaSci> ;
+                                      <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                       rdfs:label "SWEET Ontology State Role" ;
-                                      dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                      owl:versionInfo "3.5.0" .
+                                      owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://sweetontology.net/relaSci/greaterRoleThan
-sorelsc:greaterRoleThan rdf:type owl:ObjectProperty .
-
-
 ###  http://sweetontology.net/rela/hasProcess
-sorel:hasProcess rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasProcess> rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaSci/greaterRoleThan
+<http://sweetontology.net/relaSci/greaterRoleThan> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -40,38 +42,38 @@ sorel:hasProcess rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/procPhysical/Conduction
-soprocp:Conduction rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Conduction> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/prop/Role
-soprop:Role rdf:type owl:Class .
+<http://sweetontology.net/prop/Role> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propOrdinal/OrdinalProperty
-sopropo:OrdinalProperty rdf:type owl:Class .
+<http://sweetontology.net/propOrdinal/OrdinalProperty> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/stateRole/ConductionRole
-sostro:ConductionRole rdf:type owl:Class ;
-                    rdfs:subClassOf sopropo:OrdinalProperty ,
-                                    sostro:PhysicalRole ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorel:hasProcess ;
-                                      owl:allValuesFrom soprocp:Conduction
-                                    ] ;
-                    rdfs:label "conduction role"@en .
+<http://sweetontology.net/stateRole/ConductionRole> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://sweetontology.net/propOrdinal/OrdinalProperty> ,
+                                                                    <http://sweetontology.net/stateRole/PhysicalRole> ,
+                                                                    [ rdf:type owl:Restriction ;
+                                                                      owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                                                      owl:allValuesFrom <http://sweetontology.net/procPhysical/Conduction>
+                                                                    ] ;
+                                                    rdfs:label "conduction role"@en .
 
 
 ###  http://sweetontology.net/stateRole/PhysicalRole
-sostro:PhysicalRole rdf:type owl:Class ;
-                  rdfs:subClassOf soprop:Role ;
-                  rdfs:label "physical role"@en .
+<http://sweetontology.net/stateRole/PhysicalRole> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://sweetontology.net/prop/Role> ;
+                                                  rdfs:label "physical role"@en .
 
 
 ###  http://sweetontology.net/stateRole/ProvenanceRole
-sostro:ProvenanceRole rdf:type owl:Class ;
-                    rdfs:subClassOf soprop:Role ;
-                    rdfs:label "provenance role"@en .
+<http://sweetontology.net/stateRole/ProvenanceRole> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://sweetontology.net/prop/Role> ;
+                                                    rdfs:label "provenance role"@en .
 
 
 #################################################################
@@ -79,328 +81,328 @@ sostro:ProvenanceRole rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/stateRole/Accessor
-sostro:Accessor rdf:type owl:NamedIndividual ,
-                       sostro:ProvenanceRole ;
-              rdfs:label "accessor"@en .
+<http://sweetontology.net/stateRole/Accessor> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                              rdfs:label "accessor"@en .
 
 
 ###  http://sweetontology.net/stateRole/Accessory
-sostro:Accessory rdf:type owl:NamedIndividual ,
-                        soprop:Role ;
-               rdfs:label "accessory"@en .
+<http://sweetontology.net/stateRole/Accessory> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/prop/Role> ;
+                                               rdfs:label "accessory"@en .
 
 
 ###  http://sweetontology.net/stateRole/Adjusted
-sostro:Adjusted rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              rdfs:label "adjusted"@en .
+<http://sweetontology.net/stateRole/Adjusted> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              rdfs:label "adjusted"@en .
 
 
 ###  http://sweetontology.net/stateRole/Antifreeze
-sostro:Antifreeze rdf:type owl:NamedIndividual ,
-                         sostro:PhysicalRole ;
-                rdfs:label "antifreeze"@en .
+<http://sweetontology.net/stateRole/Antifreeze> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/stateRole/PhysicalRole> ;
+                                                rdfs:label "antifreeze"@en .
 
 
 ###  http://sweetontology.net/stateRole/Archivist
-sostro:Archivist rdf:type owl:NamedIndividual ,
-                        sostro:ProvenanceRole ;
-               rdfs:label "archivist"@en .
+<http://sweetontology.net/stateRole/Archivist> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                               rdfs:label "archivist"@en .
 
 
 ###  http://sweetontology.net/stateRole/Author
-sostro:Author rdf:type owl:NamedIndividual ,
-                     sostro:ProvenanceRole ;
-            rdfs:label "author"@en .
+<http://sweetontology.net/stateRole/Author> rdf:type owl:NamedIndividual ,
+                                                     <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                            rdfs:label "author"@en .
 
 
 ###  http://sweetontology.net/stateRole/ByProduct
-sostro:ByProduct rdf:type owl:NamedIndividual ,
-                        soprop:Role ;
-               rdfs:label "by product"@en .
+<http://sweetontology.net/stateRole/ByProduct> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/prop/Role> ;
+                                               rdfs:label "by product"@en .
 
 
 ###  http://sweetontology.net/stateRole/ChangeReason
-sostro:ChangeReason rdf:type owl:NamedIndividual ,
-                           sostro:ProvenanceRole ;
-                  rdfs:label "change reason"@en .
+<http://sweetontology.net/stateRole/ChangeReason> rdf:type owl:NamedIndividual ,
+                                                           <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                                  rdfs:label "change reason"@en .
 
 
 ###  http://sweetontology.net/stateRole/Conductor
-sostro:Conductor rdf:type owl:NamedIndividual ,
-                        sostro:ConductionRole ;
-               rdfs:label "conductor"@en .
+<http://sweetontology.net/stateRole/Conductor> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/stateRole/ConductionRole> ;
+                                               rdfs:label "conductor"@en .
 
 
 ###  http://sweetontology.net/stateRole/Conduit
-sostro:Conduit rdf:type owl:NamedIndividual ,
-                      soprop:Role ;
-             rdfs:label "conduit"@en .
+<http://sweetontology.net/stateRole/Conduit> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/prop/Role> ;
+                                             rdfs:label "conduit"@en .
 
 
 ###  http://sweetontology.net/stateRole/Contributor
-sostro:Contributor rdf:type owl:NamedIndividual ,
-                          sostro:ProvenanceRole ;
-                 rdfs:label "contributor"@en .
+<http://sweetontology.net/stateRole/Contributor> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                                 rdfs:label "contributor"@en .
 
 
 ###  http://sweetontology.net/stateRole/Creator
-sostro:Creator rdf:type owl:NamedIndividual ,
-                      sostro:ProvenanceRole ;
-             rdfs:label "creator"@en .
+<http://sweetontology.net/stateRole/Creator> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                             rdfs:label "creator"@en .
 
 
 ###  http://sweetontology.net/stateRole/Cryoprotectant
-sostro:Cryoprotectant rdf:type owl:NamedIndividual ,
-                             sostro:PhysicalRole ;
-                    rdfs:label "cryoprotectant"@en .
+<http://sweetontology.net/stateRole/Cryoprotectant> rdf:type owl:NamedIndividual ,
+                                                             <http://sweetontology.net/stateRole/PhysicalRole> ;
+                                                    rdfs:label "cryoprotectant"@en .
 
 
 ###  http://sweetontology.net/stateRole/Curator
-sostro:Curator rdf:type owl:NamedIndividual ,
-                      sostro:ProvenanceRole ;
-             rdfs:label "curator"@en .
+<http://sweetontology.net/stateRole/Curator> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                             rdfs:label "curator"@en .
 
 
 ###  http://sweetontology.net/stateRole/Deployer
-sostro:Deployer rdf:type owl:NamedIndividual ,
-                       sostro:ProvenanceRole ;
-              rdfs:label "deployer"@en .
+<http://sweetontology.net/stateRole/Deployer> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                              rdfs:label "deployer"@en .
 
 
 ###  http://sweetontology.net/stateRole/Desirable
-sostro:Desirable rdf:type owl:NamedIndividual ,
-                        soprop:Role ;
-               rdfs:label "desirable"@en .
+<http://sweetontology.net/stateRole/Desirable> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/prop/Role> ;
+                                               rdfs:label "desirable"@en .
 
 
 ###  http://sweetontology.net/stateRole/Dominant
-sostro:Dominant rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              sorelsc:greaterRoleThan sostro:Subordinate ;
-              rdfs:label "dominant"@en .
+<http://sweetontology.net/stateRole/Dominant> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              <http://sweetontology.net/relaSci/greaterRoleThan> <http://sweetontology.net/stateRole/Subordinate> ;
+                                              rdfs:label "dominant"@en .
 
 
 ###  http://sweetontology.net/stateRole/Extraordinary
-sostro:Extraordinary rdf:type owl:NamedIndividual ,
-                            soprop:Role ;
-                   rdfs:label "extraordinary"@en .
+<http://sweetontology.net/stateRole/Extraordinary> rdf:type owl:NamedIndividual ,
+                                                            <http://sweetontology.net/prop/Role> ;
+                                                   rdfs:label "extraordinary"@en .
 
 
 ###  http://sweetontology.net/stateRole/Important
-sostro:Important rdf:type owl:NamedIndividual ,
-                        soprop:Role ;
-               rdfs:label "important"@en .
+<http://sweetontology.net/stateRole/Important> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/prop/Role> ;
+                                               rdfs:label "important"@en .
 
 
 ###  http://sweetontology.net/stateRole/Induced
-sostro:Induced rdf:type owl:NamedIndividual ,
-                      soprop:Role ;
-             rdfs:label "induced"@en .
+<http://sweetontology.net/stateRole/Induced> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/prop/Role> ;
+                                             rdfs:label "induced"@en .
 
 
 ###  http://sweetontology.net/stateRole/Insulator
-sostro:Insulator rdf:type owl:NamedIndividual ,
-                        sostro:ConductionRole ;
-               rdfs:label "insulator"@en .
+<http://sweetontology.net/stateRole/Insulator> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/stateRole/ConductionRole> ;
+                                               rdfs:label "insulator"@en .
 
 
 ###  http://sweetontology.net/stateRole/Key
-sostro:Key rdf:type owl:NamedIndividual ,
-                  soprop:Role ;
-         owl:sameAs sostro:Keystone ;
-         rdfs:label "key"@en .
+<http://sweetontology.net/stateRole/Key> rdf:type owl:NamedIndividual ,
+                                                  <http://sweetontology.net/prop/Role> ;
+                                         owl:sameAs <http://sweetontology.net/stateRole/Keystone> ;
+                                         rdfs:label "key"@en .
 
 
 ###  http://sweetontology.net/stateRole/Keystone
-sostro:Keystone rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              rdfs:label "keystone"@en .
+<http://sweetontology.net/stateRole/Keystone> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              rdfs:label "keystone"@en .
 
 
 ###  http://sweetontology.net/stateRole/Main
-sostro:Main rdf:type owl:NamedIndividual ,
-                   soprop:Role ;
-          sorelsc:greaterRoleThan sostro:Secondary ;
-          rdfs:label "main"@en .
+<http://sweetontology.net/stateRole/Main> rdf:type owl:NamedIndividual ,
+                                                   <http://sweetontology.net/prop/Role> ;
+                                          <http://sweetontology.net/relaSci/greaterRoleThan> <http://sweetontology.net/stateRole/Secondary> ;
+                                          rdfs:label "main"@en .
 
 
 ###  http://sweetontology.net/stateRole/Major
-sostro:Major rdf:type owl:NamedIndividual ,
-                    soprop:Role ;
-           sorelsc:greaterRoleThan sostro:Minor ;
-           rdfs:label "major"@en .
+<http://sweetontology.net/stateRole/Major> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/prop/Role> ;
+                                           <http://sweetontology.net/relaSci/greaterRoleThan> <http://sweetontology.net/stateRole/Minor> ;
+                                           rdfs:label "major"@en .
 
 
 ###  http://sweetontology.net/stateRole/Minor
-sostro:Minor rdf:type owl:NamedIndividual ,
-                    soprop:Role ;
-           rdfs:label "minor"@en .
+<http://sweetontology.net/stateRole/Minor> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/prop/Role> ;
+                                           rdfs:label "minor"@en .
 
 
 ###  http://sweetontology.net/stateRole/Negative
-sostro:Negative rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              rdfs:label "negative"@en .
+<http://sweetontology.net/stateRole/Negative> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              rdfs:label "negative"@en .
 
 
 ###  http://sweetontology.net/stateRole/Niche
-sostro:Niche rdf:type owl:NamedIndividual ,
-                    soprop:Role ;
-           rdfs:label "niche"@en .
+<http://sweetontology.net/stateRole/Niche> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/prop/Role> ;
+                                           rdfs:label "niche"@en .
 
 
 ###  http://sweetontology.net/stateRole/Pioneer
-sostro:Pioneer rdf:type owl:NamedIndividual ,
-                      soprop:Role ;
-             rdfs:label "pioneer"@en .
+<http://sweetontology.net/stateRole/Pioneer> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/prop/Role> ;
+                                             rdfs:label "pioneer"@en .
 
 
 ###  http://sweetontology.net/stateRole/Positive
-sostro:Positive rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              rdfs:label "positive"@en .
+<http://sweetontology.net/stateRole/Positive> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              rdfs:label "positive"@en .
 
 
 ###  http://sweetontology.net/stateRole/PreExisting
-sostro:PreExisting rdf:type owl:NamedIndividual ,
-                          soprop:Role ;
-                 rdfs:label "pre existing"@en .
+<http://sweetontology.net/stateRole/PreExisting> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/prop/Role> ;
+                                                 rdfs:label "pre existing"@en .
 
 
 ###  http://sweetontology.net/stateRole/Prevailing
-sostro:Prevailing rdf:type owl:NamedIndividual ,
-                         soprop:Role ;
-                rdfs:label "prevailing"@en .
+<http://sweetontology.net/stateRole/Prevailing> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/prop/Role> ;
+                                                rdfs:label "prevailing"@en .
 
 
 ###  http://sweetontology.net/stateRole/Primary
-sostro:Primary rdf:type owl:NamedIndividual ,
-                      soprop:Role ;
-             sorelsc:greaterRoleThan sostro:Secondary ;
-             rdfs:label "primary"@en .
+<http://sweetontology.net/stateRole/Primary> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/prop/Role> ;
+                                             <http://sweetontology.net/relaSci/greaterRoleThan> <http://sweetontology.net/stateRole/Secondary> ;
+                                             rdfs:label "primary"@en .
 
 
 ###  http://sweetontology.net/stateRole/Principal
-sostro:Principal rdf:type owl:NamedIndividual ,
-                        soprop:Role ;
-               sorelsc:greaterRoleThan sostro:Secondary ;
-               rdfs:label "principal"@en .
+<http://sweetontology.net/stateRole/Principal> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/prop/Role> ;
+                                               <http://sweetontology.net/relaSci/greaterRoleThan> <http://sweetontology.net/stateRole/Secondary> ;
+                                               rdfs:label "principal"@en .
 
 
 ###  http://sweetontology.net/stateRole/Processor
-sostro:Processor rdf:type owl:NamedIndividual ,
-                        sostro:ProvenanceRole ;
-               rdfs:label "processor"@en .
+<http://sweetontology.net/stateRole/Processor> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                               rdfs:label "processor"@en .
 
 
 ###  http://sweetontology.net/stateRole/Propellant
-sostro:Propellant rdf:type owl:NamedIndividual ,
-                         sostro:PhysicalRole ;
-                rdfs:label "propellant"@en .
+<http://sweetontology.net/stateRole/Propellant> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/stateRole/PhysicalRole> ;
+                                                rdfs:label "propellant"@en .
 
 
 ###  http://sweetontology.net/stateRole/Provider
-sostro:Provider rdf:type owl:NamedIndividual ,
-                       sostro:ProvenanceRole ;
-              rdfs:label "provider"@en .
+<http://sweetontology.net/stateRole/Provider> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                              rdfs:label "provider"@en .
 
 
 ###  http://sweetontology.net/stateRole/Publisher
-sostro:Publisher rdf:type owl:NamedIndividual ,
-                        sostro:ProvenanceRole ;
-               rdfs:label "publisher"@en .
+<http://sweetontology.net/stateRole/Publisher> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                               rdfs:label "publisher"@en .
 
 
 ###  http://sweetontology.net/stateRole/References
-sostro:References rdf:type owl:NamedIndividual ,
-                         sostro:ProvenanceRole ;
-                rdfs:label "references"@en .
+<http://sweetontology.net/stateRole/References> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                                rdfs:label "references"@en .
 
 
 ###  http://sweetontology.net/stateRole/Replacement
-sostro:Replacement rdf:type owl:NamedIndividual ,
-                          sostro:ProvenanceRole ;
-                 rdfs:label "replacement"@en .
+<http://sweetontology.net/stateRole/Replacement> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                                 rdfs:label "replacement"@en .
 
 
 ###  http://sweetontology.net/stateRole/Secondary
-sostro:Secondary rdf:type owl:NamedIndividual ,
-                        soprop:Role ;
-               sorelsc:greaterRoleThan sostro:Tertiary ;
-               rdfs:label "secondary"@en .
+<http://sweetontology.net/stateRole/Secondary> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/prop/Role> ;
+                                               <http://sweetontology.net/relaSci/greaterRoleThan> <http://sweetontology.net/stateRole/Tertiary> ;
+                                               rdfs:label "secondary"@en .
 
 
 ###  http://sweetontology.net/stateRole/Secure
-sostro:Secure rdf:type owl:NamedIndividual ,
-                     soprop:Role ;
-            rdfs:label "secure"@en .
+<http://sweetontology.net/stateRole/Secure> rdf:type owl:NamedIndividual ,
+                                                     <http://sweetontology.net/prop/Role> ;
+                                            rdfs:label "secure"@en .
 
 
 ###  http://sweetontology.net/stateRole/Serializes
-sostro:Serializes rdf:type owl:NamedIndividual ,
-                         sostro:ProvenanceRole ;
-                rdfs:label "serializes"@en .
+<http://sweetontology.net/stateRole/Serializes> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                                rdfs:label "serializes"@en .
 
 
 ###  http://sweetontology.net/stateRole/Signer
-sostro:Signer rdf:type owl:NamedIndividual ,
-                     sostro:ProvenanceRole ;
-            rdfs:label "signer"@en .
+<http://sweetontology.net/stateRole/Signer> rdf:type owl:NamedIndividual ,
+                                                     <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                            rdfs:label "signer"@en .
 
 
 ###  http://sweetontology.net/stateRole/Stressor
-sostro:Stressor rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              rdfs:label "stressor"@en .
+<http://sweetontology.net/stateRole/Stressor> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              rdfs:label "stressor"@en .
 
 
 ###  http://sweetontology.net/stateRole/Submitter
-sostro:Submitter rdf:type owl:NamedIndividual ,
-                        sostro:ProvenanceRole ;
-               rdfs:label "submitter"@en .
+<http://sweetontology.net/stateRole/Submitter> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                               rdfs:label "submitter"@en .
 
 
 ###  http://sweetontology.net/stateRole/Subordinate
-sostro:Subordinate rdf:type owl:NamedIndividual ,
-                          soprop:Role ;
-                 rdfs:label "subordinate"@en .
+<http://sweetontology.net/stateRole/Subordinate> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/prop/Role> ;
+                                                 rdfs:label "subordinate"@en .
 
 
 ###  http://sweetontology.net/stateRole/Surplus
-sostro:Surplus rdf:type owl:NamedIndividual ,
-                      soprop:Role ;
-             rdfs:label "surplus"@en .
+<http://sweetontology.net/stateRole/Surplus> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/prop/Role> ;
+                                             rdfs:label "surplus"@en .
 
 
 ###  http://sweetontology.net/stateRole/Tertiary
-sostro:Tertiary rdf:type owl:NamedIndividual ,
-                       soprop:Role ;
-              rdfs:label "tertiary"@en .
+<http://sweetontology.net/stateRole/Tertiary> rdf:type owl:NamedIndividual ,
+                                                       <http://sweetontology.net/prop/Role> ;
+                                              rdfs:label "tertiary"@en .
 
 
 ###  http://sweetontology.net/stateRole/Trace
-sostro:Trace rdf:type owl:NamedIndividual ,
-                    soprop:Role ;
-           rdfs:label "trace"@en .
+<http://sweetontology.net/stateRole/Trace> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/prop/Role> ;
+                                           rdfs:label "trace"@en .
 
 
 ###  http://sweetontology.net/stateRole/Undesirable
-sostro:Undesirable rdf:type owl:NamedIndividual ,
-                          soprop:Role ;
-                 rdfs:label "undesirable"@en .
+<http://sweetontology.net/stateRole/Undesirable> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/prop/Role> ;
+                                                 rdfs:label "undesirable"@en .
 
 
 ###  http://sweetontology.net/stateRole/User
-sostro:User rdf:type owl:NamedIndividual ,
-                   sostro:ProvenanceRole ;
-          rdfs:label "user"@en .
+<http://sweetontology.net/stateRole/User> rdf:type owl:NamedIndividual ,
+                                                   <http://sweetontology.net/stateRole/ProvenanceRole> ;
+                                          rdfs:label "user"@en .
 
 
 ###  http://sweetontology.net/stateRole/Vulnerable
-sostro:Vulnerable rdf:type owl:NamedIndividual ,
-                         soprop:Role ;
-                rdfs:label "vulnerable"@en .
+<http://sweetontology.net/stateRole/Vulnerable> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/prop/Role> ;
+                                                rdfs:label "vulnerable"@en .
 
 
 #################################################################
@@ -408,24 +410,24 @@ sostro:Vulnerable rdf:type owl:NamedIndividual ,
 #################################################################
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( sostro:Desirable
-                        sostro:Undesirable
+  owl:distinctMembers ( <http://sweetontology.net/stateRole/Desirable>
+                        <http://sweetontology.net/stateRole/Undesirable>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( sostro:Negative
-                        sostro:Positive
+  owl:distinctMembers ( <http://sweetontology.net/stateRole/Negative>
+                        <http://sweetontology.net/stateRole/Positive>
                       )
 ] .
 
 
 [ rdf:type owl:AllDifferent ;
-  owl:distinctMembers ( sostro:Secure
-                        sostro:Vulnerable
+  owl:distinctMembers ( <http://sweetontology.net/stateRole/Secure>
+                        <http://sweetontology.net/stateRole/Vulnerable>
                       )
 ] .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

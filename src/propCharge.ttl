@@ -1,23 +1,13 @@
-@prefix : <http://sweetontology.net/propCharge/> .
-@prefix somaio: <http://sweetontology.net/matrIon/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix : <http://sweetontology.net/propCharge#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix soprops: <http://sweetontology.net/propSpace/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sopropcha: <http://sweetontology.net/propCharge/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propCharge> .
+@base <http://sweetontology.net/propCharge#> .
 
 <http://sweetontology.net/propCharge> rdf:type owl:Ontology ;
+                                       owl:versionIRI <Optional[http://sweetontology.net/propCharge]/3.6.0> ;
                                        owl:imports <http://sweetontology.net/matrIon> ,
                                                    <http://sweetontology.net/procPhysical> ,
                                                    <http://sweetontology.net/prop> ,
@@ -27,20 +17,28 @@
                                                    <http://sweetontology.net/relaChemical> ,
                                                    <http://sweetontology.net/relaSci> ,
                                                    <http://sweetontology.net/reprSciUnits> ;
+                                       <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                        rdfs:label "SWEET Ontology Property Charge" ;
-                                       dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                       owl:versionInfo "3.5.0" .
+                                       owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/measureOf
-sorelsc:measureOf rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/measureOf> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -48,256 +46,273 @@ sorelsc:measureOf rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propCharge/Capacitance
-sopropcha:Capacitance rdf:type owl:Class ;
-                   rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelsc:hasDefaultUnit ;
-                                     owl:hasValue sorepsu:farad
-                                   ] ;
-                   rdfs:label "capacitance"@en .
+<http://sweetontology.net/propCharge/Capacitance> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                    owl:hasValue <http://sweetontology.net/reprSciUnits/farad>
+                                                                  ] ;
+                                                  rdfs:comment "ability of a body to store an electrical charge per unit change in potential (general concept)"@en ;
+                                                  rdfs:label "capacitance"@en .
 
 
 ###  http://sweetontology.net/propCharge/CationExchangeCapacity
-sopropcha:CationExchangeCapacity rdf:type owl:Class ;
-                              rdfs:subClassOf sopropcha:ExchangeCapacity ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty sorelch:hasSubstance ;
-                                                owl:allValuesFrom somaio:Cation
-                                              ] ;
-                              rdfs:label "cation exchange capacity"@en .
+<http://sweetontology.net/propCharge/CationExchangeCapacity> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/propCharge/ExchangeCapacity> ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                                                               owl:allValuesFrom <http://sweetontology.net/matrIon/Cation>
+                                                                             ] ;
+                                                             rdfs:label "cation exchange capacity"@en .
 
 
 ###  http://sweetontology.net/propCharge/Charge
-sopropcha:Charge rdf:type owl:Class ;
-              rdfs:subClassOf sopropq:ElectromagneticQuantity ;
-              rdfs:label "charge"@en .
+<http://sweetontology.net/propCharge/Charge> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ;
+                                             rdfs:comment "offence with which someone is charged, at a trial"@en ;
+                                             rdfs:label "charge"@en .
 
 
 ###  http://sweetontology.net/propCharge/ChargeDistribution
-sopropcha:ChargeDistribution rdf:type owl:Class ;
-                          rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                          soprops:SpatialDistribution ;
-                          rdfs:label "charge distribution"@en .
+<http://sweetontology.net/propCharge/ChargeDistribution> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                         <http://sweetontology.net/propSpace/SpatialDistribution> ;
+                                                         rdfs:comment "physical property"@en ;
+                                                         rdfs:label "charge distribution"@en .
 
 
 ###  http://sweetontology.net/propCharge/DielectricConstant
-sopropcha:DielectricConstant rdf:type owl:Class ;
-                          rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                          sopropq:PhysicalConstant ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelsc:hasDefaultUnit ;
-                                            owl:hasValue sorepsu:dimensionlessUnit
-                                          ] ;
-                          rdfs:label "dielectric constant"@en .
+<http://sweetontology.net/propCharge/DielectricConstant> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                         <http://sweetontology.net/propQuantity/PhysicalConstant> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                           owl:hasValue <http://sweetontology.net/reprSciUnits/dimensionlessUnit>
+                                                                         ] ;
+                                                         rdfs:label "dielectric constant"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricCharge
-sopropcha:ElectricCharge rdf:type owl:Class ;
-                      rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsc:hasDefaultUnit ;
-                                        owl:hasValue sorepsu:coulomb
-                                      ] ;
-                      rdfs:label "electric charge"@en .
+<http://sweetontology.net/propCharge/ElectricCharge> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                       owl:hasValue <http://sweetontology.net/reprSciUnits/coulomb>
+                                                                     ] ;
+                                                     rdfs:comment "electric charge of a subatomic particle"@en ;
+                                                     rdfs:label "electric charge"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricChargeDensity
-sopropcha:ElectricChargeDensity rdf:type owl:Class ;
-                             rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty sorelsc:hasDefaultUnit ;
-                                               owl:hasValue sorepsu:coulombPerMeterCubed
-                                             ] ;
-                             rdfs:label "electric charge density"@en .
+<http://sweetontology.net/propCharge/ElectricChargeDensity> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                              owl:hasValue <http://sweetontology.net/reprSciUnits/coulombPerMeterCubed>
+                                                                            ] ;
+                                                            rdfs:comment "electric charge per volume"@en ;
+                                                            rdfs:label "electric charge density"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricCurrent
-sopropcha:ElectricCurrent rdf:type owl:Class ;
-                       rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorelsc:hasDefaultUnit ;
-                                         owl:hasValue sorepsu:ampere
-                                       ] ;
-                       rdfs:label "electric current"@en .
+<http://sweetontology.net/propCharge/ElectricCurrent> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                      [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                        owl:hasValue <http://sweetontology.net/reprSciUnits/ampere>
+                                                                      ] ;
+                                                      rdfs:comment "flow of electric charge (for specific quantities see Q29996 or Q234072)"@en ;
+                                                      rdfs:label "electric current"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricCurrentDensity
-sopropcha:ElectricCurrentDensity rdf:type owl:Class ;
-                              rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty sorelsc:hasDefaultUnit ;
-                                                owl:hasValue sorepsu:amperePerMeterSquared
-                                              ] ;
-                              rdfs:label "electric current density"@en .
+<http://sweetontology.net/propCharge/ElectricCurrentDensity> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                               owl:hasValue <http://sweetontology.net/reprSciUnits/amperePerMeterSquared>
+                                                                             ] ;
+                                                             rdfs:comment "electric current per area of cross section"@en ;
+                                                             rdfs:label "electric current density"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricDipoleMoment
-sopropcha:ElectricDipoleMoment rdf:type owl:Class ;
-                            rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                            sopropq:VectorQuantity ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorelsc:hasDefaultUnit ;
-                                              owl:hasValue sorepsu:coulombMeter
-                                            ] ;
-                            rdfs:label "electric dipole moment"@en .
+<http://sweetontology.net/propCharge/ElectricDipoleMoment> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                           <http://sweetontology.net/propQuantity/VectorQuantity> ,
+                                                                           [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                             owl:hasValue <http://sweetontology.net/reprSciUnits/coulombMeter>
+                                                                           ] ;
+                                                           rdfs:comment "vector physical quantity"@en ;
+                                                           rdfs:label "electric dipole moment"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricFieldStrength
-sopropcha:ElectricFieldStrength rdf:type owl:Class ;
-                             rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty sorelsc:hasDefaultUnit ;
-                                               owl:hasValue sorepsu:voltPerMeter
-                                             ] ;
-                             rdfs:label "electric field strength"@en .
+<http://sweetontology.net/propCharge/ElectricFieldStrength> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                              owl:hasValue <http://sweetontology.net/reprSciUnits/voltPerMeter>
+                                                                            ] ;
+                                                            rdfs:comment "vector physical quantity of electrostatics and electrodynamics"@en ;
+                                                            rdfs:label "electric field strength"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricFluxDensity
-sopropcha:ElectricFluxDensity rdf:type owl:Class ;
-                           rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                           sopropq:Flux ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelsc:hasDefaultUnit ;
-                                             owl:hasValue sorepsu:coulombPerMeterSquared
-                                           ] ;
-                           rdfs:label "electric flux density"@en .
+<http://sweetontology.net/propCharge/ElectricFluxDensity> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                          <http://sweetontology.net/propQuantity/Flux> ,
+                                                                          [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                            owl:hasValue <http://sweetontology.net/reprSciUnits/coulombPerMeterSquared>
+                                                                          ] ;
+                                                          rdfs:label "electric flux density"@en .
 
 
 ###  http://sweetontology.net/propCharge/ElectricPotential
-sopropcha:ElectricPotential rdf:type owl:Class ;
-                         rdfs:subClassOf sopropq:ScalarPotential ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelsc:measureOf ;
-                                           owl:allValuesFrom sopropcha:ChargeDistribution
-                                         ] ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelsc:hasDefaultUnit ;
-                                           owl:hasValue sorepsu:volt
-                                         ] ;
-                         rdfs:label "electric potential"@en .
+<http://sweetontology.net/propCharge/ElectricPotential> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://sweetontology.net/propQuantity/ScalarPotential> ,
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://sweetontology.net/relaSci/measureOf> ;
+                                                                          owl:allValuesFrom <http://sweetontology.net/propCharge/ChargeDistribution>
+                                                                        ] ,
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                          owl:hasValue <http://sweetontology.net/reprSciUnits/volt>
+                                                                        ] ;
+                                                        rdfs:comment "voltage between the measurement point and a reference ground; integral of the electric field"@en ;
+                                                        rdfs:label "electric potential"@en .
 
 
 ###  http://sweetontology.net/propCharge/ExchangeCapacity
-sopropcha:ExchangeCapacity rdf:type owl:Class ;
-                        rdfs:subClassOf soprop:ReactionProperty ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelsc:hasDefaultUnit ;
-                                          owl:hasValue sorepsu:perKilogramMole
-                                        ] ;
-                        rdfs:label "exchange capacity"@en .
+<http://sweetontology.net/propCharge/ExchangeCapacity> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/prop/ReactionProperty> ,
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                         owl:hasValue <http://sweetontology.net/reprSciUnits/perKilogramMole>
+                                                                       ] ;
+                                                       rdfs:label "exchange capacity"@en .
 
 
 ###  http://sweetontology.net/propCharge/Inductance
-sopropcha:Inductance rdf:type owl:Class ;
-                  rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorel:hasProcess ;
-                                    owl:allValuesFrom soprocp:Magnetism
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:henry
-                                  ] ;
-                  rdfs:label "inductance"@en .
+<http://sweetontology.net/propCharge/Inductance> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                                                   owl:allValuesFrom <http://sweetontology.net/procPhysical/Magnetism>
+                                                                 ] ,
+                                                                 [ rdf:type owl:Restriction ;
+                                                                   owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                   owl:hasValue <http://sweetontology.net/reprSciUnits/henry>
+                                                                 ] ;
+                                                 rdfs:comment "property of electrical conductors to oppose changes in current flow"@en ;
+                                                 rdfs:label "inductance"@en .
 
 
 ###  http://sweetontology.net/propCharge/MagnetiGradient
-sopropcha:MagnetiGradient rdf:type owl:Class ;
-                       rdfs:subClassOf sopropq:ElectromagneticQuantity ;
-                       rdfs:label "magneti gradient"@en .
+<http://sweetontology.net/propCharge/MagnetiGradient> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ;
+                                                      rdfs:label "magneti gradient"@en .
 
 
 ###  http://sweetontology.net/propCharge/MagneticDipoleMoment
-sopropcha:MagneticDipoleMoment rdf:type owl:Class ;
-                            rdfs:subClassOf sopropcha:MagneticMoment ;
-                            rdfs:label "magnetic dipole moment"@en .
+<http://sweetontology.net/propCharge/MagneticDipoleMoment> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://sweetontology.net/propCharge/MagneticMoment> ;
+                                                           rdfs:comment "physical quantity; measured in weber metre"@en ;
+                                                           rdfs:label "magnetic dipole moment"@en .
 
 
 ###  http://sweetontology.net/propCharge/MagneticFieldStrength
-sopropcha:MagneticFieldStrength rdf:type owl:Class ;
-                             rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty sorelsc:hasDefaultUnit ;
-                                               owl:hasValue sorepsu:amperePerMeter
-                                             ] ;
-                             rdfs:label "magnetic field strength"@en .
+<http://sweetontology.net/propCharge/MagneticFieldStrength> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                              owl:hasValue <http://sweetontology.net/reprSciUnits/amperePerMeter>
+                                                                            ] ;
+                                                            rdfs:comment "strength of a magnetic field"@en ;
+                                                            rdfs:label "magnetic field strength"@en .
 
 
 ###  http://sweetontology.net/propCharge/MagneticFlux
-sopropcha:MagneticFlux rdf:type owl:Class ;
-                    rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                    sopropq:Flux ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelsc:hasDefaultUnit ;
-                                      owl:hasValue sorepsu:weber
-                                    ] ;
-                    rdfs:label "magnetic flux"@en .
+<http://sweetontology.net/propCharge/MagneticFlux> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                   <http://sweetontology.net/propQuantity/Flux> ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                     owl:hasValue <http://sweetontology.net/reprSciUnits/weber>
+                                                                   ] ;
+                                                   rdfs:comment "surface integral of the magnetic flux density"@en ;
+                                                   rdfs:label "magnetic flux"@en .
 
 
 ###  http://sweetontology.net/propCharge/MagneticFluxDensity
-sopropcha:MagneticFluxDensity rdf:type owl:Class ;
-                           rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                           sopropq:Flux ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelsc:hasDefaultUnit ;
-                                             owl:hasValue sorepsu:tesla
-                                           ] ;
-                           rdfs:label "magnetic flux density"@en .
+<http://sweetontology.net/propCharge/MagneticFluxDensity> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                          <http://sweetontology.net/propQuantity/Flux> ,
+                                                                          [ rdf:type owl:Restriction ;
+                                                                            owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                            owl:hasValue <http://sweetontology.net/reprSciUnits/tesla>
+                                                                          ] ;
+                                                          rdfs:label "magnetic flux density"@en .
 
 
 ###  http://sweetontology.net/propCharge/MagneticMoment
-sopropcha:MagneticMoment rdf:type owl:Class ;
-                      rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                      sopropq:VectorQuantity ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsc:hasDefaultUnit ;
-                                        owl:hasValue sorepsu:joulePerTesla
-                                      ] ;
-                      rdfs:label "magnetic moment"@en .
+<http://sweetontology.net/propCharge/MagneticMoment> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                     <http://sweetontology.net/propQuantity/VectorQuantity> ,
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                       owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerTesla>
+                                                                     ] ;
+                                                     rdfs:comment "torque a particle will experience in an external magnetic field"@en ;
+                                                     rdfs:label "magnetic moment"@en .
 
 
 ###  http://sweetontology.net/propCharge/Permeability
-sopropcha:Permeability rdf:type owl:Class ;
-                    rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelsc:hasDefaultUnit ;
-                                      owl:hasValue sorepsu:henryPerMeter
-                                    ] ;
-                    rdfs:label "permeability"@en .
+<http://sweetontology.net/propCharge/Permeability> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                     owl:hasValue <http://sweetontology.net/reprSciUnits/henryPerMeter>
+                                                                   ] ;
+                                                   rdfs:comment "measure of the ability of a porous material to allow fluids to pass through it"@en ;
+                                                   rdfs:label "permeability"@en .
 
 
 ###  http://sweetontology.net/propCharge/Permittivity
-sopropcha:Permittivity rdf:type owl:Class ;
-                    rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelsc:hasDefaultUnit ;
-                                      owl:hasValue sorepsu:faradPerMeter
-                                    ] ;
-                    rdfs:label "permittivity"@en .
+<http://sweetontology.net/propCharge/Permittivity> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                     owl:hasValue <http://sweetontology.net/reprSciUnits/faradPerMeter>
+                                                                   ] ;
+                                                   rdfs:comment "physical quantity, measure of the resistance to the electric field"@en ;
+                                                   rdfs:label "permittivity"@en .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticQuantity
-sopropq:ElectromagneticQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ElectromagneticQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/Flux
-sopropq:Flux rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/Flux> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalConstant
-sopropq:PhysicalConstant rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/PhysicalConstant> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ScalarPotential
-sopropq:ScalarPotential rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ScalarPotential> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/VectorQuantity
-sopropq:VectorQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/VectorQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpace/SpatialDistribution
-soprops:SpatialDistribution rdf:type owl:Class .
+<http://sweetontology.net/propSpace/SpatialDistribution> rdf:type owl:Class .
 
 
 #################################################################
@@ -305,75 +320,75 @@ soprops:SpatialDistribution rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/ampere
-sorepsu:ampere rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/ampere> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/amperePerMeter
-sorepsu:amperePerMeter rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/amperePerMeter> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/amperePerMeterSquared
-sorepsu:amperePerMeterSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/amperePerMeterSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulomb
-sorepsu:coulomb rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/coulomb> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulombMeter
-sorepsu:coulombMeter rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/coulombMeter> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulombPerMeterCubed
-sorepsu:coulombPerMeterCubed rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/coulombPerMeterCubed> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulombPerMeterSquared
-sorepsu:coulombPerMeterSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/coulombPerMeterSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/dimensionlessUnit
-sorepsu:dimensionlessUnit rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/dimensionlessUnit> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/farad
-sorepsu:farad rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/farad> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/faradPerMeter
-sorepsu:faradPerMeter rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/faradPerMeter> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/henry
-sorepsu:henry rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/henry> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/henryPerMeter
-sorepsu:henryPerMeter rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/henryPerMeter> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerTesla
-sorepsu:joulePerTesla rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerTesla> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKilogramMole
-sorepsu:perKilogramMole rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/perKilogramMole> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/tesla
-sorepsu:tesla rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/tesla> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/volt
-sorepsu:volt rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/volt> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/voltPerMeter
-sorepsu:voltPerMeter rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/voltPerMeter> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/weber
-sorepsu:weber rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/weber> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

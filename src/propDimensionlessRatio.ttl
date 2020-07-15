@@ -1,25 +1,13 @@
-@prefix : <http://sweetontology.net/propDimensionlessRatio/> .
+@prefix : <http://sweetontology.net/propDimensionlessRatio#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soprope: <http://sweetontology.net/propEnergy/> .
-@prefix sopropm: <http://sweetontology.net/propMass/> .
-@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix soprops: <http://sweetontology.net/propSpace/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sorepmst: <http://sweetontology.net/reprMathStatistics/> .
-@prefix sopropdr: <http://sweetontology.net/propDimensionlessRatio/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propDimensionlessRatio> .
+@base <http://sweetontology.net/propDimensionlessRatio#> .
 
 <http://sweetontology.net/propDimensionlessRatio> rdf:type owl:Ontology ;
+                                                   owl:versionIRI <Optional[http://sweetontology.net/propDimensionlessRatio]/3.6.0> ;
                                                    owl:imports <http://sweetontology.net/prop> ,
                                                                <http://sweetontology.net/propEnergy> ,
                                                                <http://sweetontology.net/propMass> ,
@@ -29,28 +17,36 @@
                                                                <http://sweetontology.net/relaSci> ,
                                                                <http://sweetontology.net/reprMathOperation> ,
                                                                <http://sweetontology.net/reprMathStatistics> ;
+                                                   <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                                    rdfs:label "SWEET Ontology Property Dimensionless Ratio" ;
-                                                   dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                                   owl:versionInfo "3.5.0" .
+                                                   owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-sorelm:hasFirstOperand rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasFirstOperand> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-sorelm:hasSecondOperand rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasSecondOperand> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasTest
-sorelm:hasTest rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasTest> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -58,105 +54,105 @@ sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propDimensionlessRatio/BowenRatio
-sopropdr:BowenRatio rdf:type owl:Class ;
-                 rdfs:subClassOf sorepmo:Ratio ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelm:hasFirstOperand ;
-                                   owl:allValuesFrom soprope:SensibleHeat
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelm:hasSecondOperand ;
-                                   owl:allValuesFrom soprope:LatentHeat
-                                 ] ;
-                 rdfs:label "bowen ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/BowenRatio> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Ratio> ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
+                                                                               owl:allValuesFrom <http://sweetontology.net/propEnergy/SensibleHeat>
+                                                                             ] ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
+                                                                               owl:allValuesFrom <http://sweetontology.net/propEnergy/LatentHeat>
+                                                                             ] ;
+                                                             rdfs:label "bowen ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/ChiSquareValue
-sopropdr:ChiSquareValue rdf:type owl:Class ;
-                     rdfs:subClassOf sopropdr:StatisticalScore ;
-                     rdfs:label "chi square value"@en .
+<http://sweetontology.net/propDimensionlessRatio/ChiSquareValue> rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <http://sweetontology.net/propDimensionlessRatio/StatisticalScore> ;
+                                                                 rdfs:label "chi square value"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio
-sopropdr:DimensionlessRatio rdf:type owl:Class ;
-                         rdfs:subClassOf sorepmo:Ratio ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelsc:hasDefaultUnit ;
-                                           owl:hasValue sorepsu:dimensionlessUnit
-                                         ] ;
-                         rdfs:label "dimensionless ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> rdf:type owl:Class ;
+                                                                     rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Ratio> ,
+                                                                                     [ rdf:type owl:Restriction ;
+                                                                                       owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                                                       owl:hasValue <http://sweetontology.net/reprSciUnits/dimensionlessUnit>
+                                                                                     ] ;
+                                                                     rdfs:label "dimensionless ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/ReducedChiSquareValue
-sopropdr:ReducedChiSquareValue rdf:type owl:Class ;
-                            rdfs:subClassOf sopropdr:ChiSquareValue ;
-                            rdfs:label "reduced chi square value"@en .
+<http://sweetontology.net/propDimensionlessRatio/ReducedChiSquareValue> rdf:type owl:Class ;
+                                                                        rdfs:subClassOf <http://sweetontology.net/propDimensionlessRatio/ChiSquareValue> ;
+                                                                        rdfs:label "reduced chi square value"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/StatisticalScore
-sopropdr:StatisticalScore rdf:type owl:Class ;
-                       rdfs:subClassOf soprop:StatisticalSummary ;
-                       rdfs:label "statistical score"@en .
+<http://sweetontology.net/propDimensionlessRatio/StatisticalScore> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf <http://sweetontology.net/prop/StatisticalSummary> ;
+                                                                   rdfs:label "statistical score"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/ZScore
-sopropdr:ZScore rdf:type owl:Class ;
-             rdfs:subClassOf sopropdr:StatisticalScore ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelm:hasTest ;
-                               owl:allValuesFrom sorepmst:ZTest
-                             ] ;
-             rdfs:label "z score"@en .
+<http://sweetontology.net/propDimensionlessRatio/ZScore> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/propDimensionlessRatio/StatisticalScore> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://sweetontology.net/relaMath/hasTest> ;
+                                                                           owl:allValuesFrom <http://sweetontology.net/reprMathStatistics/ZTest>
+                                                                         ] ;
+                                                         rdfs:label "z score"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/tScore
-sopropdr:tScore rdf:type owl:Class ;
-             rdfs:subClassOf sopropdr:StatisticalScore ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelm:hasTest ;
-                               owl:allValuesFrom sorepmst:tTest
-                             ] ;
-             rdfs:label "t score"@en .
+<http://sweetontology.net/propDimensionlessRatio/tScore> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/propDimensionlessRatio/StatisticalScore> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://sweetontology.net/relaMath/hasTest> ;
+                                                                           owl:allValuesFrom <http://sweetontology.net/reprMathStatistics/tTest>
+                                                                         ] ;
+                                                         rdfs:label "t score"@en .
 
 
 ###  http://sweetontology.net/propEnergy/LatentHeat
-soprope:LatentHeat rdf:type owl:Class .
+<http://sweetontology.net/propEnergy/LatentHeat> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propEnergy/SensibleHeat
-soprope:SensibleHeat rdf:type owl:Class .
+<http://sweetontology.net/propEnergy/SensibleHeat> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/ConsistenceProperty
-sopropm:ConsistenceProperty rdf:type owl:Class .
+<http://sweetontology.net/propMass/ConsistenceProperty> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticQuantity
-sopropq:ElectromagneticQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ElectromagneticQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalConstant
-sopropq:PhysicalConstant rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/PhysicalConstant> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity
-sopropq:RadiationMediumInteractionQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpace/Shape
-soprops:Shape rdf:type owl:Class .
+<http://sweetontology.net/propSpace/Shape> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/Ratio
-sorepmo:Ratio rdf:type owl:Class .
+<http://sweetontology.net/reprMathOperation/Ratio> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathStatistics/ZTest
-sorepmst:ZTest rdf:type owl:Class .
+<http://sweetontology.net/reprMathStatistics/ZTest> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathStatistics/tTest
-sorepmst:tTest rdf:type owl:Class .
+<http://sweetontology.net/reprMathStatistics/tTest> rdf:type owl:Class .
 
 
 #################################################################
@@ -164,200 +160,200 @@ sorepmst:tTest rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/propDimensionlessRatio/AngstromExponent
-sopropdr:AngstromExponent rdf:type owl:NamedIndividual ,
-                                sopropdr:DimensionlessRatio ,
-                                sopropq:RadiationMediumInteractionQuantity ;
-                       rdfs:label "angstrom exponent"@en .
+<http://sweetontology.net/propDimensionlessRatio/AngstromExponent> rdf:type owl:NamedIndividual ,
+                                                                            <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                            <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ;
+                                                                   rdfs:label "angstrom exponent"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/AspectRatio
-sopropdr:AspectRatio rdf:type owl:NamedIndividual ,
-                           sopropdr:DimensionlessRatio ,
-                           soprops:Shape ;
-                  rdfs:label "aspect ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/AspectRatio> rdf:type owl:NamedIndividual ,
+                                                                       <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                       <http://sweetontology.net/propSpace/Shape> ;
+                                                              rdfs:label "aspect ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/BulkRichardsonNumber
-sopropdr:BulkRichardsonNumber rdf:type owl:NamedIndividual ,
-                                    sopropdr:DimensionlessRatio ;
-                           rdfs:label "bulk richardson number"@en .
+<http://sweetontology.net/propDimensionlessRatio/BulkRichardsonNumber> rdf:type owl:NamedIndividual ,
+                                                                                <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                       rdfs:label "bulk richardson number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/CriticalRichardsonNumber
-sopropdr:CriticalRichardsonNumber rdf:type owl:NamedIndividual ,
-                                        sopropdr:DimensionlessRatio ;
-                               rdfs:label "critical richardson number"@en .
+<http://sweetontology.net/propDimensionlessRatio/CriticalRichardsonNumber> rdf:type owl:NamedIndividual ,
+                                                                                    <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                           rdfs:label "critical richardson number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/DarcySlope
-sopropdr:DarcySlope rdf:type owl:NamedIndividual ,
-                          sopropdr:DimensionlessRatio ;
-                 owl:sameAs sopropdr:HydraulicGradient ;
-                 rdfs:label "darcy slope"@en .
+<http://sweetontology.net/propDimensionlessRatio/DarcySlope> rdf:type owl:NamedIndividual ,
+                                                                      <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                             owl:sameAs <http://sweetontology.net/propDimensionlessRatio/HydraulicGradient> ;
+                                                             rdfs:label "darcy slope"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/DepolarizationRatio
-sopropdr:DepolarizationRatio rdf:type owl:NamedIndividual ,
-                                   sopropdr:DimensionlessRatio ;
-                          rdfs:label "depolarization ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/DepolarizationRatio> rdf:type owl:NamedIndividual ,
+                                                                               <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                      rdfs:label "depolarization ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/DragCoefficient
-sopropdr:DragCoefficient rdf:type owl:NamedIndividual ,
-                               soprop:FluidProperty ,
-                               sopropdr:DimensionlessRatio ;
-                      rdfs:label "drag coefficient"@en .
+<http://sweetontology.net/propDimensionlessRatio/DragCoefficient> rdf:type owl:NamedIndividual ,
+                                                                           <http://sweetontology.net/prop/FluidProperty> ,
+                                                                           <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                  rdfs:label "drag coefficient"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/Electronegativity
-sopropdr:Electronegativity rdf:type owl:NamedIndividual ,
-                                 sopropdr:DimensionlessRatio ,
-                                 sopropq:ElectromagneticQuantity ;
-                        rdfs:label "electronegativity"@en .
+<http://sweetontology.net/propDimensionlessRatio/Electronegativity> rdf:type owl:NamedIndividual ,
+                                                                             <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                             <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ;
+                                                                    rdfs:label "electronegativity"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/FroudeNumber
-sopropdr:FroudeNumber rdf:type owl:NamedIndividual ,
-                            sopropdr:DimensionlessRatio ;
-                   rdfs:label "froude number"@en .
+<http://sweetontology.net/propDimensionlessRatio/FroudeNumber> rdf:type owl:NamedIndividual ,
+                                                                        <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                               rdfs:label "froude number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/GradientRichardsonNumber
-sopropdr:GradientRichardsonNumber rdf:type owl:NamedIndividual ,
-                                        sopropdr:DimensionlessRatio ;
-                               rdfs:label "gradient richardson number"@en .
+<http://sweetontology.net/propDimensionlessRatio/GradientRichardsonNumber> rdf:type owl:NamedIndividual ,
+                                                                                    <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                           rdfs:label "gradient richardson number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/HydraulicGradient
-sopropdr:HydraulicGradient rdf:type owl:NamedIndividual ,
-                                 soprop:HydrogeologicalProperty ,
-                                 sopropdr:DimensionlessRatio ;
-                        rdfs:label "hydraulic gradient"@en .
+<http://sweetontology.net/propDimensionlessRatio/HydraulicGradient> rdf:type owl:NamedIndividual ,
+                                                                             <http://sweetontology.net/prop/HydrogeologicalProperty> ,
+                                                                             <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                    rdfs:label "hydraulic gradient"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/IsotopeRatio
-sopropdr:IsotopeRatio rdf:type owl:NamedIndividual ,
-                            sopropdr:DimensionlessRatio ;
-                   rdfs:label "isotope ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/IsotopeRatio> rdf:type owl:NamedIndividual ,
+                                                                        <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                               rdfs:label "isotope ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/LeafAreaIndex
-sopropdr:LeafAreaIndex rdf:type owl:NamedIndividual ,
-                             sopropdr:DimensionlessRatio ;
-                    rdfs:label "leaf area index"@en .
+<http://sweetontology.net/propDimensionlessRatio/LeafAreaIndex> rdf:type owl:NamedIndividual ,
+                                                                         <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                rdfs:label "leaf area index"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/PecletNumber
-sopropdr:PecletNumber rdf:type owl:NamedIndividual ,
-                            sopropdr:DimensionlessRatio ;
-                   rdfs:label "peclet number"@en .
+<http://sweetontology.net/propDimensionlessRatio/PecletNumber> rdf:type owl:NamedIndividual ,
+                                                                        <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                               rdfs:label "peclet number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/PlasmaParameter
-sopropdr:PlasmaParameter rdf:type owl:NamedIndividual ,
-                               sopropdr:DimensionlessRatio ,
-                               sopropq:ElectromagneticQuantity ;
-                      rdfs:label "plasma parameter"@en .
+<http://sweetontology.net/propDimensionlessRatio/PlasmaParameter> rdf:type owl:NamedIndividual ,
+                                                                           <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                           <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ;
+                                                                  rdfs:label "plasma parameter"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/RefractiveIndex
-sopropdr:RefractiveIndex rdf:type owl:NamedIndividual ,
-                               sopropdr:DimensionlessRatio ,
-                               sopropq:ElectromagneticQuantity ;
-                      rdfs:label "refractive index"@en .
+<http://sweetontology.net/propDimensionlessRatio/RefractiveIndex> rdf:type owl:NamedIndividual ,
+                                                                           <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                           <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ;
+                                                                  rdfs:label "refractive index"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/RelativePermeability
-sopropdr:RelativePermeability rdf:type owl:NamedIndividual ,
-                                    sopropdr:DimensionlessRatio ;
-                           rdfs:label "relative permeability"@en .
+<http://sweetontology.net/propDimensionlessRatio/RelativePermeability> rdf:type owl:NamedIndividual ,
+                                                                                <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                       rdfs:label "relative permeability"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/RetardationFactor
-sopropdr:RetardationFactor rdf:type owl:NamedIndividual ,
-                                 soprop:HydrogeologicalProperty ,
-                                 sopropdr:DimensionlessRatio ;
-                        rdfs:label "retardation factor"@en .
+<http://sweetontology.net/propDimensionlessRatio/RetardationFactor> rdf:type owl:NamedIndividual ,
+                                                                             <http://sweetontology.net/prop/HydrogeologicalProperty> ,
+                                                                             <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                    rdfs:label "retardation factor"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/ReynoldsNumber
-sopropdr:ReynoldsNumber rdf:type owl:NamedIndividual ,
-                              soprop:FluidProperty ,
-                              sopropdr:DimensionlessRatio ;
-                     rdfs:label "reynolds number"@en .
+<http://sweetontology.net/propDimensionlessRatio/ReynoldsNumber> rdf:type owl:NamedIndividual ,
+                                                                          <http://sweetontology.net/prop/FluidProperty> ,
+                                                                          <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                 rdfs:label "reynolds number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/RichardsonNumber
-sopropdr:RichardsonNumber rdf:type owl:NamedIndividual ,
-                                sopropdr:DimensionlessRatio ;
-                       rdfs:label "richardson number"@en .
+<http://sweetontology.net/propDimensionlessRatio/RichardsonNumber> rdf:type owl:NamedIndividual ,
+                                                                            <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                   rdfs:label "richardson number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/RossbyNumber
-sopropdr:RossbyNumber rdf:type owl:NamedIndividual ,
-                            sopropdr:DimensionlessRatio ;
-                   rdfs:label "rossby number"@en .
+<http://sweetontology.net/propDimensionlessRatio/RossbyNumber> rdf:type owl:NamedIndividual ,
+                                                                        <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                               rdfs:label "rossby number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/RouseNumber
-sopropdr:RouseNumber rdf:type owl:NamedIndividual ,
-                           sopropdr:DimensionlessRatio ;
-                  rdfs:label "rouse number"@en .
+<http://sweetontology.net/propDimensionlessRatio/RouseNumber> rdf:type owl:NamedIndividual ,
+                                                                       <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                              rdfs:label "rouse number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/SignalToNoiseRatio
-sopropdr:SignalToNoiseRatio rdf:type owl:NamedIndividual ,
-                                  sopropdr:DimensionlessRatio ;
-                         rdfs:label "signal to noise ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/SignalToNoiseRatio> rdf:type owl:NamedIndividual ,
+                                                                              <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                     rdfs:label "signal to noise ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/SonicMachNumber
-sopropdr:SonicMachNumber rdf:type owl:NamedIndividual ,
-                               soprop:MotionProperty ,
-                               sopropdr:DimensionlessRatio ;
-                      rdfs:label "sonic mach number"@en .
+<http://sweetontology.net/propDimensionlessRatio/SonicMachNumber> rdf:type owl:NamedIndividual ,
+                                                                           <http://sweetontology.net/prop/MotionProperty> ,
+                                                                           <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                  rdfs:label "sonic mach number"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/SpecificRetention
-sopropdr:SpecificRetention rdf:type owl:NamedIndividual ,
-                                 sopropdr:DimensionlessRatio ;
-                        rdfs:label "specific retention"@en .
+<http://sweetontology.net/propDimensionlessRatio/SpecificRetention> rdf:type owl:NamedIndividual ,
+                                                                             <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                    rdfs:label "specific retention"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/SpecificStorage
-sopropdr:SpecificStorage rdf:type owl:NamedIndividual ,
-                               sopropdr:DimensionlessRatio ;
-                      rdfs:label "specific storage"@en .
+<http://sweetontology.net/propDimensionlessRatio/SpecificStorage> rdf:type owl:NamedIndividual ,
+                                                                           <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                  rdfs:label "specific storage"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/SpecificYield
-sopropdr:SpecificYield rdf:type owl:NamedIndividual ,
-                             sopropdr:DimensionlessRatio ;
-                    rdfs:label "specific yield"@en .
+<http://sweetontology.net/propDimensionlessRatio/SpecificYield> rdf:type owl:NamedIndividual ,
+                                                                         <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                rdfs:label "specific yield"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/VoidRatio
-sopropdr:VoidRatio rdf:type owl:NamedIndividual ,
-                         sopropdr:DimensionlessRatio ,
-                         sopropm:ConsistenceProperty ;
-                rdfs:label "void ratio"@en .
+<http://sweetontology.net/propDimensionlessRatio/VoidRatio> rdf:type owl:NamedIndividual ,
+                                                                     <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                     <http://sweetontology.net/propMass/ConsistenceProperty> ;
+                                                            rdfs:label "void ratio"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/VonKarmanConstant
-sopropdr:VonKarmanConstant rdf:type owl:NamedIndividual ,
-                                 sopropdr:DimensionlessRatio ,
-                                 sopropq:PhysicalConstant ;
-                        rdfs:label "von karman constant"@en .
+<http://sweetontology.net/propDimensionlessRatio/VonKarmanConstant> rdf:type owl:NamedIndividual ,
+                                                                             <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ,
+                                                                             <http://sweetontology.net/propQuantity/PhysicalConstant> ;
+                                                                    rdfs:label "von karman constant"@en .
 
 
 ###  http://sweetontology.net/propDimensionlessRatio/WaterCirculationCoefficient
-sopropdr:WaterCirculationCoefficient rdf:type owl:NamedIndividual ,
-                                           sopropdr:DimensionlessRatio ;
-                                  rdfs:label "water circulation coefficient"@en .
+<http://sweetontology.net/propDimensionlessRatio/WaterCirculationCoefficient> rdf:type owl:NamedIndividual ,
+                                                                                       <http://sweetontology.net/propDimensionlessRatio/DimensionlessRatio> ;
+                                                                              rdfs:label "water circulation coefficient"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/dimensionlessUnit
-sorepsu:dimensionlessUnit rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/dimensionlessUnit> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

@@ -1,41 +1,43 @@
-@prefix : <http://sweetontology.net/reprMathOperation/> .
+@prefix : <http://sweetontology.net/reprMathOperation#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorepmf: <http://sweetontology.net/reprMathFunction/> .
-@prefix sorepm: <http://sweetontology.net/reprMath/> .
-@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
-@prefix soproc: <http://sweetontology.net/proc/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@base <http://sweetontology.net/reprMathOperation> .
+@base <http://sweetontology.net/reprMathOperation#> .
 
 <http://sweetontology.net/reprMathOperation> rdf:type owl:Ontology ;
+                                              owl:versionIRI <Optional[http://sweetontology.net/reprMathOperation]/3.6.0> ;
                                               owl:imports <http://sweetontology.net/proc> ,
                                                           <http://sweetontology.net/relaMath> ,
                                                           <http://sweetontology.net/reprMath> ,
                                                           <http://sweetontology.net/reprMathFunction> ;
+                                              <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                               rdfs:label "SWEET Ontology Representation Mathematics Operation" ;
-                                              dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                              owl:versionInfo "3.5.0" .
+                                              owl:versionInfo "3.6.0" .
 
 #################################################################
-#    Property declarations added to work around cyclic dependencies
+#    Annotation properties
 #################################################################
 
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
 
 ###  http://sweetontology.net/relaMath/hasFunction
-sorelm:hasFunction rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasFunction> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasInterval
-sorelm:hasInterval rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasInterval> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/withRespectTo
-sorelm:withRespectTo rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/withRespectTo> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -43,358 +45,393 @@ sorelm:withRespectTo rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/reprMathOperation/AreaIntegral
-sorepmo:AreaIntegral rdf:type owl:Class ;
-                  rdfs:subClassOf sorepmo:MultipleIntegral ;
-                  rdfs:label "area integral"@en .
+<http://sweetontology.net/reprMathOperation/AreaIntegral> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://sweetontology.net/reprMathOperation/MultipleIntegral> ;
+                                                          rdfs:label "area integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Biharmonic
-sorepmo:Biharmonic rdf:type owl:Class ;
-                rdfs:subClassOf sorepmo:VectorFieldOperation ;
-                rdfs:label "biharmonic"@en .
+<http://sweetontology.net/reprMathOperation/Biharmonic> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ;
+                                                        rdfs:label "biharmonic"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/BinaryOperation
-sorepmo:BinaryOperation rdf:type owl:Class ;
-                     rdfs:subClassOf sorepmo:Operation ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelm:hasInput ;
-                                       owl:allValuesFrom sorepm:OrderedPair
-                                     ] ;
-                     rdfs:label "binary operation"@en .
+<http://sweetontology.net/reprMathOperation/BinaryOperation> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ,
+                                                                             [ rdf:type owl:Restriction ;
+                                                                               owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                               owl:allValuesFrom <http://sweetontology.net/reprMath/OrderedPair>
+                                                                             ] ;
+                                                             rdfs:comment "mathematical operation that combines two elements to produce another element"@en ;
+                                                             rdfs:label "binary operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/CrossProduct
-sorepmo:CrossProduct rdf:type owl:Class ;
-                  rdfs:subClassOf sorepmo:Product ,
-                                  sorepmo:VectorFieldOperation ,
-                                  sorepmo:VectorValuedOperation ;
-                  rdfs:label "cross product"@en .
+<http://sweetontology.net/reprMathOperation/CrossProduct> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Product> ,
+                                                                          <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ,
+                                                                          <http://sweetontology.net/reprMathOperation/VectorValuedOperation> ;
+                                                          rdfs:comment "mathematical operation on two vectors"@en ;
+                                                          rdfs:label "cross product"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/DefiniteIntegral
-sorepmo:DefiniteIntegral rdf:type owl:Class ;
-                rdfs:subClassOf sorepmo:Integral ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelm:hasInterval ;
-                                  owl:cardinality "1"^^xsd:nonNegativeInteger
-                                ] ;
-                      rdfs:label "definite integral"@en .
+<http://sweetontology.net/reprMathOperation/DefiniteIntegral> rdf:type owl:Class ;
+                                                              rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Integral> ,
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty <http://sweetontology.net/relaMath/hasInterval> ;
+                                                                                owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                              ] ;
+                                                              rdfs:label "definite integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Derivative
-sorepmo:Derivative rdf:type owl:Class ;
-                owl:equivalentClass sorepmo:Differentiation ;
-                rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelm:derivativeWithRespectTo ;
-                                  owl:allValuesFrom sorepm:Variable
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelm:hasOutput ;
-                                  owl:allValuesFrom sorepmf:Function
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelm:isDerivativeOf ;
-                                  owl:allValuesFrom sorepmf:Function
-                                ] ;
-                rdfs:label "derivative"@en .
+<http://sweetontology.net/reprMathOperation/Derivative> rdf:type owl:Class ;
+                                                        owl:equivalentClass <http://sweetontology.net/reprMathOperation/Differentiation> ;
+                                                        rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://sweetontology.net/relaMath/derivativeWithRespectTo> ;
+                                                                          owl:allValuesFrom <http://sweetontology.net/reprMath/Variable>
+                                                                        ] ,
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://sweetontology.net/relaMath/hasOutput> ;
+                                                                          owl:allValuesFrom <http://sweetontology.net/reprMathFunction/Function>
+                                                                        ] ,
+                                                                        [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty <http://sweetontology.net/relaMath/isDerivativeOf> ;
+                                                                          owl:allValuesFrom <http://sweetontology.net/reprMathFunction/Function>
+                                                                        ] ;
+                                                        rdfs:comment "operation in calculus"@en ;
+                                                        rdfs:label "derivative"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Difference
-sorepmo:Difference rdf:type owl:Class ;
-                owl:equivalentClass sorepmo:Subtraction ;
-                rdfs:label "difference"@en .
+<http://sweetontology.net/reprMathOperation/Difference> rdf:type owl:Class ;
+                                                        owl:equivalentClass <http://sweetontology.net/reprMathOperation/Subtraction> ;
+                                                        rdfs:comment "philosophical concept; set of properties by which one entity is distinguished from another"@en ;
+                                                        rdfs:label "difference"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Differentiation
-sorepmo:Differentiation rdf:type owl:Class ;
-                     rdfs:label "differentiation"@en .
+<http://sweetontology.net/reprMathOperation/Differentiation> rdf:type owl:Class ;
+                                                             rdfs:comment "economics, divesting business activities"@en ;
+                                                             rdfs:label "differentiation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Division
-sorepmo:Division rdf:type owl:Class ;
-              owl:equivalentClass sorepmo:Quotient ;
-              rdfs:subClassOf sorepmo:BinaryOperation ;
-              rdfs:label "division"@en .
+<http://sweetontology.net/reprMathOperation/Division> rdf:type owl:Class ;
+                                                      owl:equivalentClass <http://sweetontology.net/reprMathOperation/Quotient> ;
+                                                      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/BinaryOperation> ;
+                                                      rdfs:comment "rank in zoology, below section, above order"@en ;
+                                                      rdfs:label "division"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/DotProduct
-sorepmo:DotProduct rdf:type owl:Class ;
-                rdfs:subClassOf sorepmo:Product ,
-                                sorepmo:ScalarValuedOperation ,
-                                sorepmo:VectorFieldOperation ;
-                rdfs:label "dot product"@en .
+<http://sweetontology.net/reprMathOperation/DotProduct> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Product> ,
+                                                                        <http://sweetontology.net/reprMathOperation/ScalarValuedOperation> ,
+                                                                        <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ;
+                                                        rdfs:comment "algebraic operation that takes two equal-length sequences of numbers"@en ;
+                                                        rdfs:label "dot product"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Double
-sorepmo:Double rdf:type owl:Class ;
-            rdfs:subClassOf sorepmo:UnaryOperation ;
-            rdfs:label "double"@en .
+<http://sweetontology.net/reprMathOperation/Double> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://sweetontology.net/reprMathOperation/UnaryOperation> ;
+                                                    rdfs:comment "in association football, winning the top division and cup competition in the same season"@en ;
+                                                    rdfs:label "double"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Fraction
-sorepmo:Fraction rdf:type owl:Class ;
-              rdfs:subClassOf sorepmo:Division ;
-              rdfs:label "fraction"@en .
+<http://sweetontology.net/reprMathOperation/Fraction> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Division> ;
+                                                      rdfs:comment "mathematical representation of a portion of a whole"@en ;
+                                                      rdfs:label "fraction"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Gradient
-sorepmo:Gradient rdf:type owl:Class ;
-              rdfs:subClassOf sorepmo:Derivative ,
-                              sorepmo:VectorValuedOperation ;
-              rdfs:label "gradient"@en .
+<http://sweetontology.net/reprMathOperation/Gradient> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Derivative> ,
+                                                                      <http://sweetontology.net/reprMathOperation/VectorValuedOperation> ;
+                                                      rdfs:comment "multi-variable generalization of the derivative"@en ;
+                                                      rdfs:label "gradient"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Half
-sorepmo:Half rdf:type owl:Class ;
-          rdfs:subClassOf sorepmo:UnaryOperation ;
-          rdfs:label "half"@en .
+<http://sweetontology.net/reprMathOperation/Half> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://sweetontology.net/reprMathOperation/UnaryOperation> ;
+                                                  rdfs:comment "one of two usually roughly equal parts into which anything may be divided, or considered as divided"@en ;
+                                                  rdfs:label "half"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/IndefiniteIntegral
-sorepmo:IndefiniteIntegral rdf:type owl:Class ;
-                        rdfs:subClassOf sorepmo:Integral ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelm:hasInterval ;
-                                          owl:cardinality "0"^^xsd:nonNegativeInteger
-                                        ] ;
-                        rdfs:label "indefinite integral"@en .
+<http://sweetontology.net/reprMathOperation/IndefiniteIntegral> rdf:type owl:Class ;
+                                                                rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Integral> ,
+                                                                                [ rdf:type owl:Restriction ;
+                                                                                  owl:onProperty <http://sweetontology.net/relaMath/hasInterval> ;
+                                                                                  owl:cardinality "0"^^xsd:nonNegativeInteger
+                                                                                ] ;
+                                                                rdfs:label "indefinite integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/InflectionPoint
-sorepmo:InflectionPoint rdf:type owl:Class ;
-                     rdfs:subClassOf sorepmo:Operation ;
-                     rdfs:label "inflection point"@en .
+<http://sweetontology.net/reprMathOperation/InflectionPoint> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ;
+                                                             rdfs:comment "point on a continuously differentiable plane curve at which the curve crosses its tangent, that is, the curve changes from being concave to convex, or vice versa"@en ;
+                                                             rdfs:label "inflection point"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Integral
-sorepmo:Integral rdf:type owl:Class ;
-              owl:equivalentClass sorepmo:Integration ;
-              rdfs:subClassOf sorepmo:OperationOnFunction ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelm:hasFunction ;
-                                owl:cardinality "1"^^xsd:nonNegativeInteger
-                              ] ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelm:withRespectTo ;
-                                owl:cardinality "1"^^xsd:nonNegativeInteger
-                              ] ;
-              rdfs:label "integral"@en .
+<http://sweetontology.net/reprMathOperation/Integral> rdf:type owl:Class ;
+                                                      owl:equivalentClass <http://sweetontology.net/reprMathOperation/Integration> ;
+                                                      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                      [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://sweetontology.net/relaMath/hasFunction> ;
+                                                                        owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                      ] ,
+                                                                      [ rdf:type owl:Restriction ;
+                                                                        owl:onProperty <http://sweetontology.net/relaMath/withRespectTo> ;
+                                                                        owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                                      ] ;
+                                                      rdfs:comment "operation in calculus"@en ;
+                                                      rdfs:label "integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Integration
-sorepmo:Integration rdf:type owl:Class ;
-                 rdfs:label "integration"@en .
+<http://sweetontology.net/reprMathOperation/Integration> rdf:type owl:Class ;
+                                                         rdfs:comment "economy, integrating business activities"@en ;
+                                                         rdfs:label "integration"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Laplacian
-sorepmo:Laplacian rdf:type owl:Class ;
-               rdfs:subClassOf sorepmo:VectorFieldOperation ;
-               rdfs:label "laplacian"@en .
+<http://sweetontology.net/reprMathOperation/Laplacian> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ;
+                                                       rdfs:label "laplacian"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/LineIntegral
-sorepmo:LineIntegral rdf:type owl:Class ;
-                  rdfs:subClassOf sorepmo:Integral ;
-                  rdfs:label "line integral"@en .
+<http://sweetontology.net/reprMathOperation/LineIntegral> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Integral> ;
+                                                          rdfs:comment "definite integral of a scalar or vector field along a path"@en ;
+                                                          rdfs:label "line integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Logarithm
-sorepmo:Logarithm rdf:type owl:Class ;
-               rdfs:subClassOf sorepmo:UnaryOperation ;
-               rdfs:label "logarithm"@en .
+<http://sweetontology.net/reprMathOperation/Logarithm> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/reprMathOperation/UnaryOperation> ;
+                                                       rdfs:comment "Inverse of the exponential function, which maps products to sums"@en ;
+                                                       rdfs:label "logarithm"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/MathematicalProcess
-sorepmo:MathematicalProcess rdf:type owl:Class ;
-                         rdfs:subClassOf soproc:Process ;
-                         rdfs:label "mathematical process"@en .
+<http://sweetontology.net/reprMathOperation/MathematicalProcess> rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <http://sweetontology.net/proc/Process> ;
+                                                                 rdfs:label "mathematical process"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/MultipleIntegral
-sorepmo:MultipleIntegral rdf:type owl:Class ;
-                      rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelm:hasFunction ;
-                                        owl:someValuesFrom sorepmo:Integral
-                                      ] ;
-                      rdfs:label "multiple integral"@en .
+<http://sweetontology.net/reprMathOperation/MultipleIntegral> rdf:type owl:Class ;
+                                                              rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty <http://sweetontology.net/relaMath/hasFunction> ;
+                                                                                owl:someValuesFrom <http://sweetontology.net/reprMathOperation/Integral>
+                                                                              ] ;
+                                                              rdfs:comment "definite integral over a multi-dimensional region of a function of several variables"@en ;
+                                                              rdfs:label "multiple integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Multiplication
-sorepmo:Multiplication rdf:type owl:Class ;
-                    owl:equivalentClass sorepmo:Product ;
-                    rdfs:subClassOf sorepmo:BinaryOperation ;
-                    rdfs:label "multiplication"@en .
+<http://sweetontology.net/reprMathOperation/Multiplication> rdf:type owl:Class ;
+                                                            owl:equivalentClass <http://sweetontology.net/reprMathOperation/Product> ;
+                                                            rdfs:subClassOf <http://sweetontology.net/reprMathOperation/BinaryOperation> ;
+                                                            rdfs:comment "mathematical operation and Multiply, Product, By, Times, Lots Of"@en ;
+                                                            rdfs:label "multiplication"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Normalization
-sorepmo:Normalization rdf:type owl:Class ;
-                   rdfs:subClassOf sorepmo:Operation ;
-                   rdfs:label "normalization"@en .
+<http://sweetontology.net/reprMathOperation/Normalization> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ;
+                                                           rdfs:comment "in quantum mechanics"@en ;
+                                                           rdfs:label "normalization"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Operation
-sorepmo:Operation rdf:type owl:Class ;
-               rdfs:subClassOf sorepmo:MathematicalProcess ;
-               rdfs:label "operation"@en .
+<http://sweetontology.net/reprMathOperation/Operation> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/reprMathOperation/MathematicalProcess> ;
+                                                       rdfs:comment "organizational unit that covers the permanent combination of production equipment for the human demand for goods and services"@en ;
+                                                       rdfs:label "operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/OperationOnFunction
-sorepmo:OperationOnFunction rdf:type owl:Class ;
-                         rdfs:subClassOf sorepmo:Operation ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelm:hasInput ;
-                                           owl:allValuesFrom sorepmf:Function
-                                         ] ;
-                         rdfs:label "operation on function"@en .
+<http://sweetontology.net/reprMathOperation/OperationOnFunction> rdf:type owl:Class ;
+                                                                 rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ,
+                                                                                 [ rdf:type owl:Restriction ;
+                                                                                   owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                                   owl:allValuesFrom <http://sweetontology.net/reprMathFunction/Function>
+                                                                                 ] ;
+                                                                 rdfs:label "operation on function"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/PartialDerivative
-sorepmo:PartialDerivative rdf:type owl:Class ;
-                       rdfs:subClassOf sorepmo:Derivative ,
-                                       sorepmo:VectorFieldOperation ;
-                       rdfs:label "partial derivative"@en .
+<http://sweetontology.net/reprMathOperation/PartialDerivative> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Derivative> ,
+                                                                               <http://sweetontology.net/reprMathOperation/VectorFieldOperation> ;
+                                                               rdfs:comment "derivative of a function of several variables with respect to one variable, with the others held constant"@en ;
+                                                               rdfs:label "partial derivative"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Product
-sorepmo:Product rdf:type owl:Class ;
-             rdfs:label "product"@en .
+<http://sweetontology.net/reprMathOperation/Product> rdf:type owl:Class ;
+                                                     rdfs:comment "species formed from chemical reactions"@en ;
+                                                     rdfs:label "product"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Quotient
-sorepmo:Quotient rdf:type owl:Class ;
-              rdfs:label "quotient"@en .
+<http://sweetontology.net/reprMathOperation/Quotient> rdf:type owl:Class ;
+                                                      rdfs:comment "ratio of two quantities to each other; result of dividing"@en ;
+                                                      rdfs:label "quotient"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Ratio
-sorepmo:Ratio rdf:type owl:Class ;
-           rdfs:subClassOf sorepmo:Division ;
-           rdfs:label "ratio"@en .
+<http://sweetontology.net/reprMathOperation/Ratio> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Division> ;
+                                                   rdfs:comment "relationship between two numbers of the same kind"@en ;
+                                                   rdfs:label "ratio"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/SaddlePoint
-sorepmo:SaddlePoint rdf:type owl:Class ;
-                 rdfs:subClassOf sorepmo:Operation ;
-                 rdfs:label "saddle point"@en .
+<http://sweetontology.net/reprMathOperation/SaddlePoint> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ;
+                                                         rdfs:comment "stationary point that is not a local extremum"@en ;
+                                                         rdfs:label "saddle point"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/ScalarFieldOperation
-sorepmo:ScalarFieldOperation rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelm:hasInput ;
-                                            owl:allValuesFrom sorepmf:ScalarField
-                                          ] ;
-                          rdfs:label "scalar field operation"@en .
+<http://sweetontology.net/reprMathOperation/ScalarFieldOperation> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                                    owl:allValuesFrom <http://sweetontology.net/reprMathFunction/ScalarField>
+                                                                                  ] ;
+                                                                  rdfs:label "scalar field operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/ScalarValuedOperation
-sorepmo:ScalarValuedOperation rdf:type owl:Class ;
-                           rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelm:hasOutput ;
-                                             owl:allValuesFrom sorepmf:ScalarField
-                                           ] ;
-                           rdfs:label "scalar valued operation"@en .
+<http://sweetontology.net/reprMathOperation/ScalarValuedOperation> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                                   [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://sweetontology.net/relaMath/hasOutput> ;
+                                                                                     owl:allValuesFrom <http://sweetontology.net/reprMathFunction/ScalarField>
+                                                                                   ] ;
+                                                                   rdfs:label "scalar valued operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Slope
-sorepmo:Slope rdf:type owl:Class ;
-           rdfs:subClassOf sorepmo:Derivative ;
-           rdfs:label "slope"@en .
+<http://sweetontology.net/reprMathOperation/Slope> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Derivative> ;
+                                                   rdfs:comment "angle the surface of an item makes with the horizontal"@en ;
+                                                   rdfs:label "slope"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Square
-sorepmo:Square rdf:type owl:Class ;
-            rdfs:subClassOf sorepmo:UnaryOperation ;
-            rdfs:label "square"@en .
+<http://sweetontology.net/reprMathOperation/Square> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://sweetontology.net/reprMathOperation/UnaryOperation> ;
+                                                    rdfs:comment "regular quadrilateral"@en ;
+                                                    rdfs:label "square"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/SquareRoot
-sorepmo:SquareRoot rdf:type owl:Class ;
-                rdfs:subClassOf sorepmo:UnaryOperation ;
-                rdfs:label "square root"@en .
+<http://sweetontology.net/reprMathOperation/SquareRoot> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://sweetontology.net/reprMathOperation/UnaryOperation> ;
+                                                        rdfs:comment "inverse operation of square for finding the original base number"@en ;
+                                                        rdfs:label "square root"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Subtraction
-sorepmo:Subtraction rdf:type owl:Class ;
-                 rdfs:subClassOf sorepmo:BinaryOperation ;
-                 rdfs:label "subtraction"@en .
+<http://sweetontology.net/reprMathOperation/Subtraction> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://sweetontology.net/reprMathOperation/BinaryOperation> ;
+                                                         rdfs:comment "process of subtracting a number from another (minuend−subtrahend=difference); mathematical operation that represents the operation of removing objects from a collection"@en ;
+                                                         rdfs:label "subtraction"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Sum
-sorepmo:Sum rdf:type owl:Class ;
-         owl:equivalentClass sorepmo:Summation ;
-         rdfs:label "sum"@en .
+<http://sweetontology.net/reprMathOperation/Sum> rdf:type owl:Class ;
+                                                 owl:equivalentClass <http://sweetontology.net/reprMathOperation/Summation> ;
+                                                 rdfs:comment "addition of a sequence of numbers"@en ;
+                                                 rdfs:label "sum"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/Summation
-sorepmo:Summation rdf:type owl:Class ;
-               rdfs:subClassOf sorepmo:BinaryOperation ;
-               rdfs:label "summation"@en .
+<http://sweetontology.net/reprMathOperation/Summation> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://sweetontology.net/reprMathOperation/BinaryOperation> ;
+                                                       rdfs:label "summation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/SurfaceIntegral
-sorepmo:SurfaceIntegral rdf:type owl:Class ;
-                     rdfs:subClassOf sorepmo:MultipleIntegral ;
-                     rdfs:label "surface integral"@en .
+<http://sweetontology.net/reprMathOperation/SurfaceIntegral> rdf:type owl:Class ;
+                                                             rdfs:subClassOf <http://sweetontology.net/reprMathOperation/MultipleIntegral> ;
+                                                             rdfs:comment "generalization of a multiple integral to (possibly)-curved surfaces"@en ;
+                                                             rdfs:label "surface integral"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/TensorFieldOperation
-sorepmo:TensorFieldOperation rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelm:hasInput ;
-                                            owl:allValuesFrom sorepmf:TensorField
-                                          ] ;
-                          rdfs:label "tensor field operation"@en .
+<http://sweetontology.net/reprMathOperation/TensorFieldOperation> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                                    owl:allValuesFrom <http://sweetontology.net/reprMathFunction/TensorField>
+                                                                                  ] ;
+                                                                  rdfs:label "tensor field operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/TernaryOperation
-sorepmo:TernaryOperation rdf:type owl:Class ;
-                      rdfs:subClassOf sorepmo:Operation ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelm:hasInput ;
-                                        owl:allValuesFrom sorepm:OrderedTriple
-                                      ] ;
-                      rdfs:label "ternary operation"@en .
+<http://sweetontology.net/reprMathOperation/TernaryOperation> rdf:type owl:Class ;
+                                                              rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ,
+                                                                              [ rdf:type owl:Restriction ;
+                                                                                owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                                owl:allValuesFrom <http://sweetontology.net/reprMath/OrderedTriple>
+                                                                              ] ;
+                                                              rdfs:comment "mathematical operation that combines three elements to produce another element"@en ;
+                                                              rdfs:label "ternary operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/UnaryOperation
-sorepmo:UnaryOperation rdf:type owl:Class ;
-                    rdfs:subClassOf sorepmo:Operation ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelm:hasInput ;
-                                      owl:allValuesFrom sorepm:Scalar
-                                    ] ;
-                    rdfs:label "unary operation"@en .
+<http://sweetontology.net/reprMathOperation/UnaryOperation> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ,
+                                                                            [ rdf:type owl:Restriction ;
+                                                                              owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                              owl:allValuesFrom <http://sweetontology.net/reprMath/Scalar>
+                                                                            ] ;
+                                                            rdfs:comment "mathematical operation with only one operand"@en ;
+                                                            rdfs:label "unary operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/VectorFieldOperation
-sorepmo:VectorFieldOperation rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelm:hasInput ;
-                                            owl:allValuesFrom sorepmf:VectorField
-                                          ] ;
-                          rdfs:label "vector field operation"@en .
+<http://sweetontology.net/reprMathOperation/VectorFieldOperation> rdf:type owl:Class ;
+                                                                  rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                                  [ rdf:type owl:Restriction ;
+                                                                                    owl:onProperty <http://sweetontology.net/relaMath/hasInput> ;
+                                                                                    owl:allValuesFrom <http://sweetontology.net/reprMathFunction/VectorField>
+                                                                                  ] ;
+                                                                  rdfs:label "vector field operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/VectorValuedOperation
-sorepmo:VectorValuedOperation rdf:type owl:Class ;
-                           rdfs:subClassOf sorepmo:OperationOnFunction ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelm:hasOutput ;
-                                             owl:allValuesFrom sorepmf:VectorField
-                                           ] ;
-                           rdfs:label "vector valued operation"@en .
+<http://sweetontology.net/reprMathOperation/VectorValuedOperation> rdf:type owl:Class ;
+                                                                   rdfs:subClassOf <http://sweetontology.net/reprMathOperation/OperationOnFunction> ,
+                                                                                   [ rdf:type owl:Restriction ;
+                                                                                     owl:onProperty <http://sweetontology.net/relaMath/hasOutput> ;
+                                                                                     owl:allValuesFrom <http://sweetontology.net/reprMathFunction/VectorField>
+                                                                                   ] ;
+                                                                   rdfs:label "vector valued operation"@en .
 
 
 ###  http://sweetontology.net/reprMathOperation/VolumeIntegral
-sorepmo:VolumeIntegral rdf:type owl:Class ;
-                    rdfs:subClassOf sorepmo:MultipleIntegral ;
-                    rdfs:label "volume integral"@en .
+<http://sweetontology.net/reprMathOperation/VolumeIntegral> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://sweetontology.net/reprMathOperation/MultipleIntegral> ;
+                                                            rdfs:comment "definite integral of a vector function over a volume"@en ;
+                                                            rdfs:label "volume integral"@en .
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

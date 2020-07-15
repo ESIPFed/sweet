@@ -1,23 +1,13 @@
-@prefix : <http://sweetontology.net/matrIon/> .
-@prefix somaio: <http://sweetontology.net/matrIon/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix : <http://sweetontology.net/matrIon#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix somaem: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix soma: <http://sweetontology.net/matr/> .
-@prefix somac: <http://sweetontology.net/matrCompound/> .
-@prefix somael: <http://sweetontology.net/matrElement/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sost: <http://sweetontology.net/state/> .
-@prefix sostp: <http://sweetontology.net/statePhysical/> .
-@base <http://sweetontology.net/matrIon> .
+@base <http://sweetontology.net/matrIon#> .
 
 <http://sweetontology.net/matrIon> rdf:type owl:Ontology ;
+                                    owl:versionIRI <Optional[http://sweetontology.net/matrIon]/3.6.0> ;
                                     owl:imports <http://sweetontology.net/matr> ,
                                                 <http://sweetontology.net/matrCompound> ,
                                                 <http://sweetontology.net/matrElement> ,
@@ -27,46 +17,57 @@
                                                 <http://sweetontology.net/relaPhysical> ,
                                                 <http://sweetontology.net/state> ,
                                                 <http://sweetontology.net/statePhysical> ;
+                                    <http://purl.org/dc/terms/license> <https://creativecommons.org/publicdomain/zero/1.0/> ;
                                     rdfs:label "SWEET Ontology Material Ion" ;
-                                    dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                    owl:versionInfo "3.5.0" .
+                                    owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+<http://purl.org/dc/terms/license> rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/matrIon/Anion
-somaio:Anion rdf:type owl:Class ;
-          rdfs:subClassOf somaio:Ion ;
-          rdfs:label "anion"@en .
+<http://sweetontology.net/matrIon/Anion> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://sweetontology.net/matrIon/Ion> ;
+                                         rdfs:comment "ion having a negative charge"@en ;
+                                         rdfs:label "anion"@en .
 
 
 ###  http://sweetontology.net/matrIon/Cation
-somaio:Cation rdf:type owl:Class ;
-           rdfs:subClassOf somaio:Ion ;
-           rdfs:label "cation"@en .
+<http://sweetontology.net/matrIon/Cation> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://sweetontology.net/matrIon/Ion> ;
+                                          rdfs:comment "ion with a positive charge"@en ;
+                                          rdfs:label "cation"@en .
 
 
 ###  http://sweetontology.net/matrIon/HeavyIon
-somaio:HeavyIon rdf:type owl:Class ;
-             rdfs:subClassOf somaio:Ion ;
-             rdfs:label "heavy ion"@en .
+<http://sweetontology.net/matrIon/HeavyIon> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://sweetontology.net/matrIon/Ion> ;
+                                            rdfs:label "heavy ion"@en .
 
 
 ###  http://sweetontology.net/matrIon/Ion
-somaio:Ion rdf:type owl:Class ;
-        rdfs:subClassOf soma:Substance ,
-                        [ rdf:type owl:Restriction ;
-                          owl:onProperty sorel:hasState ;
-                          owl:hasValue sostp:Ionized
-                        ] ;
-        rdfs:label "ion"@en .
+<http://sweetontology.net/matrIon/Ion> rdf:type owl:Class ;
+                                       rdfs:subClassOf <http://sweetontology.net/matr/Substance> ,
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                                         owl:hasValue <http://sweetontology.net/statePhysical/Ionized>
+                                                       ] ;
+                                       rdfs:comment "atom or molecule in which the total number of electrons is not equal to the total number of protons, giving the atom a net positive or negative electrical charge"@en ;
+                                       rdfs:label "ion"@en .
 
 
 ###  http://sweetontology.net/matrIon/SaltIon
-somaio:SaltIon rdf:type owl:Class ;
-            rdfs:subClassOf somaio:Ion ;
-            rdfs:label "salt ion"@en .
+<http://sweetontology.net/matrIon/SaltIon> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://sweetontology.net/matrIon/Ion> ;
+                                           rdfs:label "salt ion"@en .
 
 
 #################################################################
@@ -74,126 +75,126 @@ somaio:SaltIon rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/matrIon/Ammonium
-somaio:Ammonium rdf:type owl:NamedIndividual ,
-                      somaio:Ion ;
-             owl:sameAs somaio:NH4plus ;
-             rdfs:label "ammonium"@en .
+<http://sweetontology.net/matrIon/Ammonium> rdf:type owl:NamedIndividual ,
+                                                     <http://sweetontology.net/matrIon/Ion> ;
+                                            owl:sameAs <http://sweetontology.net/matrIon/NH4plus> ;
+                                            rdfs:label "ammonium"@en .
 
 
 ###  http://sweetontology.net/matrIon/Bicarbonite
-somaio:Bicarbonite rdf:type owl:NamedIndividual ,
-                         somaio:Ion ;
-                owl:sameAs somaio:HCO3minus ;
-                rdfs:label "bicarbonite"@en .
+<http://sweetontology.net/matrIon/Bicarbonite> rdf:type owl:NamedIndividual ,
+                                                        <http://sweetontology.net/matrIon/Ion> ;
+                                               owl:sameAs <http://sweetontology.net/matrIon/HCO3minus> ;
+                                               rdfs:label "bicarbonite"@en .
 
 
 ###  http://sweetontology.net/matrIon/CO3minusminus
-somaio:CO3minusminus rdf:type owl:NamedIndividual ,
-                           somac:InorganicCompound ,
-                           somaio:Ion ;
-                  owl:sameAs somaio:Carbonate ;
-                  rdfs:label "co3minusminus"@en .
+<http://sweetontology.net/matrIon/CO3minusminus> rdf:type owl:NamedIndividual ,
+                                                          <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                                                          <http://sweetontology.net/matrIon/Ion> ;
+                                                 owl:sameAs <http://sweetontology.net/matrIon/Carbonate> ;
+                                                 rdfs:label "co3minusminus"@en .
 
 
 ###  http://sweetontology.net/matrIon/Carbonate
-somaio:Carbonate rdf:type owl:NamedIndividual ,
-                       somaio:Ion ;
-              rdfs:label "carbonate"@en .
+<http://sweetontology.net/matrIon/Carbonate> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/matrIon/Ion> ;
+                                             rdfs:label "carbonate"@en .
 
 
 ###  http://sweetontology.net/matrIon/H4plus
-somaio:H4plus rdf:type owl:NamedIndividual ,
-                    somaio:Ion ;
-           rdfs:label "h4plus"@en .
+<http://sweetontology.net/matrIon/H4plus> rdf:type owl:NamedIndividual ,
+                                                   <http://sweetontology.net/matrIon/Ion> ;
+                                          rdfs:label "h4plus"@en .
 
 
 ###  http://sweetontology.net/matrIon/HCO3minus
-somaio:HCO3minus rdf:type owl:NamedIndividual ,
-                       somac:InorganicCompound ,
-                       somaio:Ion ;
-              owl:sameAs somaio:HydrogenCarbonate ;
-              rdfs:label "hco3minus"@en .
+<http://sweetontology.net/matrIon/HCO3minus> rdf:type owl:NamedIndividual ,
+                                                      <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                                                      <http://sweetontology.net/matrIon/Ion> ;
+                                             owl:sameAs <http://sweetontology.net/matrIon/HydrogenCarbonate> ;
+                                             rdfs:label "hco3minus"@en .
 
 
 ###  http://sweetontology.net/matrIon/Hplus
-somaio:Hplus rdf:type owl:NamedIndividual ,
-                   somaio:Ion ;
-          rdfs:label "hplus"@en .
+<http://sweetontology.net/matrIon/Hplus> rdf:type owl:NamedIndividual ,
+                                                  <http://sweetontology.net/matrIon/Ion> ;
+                                         rdfs:label "hplus"@en .
 
 
 ###  http://sweetontology.net/matrIon/HydrogenCarbonate
-somaio:HydrogenCarbonate rdf:type owl:NamedIndividual ,
-                               somaio:Ion ;
-                      rdfs:label "hydrogen carbonate"@en .
+<http://sweetontology.net/matrIon/HydrogenCarbonate> rdf:type owl:NamedIndividual ,
+                                                              <http://sweetontology.net/matrIon/Ion> ;
+                                                     rdfs:label "hydrogen carbonate"@en .
 
 
 ###  http://sweetontology.net/matrIon/NH4plus
-somaio:NH4plus rdf:type owl:NamedIndividual ,
-                     somac:InorganicCompound ,
-                     somaio:Ion ;
-            rdfs:label "nh4plus"@en .
+<http://sweetontology.net/matrIon/NH4plus> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                                                    <http://sweetontology.net/matrIon/Ion> ;
+                                           rdfs:label "nh4plus"@en .
 
 
 ###  http://sweetontology.net/matrIon/NO2minus
-somaio:NO2minus rdf:type owl:NamedIndividual ,
-                      somac:InorganicCompound ,
-                      somaio:Ion ;
-             owl:sameAs somaio:Nitrite ;
-             rdfs:label "no2minus"@en .
+<http://sweetontology.net/matrIon/NO2minus> rdf:type owl:NamedIndividual ,
+                                                     <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                                                     <http://sweetontology.net/matrIon/Ion> ;
+                                            owl:sameAs <http://sweetontology.net/matrIon/Nitrite> ;
+                                            rdfs:label "no2minus"@en .
 
 
 ###  http://sweetontology.net/matrIon/NO3minus
-somaio:NO3minus rdf:type owl:NamedIndividual ,
-                      somac:InorganicCompound ,
-                      somaio:Ion ;
-             owl:sameAs somaio:Nitrate ;
-             rdfs:label "no3minus"@en .
+<http://sweetontology.net/matrIon/NO3minus> rdf:type owl:NamedIndividual ,
+                                                     <http://sweetontology.net/matrCompound/InorganicCompound> ,
+                                                     <http://sweetontology.net/matrIon/Ion> ;
+                                            owl:sameAs <http://sweetontology.net/matrIon/Nitrate> ;
+                                            rdfs:label "no3minus"@en .
 
 
 ###  http://sweetontology.net/matrIon/Nitrate
-somaio:Nitrate rdf:type owl:NamedIndividual ,
-                     somaio:Ion ;
-            rdfs:label "nitrate"@en .
+<http://sweetontology.net/matrIon/Nitrate> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/matrIon/Ion> ;
+                                           rdfs:label "nitrate"@en .
 
 
 ###  http://sweetontology.net/matrIon/Nitrite
-somaio:Nitrite rdf:type owl:NamedIndividual ,
-                     somaio:Ion ;
-            rdfs:label "nitrite"@en .
+<http://sweetontology.net/matrIon/Nitrite> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/matrIon/Ion> ;
+                                           rdfs:label "nitrite"@en .
 
 
 ###  http://sweetontology.net/matrIon/O2minus
-somaio:O2minus rdf:type owl:NamedIndividual ,
-                     somaio:Ion ;
-            rdfs:label "o2minus"@en .
+<http://sweetontology.net/matrIon/O2minus> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/matrIon/Ion> ;
+                                           rdfs:label "o2minus"@en .
 
 
 ###  http://sweetontology.net/matrIon/O3minus
-somaio:O3minus rdf:type owl:NamedIndividual ,
-                     somaio:Ion ;
-            rdfs:label "o3minus"@en .
+<http://sweetontology.net/matrIon/O3minus> rdf:type owl:NamedIndividual ,
+                                                    <http://sweetontology.net/matrIon/Ion> ;
+                                           rdfs:label "o3minus"@en .
 
 
 ###  http://sweetontology.net/matrIon/O3minusminus
-somaio:O3minusminus rdf:type owl:NamedIndividual ,
-                          somaio:Ion ;
-                 rdfs:label "o3minusminus"@en .
+<http://sweetontology.net/matrIon/O3minusminus> rdf:type owl:NamedIndividual ,
+                                                         <http://sweetontology.net/matrIon/Ion> ;
+                                                rdfs:label "o3minusminus"@en .
 
 
 ###  http://sweetontology.net/matrIon/Ominus
-somaio:Ominus rdf:type owl:NamedIndividual ,
-                    somaio:Ion ;
-           rdfs:label "ominus"@en .
+<http://sweetontology.net/matrIon/Ominus> rdf:type owl:NamedIndividual ,
+                                                   <http://sweetontology.net/matrIon/Ion> ;
+                                          rdfs:label "ominus"@en .
 
 
 ###  http://sweetontology.net/matrIon/Oplus
-somaio:Oplus rdf:type owl:NamedIndividual ,
-                   somaio:Ion ;
-          rdfs:label "oplus"@en .
+<http://sweetontology.net/matrIon/Oplus> rdf:type owl:NamedIndividual ,
+                                                  <http://sweetontology.net/matrIon/Ion> ;
+                                         rdfs:label "oplus"@en .
 
 
 ###  http://sweetontology.net/statePhysical/Ionized
-sostp:Ionized rdf:type owl:NamedIndividual .
+<http://sweetontology.net/statePhysical/Ionized> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/
