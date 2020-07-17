@@ -1,23 +1,16 @@
 @prefix : <http://sweetontology.net/propSpeed/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropsp: <http://sweetontology.net/propSpeed/> .
-@prefix sorepm: <http://sweetontology.net/reprMath/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorepsd: <http://sweetontology.net/reprSpaceDirection/> .
-@prefix sophatmow: <http://sweetontology.net/phenAtmoWind/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propSpeed> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/propSpeed/> .
 
 <http://sweetontology.net/propSpeed> rdf:type owl:Ontology ;
+                                      owl:versionIRI <http://sweetontology.net/propSpeed/3.6.0> ;
                                       owl:imports <http://sweetontology.net/phenAtmoWind> ,
                                                   <http://sweetontology.net/prop> ,
                                                   <http://sweetontology.net/propQuantity> ,
@@ -27,24 +20,52 @@
                                                   <http://sweetontology.net/reprMath> ,
                                                   <http://sweetontology.net/reprSciUnits> ,
                                                   <http://sweetontology.net/reprSpaceDirection> ;
-                                      rdfs:label "SWEET Ontology Property Speed" ;
                                       dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                      owl:versionInfo "3.5.0" .
+                                      rdfs:label "SWEET Ontology Property Speed" ;
+                                      owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasDirection
-sorelsp:hasDirection rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasDirection> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -52,196 +73,301 @@ sorelsp:hasDirection rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propSpeed/Acceleration
-sopropsp:Acceleration rdf:type owl:Class ;
-                  rdfs:subClassOf soprop:MotionProperty ,
-                                  sopropq:PhysicalQuantity ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:meterPerSecondSquared
-                                  ] ;
-                  rdfs:label "acceleration"@en .
+:Acceleration rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/prop/MotionProperty> ,
+                              <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                owl:hasValue <http://sweetontology.net/reprSciUnits/meterPerSecondSquared>
+                              ] ;
+              rdfs:label "acceleration"@en ;
+              skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-17T11:19:46.347"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q11376> ;
+          rdfs:comment "rate at which the magnitude and/or direction of velocity changes with time"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q11376> .
 
 
 ###  http://sweetontology.net/propSpeed/Airspeed
-sopropsp:Airspeed rdf:type owl:Class ;
-              rdfs:subClassOf sopropsp:Speed ;
-              rdfs:label "airspeed"@en .
+:Airspeed rdf:type owl:Class ;
+          rdfs:subClassOf :Speed ;
+          rdfs:label "airspeed"@en ;
+          skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-17T11:19:46.426"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1197176> ;
+          rdfs:comment "speed of an aircraft relative to air"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1197176> .
 
 
 ###  http://sweetontology.net/propSpeed/AlfvenVelocity
-sopropsp:AlfvenVelocity rdf:type owl:Class ;
-                    rdfs:subClassOf sopropsp:Velocity ;
-                    rdfs:label "alfven velocity"@en .
+:AlfvenVelocity rdf:type owl:Class ;
+                rdfs:subClassOf :Velocity ;
+                rdfs:label "alfven velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/DopplerVelocity
-sopropsp:DopplerVelocity rdf:type owl:Class ;
-                     rdfs:subClassOf sopropsp:Velocity ;
-                     rdfs:label "doppler velocity"@en .
+:DopplerVelocity rdf:type owl:Class ;
+                 rdfs:subClassOf :Velocity ;
+                 rdfs:label "doppler velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/Drift
-sopropsp:Drift rdf:type owl:Class ;
-           rdfs:subClassOf sopropsp:Velocity ;
-           rdfs:label "drift"@en .
+:Drift rdf:type owl:Class ;
+       rdfs:subClassOf :Velocity ;
+       rdfs:label "drift"@en .
 
 
 ###  http://sweetontology.net/propSpeed/EscapeVelocity
-sopropsp:EscapeVelocity rdf:type owl:Class ;
-                    rdfs:subClassOf sopropsp:Velocity ;
-                    rdfs:label "escape velocity"@en .
+:EscapeVelocity rdf:type owl:Class ;
+                rdfs:subClassOf :Velocity ;
+                rdfs:label "escape velocity"@en ;
+                skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T11:19:46.708"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q166530> ;
+          rdfs:comment "concept in celestial mechanics"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q166530> .
 
 
 ###  http://sweetontology.net/propSpeed/GroundSpeed
-sopropsp:GroundSpeed rdf:type owl:Class ;
-                 rdfs:subClassOf sopropsp:Speed ;
-                 rdfs:label "ground speed"@en .
+:GroundSpeed rdf:type owl:Class ;
+             rdfs:subClassOf :Speed ;
+             rdfs:label "ground speed"@en ;
+             skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T11:19:46.791"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1518019> ;
+          rdfs:comment "horizontal speed of an aircraft relative to the ground"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1518019> .
 
 
 ###  http://sweetontology.net/propSpeed/GroupVelocity
-sopropsp:GroupVelocity rdf:type owl:Class ;
-                   rdfs:subClassOf soprop:WaveProperty ,
-                                   sopropsp:Velocity ;
-                   rdfs:label "group velocity"@en .
+:GroupVelocity rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> ,
+                               :Velocity ;
+               rdfs:label "group velocity"@en ;
+               skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T11:19:46.870"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q217361> ;
+          rdfs:comment "physical quantity"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q217361> .
 
 
 ###  http://sweetontology.net/propSpeed/Inertia
-sopropsp:Inertia rdf:type owl:Class ;
-             rdfs:subClassOf sopropsp:Momentum ;
-             rdfs:label "inertia"@en .
+:Inertia rdf:type owl:Class ;
+         rdfs:subClassOf :Momentum ;
+         rdfs:label "inertia"@en ;
+         skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-17T11:19:46.950"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q122508> ;
+          rdfs:comment "the tendency of an object to remain in its existing state of motion is called its inertia"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q122508> .
 
 
 ###  http://sweetontology.net/propSpeed/IonVelocity
-sopropsp:IonVelocity rdf:type owl:Class ;
-                 rdfs:subClassOf sopropsp:Velocity ;
-                 rdfs:label "ion velocity"@en .
+:IonVelocity rdf:type owl:Class ;
+             rdfs:subClassOf :Velocity ;
+             rdfs:label "ion velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/MagnetiCurvatureDrift
-sopropsp:MagnetiCurvatureDrift rdf:type owl:Class ;
-                           rdfs:subClassOf sopropq:ElectromagneticQuantity ,
-                                           sopropsp:Drift ;
-                           rdfs:label "magneti curvature drift"@en .
+:MagnetiCurvatureDrift rdf:type owl:Class ;
+                       rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticQuantity> ,
+                                       :Drift ;
+                       rdfs:label "magneti curvature drift"@en .
 
 
 ###  http://sweetontology.net/propSpeed/Momentum
-sopropsp:Momentum rdf:type owl:Class ;
-              rdfs:subClassOf soprop:MotionProperty ,
-                              sopropq:PhysicalQuantity ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelsc:hasDefaultUnit ;
-                                owl:hasValue sorepsu:kilogramMeterPerSecond
-                              ] ;
-              rdfs:label "momentum"@en .
+:Momentum rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/prop/MotionProperty> ,
+                          <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                            owl:hasValue <http://sweetontology.net/reprSciUnits/kilogramMeterPerSecond>
+                          ] ;
+          rdfs:label "momentum"@en ;
+          skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-17T11:19:47.299"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q41273> ;
+          rdfs:comment "conserved physical quantity related to the motion of a body"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q41273> .
 
 
 ###  http://sweetontology.net/propSpeed/NeutralVelocity
-sopropsp:NeutralVelocity rdf:type owl:Class ;
-                     rdfs:subClassOf sopropsp:Velocity ;
-                     rdfs:label "neutral velocity"@en .
+:NeutralVelocity rdf:type owl:Class ;
+                 rdfs:subClassOf :Velocity ;
+                 rdfs:label "neutral velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/Omega
-sopropsp:Omega rdf:type owl:Class ;
-           rdfs:subClassOf sopropsp:VerticalVelocity ;
-           rdfs:label "omega"@en .
+:Omega rdf:type owl:Class ;
+       rdfs:subClassOf :VerticalVelocity ;
+       rdfs:label "omega"@en .
 
 
 ###  http://sweetontology.net/propSpeed/PhaseVelocity
-sopropsp:PhaseVelocity rdf:type owl:Class ;
-                   rdfs:subClassOf soprop:WaveProperty ,
-                                   sopropsp:Velocity ;
-                   rdfs:label "phase velocity"@en .
+:PhaseVelocity rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/prop/WaveProperty> ,
+                               :Velocity ;
+               rdfs:label "phase velocity"@en ;
+               skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-17T11:19:47.507"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q13824> ;
+           rdfs:comment "rate at which the phase of the wave propagates in space"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q13824> .
 
 
 ###  http://sweetontology.net/propSpeed/ProperMotion
-sopropsp:ProperMotion rdf:type owl:Class ;
-                  rdfs:subClassOf sopropsp:Speed ;
-                  rdfs:label "proper motion"@en .
+:ProperMotion rdf:type owl:Class ;
+              rdfs:subClassOf :Speed ;
+              rdfs:label "proper motion"@en ;
+              skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-17T11:19:47.585"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2215> ;
+           rdfs:comment "proper motion of a star"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/P2215> .
 
 
 ###  http://sweetontology.net/propSpeed/RadialVelocity
-sopropsp:RadialVelocity rdf:type owl:Class ;
-                    rdfs:subClassOf sopropsp:Velocity ;
-                    rdfs:label "radial velocity"@en .
+:RadialVelocity rdf:type owl:Class ;
+                rdfs:subClassOf :Velocity ;
+                rdfs:label "radial velocity"@en ;
+                skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-17T11:19:47.658"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2216> ;
+           rdfs:comment "component of the object's velocity that points in the direction of the radius connecting the object and the point"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/P2216> .
 
 
 ###  http://sweetontology.net/propSpeed/SeepageVelocity
-sopropsp:SeepageVelocity rdf:type owl:Class ;
-                     rdfs:subClassOf soprop:HydrogeologicalProperty ,
-                                     sopropsp:Velocity ;
-                     rdfs:label "seepage velocity"@en .
+:SeepageVelocity rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/prop/HydrogeologicalProperty> ,
+                                 :Velocity ;
+                 rdfs:label "seepage velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/Speed
-sopropsp:Speed rdf:type owl:Class ;
-           rdfs:subClassOf soprop:MotionProperty ,
-                           sopropq:PhysicalQuantity ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelsc:hasDefaultUnit ;
-                             owl:hasValue sorepsu:meterPerSecond
-                           ] ;
-           rdfs:label "speed"@en .
+:Speed rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/prop/MotionProperty> ,
+                       <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                         owl:hasValue <http://sweetontology.net/reprSciUnits/meterPerSecond>
+                       ] ;
+       rdfs:label "speed"@en ;
+       skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-17T11:19:47.802"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2052> ;
+           rdfs:comment "magnitude of the velocity of the item"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/P2052> .
 
 
 ###  http://sweetontology.net/propSpeed/TangentialAcceleration
-sopropsp:TangentialAcceleration rdf:type owl:Class ;
-                            rdfs:subClassOf sopropsp:Acceleration ;
-                            rdfs:label "tangential acceleration"@en .
+:TangentialAcceleration rdf:type owl:Class ;
+                        rdfs:subClassOf :Acceleration ;
+                        rdfs:label "tangential acceleration"@en .
 
 
 ###  http://sweetontology.net/propSpeed/TerminalVelocity
-sopropsp:TerminalVelocity rdf:type owl:Class ;
-                      rdfs:subClassOf sopropsp:Velocity ;
-                      rdfs:label "terminal velocity"@en .
+:TerminalVelocity rdf:type owl:Class ;
+                  rdfs:subClassOf :Velocity ;
+                  rdfs:label "terminal velocity"@en ;
+                  skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-17T11:19:47.963"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q614981> ;
+           rdfs:comment "highest velocity attainable by an object as it falls through a fluid"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q614981> .
 
 
 ###  http://sweetontology.net/propSpeed/ThermalVelocity
-sopropsp:ThermalVelocity rdf:type owl:Class ;
-                     rdfs:subClassOf sopropsp:Velocity ;
-                     rdfs:label "thermal velocity"@en .
+:ThermalVelocity rdf:type owl:Class ;
+                 rdfs:subClassOf :Velocity ;
+                 rdfs:label "thermal velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/Velocity
-sopropsp:Velocity rdf:type owl:Class ;
-              rdfs:subClassOf soprop:MotionProperty ,
-                              sopropq:PhysicalQuantity ,
-                              sorepm:Vector ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelsc:hasDefaultUnit ;
-                                owl:hasValue sorepsu:meterPerSecond
-                              ] ;
-              rdfs:label "velocity"@en .
+:Velocity rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/prop/MotionProperty> ,
+                          <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
+                          <http://sweetontology.net/reprMath/Vector> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                            owl:hasValue <http://sweetontology.net/reprSciUnits/meterPerSecond>
+                          ] ;
+          rdfs:label "velocity"@en ;
+          skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-17T11:19:48.122"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q11465> ;
+           rdfs:comment "rate of change of the position of an object as a function of time, and the direction of that change"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q11465> .
 
 
 ###  http://sweetontology.net/propSpeed/VerticalVelocity
-sopropsp:VerticalVelocity rdf:type owl:Class ;
-                      rdfs:subClassOf sopropsp:Velocity ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsp:hasDirection ;
-                                        owl:hasValue sorepsd:Vertical
-                                      ] ;
-                      rdfs:label "vertical velocity"@en .
+:VerticalVelocity rdf:type owl:Class ;
+                  rdfs:subClassOf :Velocity ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
+                                    owl:hasValue <http://sweetontology.net/reprSpaceDirection/Vertical>
+                                  ] ;
+                  rdfs:label "vertical velocity"@en .
 
 
 ###  http://sweetontology.net/propSpeed/WindShear
-sopropsp:WindShear rdf:type owl:Class ;
-               rdfs:subClassOf soprop:FluidProperty ;
-               rdfs:label "wind shear"@en .
+:WindShear rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/prop/FluidProperty> ;
+           rdfs:label "wind shear"@en ;
+           skos:definition _:genid19 .
+
+_:genid19 dcterms:created "2020-07-17T11:19:48.264"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1027878> ;
+           rdfs:comment "Difference in wind speed or direction over a short distance"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1027878> .
 
 
 ###  http://sweetontology.net/propSpeed/WindSpeed
-sopropsp:WindSpeed rdf:type owl:Class ;
-               rdfs:subClassOf sopropsp:Speed ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorel:hasPhenomena ;
-                                 owl:allValuesFrom sophatmow:Wind
-                               ] ;
-               rdfs:label "wind speed"@en .
+:WindSpeed rdf:type owl:Class ;
+           rdfs:subClassOf :Speed ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                             owl:allValuesFrom <http://sweetontology.net/phenAtmoWind/Wind>
+                           ] ;
+           rdfs:label "wind speed"@en ;
+           skos:definition _:genid21 .
+
+_:genid21 dcterms:created "2020-07-17T11:19:48.353"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P5065> ;
+           rdfs:comment "wind flow velocity recorded during a given moment or period of time"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/P5065> .
 
 
 ###  http://sweetontology.net/reprMath/Vector
-sorepm:Vector rdf:type owl:Class .
+<http://sweetontology.net/reprMath/Vector> rdf:type owl:Class .
 
 
 #################################################################
@@ -249,19 +375,19 @@ sorepm:Vector rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/kilogramMeterPerSecond
-sorepsu:kilogramMeterPerSecond rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/kilogramMeterPerSecond> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerSecond
-sorepsu:meterPerSecond rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/meterPerSecond> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerSecondSquared
-sorepsu:meterPerSecondSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/meterPerSecondSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSpaceDirection/Vertical
-sorepsd:Vertical rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSpaceDirection/Vertical> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

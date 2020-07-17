@@ -1,32 +1,58 @@
 @prefix : <http://sweetontology.net/matrEnergy/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorepsc: <http://sweetontology.net/reprSciComponent/> .
-@prefix somaeq: <http://sweetontology.net/matrEquipment/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix somaen: <http://sweetontology.net/matrEnergy/> .
-@prefix sophen: <http://sweetontology.net/phenEnergy/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@base <http://sweetontology.net/matrEnergy> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/matrEnergy/> .
 
 <http://sweetontology.net/matrEnergy> rdf:type owl:Ontology ;
+                                       owl:versionIRI <http://sweetontology.net/matrEnergy/3.6.0> ;
                                        owl:imports <http://sweetontology.net/matrEquipment> ,
                                                    <http://sweetontology.net/phenEnergy> ,
                                                    <http://sweetontology.net/relaPhysical> ,
                                                    <http://sweetontology.net/reprSciComponent> ;
-                                       rdfs:label "SWEET Ontology Material Energy" ;
                                        dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                       owl:versionInfo "3.5.0" .
+                                       rdfs:label "SWEET Ontology Material Energy" ;
+                                       owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaPhysical/hasEnergySource
-sorelph:hasEnergySource rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/hasEnergySource> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -34,187 +60,278 @@ sorelph:hasEnergySource rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/matrEnergy/Battery
-somaen:Battery rdf:type owl:Class ;
-              rdfs:subClassOf somaen:EnergyStorage ;
-              rdfs:label "battery"@en .
+:Battery rdf:type owl:Class ;
+         rdfs:subClassOf :EnergyStorage ;
+         rdfs:label "battery"@en ;
+         skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-17T10:47:22.906"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q240313> ;
+          rdfs:comment "artillery unit size designation"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q240313> .
 
 
 ###  http://sweetontology.net/matrEnergy/Biodiesel
-somaen:Biodiesel rdf:type owl:Class ;
-                rdfs:subClassOf somaen:Biofuel ;
-                rdfs:label "biodiesel"@en .
+:Biodiesel rdf:type owl:Class ;
+           rdfs:subClassOf :Biofuel ;
+           rdfs:label "biodiesel"@en ;
+           skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-17T10:47:22.985"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q167947> ;
+          rdfs:comment "vegetable oil- or animal fat-based diesel fuel"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q167947> .
 
 
 ###  http://sweetontology.net/matrEnergy/Biofuel
-somaen:Biofuel rdf:type owl:Class ;
-              rdfs:subClassOf somaen:Fuel ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelph:hasEnergySource ;
-                                owl:allValuesFrom somaen:Biomass
-                              ] ;
-              rdfs:label "biofuel"@en .
+:Biofuel rdf:type owl:Class ;
+         rdfs:subClassOf :Fuel ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
+                           owl:allValuesFrom :Biomass
+                         ] ;
+         rdfs:label "biofuel"@en ;
+         skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T10:47:23.059"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q128991> ;
+          rdfs:comment "fuel that is produced through contemporary biological processes, as opposed to fossil fuel that was produced by prehistoric bio-geological processes"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q128991> .
 
 
 ###  http://sweetontology.net/matrEnergy/Biomass
-somaen:Biomass rdf:type owl:Class ;
-              rdfs:subClassOf somaen:EnergyStorage ;
-              rdfs:label "biomass"@en .
+:Biomass rdf:type owl:Class ;
+         rdfs:subClassOf :EnergyStorage ;
+         rdfs:label "biomass"@en ;
+         skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T10:47:23.146"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q18537> ;
+          rdfs:comment "(no longer living) biological material used as a renewable energy source"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q18537> .
 
 
 ###  http://sweetontology.net/matrEnergy/CompundParabolicConcentrator
-somaen:CompundParabolicConcentrator rdf:type owl:Class ;
-                                   rdfs:subClassOf somaen:EnergyCollector ;
-                                   rdfs:label "compund parabolic concentrator"@en .
+:CompundParabolicConcentrator rdf:type owl:Class ;
+                              rdfs:subClassOf :EnergyCollector ;
+                              rdfs:label "compund parabolic concentrator"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/EnergyCollector
-somaen:EnergyCollector rdf:type owl:Class ;
-                      rdfs:subClassOf somaeq:Infrastructure ;
-                      rdfs:label "energy collector"@en .
+:EnergyCollector rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> ;
+                 rdfs:label "energy collector"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/EnergyConversionDevice
-somaen:EnergyConversionDevice rdf:type owl:Class ;
-                             rdfs:subClassOf somaeq:Infrastructure ;
-                             rdfs:label "energy conversion device"@en .
+:EnergyConversionDevice rdf:type owl:Class ;
+                        rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> ;
+                        rdfs:label "energy conversion device"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/EnergyDistributionSystem
-somaen:EnergyDistributionSystem rdf:type owl:Class ;
-                               rdfs:subClassOf somaeq:Infrastructure ;
-                               rdfs:label "energy distribution system"@en .
+:EnergyDistributionSystem rdf:type owl:Class ;
+                          rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> ;
+                          rdfs:label "energy distribution system"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/EnergyStorage
-somaen:EnergyStorage rdf:type owl:Class ;
-                    rdfs:subClassOf sorepsc:Storage ;
-                    rdfs:label "energy storage"@en .
+:EnergyStorage rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/reprSciComponent/Storage> ;
+               rdfs:label "energy storage"@en ;
+               skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T10:47:23.640"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q837718> ;
+          rdfs:comment "capture of energy produced at one time for use at a later time"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q837718> .
 
 
 ###  http://sweetontology.net/matrEnergy/Ethanol
-somaen:Ethanol rdf:type owl:Class ;
-              rdfs:subClassOf somaen:Biofuel ;
-              rdfs:label "ethanol"@en .
+:Ethanol rdf:type owl:Class ;
+         rdfs:subClassOf :Biofuel ;
+         rdfs:label "ethanol"@en ;
+         skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-17T10:47:23.722"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q153> ;
+          rdfs:comment "chemical compound"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q153> .
 
 
 ###  http://sweetontology.net/matrEnergy/FlatPlateCollector
-somaen:FlatPlateCollector rdf:type owl:Class ;
-                         rdfs:subClassOf somaen:EnergyCollector ;
-                         rdfs:label "flat plate collector"@en .
+:FlatPlateCollector rdf:type owl:Class ;
+                    rdfs:subClassOf :EnergyCollector ;
+                    rdfs:label "flat plate collector"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/Fuel
-somaen:Fuel rdf:type owl:Class ;
-           rdfs:subClassOf somaen:EnergyStorage ;
-           rdfs:label "fuel"@en .
+:Fuel rdf:type owl:Class ;
+      rdfs:subClassOf :EnergyStorage ;
+      rdfs:label "fuel"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/FuelCell
-somaen:FuelCell rdf:type owl:Class ;
-               rdfs:subClassOf somaen:EnergyStorage ;
-               rdfs:label "fuel cell"@en .
+:FuelCell rdf:type owl:Class ;
+          rdfs:subClassOf :EnergyStorage ;
+          rdfs:label "fuel cell"@en ;
+          skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-17T10:47:23.933"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q180253> ;
+          rdfs:comment "device that converts the chemical energy from a fuel into electricity"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q180253> .
 
 
 ###  http://sweetontology.net/matrEnergy/GeothermalPowerPlant
-somaen:GeothermalPowerPlant rdf:type owl:Class ;
-                           rdfs:subClassOf somaen:PowerPlant ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelph:hasEnergySource ;
-                                             owl:allValuesFrom sophen:Geothermal
-                                           ] ;
-                           rdfs:label "geothermal power plant"@en .
+:GeothermalPowerPlant rdf:type owl:Class ;
+                      rdfs:subClassOf :PowerPlant ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
+                                        owl:allValuesFrom <http://sweetontology.net/phenEnergy/Geothermal>
+                                      ] ;
+                      rdfs:label "geothermal power plant"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/HeatExchanger
-somaen:HeatExchanger rdf:type owl:Class ;
-                    rdfs:subClassOf somaen:EnergyDistributionSystem ;
-                    rdfs:label "heat exchanger"@en .
+:HeatExchanger rdf:type owl:Class ;
+               rdfs:subClassOf :EnergyDistributionSystem ;
+               rdfs:label "heat exchanger"@en ;
+               skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-17T10:47:24.077"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q189124> ;
+           rdfs:comment "piece of equipment built for efficient heat transfer from one medium to another"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q189124> .
 
 
 ###  http://sweetontology.net/matrEnergy/HeatPump
-somaen:HeatPump rdf:type owl:Class ;
-               rdfs:subClassOf somaen:EnergyDistributionSystem ;
-               rdfs:label "heat pump"@en .
+:HeatPump rdf:type owl:Class ;
+          rdfs:subClassOf :EnergyDistributionSystem ;
+          rdfs:label "heat pump"@en ;
+          skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-17T10:47:24.135"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q131313> ;
+           rdfs:comment "Pumps heat backward - a device that transfers thermal energy in the opposite direction of spontaneous heat transfer"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q131313> .
 
 
 ###  http://sweetontology.net/matrEnergy/Heater
-somaen:Heater rdf:type owl:Class ;
-             rdfs:subClassOf somaen:EnergyConversionDevice ;
-             rdfs:label "heater"@en .
+:Heater rdf:type owl:Class ;
+        rdfs:subClassOf :EnergyConversionDevice ;
+        rdfs:label "heater"@en ;
+        skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-17T10:47:24.213"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3588251> ;
+           rdfs:comment "device which heats a single small area"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q3588251> .
 
 
 ###  http://sweetontology.net/matrEnergy/HydrogenEnergy
-somaen:HydrogenEnergy rdf:type owl:Class ;
-                     rdfs:subClassOf somaen:EnergyStorage ;
-                     rdfs:label "hydrogen energy"@en .
+:HydrogenEnergy rdf:type owl:Class ;
+                rdfs:subClassOf :EnergyStorage ;
+                rdfs:label "hydrogen energy"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/ParabolicTrough
-somaen:ParabolicTrough rdf:type owl:Class ;
-                      rdfs:subClassOf somaen:EnergyCollector ;
-                      rdfs:label "parabolic trough"@en .
+:ParabolicTrough rdf:type owl:Class ;
+                 rdfs:subClassOf :EnergyCollector ;
+                 rdfs:label "parabolic trough"@en ;
+                 skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-17T10:47:24.344"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q2051219> ;
+           rdfs:comment "technology used in concentrated solar power stations"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q2051219> .
 
 
 ###  http://sweetontology.net/matrEnergy/PhotovoltaicCell
-somaen:PhotovoltaicCell rdf:type owl:Class ;
-                       rdfs:subClassOf somaen:EnergyCollector ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorelph:hasEnergySource ;
-                                         owl:allValuesFrom sophen:SolarPower
-                                       ] ;
-                       rdfs:label "photovoltaic cell"@en .
+:PhotovoltaicCell rdf:type owl:Class ;
+                  rdfs:subClassOf :EnergyCollector ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaPhysical/hasEnergySource> ;
+                                    owl:allValuesFrom <http://sweetontology.net/phenEnergy/SolarPower>
+                                  ] ;
+                  rdfs:label "photovoltaic cell"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/PowerGrid
-somaen:PowerGrid rdf:type owl:Class ;
-                rdfs:subClassOf somaen:EnergyDistributionSystem ;
-                rdfs:label "power grid"@en .
+:PowerGrid rdf:type owl:Class ;
+           rdfs:subClassOf :EnergyDistributionSystem ;
+           rdfs:label "power grid"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/PowerPlant
-somaen:PowerPlant rdf:type owl:Class ;
-                 rdfs:subClassOf somaen:EnergyConversionDevice ;
-                 rdfs:label "power plant"@en .
+:PowerPlant rdf:type owl:Class ;
+            rdfs:subClassOf :EnergyConversionDevice ;
+            rdfs:label "power plant"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/PowerTransmissionFacility
-somaen:PowerTransmissionFacility rdf:type owl:Class ;
-                                rdfs:subClassOf somaeq:Infrastructure ;
-                                rdfs:label "power transmission facility"@en .
+:PowerTransmissionFacility rdf:type owl:Class ;
+                           rdfs:subClassOf <http://sweetontology.net/matrEquipment/Infrastructure> ;
+                           rdfs:label "power transmission facility"@en .
 
 
 ###  http://sweetontology.net/matrEnergy/Refrigerator
-somaen:Refrigerator rdf:type owl:Class ;
-                   rdfs:subClassOf somaen:EnergyConversionDevice ;
-                   rdfs:label "refrigerator"@en .
+:Refrigerator rdf:type owl:Class ;
+              rdfs:subClassOf :EnergyConversionDevice ;
+              rdfs:label "refrigerator"@en ;
+              skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-17T10:47:24.711"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q37828> ;
+           rdfs:comment "household or industrial appliance for preserving food at a low temperature"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q37828> .
 
 
 ###  http://sweetontology.net/matrEnergy/SmartGrid
-somaen:SmartGrid rdf:type owl:Class ;
-                rdfs:subClassOf somaen:PowerGrid ;
-                rdfs:label "smart grid"@en .
+:SmartGrid rdf:type owl:Class ;
+           rdfs:subClassOf :PowerGrid ;
+           rdfs:label "smart grid"@en ;
+           skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-17T10:47:24.786"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q689855> ;
+           rdfs:comment "Electrical grid operated by automatic control devices or controled and maintained from distance."@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q689855> .
 
 
 ###  http://sweetontology.net/matrEnergy/TubularCollector
-somaen:TubularCollector rdf:type owl:Class ;
-                       rdfs:subClassOf somaen:EnergyCollector ;
-                       rdfs:label "tubular collector"@en .
+:TubularCollector rdf:type owl:Class ;
+                  rdfs:subClassOf :EnergyCollector ;
+                  rdfs:label "tubular collector"@en .
 
 
 ###  http://sweetontology.net/matrEquipment/Infrastructure
-somaeq:Infrastructure rdf:type owl:Class .
+<http://sweetontology.net/matrEquipment/Infrastructure> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenEnergy/Geothermal
-sophen:Geothermal rdf:type owl:Class .
+<http://sweetontology.net/phenEnergy/Geothermal> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenEnergy/SolarPower
-sophen:SolarPower rdf:type owl:Class .
+<http://sweetontology.net/phenEnergy/SolarPower> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciComponent/Storage
-sorepsc:Storage rdf:type owl:Class .
+<http://sweetontology.net/reprSciComponent/Storage> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

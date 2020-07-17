@@ -1,26 +1,16 @@
 @prefix : <http://sweetontology.net/phen/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix sopropef: <http://sweetontology.net/propEnergyFlux/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorea: <http://sweetontology.net/realm/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix sost: <http://sweetontology.net/state/> .
-@prefix sorelt: <http://sweetontology.net/relaTime/> .
-@prefix soph: <http://sweetontology.net/phen/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@prefix sostss: <http://sweetontology.net/stateSpaceScale/> .
-@prefix sostsy: <http://sweetontology.net/stateSystem/> .
-@prefix sosttf: <http://sweetontology.net/stateTimeFrequency/> .
-@base <http://sweetontology.net/phen> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phen/> .
 
 <http://sweetontology.net/phen> rdf:type owl:Ontology ;
+                                 owl:versionIRI <http://sweetontology.net/phen/3.6.0> ;
                                  owl:imports <http://sweetontology.net/phenSystem> ,
                                              <http://sweetontology.net/procPhysical> ,
                                              <http://sweetontology.net/propEnergyFlux> ,
@@ -33,28 +23,56 @@
                                              <http://sweetontology.net/stateSpaceScale> ,
                                              <http://sweetontology.net/stateSystem> ,
                                              <http://sweetontology.net/stateTimeFrequency> ;
-                                 rdfs:label "SWEET Ontology Phenomena" ;
                                  dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                 owl:versionInfo "3.5.0" .
+                                 rdfs:label "SWEET Ontology Phenomena" ;
+                                 owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasState
-sorel:hasState rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasSource
-sorelsc:hasSource rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasSource> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasSpatialScale
-sorelsp:hasSpatialScale rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasSpatialScale> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaTime/hasFrequency
-sorelt:hasFrequency rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaTime/hasFrequency> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -62,171 +80,213 @@ sorelt:hasFrequency rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phen/AirSeaExchange
-soph:AirSeaExchange rdf:type owl:Class ;
-                      owl:equivalentClass soph:AtmosphereOceanExchange ;
-                      rdfs:subClassOf soph:Phenomena ,
-                                      sophsy:Exchange ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsc:hasSource ;
-                                        owl:someValuesFrom sorea:Atmosphere
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsc:hasSource ;
-                                        owl:someValuesFrom sorea:Ocean
-                                      ] ;
-                      rdfs:label "air sea exchange"@en .
+:AirSeaExchange rdf:type owl:Class ;
+                owl:equivalentClass :AtmosphereOceanExchange ;
+                rdfs:subClassOf :Phenomena ,
+                                <http://sweetontology.net/phenSystem/Exchange> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaSci/hasSource> ;
+                                  owl:someValuesFrom <http://sweetontology.net/realm/Atmosphere>
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaSci/hasSource> ;
+                                  owl:someValuesFrom <http://sweetontology.net/realm/Ocean>
+                                ] ;
+                rdfs:label "air sea exchange"@en .
 
 
 ###  http://sweetontology.net/phen/AtmosphereLandExchange
-soph:AtmosphereLandExchange rdf:type owl:Class ;
-                              rdfs:subClassOf soph:Phenomena ,
-                                              sophsy:Exchange ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty sorelsc:hasSource ;
-                                                owl:someValuesFrom sorea:Atmosphere
-                                              ] ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty sorelsc:hasSource ;
-                                                owl:someValuesFrom sorea:Land
-                                              ] ;
-                              rdfs:label "atmosphere land exchange"@en .
+:AtmosphereLandExchange rdf:type owl:Class ;
+                        rdfs:subClassOf :Phenomena ,
+                                        <http://sweetontology.net/phenSystem/Exchange> ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/relaSci/hasSource> ;
+                                          owl:someValuesFrom <http://sweetontology.net/realm/Atmosphere>
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/relaSci/hasSource> ;
+                                          owl:someValuesFrom <http://sweetontology.net/realm/Land>
+                                        ] ;
+                        rdfs:label "atmosphere land exchange"@en .
 
 
 ###  http://sweetontology.net/phen/AtmosphereOceanExchange
-soph:AtmosphereOceanExchange rdf:type owl:Class ;
-                               rdfs:label "atmosphere ocean exchange"@en .
+:AtmosphereOceanExchange rdf:type owl:Class ;
+                         rdfs:label "atmosphere ocean exchange"@en .
 
 
 ###  http://sweetontology.net/phen/BrownianMotion
-soph:BrownianMotion rdf:type owl:Class ;
-                      rdfs:subClassOf soph:StochasticProcess ;
-                      rdfs:label "brownian motion"@en .
+:BrownianMotion rdf:type owl:Class ;
+                rdfs:subClassOf :StochasticProcess ;
+                rdfs:label "brownian motion"@en .
 
 
 ###  http://sweetontology.net/phen/DynamicalPhenomena
-soph:DynamicalPhenomena rdf:type owl:Class ;
-                          rdfs:subClassOf soph:Phenomena ;
-                          rdfs:label "dynamical phenomena"@en .
+:DynamicalPhenomena rdf:type owl:Class ;
+                    rdfs:subClassOf :Phenomena ;
+                    rdfs:label "dynamical phenomena"@en .
 
 
 ###  http://sweetontology.net/phen/Event
-soph:Event rdf:type owl:Class ;
-             owl:equivalentClass soph:Occurrence ;
-             rdfs:subClassOf soph:Phenomena ;
-             rdfs:label "event"@en .
+:Event rdf:type owl:Class ;
+       owl:equivalentClass :Occurrence ;
+       rdfs:subClassOf :Phenomena ;
+       rdfs:label "event"@en ;
+       skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T10:53:13.222"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1349920> ;
+          rdfs:comment "occurrence, in the Unified Modeling Language (UML)"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1349920> .
 
 
 ###  http://sweetontology.net/phen/ExtremeEvent
-soph:ExtremeEvent rdf:type owl:Class ;
-                    rdfs:subClassOf soph:Event ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelt:hasFrequency ;
-                                      owl:hasValue sosttf:Infrequent
-                                    ] ;
-                    rdfs:label "extreme event"@en .
+:ExtremeEvent rdf:type owl:Class ;
+              rdfs:subClassOf :Event ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
+                                owl:hasValue <http://sweetontology.net/stateTimeFrequency/Infrequent>
+                              ] ;
+              rdfs:label "extreme event"@en .
 
 
 ###  http://sweetontology.net/phen/Flash
-soph:Flash rdf:type owl:Class ;
-             rdfs:subClassOf soph:Phenomena ;
-             rdfs:label "flash"@en .
+:Flash rdf:type owl:Class ;
+       rdfs:subClassOf :Phenomena ;
+       rdfs:label "flash"@en ;
+       skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-17T10:53:13.370"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q210040> ;
+          rdfs:comment "Wikimedia disambiguation page"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q210040> .
 
 
 ###  http://sweetontology.net/phen/Occurrence
-soph:Occurrence rdf:type owl:Class ;
-                  rdfs:label "occurrence"@en .
+:Occurrence rdf:type owl:Class ;
+            rdfs:label "occurrence"@en ;
+            skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-17T10:53:13.453"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1190554> ;
+          rdfs:comment "occurrence in space and time"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1190554> .
 
 
 ###  http://sweetontology.net/phen/Phenomena
-soph:Phenomena rdf:type owl:Class ;
-                 rdfs:label "phenomena"@en .
+:Phenomena rdf:type owl:Class ;
+           rdfs:label "phenomena"@en .
 
 
 ###  http://sweetontology.net/phen/PlanetaryPhenomena
-soph:PlanetaryPhenomena rdf:type owl:Class ;
-                          rdfs:subClassOf soph:Phenomena ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelsp:hasSpatialScale ;
-                                            owl:hasValue sostss:PlanetaryScale
-                                          ] ;
-                          rdfs:label "planetary phenomena"@en .
+:PlanetaryPhenomena rdf:type owl:Class ;
+                    rdfs:subClassOf :Phenomena ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
+                                      owl:hasValue <http://sweetontology.net/stateSpaceScale/PlanetaryScale>
+                                    ] ;
+                    rdfs:label "planetary phenomena"@en .
 
 
 ###  http://sweetontology.net/phen/Precipitation
-soph:Precipitation rdf:type owl:Class ;
-                     rdfs:subClassOf soph:Phenomena ;
-                     rdfs:label "precipitation"@en .
+:Precipitation rdf:type owl:Class ;
+               rdfs:subClassOf :Phenomena ;
+               rdfs:label "precipitation"@en ;
+               skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-17T10:53:13.680"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q113796> ;
+           rdfs:comment "creation of a solid from a solution"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q113796> .
 
 
 ###  http://sweetontology.net/phen/RadiationalCooling
-soph:RadiationalCooling rdf:type owl:Class ;
-                          owl:equivalentClass soph:RadiativeCooling ;
-                          rdfs:label "radiational cooling"@en .
+:RadiationalCooling rdf:type owl:Class ;
+                    owl:equivalentClass :RadiativeCooling ;
+                    rdfs:label "radiational cooling"@en .
 
 
 ###  http://sweetontology.net/phen/RadiationalHeating
-soph:RadiationalHeating rdf:type owl:Class ;
-                          owl:equivalentClass soph:RadiativeHeating ;
-                          rdfs:label "radiational heating"@en .
+:RadiationalHeating rdf:type owl:Class ;
+                    owl:equivalentClass :RadiativeHeating ;
+                    rdfs:label "radiational heating"@en .
 
 
 ###  http://sweetontology.net/phen/RadiativeCooling
-soph:RadiativeCooling rdf:type owl:Class ;
-                        rdfs:subClassOf soprocp:Cooling ,
-                                        sopropef:RadiativeForcing ;
-                        owl:disjointWith soph:RadiativeHeating ;
-                        rdfs:label "radiative cooling"@en .
+:RadiativeCooling rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/procPhysical/Cooling> ,
+                                  <http://sweetontology.net/propEnergyFlux/RadiativeForcing> ;
+                  owl:disjointWith :RadiativeHeating ;
+                  rdfs:label "radiative cooling"@en .
 
 
 ###  http://sweetontology.net/phen/RadiativeHeating
-soph:RadiativeHeating rdf:type owl:Class ;
-                        rdfs:subClassOf soprocp:Heating ,
-                                        sopropef:RadiativeForcing ;
-                        rdfs:label "radiative heating"@en .
+:RadiativeHeating rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/procPhysical/Heating> ,
+                                  <http://sweetontology.net/propEnergyFlux/RadiativeForcing> ;
+                  rdfs:label "radiative heating"@en .
 
 
 ###  http://sweetontology.net/phen/StochasticProcess
-soph:StochasticProcess rdf:type owl:Class ;
-                         rdfs:subClassOf soph:DynamicalPhenomena ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorel:hasState ;
-                                           owl:hasValue sostsy:Stochastic
-                                         ] ;
-                         rdfs:label "stochastic process"@en .
+:StochasticProcess rdf:type owl:Class ;
+                   rdfs:subClassOf :DynamicalPhenomena ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                     owl:hasValue <http://sweetontology.net/stateSystem/Stochastic>
+                                   ] ;
+                   rdfs:label "stochastic process"@en ;
+                   skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-17T10:53:14.188"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q176737> ;
+           rdfs:comment "mathematical object usually defined as a collection of random variables"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q176737> .
 
 
 ###  http://sweetontology.net/phen/Teleconnection
-soph:Teleconnection rdf:type owl:Class ;
-                      rdfs:subClassOf soph:PlanetaryPhenomena ;
-                      rdfs:label "teleconnection"@en .
+:Teleconnection rdf:type owl:Class ;
+                rdfs:subClassOf :PlanetaryPhenomena ;
+                rdfs:label "teleconnection"@en ;
+                skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-17T10:53:14.266"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3982797> ;
+           rdfs:comment "climate anomalies being related to each other at large distances"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q3982797> .
 
 
 ###  http://sweetontology.net/phenSystem/Exchange
-sophsy:Exchange rdf:type owl:Class .
+<http://sweetontology.net/phenSystem/Exchange> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Cooling
-soprocp:Cooling rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Cooling> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Heating
-soprocp:Heating rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Heating> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propEnergyFlux/RadiativeForcing
-sopropef:RadiativeForcing rdf:type owl:Class .
+<http://sweetontology.net/propEnergyFlux/RadiativeForcing> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/Atmosphere
-sorea:Atmosphere rdf:type owl:Class .
+<http://sweetontology.net/realm/Atmosphere> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/Land
-sorea:Land rdf:type owl:Class .
+<http://sweetontology.net/realm/Land> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/Ocean
-sorea:Ocean rdf:type owl:Class .
+<http://sweetontology.net/realm/Ocean> rdf:type owl:Class .
 
 
 #################################################################
@@ -234,15 +294,15 @@ sorea:Ocean rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/stateSpaceScale/PlanetaryScale
-sostss:PlanetaryScale rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateSpaceScale/PlanetaryScale> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateSystem/Stochastic
-sostsy:Stochastic rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateSystem/Stochastic> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateTimeFrequency/Infrequent
-sosttf:Infrequent rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateTimeFrequency/Infrequent> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

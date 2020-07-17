@@ -1,21 +1,16 @@
 @prefix : <http://sweetontology.net/matrCompound/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix somaem: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix soma: <http://sweetontology.net/matr/> .
-@prefix somac: <http://sweetontology.net/matrCompound/> .
-@prefix somael: <http://sweetontology.net/matrElement/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sost: <http://sweetontology.net/state/> .
-@prefix sostc: <http://sweetontology.net/stateChemical/> .
-@base <http://sweetontology.net/matrCompound> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/matrCompound/> .
 
 <http://sweetontology.net/matrCompound> rdf:type owl:Ontology ;
+                                         owl:versionIRI <http://sweetontology.net/matrCompound/3.6.0> ;
                                          owl:imports <http://sweetontology.net/matr> ,
                                                      <http://sweetontology.net/matrElement> ,
                                                      <http://sweetontology.net/matrElementalMolecule> ,
@@ -23,58 +18,121 @@
                                                      <http://sweetontology.net/relaChemical> ,
                                                      <http://sweetontology.net/state> ,
                                                      <http://sweetontology.net/stateChemical> ;
-                                         rdfs:label "SWEET Ontology Material Compound" ;
                                          dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                         owl:versionInfo "3.5.0" .
+                                         rdfs:label "SWEET Ontology Material Compound" ;
+                                         owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/matrCompound/ChemicalCompound
-somac:ChemicalCompound rdf:type owl:Class ;
-                      owl:equivalentClass somac:Compound ;
-                      rdfs:label "chemical compound"@en .
+:ChemicalCompound rdf:type owl:Class ;
+                  owl:equivalentClass :Compound ;
+                  rdfs:label "chemical compound"@en ;
+                  skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-17T10:46:25.590"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q11173> ;
+          rdfs:comment "pure chemical substance consisting of two or more different chemical elements"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q11173> .
 
 
 ###  http://sweetontology.net/matrCompound/Clathrate
-somac:Clathrate rdf:type owl:Class ;
-               rdfs:subClassOf somac:InorganicCompound ;
-               rdfs:label "clathrate"@en .
+:Clathrate rdf:type owl:Class ;
+           rdfs:subClassOf :InorganicCompound ;
+           rdfs:label "clathrate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Compound
-somac:Compound rdf:type owl:Class ;
-              rdfs:subClassOf soma:Chemical ;
-              rdfs:label "compound"@en .
+:Compound rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/matr/Chemical> ;
+          rdfs:label "compound"@en ;
+          skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-17T10:46:25.735"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q91752> ;
+          rdfs:comment "type of fortification"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q91752> .
 
 
 ###  http://sweetontology.net/matrCompound/InorganicAcid
-somac:InorganicAcid rdf:type owl:Class ;
-                   rdfs:subClassOf somac:InorganicCompound ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorel:hasState ;
-                                     owl:hasValue sostc:Acid
-                                   ] ;
-                   rdfs:label "inorganic acid"@en .
+:InorganicAcid rdf:type owl:Class ;
+               rdfs:subClassOf :InorganicCompound ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                 owl:hasValue <http://sweetontology.net/stateChemical/Acid>
+                               ] ;
+               rdfs:label "inorganic acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/InorganicCompound
-somac:InorganicCompound rdf:type owl:Class ;
-                       rdfs:subClassOf somac:Compound ;
-                       rdfs:label "inorganic compound"@en .
+:InorganicCompound rdf:type owl:Class ;
+                   rdfs:subClassOf :Compound ;
+                   rdfs:label "inorganic compound"@en ;
+                   skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T10:46:25.873"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q190065> ;
+          rdfs:comment "compound that is not organic: i.e. does not contain carbon with exceptions e.g. CO, carbon dioxide, disulfide and diselenide, carbides, HCN, carbonic acid, cyanic, isocyanic and fulminic acids and carbonates, hydrogen carbonates, cyanides, cyanates"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q190065> .
 
 
 ###  http://sweetontology.net/matrCompound/Perchlorate
-somac:Perchlorate rdf:type owl:Class ;
-                 rdfs:subClassOf somac:InorganicAcid ;
-                 rdfs:label "perchlorate"@en .
+:Perchlorate rdf:type owl:Class ;
+             rdfs:subClassOf :InorganicAcid ;
+             rdfs:label "perchlorate"@en ;
+             skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T10:46:25.948"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q59429667> ;
+          rdfs:comment "salt or ester of perchloric acid"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q59429667> .
 
 
 ###  http://sweetontology.net/matrCompound/Peroxide
-somac:Peroxide rdf:type owl:Class ;
-              rdfs:subClassOf somac:InorganicCompound ;
-              rdfs:label "peroxide"@en .
+:Peroxide rdf:type owl:Class ;
+          rdfs:subClassOf :InorganicCompound ;
+          rdfs:label "peroxide"@en ;
+          skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T10:46:26.027"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q107429> ;
+          rdfs:comment "any chemical compound containing an oxygen–oxygen single bond"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q107429> .
 
 
 #################################################################
@@ -82,644 +140,644 @@ somac:Peroxide rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/matrCompound/Ammonia
-somac:Ammonia rdf:type owl:NamedIndividual ,
-                      somac:InorganicCompound ;
-             owl:sameAs somac:NH3 ;
-             rdfs:label "ammonia"@en .
+:Ammonia rdf:type owl:NamedIndividual ,
+                  :InorganicCompound ;
+         owl:sameAs :NH3 ;
+         rdfs:label "ammonia"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BrCl
-somac:BrCl rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          owl:sameAs somac:BromineChloride ;
-          rdfs:label "brcl"@en .
+:BrCl rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      owl:sameAs :BromineChloride ;
+      rdfs:label "brcl"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BrNO3
-somac:BrNO3 rdf:type owl:NamedIndividual ,
-                    somac:InorganicCompound ;
-           owl:sameAs somac:BromineNitrate ;
-           rdfs:label "brno3"@en .
+:BrNO3 rdf:type owl:NamedIndividual ,
+                :InorganicCompound ;
+       owl:sameAs :BromineNitrate ;
+       rdfs:label "brno3"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BrO
-somac:BrO rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:BromineMonoxide ;
-         rdfs:label "bro"@en .
+:BrO rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :BromineMonoxide ;
+     rdfs:label "bro"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BrOx
-somac:BrOx rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          rdfs:label "brox"@en .
+:BrOx rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      rdfs:label "brox"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BromineChloride
-somac:BromineChloride rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     rdfs:label "bromine chloride"@en .
+:BromineChloride rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 rdfs:label "bromine chloride"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BromineMonoxide
-somac:BromineMonoxide rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     rdfs:label "bromine monoxide"@en .
+:BromineMonoxide rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 rdfs:label "bromine monoxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/BromineNitrate
-somac:BromineNitrate rdf:type owl:NamedIndividual ,
-                             somac:InorganicCompound ;
-                    rdfs:label "bromine nitrate"@en .
+:BromineNitrate rdf:type owl:NamedIndividual ,
+                         :InorganicCompound ;
+                rdfs:label "bromine nitrate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/CO
-somac:CO rdf:type owl:NamedIndividual ,
-                 somac:InorganicCompound ;
-        owl:sameAs somac:CarbonMonoxide ;
-        rdfs:label "co"@en .
+:CO rdf:type owl:NamedIndividual ,
+             :InorganicCompound ;
+    owl:sameAs :CarbonMonoxide ;
+    rdfs:label "co"@en .
 
 
 ###  http://sweetontology.net/matrCompound/CO2
-somac:CO2 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:CarbonDioxide ;
-         rdfs:label "co2"@en .
+:CO2 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :CarbonDioxide ;
+     rdfs:label "co2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/COS
-somac:COS rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:CarbonylSulfide ;
-         rdfs:label "cos"@en .
+:COS rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :CarbonylSulfide ;
+     rdfs:label "cos"@en .
 
 
 ###  http://sweetontology.net/matrCompound/CarbonDioxide
-somac:CarbonDioxide rdf:type owl:NamedIndividual ,
-                            somac:InorganicCompound ;
-                   rdfs:label "carbon dioxide"@en .
+:CarbonDioxide rdf:type owl:NamedIndividual ,
+                        :InorganicCompound ;
+               rdfs:label "carbon dioxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/CarbonMonoxide
-somac:CarbonMonoxide rdf:type owl:NamedIndividual ,
-                             somac:InorganicCompound ;
-                    rdfs:label "carbon monoxide"@en .
+:CarbonMonoxide rdf:type owl:NamedIndividual ,
+                         :InorganicCompound ;
+                rdfs:label "carbon monoxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Carbonate
-somac:Carbonate rdf:type owl:NamedIndividual ,
-                        somac:InorganicCompound ;
-               rdfs:label "carbonate"@en .
+:Carbonate rdf:type owl:NamedIndividual ,
+                    :InorganicCompound ;
+           rdfs:label "carbonate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/CarbonicAcid
-somac:CarbonicAcid rdf:type owl:NamedIndividual ,
-                           somac:InorganicAcid ;
-                  owl:sameAs somac:H2CO3 ;
-                  rdfs:label "carbonic acid"@en .
+:CarbonicAcid rdf:type owl:NamedIndividual ,
+                       :InorganicAcid ;
+              owl:sameAs :H2CO3 ;
+              rdfs:label "carbonic acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/CarbonylSulfide
-somac:CarbonylSulfide rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     rdfs:label "carbonyl sulfide"@en .
+:CarbonylSulfide rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 rdfs:label "carbonyl sulfide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ChlorineDioxide
-somac:ChlorineDioxide rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     owl:sameAs somac:ClO2 ;
-                     rdfs:label "chlorine dioxide"@en .
+:ChlorineDioxide rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 owl:sameAs :ClO2 ;
+                 rdfs:label "chlorine dioxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ChlorineMonoxide
-somac:ChlorineMonoxide rdf:type owl:NamedIndividual ,
-                               somac:InorganicCompound ;
-                      owl:sameAs somac:ClO ;
-                      rdfs:label "chlorine monoxide"@en .
+:ChlorineMonoxide rdf:type owl:NamedIndividual ,
+                           :InorganicCompound ;
+                  owl:sameAs :ClO ;
+                  rdfs:label "chlorine monoxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ChlorineNitrate
-somac:ChlorineNitrate rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     owl:sameAs somac:ClONO2 ;
-                     rdfs:label "chlorine nitrate"@en .
+:ChlorineNitrate rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 owl:sameAs :ClONO2 ;
+                 rdfs:label "chlorine nitrate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Cl2O2
-somac:Cl2O2 rdf:type owl:NamedIndividual ,
-                    somac:InorganicCompound ,
-                    somac:Peroxide ;
-           owl:sameAs somac:DichlorinePeroxide ;
-           rdfs:label "cl2o2"@en .
+:Cl2O2 rdf:type owl:NamedIndividual ,
+                :InorganicCompound ,
+                :Peroxide ;
+       owl:sameAs :DichlorinePeroxide ;
+       rdfs:label "cl2o2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ClO
-somac:ClO rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         rdfs:label "clo"@en .
+:ClO rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     rdfs:label "clo"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ClO2
-somac:ClO2 rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          rdfs:label "clo2"@en .
+:ClO2 rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      rdfs:label "clo2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ClONO2
-somac:ClONO2 rdf:type owl:NamedIndividual ,
-                     somac:InorganicCompound ;
-            rdfs:label "clono2"@en .
+:ClONO2 rdf:type owl:NamedIndividual ,
+                 :InorganicCompound ;
+        rdfs:label "clono2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/ClOx
-somac:ClOx rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          rdfs:label "clox"@en .
+:ClOx rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      rdfs:label "clox"@en .
 
 
 ###  http://sweetontology.net/matrCompound/DichlorinePeroxide
-somac:DichlorinePeroxide rdf:type owl:NamedIndividual ,
-                                 somac:InorganicCompound ;
-                        rdfs:label "dichlorine peroxide"@en .
+:DichlorinePeroxide rdf:type owl:NamedIndividual ,
+                             :InorganicCompound ;
+                    rdfs:label "dichlorine peroxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/DinitrogenPentoxide
-somac:DinitrogenPentoxide rdf:type owl:NamedIndividual ,
-                                  somac:InorganicCompound ;
-                         owl:sameAs somac:N2O5 ;
-                         rdfs:label "dinitrogen pentoxide"@en .
+:DinitrogenPentoxide rdf:type owl:NamedIndividual ,
+                              :InorganicCompound ;
+                     owl:sameAs :N2O5 ;
+                     rdfs:label "dinitrogen pentoxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/DryIce
-somac:DryIce rdf:type owl:NamedIndividual ,
-                     somac:InorganicCompound ;
-            rdfs:label "dry ice"@en .
+:DryIce rdf:type owl:NamedIndividual ,
+                 :InorganicCompound ;
+        rdfs:label "dry ice"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Fe2.3
-somac:Fe2.3 rdf:type owl:NamedIndividual ,
-                    somac:InorganicCompound ;
-           owl:sameAs somac:Hematite ,
-                      somac:IronOxide ,
-                      somac:Rust ;
-           rdfs:label "fe2.3"@en .
+:Fe2.3 rdf:type owl:NamedIndividual ,
+                :InorganicCompound ;
+       owl:sameAs :Hematite ,
+                  :IronOxide ,
+                  :Rust ;
+       rdfs:label "fe2.3"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Fe3O4
-somac:Fe3O4 rdf:type owl:NamedIndividual ,
-                    somac:InorganicCompound ;
-           owl:sameAs somac:Magnetite ;
-           rdfs:label "fe3o4"@en .
+:Fe3O4 rdf:type owl:NamedIndividual ,
+                :InorganicCompound ;
+       owl:sameAs :Magnetite ;
+       rdfs:label "fe3o4"@en .
 
 
 ###  http://sweetontology.net/matrCompound/H2CO3
-somac:H2CO3 rdf:type owl:NamedIndividual ,
-                    somac:InorganicAcid ;
-           rdfs:label "h2co3"@en .
+:H2CO3 rdf:type owl:NamedIndividual ,
+                :InorganicAcid ;
+       rdfs:label "h2co3"@en .
 
 
 ###  http://sweetontology.net/matrCompound/H2O
-somac:H2O rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:Water ;
-         rdfs:label "h2o"@en .
+:H2O rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :Water ;
+     rdfs:label "h2o"@en .
 
 
 ###  http://sweetontology.net/matrCompound/H2O2
-somac:H2O2 rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          owl:sameAs somac:HydrogenPeroxide ;
-          rdfs:label "h2o2"@en .
+:H2O2 rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      owl:sameAs :HydrogenPeroxide ;
+      rdfs:label "h2o2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/H2SO4
-somac:H2SO4 rdf:type owl:NamedIndividual ,
-                    somac:InorganicAcid ;
-           owl:sameAs somac:SulfuricAcid ;
-           rdfs:label "h2so4"@en .
+:H2SO4 rdf:type owl:NamedIndividual ,
+                :InorganicAcid ;
+       owl:sameAs :SulfuricAcid ;
+       rdfs:label "h2so4"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HBr
-somac:HBr rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:HydrogenBromide ;
-         rdfs:label "hbr"@en .
+:HBr rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :HydrogenBromide ;
+     rdfs:label "hbr"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HBrO
-somac:HBrO rdf:type owl:NamedIndividual ,
-                   somac:InorganicAcid ;
-          owl:sameAs somac:HydrobromousAcid ;
-          rdfs:label "hbro"@en .
+:HBrO rdf:type owl:NamedIndividual ,
+               :InorganicAcid ;
+      owl:sameAs :HydrobromousAcid ;
+      rdfs:label "hbro"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HCl
-somac:HCl rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         rdfs:label "hcl"@en .
+:HCl rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     rdfs:label "hcl"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HClO
-somac:HClO rdf:type owl:NamedIndividual ,
-                   somac:InorganicAcid ;
-          owl:sameAs somac:HypochlorousAcid ;
-          rdfs:label "hclo"@en .
+:HClO rdf:type owl:NamedIndividual ,
+               :InorganicAcid ;
+      owl:sameAs :HypochlorousAcid ;
+      rdfs:label "hclo"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HClO4
-somac:HClO4 rdf:type owl:NamedIndividual ,
-                    somac:InorganicAcid ,
-                    somac:Perchlorate ;
-           owl:sameAs somac:PerchloricAcid ;
-           rdfs:label "hclo4"@en .
+:HClO4 rdf:type owl:NamedIndividual ,
+                :InorganicAcid ,
+                :Perchlorate ;
+       owl:sameAs :PerchloricAcid ;
+       rdfs:label "hclo4"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HF
-somac:HF rdf:type owl:NamedIndividual ,
-                 somac:InorganicCompound ;
-        owl:sameAs somac:HydrogenFluoride ;
-        rdfs:label "hf"@en .
+:HF rdf:type owl:NamedIndividual ,
+             :InorganicCompound ;
+    owl:sameAs :HydrogenFluoride ;
+    rdfs:label "hf"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HNO2
-somac:HNO2 rdf:type owl:NamedIndividual ,
-                   somac:InorganicAcid ;
-          owl:sameAs somac:NitrousAcid ;
-          rdfs:label "hno2"@en .
+:HNO2 rdf:type owl:NamedIndividual ,
+               :InorganicAcid ;
+      owl:sameAs :NitrousAcid ;
+      rdfs:label "hno2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HNO3
-somac:HNO3 rdf:type owl:NamedIndividual ,
-                   somac:InorganicAcid ;
-          owl:sameAs somac:NitricAcid ;
-          rdfs:label "hno3"@en .
+:HNO3 rdf:type owl:NamedIndividual ,
+               :InorganicAcid ;
+      owl:sameAs :NitricAcid ;
+      rdfs:label "hno3"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HNO4
-somac:HNO4 rdf:type owl:NamedIndividual ,
-                   somac:InorganicAcid ,
-                   somac:Peroxide ;
-          owl:sameAs somac:PeroxynitricAcid ;
-          rdfs:label "hno4"@en .
+:HNO4 rdf:type owl:NamedIndividual ,
+               :InorganicAcid ,
+               :Peroxide ;
+      owl:sameAs :PeroxynitricAcid ;
+      rdfs:label "hno4"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HO2
-somac:HO2 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:Hydroperoxyl ;
-         rdfs:label "ho2"@en .
+:HO2 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :Hydroperoxyl ;
+     rdfs:label "ho2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HOCl
-somac:HOCl rdf:type owl:NamedIndividual ,
-                   somac:InorganicAcid ;
-          owl:sameAs somac:HydrochlorousAcid ;
-          rdfs:label "hocl"@en .
+:HOCl rdf:type owl:NamedIndividual ,
+               :InorganicAcid ;
+      owl:sameAs :HydrochlorousAcid ;
+      rdfs:label "hocl"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HOx
-somac:HOx rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:HydrogenOxides ;
-         rdfs:label "hox"@en .
+:HOx rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :HydrogenOxides ;
+     rdfs:label "hox"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Hematite
-somac:Hematite rdf:type owl:NamedIndividual ,
-                       somac:InorganicCompound ;
-              rdfs:label "hematite"@en .
+:Hematite rdf:type owl:NamedIndividual ,
+                   :InorganicCompound ;
+          rdfs:label "hematite"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrobromousAcid
-somac:HydrobromousAcid rdf:type owl:NamedIndividual ,
-                               somac:InorganicAcid ;
-                      rdfs:label "hydrobromous acid"@en .
+:HydrobromousAcid rdf:type owl:NamedIndividual ,
+                           :InorganicAcid ;
+                  rdfs:label "hydrobromous acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrochlorousAcid
-somac:HydrochlorousAcid rdf:type owl:NamedIndividual ,
-                                somac:InorganicAcid ;
-                       rdfs:label "hydrochlorous acid"@en .
+:HydrochlorousAcid rdf:type owl:NamedIndividual ,
+                            :InorganicAcid ;
+                   rdfs:label "hydrochlorous acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrogenBromide
-somac:HydrogenBromide rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     rdfs:label "hydrogen bromide"@en .
+:HydrogenBromide rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 rdfs:label "hydrogen bromide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrogenChloride
-somac:HydrogenChloride rdf:type owl:NamedIndividual ,
-                               somac:InorganicCompound ;
-                      rdfs:label "hydrogen chloride"@en .
+:HydrogenChloride rdf:type owl:NamedIndividual ,
+                           :InorganicCompound ;
+                  rdfs:label "hydrogen chloride"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrogenFluoride
-somac:HydrogenFluoride rdf:type owl:NamedIndividual ,
-                               somac:InorganicCompound ;
-                      rdfs:label "hydrogen fluoride"@en .
+:HydrogenFluoride rdf:type owl:NamedIndividual ,
+                           :InorganicCompound ;
+                  rdfs:label "hydrogen fluoride"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrogenOxides
-somac:HydrogenOxides rdf:type owl:NamedIndividual ,
-                             somac:InorganicCompound ;
-                    rdfs:label "hydrogen oxides"@en .
+:HydrogenOxides rdf:type owl:NamedIndividual ,
+                         :InorganicCompound ;
+                rdfs:label "hydrogen oxides"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HydrogenPeroxide
-somac:HydrogenPeroxide rdf:type owl:NamedIndividual ,
-                               somac:InorganicCompound ;
-                      rdfs:label "hydrogen peroxide"@en .
+:HydrogenPeroxide rdf:type owl:NamedIndividual ,
+                           :InorganicCompound ;
+                  rdfs:label "hydrogen peroxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Hydroperoxyl
-somac:Hydroperoxyl rdf:type owl:NamedIndividual ,
-                           somac:InorganicCompound ;
-                  rdfs:label "hydroperoxyl"@en .
+:Hydroperoxyl rdf:type owl:NamedIndividual ,
+                       :InorganicCompound ;
+              rdfs:label "hydroperoxyl"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Hydroxyl
-somac:Hydroxyl rdf:type owl:NamedIndividual ,
-                       somac:InorganicCompound ;
-              owl:sameAs somac:OH ;
-              rdfs:label "hydroxyl"@en .
+:Hydroxyl rdf:type owl:NamedIndividual ,
+                   :InorganicCompound ;
+          owl:sameAs :OH ;
+          rdfs:label "hydroxyl"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HypochlorousAcid
-somac:HypochlorousAcid rdf:type owl:NamedIndividual ,
-                               somac:InorganicAcid ;
-                      rdfs:label "hypochlorous acid"@en .
+:HypochlorousAcid rdf:type owl:NamedIndividual ,
+                           :InorganicAcid ;
+                  rdfs:label "hypochlorous acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/HypochlorousMonoxide
-somac:HypochlorousMonoxide rdf:type owl:NamedIndividual ,
-                                   somac:InorganicCompound ;
-                          rdfs:label "hypochlorous monoxide"@en .
+:HypochlorousMonoxide rdf:type owl:NamedIndividual ,
+                               :InorganicCompound ;
+                      rdfs:label "hypochlorous monoxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/IronOxide
-somac:IronOxide rdf:type owl:NamedIndividual ,
-                        somac:InorganicCompound ;
-               rdfs:label "iron oxide"@en .
+:IronOxide rdf:type owl:NamedIndividual ,
+                    :InorganicCompound ;
+           rdfs:label "iron oxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Magnetite
-somac:Magnetite rdf:type owl:NamedIndividual ,
-                        somac:InorganicCompound ;
-               rdfs:label "magnetite"@en .
+:Magnetite rdf:type owl:NamedIndividual ,
+                    :InorganicCompound ;
+           rdfs:label "magnetite"@en .
 
 
 ###  http://sweetontology.net/matrCompound/N2O
-somac:N2O rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:NitrousOxide ;
-         rdfs:label "n2o"@en .
+:N2O rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :NitrousOxide ;
+     rdfs:label "n2o"@en .
 
 
 ###  http://sweetontology.net/matrCompound/N2O5
-somac:N2O5 rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          rdfs:label "n2o5"@en .
+:N2O5 rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      rdfs:label "n2o5"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NAT
-somac:NAT rdf:type owl:NamedIndividual ,
-                  somac:InorganicAcid ;
-         owl:sameAs somac:NitricAcidTrihydrate ;
-         rdfs:label "nat"@en .
+:NAT rdf:type owl:NamedIndividual ,
+              :InorganicAcid ;
+     owl:sameAs :NitricAcidTrihydrate ;
+     rdfs:label "nat"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NH3
-somac:NH3 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         rdfs:label "nh3"@en .
+:NH3 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     rdfs:label "nh3"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NO
-somac:NO rdf:type owl:NamedIndividual ,
-                 somac:InorganicCompound ;
-        owl:sameAs somac:NitricOxide ,
-                   somac:NitrogenMonoxide ;
-        rdfs:label "no"@en .
+:NO rdf:type owl:NamedIndividual ,
+             :InorganicCompound ;
+    owl:sameAs :NitricOxide ,
+               :NitrogenMonoxide ;
+    rdfs:label "no"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NO2
-somac:NO2 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:NitrogenDioxide ;
-         rdfs:label "no2"@en .
+:NO2 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :NitrogenDioxide ;
+     rdfs:label "no2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NO3
-somac:NO3 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:NitrateRadical ;
-         rdfs:label "no3"@en .
+:NO3 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :NitrateRadical ;
+     rdfs:label "no3"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NOx
-somac:NOx rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:NitrogenOxide ;
-         rdfs:label "nox"@en .
+:NOx rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :NitrogenOxide ;
+     rdfs:label "nox"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NOy
-somac:NOy rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         rdfs:label "noy"@en .
+:NOy rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     rdfs:label "noy"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NaCl
-somac:NaCl rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          owl:sameAs somac:Salt ;
-          rdfs:label "nacl"@en .
+:NaCl rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      owl:sameAs :Salt ;
+      rdfs:label "nacl"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitrateRadical
-somac:NitrateRadical rdf:type owl:NamedIndividual ,
-                             somac:InorganicCompound ;
-                    rdfs:label "nitrate radical"@en .
+:NitrateRadical rdf:type owl:NamedIndividual ,
+                         :InorganicCompound ;
+                rdfs:label "nitrate radical"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitricAcid
-somac:NitricAcid rdf:type owl:NamedIndividual ,
-                         somac:InorganicAcid ;
-                rdfs:label "nitric acid"@en .
+:NitricAcid rdf:type owl:NamedIndividual ,
+                     :InorganicAcid ;
+            rdfs:label "nitric acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitricAcidTrihydrate
-somac:NitricAcidTrihydrate rdf:type owl:NamedIndividual ,
-                                   somac:InorganicAcid ;
-                          rdfs:label "nitric acid trihydrate"@en .
+:NitricAcidTrihydrate rdf:type owl:NamedIndividual ,
+                               :InorganicAcid ;
+                      rdfs:label "nitric acid trihydrate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitricOxide
-somac:NitricOxide rdf:type owl:NamedIndividual ,
-                          somac:InorganicCompound ;
-                 rdfs:label "nitric oxide"@en .
+:NitricOxide rdf:type owl:NamedIndividual ,
+                      :InorganicCompound ;
+             rdfs:label "nitric oxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitrogenDioxide
-somac:NitrogenDioxide rdf:type owl:NamedIndividual ,
-                              somac:InorganicCompound ;
-                     rdfs:label "nitrogen dioxide"@en .
+:NitrogenDioxide rdf:type owl:NamedIndividual ,
+                          :InorganicCompound ;
+                 rdfs:label "nitrogen dioxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitrogenMonoxide
-somac:NitrogenMonoxide rdf:type owl:NamedIndividual ,
-                               somac:InorganicCompound ;
-                      rdfs:label "nitrogen monoxide"@en .
+:NitrogenMonoxide rdf:type owl:NamedIndividual ,
+                           :InorganicCompound ;
+                  rdfs:label "nitrogen monoxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitrogenOxide
-somac:NitrogenOxide rdf:type owl:NamedIndividual ,
-                            somac:InorganicCompound ;
-                   rdfs:label "nitrogen oxide"@en .
+:NitrogenOxide rdf:type owl:NamedIndividual ,
+                        :InorganicCompound ;
+               rdfs:label "nitrogen oxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitrousAcid
-somac:NitrousAcid rdf:type owl:NamedIndividual ,
-                          somac:InorganicAcid ;
-                 rdfs:label "nitrous acid"@en .
+:NitrousAcid rdf:type owl:NamedIndividual ,
+                      :InorganicAcid ;
+             rdfs:label "nitrous acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/NitrousOxide
-somac:NitrousOxide rdf:type owl:NamedIndividual ,
-                           somac:InorganicCompound ;
-                  rdfs:label "nitrous oxide"@en .
+:NitrousOxide rdf:type owl:NamedIndividual ,
+                       :InorganicCompound ;
+              rdfs:label "nitrous oxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/OH
-somac:OH rdf:type owl:NamedIndividual ,
-                 somac:InorganicCompound ;
-        rdfs:label "oh"@en .
+:OH rdf:type owl:NamedIndividual ,
+             :InorganicCompound ;
+    rdfs:label "oh"@en .
 
 
 ###  http://sweetontology.net/matrCompound/PO
-somac:PO rdf:type owl:NamedIndividual ,
-                 somac:InorganicCompound ;
-        owl:sameAs somac:Phosphate ;
-        rdfs:label "po"@en .
+:PO rdf:type owl:NamedIndividual ,
+             :InorganicCompound ;
+    owl:sameAs :Phosphate ;
+    rdfs:label "po"@en .
 
 
 ###  http://sweetontology.net/matrCompound/PerchloricAcid
-somac:PerchloricAcid rdf:type owl:NamedIndividual ,
-                             somac:InorganicAcid ;
-                    rdfs:label "perchloric acid"@en .
+:PerchloricAcid rdf:type owl:NamedIndividual ,
+                         :InorganicAcid ;
+                rdfs:label "perchloric acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/PeroxyRadical
-somac:PeroxyRadical rdf:type owl:NamedIndividual ,
-                            somac:InorganicCompound ;
-                   rdfs:label "peroxy radical"@en .
+:PeroxyRadical rdf:type owl:NamedIndividual ,
+                        :InorganicCompound ;
+               rdfs:label "peroxy radical"@en .
 
 
 ###  http://sweetontology.net/matrCompound/PeroxynitricAcid
-somac:PeroxynitricAcid rdf:type owl:NamedIndividual ,
-                               somac:InorganicAcid ;
-                      rdfs:label "peroxynitric acid"@en .
+:PeroxynitricAcid rdf:type owl:NamedIndividual ,
+                           :InorganicAcid ;
+                  rdfs:label "peroxynitric acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Phosphate
-somac:Phosphate rdf:type owl:NamedIndividual ,
-                        somac:InorganicCompound ;
-               rdfs:label "phosphate"@en .
+:Phosphate rdf:type owl:NamedIndividual ,
+                    :InorganicCompound ;
+           rdfs:label "phosphate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Rust
-somac:Rust rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          rdfs:label "rust"@en .
+:Rust rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      rdfs:label "rust"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SO2
-somac:SO2 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:SulfurDioxide ;
-         rdfs:label "so2"@en .
+:SO2 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :SulfurDioxide ;
+     rdfs:label "so2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SO4
-somac:SO4 rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:Sulfate ;
-         rdfs:label "so4"@en .
+:SO4 rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :Sulfate ;
+     rdfs:label "so4"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SOx
-somac:SOx rdf:type owl:NamedIndividual ,
-                  somac:InorganicCompound ;
-         owl:sameAs somac:SulfurOxide ;
-         rdfs:label "sox"@en .
+:SOx rdf:type owl:NamedIndividual ,
+              :InorganicCompound ;
+     owl:sameAs :SulfurOxide ;
+     rdfs:label "sox"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Salt
-somac:Salt rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          rdfs:label "salt"@en .
+:Salt rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      rdfs:label "salt"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SiO2
-somac:SiO2 rdf:type owl:NamedIndividual ,
-                   somac:InorganicCompound ;
-          owl:sameAs somac:Silica ,
-                     somac:SiliconDioxide ;
-          rdfs:label "sio2"@en .
+:SiO2 rdf:type owl:NamedIndividual ,
+               :InorganicCompound ;
+      owl:sameAs :Silica ,
+                 :SiliconDioxide ;
+      rdfs:label "sio2"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Silica
-somac:Silica rdf:type owl:NamedIndividual ,
-                     somac:InorganicCompound ;
-            rdfs:label "silica"@en .
+:Silica rdf:type owl:NamedIndividual ,
+                 :InorganicCompound ;
+        rdfs:label "silica"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Silicate
-somac:Silicate rdf:type owl:NamedIndividual ,
-                       somac:InorganicCompound ;
-              rdfs:label "silicate"@en .
+:Silicate rdf:type owl:NamedIndividual ,
+                   :InorganicCompound ;
+          rdfs:label "silicate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SiliconDioxide
-somac:SiliconDioxide rdf:type owl:NamedIndividual ,
-                             somac:InorganicCompound ;
-                    rdfs:label "silicon dioxide"@en .
+:SiliconDioxide rdf:type owl:NamedIndividual ,
+                         :InorganicCompound ;
+                rdfs:label "silicon dioxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Sulfate
-somac:Sulfate rdf:type owl:NamedIndividual ,
-                      somac:InorganicCompound ;
-             rdfs:label "sulfate"@en .
+:Sulfate rdf:type owl:NamedIndividual ,
+                  :InorganicCompound ;
+         rdfs:label "sulfate"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SulfurDioxide
-somac:SulfurDioxide rdf:type owl:NamedIndividual ,
-                            somac:InorganicCompound ;
-                   rdfs:label "sulfur dioxide"@en .
+:SulfurDioxide rdf:type owl:NamedIndividual ,
+                        :InorganicCompound ;
+               rdfs:label "sulfur dioxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SulfurOxide
-somac:SulfurOxide rdf:type owl:NamedIndividual ,
-                          somac:InorganicCompound ;
-                 rdfs:label "sulfur oxide"@en .
+:SulfurOxide rdf:type owl:NamedIndividual ,
+                      :InorganicCompound ;
+             rdfs:label "sulfur oxide"@en .
 
 
 ###  http://sweetontology.net/matrCompound/SulfuricAcid
-somac:SulfuricAcid rdf:type owl:NamedIndividual ,
-                           somac:InorganicAcid ;
-                  rdfs:label "sulfuric acid"@en .
+:SulfuricAcid rdf:type owl:NamedIndividual ,
+                       :InorganicAcid ;
+              rdfs:label "sulfuric acid"@en .
 
 
 ###  http://sweetontology.net/matrCompound/Water
-somac:Water rdf:type owl:NamedIndividual ,
-                    somac:InorganicCompound ;
-           rdfs:label "water"@en .
+:Water rdf:type owl:NamedIndividual ,
+                :InorganicCompound ;
+       rdfs:label "water"@en .
 
 
 ###  http://sweetontology.net/stateChemical/Acid
-sostc:Acid rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateChemical/Acid> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

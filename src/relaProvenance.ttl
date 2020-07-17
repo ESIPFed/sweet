@@ -1,24 +1,16 @@
 @prefix : <http://sweetontology.net/relaProvenance/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorepsc: <http://sweetontology.net/reprSciComponent/> .
-@prefix sorepdm: <http://sweetontology.net/reprDataModel/> .
-@prefix sopropo: <http://sweetontology.net/propOrdinal/> .
-@prefix soproc: <http://sweetontology.net/proc/> .
-@prefix sorepdp: <http://sweetontology.net/reprDataProduct/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorepds: <http://sweetontology.net/reprDataService/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sorelpr: <http://sweetontology.net/relaProvenance/> .
-@prefix sorepsp: <http://sweetontology.net/reprSciProvenance/> .
-@base <http://sweetontology.net/relaProvenance> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/relaProvenance/> .
 
 <http://sweetontology.net/relaProvenance> rdf:type owl:Ontology ;
+                                           owl:versionIRI <http://sweetontology.net/relaProvenance/3.6.0> ;
                                            owl:imports <http://sweetontology.net/proc> ,
                                                        <http://sweetontology.net/prop> ,
                                                        <http://sweetontology.net/propOrdinal> ,
@@ -29,168 +21,176 @@
                                                        <http://sweetontology.net/reprDataService> ,
                                                        <http://sweetontology.net/reprSciComponent> ,
                                                        <http://sweetontology.net/reprSciProvenance> ;
-                                           rdfs:label "SWEET Ontology Relationships Provenance" ;
                                            dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                           owl:versionInfo "3.5.0" .
+                                           rdfs:label "SWEET Ontology Relationships Provenance" ;
+                                           owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaProvenance/bgcolor
-sorelpr:bgcolor rdf:type owl:ObjectProperty ;
-               rdfs:label "bgcolor"@en .
+:bgcolor rdf:type owl:ObjectProperty ;
+         rdfs:label "bgcolor"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/conclusion
-sorelpr:conclusion rdf:type owl:ObjectProperty ;
-                  rdfs:label "conclusion"@en .
+:conclusion rdf:type owl:ObjectProperty ;
+            rdfs:label "conclusion"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/fillValue
-sorelpr:fillValue rdf:type owl:ObjectProperty ;
-                 rdfs:range sorepdp:FillValue ;
-                 rdfs:label "fill value"@en .
+:fillValue rdf:type owl:ObjectProperty ;
+           rdfs:range <http://sweetontology.net/reprDataProduct/FillValue> ;
+           rdfs:label "fill value"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/genesisOf
-sorelpr:genesisOf rdf:type owl:ObjectProperty ;
-                 rdfs:domain sorepsp:Genesis ;
-                 rdfs:label "genesis of"@en .
+:genesisOf rdf:type owl:ObjectProperty ;
+           rdfs:domain <http://sweetontology.net/reprSciProvenance/Genesis> ;
+           rdfs:label "genesis of"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hadProcess
-sorelpr:hadProcess rdf:type owl:ObjectProperty ;
-                  rdfs:label "had process"@en .
+:hadProcess rdf:type owl:ObjectProperty ;
+            rdfs:label "had process"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasConclusion
-sorelpr:hasConclusion rdf:type owl:ObjectProperty ;
-                     rdfs:label "has conclusion"@en .
+:hasConclusion rdf:type owl:ObjectProperty ;
+               rdfs:label "has conclusion"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasDataModel
-sorelpr:hasDataModel rdf:type owl:ObjectProperty ;
-                    rdfs:subPropertyOf sorelm:representationOf ;
-                    rdfs:range sorepdm:DataModel ;
-                    rdfs:label "has data model"@en .
+:hasDataModel rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf <http://sweetontology.net/relaMath/representationOf> ;
+              rdfs:range <http://sweetontology.net/reprDataModel/DataModel> ;
+              rdfs:label "has data model"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasDataService
-sorelpr:hasDataService rdf:type owl:ObjectProperty ;
-                      rdfs:range sorepds:DataService ;
-                      rdfs:label "has data service"@en .
+:hasDataService rdf:type owl:ObjectProperty ;
+                rdfs:range <http://sweetontology.net/reprDataService/DataService> ;
+                rdfs:label "has data service"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasGenesis
-sorelpr:hasGenesis rdf:type owl:ObjectProperty ;
-                  rdfs:range sorepsp:Genesis ;
-                  rdfs:label "has genesis"@en .
+:hasGenesis rdf:type owl:ObjectProperty ;
+            rdfs:range <http://sweetontology.net/reprSciProvenance/Genesis> ;
+            rdfs:label "has genesis"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasInferenceRule
-sorelpr:hasInferenceRule rdf:type owl:ObjectProperty ;
-                        rdfs:range sorepsp:InferenceRule ;
-                        rdfs:label "has inference rule"@en .
+:hasInferenceRule rdf:type owl:ObjectProperty ;
+                  rdfs:range <http://sweetontology.net/reprSciProvenance/InferenceRule> ;
+                  rdfs:label "has inference rule"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasProcessingLevel
-sorelpr:hasProcessingLevel rdf:type owl:ObjectProperty ;
-                          rdfs:range sopropo:ProcessingLevel ;
-                          rdfs:label "has processing level"@en .
+:hasProcessingLevel rdf:type owl:ObjectProperty ;
+                    rdfs:range <http://sweetontology.net/propOrdinal/ProcessingLevel> ;
+                    rdfs:label "has processing level"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasRule
-sorelpr:hasRule rdf:type owl:ObjectProperty ;
-               rdfs:label "has rule"@en .
+:hasRule rdf:type owl:ObjectProperty ;
+         rdfs:label "has rule"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasSource
-sorelpr:hasSource rdf:type owl:ObjectProperty ;
-                 rdfs:range sorepsc:Source ;
-                 rdfs:label "has source"@en .
+:hasSource rdf:type owl:ObjectProperty ;
+           rdfs:range <http://sweetontology.net/reprSciComponent/Source> ;
+           rdfs:label "has source"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/hasVariableMapping
-sorelpr:hasVariableMapping rdf:type owl:ObjectProperty ;
-                          rdfs:range sorepsp:VariableMapping ;
-                          rdfs:label "has variable mapping"@en .
+:hasVariableMapping rdf:type owl:ObjectProperty ;
+                    rdfs:range <http://sweetontology.net/reprSciProvenance/VariableMapping> ;
+                    rdfs:label "has variable mapping"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/reductionIn
-sorelpr:reductionIn rdf:type owl:ObjectProperty ;
-                   rdfs:range soprop:Property ;
-                   rdfs:label "reduction in"@en .
+:reductionIn rdf:type owl:ObjectProperty ;
+             rdfs:range <http://sweetontology.net/prop/Property> ;
+             rdfs:label "reduction in"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/transparent
-sorelpr:transparent rdf:type owl:ObjectProperty ;
-                   rdfs:label "transparent"@en .
+:transparent rdf:type owl:ObjectProperty ;
+             rdfs:label "transparent"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/used
-sorelpr:used rdf:type owl:ObjectProperty ;
-            rdfs:domain soproc:Process ;
-            rdfs:range sorepsp:Artifact ;
-            rdfs:label "used"@en .
+:used rdf:type owl:ObjectProperty ;
+      rdfs:domain <http://sweetontology.net/proc/Process> ;
+      rdfs:range <http://sweetontology.net/reprSciProvenance/Artifact> ;
+      rdfs:label "used"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasControlledBy
-sorelpr:wasControlledBy rdf:type owl:ObjectProperty ;
-                       rdfs:domain soproc:Process ;
-                       rdfs:range sorepsp:Artifact ;
-                       rdfs:label "was controlled by"@en .
+:wasControlledBy rdf:type owl:ObjectProperty ;
+                 rdfs:domain <http://sweetontology.net/proc/Process> ;
+                 rdfs:range <http://sweetontology.net/reprSciProvenance/Artifact> ;
+                 rdfs:label "was controlled by"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasDerivedFrom
-sorelpr:wasDerivedFrom rdf:type owl:ObjectProperty ;
-                      rdfs:domain sorepsp:Artifact ;
-                      rdfs:range sorepsp:Artifact ;
-                      rdfs:label "was derived from"@en .
+:wasDerivedFrom rdf:type owl:ObjectProperty ;
+                rdfs:domain <http://sweetontology.net/reprSciProvenance/Artifact> ;
+                rdfs:range <http://sweetontology.net/reprSciProvenance/Artifact> ;
+                rdfs:label "was derived from"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasEncodedBy
-sorelpr:wasEncodedBy rdf:type owl:ObjectProperty ;
-                    rdfs:domain sorepsp:Artifact ;
-                    rdfs:range sorepsp:Artifact ;
-                    rdfs:label "was encoded by"@en .
+:wasEncodedBy rdf:type owl:ObjectProperty ;
+              rdfs:domain <http://sweetontology.net/reprSciProvenance/Artifact> ;
+              rdfs:range <http://sweetontology.net/reprSciProvenance/Artifact> ;
+              rdfs:label "was encoded by"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasGeneratedAt
-sorelpr:wasGeneratedAt rdf:type owl:ObjectProperty ;
-                      rdfs:label "was generated at"@en .
+:wasGeneratedAt rdf:type owl:ObjectProperty ;
+                rdfs:label "was generated at"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasGeneratedBy
-sorelpr:wasGeneratedBy rdf:type owl:ObjectProperty ;
-                      rdfs:domain sorepsp:Artifact ;
-                      rdfs:range soproc:Process ;
-                      rdfs:label "was generated by"@en .
+:wasGeneratedBy rdf:type owl:ObjectProperty ;
+                rdfs:domain <http://sweetontology.net/reprSciProvenance/Artifact> ;
+                rdfs:range <http://sweetontology.net/proc/Process> ;
+                rdfs:label "was generated by"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasOperatedBy
-sorelpr:wasOperatedBy rdf:type owl:ObjectProperty ;
-                     rdfs:label "was operated by"@en .
+:wasOperatedBy rdf:type owl:ObjectProperty ;
+               rdfs:label "was operated by"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasPerformedAt
-sorelpr:wasPerformedAt rdf:type owl:ObjectProperty ;
-                      rdfs:domain soproc:Process ;
-                      rdfs:label "was performed at"@en .
+:wasPerformedAt rdf:type owl:ObjectProperty ;
+                rdfs:domain <http://sweetontology.net/proc/Process> ;
+                rdfs:label "was performed at"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasPerformedBy
-sorelpr:wasPerformedBy rdf:type owl:ObjectProperty ;
-                      rdfs:domain soproc:Process ;
-                      rdfs:range sorepsp:Agent ;
-                      rdfs:label "was performed by"@en .
+:wasPerformedBy rdf:type owl:ObjectProperty ;
+                rdfs:domain <http://sweetontology.net/proc/Process> ;
+                rdfs:range <http://sweetontology.net/reprSciProvenance/Agent> ;
+                rdfs:label "was performed by"@en .
 
 
 ###  http://sweetontology.net/relaProvenance/wasTriggeredBy
-sorelpr:wasTriggeredBy rdf:type owl:ObjectProperty ;
-                      rdfs:domain soproc:Process ;
-                      rdfs:range soproc:Process ;
-                      rdfs:label "was triggered by"@en .
+:wasTriggeredBy rdf:type owl:ObjectProperty ;
+                rdfs:domain <http://sweetontology.net/proc/Process> ;
+                rdfs:range <http://sweetontology.net/proc/Process> ;
+                rdfs:label "was triggered by"@en .
 
 
 #################################################################
@@ -198,39 +198,39 @@ sorelpr:wasTriggeredBy rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://sweetontology.net/reprDataModel/DataModel
-sorepdm:DataModel rdf:type owl:Class .
+<http://sweetontology.net/reprDataModel/DataModel> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprDataProduct/FillValue
-sorepdp:FillValue rdf:type owl:Class .
+<http://sweetontology.net/reprDataProduct/FillValue> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprDataService/DataService
-sorepds:DataService rdf:type owl:Class .
+<http://sweetontology.net/reprDataService/DataService> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciComponent/Source
-sorepsc:Source rdf:type owl:Class .
+<http://sweetontology.net/reprSciComponent/Source> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciProvenance/Agent
-sorepsp:Agent rdf:type owl:Class .
+<http://sweetontology.net/reprSciProvenance/Agent> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciProvenance/Artifact
-sorepsp:Artifact rdf:type owl:Class .
+<http://sweetontology.net/reprSciProvenance/Artifact> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciProvenance/Genesis
-sorepsp:Genesis rdf:type owl:Class .
+<http://sweetontology.net/reprSciProvenance/Genesis> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciProvenance/InferenceRule
-sorepsp:InferenceRule rdf:type owl:Class .
+<http://sweetontology.net/reprSciProvenance/InferenceRule> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciProvenance/VariableMapping
-sorepsp:VariableMapping rdf:type owl:Class .
+<http://sweetontology.net/reprSciProvenance/VariableMapping> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

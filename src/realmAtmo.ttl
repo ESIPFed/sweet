@@ -1,22 +1,16 @@
 @prefix : <http://sweetontology.net/realmAtmo/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soreaa: <http://sweetontology.net/realmAtmo/> .
-@prefix sophfi: <http://sweetontology.net/phenFluidInstability/> .
-@prefix somaae: <http://sweetontology.net/matrAerosol/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sorea: <http://sweetontology.net/realm/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix soproptg: <http://sweetontology.net/propTemperatureGradient/> .
-@base <http://sweetontology.net/realmAtmo> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/realmAtmo/> .
 
 <http://sweetontology.net/realmAtmo> rdf:type owl:Ontology ;
+                                      owl:versionIRI <http://sweetontology.net/realmAtmo/3.6.0> ;
                                       owl:imports <http://sweetontology.net/matrAerosol> ,
                                                   <http://sweetontology.net/phenAtmo> ,
                                                   <http://sweetontology.net/phenFluidInstability> ,
@@ -26,36 +20,64 @@
                                                   <http://sweetontology.net/relaChemical> ,
                                                   <http://sweetontology.net/relaPhysical> ,
                                                   <http://sweetontology.net/relaSpace> ;
-                                      rdfs:label "SWEET Ontology Realm Atmospheric" ;
                                       dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                      owl:versionInfo "3.5.0" .
+                                      rdfs:label "SWEET Ontology Realm Atmospheric" ;
+                                      owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasRealm
-sorel:hasRealm rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-sorelch:hasSubstance rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/dTdh
-sorelph:dTdh rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/dTdh> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasLowerBoundary
-sorelsp:hasLowerBoundary rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasLowerBoundary> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasUpperBoundary
-sorelsp:hasUpperBoundary rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasUpperBoundary> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -63,155 +85,204 @@ sorelsp:hasUpperBoundary rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/realmAtmo/AtmosphereLayer
-soreaa:AtmosphereLayer rdf:type owl:Class ;
-                     rdfs:subClassOf sorea:PlanetaryLayer ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorel:hasRealm ;
-                                       owl:someValuesFrom sorea:Atmosphere
-                                     ] ;
-                     rdfs:label "atmosphere layer"@en .
+:AtmosphereLayer rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryLayer> ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                   owl:someValuesFrom <http://sweetontology.net/realm/Atmosphere>
+                                 ] ;
+                 rdfs:label "atmosphere layer"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/FreeTroposphere
-soreaa:FreeTroposphere rdf:type owl:Class ;
-                     rdfs:subClassOf soreaa:Troposphere ;
-                     rdfs:label "free troposphere"@en .
+:FreeTroposphere rdf:type owl:Class ;
+                 rdfs:subClassOf :Troposphere ;
+                 rdfs:label "free troposphere"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/InversionLayer
-soreaa:InversionLayer rdf:type owl:Class ;
-                    owl:equivalentClass soreaa:TemperatureInversionLayer ;
-                    rdfs:subClassOf soreaa:AtmosphereLayer ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorel:hasPhenomena ;
-                                      owl:someValuesFrom sophfi:Inversion
-                                    ] ;
-                    rdfs:label "inversion layer"@en .
+:InversionLayer rdf:type owl:Class ;
+                owl:equivalentClass :TemperatureInversionLayer ;
+                rdfs:subClassOf :AtmosphereLayer ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                  owl:someValuesFrom <http://sweetontology.net/phenFluidInstability/Inversion>
+                                ] ;
+                rdfs:label "inversion layer"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/JungeAerosolLayer
-soreaa:JungeAerosolLayer rdf:type owl:Class ;
-                       rdfs:subClassOf soreaa:AtmosphereLayer ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorelch:hasSubstance ;
-                                         owl:allValuesFrom somaae:Aerosol
-                                       ] ;
-                       rdfs:label "junge aerosol layer"@en .
+:JungeAerosolLayer rdf:type owl:Class ;
+                   rdfs:subClassOf :AtmosphereLayer ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                     owl:allValuesFrom <http://sweetontology.net/matrAerosol/Aerosol>
+                                   ] ;
+                   rdfs:label "junge aerosol layer"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/LowerAtmosphere
-soreaa:LowerAtmosphere rdf:type owl:Class ;
-                     rdfs:subClassOf soreaa:AtmosphereLayer ;
-                     rdfs:label "lower atmosphere"@en .
+:LowerAtmosphere rdf:type owl:Class ;
+                 rdfs:subClassOf :AtmosphereLayer ;
+                 rdfs:label "lower atmosphere"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/Mesopause
-soreaa:Mesopause rdf:type owl:Class ;
-               rdfs:subClassOf sorea:PlanetaryBoundary ;
-               rdfs:label "mesopause"@en .
+:Mesopause rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> ;
+           rdfs:label "mesopause"@en ;
+           skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T11:22:51.435"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q623451> ;
+          rdfs:comment "upper boundary of the mesosphere"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q623451> .
 
 
 ###  http://sweetontology.net/realmAtmo/Mesosphere
-soreaa:Mesosphere rdf:type owl:Class ;
-                rdfs:subClassOf soreaa:AtmosphereLayer ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsp:hasLowerBoundary ;
-                                  owl:allValuesFrom soreaa:Stratopause
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsp:hasUpperBoundary ;
-                                  owl:allValuesFrom soreaa:Mesopause
-                                ] ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelph:dTdh ;
-                                  owl:hasValue soproptg:NegativeSlope
-                                ] ;
-                rdfs:label "mesosphere"@en .
+:Mesosphere rdf:type owl:Class ;
+            rdfs:subClassOf :AtmosphereLayer ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSpace/hasLowerBoundary> ;
+                              owl:allValuesFrom :Stratopause
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSpace/hasUpperBoundary> ;
+                              owl:allValuesFrom :Mesopause
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaPhysical/dTdh> ;
+                              owl:hasValue <http://sweetontology.net/propTemperatureGradient/NegativeSlope>
+                            ] ;
+            rdfs:label "mesosphere"@en ;
+            skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-17T11:22:51.517"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q162167> ;
+          rdfs:comment "layer of the atmosphere"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q162167> .
 
 
 ###  http://sweetontology.net/realmAtmo/MiddleAtmosphere
-soreaa:MiddleAtmosphere rdf:type owl:Class ;
-                      owl:equivalentClass soreaa:OzoneLayer ;
-                      rdfs:subClassOf soreaa:AtmosphereLayer ;
-                      rdfs:label "middle atmosphere"@en .
+:MiddleAtmosphere rdf:type owl:Class ;
+                  owl:equivalentClass :OzoneLayer ;
+                  rdfs:subClassOf :AtmosphereLayer ;
+                  rdfs:label "middle atmosphere"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/OzoneLayer
-soreaa:OzoneLayer rdf:type owl:Class ;
-                rdfs:label "ozone layer"@en .
+:OzoneLayer rdf:type owl:Class ;
+            rdfs:label "ozone layer"@en ;
+            skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-17T11:22:51.668"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q79995> ;
+          rdfs:comment "region of Earth's stratosphere that absorbs most of the Sun's UV radiation"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q79995> .
 
 
 ###  http://sweetontology.net/realmAtmo/Stratopause
-soreaa:Stratopause rdf:type owl:Class ;
-                 rdfs:subClassOf sorea:PlanetaryBoundary ;
-                 rdfs:label "stratopause"@en .
+:Stratopause rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> ;
+             rdfs:label "stratopause"@en ;
+             skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-17T11:22:51.749"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q205397> ;
+           rdfs:comment "upper boundary of the stratosphere"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q205397> .
 
 
 ###  http://sweetontology.net/realmAtmo/Stratosphere
-soreaa:Stratosphere rdf:type owl:Class ;
-                  rdfs:subClassOf soreaa:AtmosphereLayer ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsp:hasLowerBoundary ;
-                                    owl:allValuesFrom soreaa:Tropopause
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsp:hasUpperBoundary ;
-                                    owl:allValuesFrom soreaa:Stratopause
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelph:dTdh ;
-                                    owl:hasValue soproptg:PositiveSlope
-                                  ] ;
-                  rdfs:label "stratosphere"@en .
+:Stratosphere rdf:type owl:Class ;
+              rdfs:subClassOf :AtmosphereLayer ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSpace/hasLowerBoundary> ;
+                                owl:allValuesFrom :Tropopause
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSpace/hasUpperBoundary> ;
+                                owl:allValuesFrom :Stratopause
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaPhysical/dTdh> ;
+                                owl:hasValue <http://sweetontology.net/propTemperatureGradient/PositiveSlope>
+                              ] ;
+              rdfs:label "stratosphere"@en ;
+              skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-17T11:22:51.827"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q108376> ;
+           rdfs:comment "layer of the atmosphere"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q108376> .
 
 
 ###  http://sweetontology.net/realmAtmo/TemperatureInversionLayer
-soreaa:TemperatureInversionLayer rdf:type owl:Class ;
-                               rdfs:label "temperature inversion layer"@en .
+:TemperatureInversionLayer rdf:type owl:Class ;
+                           rdfs:label "temperature inversion layer"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/Thermosphere
-soreaa:Thermosphere rdf:type owl:Class ;
-                  rdfs:subClassOf soreaa:AtmosphereLayer ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsp:hasLowerBoundary ;
-                                    owl:allValuesFrom soreaa:Mesopause
-                                  ] ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelph:dTdh ;
-                                    owl:hasValue soproptg:PositiveSlope
-                                  ] ;
-                  rdfs:label "thermosphere"@en .
+:Thermosphere rdf:type owl:Class ;
+              rdfs:subClassOf :AtmosphereLayer ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSpace/hasLowerBoundary> ;
+                                owl:allValuesFrom :Mesopause
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaPhysical/dTdh> ;
+                                owl:hasValue <http://sweetontology.net/propTemperatureGradient/PositiveSlope>
+                              ] ;
+              rdfs:label "thermosphere"@en ;
+              skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-17T11:22:52.118"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q178043> ;
+           rdfs:comment "layer of the Earth's atmosphere above the mesosphere and below the exosphere"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q178043> .
 
 
 ###  http://sweetontology.net/realmAtmo/Tropopause
-soreaa:Tropopause rdf:type owl:Class ;
-                rdfs:subClassOf sorea:PlanetaryBoundary ;
-                rdfs:label "tropopause"@en .
+:Tropopause rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/realm/PlanetaryBoundary> ;
+            rdfs:label "tropopause"@en .
 
 
 ###  http://sweetontology.net/realmAtmo/Troposphere
-soreaa:Troposphere rdf:type owl:Class ;
-                 rdfs:subClassOf soreaa:AtmosphereLayer ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsp:hasLowerBoundary ;
-                                   owl:allValuesFrom sorea:PlanetarySurface
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsp:hasUpperBoundary ;
-                                   owl:allValuesFrom soreaa:Tropopause
-                                 ] ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelph:dTdh ;
-                                   owl:hasValue soproptg:NegativeSlope
-                                 ] ;
-                 rdfs:label "troposphere"@en .
+:Troposphere rdf:type owl:Class ;
+             rdfs:subClassOf :AtmosphereLayer ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSpace/hasLowerBoundary> ;
+                               owl:allValuesFrom <http://sweetontology.net/realm/PlanetarySurface>
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSpace/hasUpperBoundary> ;
+                               owl:allValuesFrom :Tropopause
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaPhysical/dTdh> ;
+                               owl:hasValue <http://sweetontology.net/propTemperatureGradient/NegativeSlope>
+                             ] ;
+             rdfs:label "troposphere"@en ;
+             skos:definition _:genid21 .
+
+_:genid21 dcterms:created "2020-07-17T11:22:52.269"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q40631> ;
+           rdfs:comment "lowest layer of the atmosphere"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q40631> .
 
 
 ###  http://sweetontology.net/realmAtmo/UpperAtmosphere
-soreaa:UpperAtmosphere rdf:type owl:Class ;
-                     rdfs:subClassOf soreaa:AtmosphereLayer ;
-                     rdfs:label "upper atmosphere"@en .
+:UpperAtmosphere rdf:type owl:Class ;
+                 rdfs:subClassOf :AtmosphereLayer ;
+                 rdfs:label "upper atmosphere"@en .
 
 
 #################################################################
@@ -219,11 +290,11 @@ soreaa:UpperAtmosphere rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/propTemperatureGradient/NegativeSlope
-soproptg:NegativeSlope rdf:type owl:NamedIndividual .
+<http://sweetontology.net/propTemperatureGradient/NegativeSlope> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/propTemperatureGradient/PositiveSlope
-soproptg:PositiveSlope rdf:type owl:NamedIndividual .
+<http://sweetontology.net/propTemperatureGradient/PositiveSlope> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

@@ -1,61 +1,90 @@
 @prefix : <http://sweetontology.net/reprMathGraph/> .
-@prefix sorepsmo: <http://sweetontology.net/reprSciModel/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorepsg: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix sorepm: <http://sweetontology.net/reprMath/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorepmg: <http://sweetontology.net/reprMathGraph/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@base <http://sweetontology.net/reprMathGraph> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/reprMathGraph/> .
 
 <http://sweetontology.net/reprMathGraph> rdf:type owl:Ontology ;
+                                          owl:versionIRI <http://sweetontology.net/reprMathGraph/3.6.0> ;
                                           owl:imports <http://sweetontology.net/relaMath> ,
                                                       <http://sweetontology.net/reprMath> ,
                                                       <http://sweetontology.net/reprSciModel> ,
                                                       <http://sweetontology.net/reprSpaceGeometry> ;
-                                          rdfs:label "SWEET Ontology Representation Mathematics Graph" ;
                                           dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                          owl:versionInfo "3.5.0" .
+                                          rdfs:label "SWEET Ontology Representation Mathematics Graph" ;
+                                          owl:versionInfo "3.6.0" .
 
 #################################################################
-#    Property declarations added to work around cyclic dependencies
+#    Annotation properties
 #################################################################
 
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
 
 ###  http://sweetontology.net/relaMath/eachElementHasType
-sorelm:eachElementHasType rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/eachElementHasType> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasArc
-sorelm:hasArc rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasArc> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasEdge
-sorelm:hasEdge rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasEdge> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasOrderedVertexPair
-sorelm:hasOrderedVertexPair rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasOrderedVertexPair> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasUnorderedVertexPair
-sorelm:hasUnorderedVertexPair rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasUnorderedVertexPair> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasVertex
-sorelm:hasVertex rdf:type owl:ObjectProperty .
-
-
-###  http://sweetontology.net/relaMath/hasWeight
-sorelm:hasWeight rdf:type owl:DatatypeProperty .
+<http://sweetontology.net/relaMath/hasVertex> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasWeightedEdge
-sorelm:hasWeightedEdge rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasWeightedEdge> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://sweetontology.net/relaMath/hasWeight
+<http://sweetontology.net/relaMath/hasWeight> rdf:type owl:DatatypeProperty .
 
 
 #################################################################
@@ -63,197 +92,310 @@ sorelm:hasWeightedEdge rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/reprMathGraph/Arc
-sorepmg:Arc rdf:type owl:Class ;
-          rdfs:subClassOf sorepmg:StructuralComponent ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty sorelm:hasOrderedVertexPair ;
-                            owl:cardinality "1"^^xsd:nonNegativeInteger
-                          ] ;
-          rdfs:label "arc"@en .
+:Arc rdf:type owl:Class ;
+     rdfs:subClassOf :StructuralComponent ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty <http://sweetontology.net/relaMath/hasOrderedVertexPair> ;
+                       owl:cardinality "1"^^xsd:nonNegativeInteger
+                     ] ;
+     rdfs:label "arc"@en ;
+     skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-17T11:39:43.404"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q147572> ;
+          rdfs:comment "closed segment of a differentiable curve"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q147572> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Circuit
-sorepmg:Circuit rdf:type owl:Class ;
-              owl:equivalentClass sorepmg:Cycle ;
-              rdfs:label "circuit"@en .
+:Circuit rdf:type owl:Class ;
+         owl:equivalentClass :Cycle ;
+         rdfs:label "circuit"@en ;
+         skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-17T11:39:43.480"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q718570> ;
+          rdfs:comment "administrative territorial entity"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q718570> .
 
 
 ###  http://sweetontology.net/reprMathGraph/ConnectedGraph
-sorepmg:ConnectedGraph rdf:type owl:Class ;
-                     rdfs:subClassOf sorepmg:Graph ;
-                     rdfs:label "connected graph"@en .
+:ConnectedGraph rdf:type owl:Class ;
+                rdfs:subClassOf :Graph ;
+                rdfs:label "connected graph"@en ;
+                skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T11:39:43.565"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q230655> ;
+          rdfs:comment "graph having only one connected component"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q230655> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Cycle
-sorepmg:Cycle rdf:type owl:Class ;
-            rdfs:subClassOf sorepmg:Path ,
-                            sorepsg:Path ;
-            rdfs:label "cycle"@en .
+:Cycle rdf:type owl:Class ;
+       rdfs:subClassOf :Path ,
+                       <http://sweetontology.net/reprSpaceGeometry/Path> ;
+       rdfs:label "cycle"@en ;
+       skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T11:39:43.679"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q245595> ;
+          rdfs:comment "in graph theory, path of edges and vertices wherein a vertex is reachable from itself"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q245595> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Digraph
-sorepmg:Digraph rdf:type owl:Class ;
-              owl:equivalentClass sorepmg:DirectedGraph ;
-              rdfs:label "digraph"@en .
+:Digraph rdf:type owl:Class ;
+         owl:equivalentClass :DirectedGraph ;
+         rdfs:label "digraph"@en ;
+         skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T11:39:43.753"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q191494> ;
+          rdfs:comment "pair of characters used to write one phoneme"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q191494> .
 
 
 ###  http://sweetontology.net/reprMathGraph/DirectedGraph
-sorepmg:DirectedGraph rdf:type owl:Class ;
-                    rdfs:subClassOf sorepmg:Graph ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelm:hasArc ;
-                                      owl:minCardinality "1"^^xsd:nonNegativeInteger
-                                    ] ;
-                    owl:disjointWith sorepmg:UndirectedGraph ;
-                    rdfs:label "directed graph"@en .
+:DirectedGraph rdf:type owl:Class ;
+               rdfs:subClassOf :Graph ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaMath/hasArc> ;
+                                 owl:minCardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
+               owl:disjointWith :UndirectedGraph ;
+               rdfs:label "directed graph"@en ;
+               skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-17T11:39:43.828"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1137726> ;
+          rdfs:comment "Graph with oriented edges"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1137726> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Edge
-sorepmg:Edge rdf:type owl:Class ;
-           rdfs:subClassOf sorepmg:StructuralComponent ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelm:hasUnorderedVertexPair ;
-                             owl:cardinality "1"^^xsd:nonNegativeInteger
-                           ] ;
-           rdfs:label "edge"@en .
+:Edge rdf:type owl:Class ;
+      rdfs:subClassOf :StructuralComponent ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaMath/hasUnorderedVertexPair> ;
+                        owl:cardinality "1"^^xsd:nonNegativeInteger
+                      ] ;
+      rdfs:label "edge"@en ;
+      skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-17T11:39:43.901"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q690160> ;
+           rdfs:comment "surface of a book formed by the closed pages"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q690160> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Forest
-sorepmg:Forest rdf:type owl:Class ;
-             rdfs:subClassOf sorepmg:Graph ;
-             rdfs:label "forest"@en .
+:Forest rdf:type owl:Class ;
+        rdfs:subClassOf :Graph ;
+        rdfs:label "forest"@en ;
+        skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-17T11:39:43.985"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q4421> ;
+           rdfs:comment "dense collection of trees covering a relatively large area"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q4421> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Graph
-sorepmg:Graph rdf:type owl:Class ;
-            rdfs:subClassOf sorepmg:StructuralModel ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelm:hasEdge ;
-                              owl:minCardinality "1"^^xsd:nonNegativeInteger
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelm:hasVertex ;
-                              owl:minCardinality "1"^^xsd:nonNegativeInteger
-                            ] ;
-            rdfs:label "graph"@en .
+:Graph rdf:type owl:Class ;
+       rdfs:subClassOf :StructuralModel ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaMath/hasEdge> ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaMath/hasVertex> ;
+                         owl:minCardinality "1"^^xsd:nonNegativeInteger
+                       ] ;
+       rdfs:label "graph"@en ;
+       skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-17T11:39:44.066"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q141488> ;
+           rdfs:comment "mathematical structure; representation of a set of objects where some pairs of the objects are connected by links"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q141488> .
 
 
 ###  http://sweetontology.net/reprMathGraph/IsolatedVertex
-sorepmg:IsolatedVertex rdf:type owl:Class ;
-                     rdfs:subClassOf sorepmg:Vertex ;
-                     rdfs:label "isolated vertex"@en .
+:IsolatedVertex rdf:type owl:Class ;
+                rdfs:subClassOf :Vertex ;
+                rdfs:label "isolated vertex"@en ;
+                skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-17T11:39:44.141"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q30912486> ;
+           rdfs:comment "graph vertex that is not connected with any other vertex"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q30912486> .
 
 
 ###  http://sweetontology.net/reprMathGraph/LeafNode
-sorepmg:LeafNode rdf:type owl:Class ;
-               rdfs:subClassOf sorepmg:Node ;
-               rdfs:label "leaf node"@en .
+:LeafNode rdf:type owl:Class ;
+          rdfs:subClassOf :Node ;
+          rdfs:label "leaf node"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/Loop
-sorepmg:Loop rdf:type owl:Class ;
-           rdfs:subClassOf sorepmg:Edge ;
-           rdfs:label "loop"@en .
+:Loop rdf:type owl:Class ;
+      rdfs:subClassOf :Edge ;
+      rdfs:label "loop"@en ;
+      skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-17T11:39:44.300"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q512604> ;
+           rdfs:comment "an edge in a node-link graph that connects a vertex to itself"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q512604> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Network
-sorepmg:Network rdf:type owl:Class ;
-              rdfs:subClassOf sorepmg:Graph ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelm:hasWeightedEdge ;
-                                owl:minCardinality "1"^^xsd:nonNegativeInteger
-                              ] ;
-              rdfs:label "network"@en .
+:Network rdf:type owl:Class ;
+         rdfs:subClassOf :Graph ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaMath/hasWeightedEdge> ;
+                           owl:minCardinality "1"^^xsd:nonNegativeInteger
+                         ] ;
+         rdfs:label "network"@en ;
+         skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-17T11:39:44.463"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1900326> ;
+           rdfs:comment "group of things that are connected together using some form of talking or other communication to transfer information or data"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1900326> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Node
-sorepmg:Node rdf:type owl:Class ;
-           owl:equivalentClass sorepmg:Vertex ;
-           rdfs:label "node"@en .
+:Node rdf:type owl:Class ;
+      owl:equivalentClass :Vertex ;
+      rdfs:label "node"@en ;
+      skos:definition _:genid19 .
+
+_:genid19 dcterms:created "2020-07-17T11:39:44.536"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1062658> ;
+           rdfs:comment "point along a standing wave where the wave has minimum amplitude"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1062658> .
 
 
 ###  http://sweetontology.net/reprMathGraph/OrderedVertexPair
-sorepmg:OrderedVertexPair rdf:type owl:Class ;
-                        rdfs:subClassOf sorepm:OrderedPair ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelm:eachElementHasType ;
-                                          owl:allValuesFrom sorepmg:Vertex
-                                        ] ;
-                        rdfs:label "ordered vertex pair"@en .
+:OrderedVertexPair rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/reprMath/OrderedPair> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
+                                     owl:allValuesFrom :Vertex
+                                   ] ;
+                   rdfs:label "ordered vertex pair"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/Path
-sorepmg:Path rdf:type owl:Class ;
-           rdfs:subClassOf sorepm:Array ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelm:eachElementHasType ;
-                             owl:allValuesFrom sorepmg:Edge
-                           ] ;
-           rdfs:label "path"@en .
+:Path rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/reprMath/Array> ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
+                        owl:allValuesFrom :Edge
+                      ] ;
+      rdfs:label "path"@en ;
+      skos:definition _:genid22 .
+
+_:genid22 dcterms:created "2020-07-17T11:39:44.685"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q817765> ;
+           rdfs:comment "general form of the name of a file or directory; resources can be represented by either absolute or relative paths"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q817765> .
 
 
 ###  http://sweetontology.net/reprMathGraph/StructuralComponent
-sorepmg:StructuralComponent rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmg:StructuralModel ;
-                          rdfs:label "structural component"@en .
+:StructuralComponent rdf:type owl:Class ;
+                     rdfs:subClassOf :StructuralModel ;
+                     rdfs:label "structural component"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/StructuralModel
-sorepmg:StructuralModel rdf:type owl:Class ;
-                      rdfs:subClassOf sorepsmo:Model ;
-                      rdfs:label "structural model"@en .
+:StructuralModel rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/reprSciModel/Model> ;
+                 rdfs:label "structural model"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/Tree
-sorepmg:Tree rdf:type owl:Class ;
-           rdfs:subClassOf sorepmg:Graph ;
-           rdfs:label "tree"@en .
+:Tree rdf:type owl:Class ;
+      rdfs:subClassOf :Graph ;
+      rdfs:label "tree"@en ;
+      skos:definition _:genid23 .
+
+_:genid23 dcterms:created "2020-07-17T11:39:44.965"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q10884> ;
+           rdfs:comment "perennial woody plant"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q10884> .
 
 
 ###  http://sweetontology.net/reprMathGraph/UndirectedGraph
-sorepmg:UndirectedGraph rdf:type owl:Class ;
-                      rdfs:subClassOf sorepmg:Graph ;
-                      rdfs:label "undirected graph"@en .
+:UndirectedGraph rdf:type owl:Class ;
+                 rdfs:subClassOf :Graph ;
+                 rdfs:label "undirected graph"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/UnorderedVertexPair
-sorepmg:UnorderedVertexPair rdf:type owl:Class ;
-                          rdfs:subClassOf sorepm:UnorderedPair ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelm:eachElementHasType ;
-                                            owl:allValuesFrom sorepmg:Vertex
-                                          ] ;
-                          rdfs:label "unordered vertex pair"@en .
+:UnorderedVertexPair rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/reprMath/UnorderedPair> ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/relaMath/eachElementHasType> ;
+                                       owl:allValuesFrom :Vertex
+                                     ] ;
+                     rdfs:label "unordered vertex pair"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/Vertex
-sorepmg:Vertex rdf:type owl:Class ;
-             owl:equivalentClass sorepmg:Vertice ;
-             rdfs:subClassOf sorepm:Point ,
-                             sorepmg:StructuralComponent ;
-             rdfs:label "vertex"@en .
+:Vertex rdf:type owl:Class ;
+        owl:equivalentClass :Vertice ;
+        rdfs:subClassOf <http://sweetontology.net/reprMath/Point> ,
+                        :StructuralComponent ;
+        rdfs:label "vertex"@en ;
+        skos:definition _:genid25 .
+
+_:genid25 dcterms:created "2020-07-17T11:39:45.200"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q26401> ;
+           rdfs:comment "special kind of point that describes the corners or intersections of geometric shapes"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q26401> .
 
 
 ###  http://sweetontology.net/reprMathGraph/Vertice
-sorepmg:Vertice rdf:type owl:Class ;
-              rdfs:label "vertice"@en .
+:Vertice rdf:type owl:Class ;
+         rdfs:label "vertice"@en .
 
 
 ###  http://sweetontology.net/reprMathGraph/WeightedEdge
-sorepmg:WeightedEdge rdf:type owl:Class ;
-                   rdfs:subClassOf sorepmg:Edge ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelm:hasWeight ;
-                                     owl:cardinality "1"^^xsd:nonNegativeInteger
-                                   ] ;
-                   rdfs:label "weighted edge"@en .
+:WeightedEdge rdf:type owl:Class ;
+              rdfs:subClassOf :Edge ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaMath/hasWeight> ;
+                                owl:cardinality "1"^^xsd:nonNegativeInteger
+                              ] ;
+              rdfs:label "weighted edge"@en .
 
 
 ###  http://sweetontology.net/reprSciModel/Model
-sorepsmo:Model rdf:type owl:Class .
+<http://sweetontology.net/reprSciModel/Model> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Path
-sorepsg:Path rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Path> rdf:type owl:Class .
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

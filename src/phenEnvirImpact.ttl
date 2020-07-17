@@ -1,27 +1,16 @@
 @prefix : <http://sweetontology.net/phenEnvirImpact/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix somas: <http://sweetontology.net/matrSediment/> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix somaem: <http://sweetontology.net/matrElementalMolecule/> .
-@prefix sophec: <http://sweetontology.net/phenEcology/> .
-@prefix sostri: <http://sweetontology.net/stateRoleImpact/> .
-@prefix soph: <http://sweetontology.net/phen/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sopropsh: <http://sweetontology.net/propSpaceHeight/> .
-@prefix sostrb: <http://sweetontology.net/stateRoleBiological/> .
-@prefix sophei: <http://sweetontology.net/phenEnvirImpact/> .
-@prefix sophwn: <http://sweetontology.net/phenWaveNoise/> .
-@prefix sorea: <http://sweetontology.net/realm/> .
-@prefix sostc: <http://sweetontology.net/stateChemical/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/phenEnvirImpact> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenEnvirImpact/> .
 
 <http://sweetontology.net/phenEnvirImpact> rdf:type owl:Ontology ;
+                                            owl:versionIRI <http://sweetontology.net/phenEnvirImpact/3.6.0> ;
                                             owl:imports <http://sweetontology.net/matrElementalMolecule> ,
                                                         <http://sweetontology.net/matrSediment> ,
                                                         <http://sweetontology.net/phen> ,
@@ -35,28 +24,56 @@
                                                         <http://sweetontology.net/stateChemical> ,
                                                         <http://sweetontology.net/stateRoleBiological> ,
                                                         <http://sweetontology.net/stateRoleImpact> ;
-                                            rdfs:label "SWEET Ontology Phenomena Environmental Impact" ;
                                             dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                            owl:versionInfo "3.5.0" .
+                                            rdfs:label "SWEET Ontology Phenomena Environmental Impact" ;
+                                            owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaSci/decrease
-sorelsc:decrease rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/decrease> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasImpact
-sorelsc:hasImpact rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasImpact> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasImpactOn
-sorelsc:hasImpactOn rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasImpactOn> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/rise
-sorelsc:rise rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/rise> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -64,296 +81,457 @@ sorelsc:rise rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenEnvirImpact/AirPollution
-sophei:AirPollution rdf:type owl:Class ;
-                   rdfs:subClassOf sophei:Pollution ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelsc:hasImpactOn ;
-                                     owl:someValuesFrom sorea:Atmosphere
-                                   ] ;
-                   rdfs:label "air pollution"@en .
+:AirPollution rdf:type owl:Class ;
+              rdfs:subClassOf :Pollution ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
+                                owl:someValuesFrom <http://sweetontology.net/realm/Atmosphere>
+                              ] ;
+              rdfs:label "air pollution"@en ;
+              skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-17T11:00:01.004"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q131123> ;
+          rdfs:comment "introduction of particulates, biological molecules, or other harmful materials into the Earth's atmosphere"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q131123> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/AirQuality
-sophei:AirQuality rdf:type owl:Class ;
-                 rdfs:subClassOf sophei:AirPollution ;
-                 rdfs:label "air quality"@en .
+:AirQuality rdf:type owl:Class ;
+            rdfs:subClassOf :AirPollution ;
+            rdfs:label "air quality"@en ;
+            skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-17T11:00:01.074"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q56245086> ;
+          rdfs:comment "chemical, physical, biological, and radiological characteristics of air"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q56245086> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/AlgalBloom
-sophei:AlgalBloom rdf:type owl:Class ;
-                 rdfs:subClassOf sophei:OceanEnvironmentalImpact ;
-                 rdfs:label "algal bloom"@en .
+:AlgalBloom rdf:type owl:Class ;
+            rdfs:subClassOf :OceanEnvironmentalImpact ;
+            rdfs:label "algal bloom"@en ;
+            skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T11:00:01.154"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q326139> ;
+          rdfs:comment "rapid increase or accumulation in the population of algae"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q326139> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Aridification
-sophei:Aridification rdf:type owl:Class ;
-                    rdfs:subClassOf sophei:LandEnvironmentalImpact ;
-                    rdfs:label "aridification"@en .
+:Aridification rdf:type owl:Class ;
+               rdfs:subClassOf :LandEnvironmentalImpact ;
+               rdfs:label "aridification"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Contamination
-sophei:Contamination rdf:type owl:Class ;
-                    rdfs:subClassOf sophei:EnvironmentalImpact ;
-                    rdfs:label "contamination"@en .
+:Contamination rdf:type owl:Class ;
+               rdfs:subClassOf :EnvironmentalImpact ;
+               rdfs:label "contamination"@en ;
+               skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T11:00:01.326"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q12030086> ;
+          rdfs:comment "blending of literary works, often legends or stories that results in new combinations"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q12030086> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/CoralBleaching
-sophei:CoralBleaching rdf:type owl:Class ;
-                     rdfs:subClassOf sophei:OceanEnvironmentalImpact ;
-                     rdfs:label "coral bleaching"@en .
+:CoralBleaching rdf:type owl:Class ;
+                rdfs:subClassOf :OceanEnvironmentalImpact ;
+                rdfs:label "coral bleaching"@en ;
+                skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T11:00:01.394"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q568916> ;
+          rdfs:comment "Coral bleaching occurs when relations between the coral host and zooxanthallae, which gives much of their colour breaks down"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q568916> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/DeadZone
-sophei:DeadZone rdf:type owl:Class ;
-               rdfs:subClassOf sophei:OceanEnvironmentalImpact ;
-               rdfs:label "dead zone"@en .
+:DeadZone rdf:type owl:Class ;
+          rdfs:subClassOf :OceanEnvironmentalImpact ;
+          rdfs:label "dead zone"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Deforestation
-sophei:Deforestation rdf:type owl:Class ;
-                    rdfs:subClassOf sophei:LandEnvironmentalImpact ;
-                    rdfs:label "deforestation"@en .
+:Deforestation rdf:type owl:Class ;
+               rdfs:subClassOf :LandEnvironmentalImpact ;
+               rdfs:label "deforestation"@en ;
+               skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-17T11:00:01.548"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q169940> ;
+          rdfs:comment "removal of forest and conversion of the land to non-forest use"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q169940> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Desertification
-sophei:Desertification rdf:type owl:Class ;
-                      rdfs:subClassOf sophei:LandEnvironmentalImpact ;
-                      rdfs:label "desertification"@en .
+:Desertification rdf:type owl:Class ;
+                 rdfs:subClassOf :LandEnvironmentalImpact ;
+                 rdfs:label "desertification"@en ;
+                 skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-17T11:00:01.624"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q183481> ;
+          rdfs:comment "land degradation in which an area becomes a desert, losing its bodies of water, flora, and fauna, caused by climate change, overexploitation of soil, or other causes"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q183481> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/EnvironmentalImpact
-sophei:EnvironmentalImpact rdf:type owl:Class ;
-                          rdfs:subClassOf soph:Phenomena ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelsc:hasImpact ;
-                                            owl:hasValue sostri:Hazard
-                                          ] ;
-                          rdfs:label "environmental impact"@en .
+:EnvironmentalImpact rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                                       owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                                     ] ;
+                     rdfs:label "environmental impact"@en ;
+                     skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-17T11:00:01.849"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q2022868> ;
+           rdfs:comment "factors affecting environment"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q2022868> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Eutrophication
-sophei:Eutrophication rdf:type owl:Class ;
-                     rdfs:subClassOf sophei:OceanEnvironmentalImpact ;
-                     rdfs:label "eutrophication"@en .
+:Eutrophication rdf:type owl:Class ;
+                rdfs:subClassOf :OceanEnvironmentalImpact ;
+                rdfs:label "eutrophication"@en ;
+                skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-17T11:00:01.922"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q156698> ;
+           rdfs:comment "ecosystem response to the addition of  substances"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q156698> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Extinction
-sophei:Extinction rdf:type owl:Class ;
-                 owl:equivalentClass sophei:SpeciesExtinction ;
-                 rdfs:subClassOf sophei:EnvironmentalImpact ;
-                 rdfs:label "extinction"@en .
+:Extinction rdf:type owl:Class ;
+            owl:equivalentClass :SpeciesExtinction ;
+            rdfs:subClassOf :EnvironmentalImpact ;
+            rdfs:label "extinction"@en ;
+            skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-17T11:00:02.007"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q123509> ;
+           rdfs:comment "termination of a kind of organism or of a group of species in a population or globally over certain period of time"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q123509> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/HabitatConversion
-sophei:HabitatConversion rdf:type owl:Class ;
-                        rdfs:subClassOf sophei:EnvironmentalImpact ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelsc:hasImpactOn ;
-                                          owl:someValuesFrom sostrb:Habitat
-                                        ] ;
-                        rdfs:label "habitat conversion"@en .
+:HabitatConversion rdf:type owl:Class ;
+                   rdfs:subClassOf :EnvironmentalImpact ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
+                                     owl:someValuesFrom <http://sweetontology.net/stateRoleBiological/Habitat>
+                                   ] ;
+                   rdfs:label "habitat conversion"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/HabitatFragmentation
-sophei:HabitatFragmentation rdf:type owl:Class ;
-                           rdfs:subClassOf sophei:HabitatConversion ;
-                           rdfs:label "habitat fragmentation"@en .
+:HabitatFragmentation rdf:type owl:Class ;
+                      rdfs:subClassOf :HabitatConversion ;
+                      rdfs:label "habitat fragmentation"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/IndoorAirQuality
-sophei:IndoorAirQuality rdf:type owl:Class ;
-                       rdfs:subClassOf sophei:AirQuality ;
-                       rdfs:label "indoor air quality"@en .
+:IndoorAirQuality rdf:type owl:Class ;
+                  rdfs:subClassOf :AirQuality ;
+                  rdfs:label "indoor air quality"@en ;
+                  skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-17T11:00:02.217"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q905504> ;
+           rdfs:comment "air quality within and around buildings and structures"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q905504> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/InvasiveSpecies
-sophei:InvasiveSpecies rdf:type owl:Class ;
-                      rdfs:subClassOf sophei:EnvironmentalImpact ;
-                      rdfs:label "invasive species"@en .
+:InvasiveSpecies rdf:type owl:Class ;
+                 rdfs:subClassOf :EnvironmentalImpact ;
+                 rdfs:label "invasive species"@en ;
+                 skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-17T11:00:02.293"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q183368> ;
+           rdfs:comment "organism occurring in a new habitat"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q183368> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/LandDegradation
-sophei:LandDegradation rdf:type owl:Class ;
-                      rdfs:subClassOf sophei:LandEnvironmentalImpact ;
-                      rdfs:label "land degradation"@en .
+:LandDegradation rdf:type owl:Class ;
+                 rdfs:subClassOf :LandEnvironmentalImpact ;
+                 rdfs:label "land degradation"@en ;
+                 skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-17T11:00:02.356"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3497778> ;
+           rdfs:comment "process in which the value of the biophysical environment is affected by a combination of human-induced processes acting upon the land"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q3497778> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/LandEnvironmentalImpact
-sophei:LandEnvironmentalImpact rdf:type owl:Class ;
-                              rdfs:subClassOf sophei:EnvironmentalImpact ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty sorelsc:hasImpactOn ;
-                                                owl:someValuesFrom sorea:Land
-                                              ] ;
-                              rdfs:label "land environmental impact"@en .
+:LandEnvironmentalImpact rdf:type owl:Class ;
+                         rdfs:subClassOf :EnvironmentalImpact ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
+                                           owl:someValuesFrom <http://sweetontology.net/realm/Land>
+                                         ] ;
+                         rdfs:label "land environmental impact"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/MassExtinctionEvent
-sophei:MassExtinctionEvent rdf:type owl:Class ;
-                          rdfs:subClassOf soph:ExtremeEvent ,
-                                          sophei:EnvironmentalImpact ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelsc:hasImpact ;
-                                            owl:someValuesFrom sophei:Extinction
-                                          ] ;
-                          rdfs:label "mass extinction event"@en .
+:MassExtinctionEvent rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/phen/ExtremeEvent> ,
+                                     :EnvironmentalImpact ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                                       owl:someValuesFrom :Extinction
+                                     ] ;
+                     rdfs:label "mass extinction event"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/NoisePollution
-sophei:NoisePollution rdf:type owl:Class ;
-                     rdfs:subClassOf sophei:Pollution ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelsc:hasImpactOn ;
-                                       owl:someValuesFrom sophwn:Noise
-                                     ] ;
-                     rdfs:label "noise pollution"@en .
+:NoisePollution rdf:type owl:Class ;
+                rdfs:subClassOf :Pollution ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
+                                  owl:someValuesFrom <http://sweetontology.net/phenWaveNoise/Noise>
+                                ] ;
+                rdfs:label "noise pollution"@en ;
+                skos:definition _:genid20 .
+
+_:genid20 dcterms:created "2020-07-17T11:00:02.561"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q92251> ;
+           rdfs:comment "excessive, displeasing human, animal, or machine-created environmental noise"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q92251> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/NutrientLoading
-sophei:NutrientLoading rdf:type owl:Class ;
-                      rdfs:subClassOf sophei:EnvironmentalImpact ;
-                      rdfs:label "nutrient loading"@en .
+:NutrientLoading rdf:type owl:Class ;
+                 rdfs:subClassOf :EnvironmentalImpact ;
+                 rdfs:label "nutrient loading"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/OceanAcidification
-sophei:OceanAcidification rdf:type owl:Class ;
-                         rdfs:subClassOf sophei:OceanEnvironmentalImpact ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorel:hasState ;
-                                           owl:hasValue sostc:Acid
-                                         ] ;
-                         rdfs:label "ocean acidification"@en .
+:OceanAcidification rdf:type owl:Class ;
+                    rdfs:subClassOf :OceanEnvironmentalImpact ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                      owl:hasValue <http://sweetontology.net/stateChemical/Acid>
+                                    ] ;
+                    rdfs:label "ocean acidification"@en ;
+                    skos:definition _:genid22 .
+
+_:genid22 dcterms:created "2020-07-17T11:00:02.707"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q855711> ;
+           rdfs:comment "decrease in the pH of the Earth's oceans"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q855711> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/OceanEnvironmentalImpact
-sophei:OceanEnvironmentalImpact rdf:type owl:Class ;
-                               rdfs:subClassOf sophei:EnvironmentalImpact ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty sorelsc:hasImpactOn ;
-                                                 owl:someValuesFrom sorea:Ocean
-                                               ] ;
-                               rdfs:label "ocean environmental impact"@en .
+:OceanEnvironmentalImpact rdf:type owl:Class ;
+                          rdfs:subClassOf :EnvironmentalImpact ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
+                                            owl:someValuesFrom <http://sweetontology.net/realm/Ocean>
+                                          ] ;
+                          rdfs:label "ocean environmental impact"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/OilSpill
-sophei:OilSpill rdf:type owl:Class ;
-               rdfs:subClassOf sophei:Spill ;
-               rdfs:label "oil spill"@en .
+:OilSpill rdf:type owl:Class ;
+          rdfs:subClassOf :Spill ;
+          rdfs:label "oil spill"@en ;
+          skos:definition _:genid24 .
+
+_:genid24 dcterms:created "2020-07-17T11:00:02.857"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q220187> ;
+           rdfs:comment "release of a liquid petroleum hydrocarbon into the environment, especially marine areas, due to human activity"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q220187> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/OzoneDepletion
-sophei:OzoneDepletion rdf:type owl:Class ;
-                     owl:equivalentClass sophei:OzoneHole ;
-                     rdfs:label "ozone depletion"@en .
+:OzoneDepletion rdf:type owl:Class ;
+                owl:equivalentClass :OzoneHole ;
+                rdfs:label "ozone depletion"@en ;
+                skos:definition _:genid25 .
+
+_:genid25 dcterms:created "2020-07-17T11:00:02.935"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q183140> ;
+           rdfs:comment "stratospheric phenomena of Earth"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q183140> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/OzoneHole
-sophei:OzoneHole rdf:type owl:Class ;
-                rdfs:subClassOf sophei:AirPollution ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsc:decrease ;
-                                  owl:hasValue somaem:Ozone
-                                ] ;
-                rdfs:label "ozone hole"@en .
+:OzoneHole rdf:type owl:Class ;
+           rdfs:subClassOf :AirPollution ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/decrease> ;
+                             owl:hasValue <http://sweetontology.net/matrElementalMolecule/Ozone>
+                           ] ;
+           rdfs:label "ozone hole"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/PhotochemicalAirPollution
-sophei:PhotochemicalAirPollution rdf:type owl:Class ;
-                                rdfs:subClassOf sophei:AirPollution ;
-                                rdfs:label "photochemical air pollution"@en .
+:PhotochemicalAirPollution rdf:type owl:Class ;
+                           rdfs:subClassOf :AirPollution ;
+                           rdfs:label "photochemical air pollution"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Pollution
-sophei:Pollution rdf:type owl:Class ;
-                rdfs:subClassOf sophei:EnvironmentalImpact ;
-                rdfs:label "pollution"@en .
+:Pollution rdf:type owl:Class ;
+           rdfs:subClassOf :EnvironmentalImpact ;
+           rdfs:label "pollution"@en ;
+           skos:definition _:genid27 .
+
+_:genid27 dcterms:created "2020-07-17T11:00:03.176"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q58734> ;
+           rdfs:comment "introduction of contaminants into the natural environment that cause adverse change"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q58734> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/RangeChange
-sophei:RangeChange rdf:type owl:Class ;
-                  rdfs:subClassOf sophei:EnvironmentalImpact ;
-                  rdfs:label "range change"@en .
+:RangeChange rdf:type owl:Class ;
+             rdfs:subClassOf :EnvironmentalImpact ;
+             rdfs:label "range change"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/SaltWaterIntrusion
-sophei:SaltWaterIntrusion rdf:type owl:Class ;
-                         rdfs:subClassOf sophei:WaterPollution ;
-                         rdfs:label "salt water intrusion"@en .
+:SaltWaterIntrusion rdf:type owl:Class ;
+                    rdfs:subClassOf :WaterPollution ;
+                    rdfs:label "salt water intrusion"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/SeaLevelRise
-sophei:SeaLevelRise rdf:type owl:Class ;
-                   rdfs:subClassOf sophei:OceanEnvironmentalImpact ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelsc:rise ;
-                                     owl:allValuesFrom sopropsh:SeaLevel
-                                   ] ;
-                   rdfs:label "sea level rise"@en .
+:SeaLevelRise rdf:type owl:Class ;
+              rdfs:subClassOf :OceanEnvironmentalImpact ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/rise> ;
+                                owl:allValuesFrom <http://sweetontology.net/propSpaceHeight/SeaLevel>
+                              ] ;
+              rdfs:label "sea level rise"@en ;
+              skos:definition _:genid29 .
+
+_:genid29 dcterms:created "2020-07-17T11:00:03.385"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q841083> ;
+           rdfs:comment "current long-term trend for sea levels to rise mainly in response to global warming."@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q841083> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/SoilLoss
-sophei:SoilLoss rdf:type owl:Class ;
-               rdfs:subClassOf sophei:LandEnvironmentalImpact ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelsc:decrease ;
-                                 owl:someValuesFrom somas:Soil
-                               ] ;
-               rdfs:label "soil loss"@en .
+:SoilLoss rdf:type owl:Class ;
+          rdfs:subClassOf :LandEnvironmentalImpact ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSci/decrease> ;
+                            owl:someValuesFrom <http://sweetontology.net/matrSediment/Soil>
+                          ] ;
+          rdfs:label "soil loss"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/SpeciesExtinction
-sophei:SpeciesExtinction rdf:type owl:Class ;
-                        rdfs:label "species extinction"@en .
+:SpeciesExtinction rdf:type owl:Class ;
+                   rdfs:label "species extinction"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Spill
-sophei:Spill rdf:type owl:Class ;
-            rdfs:subClassOf sophei:EnvironmentalImpact ;
-            rdfs:label "spill"@en .
+:Spill rdf:type owl:Class ;
+       rdfs:subClassOf :EnvironmentalImpact ;
+       rdfs:label "spill"@en ;
+       skos:definition _:genid31 .
+
+_:genid31 dcterms:created "2020-07-17T11:00:03.639"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7577264> ;
+           rdfs:comment "sound picked up from a source other than intended"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q7577264> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Toxicity
-sophei:Toxicity rdf:type owl:Class ;
-               rdfs:subClassOf sophei:EnvironmentalImpact ;
-               rdfs:label "toxicity"@en .
+:Toxicity rdf:type owl:Class ;
+          rdfs:subClassOf :EnvironmentalImpact ;
+          rdfs:label "toxicity"@en ;
+          skos:definition _:genid32 .
+
+_:genid32 dcterms:created "2020-07-17T11:00:03.707"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q274160> ;
+           rdfs:comment "degree to which a substance or phenomenon can damage an organism"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q274160> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/Upconing
-sophei:Upconing rdf:type owl:Class ;
-               rdfs:subClassOf sophei:SaltWaterIntrusion ;
-               rdfs:label "upconing"@en .
+:Upconing rdf:type owl:Class ;
+          rdfs:subClassOf :SaltWaterIntrusion ;
+          rdfs:label "upconing"@en .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/WaterPollution
-sophei:WaterPollution rdf:type owl:Class ;
-                     rdfs:subClassOf sophei:Pollution ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelsc:hasImpactOn ;
-                                       owl:someValuesFrom sorea:Hydrosphere
-                                     ] ;
-                     rdfs:label "water pollution"@en .
+:WaterPollution rdf:type owl:Class ;
+                rdfs:subClassOf :Pollution ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaSci/hasImpactOn> ;
+                                  owl:someValuesFrom <http://sweetontology.net/realm/Hydrosphere>
+                                ] ;
+                rdfs:label "water pollution"@en ;
+                skos:definition _:genid34 .
+
+_:genid34 dcterms:created "2020-07-17T11:00:03.854"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q183129> ;
+           rdfs:comment "contamination of water bodies"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q183129> .
 
 
 ###  http://sweetontology.net/phenEnvirImpact/WaterQuality
-sophei:WaterQuality rdf:type owl:Class ;
-                   rdfs:subClassOf sophei:WaterPollution ;
-                   rdfs:label "water quality"@en .
+:WaterQuality rdf:type owl:Class ;
+              rdfs:subClassOf :WaterPollution ;
+              rdfs:label "water quality"@en ;
+              skos:definition _:genid35 .
+
+_:genid35 dcterms:created "2020-07-17T11:00:04.186"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q625376> ;
+           rdfs:comment "chemical, physical, biological, and radiological characteristics of water"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q625376> .
 
 
 ###  http://sweetontology.net/phenWaveNoise/Noise
-sophwn:Noise rdf:type owl:Class .
+<http://sweetontology.net/phenWaveNoise/Noise> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceHeight/SeaLevel
-sopropsh:SeaLevel rdf:type owl:Class .
+<http://sweetontology.net/propSpaceHeight/SeaLevel> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/Hydrosphere
-sorea:Hydrosphere rdf:type owl:Class .
+<http://sweetontology.net/realm/Hydrosphere> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/stateRoleBiological/Habitat
-sostrb:Habitat rdf:type owl:Class .
+<http://sweetontology.net/stateRoleBiological/Habitat> rdf:type owl:Class .
 
 
 #################################################################
@@ -361,11 +539,11 @@ sostrb:Habitat rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/stateChemical/Acid
-sostc:Acid rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateChemical/Acid> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateRoleImpact/Hazard
-sostri:Hazard rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateRoleImpact/Hazard> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

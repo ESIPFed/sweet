@@ -1,22 +1,16 @@
 @prefix : <http://sweetontology.net/reprMathStatistics/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sohur: <http://sweetontology.net/humanResearch/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorepmf: <http://sweetontology.net/reprMathFunction/> .
-@prefix sorepm: <http://sweetontology.net/reprMath/> .
-@prefix sorepsmo: <http://sweetontology.net/reprSciModel/> .
-@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorepmst: <http://sweetontology.net/reprMathStatistics/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sostsy: <http://sweetontology.net/stateSystem/> .
-@base <http://sweetontology.net/reprMathStatistics> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/reprMathStatistics/> .
 
 <http://sweetontology.net/reprMathStatistics> rdf:type owl:Ontology ;
+                                               owl:versionIRI <http://sweetontology.net/reprMathStatistics/3.6.0> ;
                                                owl:imports <http://sweetontology.net/humanResearch> ,
                                                            <http://sweetontology.net/rela> ,
                                                            <http://sweetontology.net/relaMath> ,
@@ -24,20 +18,48 @@
                                                            <http://sweetontology.net/reprMathFunction> ,
                                                            <http://sweetontology.net/reprMathOperation> ,
                                                            <http://sweetontology.net/stateSystem> ;
-                                               rdfs:label "SWEET Ontology Representation Mathematics Statistics" ;
                                                dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                               owl:versionInfo "3.5.0" .
+                                               rdfs:label "SWEET Ontology Representation Mathematics Statistics" ;
+                                               owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasState
-sorel:hasState rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasStatisticalDistribution
-sorelm:hasStatisticalDistribution rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasStatisticalDistribution> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -45,127 +67,177 @@ sorelm:hasStatisticalDistribution rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/humanResearch/Sample
-sohur:Sample rdf:type owl:Class .
+<http://sweetontology.net/humanResearch/Sample> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathStatistics/ANOVA
-sorepmst:ANOVA rdf:type owl:Class ;
-           owl:equivalentClass sorepmst:AnalysisOfVariance ;
-           rdfs:label "anova"@en .
+:ANOVA rdf:type owl:Class ;
+       owl:equivalentClass :AnalysisOfVariance ;
+       rdfs:label "anova"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/AnalysisOfVariance
-sorepmst:AnalysisOfVariance rdf:type owl:Class ;
-                        rdfs:subClassOf sorepmst:HypothesisTest ;
-                        rdfs:label "analysis of variance"@en .
+:AnalysisOfVariance rdf:type owl:Class ;
+                    rdfs:subClassOf :HypothesisTest ;
+                    rdfs:label "analysis of variance"@en ;
+                    skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-17T11:40:51.418"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q42297> ;
+          rdfs:comment "collection of statistical models used to analyze the differences between group means and their associated procedures"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q42297> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/ChiSquareTest
-sorepmst:ChiSquareTest rdf:type owl:Class ;
-                   rdfs:subClassOf sorepmst:HypothesisTest ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelm:hasStatisticalDistribution ;
-                                     owl:allValuesFrom sorepmf:ChiSquare
-                                   ] ;
-                   rdfs:label "chi square test"@en .
+:ChiSquareTest rdf:type owl:Class ;
+               rdfs:subClassOf :HypothesisTest ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaMath/hasStatisticalDistribution> ;
+                                 owl:allValuesFrom <http://sweetontology.net/reprMathFunction/ChiSquare>
+                               ] ;
+               rdfs:label "chi square test"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/GeneralLinearModel
-sorepmst:GeneralLinearModel rdf:type owl:Class ;
-                        rdfs:subClassOf sorepmst:Regression ;
-                        rdfs:label "general linear model"@en .
+:GeneralLinearModel rdf:type owl:Class ;
+                    rdfs:subClassOf :Regression ;
+                    rdfs:label "general linear model"@en ;
+                    skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-17T11:40:51.575"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1826488> ;
+          rdfs:comment "statistical linear model"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1826488> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/GoodnessOfFit
-sorepmst:GoodnessOfFit rdf:type owl:Class ;
-                   rdfs:subClassOf sorepmst:Statistics ;
-                   rdfs:label "goodness of fit"@en .
+:GoodnessOfFit rdf:type owl:Class ;
+               rdfs:subClassOf :Statistics ;
+               rdfs:label "goodness of fit"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/HypothesisTest
-sorepmst:HypothesisTest rdf:type owl:Class ;
-                    rdfs:subClassOf sorepmst:StatisticalInference ;
-                    rdfs:label "hypothesis test"@en .
+:HypothesisTest rdf:type owl:Class ;
+                rdfs:subClassOf :StatisticalInference ;
+                rdfs:label "hypothesis test"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/OLS
-sorepmst:OLS rdf:type owl:Class ;
-         owl:equivalentClass sorepmst:OrdinaryLeastSquares ;
-         rdfs:label "ols"@en .
+:OLS rdf:type owl:Class ;
+     owl:equivalentClass :OrdinaryLeastSquares ;
+     rdfs:label "ols"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/OrdinaryLeastSquares
-sorepmst:OrdinaryLeastSquares rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmst:Regression ;
-                          rdfs:label "ordinary least squares"@en .
+:OrdinaryLeastSquares rdf:type owl:Class ;
+                      rdfs:subClassOf :Regression ;
+                      rdfs:label "ordinary least squares"@en ;
+                      skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T11:40:51.992"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q2912993> ;
+          rdfs:comment "method for estimating the unknown parameters in a linear regression model"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q2912993> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/Regression
-sorepmst:Regression rdf:type owl:Class ;
-                rdfs:subClassOf sorepmst:StatisticalOperation ;
-                rdfs:label "regression"@en .
+:Regression rdf:type owl:Class ;
+            rdfs:subClassOf :StatisticalOperation ;
+            rdfs:label "regression"@en ;
+            skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T11:40:52.068"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1139051> ;
+          rdfs:comment "defence mechanism"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1139051> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/SampleStatistics
-sorepmst:SampleStatistics rdf:type owl:Class ;
-                      rdfs:subClassOf sorepmst:Statistics ;
-                      rdfs:label "sample statistics"@en .
+:SampleStatistics rdf:type owl:Class ;
+                  rdfs:subClassOf :Statistics ;
+                  rdfs:label "sample statistics"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/Sampling
-sorepmst:Sampling rdf:type owl:Class ;
-              rdfs:subClassOf sorepmst:StatisticalOperation , sorepsmo:Sampling ;
-              rdfs:label "sampling"@en .
+:Sampling rdf:type owl:Class ;
+          rdfs:subClassOf :StatisticalOperation ,
+                          <http://sweetontology.net/reprSciModel/Sampling> ;
+          rdfs:label "sampling"@en ;
+          skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T11:40:52.217"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q49908> ;
+          rdfs:comment "selection of data points in statistics."@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q49908> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/StatisticalDistribution
-sorepmst:StatisticalDistribution rdf:type owl:Class ;
-                             rdfs:subClassOf sorepmf:DistributionFunction ;
-                             rdfs:label "statistical distribution"@en .
+:StatisticalDistribution rdf:type owl:Class ;
+                         rdfs:subClassOf <http://sweetontology.net/reprMathFunction/DistributionFunction> ;
+                         rdfs:label "statistical distribution"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/StatisticalInference
-sorepmst:StatisticalInference rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmst:StatisticalOperation ;
-                          rdfs:label "statistical inference"@en .
+:StatisticalInference rdf:type owl:Class ;
+                      rdfs:subClassOf :StatisticalOperation ;
+                      rdfs:label "statistical inference"@en ;
+                      skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-17T11:40:52.380"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q938438> ;
+          rdfs:comment "process of deducing properties of an underlying probability distribution by analysis of data"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q938438> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/StatisticalOperation
-sorepmst:StatisticalOperation rdf:type owl:Class ;
-                          rdfs:subClassOf sorepmo:Operation ;
-                          rdfs:label "statistical operation"@en .
+:StatisticalOperation rdf:type owl:Class ;
+                      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Operation> ;
+                      rdfs:label "statistical operation"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/StatisticalSample
-sorepmst:StatisticalSample rdf:type owl:Class ;
-                       rdfs:subClassOf sorepsmo:Sample ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorel:hasState ;
-                                         owl:hasValue sostsy:Random
-                                       ] ;
-                       rdfs:label "statistical sample"@en .
+:StatisticalSample rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/reprSciModel/Sample> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                     owl:hasValue <http://sweetontology.net/stateSystem/Random>
+                                   ] ;
+                   rdfs:label "statistical sample"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/Statistics
-sorepmst:Statistics rdf:type owl:Class ;
-                rdfs:subClassOf sorepm:NumericalEntity ;
-                rdfs:label "statistics"@en .
+:Statistics rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/reprMath/NumericalEntity> ;
+            rdfs:label "statistics"@en ;
+            skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-17T11:40:52.604"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q12483> ;
+          rdfs:comment "study of the collection, organization, analysis, interpretation, and presentation of data"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q12483> .
 
 
 ###  http://sweetontology.net/reprMathStatistics/ZTest
-sorepmst:ZTest rdf:type owl:Class ;
-           rdfs:subClassOf sorepmst:HypothesisTest ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelm:hasStatisticalDistribution ;
-                             owl:allValuesFrom sorepmf:Normal
-                           ] ;
-           rdfs:label "z test"@en .
+:ZTest rdf:type owl:Class ;
+       rdfs:subClassOf :HypothesisTest ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaMath/hasStatisticalDistribution> ;
+                         owl:allValuesFrom <http://sweetontology.net/reprMathFunction/Normal>
+                       ] ;
+       rdfs:label "z test"@en .
 
 
 ###  http://sweetontology.net/reprMathStatistics/tTest
-sorepmst:tTest rdf:type owl:Class ;
-           rdfs:subClassOf sorepmst:HypothesisTest ;
-           rdfs:label "t test"@en .
+:tTest rdf:type owl:Class ;
+       rdfs:subClassOf :HypothesisTest ;
+       rdfs:label "t test"@en .
 
 
 #################################################################
@@ -173,7 +245,7 @@ sorepmst:tTest rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/stateSystem/Random
-sostsy:Random rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateSystem/Random> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

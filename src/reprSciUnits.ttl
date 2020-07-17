@@ -1,68 +1,94 @@
 @prefix : <http://sweetontology.net/reprSciUnits/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorep: <http://sweetontology.net/repr/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/reprSciUnits> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/reprSciUnits/> .
 
 <http://sweetontology.net/reprSciUnits> rdf:type owl:Ontology ;
+                                         owl:versionIRI <http://sweetontology.net/reprSciUnits/3.6.0> ;
                                          owl:imports <http://sweetontology.net/relaMath> ,
                                                      <http://sweetontology.net/relaSci> ,
                                                      <http://sweetontology.net/repr> ,
                                                      <http://sweetontology.net/reprMathOperation> ;
-                                         rdfs:label "SWEET Ontology Representation Scientific Units" ;
                                          dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                         owl:versionInfo "3.5.0" .
+                                         rdfs:label "SWEET Ontology Representation Scientific Units" ;
+                                         owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://sweetontology.net/relaSci/hasBaseUnit
-sorelsc:hasBaseUnit rdf:type owl:ObjectProperty .
-
-
-###  http://sweetontology.net/relaSci/hasPrefix
-sorelsc:hasPrefix rdf:type owl:ObjectProperty .
-
-
 ###  http://sweetontology.net/relaMath/hasOperand
-sorelm:hasOperand rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasOperand> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasScale
-sorelm:hasScale rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasScale> rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaSci/hasBaseUnit
+<http://sweetontology.net/relaSci/hasBaseUnit> rdf:type owl:ObjectProperty .
+
+
+###  http://sweetontology.net/relaSci/hasPrefix
+<http://sweetontology.net/relaSci/hasPrefix> rdf:type owl:ObjectProperty .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://sweetontology.net/relaSci/hasNumericValue
-sorelsc:hasNumericValue rdf:type owl:DatatypeProperty .
-
-
 ###  http://sweetontology.net/relaMath/hasScalingNumber
-sorelm:hasScalingNumber rdf:type owl:DatatypeProperty .
+<http://sweetontology.net/relaMath/hasScalingNumber> rdf:type owl:DatatypeProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasShiftingNumber
-sorelm:hasShiftingNumber rdf:type owl:DatatypeProperty .
-
-
-###  http://sweetontology.net/relaSci/hasSymbol
-sorelsc:hasSymbol rdf:type owl:DatatypeProperty .
+<http://sweetontology.net/relaMath/hasShiftingNumber> rdf:type owl:DatatypeProperty .
 
 
 ###  http://sweetontology.net/relaMath/toThePower
-sorelm:toThePower rdf:type owl:DatatypeProperty .
+<http://sweetontology.net/relaMath/toThePower> rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaSci/hasNumericValue
+<http://sweetontology.net/relaSci/hasNumericValue> rdf:type owl:DatatypeProperty .
+
+
+###  http://sweetontology.net/relaSci/hasSymbol
+<http://sweetontology.net/relaSci/hasSymbol> rdf:type owl:DatatypeProperty .
 
 
 #################################################################
@@ -70,63 +96,77 @@ sorelm:toThePower rdf:type owl:DatatypeProperty .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/BaseUnit
-sorepsu:BaseUnit rdf:type owl:Class ;
-               rdfs:subClassOf sorepsu:Unit ;
-               owl:disjointWith sorepsu:ComplexUnit ;
-               rdfs:label "base unit"@en .
+:BaseUnit rdf:type owl:Class ;
+          rdfs:subClassOf :Unit ;
+          owl:disjointWith :ComplexUnit ;
+          rdfs:label "base unit"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ComplexUnit
-sorepsu:ComplexUnit rdf:type owl:Class ;
-                  rdfs:subClassOf sorepsu:Unit ;
-                  rdfs:label "complex unit"@en .
+:ComplexUnit rdf:type owl:Class ;
+             rdfs:subClassOf :Unit ;
+             rdfs:label "complex unit"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/LogarithmicUnit
-sorepsu:LogarithmicUnit rdf:type owl:Class ;
-                      rdfs:subClassOf sorepsu:Unit ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelm:hasScale ;
-                                        owl:allValuesFrom sorep:LogarithmicScale
-                                      ] ;
-                      rdfs:label "logarithmic unit"@en .
+:LogarithmicUnit rdf:type owl:Class ;
+                 rdfs:subClassOf :Unit ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaMath/hasScale> ;
+                                   owl:allValuesFrom <http://sweetontology.net/repr/LogarithmicScale>
+                                 ] ;
+                 rdfs:label "logarithmic unit"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/Prefix
-sorepsu:Prefix rdf:type owl:Class ;
-             rdfs:subClassOf sorep:Measurement ;
-             rdfs:label "prefix"@en .
+:Prefix rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/repr/Measurement> ;
+        rdfs:label "prefix"@en ;
+        skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-17T11:43:13.188"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q134830> ;
+          rdfs:comment "affix which is placed before the stem of a word"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q134830> .
 
 
 ###  http://sweetontology.net/reprSciUnits/Unit
-sorepsu:Unit rdf:type owl:Class ;
-           rdfs:subClassOf sorep:Measurement ;
-           rdfs:label "unit"@en .
+:Unit rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/repr/Measurement> ;
+      rdfs:label "unit"@en ;
+      skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-17T11:43:13.265"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q118084> ;
+          rdfs:comment "in mathematics, an invertible element or a unit in a ring R"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q118084> .
 
 
 ###  http://sweetontology.net/reprSciUnits/UnitDefinedByProduct
-sorepsu:UnitDefinedByProduct rdf:type owl:Class ;
-                           rdfs:subClassOf sorepmo:Product ,
-                                           sorepsu:ComplexUnit ;
-                           rdfs:label "unit defined by product"@en .
+:UnitDefinedByProduct rdf:type owl:Class ;
+                      rdfs:subClassOf <http://sweetontology.net/reprMathOperation/Product> ,
+                                      :ComplexUnit ;
+                      rdfs:label "unit defined by product"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/UnitDerivedByRaisingToPower
-sorepsu:UnitDerivedByRaisingToPower rdf:type owl:Class ;
-                                  rdfs:subClassOf sorepsu:ComplexUnit ;
-                                  rdfs:label "unit derived by raising to power"@en .
+:UnitDerivedByRaisingToPower rdf:type owl:Class ;
+                             rdfs:subClassOf :ComplexUnit ;
+                             rdfs:label "unit derived by raising to power"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/UnitDerivedByScaling
-sorepsu:UnitDerivedByScaling rdf:type owl:Class ;
-                           rdfs:subClassOf sorepsu:ComplexUnit ;
-                           rdfs:label "unit derived by scaling"@en .
+:UnitDerivedByScaling rdf:type owl:Class ;
+                      rdfs:subClassOf :ComplexUnit ;
+                      rdfs:label "unit derived by scaling"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/UnitDerivedByShifting
-sorepsu:UnitDerivedByShifting rdf:type owl:Class ;
-                            rdfs:subClassOf sorepsu:ComplexUnit ;
-                            rdfs:label "unit derived by shifting"@en .
+:UnitDerivedByShifting rdf:type owl:Class ;
+                       rdfs:subClassOf :ComplexUnit ;
+                       rdfs:label "unit derived by shifting"@en .
 
 
 #################################################################
@@ -134,1231 +174,1231 @@ sorepsu:UnitDerivedByShifting rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/FNU
-sorepsu:FNU rdf:type owl:NamedIndividual ,
-                   sorepsu:Unit ;
-          owl:sameAs sorepsu:FTU ;
-          rdfs:label "fnu"@en .
+:FNU rdf:type owl:NamedIndividual ,
+              :Unit ;
+     owl:sameAs :FTU ;
+     rdfs:label "fnu"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/FTU
-sorepsu:FTU rdf:type owl:NamedIndividual ,
-                   sorepsu:Unit ;
-          owl:sameAs sorepsu:FormazinTurbidityUnit ;
-          rdfs:label "ftu"@en .
+:FTU rdf:type owl:NamedIndividual ,
+              :Unit ;
+     owl:sameAs :FormazinTurbidityUnit ;
+     rdfs:label "ftu"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/FormazinTurbidityUnit
-sorepsu:FormazinTurbidityUnit rdf:type owl:NamedIndividual ,
-                                     sorepsu:Unit ;
-                            rdfs:label "formazin turbidity unit"@en .
+:FormazinTurbidityUnit rdf:type owl:NamedIndividual ,
+                                :Unit ;
+                       rdfs:label "formazin turbidity unit"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/MHz
-sorepsu:MHz rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDerivedByScaling ;
-          owl:sameAs sorepsu:megahertz ;
-          rdfs:label "mhz"@en .
+:MHz rdf:type owl:NamedIndividual ,
+              :UnitDerivedByScaling ;
+     owl:sameAs :megahertz ;
+     rdfs:label "mhz"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/MYA
-sorepsu:MYA rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDerivedByScaling ;
-          sorelm:hasScalingNumber "1000.0"^^xsd:double ;
-          sorelsc:hasBaseUnit sorepsu:year ;
-          rdfs:label "mya"@en .
+:MYA rdf:type owl:NamedIndividual ,
+              :UnitDerivedByScaling ;
+     <http://sweetontology.net/relaSci/hasBaseUnit> :year ;
+     <http://sweetontology.net/relaMath/hasScalingNumber> "1000.0"^^xsd:double ;
+     rdfs:label "mya"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ampere
-sorepsu:ampere rdf:type owl:NamedIndividual ,
-                      sorepsu:BaseUnit ;
-             sorelsc:hasSymbol "a" ;
-             rdfs:label "ampere"@en .
+:ampere rdf:type owl:NamedIndividual ,
+                 :BaseUnit ;
+        <http://sweetontology.net/relaSci/hasSymbol> "a" ;
+        rdfs:label "ampere"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/amperePerMeter
-sorepsu:amperePerMeter rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDefinedByProduct ;
-                     sorelm:hasOperand sorepsu:ampere ,
-                                      sorepsu:perMeter ;
-                     rdfs:label "ampere per meter"@en .
+:amperePerMeter rdf:type owl:NamedIndividual ,
+                         :UnitDefinedByProduct ;
+                <http://sweetontology.net/relaMath/hasOperand> :ampere ,
+                                                               :perMeter ;
+                rdfs:label "ampere per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/amperePerMeterSquared
-sorepsu:amperePerMeterSquared rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:ampere ,
-                                             sorepsu:perMeterSquared ;
-                            rdfs:label "ampere per meter squared"@en .
+:amperePerMeterSquared rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :ampere ,
+                                                                      :perMeterSquared ;
+                       rdfs:label "ampere per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ampereSquared
-sorepsu:ampereSquared rdf:type owl:NamedIndividual ,
-                             sorepsu:UnitDerivedByRaisingToPower ;
-                    sorelm:toThePower "2.0"^^xsd:double ;
-                    sorelsc:hasBaseUnit sorepsu:ampere ;
-                    rdfs:label "ampere squared"@en .
+:ampereSquared rdf:type owl:NamedIndividual ,
+                        :UnitDerivedByRaisingToPower ;
+               <http://sweetontology.net/relaSci/hasBaseUnit> :ampere ;
+               <http://sweetontology.net/relaMath/toThePower> "2.0"^^xsd:double ;
+               rdfs:label "ampere squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/arcminute
-sorepsu:arcminute rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "2.909E-4"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:radian ;
-                rdfs:label "arcminute"@en .
+:arcminute rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :radian ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "2.909E-4"^^xsd:double ;
+           rdfs:label "arcminute"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/arcsecond
-sorepsu:arcsecond rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "4.848E-6"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:radian ;
-                rdfs:label "arcsecond"@en .
+:arcsecond rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :radian ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "4.848E-6"^^xsd:double ;
+           rdfs:label "arcsecond"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/candela
-sorepsu:candela rdf:type owl:NamedIndividual ,
-                       sorepsu:BaseUnit ;
-              sorelsc:hasSymbol "cd" ;
-              rdfs:label "candela"@en .
+:candela rdf:type owl:NamedIndividual ,
+                  :BaseUnit ;
+         <http://sweetontology.net/relaSci/hasSymbol> "cd" ;
+         rdfs:label "candela"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/candelaPerMeterSquared
-sorepsu:candelaPerMeterSquared rdf:type owl:NamedIndividual ,
-                                      sorepsu:UnitDefinedByProduct ;
-                             sorelm:hasOperand sorepsu:candela ,
-                                              sorepsu:perMeterSquared ;
-                             rdfs:label "candela per meter squared"@en .
+:candelaPerMeterSquared rdf:type owl:NamedIndividual ,
+                                 :UnitDefinedByProduct ;
+                        <http://sweetontology.net/relaMath/hasOperand> :candela ,
+                                                                       :perMeterSquared ;
+                        rdfs:label "candela per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/centi
-sorepsu:centi rdf:type owl:NamedIndividual ,
-                     sorepsu:Prefix ;
-            sorelsc:hasNumericValue "0.01"^^xsd:double ;
-            sorelsc:hasSymbol "c" ;
-            rdfs:label "centi"@en .
+:centi rdf:type owl:NamedIndividual ,
+                :Prefix ;
+       <http://sweetontology.net/relaSci/hasNumericValue> "0.01"^^xsd:double ;
+       <http://sweetontology.net/relaSci/hasSymbol> "c" ;
+       rdfs:label "centi"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/centimeter
-sorepsu:centimeter rdf:type owl:NamedIndividual ,
-                          sorepsu:UnitDerivedByScaling ;
-                 sorelm:hasScalingNumber "0.01"^^xsd:double ;
-                 sorelsc:hasBaseUnit sorepsu:meter ;
-                 sorelsc:hasPrefix sorepsu:centi ;
-                 rdfs:label "centimeter"@en .
+:centimeter rdf:type owl:NamedIndividual ,
+                     :UnitDerivedByScaling ;
+            <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+            <http://sweetontology.net/relaSci/hasPrefix> :centi ;
+            <http://sweetontology.net/relaMath/hasScalingNumber> "0.01"^^xsd:double ;
+            rdfs:label "centimeter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/century
-sorepsu:century rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByScaling ;
-              sorelm:hasScalingNumber "3.1556926E9"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:second ;
-              rdfs:label "century"@en .
+:century rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByScaling ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+         <http://sweetontology.net/relaMath/hasScalingNumber> "3.1556926E9"^^xsd:double ;
+         rdfs:label "century"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulomb
-sorepsu:coulomb rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDefinedByProduct ;
-              sorelm:hasOperand sorepsu:ampere ,
-                               sorepsu:second ;
-              sorelsc:hasSymbol "C" ;
-              rdfs:label "coulomb"@en .
+:coulomb rdf:type owl:NamedIndividual ,
+                  :UnitDefinedByProduct ;
+         <http://sweetontology.net/relaMath/hasOperand> :ampere ,
+                                                        :second ;
+         <http://sweetontology.net/relaSci/hasSymbol> "C" ;
+         rdfs:label "coulomb"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulombMeter
-sorepsu:coulombMeter rdf:type owl:NamedIndividual ,
-                            sorepsu:UnitDefinedByProduct ;
-                   sorelm:hasOperand sorepsu:coulomb ,
-                                    sorepsu:meter ;
-                   rdfs:label "coulomb meter"@en .
+:coulombMeter rdf:type owl:NamedIndividual ,
+                       :UnitDefinedByProduct ;
+              <http://sweetontology.net/relaMath/hasOperand> :coulomb ,
+                                                             :meter ;
+              rdfs:label "coulomb meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulombPerMeterCubed
-sorepsu:coulombPerMeterCubed rdf:type owl:NamedIndividual ,
-                                    sorepsu:UnitDefinedByProduct ;
-                           sorelm:hasOperand sorepsu:coulomb ,
-                                            sorepsu:perMeterCubed ;
-                           rdfs:label "coulomb per meter cubed"@en .
+:coulombPerMeterCubed rdf:type owl:NamedIndividual ,
+                               :UnitDefinedByProduct ;
+                      <http://sweetontology.net/relaMath/hasOperand> :coulomb ,
+                                                                     :perMeterCubed ;
+                      rdfs:label "coulomb per meter cubed"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/coulombPerMeterSquared
-sorepsu:coulombPerMeterSquared rdf:type owl:NamedIndividual ,
-                                      sorepsu:UnitDefinedByProduct ;
-                             sorelm:hasOperand sorepsu:coulomb ,
-                                              sorepsu:perMeterSquared ;
-                             rdfs:label "coulomb per meter squared"@en .
+:coulombPerMeterSquared rdf:type owl:NamedIndividual ,
+                                 :UnitDefinedByProduct ;
+                        <http://sweetontology.net/relaMath/hasOperand> :coulomb ,
+                                                                       :perMeterSquared ;
+                        rdfs:label "coulomb per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/day
-sorepsu:day rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDerivedByScaling ;
-          sorelm:hasScalingNumber "86400.0"^^xsd:double ;
-          sorelsc:hasBaseUnit sorepsu:second ;
-          rdfs:label "day"@en .
+:day rdf:type owl:NamedIndividual ,
+              :UnitDerivedByScaling ;
+     <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+     <http://sweetontology.net/relaMath/hasScalingNumber> "86400.0"^^xsd:double ;
+     rdfs:label "day"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/db
-sorepsu:db rdf:type owl:NamedIndividual ,
-                  sorepsu:LogarithmicUnit ;
-         rdfs:label "db"@en .
+:db rdf:type owl:NamedIndividual ,
+             :LogarithmicUnit ;
+    rdfs:label "db"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/deca
-sorepsu:deca rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "10.0"^^xsd:double ;
-           sorelsc:hasSymbol "da" ;
-           rdfs:label "deca"@en .
+:deca rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "10.0"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "da" ;
+      rdfs:label "deca"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/decade
-sorepsu:decade rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDerivedByScaling ;
-             sorelm:hasScalingNumber "3.1556926E8"^^xsd:double ;
-             sorelsc:hasBaseUnit sorepsu:second ;
-             rdfs:label "decade"@en .
+:decade rdf:type owl:NamedIndividual ,
+                 :UnitDerivedByScaling ;
+        <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+        <http://sweetontology.net/relaMath/hasScalingNumber> "3.1556926E8"^^xsd:double ;
+        rdfs:label "decade"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/degreeC
-sorepsu:degreeC rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByShifting ;
-              sorelm:hasShiftingNumber "-273.0"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:kelvin ;
-              sorelsc:hasSymbol "C" ;
-              rdfs:label "degree c"@en .
+:degreeC rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByShifting ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :kelvin ;
+         <http://sweetontology.net/relaMath/hasShiftingNumber> "-273.0"^^xsd:double ;
+         <http://sweetontology.net/relaSci/hasSymbol> "C" ;
+         rdfs:label "degree c"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/degreeF
-sorepsu:degreeF rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByShifting ;
-              sorelm:hasScalingNumber "1.8"^^xsd:double ;
-              sorelm:hasShiftingNumber "32.0"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:degreeC ;
-              rdfs:label "degree f"@en .
+:degreeF rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByShifting ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :degreeC ;
+         <http://sweetontology.net/relaMath/hasScalingNumber> "1.8"^^xsd:double ;
+         <http://sweetontology.net/relaMath/hasShiftingNumber> "32.0"^^xsd:double ;
+         rdfs:label "degree f"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/degrees
-sorepsu:degrees rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByScaling ;
-              sorelm:hasScalingNumber "57.2957795"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:radian ;
-              rdfs:label "degrees"@en .
+:degrees rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByScaling ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :radian ;
+         <http://sweetontology.net/relaMath/hasScalingNumber> "57.2957795"^^xsd:double ;
+         rdfs:label "degrees"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/dimensionlessUnit
-sorepsu:dimensionlessUnit rdf:type owl:NamedIndividual ,
-                                 sorepsu:BaseUnit ;
-                        rdfs:label "dimensionless unit"@en .
+:dimensionlessUnit rdf:type owl:NamedIndividual ,
+                            :BaseUnit ;
+                   rdfs:label "dimensionless unit"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/exa
-sorepsu:exa rdf:type owl:NamedIndividual ,
-                   sorepsu:Prefix ;
-          sorelsc:hasNumericValue "1.0E18"^^xsd:double ;
-          sorelsc:hasSymbol "E" ;
-          rdfs:label "exa"@en .
+:exa rdf:type owl:NamedIndividual ,
+              :Prefix ;
+     <http://sweetontology.net/relaSci/hasNumericValue> "1.0E18"^^xsd:double ;
+     <http://sweetontology.net/relaSci/hasSymbol> "E" ;
+     rdfs:label "exa"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/farad
-sorepsu:farad rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDefinedByProduct ;
-            sorelm:hasOperand sorepsu:coulomb ,
-                             sorepsu:perVolt ;
-            sorelsc:hasSymbol "F" ;
-            rdfs:label "farad"@en .
+:farad rdf:type owl:NamedIndividual ,
+                :UnitDefinedByProduct ;
+       <http://sweetontology.net/relaMath/hasOperand> :coulomb ,
+                                                      :perVolt ;
+       <http://sweetontology.net/relaSci/hasSymbol> "F" ;
+       rdfs:label "farad"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/faradPerMeter
-sorepsu:faradPerMeter rdf:type owl:NamedIndividual ,
-                             sorepsu:UnitDefinedByProduct ;
-                    sorelm:hasOperand sorepsu:farad ,
-                                     sorepsu:perMeter ;
-                    rdfs:label "farad per meter"@en .
+:faradPerMeter rdf:type owl:NamedIndividual ,
+                        :UnitDefinedByProduct ;
+               <http://sweetontology.net/relaMath/hasOperand> :farad ,
+                                                              :perMeter ;
+               rdfs:label "farad per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/giga
-sorepsu:giga rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "1.0E9"^^xsd:double ;
-           sorelsc:hasSymbol "G" ;
-           rdfs:label "giga"@en .
+:giga rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "1.0E9"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "G" ;
+      rdfs:label "giga"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/gigahertz
-sorepsu:gigahertz rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1.0E9"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:hertz ;
-                sorelsc:hasPrefix sorepsu:giga ;
-                rdfs:label "gigahertz"@en .
+:gigahertz rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :hertz ;
+           <http://sweetontology.net/relaSci/hasPrefix> :giga ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E9"^^xsd:double ;
+           rdfs:label "gigahertz"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/hecto
-sorepsu:hecto rdf:type owl:NamedIndividual ,
-                     sorepsu:Prefix ;
-            sorelsc:hasNumericValue "100.0"^^xsd:double ;
-            sorelsc:hasSymbol "h" ;
-            rdfs:label "hecto"@en .
+:hecto rdf:type owl:NamedIndividual ,
+                :Prefix ;
+       <http://sweetontology.net/relaSci/hasNumericValue> "100.0"^^xsd:double ;
+       <http://sweetontology.net/relaSci/hasSymbol> "h" ;
+       rdfs:label "hecto"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/henry
-sorepsu:henry rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDefinedByProduct ;
-            sorelm:hasOperand sorepsu:kilogram ,
-                             sorepsu:meterSquared ,
-                             sorepsu:perAmpereSquared ,
-                             sorepsu:perSecondSquared ;
-            rdfs:label "henry"@en .
+:henry rdf:type owl:NamedIndividual ,
+                :UnitDefinedByProduct ;
+       <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                      :meterSquared ,
+                                                      :perAmpereSquared ,
+                                                      :perSecondSquared ;
+       rdfs:label "henry"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/henryPerMeter
-sorepsu:henryPerMeter rdf:type owl:NamedIndividual ,
-                             sorepsu:UnitDefinedByProduct ;
-                    sorelm:hasOperand sorepsu:henry ,
-                                     sorepsu:perMeter ;
-                    rdfs:label "henry per meter"@en .
+:henryPerMeter rdf:type owl:NamedIndividual ,
+                        :UnitDefinedByProduct ;
+               <http://sweetontology.net/relaMath/hasOperand> :henry ,
+                                                              :perMeter ;
+               rdfs:label "henry per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/hertz
-sorepsu:hertz rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDerivedByRaisingToPower ;
-            owl:sameAs sorepsu:perSecond ;
-            rdfs:label "hertz"@en .
+:hertz rdf:type owl:NamedIndividual ,
+                :UnitDerivedByRaisingToPower ;
+       owl:sameAs :perSecond ;
+       rdfs:label "hertz"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/hour
-sorepsu:hour rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDerivedByScaling ;
-           sorelm:hasScalingNumber "3600.0"^^xsd:double ;
-           sorelsc:hasBaseUnit sorepsu:second ;
-           rdfs:label "hour"@en .
+:hour rdf:type owl:NamedIndividual ,
+               :UnitDerivedByScaling ;
+      <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+      <http://sweetontology.net/relaMath/hasScalingNumber> "3600.0"^^xsd:double ;
+      rdfs:label "hour"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joule
-sorepsu:joule rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDefinedByProduct ;
-            sorelm:hasOperand sorepsu:kilogram ,
-                             sorepsu:perSecondSquared ;
-            sorelsc:hasSymbol "J" ;
-            rdfs:label "joule"@en .
+:joule rdf:type owl:NamedIndividual ,
+                :UnitDefinedByProduct ;
+       <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                      :perSecondSquared ;
+       <http://sweetontology.net/relaSci/hasSymbol> "J" ;
+       rdfs:label "joule"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerKelvin
-sorepsu:joulePerKelvin rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDefinedByProduct ;
-                     sorelm:hasOperand sorepsu:joule ,
-                                      sorepsu:perKelvin ;
-                     rdfs:label "joule per kelvin"@en .
+:joulePerKelvin rdf:type owl:NamedIndividual ,
+                         :UnitDefinedByProduct ;
+                <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                               :perKelvin ;
+                rdfs:label "joule per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerKilogram
-sorepsu:joulePerKilogram rdf:type owl:NamedIndividual ,
-                                sorepsu:UnitDefinedByProduct ;
-                       sorelm:hasOperand sorepsu:joule ,
-                                        sorepsu:perKilogram ;
-                       rdfs:label "joule per kilogram"@en .
+:joulePerKilogram rdf:type owl:NamedIndividual ,
+                           :UnitDefinedByProduct ;
+                  <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                                 :perKilogram ;
+                  rdfs:label "joule per kilogram"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerKilogramPerKelvin
-sorepsu:joulePerKilogramPerKelvin rdf:type owl:NamedIndividual ,
-                                         sorepsu:UnitDefinedByProduct ;
-                                sorelm:hasOperand sorepsu:joule ,
-                                                 sorepsu:perKelvin ,
-                                                 sorepsu:perKilogram ;
-                                rdfs:label "joule per kilogram per kelvin"@en .
+:joulePerKilogramPerKelvin rdf:type owl:NamedIndividual ,
+                                    :UnitDefinedByProduct ;
+                           <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                                          :perKelvin ,
+                                                                          :perKilogram ;
+                           rdfs:label "joule per kilogram per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerMeterCubedPerKelvin
-sorepsu:joulePerMeterCubedPerKelvin rdf:type owl:NamedIndividual ,
-                                           sorepsu:UnitDefinedByProduct ;
-                                  sorelm:hasOperand sorepsu:joule ,
-                                                   sorepsu:perKelvin ,
-                                                   sorepsu:perMeterCubed ;
-                                  rdfs:label "joule per meter cubed per kelvin"@en .
+:joulePerMeterCubedPerKelvin rdf:type owl:NamedIndividual ,
+                                      :UnitDefinedByProduct ;
+                             <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                                            :perKelvin ,
+                                                                            :perMeterCubed ;
+                             rdfs:label "joule per meter cubed per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerMeterSquared
-sorepsu:joulePerMeterSquared rdf:type owl:NamedIndividual ,
-                                    sorepsu:UnitDefinedByProduct ;
-                           sorelm:hasOperand sorepsu:joule ,
-                                            sorepsu:perMeterSquared ;
-                           rdfs:label "joule per meter squared"@en .
+:joulePerMeterSquared rdf:type owl:NamedIndividual ,
+                               :UnitDefinedByProduct ;
+                      <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                                     :perMeterSquared ;
+                      rdfs:label "joule per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerMolePerKelvin
-sorepsu:joulePerMolePerKelvin rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:joule ,
-                                             sorepsu:perKelvin ,
-                                             sorepsu:perMole ;
-                            rdfs:label "joule per mole per kelvin"@en .
+:joulePerMolePerKelvin rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                                      :perKelvin ,
+                                                                      :perMole ;
+                       rdfs:label "joule per mole per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerTesla
-sorepsu:joulePerTesla rdf:type owl:NamedIndividual ,
-                             sorepsu:UnitDefinedByProduct ;
-                    sorelm:hasOperand sorepsu:joule ,
-                                     sorepsu:perTesla ;
-                    rdfs:label "joule per tesla"@en .
+:joulePerTesla rdf:type owl:NamedIndividual ,
+                        :UnitDefinedByProduct ;
+               <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                              :perTesla ;
+               rdfs:label "joule per tesla"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/jouleSecond
-sorepsu:jouleSecond rdf:type owl:NamedIndividual ,
-                           sorepsu:UnitDefinedByProduct ;
-                  sorelm:hasOperand sorepsu:joule ,
-                                   sorepsu:second ;
-                  rdfs:label "joule second"@en .
+:jouleSecond rdf:type owl:NamedIndividual ,
+                      :UnitDefinedByProduct ;
+             <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                            :second ;
+             rdfs:label "joule second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kelvin
-sorepsu:kelvin rdf:type owl:NamedIndividual ,
-                      sorepsu:BaseUnit ;
-             sorelsc:hasSymbol "K" ;
-             rdfs:label "kelvin"@en .
+:kelvin rdf:type owl:NamedIndividual ,
+                 :BaseUnit ;
+        <http://sweetontology.net/relaSci/hasSymbol> "K" ;
+        rdfs:label "kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kelvinPerMeter
-sorepsu:kelvinPerMeter rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDefinedByProduct ;
-                     sorelm:hasOperand sorepsu:kelvin ,
-                                      sorepsu:perMeter ;
-                     rdfs:label "kelvin per meter"@en .
+:kelvinPerMeter rdf:type owl:NamedIndividual ,
+                         :UnitDefinedByProduct ;
+                <http://sweetontology.net/relaMath/hasOperand> :kelvin ,
+                                                               :perMeter ;
+                rdfs:label "kelvin per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilo
-sorepsu:kilo rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "1000.0"^^xsd:double ;
-           sorelsc:hasSymbol "k" ;
-           rdfs:label "kilo"@en .
+:kilo rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "1000.0"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "k" ;
+      rdfs:label "kilo"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogram
-sorepsu:kilogram rdf:type owl:NamedIndividual ,
-                        sorepsu:BaseUnit ;
-               sorelsc:hasSymbol "kg" ;
-               rdfs:label "kilogram"@en .
+:kilogram rdf:type owl:NamedIndividual ,
+                   :BaseUnit ;
+          <http://sweetontology.net/relaSci/hasSymbol> "kg" ;
+          rdfs:label "kilogram"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogramMeterPerSecond
-sorepsu:kilogramMeterPerSecond rdf:type owl:NamedIndividual ,
-                                      sorepsu:UnitDefinedByProduct ;
-                             sorelm:hasOperand sorepsu:kilogram ,
-                                              sorepsu:meter ,
-                                              sorepsu:perSecond ;
-                             rdfs:label "kilogram meter per second"@en .
+:kilogramMeterPerSecond rdf:type owl:NamedIndividual ,
+                                 :UnitDefinedByProduct ;
+                        <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                                       :meter ,
+                                                                       :perSecond ;
+                        rdfs:label "kilogram meter per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogramPerMeterCubed
-sorepsu:kilogramPerMeterCubed rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:kilogram ,
-                                             sorepsu:perMeterCubed ;
-                            rdfs:label "kilogram per meter cubed"@en .
+:kilogramPerMeterCubed rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                                      :perMeterCubed ;
+                       rdfs:label "kilogram per meter cubed"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogramPerMeterSquared
-sorepsu:kilogramPerMeterSquared rdf:type owl:NamedIndividual ,
-                                       sorepsu:UnitDefinedByProduct ;
-                              sorelm:hasOperand sorepsu:kilogram ,
-                                               sorepsu:perMeterSquared ;
-                              rdfs:label "kilogram per meter squared"@en .
+:kilogramPerMeterSquared rdf:type owl:NamedIndividual ,
+                                  :UnitDefinedByProduct ;
+                         <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                                        :perMeterSquared ;
+                         rdfs:label "kilogram per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilogramRadianPerSecond
-sorepsu:kilogramRadianPerSecond rdf:type owl:NamedIndividual ,
-                                       sorepsu:UnitDefinedByProduct ;
-                              sorelm:hasOperand sorepsu:kilogram ,
-                                               sorepsu:perSecond ,
-                                               sorepsu:radian ;
-                              rdfs:label "kilogram radian per second"@en .
+:kilogramRadianPerSecond rdf:type owl:NamedIndividual ,
+                                  :UnitDefinedByProduct ;
+                         <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                                        :perSecond ,
+                                                                        :radian ;
+                         rdfs:label "kilogram radian per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilohertz
-sorepsu:kilohertz rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1000.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:hertz ;
-                sorelsc:hasPrefix sorepsu:kilo ;
-                rdfs:label "kilohertz"@en .
+:kilohertz rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :hertz ;
+           <http://sweetontology.net/relaSci/hasPrefix> :kilo ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1000.0"^^xsd:double ;
+           rdfs:label "kilohertz"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilometer
-sorepsu:kilometer rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1000.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:meter ;
-                sorelsc:hasPrefix sorepsu:kilo ;
-                rdfs:label "kilometer"@en .
+:kilometer rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+           <http://sweetontology.net/relaSci/hasPrefix> :kilo ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1000.0"^^xsd:double ;
+           rdfs:label "kilometer"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/kilometerPerHour
-sorepsu:kilometerPerHour rdf:type owl:NamedIndividual ,
-                                sorepsu:UnitDerivedByScaling ;
-                       sorelm:hasScalingNumber "0.27777777"^^xsd:double ;
-                       sorelsc:hasBaseUnit sorepsu:meterPerSecond ;
-                       rdfs:label "kilometer per hour"@en .
+:kilometerPerHour rdf:type owl:NamedIndividual ,
+                           :UnitDerivedByScaling ;
+                  <http://sweetontology.net/relaSci/hasBaseUnit> :meterPerSecond ;
+                  <http://sweetontology.net/relaMath/hasScalingNumber> "0.27777777"^^xsd:double ;
+                  rdfs:label "kilometer per hour"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/lumen
-sorepsu:lumen rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDefinedByProduct ;
-            sorelm:hasOperand sorepsu:candela ,
-                             sorepsu:steradian ;
-            rdfs:label "lumen"@en .
+:lumen rdf:type owl:NamedIndividual ,
+                :UnitDefinedByProduct ;
+       <http://sweetontology.net/relaMath/hasOperand> :candela ,
+                                                      :steradian ;
+       rdfs:label "lumen"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/lux
-sorepsu:lux rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDefinedByProduct ;
-          sorelm:hasOperand sorepsu:candela ,
-                           sorepsu:lumen ,
-                           sorepsu:perMeterSquared ;
-          sorelsc:hasSymbol "Lx" ;
-          rdfs:label "lux"@en .
+:lux rdf:type owl:NamedIndividual ,
+              :UnitDefinedByProduct ;
+     <http://sweetontology.net/relaMath/hasOperand> :candela ,
+                                                    :lumen ,
+                                                    :perMeterSquared ;
+     <http://sweetontology.net/relaSci/hasSymbol> "Lx" ;
+     rdfs:label "lux"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/mega
-sorepsu:mega rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "1000000.0"^^xsd:double ;
-           sorelsc:hasSymbol "M" ;
-           rdfs:label "mega"@en .
+:mega rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "1000000.0"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "M" ;
+      rdfs:label "mega"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/megahertz
-sorepsu:megahertz rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1000000.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:hertz ;
-                sorelsc:hasPrefix sorepsu:mega ;
-                rdfs:label "megahertz"@en .
+:megahertz rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :hertz ;
+           <http://sweetontology.net/relaSci/hasPrefix> :mega ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1000000.0"^^xsd:double ;
+           rdfs:label "megahertz"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meter
-sorepsu:meter rdf:type owl:NamedIndividual ,
-                     sorepsu:BaseUnit ;
-            owl:sameAs sorepsu:metre ;
-            sorelsc:hasSymbol "m" ;
-            rdfs:label "meter"@en .
+:meter rdf:type owl:NamedIndividual ,
+                :BaseUnit ;
+       owl:sameAs :metre ;
+       <http://sweetontology.net/relaSci/hasSymbol> "m" ;
+       rdfs:label "meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterCubed
-sorepsu:meterCubed rdf:type owl:NamedIndividual ,
-                          sorepsu:UnitDerivedByRaisingToPower ;
-                 sorelm:toThePower "3.0"^^xsd:double ;
-                 sorelsc:hasBaseUnit sorepsu:meter ;
-                 rdfs:label "meter cubed"@en .
+:meterCubed rdf:type owl:NamedIndividual ,
+                     :UnitDerivedByRaisingToPower ;
+            <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+            <http://sweetontology.net/relaMath/toThePower> "3.0"^^xsd:double ;
+            rdfs:label "meter cubed"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterCubedPerKelvin
-sorepsu:meterCubedPerKelvin rdf:type owl:NamedIndividual ,
-                                   sorepsu:UnitDefinedByProduct ;
-                          sorelm:hasOperand sorepsu:meterCubed ,
-                                           sorepsu:perKelvin ;
-                          rdfs:label "meter cubed per kelvin"@en .
+:meterCubedPerKelvin rdf:type owl:NamedIndividual ,
+                              :UnitDefinedByProduct ;
+                     <http://sweetontology.net/relaMath/hasOperand> :meterCubed ,
+                                                                    :perKelvin ;
+                     rdfs:label "meter cubed per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterCubedPerKilogram
-sorepsu:meterCubedPerKilogram rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:meterCubed ,
-                                             sorepsu:perKilogram ;
-                            rdfs:label "meter cubed per kilogram"@en .
+:meterCubedPerKilogram rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :meterCubed ,
+                                                                      :perKilogram ;
+                       rdfs:label "meter cubed per kilogram"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterCubedPerSecond
-sorepsu:meterCubedPerSecond rdf:type owl:NamedIndividual ,
-                                   sorepsu:UnitDefinedByProduct ;
-                          sorelm:hasOperand sorepsu:meterCubed ,
-                                           sorepsu:perSecond ;
-                          rdfs:label "meter cubed per second"@en .
+:meterCubedPerSecond rdf:type owl:NamedIndividual ,
+                              :UnitDefinedByProduct ;
+                     <http://sweetontology.net/relaMath/hasOperand> :meterCubed ,
+                                                                    :perSecond ;
+                     rdfs:label "meter cubed per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerKelvin
-sorepsu:meterPerKelvin rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDefinedByProduct ;
-                     sorelm:hasOperand sorepsu:meter ,
-                                      sorepsu:perKelvin ;
-                     rdfs:label "meter per kelvin"@en .
+:meterPerKelvin rdf:type owl:NamedIndividual ,
+                         :UnitDefinedByProduct ;
+                <http://sweetontology.net/relaMath/hasOperand> :meter ,
+                                                               :perKelvin ;
+                rdfs:label "meter per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerSecond
-sorepsu:meterPerSecond rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDefinedByProduct ;
-                     sorelm:hasOperand sorepsu:meter ,
-                                      sorepsu:perSecond ;
-                     rdfs:label "meter per second"@en .
+:meterPerSecond rdf:type owl:NamedIndividual ,
+                         :UnitDefinedByProduct ;
+                <http://sweetontology.net/relaMath/hasOperand> :meter ,
+                                                               :perSecond ;
+                rdfs:label "meter per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerSecondSquared
-sorepsu:meterPerSecondSquared rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:meter ,
-                                             sorepsu:perSecondSquared ;
-                            rdfs:label "meter per second squared"@en .
+:meterPerSecondSquared rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :meter ,
+                                                                      :perSecondSquared ;
+                       rdfs:label "meter per second squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquared
-sorepsu:meterSquared rdf:type owl:NamedIndividual ,
-                            sorepsu:UnitDerivedByRaisingToPower ;
-                   sorelm:toThePower "2.0"^^xsd:double ;
-                   sorelsc:hasBaseUnit sorepsu:meter ;
-                   rdfs:label "meter squared"@en .
+:meterSquared rdf:type owl:NamedIndividual ,
+                       :UnitDerivedByRaisingToPower ;
+              <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+              <http://sweetontology.net/relaMath/toThePower> "2.0"^^xsd:double ;
+              rdfs:label "meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquaredPerKilogram
-sorepsu:meterSquaredPerKilogram rdf:type owl:NamedIndividual ,
-                                       sorepsu:UnitDefinedByProduct ;
-                              sorelm:hasOperand sorepsu:meterSquared ,
-                                               sorepsu:perKilogram ;
-                              rdfs:label "meter squared per kilogram"@en .
+:meterSquaredPerKilogram rdf:type owl:NamedIndividual ,
+                                  :UnitDefinedByProduct ;
+                         <http://sweetontology.net/relaMath/hasOperand> :meterSquared ,
+                                                                        :perKilogram ;
+                         rdfs:label "meter squared per kilogram"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquaredPerSecond
-sorepsu:meterSquaredPerSecond rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:meterSquared ,
-                                             sorepsu:perSecond ;
-                            rdfs:label "meter squared per second"@en .
+:meterSquaredPerSecond rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :meterSquared ,
+                                                                      :perSecond ;
+                       rdfs:label "meter squared per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquaredPerSecondSquared
-sorepsu:meterSquaredPerSecondSquared rdf:type owl:NamedIndividual ,
-                                            sorepsu:UnitDefinedByProduct ;
-                                   sorelm:hasOperand sorepsu:meterSquared ,
-                                                    sorepsu:perSecondSquared ;
-                                   rdfs:label "meter squared per second squared"@en .
+:meterSquaredPerSecondSquared rdf:type owl:NamedIndividual ,
+                                       :UnitDefinedByProduct ;
+                              <http://sweetontology.net/relaMath/hasOperand> :meterSquared ,
+                                                                             :perSecondSquared ;
+                              rdfs:label "meter squared per second squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/metre
-sorepsu:metre rdf:type owl:NamedIndividual ,
-                     sorepsu:BaseUnit ;
-            rdfs:label "metre"@en .
+:metre rdf:type owl:NamedIndividual ,
+                :BaseUnit ;
+       rdfs:label "metre"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/micro
-sorepsu:micro rdf:type owl:NamedIndividual ,
-                     sorepsu:Prefix ;
-            sorelsc:hasNumericValue "1.0E-6"^^xsd:double ;
-            rdfs:label "micro"@en .
+:micro rdf:type owl:NamedIndividual ,
+                :Prefix ;
+       <http://sweetontology.net/relaSci/hasNumericValue> "1.0E-6"^^xsd:double ;
+       rdfs:label "micro"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/micrometer
-sorepsu:micrometer rdf:type owl:NamedIndividual ,
-                          sorepsu:UnitDerivedByScaling ;
-                 owl:sameAs sorepsu:micron ;
-                 sorelm:hasScalingNumber "1.0E-6"^^xsd:double ;
-                 sorelsc:hasBaseUnit sorepsu:meter ;
-                 sorelsc:hasPrefix sorepsu:micro ;
-                 rdfs:label "micrometer"@en .
+:micrometer rdf:type owl:NamedIndividual ,
+                     :UnitDerivedByScaling ;
+            owl:sameAs :micron ;
+            <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+            <http://sweetontology.net/relaSci/hasPrefix> :micro ;
+            <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-6"^^xsd:double ;
+            rdfs:label "micrometer"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/micron
-sorepsu:micron rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDerivedByScaling ;
-             rdfs:label "micron"@en .
+:micron rdf:type owl:NamedIndividual ,
+                 :UnitDerivedByScaling ;
+        rdfs:label "micron"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/millenium
-sorepsu:millenium rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1000.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:year ;
-                rdfs:label "millenium"@en .
+:millenium rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :year ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1000.0"^^xsd:double ;
+           rdfs:label "millenium"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/milli
-sorepsu:milli rdf:type owl:NamedIndividual ,
-                     sorepsu:Prefix ;
-            sorelsc:hasNumericValue "0.001"^^xsd:double ;
-            sorelsc:hasSymbol "m" ;
-            rdfs:label "milli"@en .
+:milli rdf:type owl:NamedIndividual ,
+                :Prefix ;
+       <http://sweetontology.net/relaSci/hasNumericValue> "0.001"^^xsd:double ;
+       <http://sweetontology.net/relaSci/hasSymbol> "m" ;
+       rdfs:label "milli"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/millimeter
-sorepsu:millimeter rdf:type owl:NamedIndividual ,
-                          sorepsu:UnitDerivedByScaling ;
-                 sorelm:hasScalingNumber "0.001"^^xsd:double ;
-                 sorelsc:hasBaseUnit sorepsu:meter ;
-                 sorelsc:hasPrefix sorepsu:milli ;
-                 rdfs:label "millimeter"@en .
+:millimeter rdf:type owl:NamedIndividual ,
+                     :UnitDerivedByScaling ;
+            <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+            <http://sweetontology.net/relaSci/hasPrefix> :milli ;
+            <http://sweetontology.net/relaMath/hasScalingNumber> "0.001"^^xsd:double ;
+            rdfs:label "millimeter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/million_km2
-sorepsu:million_km2 rdf:type owl:NamedIndividual ,
-                           sorepsu:UnitDerivedByScaling ;
-                  sorelm:hasScalingNumber "1.0E-12"^^xsd:double ;
-                  sorelsc:hasBaseUnit sorepsu:meterSquared ;
-                  rdfs:label "million km2"@en .
+:million_km2 rdf:type owl:NamedIndividual ,
+                      :UnitDerivedByScaling ;
+             <http://sweetontology.net/relaSci/hasBaseUnit> :meterSquared ;
+             <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-12"^^xsd:double ;
+             rdfs:label "million km2"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/million_km3
-sorepsu:million_km3 rdf:type owl:NamedIndividual ,
-                           sorepsu:UnitDerivedByScaling ;
-                  sorelm:hasScalingNumber "1.0E-15"^^xsd:double ;
-                  sorelsc:hasBaseUnit sorepsu:meterCubed ;
-                  rdfs:label "million km3"@en .
+:million_km3 rdf:type owl:NamedIndividual ,
+                      :UnitDerivedByScaling ;
+             <http://sweetontology.net/relaSci/hasBaseUnit> :meterCubed ;
+             <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-15"^^xsd:double ;
+             rdfs:label "million km3"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/minute
-sorepsu:minute rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDerivedByScaling ;
-             sorelm:hasScalingNumber "60.0"^^xsd:double ;
-             sorelsc:hasBaseUnit sorepsu:second ;
-             rdfs:label "minute"@en .
+:minute rdf:type owl:NamedIndividual ,
+                 :UnitDerivedByScaling ;
+        <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+        <http://sweetontology.net/relaMath/hasScalingNumber> "60.0"^^xsd:double ;
+        rdfs:label "minute"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/mole
-sorepsu:mole rdf:type owl:NamedIndividual ,
-                    sorepsu:BaseUnit ;
-           sorelsc:hasSymbol "mol" ;
-           rdfs:label "mole"@en .
+:mole rdf:type owl:NamedIndividual ,
+               :BaseUnit ;
+      <http://sweetontology.net/relaSci/hasSymbol> "mol" ;
+      rdfs:label "mole"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/month
-sorepsu:month rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDerivedByScaling ;
-            sorelm:hasScalingNumber "2629744.0"^^xsd:double ;
-            sorelsc:hasBaseUnit sorepsu:second ;
-            rdfs:label "month"@en .
+:month rdf:type owl:NamedIndividual ,
+                :UnitDerivedByScaling ;
+       <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+       <http://sweetontology.net/relaMath/hasScalingNumber> "2629744.0"^^xsd:double ;
+       rdfs:label "month"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/nano
-sorepsu:nano rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "1.0E-9"^^xsd:double ;
-           sorelsc:hasSymbol "n" ;
-           rdfs:label "nano"@en .
+:nano rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "1.0E-9"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "n" ;
+      rdfs:label "nano"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/nanometer
-sorepsu:nanometer rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1.0E-9"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:meter ;
-                sorelsc:hasPrefix sorepsu:nano ;
-                rdfs:label "nanometer"@en .
+:nanometer rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+           <http://sweetontology.net/relaSci/hasPrefix> :nano ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-9"^^xsd:double ;
+           rdfs:label "nanometer"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/newton
-sorepsu:newton rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDefinedByProduct ;
-             sorelm:hasOperand sorepsu:kilogram ,
-                              sorepsu:meter ,
-                              sorepsu:perSecondSquared ;
-             sorelsc:hasSymbol "N" ;
-             rdfs:label "newton"@en .
+:newton rdf:type owl:NamedIndividual ,
+                 :UnitDefinedByProduct ;
+        <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                       :meter ,
+                                                       :perSecondSquared ;
+        <http://sweetontology.net/relaSci/hasSymbol> "N" ;
+        rdfs:label "newton"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/newtonMeter
-sorepsu:newtonMeter rdf:type owl:NamedIndividual ,
-                           sorepsu:UnitDefinedByProduct ;
-                  sorelm:hasOperand sorepsu:meter ,
-                                   sorepsu:newton ;
-                  rdfs:label "newton meter"@en .
+:newtonMeter rdf:type owl:NamedIndividual ,
+                      :UnitDefinedByProduct ;
+             <http://sweetontology.net/relaMath/hasOperand> :meter ,
+                                                            :newton ;
+             rdfs:label "newton meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/newtonPerMeter
-sorepsu:newtonPerMeter rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDefinedByProduct ;
-                     sorelm:hasOperand sorepsu:newton ,
-                                      sorepsu:perMeter ;
-                     rdfs:label "newton per meter"@en .
+:newtonPerMeter rdf:type owl:NamedIndividual ,
+                         :UnitDefinedByProduct ;
+                <http://sweetontology.net/relaMath/hasOperand> :newton ,
+                                                               :perMeter ;
+                rdfs:label "newton per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/normalizedUnit
-sorepsu:normalizedUnit rdf:type owl:NamedIndividual ,
-                              sorepsu:BaseUnit ;
-                     rdfs:label "normalized unit"@en .
+:normalizedUnit rdf:type owl:NamedIndividual ,
+                         :BaseUnit ;
+                rdfs:label "normalized unit"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ohm
-sorepsu:ohm rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDefinedByProduct ;
-          sorelm:hasOperand sorepsu:kilogram ,
-                           sorepsu:meterSquared ,
-                           sorepsu:perAmpereSquared ,
-                           sorepsu:perSecondCubed ;
-          rdfs:label "ohm"@en .
+:ohm rdf:type owl:NamedIndividual ,
+              :UnitDefinedByProduct ;
+     <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                    :meterSquared ,
+                                                    :perAmpereSquared ,
+                                                    :perSecondCubed ;
+     rdfs:label "ohm"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ohmMeter
-sorepsu:ohmMeter rdf:type owl:NamedIndividual ,
-                        sorepsu:UnitDefinedByProduct ;
-               sorelm:hasOperand sorepsu:meter ,
-                                sorepsu:ohm ;
-               rdfs:label "ohm meter"@en .
+:ohmMeter rdf:type owl:NamedIndividual ,
+                   :UnitDefinedByProduct ;
+          <http://sweetontology.net/relaMath/hasOperand> :meter ,
+                                                         :ohm ;
+          rdfs:label "ohm meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/pascal
-sorepsu:pascal rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDefinedByProduct ;
-             sorelm:hasOperand sorepsu:newton ,
-                              sorepsu:perMeterSquared ;
-             sorelsc:hasSymbol "Pa" ;
-             rdfs:label "pascal"@en .
+:pascal rdf:type owl:NamedIndividual ,
+                 :UnitDefinedByProduct ;
+        <http://sweetontology.net/relaMath/hasOperand> :newton ,
+                                                       :perMeterSquared ;
+        <http://sweetontology.net/relaSci/hasSymbol> "Pa" ;
+        rdfs:label "pascal"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/pascalPerSecond
-sorepsu:pascalPerSecond rdf:type owl:NamedIndividual ,
-                               sorepsu:UnitDefinedByProduct ;
-                      sorelm:hasOperand sorepsu:pascal ,
-                                       sorepsu:perSecond ;
-                      sorelsc:hasSymbol "pa/s" ;
-                      rdfs:label "pascal per second"@en .
+:pascalPerSecond rdf:type owl:NamedIndividual ,
+                          :UnitDefinedByProduct ;
+                 <http://sweetontology.net/relaMath/hasOperand> :pascal ,
+                                                                :perSecond ;
+                 <http://sweetontology.net/relaSci/hasSymbol> "pa/s" ;
+                 rdfs:label "pascal per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/pascalSecond
-sorepsu:pascalSecond rdf:type owl:NamedIndividual ,
-                            sorepsu:UnitDefinedByProduct ;
-                   sorelm:hasOperand sorepsu:pascal ,
-                                    sorepsu:second ;
-                   rdfs:label "pascal second"@en .
+:pascalSecond rdf:type owl:NamedIndividual ,
+                       :UnitDefinedByProduct ;
+              <http://sweetontology.net/relaMath/hasOperand> :pascal ,
+                                                             :second ;
+              rdfs:label "pascal second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perAmpere
-sorepsu:perAmpere rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByRaisingToPower ;
-                sorelm:toThePower "-1.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:ampere ;
-                rdfs:label "per ampere"@en .
+:perAmpere rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByRaisingToPower ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :ampere ;
+           <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+           rdfs:label "per ampere"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perAmpereSquared
-sorepsu:perAmpereSquared rdf:type owl:NamedIndividual ,
-                                sorepsu:UnitDerivedByRaisingToPower ;
-                       sorelm:toThePower "-2.0"^^xsd:double ;
-                       sorelsc:hasBaseUnit sorepsu:ampere ;
-                       rdfs:label "per ampere squared"@en .
+:perAmpereSquared rdf:type owl:NamedIndividual ,
+                           :UnitDerivedByRaisingToPower ;
+                  <http://sweetontology.net/relaSci/hasBaseUnit> :ampere ;
+                  <http://sweetontology.net/relaMath/toThePower> "-2.0"^^xsd:double ;
+                  rdfs:label "per ampere squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perCandela
-sorepsu:perCandela rdf:type owl:NamedIndividual ,
-                          sorepsu:UnitDerivedByRaisingToPower ;
-                 sorelm:toThePower "-1.0"^^xsd:double ;
-                 sorelsc:hasBaseUnit sorepsu:candela ;
-                 rdfs:label "per candela"@en .
+:perCandela rdf:type owl:NamedIndividual ,
+                     :UnitDerivedByRaisingToPower ;
+            <http://sweetontology.net/relaSci/hasBaseUnit> :candela ;
+            <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+            rdfs:label "per candela"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKelvin
-sorepsu:perKelvin rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByRaisingToPower ;
-                sorelm:toThePower "-1.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:kelvin ;
-                rdfs:label "per kelvin"@en .
+:perKelvin rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByRaisingToPower ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :kelvin ;
+           <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+           rdfs:label "per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKilogram
-sorepsu:perKilogram rdf:type owl:NamedIndividual ,
-                           sorepsu:UnitDerivedByRaisingToPower ;
-                  sorelm:toThePower "-1.0"^^xsd:double ;
-                  sorelsc:hasBaseUnit sorepsu:kilogram ;
-                  rdfs:label "per kilogram"@en .
+:perKilogram rdf:type owl:NamedIndividual ,
+                      :UnitDerivedByRaisingToPower ;
+             <http://sweetontology.net/relaSci/hasBaseUnit> :kilogram ;
+             <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+             rdfs:label "per kilogram"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKilogramMeterSquaredPerSecondKelvin
-sorepsu:perKilogramMeterSquaredPerSecondKelvin rdf:type owl:NamedIndividual ,
-                                                      sorepsu:UnitDefinedByProduct ;
-                                             sorelm:hasOperand sorepsu:kelvin ,
-                                                              sorepsu:meterSquared ,
-                                                              sorepsu:perKilogram ,
-                                                              sorepsu:perSecond ;
-                                             rdfs:label "per kilogram meter squared per second kelvin"@en .
+:perKilogramMeterSquaredPerSecondKelvin rdf:type owl:NamedIndividual ,
+                                                 :UnitDefinedByProduct ;
+                                        <http://sweetontology.net/relaMath/hasOperand> :kelvin ,
+                                                                                       :meterSquared ,
+                                                                                       :perKilogram ,
+                                                                                       :perSecond ;
+                                        rdfs:label "per kilogram meter squared per second kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKilogramMole
-sorepsu:perKilogramMole rdf:type owl:NamedIndividual ,
-                               sorepsu:UnitDefinedByProduct ;
-                      sorelm:hasOperand sorepsu:mole ,
-                                       sorepsu:perKilogram ;
-                      rdfs:label "per kilogram mole"@en .
+:perKilogramMole rdf:type owl:NamedIndividual ,
+                          :UnitDefinedByProduct ;
+                 <http://sweetontology.net/relaMath/hasOperand> :mole ,
+                                                                :perKilogram ;
+                 rdfs:label "per kilogram mole"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perMeter
-sorepsu:perMeter rdf:type owl:NamedIndividual ,
-                        sorepsu:UnitDerivedByRaisingToPower ;
-               sorelm:toThePower "-1.0"^^xsd:double ;
-               sorelsc:hasBaseUnit sorepsu:meter ;
-               rdfs:label "per meter"@en .
+:perMeter rdf:type owl:NamedIndividual ,
+                   :UnitDerivedByRaisingToPower ;
+          <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+          <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+          rdfs:label "per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perMeterCubed
-sorepsu:perMeterCubed rdf:type owl:NamedIndividual ,
-                             sorepsu:UnitDerivedByRaisingToPower ;
-                    sorelm:toThePower "-3.0"^^xsd:double ;
-                    sorelsc:hasBaseUnit sorepsu:meter ;
-                    rdfs:label "per meter cubed"@en .
+:perMeterCubed rdf:type owl:NamedIndividual ,
+                        :UnitDerivedByRaisingToPower ;
+               <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+               <http://sweetontology.net/relaMath/toThePower> "-3.0"^^xsd:double ;
+               rdfs:label "per meter cubed"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perMeterSquared
-sorepsu:perMeterSquared rdf:type owl:NamedIndividual ,
-                               sorepsu:UnitDerivedByRaisingToPower ;
-                      sorelm:toThePower "-2.0"^^xsd:double ;
-                      sorelsc:hasBaseUnit sorepsu:meter ;
-                      rdfs:label "per meter squared"@en .
+:perMeterSquared rdf:type owl:NamedIndividual ,
+                          :UnitDerivedByRaisingToPower ;
+                 <http://sweetontology.net/relaSci/hasBaseUnit> :meter ;
+                 <http://sweetontology.net/relaMath/toThePower> "-2.0"^^xsd:double ;
+                 rdfs:label "per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perMil
-sorepsu:perMil rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDerivedByScaling ;
-             sorelm:hasScalingNumber "0.001"^^xsd:double ;
-             sorelsc:hasBaseUnit sorepsu:ratio ;
-             rdfs:label "per mil"@en .
+:perMil rdf:type owl:NamedIndividual ,
+                 :UnitDerivedByScaling ;
+        <http://sweetontology.net/relaSci/hasBaseUnit> :ratio ;
+        <http://sweetontology.net/relaMath/hasScalingNumber> "0.001"^^xsd:double ;
+        rdfs:label "per mil"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perMole
-sorepsu:perMole rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByRaisingToPower ;
-              sorelm:toThePower "-1.0"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:mole ;
-              rdfs:label "per mole"@en .
+:perMole rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByRaisingToPower ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :mole ;
+         <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+         rdfs:label "per mole"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perPascal
-sorepsu:perPascal rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByRaisingToPower ;
-                sorelm:toThePower "-1.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:pascal ;
-                rdfs:label "per pascal"@en .
+:perPascal rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByRaisingToPower ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :pascal ;
+           <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+           rdfs:label "per pascal"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perRadian
-sorepsu:perRadian rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByRaisingToPower ;
-                sorelm:toThePower "-1.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:radian ;
-                rdfs:label "per radian"@en .
+:perRadian rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByRaisingToPower ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :radian ;
+           <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+           rdfs:label "per radian"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perSecond
-sorepsu:perSecond rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByRaisingToPower ;
-                sorelm:toThePower "-1.0"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:second ;
-                sorelsc:hasSymbol "Hz" ;
-                rdfs:label "per second"@en .
+:perSecond rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByRaisingToPower ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+           <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+           <http://sweetontology.net/relaSci/hasSymbol> "Hz" ;
+           rdfs:label "per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perSecondCubed
-sorepsu:perSecondCubed rdf:type owl:NamedIndividual ,
-                              sorepsu:UnitDerivedByRaisingToPower ;
-                     sorelm:toThePower "-3.0"^^xsd:double ;
-                     sorelsc:hasBaseUnit sorepsu:second ;
-                     rdfs:label "per second cubed"@en .
+:perSecondCubed rdf:type owl:NamedIndividual ,
+                         :UnitDerivedByRaisingToPower ;
+                <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+                <http://sweetontology.net/relaMath/toThePower> "-3.0"^^xsd:double ;
+                rdfs:label "per second cubed"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perSecondSquared
-sorepsu:perSecondSquared rdf:type owl:NamedIndividual ,
-                                sorepsu:UnitDerivedByRaisingToPower ;
-                       sorelm:toThePower "-2.0"^^xsd:double ;
-                       sorelsc:hasBaseUnit sorepsu:second ;
-                       rdfs:label "per second squared"@en .
+:perSecondSquared rdf:type owl:NamedIndividual ,
+                           :UnitDerivedByRaisingToPower ;
+                  <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+                  <http://sweetontology.net/relaMath/toThePower> "-2.0"^^xsd:double ;
+                  rdfs:label "per second squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perSteradian
-sorepsu:perSteradian rdf:type owl:NamedIndividual ,
-                            sorepsu:UnitDerivedByRaisingToPower ;
-                   sorelm:toThePower "-1.0"^^xsd:double ;
-                   sorelsc:hasBaseUnit sorepsu:steradian ;
-                   rdfs:label "per steradian"@en .
+:perSteradian rdf:type owl:NamedIndividual ,
+                       :UnitDerivedByRaisingToPower ;
+              <http://sweetontology.net/relaSci/hasBaseUnit> :steradian ;
+              <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+              rdfs:label "per steradian"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perTesla
-sorepsu:perTesla rdf:type owl:NamedIndividual ,
-                        sorepsu:UnitDerivedByRaisingToPower ;
-               sorelm:toThePower "-1.0"^^xsd:double ;
-               sorelsc:hasBaseUnit sorepsu:tesla ;
-               rdfs:label "per tesla"@en .
+:perTesla rdf:type owl:NamedIndividual ,
+                   :UnitDerivedByRaisingToPower ;
+          <http://sweetontology.net/relaSci/hasBaseUnit> :tesla ;
+          <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+          rdfs:label "per tesla"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/perVolt
-sorepsu:perVolt rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByRaisingToPower ;
-              sorelm:toThePower "-1.0"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:volt ;
-              rdfs:label "per volt"@en .
+:perVolt rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByRaisingToPower ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :volt ;
+         <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+         rdfs:label "per volt"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/percent
-sorepsu:percent rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByScaling ;
-              sorelm:hasScalingNumber "0.01"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:ratio ;
-              rdfs:label "percent"@en .
+:percent rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByScaling ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :ratio ;
+         <http://sweetontology.net/relaMath/hasScalingNumber> "0.01"^^xsd:double ;
+         rdfs:label "percent"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/permil
-sorepsu:permil rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDerivedByScaling ;
-             sorelm:hasScalingNumber "0.001"^^xsd:double ;
-             sorelsc:hasBaseUnit sorepsu:ratio ;
-             rdfs:label "permil"@en .
+:permil rdf:type owl:NamedIndividual ,
+                 :UnitDerivedByScaling ;
+        <http://sweetontology.net/relaSci/hasBaseUnit> :ratio ;
+        <http://sweetontology.net/relaMath/hasScalingNumber> "0.001"^^xsd:double ;
+        rdfs:label "permil"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/peta
-sorepsu:peta rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "1.0E15"^^xsd:double ;
-           sorelsc:hasSymbol "P" ;
-           rdfs:label "peta"@en .
+:peta rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "1.0E15"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "P" ;
+      rdfs:label "peta"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ppb
-sorepsu:ppb rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDerivedByScaling ;
-          sorelm:hasScalingNumber "1.0E-9"^^xsd:double ;
-          sorelsc:hasBaseUnit sorepsu:ratio ;
-          rdfs:label "ppb"@en .
+:ppb rdf:type owl:NamedIndividual ,
+              :UnitDerivedByScaling ;
+     <http://sweetontology.net/relaSci/hasBaseUnit> :ratio ;
+     <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-9"^^xsd:double ;
+     rdfs:label "ppb"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ppbv
-sorepsu:ppbv rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDerivedByScaling ;
-           sorelm:hasScalingNumber "1.0E-9"^^xsd:double ;
-           sorelsc:hasBaseUnit sorepsu:volumeRatio ;
-           rdfs:label "ppbv"@en .
+:ppbv rdf:type owl:NamedIndividual ,
+               :UnitDerivedByScaling ;
+      <http://sweetontology.net/relaSci/hasBaseUnit> :volumeRatio ;
+      <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-9"^^xsd:double ;
+      rdfs:label "ppbv"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ppm
-sorepsu:ppm rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDerivedByScaling ;
-          sorelm:hasScalingNumber "1.0E-6"^^xsd:double ;
-          sorelsc:hasBaseUnit sorepsu:ratio ;
-          rdfs:label "ppm"@en .
+:ppm rdf:type owl:NamedIndividual ,
+              :UnitDerivedByScaling ;
+     <http://sweetontology.net/relaSci/hasBaseUnit> :ratio ;
+     <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-6"^^xsd:double ;
+     rdfs:label "ppm"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ppmv
-sorepsu:ppmv rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDerivedByScaling ;
-           sorelm:hasScalingNumber "1.0E-6"^^xsd:double ;
-           sorelsc:hasBaseUnit sorepsu:volumeRatio ;
-           rdfs:label "ppmv"@en .
+:ppmv rdf:type owl:NamedIndividual ,
+               :UnitDerivedByScaling ;
+      <http://sweetontology.net/relaSci/hasBaseUnit> :volumeRatio ;
+      <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-6"^^xsd:double ;
+      rdfs:label "ppmv"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ppt
-sorepsu:ppt rdf:type owl:NamedIndividual ,
-                   sorepsu:UnitDerivedByScaling ;
-          sorelm:hasScalingNumber "1.0E-12"^^xsd:double ;
-          sorelsc:hasBaseUnit sorepsu:ratio ;
-          rdfs:label "ppt"@en .
+:ppt rdf:type owl:NamedIndividual ,
+              :UnitDerivedByScaling ;
+     <http://sweetontology.net/relaSci/hasBaseUnit> :ratio ;
+     <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-12"^^xsd:double ;
+     rdfs:label "ppt"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/pptv
-sorepsu:pptv rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDerivedByScaling ;
-           sorelm:hasScalingNumber "1.0E-12"^^xsd:double ;
-           sorelsc:hasBaseUnit sorepsu:volumeRatio ;
-           rdfs:label "pptv"@en .
+:pptv rdf:type owl:NamedIndividual ,
+               :UnitDerivedByScaling ;
+      <http://sweetontology.net/relaSci/hasBaseUnit> :volumeRatio ;
+      <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E-12"^^xsd:double ;
+      rdfs:label "pptv"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/radian
-sorepsu:radian rdf:type owl:NamedIndividual ,
-                      sorepsu:BaseUnit ;
-             sorelsc:hasSymbol "rad" ;
-             rdfs:label "radian"@en .
+:radian rdf:type owl:NamedIndividual ,
+                 :BaseUnit ;
+        <http://sweetontology.net/relaSci/hasSymbol> "rad" ;
+        rdfs:label "radian"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/radianPerSecond
-sorepsu:radianPerSecond rdf:type owl:NamedIndividual ,
-                               sorepsu:UnitDefinedByProduct ;
-                      sorelm:hasOperand sorepsu:perSecond ,
-                                       sorepsu:radian ;
-                      rdfs:label "radian per second"@en .
+:radianPerSecond rdf:type owl:NamedIndividual ,
+                          :UnitDefinedByProduct ;
+                 <http://sweetontology.net/relaMath/hasOperand> :perSecond ,
+                                                                :radian ;
+                 rdfs:label "radian per second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/radianPerSecondSquared
-sorepsu:radianPerSecondSquared rdf:type owl:NamedIndividual ,
-                                      sorepsu:UnitDefinedByProduct ;
-                             sorelm:hasOperand sorepsu:perSecondSquared ,
-                                              sorepsu:radian ;
-                             rdfs:label "radian per second squared"@en .
+:radianPerSecondSquared rdf:type owl:NamedIndividual ,
+                                 :UnitDefinedByProduct ;
+                        <http://sweetontology.net/relaMath/hasOperand> :perSecondSquared ,
+                                                                       :radian ;
+                        rdfs:label "radian per second squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/ratio
-sorepsu:ratio rdf:type owl:NamedIndividual ,
-                     sorepsu:BaseUnit ;
-            rdfs:label "ratio"@en .
+:ratio rdf:type owl:NamedIndividual ,
+                :BaseUnit ;
+       rdfs:label "ratio"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/season
-sorepsu:season rdf:type owl:NamedIndividual ,
-                      sorepsu:UnitDerivedByScaling ;
-             sorelm:hasScalingNumber "7889232.0"^^xsd:double ;
-             sorelsc:hasBaseUnit sorepsu:second ;
-             rdfs:label "season"@en .
+:season rdf:type owl:NamedIndividual ,
+                 :UnitDerivedByScaling ;
+        <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+        <http://sweetontology.net/relaMath/hasScalingNumber> "7889232.0"^^xsd:double ;
+        rdfs:label "season"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/second
-sorepsu:second rdf:type owl:NamedIndividual ,
-                      sorepsu:BaseUnit ;
-             sorelsc:hasSymbol "s" ;
-             rdfs:label "second"@en .
+:second rdf:type owl:NamedIndividual ,
+                 :BaseUnit ;
+        <http://sweetontology.net/relaSci/hasSymbol> "s" ;
+        rdfs:label "second"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/secondSquared
-sorepsu:secondSquared rdf:type owl:NamedIndividual ,
-                             sorepsu:UnitDerivedByRaisingToPower ;
-                    sorelm:toThePower "2.0"^^xsd:double ;
-                    sorelsc:hasBaseUnit sorepsu:second ;
-                    rdfs:label "second squared"@en .
+:secondSquared rdf:type owl:NamedIndividual ,
+                        :UnitDerivedByRaisingToPower ;
+               <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+               <http://sweetontology.net/relaMath/toThePower> "2.0"^^xsd:double ;
+               rdfs:label "second squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/siemens
-sorepsu:siemens rdf:type owl:NamedIndividual ,
-                       sorepsu:UnitDerivedByRaisingToPower ;
-              sorelm:toThePower "-1.0"^^xsd:double ;
-              sorelsc:hasBaseUnit sorepsu:ohm ;
-              sorelsc:hasSymbol "G" ;
-              rdfs:label "siemens"@en .
+:siemens rdf:type owl:NamedIndividual ,
+                  :UnitDerivedByRaisingToPower ;
+         <http://sweetontology.net/relaSci/hasBaseUnit> :ohm ;
+         <http://sweetontology.net/relaMath/toThePower> "-1.0"^^xsd:double ;
+         <http://sweetontology.net/relaSci/hasSymbol> "G" ;
+         rdfs:label "siemens"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/siemensPerKilogram
-sorepsu:siemensPerKilogram rdf:type owl:NamedIndividual ,
-                                  sorepsu:UnitDefinedByProduct ;
-                         sorelm:hasOperand sorepsu:perKilogram ,
-                                          sorepsu:siemens ;
-                         rdfs:label "siemens per kilogram"@en .
+:siemensPerKilogram rdf:type owl:NamedIndividual ,
+                             :UnitDefinedByProduct ;
+                    <http://sweetontology.net/relaMath/hasOperand> :perKilogram ,
+                                                                   :siemens ;
+                    rdfs:label "siemens per kilogram"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/siemensPerMeter
-sorepsu:siemensPerMeter rdf:type owl:NamedIndividual ,
-                               sorepsu:UnitDefinedByProduct ;
-                      sorelm:hasOperand sorepsu:perMeter ,
-                                       sorepsu:siemens ;
-                      rdfs:label "siemens per meter"@en .
+:siemensPerMeter rdf:type owl:NamedIndividual ,
+                          :UnitDefinedByProduct ;
+                 <http://sweetontology.net/relaMath/hasOperand> :perMeter ,
+                                                                :siemens ;
+                 rdfs:label "siemens per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/steradian
-sorepsu:steradian rdf:type owl:NamedIndividual ,
-                         sorepsu:BaseUnit ;
-                sorelsc:hasSymbol "sr" ;
-                rdfs:label "steradian"@en .
+:steradian rdf:type owl:NamedIndividual ,
+                    :BaseUnit ;
+           <http://sweetontology.net/relaSci/hasSymbol> "sr" ;
+           rdfs:label "steradian"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/tera
-sorepsu:tera rdf:type owl:NamedIndividual ,
-                    sorepsu:Prefix ;
-           sorelsc:hasNumericValue "1.0E12"^^xsd:double ;
-           sorelsc:hasSymbol "T" ;
-           rdfs:label "tera"@en .
+:tera rdf:type owl:NamedIndividual ,
+               :Prefix ;
+      <http://sweetontology.net/relaSci/hasNumericValue> "1.0E12"^^xsd:double ;
+      <http://sweetontology.net/relaSci/hasSymbol> "T" ;
+      rdfs:label "tera"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/terahertz
-sorepsu:terahertz rdf:type owl:NamedIndividual ,
-                         sorepsu:UnitDerivedByScaling ;
-                sorelm:hasScalingNumber "1.0E12"^^xsd:double ;
-                sorelsc:hasBaseUnit sorepsu:hertz ;
-                sorelsc:hasPrefix sorepsu:tera ;
-                rdfs:label "terahertz"@en .
+:terahertz rdf:type owl:NamedIndividual ,
+                    :UnitDerivedByScaling ;
+           <http://sweetontology.net/relaSci/hasBaseUnit> :hertz ;
+           <http://sweetontology.net/relaSci/hasPrefix> :tera ;
+           <http://sweetontology.net/relaMath/hasScalingNumber> "1.0E12"^^xsd:double ;
+           rdfs:label "terahertz"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/tesla
-sorepsu:tesla rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDefinedByProduct ;
-            sorelm:hasOperand sorepsu:perMeterSquared ,
-                             sorepsu:weber ;
-            rdfs:label "tesla"@en .
+:tesla rdf:type owl:NamedIndividual ,
+                :UnitDefinedByProduct ;
+       <http://sweetontology.net/relaMath/hasOperand> :perMeterSquared ,
+                                                      :weber ;
+       rdfs:label "tesla"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/volt
-sorepsu:volt rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDefinedByProduct ;
-           sorelm:hasOperand sorepsu:kilogram ,
-                            sorepsu:meterSquared ,
-                            sorepsu:perAmpere ,
-                            sorepsu:perSecondCubed ;
-           sorelsc:hasSymbol "V" ;
-           rdfs:label "volt"@en .
+:volt rdf:type owl:NamedIndividual ,
+               :UnitDefinedByProduct ;
+      <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                     :meterSquared ,
+                                                     :perAmpere ,
+                                                     :perSecondCubed ;
+      <http://sweetontology.net/relaSci/hasSymbol> "V" ;
+      rdfs:label "volt"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/voltPerMeter
-sorepsu:voltPerMeter rdf:type owl:NamedIndividual ,
-                            sorepsu:UnitDefinedByProduct ;
-                   sorelm:hasOperand sorepsu:perMeter ,
-                                    sorepsu:volt ;
-                   rdfs:label "volt per meter"@en .
+:voltPerMeter rdf:type owl:NamedIndividual ,
+                       :UnitDefinedByProduct ;
+              <http://sweetontology.net/relaMath/hasOperand> :perMeter ,
+                                                             :volt ;
+              rdfs:label "volt per meter"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/volumeRatio
-sorepsu:volumeRatio rdf:type owl:NamedIndividual ,
-                           sorepsu:BaseUnit ;
-                  rdfs:label "volume ratio"@en .
+:volumeRatio rdf:type owl:NamedIndividual ,
+                      :BaseUnit ;
+             rdfs:label "volume ratio"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/watt
-sorepsu:watt rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDefinedByProduct ;
-           sorelm:hasOperand sorepsu:joule ,
-                            sorepsu:perSecond ;
-           rdfs:label "watt"@en .
+:watt rdf:type owl:NamedIndividual ,
+               :UnitDefinedByProduct ;
+      <http://sweetontology.net/relaMath/hasOperand> :joule ,
+                                                     :perSecond ;
+      rdfs:label "watt"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterPerKelvin
-sorepsu:wattPerMeterPerKelvin rdf:type owl:NamedIndividual ,
-                                     sorepsu:UnitDefinedByProduct ;
-                            sorelm:hasOperand sorepsu:perKelvin ,
-                                             sorepsu:perMeter ,
-                                             sorepsu:watt ;
-                            rdfs:label "watt per meter per kelvin"@en .
+:wattPerMeterPerKelvin rdf:type owl:NamedIndividual ,
+                                :UnitDefinedByProduct ;
+                       <http://sweetontology.net/relaMath/hasOperand> :perKelvin ,
+                                                                      :perMeter ,
+                                                                      :watt ;
+                       rdfs:label "watt per meter per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquared
-sorepsu:wattPerMeterSquared rdf:type owl:NamedIndividual ,
-                                   sorepsu:UnitDefinedByProduct ;
-                          sorelm:hasOperand sorepsu:perMeterSquared ,
-                                           sorepsu:watt ;
-                          rdfs:label "watt per meter squared"@en .
+:wattPerMeterSquared rdf:type owl:NamedIndividual ,
+                              :UnitDefinedByProduct ;
+                     <http://sweetontology.net/relaMath/hasOperand> :perMeterSquared ,
+                                                                    :watt ;
+                     rdfs:label "watt per meter squared"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerKelvin
-sorepsu:wattPerMeterSquaredPerKelvin rdf:type owl:NamedIndividual ,
-                                            sorepsu:UnitDefinedByProduct ;
-                                   sorelm:hasOperand sorepsu:perKelvin ,
-                                                    sorepsu:wattPerMeterSquared ;
-                                   rdfs:label "watt per meter squared per kelvin"@en .
+:wattPerMeterSquaredPerKelvin rdf:type owl:NamedIndividual ,
+                                       :UnitDefinedByProduct ;
+                              <http://sweetontology.net/relaMath/hasOperand> :perKelvin ,
+                                                                             :wattPerMeterSquared ;
+                              rdfs:label "watt per meter squared per kelvin"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradian
-sorepsu:wattPerMeterSquaredPerSteradian rdf:type owl:NamedIndividual ,
-                                               sorepsu:UnitDefinedByProduct ;
-                                      sorelm:hasOperand sorepsu:perSteradian ,
-                                                       sorepsu:wattPerMeterSquared ;
-                                      rdfs:label "watt per meter squared per steradian"@en .
+:wattPerMeterSquaredPerSteradian rdf:type owl:NamedIndividual ,
+                                          :UnitDefinedByProduct ;
+                                 <http://sweetontology.net/relaMath/hasOperand> :perSteradian ,
+                                                                                :wattPerMeterSquared ;
+                                 rdfs:label "watt per meter squared per steradian"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradianPerWavelength
-sorepsu:wattPerMeterSquaredPerSteradianPerWavelength rdf:type owl:NamedIndividual ,
-                                                            sorepsu:UnitDefinedByProduct ;
-                                                   sorelm:hasOperand sorepsu:perMeter ,
-                                                                    sorepsu:perSteradian ,
-                                                                    sorepsu:wattPerMeterSquared ;
-                                                   rdfs:label "watt per meter squared per steradian per wavelength"@en .
+:wattPerMeterSquaredPerSteradianPerWavelength rdf:type owl:NamedIndividual ,
+                                                       :UnitDefinedByProduct ;
+                                              <http://sweetontology.net/relaMath/hasOperand> :perMeter ,
+                                                                                             :perSteradian ,
+                                                                                             :wattPerMeterSquared ;
+                                              rdfs:label "watt per meter squared per steradian per wavelength"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/weber
-sorepsu:weber rdf:type owl:NamedIndividual ,
-                     sorepsu:UnitDefinedByProduct ;
-            sorelm:hasOperand sorepsu:kilogram ,
-                             sorepsu:meterSquared ,
-                             sorepsu:perAmpere ,
-                             sorepsu:perSecondSquared ;
-            rdfs:label "weber"@en .
+:weber rdf:type owl:NamedIndividual ,
+                :UnitDefinedByProduct ;
+       <http://sweetontology.net/relaMath/hasOperand> :kilogram ,
+                                                      :meterSquared ,
+                                                      :perAmpere ,
+                                                      :perSecondSquared ;
+       rdfs:label "weber"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/week
-sorepsu:week rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDerivedByScaling ;
-           sorelm:hasScalingNumber "604800.0"^^xsd:double ;
-           sorelsc:hasBaseUnit sorepsu:second ;
-           rdfs:label "week"@en .
+:week rdf:type owl:NamedIndividual ,
+               :UnitDerivedByScaling ;
+      <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+      <http://sweetontology.net/relaMath/hasScalingNumber> "604800.0"^^xsd:double ;
+      rdfs:label "week"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/year
-sorepsu:year rdf:type owl:NamedIndividual ,
-                    sorepsu:UnitDerivedByScaling ;
-           sorelm:hasScalingNumber "3.1556926E7"^^xsd:double ;
-           sorelsc:hasBaseUnit sorepsu:second ;
-           rdfs:label "year"@en .
+:year rdf:type owl:NamedIndividual ,
+               :UnitDerivedByScaling ;
+      <http://sweetontology.net/relaSci/hasBaseUnit> :second ;
+      <http://sweetontology.net/relaMath/hasScalingNumber> "3.1556926E7"^^xsd:double ;
+      rdfs:label "year"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

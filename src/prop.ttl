@@ -1,233 +1,343 @@
 @prefix : <http://sweetontology.net/prop/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sohukd: <http://sweetontology.net/humanKnowledgeDomain/> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelh: <http://sweetontology.net/relaHuman/> .
-@base <http://sweetontology.net/prop> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/prop/> .
 
 <http://sweetontology.net/prop> rdf:type owl:Ontology ;
+                                 owl:versionIRI <http://sweetontology.net/prop/3.6.0> ;
                                  owl:imports <http://sweetontology.net/humanKnowledgeDomain> ,
                                              <http://sweetontology.net/procPhysical> ,
                                              <http://sweetontology.net/rela> ,
                                              <http://sweetontology.net/relaHuman> ;
-                                 rdfs:label "SWEET Ontology Property" ;
                                  dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                 owl:versionInfo "3.5.0" .
+                                 rdfs:label "SWEET Ontology Property" ;
+                                 owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+prov:wasDerivedFrom rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/prop/Accuracy
-soprop:Accuracy rdf:type owl:Class ;
-              rdfs:subClassOf soprop:Metric ;
-              rdfs:label "accuracy"@en .
+:Accuracy rdf:type owl:Class ;
+          rdfs:subClassOf :Metric ;
+          rdfs:label "accuracy"@en ;
+          skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-17T11:09:39.647"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1298969> ;
+          rdfs:comment "closeness of the mean of a large set of measurement to the accepted reference value"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1298969> .
 
 
 ###  http://sweetontology.net/prop/AngularMotionProperty
-soprop:AngularMotionProperty rdf:type owl:Class ;
-                           rdfs:subClassOf soprop:MotionProperty ;
-                           rdfs:label "angular motion property"@en .
+:AngularMotionProperty rdf:type owl:Class ;
+                       rdfs:subClassOf :MotionProperty ;
+                       rdfs:label "angular motion property"@en .
 
 
 ###  http://sweetontology.net/prop/BiologicalProperty
-soprop:BiologicalProperty rdf:type owl:Class ;
-                        rdfs:subClassOf soprop:Property ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelh:studyOf ;
-                                          owl:someValuesFrom sohukd:Biology
-                                        ] ;
-                        rdfs:label "biological property"@en .
+:BiologicalProperty rdf:type owl:Class ;
+                    rdfs:subClassOf :Property ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                      owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Biology>
+                                    ] ;
+                    rdfs:label "biological property"@en .
 
 
 ###  http://sweetontology.net/prop/ChemicalProperty
-soprop:ChemicalProperty rdf:type owl:Class ;
-                      rdfs:subClassOf soprop:Property ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelh:studyOf ;
-                                        owl:someValuesFrom sohukd:Chemistry
-                                      ] ;
-                      rdfs:label "chemical property"@en .
+:ChemicalProperty rdf:type owl:Class ;
+                  rdfs:subClassOf :Property ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                    owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Chemistry>
+                                  ] ;
+                  rdfs:label "chemical property"@en ;
+                  skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-17T11:09:40.016"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q764285> ;
+          rdfs:comment "any of a material's properties that becomes evident during, or after, a chemical reaction"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q764285> .
 
 
 ###  http://sweetontology.net/prop/Distortion
-soprop:Distortion rdf:type owl:Class ;
-                rdfs:subClassOf soprop:Error ;
-                rdfs:label "distortion"@en .
+:Distortion rdf:type owl:Class ;
+            rdfs:subClassOf :Error ;
+            rdfs:label "distortion"@en ;
+            skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-17T11:09:40.092"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1347355> ;
+          rdfs:comment "alteration of the original shape (or other characteristic) of something"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1347355> .
 
 
 ###  http://sweetontology.net/prop/Efficiency
-soprop:Efficiency rdf:type owl:Class ;
-                rdfs:subClassOf soprop:Measure ;
-                rdfs:label "efficiency"@en .
+:Efficiency rdf:type owl:Class ;
+            rdfs:subClassOf :Measure ;
+            rdfs:label "efficiency"@en ;
+            skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-17T11:09:40.192"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1034411> ;
+          rdfs:comment "degree to which a process minimizes waste of resources"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1034411> .
 
 
 ###  http://sweetontology.net/prop/ElectromagneticProperty
-soprop:ElectromagneticProperty rdf:type owl:Class ;
-                             rdfs:subClassOf soprop:PhysicalProperty ;
-                             rdfs:label "electromagnetic property"@en .
+:ElectromagneticProperty rdf:type owl:Class ;
+                         rdfs:subClassOf :PhysicalProperty ;
+                         rdfs:label "electromagnetic property"@en .
 
 
 ###  http://sweetontology.net/prop/ElectromagneticRadiationProperty
-soprop:ElectromagneticRadiationProperty rdf:type owl:Class ;
-                                      rdfs:subClassOf soprop:PhysicalProperty ,
-                                                      [ rdf:type owl:Restriction ;
-                                                        owl:onProperty sorel:hasProcess ;
-                                                        owl:allValuesFrom soprocp:RadiativeTransfer
-                                                      ] ;
-                                      rdfs:label "electromagnetic radiation property"@en .
+:ElectromagneticRadiationProperty rdf:type owl:Class ;
+                                  rdfs:subClassOf :PhysicalProperty ,
+                                                  [ rdf:type owl:Restriction ;
+                                                    owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                                    owl:allValuesFrom <http://sweetontology.net/procPhysical/RadiativeTransfer>
+                                                  ] ;
+                                  rdfs:label "electromagnetic radiation property"@en .
 
 
 ###  http://sweetontology.net/prop/Error
-soprop:Error rdf:type owl:Class ;
-           rdfs:subClassOf soprop:Metric ;
-           rdfs:label "error"@en .
+:Error rdf:type owl:Class ;
+       rdfs:subClassOf :Metric ;
+       rdfs:label "error"@en ;
+       skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-17T11:09:40.405"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q29485> ;
+          rdfs:comment "action or proposition which is inaccurate or incorrect"@en ;
+          prov:wasDerivedFrom <http://www.wikidata.org/entity/Q29485> .
 
 
 ###  http://sweetontology.net/prop/Fideltiy
-soprop:Fideltiy rdf:type owl:Class ;
-              rdfs:subClassOf soprop:Measure ;
-              rdfs:label "fideltiy"@en .
+:Fideltiy rdf:type owl:Class ;
+          rdfs:subClassOf :Measure ;
+          rdfs:label "fideltiy"@en .
 
 
 ###  http://sweetontology.net/prop/FlowProperty
-soprop:FlowProperty rdf:type owl:Class ;
-                  rdfs:subClassOf soprop:SystemProperty ;
-                  rdfs:label "flow property"@en .
+:FlowProperty rdf:type owl:Class ;
+              rdfs:subClassOf :SystemProperty ;
+              rdfs:label "flow property"@en .
 
 
 ###  http://sweetontology.net/prop/FluidProperty
-soprop:FluidProperty rdf:type owl:Class ;
-                   rdfs:subClassOf soprop:PhysicalProperty ;
-                   rdfs:label "fluid property"@en .
+:FluidProperty rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProperty ;
+               rdfs:label "fluid property"@en .
 
 
 ###  http://sweetontology.net/prop/GeologicalProperty
-soprop:GeologicalProperty rdf:type owl:Class ;
-                        rdfs:subClassOf soprop:Property ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelh:studyOf ;
-                                          owl:someValuesFrom sohukd:Geology
-                                        ] ;
-                        rdfs:label "geological property"@en .
+:GeologicalProperty rdf:type owl:Class ;
+                    rdfs:subClassOf :Property ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                      owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Geology>
+                                    ] ;
+                    rdfs:label "geological property"@en .
 
 
 ###  http://sweetontology.net/prop/HydrogeologicalProperty
-soprop:HydrogeologicalProperty rdf:type owl:Class ;
-                             rdfs:subClassOf soprop:GeologicalProperty ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty sorelh:studyOf ;
-                                               owl:someValuesFrom sohukd:Hydrology
-                                             ] ;
-                             rdfs:label "hydrogeological property"@en .
+:HydrogeologicalProperty rdf:type owl:Class ;
+                         rdfs:subClassOf :GeologicalProperty ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                           owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Hydrology>
+                                         ] ;
+                         rdfs:label "hydrogeological property"@en .
 
 
 ###  http://sweetontology.net/prop/Measure
-soprop:Measure rdf:type owl:Class ;
-             rdfs:subClassOf soprop:Property ;
-             rdfs:label "measure"@en .
+:Measure rdf:type owl:Class ;
+         rdfs:subClassOf :Property ;
+         rdfs:label "measure"@en ;
+         skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-17T11:09:41.025"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q192276> ;
+           rdfs:comment "generalization of length, area, volume and integral"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q192276> .
 
 
 ###  http://sweetontology.net/prop/Metric
-soprop:Metric rdf:type owl:Class ;
-            rdfs:subClassOf soprop:Measure ;
-            rdfs:label "metric"@en .
+:Metric rdf:type owl:Class ;
+        rdfs:subClassOf :Measure ;
+        rdfs:label "metric"@en ;
+        skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-17T11:09:41.096"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q17004438> ;
+           rdfs:comment "measure for quantitatively assessing an attribute  of a person, process, event, institution or system"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q17004438> .
 
 
 ###  http://sweetontology.net/prop/MotionProperty
-soprop:MotionProperty rdf:type owl:Class ;
-                    rdfs:subClassOf soprop:PhysicalProperty ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelh:studyOf ;
-                                      owl:someValuesFrom sohukd:Dynamics
-                                    ] ;
-                    rdfs:label "motion property"@en .
+:MotionProperty rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalProperty ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                  owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Dynamics>
+                                ] ;
+                rdfs:label "motion property"@en .
 
 
 ###  http://sweetontology.net/prop/PhysicalProperty
-soprop:PhysicalProperty rdf:type owl:Class ;
-                      rdfs:subClassOf soprop:Property ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelh:studyOf ;
-                                        owl:someValuesFrom sohukd:Physics
-                                      ] ;
-                      rdfs:label "physical property"@en .
+:PhysicalProperty rdf:type owl:Class ;
+                  rdfs:subClassOf :Property ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                    owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Physics>
+                                  ] ;
+                  rdfs:label "physical property"@en ;
+                  skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-17T11:09:41.227"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q4373292> ;
+           rdfs:comment "attribute of a physical system or body; OR non-chemical  property of a material"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q4373292> .
 
 
 ###  http://sweetontology.net/prop/Precision
-soprop:Precision rdf:type owl:Class ;
-               rdfs:subClassOf soprop:Metric ;
-               rdfs:label "precision"@en .
+:Precision rdf:type owl:Class ;
+           rdfs:subClassOf :Metric ;
+           rdfs:label "precision"@en ;
+           skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-17T11:09:41.284"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q962365> ;
+           rdfs:comment "measure of random errors in a system: the variation among measurements of the same value"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q962365> .
 
 
 ###  http://sweetontology.net/prop/Property
-soprop:Property rdf:type owl:Class ;
-              rdfs:label "property"@en .
+:Property rdf:type owl:Class ;
+          rdfs:label "property"@en ;
+          skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-17T11:09:41.415"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2306> ;
+           rdfs:comment "qualifier to define a property constraint in combination with P2302 (property constraint), or to limit the scope of Q44292881 (wikidata statement)"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/P2306> .
 
 
 ###  http://sweetontology.net/prop/RadiationMediumInteractionProperty
-soprop:RadiationMediumInteractionProperty rdf:type owl:Class ;
-                                        rdfs:subClassOf soprop:ElectromagneticRadiationProperty ;
-                                        rdfs:label "radiation medium interaction property"@en .
+:RadiationMediumInteractionProperty rdf:type owl:Class ;
+                                    rdfs:subClassOf :ElectromagneticRadiationProperty ;
+                                    rdfs:label "radiation medium interaction property"@en .
 
 
 ###  http://sweetontology.net/prop/ReactionProperty
-soprop:ReactionProperty rdf:type owl:Class ;
-                      rdfs:subClassOf soprop:ChemicalProperty ;
-                      rdfs:label "reaction property"@en .
+:ReactionProperty rdf:type owl:Class ;
+                  rdfs:subClassOf :ChemicalProperty ;
+                  rdfs:label "reaction property"@en .
 
 
 ###  http://sweetontology.net/prop/Role
-soprop:Role rdf:type owl:Class ;
-          rdfs:subClassOf soprop:Property ;
-          rdfs:label "role"@en .
+:Role rdf:type owl:Class ;
+      rdfs:subClassOf :Property ;
+      rdfs:label "role"@en ;
+      skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-17T11:09:41.637"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q214339> ;
+           rdfs:comment "set of behaviours, rights, obligations, beliefs, and norms expected from an individual that has a certain social status"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q214339> .
 
 
 ###  http://sweetontology.net/prop/Sensitivity
-soprop:Sensitivity rdf:type owl:Class ;
-                 rdfs:subClassOf soprop:Measure ;
-                 rdfs:label "sensitivity"@en .
+:Sensitivity rdf:type owl:Class ;
+             rdfs:subClassOf :Measure ;
+             rdfs:label "sensitivity"@en ;
+             skos:definition _:genid19 .
+
+_:genid19 dcterms:created "2020-07-17T11:09:41.738"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1295020> ;
+           rdfs:comment "in electronics, minimum magnitude of input signal required to produce a specified output signal"@en ;
+           prov:wasDerivedFrom <http://www.wikidata.org/entity/Q1295020> .
 
 
 ###  http://sweetontology.net/prop/StatisticalSummary
-soprop:StatisticalSummary rdf:type owl:Class ;
-                        rdfs:subClassOf soprop:Property ;
-                        rdfs:label "statistical summary"@en .
+:StatisticalSummary rdf:type owl:Class ;
+                    rdfs:subClassOf :Property ;
+                    rdfs:label "statistical summary"@en .
 
 
 ###  http://sweetontology.net/prop/StockProperty
-soprop:StockProperty rdf:type owl:Class ;
-                   rdfs:subClassOf soprop:SystemProperty ;
-                   rdfs:label "stock property"@en .
+:StockProperty rdf:type owl:Class ;
+               rdfs:subClassOf :SystemProperty ;
+               rdfs:label "stock property"@en .
 
 
 ###  http://sweetontology.net/prop/SystemProperty
-soprop:SystemProperty rdf:type owl:Class ;
-                    rdfs:subClassOf soprop:Property ;
-                    rdfs:label "system property"@en .
+:SystemProperty rdf:type owl:Class ;
+                rdfs:subClassOf :Property ;
+                rdfs:label "system property"@en .
 
 
 ###  http://sweetontology.net/prop/ThermodynamicProperty
-soprop:ThermodynamicProperty rdf:type owl:Class ;
-                           rdfs:subClassOf soprop:PhysicalProperty ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelh:studyOf ;
-                                             owl:someValuesFrom sohukd:Thermodynamics
-                                           ] ;
-                           rdfs:label "thermodynamic property"@en .
+:ThermodynamicProperty rdf:type owl:Class ;
+                       rdfs:subClassOf :PhysicalProperty ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://sweetontology.net/relaHuman/studyOf> ;
+                                         owl:someValuesFrom <http://sweetontology.net/humanKnowledgeDomain/Thermodynamics>
+                                       ] ;
+                       rdfs:label "thermodynamic property"@en .
 
 
 ###  http://sweetontology.net/prop/WaveProperty
-soprop:WaveProperty rdf:type owl:Class ;
-                  rdfs:subClassOf soprop:PhysicalProperty ;
-                  rdfs:label "wave property"@en .
+:WaveProperty rdf:type owl:Class ;
+              rdfs:subClassOf :PhysicalProperty ;
+              rdfs:label "wave property"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/
