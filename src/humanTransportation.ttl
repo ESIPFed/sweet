@@ -1,35 +1,55 @@
 @prefix : <http://sweetontology.net/humanTransportation/> .
-@prefix sohu: <http://sweetontology.net/human/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix sohuj: <http://sweetontology.net/humanJurisdiction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sohuc: <http://sweetontology.net/humanCommerce/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorelh: <http://sweetontology.net/relaHuman/> .
-@prefix sohut: <http://sweetontology.net/humanTransportation/> .
-@prefix sorelt: <http://sweetontology.net/relaTime/> .
-@base <http://sweetontology.net/humanTransportation> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/humanTransportation/> .
 
 <http://sweetontology.net/humanTransportation> rdf:type owl:Ontology ;
+                                                owl:versionIRI <http://sweetontology.net/humanTransportation/3.6.0> ;
                                                 owl:imports <http://sweetontology.net/human> ,
                                                             <http://sweetontology.net/humanCommerce> ,
                                                             <http://sweetontology.net/humanJurisdiction> ,
                                                             <http://sweetontology.net/matrEquipment> ,
                                                             <http://sweetontology.net/relaHuman> ,
                                                             <http://sweetontology.net/relaTime> ;
-                                                rdfs:label "SWEET Ontology Human Transportation" ;
                                                 dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                                owl:versionInfo "3.5.0" .
+                                                rdfs:label "SWEET Ontology Human Transportation" ;
+                                                owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaHuman/hasHumanActivity
-sorelh:hasHumanActivity rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaHuman/hasHumanActivity> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -37,145 +57,235 @@ sorelh:hasHumanActivity rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/humanCommerce/Management
-sohuc:Management rdf:type owl:Class .
+<http://sweetontology.net/humanCommerce/Management> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/humanTransportation/AirTraffic
-sohut:AirTraffic rdf:type owl:Class ;
-                 rdfs:subClassOf sohu:HumanActivity ;
-                 rdfs:label "air traffic"@en .
+:AirTraffic rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+            rdfs:label "air traffic"@en ;
+            skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-18T17:26:22.604"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q92055870> ;
+          rdfs:comment "subconcept of Traffic (scot/927)"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/AirTrafficControl
-sohut:AirTrafficControl rdf:type owl:Class ;
-                        rdfs:subClassOf sohuc:Management ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelh:hasHumanActivity ;
-                                          owl:allValuesFrom sohut:AirTraffic
-                                        ] ;
-                        rdfs:label "air traffic control"@en .
+:AirTrafficControl rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/humanCommerce/Management> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaHuman/hasHumanActivity> ;
+                                     owl:allValuesFrom :AirTraffic
+                                   ] ;
+                   rdfs:label "air traffic control"@en ;
+                   skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-18T17:26:22.678"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q221395> ;
+          rdfs:comment "service provided for the purpose of preventing collisions between aircraft, and on the manoeuvring area between aircraft and obstructions; and expediting and maintaining an orderly flow of air traffic"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/AirTransportation
-sohut:AirTransportation rdf:type owl:Class ;
-                        rdfs:subClassOf sohut:Transportation ;
-                        rdfs:label "air transportation"@en .
+:AirTransportation rdf:type owl:Class ;
+                   rdfs:subClassOf :Transportation ;
+                   rdfs:label "air transportation"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Arrival
-sohut:Arrival rdf:type owl:Class ;
-              rdfs:subClassOf sohu:HumanActivity ;
-              rdfs:label "arrival"@en .
+:Arrival rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+         rdfs:label "arrival"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Ascent
-sohut:Ascent rdf:type owl:Class ;
-             rdfs:subClassOf sohut:Departure ;
-             rdfs:label "ascent"@en .
+:Ascent rdf:type owl:Class ;
+        rdfs:subClassOf :Departure ;
+        rdfs:label "ascent"@en ;
+        skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-18T17:26:22.901"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q74026067> ;
+          rdfs:comment "increase in elevation or altitude"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Aviation
-sohut:Aviation rdf:type owl:Class ;
-               rdfs:subClassOf sohu:HumanActivity ;
-               rdfs:label "aviation"@en .
+:Aviation rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+          rdfs:label "aviation"@en ;
+          skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-18T17:26:22.977"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q765633> ;
+          rdfs:comment "design, development, production, operation and use of aircraft"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/CivilAviation
-sohut:CivilAviation rdf:type owl:Class ;
-                    rdfs:subClassOf sohut:Aviation ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelh:hasJurisdiction ;
-                                      owl:allValuesFrom sohuj:Civil
-                                    ] ;
-                    rdfs:label "civil aviation"@en .
+:CivilAviation rdf:type owl:Class ;
+               rdfs:subClassOf :Aviation ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
+                                 owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Civil>
+                               ] ;
+               rdfs:label "civil aviation"@en ;
+               skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-18T17:26:23.051"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q206814> ;
+          rdfs:comment "all non-military aviation"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Departure
-sohut:Departure rdf:type owl:Class ;
-                rdfs:subClassOf sohu:HumanActivity ;
-                rdfs:label "departure"@en .
+:Departure rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+           rdfs:label "departure"@en ;
+           skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-18T17:26:23.127"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q21171241> ;
+          rdfs:comment "act of departing or something that has departed"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Descent
-sohut:Descent rdf:type owl:Class ;
-              rdfs:subClassOf sohut:Arrival ;
-              rdfs:label "descent"@en .
+:Descent rdf:type owl:Class ;
+         rdfs:subClassOf :Arrival ;
+         rdfs:label "descent"@en ;
+         skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-18T17:26:23.203"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3024290> ;
+          rdfs:comment "descending road or path"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Evacuation
-sohut:Evacuation rdf:type owl:Class ;
-                 rdfs:subClassOf sohu:HumanActivity ;
-                 rdfs:label "evacuation"@en .
+:Evacuation rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+            rdfs:label "evacuation"@en ;
+            skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-18T17:26:23.292"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3592681> ;
+           rdfs:comment "Wikimedia disambiguation page"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Flight
-sohut:Flight rdf:type owl:Class ;
-             rdfs:subClassOf sohut:AirTransportation ;
-             rdfs:label "flight"@en .
+:Flight rdf:type owl:Class ;
+        rdfs:subClassOf :AirTransportation ;
+        rdfs:label "flight"@en ;
+        skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-18T17:26:23.380"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q206021> ;
+           rdfs:comment "process by which an object moves, through an atmosphere or beyond it"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/GroundTransportation
-sohut:GroundTransportation rdf:type owl:Class ;
-                           rdfs:subClassOf sohut:Transportation ;
-                           rdfs:label "ground transportation"@en .
+:GroundTransportation rdf:type owl:Class ;
+                      rdfs:subClassOf :Transportation ;
+                      rdfs:label "ground transportation"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Landing
-sohut:Landing rdf:type owl:Class ;
-              rdfs:subClassOf sohut:Arrival ;
-              rdfs:label "landing"@en .
+:Landing rdf:type owl:Class ;
+         rdfs:subClassOf :Arrival ;
+         rdfs:label "landing"@en ;
+         skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-18T17:26:23.536"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q844947> ;
+           rdfs:comment "transition from being in flight to being on a surface"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Liftoff
-sohut:Liftoff rdf:type owl:Class ;
-              rdfs:subClassOf sohut:Departure ;
-              rdfs:label "liftoff"@en .
+:Liftoff rdf:type owl:Class ;
+         rdfs:subClassOf :Departure ;
+         rdfs:label "liftoff"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/MilitaryAviation
-sohut:MilitaryAviation rdf:type owl:Class ;
-                       rdfs:subClassOf sohut:Aviation ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorelh:hasJurisdiction ;
-                                         owl:allValuesFrom sohuj:Military
-                                       ] ;
-                       rdfs:label "military aviation"@en .
+:MilitaryAviation rdf:type owl:Class ;
+                  rdfs:subClassOf :Aviation ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
+                                    owl:allValuesFrom <http://sweetontology.net/humanJurisdiction/Military>
+                                  ] ;
+                  rdfs:label "military aviation"@en ;
+                  skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-18T17:26:23.681"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q627716> ;
+           rdfs:comment "use of aircraft by armed forces in combat or other military capacity"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/SpaceProgram
-sohut:SpaceProgram rdf:type owl:Class ;
-                   rdfs:subClassOf sohu:HumanActivity ;
-                   rdfs:label "space program"@en .
+:SpaceProgram rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+              rdfs:label "space program"@en ;
+              skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-18T17:26:23.759"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q60054001> ;
+           rdfs:comment "organized effort by a government with a goal related to space"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/SpaceTravel
-sohut:SpaceTravel rdf:type owl:Class ;
-                  rdfs:subClassOf sohut:SpaceProgram ;
-                  rdfs:label "space travel"@en .
+:SpaceTravel rdf:type owl:Class ;
+             rdfs:subClassOf :SpaceProgram ;
+             rdfs:label "space travel"@en ;
+             skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-18T17:26:23.835"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7572640> ;
+           rdfs:comment "Wikimedia disambiguation page"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Takeoff
-sohut:Takeoff rdf:type owl:Class ;
-              rdfs:subClassOf sohut:Departure ;
-              rdfs:label "takeoff"@en .
+:Takeoff rdf:type owl:Class ;
+         rdfs:subClassOf :Departure ;
+         rdfs:label "takeoff"@en ;
+         skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-18T17:26:23.921"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q854248> ;
+           rdfs:comment "phase of flight in which a vehicle leaves the land or water surface"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Transit
-sohut:Transit rdf:type owl:Class ;
-              rdfs:subClassOf sohut:Transportation ;
-              rdfs:label "transit"@en .
+:Transit rdf:type owl:Class ;
+         rdfs:subClassOf :Transportation ;
+         rdfs:label "transit"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Transport
-sohut:Transport rdf:type owl:Class ;
-                rdfs:subClassOf sohu:HumanActivity ;
-                rdfs:label "transport"@en .
+:Transport rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+           rdfs:label "transport"@en ;
+           skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-18T17:26:24.075"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7590> ;
+           rdfs:comment "human-directed movement of things or people between locations"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/Transportation
-sohut:Transportation rdf:type owl:Class ;
-                     rdfs:subClassOf sohu:HumanActivity ;
-                     rdfs:label "transportation"@en .
+:Transportation rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+                rdfs:label "transportation"@en .
 
 
 #################################################################
@@ -183,16 +293,16 @@ sohut:Transportation rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/humanTransportation/FAA
-sohut:FAA rdf:type owl:NamedIndividual ,
-                   sohuj:FederalGoverningBody ;
-          owl:sameAs sohut:FederalAviationAdministration ;
-          rdfs:label "faa"@en .
+:FAA rdf:type owl:NamedIndividual ,
+              <http://sweetontology.net/humanJurisdiction/FederalGoverningBody> ;
+     owl:sameAs :FederalAviationAdministration ;
+     rdfs:label "faa"@en .
 
 
 ###  http://sweetontology.net/humanTransportation/FederalAviationAdministration
-sohut:FederalAviationAdministration rdf:type owl:NamedIndividual ,
-                                             sohuj:FederalGoverningBody ;
-                                    rdfs:label "federal aviation administration"@en .
+:FederalAviationAdministration rdf:type owl:NamedIndividual ,
+                                        <http://sweetontology.net/humanJurisdiction/FederalGoverningBody> ;
+                               rdfs:label "federal aviation administration"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

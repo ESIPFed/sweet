@@ -1,24 +1,15 @@
 @prefix : <http://sweetontology.net/realmGeolContinental/> .
-@prefix matrRockIgneous: <http://sweetontology.net/matrRockIgneous/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sorealt: <http://sweetontology.net/realmLandTectonic/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soma: <http://sweetontology.net/matr/> .
-@prefix soreagcont: <http://sweetontology.net/realmGeolContinental/> .
-@prefix soreag: <http://sweetontology.net/realmGeol/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sostrg: <http://sweetontology.net/stateRoleGeographic/> .
-@prefix soreagb: <http://sweetontology.net/realmGeolBasin/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/realmGeolContinental> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/realmGeolContinental/> .
 
 <http://sweetontology.net/realmGeolContinental> rdf:type owl:Ontology ;
+                                                 owl:versionIRI <http://sweetontology.net/realmGeolContinental/3.6.0> ;
                                                  owl:imports <http://sweetontology.net/matr> ,
                                                              <http://sweetontology.net/matrRockIgneous> ,
                                                              <http://sweetontology.net/realmGeol> ,
@@ -29,20 +20,44 @@
                                                              <http://sweetontology.net/relaPhysical> ,
                                                              <http://sweetontology.net/relaSci> ,
                                                              <http://sweetontology.net/stateRoleGeographic> ;
-                                                 rdfs:label "SWEET Ontology Realm Geologic Continental" ;
                                                  dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                                 owl:versionInfo "3.5.0" .
+                                                 rdfs:label "SWEET Ontology Realm Geologic Continental" ;
+                                                 owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/partOf
-sorel:partOf rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/partOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasRock
-sorelsc:hasRock rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasRock> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -50,126 +65,156 @@ sorelsc:hasRock rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/realmGeolContinental/ActiveContinent
-soreagcont:ActiveContinent rdf:type owl:Class ;
-                     rdfs:subClassOf soreag:GeologicProvince ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorel:partOf ;
-                                       owl:allValuesFrom soreagcont:ContinentalLithosphere
-                                     ] ;
-                     rdfs:label "active continent"@en .
+:ActiveContinent rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/rela/partOf> ;
+                                   owl:allValuesFrom :ContinentalLithosphere
+                                 ] ;
+                 rdfs:label "active continent"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/ContinentalCrust
-soreagcont:ContinentalCrust rdf:type owl:Class ;
-                      rdfs:subClassOf soreag:Continental ,
-                                      soreag:Crust ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsc:hasRock ;
-                                        owl:someValuesFrom matrRockIgneous:Felsic
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorel:partOf ;
-                                        owl:allValuesFrom soreagcont:ContinentalLithosphere
-                                      ] ;
-                      rdfs:label "continental crust"@en .
+:ContinentalCrust rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/realmGeol/Continental> ,
+                                  <http://sweetontology.net/realmGeol/Crust> ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaSci/hasRock> ;
+                                    owl:someValuesFrom <http://sweetontology.net/matrRockIgneous/Felsic>
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/rela/partOf> ;
+                                    owl:allValuesFrom :ContinentalLithosphere
+                                  ] ;
+                  rdfs:label "continental crust"@en ;
+                  skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-18T18:05:44.913"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q858571> ;
+          rdfs:comment "layer of rocks that forms the continents and the areas of shallow seabed close to their shores, known as continental shelves"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/ContinentalLithosphere
-soreagcont:ContinentalLithosphere rdf:type owl:Class ;
-                            rdfs:subClassOf soreag:Continental ,
-                                            soreag:Lithosphere ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorelph:hasPlanetaryStructure ;
-                                              owl:allValuesFrom soreagcont:Craton
-                                            ] ;
-                            rdfs:label "continental lithosphere"@en .
+:ContinentalLithosphere rdf:type owl:Class ;
+                        rdfs:subClassOf <http://sweetontology.net/realmGeol/Continental> ,
+                                        <http://sweetontology.net/realmGeol/Lithosphere> ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
+                                          owl:allValuesFrom :Craton
+                                        ] ;
+                        rdfs:label "continental lithosphere"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/ContinentalMargin
-soreagcont:ContinentalMargin rdf:type owl:Class ;
-                       rdfs:subClassOf sostrg:Margin ;
-                       rdfs:label "continental margin"@en .
+:ContinentalMargin rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/stateRoleGeographic/Margin> ;
+                   rdfs:label "continental margin"@en ;
+                   skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-18T18:05:45.067"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3290577> ;
+          rdfs:comment "zone of the ocean floor that separates the thin oceanic crust from thick continental crust"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/ContinentalPlatform
-soreagcont:ContinentalPlatform rdf:type owl:Class ;
-                         rdfs:subClassOf soreag:GeologicProvince ;
-                         rdfs:label "continental platform"@en .
+:ContinentalPlatform rdf:type owl:Class ;
+                     rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ;
+                     rdfs:label "continental platform"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/ContinentalRift
-soreagcont:ContinentalRift rdf:type owl:Class ;
-                     rdfs:subClassOf sorealt:DivergentBoundary ,
-                                     sorealt:Rift ;
-                     rdfs:label "continental rift"@en .
+:ContinentalRift rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/realmLandTectonic/DivergentBoundary> ,
+                                 <http://sweetontology.net/realmLandTectonic/Rift> ;
+                 rdfs:label "continental rift"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/Craton
-soreagcont:Craton rdf:type owl:Class ;
-            rdfs:subClassOf soreag:GeologicProvince ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorel:partOf ;
-                              owl:allValuesFrom soreagcont:ContinentalCrust
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelch:hasSubstance ;
-                              owl:allValuesFrom matrRockIgneous:Kimberlite
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelph:hasPlanetaryStructure ;
-                              owl:allValuesFrom soreagb:IntracratonicBasin
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelph:hasPlanetaryStructure ;
-                              owl:allValuesFrom soreagcont:ContinentalPlatform
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelph:hasPlanetaryStructure ;
-                              owl:allValuesFrom soreagcont:Shield
-                            ] ;
-            rdfs:label "craton"@en .
+:Craton rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/rela/partOf> ;
+                          owl:allValuesFrom :ContinentalCrust
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                          owl:allValuesFrom <http://sweetontology.net/matrRockIgneous/Kimberlite>
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
+                          owl:allValuesFrom <http://sweetontology.net/realmGeolBasin/IntracratonicBasin>
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
+                          owl:allValuesFrom :ContinentalPlatform
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
+                          owl:allValuesFrom :Shield
+                        ] ;
+        rdfs:label "craton"@en ;
+        skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-18T18:05:45.366"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q191110> ;
+           rdfs:comment "part of the continental lithosphere"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/Shield
-soreagcont:Shield rdf:type owl:Class ;
-            rdfs:subClassOf soreag:GeologicProvince ;
-            rdfs:label "shield"@en .
+:Shield rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ;
+        rdfs:label "shield"@en ;
+        skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-18T18:05:45.466"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q131559> ;
+           rdfs:comment "item of armour carried to intercept attacks or projectiles"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/StableContinent
-soreagcont:StableContinent rdf:type owl:Class ;
-                     rdfs:subClassOf soreag:GeologicProvince ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorel:partOf ;
-                                       owl:allValuesFrom soreagcont:ContinentalLithosphere
-                                     ] ;
-                     rdfs:label "stable continent"@en .
+:StableContinent rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/rela/partOf> ;
+                                   owl:allValuesFrom :ContinentalLithosphere
+                                 ] ;
+                 rdfs:label "stable continent"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/Supercontinent
-soreagcont:Supercontinent rdf:type owl:Class ;
-                    rdfs:subClassOf soreag:GeologicProvince ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorel:hasRealm ;
-                                      owl:allValuesFrom soreagcont:ContinentalLithosphere
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelph:hasPlanetaryStructure ;
-                                      owl:allValuesFrom soreagcont:Craton
-                                    ] ;
-                    rdfs:label "supercontinent"@en .
+:Supercontinent rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/realmGeol/GeologicProvince> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                  owl:allValuesFrom :ContinentalLithosphere
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaPhysical/hasPlanetaryStructure> ;
+                                  owl:allValuesFrom :Craton
+                                ] ;
+                rdfs:label "supercontinent"@en ;
+                skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-18T18:05:45.612"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q55833> ;
+           rdfs:comment "landmass comprising more than one continental core, or craton"@en .
 
 
 ###  http://sweetontology.net/realmLandTectonic/DivergentBoundary
-sorealt:DivergentBoundary rdf:type owl:Class .
+<http://sweetontology.net/realmLandTectonic/DivergentBoundary> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandTectonic/Rift
-sorealt:Rift rdf:type owl:Class .
+<http://sweetontology.net/realmLandTectonic/Rift> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/stateRoleGeographic/Margin
-sostrg:Margin rdf:type owl:Class .
+<http://sweetontology.net/stateRoleGeographic/Margin> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

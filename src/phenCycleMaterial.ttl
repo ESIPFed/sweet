@@ -1,21 +1,15 @@
 @prefix : <http://sweetontology.net/phenCycleMaterial/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix somac: <http://sweetontology.net/matrCompound/> .
-@prefix sophec: <http://sweetontology.net/phenEcology/> .
-@prefix somael: <http://sweetontology.net/matrElement/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sophcm: <http://sweetontology.net/phenCycleMaterial/> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorepmg: <http://sweetontology.net/reprMathGraph/> .
-@base <http://sweetontology.net/phenCycleMaterial> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenCycleMaterial/> .
 
 <http://sweetontology.net/phenCycleMaterial> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://sweetontology.net/phenCycleMaterial/3.6.0> ;
                                               owl:imports <http://sweetontology.net/matrCompound> ,
                                                           <http://sweetontology.net/matrElement> ,
                                                           <http://sweetontology.net/phenEcology> ,
@@ -23,20 +17,20 @@
                                                           <http://sweetontology.net/rela> ,
                                                           <http://sweetontology.net/relaChemical> ,
                                                           <http://sweetontology.net/reprMathGraph> ;
-                                              rdfs:label "SWEET Ontology Phenomena Cycle Material" ;
                                               dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                              owl:versionInfo "3.5.0" .
+                                              rdfs:label "SWEET Ontology Phenomena Cycle Material" ;
+                                              owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-sorelch:hasSubstance rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -44,110 +38,152 @@ sorelch:hasSubstance rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenCycleMaterial/BiogeochemicalCycle
-sophcm:BiogeochemicalCycle rdf:type owl:Class ;
-                         rdfs:subClassOf sophcm:MaterialCycle ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorel:hasPhenomena ;
-                                           owl:allValuesFrom sophec:EcologicalPhenomena
-                                         ] ;
-                         rdfs:label "biogeochemical cycle"@en .
+:BiogeochemicalCycle rdf:type owl:Class ;
+                     rdfs:subClassOf :MaterialCycle ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                       owl:allValuesFrom <http://sweetontology.net/phenEcology/EcologicalPhenomena>
+                                     ] ;
+                     rdfs:label "biogeochemical cycle"@en ;
+                     skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-18T17:39:47.243"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q846303> ;
+          rdfs:comment "pathway by which a chemical element or molecule moves through both biotic and abiotic compartments of Earth"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/CarbonCycle
-sophcm:CarbonCycle rdf:type owl:Class ;
-                 rdfs:subClassOf sophcm:BiogeochemicalCycle ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelch:hasSubstance ;
-                                   owl:hasValue somael:Carbon
-                                 ] ;
-                 rdfs:label "carbon cycle"@en .
+:CarbonCycle rdf:type owl:Class ;
+             rdfs:subClassOf :BiogeochemicalCycle ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                               owl:hasValue <http://sweetontology.net/matrElement/Carbon>
+                             ] ;
+             rdfs:label "carbon cycle"@en ;
+             skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-18T17:39:47.319"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q167751> ;
+          rdfs:comment "biogeochemical cycle by which carbon is exchanged among the biosphere"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/HydrologicCycle
-sophcm:HydrologicCycle rdf:type owl:Class ;
-                     owl:equivalentClass sophcm:HydrologicalCycle ,
-                                         sophcm:WaterCycle ;
-                     rdfs:subClassOf sophcm:MaterialCycle ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelch:hasSubstance ;
-                                       owl:hasValue somac:Water
-                                     ] ;
-                     rdfs:label "hydrologic cycle"@en .
+:HydrologicCycle rdf:type owl:Class ;
+                 owl:equivalentClass :HydrologicalCycle ,
+                                     :WaterCycle ;
+                 rdfs:subClassOf :MaterialCycle ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                   owl:hasValue <http://sweetontology.net/matrCompound/Water>
+                                 ] ;
+                 rdfs:label "hydrologic cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/HydrologicalCycle
-sophcm:HydrologicalCycle rdf:type owl:Class ;
-                       rdfs:label "hydrological cycle"@en .
+:HydrologicalCycle rdf:type owl:Class ;
+                   rdfs:label "hydrological cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/MaterialCycle
-sophcm:MaterialCycle rdf:type owl:Class ;
-                   rdfs:subClassOf sorepmg:Cycle ;
-                   rdfs:label "material cycle"@en .
+:MaterialCycle rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/reprMathGraph/Cycle> ;
+               rdfs:label "material cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/NitrogenCycle
-sophcm:NitrogenCycle rdf:type owl:Class ;
-                   rdfs:subClassOf sophcm:BiogeochemicalCycle ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelch:hasSubstance ;
-                                     owl:hasValue somael:Nitrogen
-                                   ] ;
-                   rdfs:label "nitrogen cycle"@en .
+:NitrogenCycle rdf:type owl:Class ;
+               rdfs:subClassOf :BiogeochemicalCycle ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                 owl:hasValue <http://sweetontology.net/matrElement/Nitrogen>
+                               ] ;
+               rdfs:label "nitrogen cycle"@en ;
+               skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-18T17:39:47.624"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q82551> ;
+          rdfs:comment "biogeochemical cycle by which nitrogen is converted into various chemical forms"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/NutrientCycling
-sophcm:NutrientCycling rdf:type owl:Class ;
-                     rdfs:subClassOf sophcm:BiogeochemicalCycle ,
-                                     sophsy:Recycling ;
-                     rdfs:label "nutrient cycling"@en .
+:NutrientCycling rdf:type owl:Class ;
+                 rdfs:subClassOf :BiogeochemicalCycle ,
+                                 <http://sweetontology.net/phenSystem/Recycling> ;
+                 rdfs:label "nutrient cycling"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/OxygenCycle
-sophcm:OxygenCycle rdf:type owl:Class ;
-                 rdfs:subClassOf sophcm:BiogeochemicalCycle ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelch:hasSubstance ;
-                                   owl:hasValue somael:Oxygen
-                                 ] ;
-                 rdfs:label "oxygen cycle"@en .
+:OxygenCycle rdf:type owl:Class ;
+             rdfs:subClassOf :BiogeochemicalCycle ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                               owl:hasValue <http://sweetontology.net/matrElement/Oxygen>
+                             ] ;
+             rdfs:label "oxygen cycle"@en ;
+             skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-18T17:39:47.801"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1140866> ;
+          rdfs:comment "biogeochemical cycle of oxygen within its four main reservoirs: the atmosphere, the biosphere, the hydrosphere, and the lithosphere"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/PhosphorusCycle
-sophcm:PhosphorusCycle rdf:type owl:Class ;
-                     rdfs:subClassOf sophcm:BiogeochemicalCycle ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelch:hasSubstance ;
-                                       owl:hasValue somael:Phosphorus
-                                     ] ;
-                     rdfs:label "phosphorus cycle"@en .
+:PhosphorusCycle rdf:type owl:Class ;
+                 rdfs:subClassOf :BiogeochemicalCycle ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                   owl:hasValue <http://sweetontology.net/matrElement/Phosphorus>
+                                 ] ;
+                 rdfs:label "phosphorus cycle"@en ;
+                 skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-18T17:39:47.877"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1140772> ;
+           rdfs:comment "biogeochemical cycle that describes the movement of phosphorus through the lithosphere, hydrosphere, and biosphere"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/SulfurCycle
-sophcm:SulfurCycle rdf:type owl:Class ;
-                 rdfs:subClassOf sophcm:BiogeochemicalCycle ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelch:hasSubstance ;
-                                   owl:hasValue somael:Sulfur
-                                 ] ;
-                 rdfs:label "sulfur cycle"@en .
+:SulfurCycle rdf:type owl:Class ;
+             rdfs:subClassOf :BiogeochemicalCycle ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                               owl:hasValue <http://sweetontology.net/matrElement/Sulfur>
+                             ] ;
+             rdfs:label "sulfur cycle"@en ;
+             skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-18T17:39:47.949"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1361502> ;
+           rdfs:comment "biogeochemical cycle of sulfur"@en .
 
 
 ###  http://sweetontology.net/phenCycleMaterial/WaterCycle
-sophcm:WaterCycle rdf:type owl:Class ;
-                rdfs:label "water cycle"@en .
+:WaterCycle rdf:type owl:Class ;
+            rdfs:label "water cycle"@en ;
+            skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-18T17:39:48.013"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q81041> ;
+           rdfs:comment "continuous movement of water on, above and below the surface of the Earth"@en .
 
 
 ###  http://sweetontology.net/phenEcology/EcologicalPhenomena
-sophec:EcologicalPhenomena rdf:type owl:Class .
+<http://sweetontology.net/phenEcology/EcologicalPhenomena> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenSystem/Recycling
-sophsy:Recycling rdf:type owl:Class .
+<http://sweetontology.net/phenSystem/Recycling> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathGraph/Cycle
-sorepmg:Cycle rdf:type owl:Class .
+<http://sweetontology.net/reprMathGraph/Cycle> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

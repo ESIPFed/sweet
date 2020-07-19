@@ -1,23 +1,15 @@
 @prefix : <http://sweetontology.net/phenAtmoFront/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sophatmo: <http://sweetontology.net/phenAtmo/> .
-@prefix sophfi: <http://sweetontology.net/phenFluidInstability/> .
-@prefix sorepmf: <http://sweetontology.net/reprMathFunction/> .
-@prefix sorealo: <http://sweetontology.net/realmLandOrographic/> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sophatmofr: <http://sweetontology.net/phenAtmoFront/> .
-@prefix sophatmowm: <http://sweetontology.net/phenAtmoWindMesoscale/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/phenAtmoFront> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenAtmoFront/> .
 
 <http://sweetontology.net/phenAtmoFront> rdf:type owl:Ontology ;
+                                          owl:versionIRI <http://sweetontology.net/phenAtmoFront/3.6.0> ;
                                           owl:imports <http://sweetontology.net/phenAtmo> ,
                                                       <http://sweetontology.net/phenAtmoWindMesoscale> ,
                                                       <http://sweetontology.net/phenFluidInstability> ,
@@ -26,25 +18,53 @@
                                                       <http://sweetontology.net/rela> ,
                                                       <http://sweetontology.net/relaSci> ,
                                                       <http://sweetontology.net/reprMathFunction> ;
-                                          rdfs:label "SWEET Ontology Phenomena Atmosphere Front" ;
+                                          dcterms:contributor <https://orcid.org/0000-0003-0632-7576> ;
                                           dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                          owl:versionInfo "3.5.0" ;
-                                          dcterms:contributor <https://orcid.org/0000-0003-0632-7576> .
+                                          rdfs:label "SWEET Ontology Phenomena Atmosphere Front" ;
+                                          owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/contributor
+dcterms:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasRealm
-sorel:hasRealm rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/componentOf
-sorelsc:componentOf rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/componentOf> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -52,175 +72,193 @@ sorelsc:componentOf rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoFront/ColdFront
-sophatmofr:ColdFront rdf:type owl:Class ;
-                rdfs:subClassOf sophatmofr:Front ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorel:hasPhenomena ;
-                                  owl:allValuesFrom soprocp:Cooling
-                                ] ;
-                owl:disjointWith sophatmofr:WarmFront ;
-                rdfs:label "cold front"@en .
+:ColdFront rdf:type owl:Class ;
+           rdfs:subClassOf :Front ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                             owl:allValuesFrom <http://sweetontology.net/procPhysical/Cooling>
+                           ] ;
+           owl:disjointWith :WarmFront ;
+           rdfs:label "cold front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Damming
-sophatmofr:Damming rdf:type owl:Class ;
-              rdfs:subClassOf sophatmofr:Front ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorel:hasRealm ;
-                                owl:allValuesFrom sorealo:Orography
-                              ] ;
-              rdfs:label "damming"@en .
+:Damming rdf:type owl:Class ;
+         rdfs:subClassOf :Front ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                           owl:allValuesFrom <http://sweetontology.net/realmLandOrographic/Orography>
+                         ] ;
+         rdfs:label "damming"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Dryline
-sophatmofr:Dryline rdf:type owl:Class ;
-              rdfs:subClassOf sophatmofr:Front ;
-              rdfs:label "dryline"@en .
+:Dryline rdf:type owl:Class ;
+         rdfs:subClassOf :Front ;
+         rdfs:label "dryline"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/FalseWarmSector
-sophatmofr:FalseWarmSector rdf:type owl:Class ;
-                      rdfs:subClassOf sophatmo:MeteorologicalPhenomena ;
-                      rdfs:label "false warm sector"@en .
+:FalseWarmSector rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
+                 rdfs:label "false warm sector"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Front
-sophatmofr:Front rdf:type owl:Class ;
-            rdfs:subClassOf sophatmo:MeteorologicalPhenomena ,
-                            sorepmf:Discontinuity ;
-            rdfs:label "front"@en .
+:Front rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
+                       <http://sweetontology.net/reprMathFunction/Discontinuity> ;
+       rdfs:label "front"@en ;
+       skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-18T17:35:58.730"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q899192> ;
+          rdfs:comment "military formation in some countries; originates in the Russian Empire"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/FrontRegion
-sophatmofr:FrontRegion rdf:type owl:Class ;
-                  rdfs:subClassOf sophatmo:MeteorologicalPhenomena ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:componentOf ;
-                                    owl:allValuesFrom sophatmofr:Front
-                                  ] ;
-                  rdfs:label "front region"@en .
+:FrontRegion rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSci/componentOf> ;
+                               owl:allValuesFrom :Front
+                             ] ;
+             rdfs:label "front region"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/FrontalLifting
-sophatmofr:FrontalLifting rdf:type owl:Class ;
-                     rdfs:subClassOf sophfi:Lifting ;
-                     rdfs:label "frontal lifting"@en .
+:FrontalLifting rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/phenFluidInstability/Lifting> ;
+                rdfs:label "frontal lifting"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/KataFront
-sophatmofr:KataFront rdf:type owl:Class ;
-                rdfs:subClassOf sophatmofr:Front ;
-                rdfs:label "kata front"@en .
+:KataFront rdf:type owl:Class ;
+           rdfs:subClassOf :Front ;
+           rdfs:label "kata front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/KatabaticFront
-sophatmofr:KatabaticFront rdf:type owl:Class ;
-                     rdfs:subClassOf sophatmofr:Front ;
-                     rdfs:label "katabatic front"@en .
+:KatabaticFront rdf:type owl:Class ;
+                rdfs:subClassOf :Front ;
+                rdfs:label "katabatic front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/MediterraneanFront
-sophatmofr:MediterraneanFront rdf:type owl:Class ;
-                         rdfs:subClassOf sophatmofr:Front ;
-                         rdfs:label "mediterranean front"@en .
+:MediterraneanFront rdf:type owl:Class ;
+                    rdfs:subClassOf :Front ;
+                    rdfs:label "mediterranean front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/MeiyuFront
-sophatmofr:MeiyuFront rdf:type owl:Class ;
-                 rdfs:subClassOf sophatmofr:Front ;
-                 rdfs:label "meiyu front"@en .
+:MeiyuFront rdf:type owl:Class ;
+            rdfs:subClassOf :Front ;
+            rdfs:label "meiyu front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Microfront
-sophatmofr:Microfront rdf:type owl:Class ;
-                 rdfs:subClassOf sophatmofr:Front ;
-                 rdfs:label "microfront"@en .
+:Microfront rdf:type owl:Class ;
+            rdfs:subClassOf :Front ;
+            rdfs:label "microfront"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/MoistTongue
-sophatmofr:MoistTongue rdf:type owl:Class ;
-                  rdfs:subClassOf sophatmo:MeteorologicalPhenomena ;
-                  rdfs:label "moist tongue"@en .
+:MoistTongue rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
+             rdfs:label "moist tongue"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/OccludedFront
-sophatmofr:OccludedFront rdf:type owl:Class ;
-                    rdfs:subClassOf sophatmofr:Front ;
-                    rdfs:label "occluded front"@en .
+:OccludedFront rdf:type owl:Class ;
+               rdfs:subClassOf :Front ;
+               rdfs:label "occluded front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/OutflowBoundary
-sophatmofr:OutflowBoundary rdf:type owl:Class ;
-                      rdfs:subClassOf sophatmofr:Front ;
-                      rdfs:label "outflow boundary"@en .
+:OutflowBoundary rdf:type owl:Class ;
+                 rdfs:subClassOf :Front ;
+                 rdfs:label "outflow boundary"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/SeaBreezeFront
-sophatmofr:SeaBreezeFront rdf:type owl:Class ;
-                     rdfs:subClassOf sophatmofr:Front ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorel:hasPhenomena ;
-                                       owl:allValuesFrom sophatmowm:SeaBreeze
-                                     ] ;
-                     rdfs:label "sea breeze front"@en .
+:SeaBreezeFront rdf:type owl:Class ;
+                rdfs:subClassOf :Front ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                  owl:allValuesFrom <http://sweetontology.net/phenAtmoWindMesoscale/SeaBreeze>
+                                ] ;
+                rdfs:label "sea breeze front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/Seclusion
-sophatmofr:Seclusion rdf:type owl:Class ;
-                rdfs:subClassOf sophatmofr:Front ;
-                rdfs:label "seclusion"@en .
+:Seclusion rdf:type owl:Class ;
+           rdfs:subClassOf :Front ;
+           rdfs:label "seclusion"@en ;
+           skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-18T17:35:59.630"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3815274> ;
+          rdfs:comment "act of shutting out or keeping apart from society"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/TransitionZone
-sophatmofr:TransitionZone rdf:type owl:Class ;
-                     rdfs:subClassOf sophatmo:MeteorologicalPhenomena ;
-                     rdfs:label "transition zone"@en .
+:TransitionZone rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
+                rdfs:label "transition zone"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/TriplePoint
-sophatmofr:TriplePoint rdf:type owl:Class ;
-                  rdfs:subClassOf sophatmo:MeteorologicalPhenomena ;
-                  rdfs:label "triple point"@en .
+:TriplePoint rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/phenAtmo/MeteorologicalPhenomena> ;
+             rdfs:label "triple point"@en ;
+             skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-18T17:35:59.771"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q106410> ;
+          rdfs:comment "thermodynamic point where three matter phases exist"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/WarmFront
-sophatmofr:WarmFront rdf:type owl:Class ;
-                rdfs:subClassOf sophatmofr:Front ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorel:hasPhenomena ;
-                                  owl:allValuesFrom soprocp:Heating
-                                ] ;
-                rdfs:label "warm front"@en .
+:WarmFront rdf:type owl:Class ;
+           rdfs:subClassOf :Front ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                             owl:allValuesFrom <http://sweetontology.net/procPhysical/Heating>
+                           ] ;
+           rdfs:label "warm front"@en .
 
 
 ###  http://sweetontology.net/phenAtmoFront/WarmSector
-sophatmofr:WarmSector rdf:type owl:Class ;
-                 rdfs:subClassOf sophatmofr:FrontRegion ;
-                 rdfs:label "warm sector"@en .
+:WarmSector rdf:type owl:Class ;
+            rdfs:subClassOf :FrontRegion ;
+            rdfs:label "warm sector"@en .
 
 
 ###  http://sweetontology.net/phenAtmoWindMesoscale/SeaBreeze
-sophatmowm:SeaBreeze rdf:type owl:Class .
+<http://sweetontology.net/phenAtmoWindMesoscale/SeaBreeze> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lifting
-sophfi:Lifting rdf:type owl:Class .
+<http://sweetontology.net/phenFluidInstability/Lifting> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Cooling
-soprocp:Cooling rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Cooling> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Heating
-soprocp:Heating rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Heating> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandOrographic/Orography
-sorealo:Orography rdf:type owl:Class .
+<http://sweetontology.net/realmLandOrographic/Orography> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathFunction/Discontinuity
-sorepmf:Discontinuity rdf:type owl:Class .
+<http://sweetontology.net/reprMathFunction/Discontinuity> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/
