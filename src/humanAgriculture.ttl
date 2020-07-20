@@ -1,38 +1,34 @@
 @prefix : <http://sweetontology.net/humanAgriculture/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sohua: <http://sweetontology.net/humanAgriculture/> .
-@prefix soman: <http://sweetontology.net/matrAnimal/> .
-@prefix sohuc: <http://sweetontology.net/humanCommerce/> .
-@prefix somac: <http://sweetontology.net/matrCompound/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/humanAgriculture> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/humanAgriculture/> .
 
 <http://sweetontology.net/humanAgriculture> rdf:type owl:Ontology ;
+                                             owl:versionIRI <http://sweetontology.net/humanAgriculture/3.6.0> ;
                                              owl:imports <http://sweetontology.net/humanCommerce> ,
                                                          <http://sweetontology.net/matrAnimal> ,
                                                          <http://sweetontology.net/matrCompound> ,
                                                          <http://sweetontology.net/relaChemical> ,
                                                          <http://sweetontology.net/relaSci> ;
-                                             rdfs:label "SWEET Ontology Human Agriculture" ;
                                              dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                             owl:versionInfo "3.5.0" .
+                                             rdfs:label "SWEET Ontology Human Agriculture" ;
+                                             owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-sorelch:hasSubstance rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasSpecies
-sorelsc:hasSpecies rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasSpecies> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -40,161 +36,215 @@ sorelsc:hasSpecies rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/humanAgriculture/Agriculture
-sohua:Agriculture rdf:type owl:Class ;
-                 rdfs:subClassOf sohuc:LandUse ,
-                                 sohuc:Production .
+:Agriculture rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/humanCommerce/LandUse> ,
+                             <http://sweetontology.net/humanCommerce/Production> .
 
 
 ###  http://sweetontology.net/humanAgriculture/AnimalProduction
-sohua:AnimalProduction rdf:type owl:Class ;
-                      rdfs:subClassOf sohua:Agriculture ;
-                      rdfs:label "animal production"@en .
+:AnimalProduction rdf:type owl:Class ;
+                  rdfs:subClassOf :Agriculture ;
+                  rdfs:label "animal production"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Apiculture
-sohua:Apiculture rdf:type owl:Class ;
-                owl:equivalentClass sohua:Beekeeping ;
-                rdfs:subClassOf sohua:AnimalProduction ;
-                rdfs:label "apiculture"@en .
+:Apiculture rdf:type owl:Class ;
+            owl:equivalentClass :Beekeeping ;
+            rdfs:subClassOf :AnimalProduction ;
+            rdfs:label "apiculture"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Aquaculture
-sohua:Aquaculture rdf:type owl:Class ;
-                 rdfs:subClassOf sohua:Agriculture ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsc:hasSpecies ;
-                                   owl:allValuesFrom soman:MarineAnimal
-                                 ] ;
-                 rdfs:label "aquaculture"@en .
+:Aquaculture rdf:type owl:Class ;
+             rdfs:subClassOf :Agriculture ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                               owl:allValuesFrom <http://sweetontology.net/matrAnimal/MarineAnimal>
+                             ] ;
+             rdfs:label "aquaculture"@en ;
+             skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-19T15:51:47.661"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q188989> ;
+          rdfs:comment "farming things in water"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Beekeeping
-sohua:Beekeeping rdf:type owl:Class ;
-                rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsc:hasSpecies ;
-                                  owl:allValuesFrom soman:Bee
-                                ] ;
-                rdfs:label "beekeeping"@en .
+:Beekeeping rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                              owl:allValuesFrom <http://sweetontology.net/matrAnimal/Bee>
+                            ] ;
+            rdfs:label "beekeeping"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Breeding
-sohua:Breeding rdf:type owl:Class ;
-              rdfs:subClassOf sohua:AnimalProduction ;
-              rdfs:label "breeding"@en .
+:Breeding rdf:type owl:Class ;
+          rdfs:subClassOf :AnimalProduction ;
+          rdfs:label "breeding"@en ;
+          skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T15:51:47.802"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q65360845> ;
+          rdfs:comment "production of offspring by selective mating or hybridization in animals or plants"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/CropProduction
-sohua:CropProduction rdf:type owl:Class ;
-                    rdfs:subClassOf sohua:PlantProduction ;
-                    rdfs:label "crop production"@en .
+:CropProduction rdf:type owl:Class ;
+                rdfs:subClassOf :PlantProduction ;
+                rdfs:label "crop production"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Cultivation
-sohua:Cultivation rdf:type owl:Class ;
-                 rdfs:subClassOf sohua:Agriculture ;
-                 rdfs:label "cultivation"@en .
+:Cultivation rdf:type owl:Class ;
+             rdfs:subClassOf :Agriculture ;
+             rdfs:label "cultivation"@en ;
+             skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T15:51:48.449"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q18087981> ;
+          rdfs:comment "art or act of cultivating; improvement of land for or by agriculture"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/DripIrrigation
-sohua:DripIrrigation rdf:type owl:Class ;
-                    rdfs:subClassOf sohua:Agriculture ;
-                    rdfs:label "drip irrigation"@en .
+:DripIrrigation rdf:type owl:Class ;
+                rdfs:subClassOf :Agriculture ;
+                rdfs:label "drip irrigation"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/FishProduction
-sohua:FishProduction rdf:type owl:Class ;
-                    rdfs:subClassOf sohua:AnimalProduction ,
-                                    sohua:Aquaculture ;
-                    rdfs:label "fish production"@en .
+:FishProduction rdf:type owl:Class ;
+                rdfs:subClassOf :AnimalProduction ,
+                                :Aquaculture ;
+                rdfs:label "fish production"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Fishing
-sohua:Fishing rdf:type owl:Class ;
-             rdfs:subClassOf sohuc:Production ;
-             rdfs:label "fishing"@en .
+:Fishing rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/humanCommerce/Production> ;
+         rdfs:label "fishing"@en ;
+         skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T15:51:48.737"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q14373> ;
+          rdfs:comment "activity of trying to catch fish"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Harvesting
-sohua:Harvesting rdf:type owl:Class ;
-                rdfs:subClassOf sohua:PlantProduction ;
-                rdfs:label "harvesting"@en .
+:Harvesting rdf:type owl:Class ;
+            rdfs:subClassOf :PlantProduction ;
+            rdfs:label "harvesting"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Horticulture
-sohua:Horticulture rdf:type owl:Class ;
-                  rdfs:subClassOf sohua:Agriculture ;
-                  rdfs:label "horticulture"@en .
+:Horticulture rdf:type owl:Class ;
+              rdfs:subClassOf :Agriculture ;
+              rdfs:label "horticulture"@en ;
+              skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-19T15:51:48.898"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q48803> ;
+          rdfs:comment "culture of plants, mainly for food, materials, comfort and beauty"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Irrigation
-sohua:Irrigation rdf:type owl:Class ;
-                rdfs:subClassOf sohua:SoilCultivation ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelch:hasSubstance ;
-                                  owl:hasValue somac:Water
-                                ] ;
-                rdfs:label "irrigation"@en .
+:Irrigation rdf:type owl:Class ;
+            rdfs:subClassOf :SoilCultivation ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                              owl:hasValue <http://sweetontology.net/matrCompound/Water>
+                            ] ;
+            rdfs:label "irrigation"@en ;
+            skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-19T15:51:48.972"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q11453> ;
+          rdfs:comment "artificial application of water to the land"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Logging
-sohua:Logging rdf:type owl:Class ;
-             rdfs:subClassOf sohuc:Production ;
-             rdfs:label "logging"@en .
+:Logging rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/humanCommerce/Production> ;
+         rdfs:label "logging"@en ;
+         skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-19T15:51:49.047"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q845249> ;
+           rdfs:comment "the cutting, skidding, on-site processing, and loading of trees or logs onto transport vehicles"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Overfishing
-sohua:Overfishing rdf:type owl:Class ;
-                 rdfs:subClassOf sohua:Fishing ;
-                 rdfs:label "overfishing"@en .
+:Overfishing rdf:type owl:Class ;
+             rdfs:subClassOf :Fishing ;
+             rdfs:label "overfishing"@en ;
+             skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T15:51:49.120"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q331828> ;
+           rdfs:comment "the act whereby fish stocks are depleted to unacceptable levels, regardless of water body size"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/PlantProduction
-sohua:PlantProduction rdf:type owl:Class ;
-                     rdfs:subClassOf sohua:Agriculture ;
-                     rdfs:label "plant production"@en .
+:PlantProduction rdf:type owl:Class ;
+                 rdfs:subClassOf :Agriculture ;
+                 rdfs:label "plant production"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/Sericulture
-sohua:Sericulture rdf:type owl:Class ;
-                 rdfs:subClassOf sohua:AnimalProduction ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsc:hasSpecies ;
-                                   owl:allValuesFrom soman:Silkworm
-                                 ] ;
-                 rdfs:label "sericulture"@en .
+:Sericulture rdf:type owl:Class ;
+             rdfs:subClassOf :AnimalProduction ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                               owl:allValuesFrom <http://sweetontology.net/matrAnimal/Silkworm>
+                             ] ;
+             rdfs:label "sericulture"@en ;
+             skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-19T15:51:49.259"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q864650> ;
+           rdfs:comment "process of silk production"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/ShellfishProduction
-sohua:ShellfishProduction rdf:type owl:Class ;
-                         rdfs:subClassOf sohua:AnimalProduction ,
-                                         sohua:Aquaculture ;
-                         rdfs:label "shellfish production"@en .
+:ShellfishProduction rdf:type owl:Class ;
+                     rdfs:subClassOf :AnimalProduction ,
+                                     :Aquaculture ;
+                     rdfs:label "shellfish production"@en .
 
 
 ###  http://sweetontology.net/humanAgriculture/SoilCultivation
-sohua:SoilCultivation rdf:type owl:Class ;
-                     rdfs:subClassOf sohua:Agriculture ;
-                     rdfs:label "soil cultivation"@en .
+:SoilCultivation rdf:type owl:Class ;
+                 rdfs:subClassOf :Agriculture ;
+                 rdfs:label "soil cultivation"@en .
 
 
 ###  http://sweetontology.net/humanCommerce/LandUse
-sohuc:LandUse rdf:type owl:Class .
+<http://sweetontology.net/humanCommerce/LandUse> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/humanCommerce/Production
-sohuc:Production rdf:type owl:Class .
+<http://sweetontology.net/humanCommerce/Production> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrAnimal/Bee
-soman:Bee rdf:type owl:Class .
+<http://sweetontology.net/matrAnimal/Bee> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrAnimal/MarineAnimal
-soman:MarineAnimal rdf:type owl:Class .
+<http://sweetontology.net/matrAnimal/MarineAnimal> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/matrAnimal/Silkworm
-soman:Silkworm rdf:type owl:Class .
+<http://sweetontology.net/matrAnimal/Silkworm> rdf:type owl:Class .
 
 
 #################################################################
@@ -202,7 +252,7 @@ soman:Silkworm rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/matrCompound/Water
-somac:Water rdf:type owl:NamedIndividual .
+<http://sweetontology.net/matrCompound/Water> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

@@ -1,22 +1,15 @@
 @prefix : <http://sweetontology.net/propSpaceDirection/> .
-@prefix sopropsdir: <http://sweetontology.net/propSpaceDirection/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropsl: <http://sweetontology.net/propSpaceLocation/> .
-@prefix sorepm: <http://sweetontology.net/reprMath/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorepsd: <http://sweetontology.net/reprSpaceDirection/> .
-@prefix sorepsg3: <http://sweetontology.net/reprSpaceGeometry3D/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propSpaceDirection> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/propSpaceDirection/> .
 
 <http://sweetontology.net/propSpaceDirection> rdf:type owl:Ontology ;
+                                               owl:versionIRI <http://sweetontology.net/propSpaceDirection/3.6.0> ;
                                                owl:imports <http://sweetontology.net/propQuantity> ,
                                                            <http://sweetontology.net/propSpaceLocation> ,
                                                            <http://sweetontology.net/relaSci> ,
@@ -25,28 +18,52 @@
                                                            <http://sweetontology.net/reprSciUnits> ,
                                                            <http://sweetontology.net/reprSpaceDirection> ,
                                                            <http://sweetontology.net/reprSpaceGeometry3D> ;
-                                               rdfs:label "SWEET Ontology Property Space Direction" ;
                                                dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                               owl:versionInfo "3.5.0" .
+                                               rdfs:label "SWEET Ontology Property Space Direction" ;
+                                               owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasDirection
-sorelsp:hasDirection rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasDirection> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasGeometricalObject
-sorelsp:hasGeometricalObject rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasGeometricalObject> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/oppositeTo
-sorelsp:oppositeTo rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/oppositeTo> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -54,169 +71,247 @@ sorelsp:oppositeTo rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propSpaceDirection/Angle
-sopropsdir:Angle rdf:type owl:Class ;
-          rdfs:subClassOf sopropq:Quantity ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty sorelsc:hasDefaultUnit ;
-                            owl:hasValue sorepsu:radian
-                          ] ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty sorelsp:hasDirection ;
-                            owl:cardinality "2"^^xsd:nonNegativeInteger
-                          ] ;
-          rdfs:label "angle"@en .
+:Angle rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                         owl:hasValue <http://sweetontology.net/reprSciUnits/radian>
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
+                         owl:cardinality "2"^^xsd:nonNegativeInteger
+                       ] ;
+       rdfs:label "angle"@en ;
+       skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-19T16:28:24.967"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q11352> ;
+          rdfs:comment "something that is formed when two rays meet at a single or same point"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/AngularDirection
-sopropsdir:AngularDirection rdf:type owl:Class ;
-                     rdfs:subClassOf sopropsdir:Direction ;
-                     rdfs:label "angular direction"@en .
+:AngularDirection rdf:type owl:Class ;
+                  rdfs:subClassOf :Direction ;
+                  rdfs:label "angular direction"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Attitude
-sopropsdir:Attitude rdf:type owl:Class ;
-             rdfs:subClassOf sopropsdir:Direction ;
-             rdfs:label "attitude"@en .
+:Attitude rdf:type owl:Class ;
+          rdfs:subClassOf :Direction ;
+          rdfs:label "attitude"@en ;
+          skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T16:28:25.317"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q622645> ;
+          rdfs:comment "expression of favor or disfavor toward a person, place, thing, or event"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Axis
-sopropsdir:Axis rdf:type owl:Class ;
-         rdfs:subClassOf sopropsdir:Direction ;
-         rdfs:label "axis"@en .
+:Axis rdf:type owl:Class ;
+      rdfs:subClassOf :Direction ;
+      rdfs:label "axis"@en ;
+      skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T16:28:25.400"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q792567> ;
+          rdfs:comment "second cervical vertebra of the spine, the most distinctive characteristic of which is the strong odontoid process, or dens, which rises perpendicularly from the upper surface of the body and forms the pivot upon which the atlas rotates"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Azimuth
-sopropsdir:Azimuth rdf:type owl:Class ;
-            rdfs:subClassOf sopropsdir:Direction ;
-            rdfs:label "azimuth"@en .
+:Azimuth rdf:type owl:Class ;
+         rdfs:subClassOf :Direction ;
+         rdfs:label "azimuth"@en ;
+         skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T16:28:25.556"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q124274> ;
+          rdfs:comment "the angle between a reference plane and a point"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/AzimuthalDirection
-sopropsdir:AzimuthalDirection rdf:type owl:Class ;
-                       rdfs:subClassOf sopropsdir:Direction ;
-                       rdfs:label "azimuthal direction"@en .
+:AzimuthalDirection rdf:type owl:Class ;
+                    rdfs:subClassOf :Direction ;
+                    rdfs:label "azimuthal direction"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Bearing
-sopropsdir:Bearing rdf:type owl:Class ;
-            owl:equivalentClass sopropsdir:Direction ;
-            rdfs:label "bearing"@en .
+:Bearing rdf:type owl:Class ;
+         owl:equivalentClass :Direction ;
+         rdfs:label "bearing"@en ;
+         skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-19T16:28:25.694"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q190100> ;
+          rdfs:comment "machine element which constrains relative movement to the desired motion and reduces friction between moving parts"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Direction
-sopropsdir:Direction rdf:type owl:Class ;
-              owl:equivalentClass sopropsdir:Inclination ;
-              rdfs:subClassOf sorepm:Vector_3D ;
-              rdfs:label "direction"@en .
+:Direction rdf:type owl:Class ;
+           owl:equivalentClass :Inclination ;
+           rdfs:subClassOf <http://sweetontology.net/reprMath/Vector_3D> ;
+           rdfs:label "direction"@en ;
+           skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-19T16:28:25.767"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P560> ;
+          rdfs:comment "qualifier to indicate the direction of the parent statement's value relative to the subject item"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/HorizontalDirection
-sopropsdir:HorizontalDirection rdf:type owl:Class ;
-                        rdfs:subClassOf sopropsdir:Direction ;
-                        rdfs:label "horizontal direction"@en .
+:HorizontalDirection rdf:type owl:Class ;
+                     rdfs:subClassOf :Direction ;
+                     rdfs:label "horizontal direction"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Incidence
-sopropsdir:Incidence rdf:type owl:Class ;
-              rdfs:subClassOf sopropsdir:Direction ;
-              rdfs:label "incidence"@en .
+:Incidence rdf:type owl:Class ;
+           rdfs:subClassOf :Direction ;
+           rdfs:label "incidence"@en ;
+           skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-19T16:28:26.008"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P2844> ;
+          rdfs:comment "probability of occurrence of a given condition in a population within a specified period of time"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Inclination
-sopropsdir:Inclination rdf:type owl:Class ;
-                rdfs:label "inclination"@en .
+:Inclination rdf:type owl:Class ;
+             rdfs:label "inclination"@en ;
+             skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-19T16:28:26.120"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q24067049> ;
+           rdfs:comment "concept in ethics"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Incoming
-sopropsdir:Incoming rdf:type owl:Class ;
-             owl:equivalentClass sopropsdir:Inward ;
-             rdfs:subClassOf sopropsdir:Direction ;
-             rdfs:label "incoming"@en .
+:Incoming rdf:type owl:Class ;
+          owl:equivalentClass :Inward ;
+          rdfs:subClassOf :Direction ;
+          rdfs:label "incoming"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Inward
-sopropsdir:Inward rdf:type owl:Class ;
-           rdfs:label "inward"@en .
+:Inward rdf:type owl:Class ;
+        rdfs:label "inward"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Lateral
-sopropsdir:Lateral rdf:type owl:Class ;
-            rdfs:subClassOf sopropsdir:Direction ;
-            rdfs:label "lateral"@en .
+:Lateral rdf:type owl:Class ;
+         rdfs:subClassOf :Direction ;
+         rdfs:label "lateral"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Orientation
-sopropsdir:Orientation rdf:type owl:Class ;
-                rdfs:subClassOf sopropsdir:Direction ;
-                rdfs:label "orientation"@en .
+:Orientation rdf:type owl:Class ;
+             rdfs:subClassOf :Direction ;
+             rdfs:label "orientation"@en ;
+             skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T16:28:26.440"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P7469> ;
+           rdfs:comment "axis of alignment of an item, or direction perpendicular to its primary face (specify with P518 if necessary)"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Outgoing
-sopropsdir:Outgoing rdf:type owl:Class ;
-             owl:equivalentClass sopropsdir:Outward ;
-             rdfs:subClassOf sopropsdir:Direction ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelsp:oppositeTo ;
-                               owl:allValuesFrom sopropsdir:Incoming
-                             ] ;
-             rdfs:label "outgoing"@en .
+:Outgoing rdf:type owl:Class ;
+          owl:equivalentClass :Outward ;
+          rdfs:subClassOf :Direction ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSpace/oppositeTo> ;
+                            owl:allValuesFrom :Incoming
+                          ] ;
+          rdfs:label "outgoing"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Outward
-sopropsdir:Outward rdf:type owl:Class ;
-            rdfs:label "outward"@en .
+:Outward rdf:type owl:Class ;
+         rdfs:label "outward"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/PolarDirection
-sopropsdir:PolarDirection rdf:type owl:Class ;
-                   rdfs:subClassOf sopropsdir:Direction ;
-                   rdfs:label "polar direction"@en .
+:PolarDirection rdf:type owl:Class ;
+                rdfs:subClassOf :Direction ;
+                rdfs:label "polar direction"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Radial
-sopropsdir:Radial rdf:type owl:Class ;
-           rdfs:subClassOf sopropsdir:Direction ;
-           rdfs:label "radial"@en .
+:Radial rdf:type owl:Class ;
+        rdfs:subClassOf :Direction ;
+        rdfs:label "radial"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/SolidAngle
-sopropsdir:SolidAngle rdf:type owl:Class ;
-               rdfs:subClassOf sopropq:Quantity ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelsp:hasGeometricalObject ;
-                                 owl:allValuesFrom sorepsg3:Cone
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelsc:hasDefaultUnit ;
-                                 owl:hasValue sorepsu:steradian
-                               ] ;
-               rdfs:label "solid angle"@en .
+:SolidAngle rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/propQuantity/Quantity> ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSpace/hasGeometricalObject> ;
+                              owl:allValuesFrom <http://sweetontology.net/reprSpaceGeometry3D/Cone>
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                              owl:hasValue <http://sweetontology.net/reprSciUnits/steradian>
+                            ] ;
+            rdfs:label "solid angle"@en ;
+            skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-19T16:28:27.440"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q208476> ;
+           rdfs:comment "measure of how large an object appears to an observer at a given point in three-dimensional space; subtended portion of a sphere"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Tilt
-sopropsdir:Tilt rdf:type owl:Class ;
-         rdfs:subClassOf sopropsdir:Direction ;
-         rdfs:label "tilt"@en .
+:Tilt rdf:type owl:Class ;
+      rdfs:subClassOf :Direction ;
+      rdfs:label "tilt"@en ;
+      skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-19T16:28:27.509"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P8208> ;
+           rdfs:comment "direction of the camera, measured as an angle from the Nadir to the Zenit"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/VerticalDirection
-sopropsdir:VerticalDirection rdf:type owl:Class ;
-                      rdfs:subClassOf sopropsdir:Direction ;
-                      rdfs:label "vertical direction"@en .
+:VerticalDirection rdf:type owl:Class ;
+                   rdfs:subClassOf :Direction ;
+                   rdfs:label "vertical direction"@en ;
+                   skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-19T16:28:27.638"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q182167> ;
+           rdfs:comment "concept within astronomy, geography, and related sciences"@en .
 
 
 ###  http://sweetontology.net/propSpaceDirection/Zenith
-sopropsdir:Zenith rdf:type owl:Class ;
-           rdfs:subClassOf sopropsdir:Direction ;
-           rdfs:label "zenith"@en .
+:Zenith rdf:type owl:Class ;
+        rdfs:subClassOf :Direction ;
+        rdfs:label "zenith"@en ;
+        skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-19T16:28:27.723"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q82806> ;
+           rdfs:comment "imaginary point directly above a particular location, on the imaginary celestial sphere"@en .
 
 
 ###  http://sweetontology.net/reprMath/Vector_3D
-sorepm:Vector_3D rdf:type owl:Class .
+<http://sweetontology.net/reprMath/Vector_3D> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry3D/Cone
-sorepsg3:Cone rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry3D/Cone> rdf:type owl:Class .
 
 
 #################################################################
@@ -224,11 +319,11 @@ sorepsg3:Cone rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/radian
-sorepsu:radian rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/radian> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/steradian
-sorepsu:steradian rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/steradian> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

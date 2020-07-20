@@ -1,25 +1,15 @@
 @prefix : <http://sweetontology.net/phenFluidInstability/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sophsyc: <http://sweetontology.net/phenSystemComplexity/> .
-@prefix sophfd: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix sophatmofr: <http://sweetontology.net/phenAtmoFront/> .
-@prefix sostss: <http://sweetontology.net/stateSpaceScale/> .
-@prefix soproptg: <http://sweetontology.net/propTemperatureGradient/> .
-@prefix sophfi: <http://sweetontology.net/phenFluidInstability/> .
-@prefix sostp: <http://sweetontology.net/statePhysical/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@prefix sostsy: <http://sweetontology.net/stateSystem/> .
-@prefix sostth: <http://sweetontology.net/stateThermodynamic/> .
-@base <http://sweetontology.net/phenFluidInstability> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenFluidInstability/> .
 
 <http://sweetontology.net/phenFluidInstability> rdf:type owl:Ontology ;
+                                                 owl:versionIRI <http://sweetontology.net/phenFluidInstability/3.6.0> ;
                                                  owl:imports <http://sweetontology.net/phenAtmoFront> ,
                                                              <http://sweetontology.net/phenFluidDynamics> ,
                                                              <http://sweetontology.net/phenSystem> ,
@@ -31,24 +21,48 @@
                                                              <http://sweetontology.net/stateSpaceScale> ,
                                                              <http://sweetontology.net/stateSystem> ,
                                                              <http://sweetontology.net/stateThermodynamic> ;
-                                                 rdfs:label "SWEET Ontology Phenomena Fluid Instability" ;
                                                  dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                                 owl:versionInfo "3.5.0" .
+                                                 rdfs:label "SWEET Ontology Phenomena Fluid Instability" ;
+                                                 owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasState
-sorel:hasState rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasState> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasQuantity
-sorelsc:hasQuantity rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasQuantity> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -56,146 +70,170 @@ sorelsc:hasQuantity rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenFluidInstability/AbsoluteInstability
-sophfi:AbsoluteInstability rdf:type owl:Class ;
-                           rdfs:subClassOf sophfi:FluidInstability ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorel:hasState ;
-                                             owl:hasValue sostth:Superadiabatic
-                                           ] ;
-                           rdfs:label "absolute instability"@en .
+:AbsoluteInstability rdf:type owl:Class ;
+                     rdfs:subClassOf :FluidInstability ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                       owl:hasValue <http://sweetontology.net/stateThermodynamic/Superadiabatic>
+                                     ] ;
+                     rdfs:label "absolute instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/ConditionalInstability
-sophfi:ConditionalInstability rdf:type owl:Class ;
-                              rdfs:subClassOf sophfi:FluidInstability ;
-                              rdfs:label "conditional instability"@en .
+:ConditionalInstability rdf:type owl:Class ;
+                        rdfs:subClassOf :FluidInstability ;
+                        rdfs:label "conditional instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/ConvectiveInstability
-sophfi:ConvectiveInstability rdf:type owl:Class ;
-                             rdfs:subClassOf sophfi:FluidInstability ;
-                             rdfs:label "convective instability"@en .
+:ConvectiveInstability rdf:type owl:Class ;
+                       rdfs:subClassOf :FluidInstability ;
+                       rdfs:label "convective instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/FluidInstability
-sophfi:FluidInstability rdf:type owl:Class ;
-                        rdfs:subClassOf sophfd:FluidPhenomena ,
-                                        sostsy:Instability ;
-                        rdfs:label "fluid instability"@en .
+:FluidInstability rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ,
+                                  <http://sweetontology.net/stateSystem/Instability> ;
+                  rdfs:label "fluid instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/FreeInstability
-sophfi:FreeInstability rdf:type owl:Class ;
-                       rdfs:subClassOf sophfi:FluidInstability ;
-                       rdfs:label "free instability"@en .
+:FreeInstability rdf:type owl:Class ;
+                 rdfs:subClassOf :FluidInstability ;
+                 rdfs:label "free instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/FrontalInversion
-sophfi:FrontalInversion rdf:type owl:Class ;
-                        rdfs:subClassOf sophfi:Inversion ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorel:hasPhenomena ;
-                                          owl:allValuesFrom sophatmofr:Front
-                                        ] ;
-                        rdfs:label "frontal inversion"@en .
+:FrontalInversion rdf:type owl:Class ;
+                  rdfs:subClassOf :Inversion ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                    owl:allValuesFrom <http://sweetontology.net/phenAtmoFront/Front>
+                                  ] ;
+                  rdfs:label "frontal inversion"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Inversion
-sophfi:Inversion rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:FluidPhenomena ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsc:hasQuantity ;
-                                   owl:allValuesFrom soproptg:TemperatureGradient
-                                 ] ;
-                 rdfs:label "inversion"@en .
+:Inversion rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasQuantity> ;
+                             owl:allValuesFrom <http://sweetontology.net/propTemperatureGradient/TemperatureGradient>
+                           ] ;
+           rdfs:label "inversion"@en ;
+           skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T16:11:34.494"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q137685> ;
+          rdfs:comment "musical term with meanings with respect to intervals, chords, voices, and melodies"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/KelvinHelmholtzInstability
-sophfi:KelvinHelmholtzInstability rdf:type owl:Class ;
-                                  rdfs:subClassOf sophfi:FluidInstability ;
-                                  rdfs:label "kelvin helmholtz instability"@en .
+:KelvinHelmholtzInstability rdf:type owl:Class ;
+                            rdfs:subClassOf :FluidInstability ;
+                            rdfs:label "kelvin helmholtz instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/LargeReynoldsNumberFlow
-sophfi:LargeReynoldsNumberFlow rdf:type owl:Class ;
-                               rdfs:subClassOf sophfd:Flow ;
-                               rdfs:label "large reynolds number flow"@en .
+:LargeReynoldsNumberFlow rdf:type owl:Class ;
+                         rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Flow> ;
+                         rdfs:label "large reynolds number flow"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lift
-sophfi:Lift rdf:type owl:Class ;
-            owl:equivalentClass sophfi:Lifting ;
-            rdfs:subClassOf sophfd:FluidPhenomena ;
-            rdfs:label "lift"@en .
+:Lift rdf:type owl:Class ;
+      owl:equivalentClass :Lifting ;
+      rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ;
+      rdfs:label "lift"@en ;
+      skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T16:11:34.713"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q194433> ;
+          rdfs:comment "force; aerodynamics term"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Lifting
-sophfi:Lifting rdf:type owl:Class ;
-               rdfs:label "lifting"@en .
+:Lifting rdf:type owl:Class ;
+         rdfs:label "lifting"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/MechanicalTurbulence
-sophfi:MechanicalTurbulence rdf:type owl:Class ;
-                            rdfs:subClassOf sophfi:Turbulence ;
-                            rdfs:label "mechanical turbulence"@en .
+:MechanicalTurbulence rdf:type owl:Class ;
+                      rdfs:subClassOf :Turbulence ;
+                      rdfs:label "mechanical turbulence"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/RayleighTaylorInstability
-sophfi:RayleighTaylorInstability rdf:type owl:Class ;
-                                 rdfs:subClassOf sophfi:FluidInstability ;
-                                 rdfs:label "rayleigh taylor instability"@en .
+:RayleighTaylorInstability rdf:type owl:Class ;
+                           rdfs:subClassOf :FluidInstability ;
+                           rdfs:label "rayleigh taylor instability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/StaticStability
-sophfi:StaticStability rdf:type owl:Class ;
-                       rdfs:subClassOf sophfi:FluidInstability ;
-                       rdfs:label "static stability"@en .
+:StaticStability rdf:type owl:Class ;
+                 rdfs:subClassOf :FluidInstability ;
+                 rdfs:label "static stability"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/TearingMode
-sophfi:TearingMode rdf:type owl:Class ;
-                   rdfs:subClassOf sostsy:Instability ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorel:hasState ;
-                                     owl:hasValue sostp:Plasma
-                                   ] ;
-                   rdfs:label "tearing mode"@en .
+:TearingMode rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/stateSystem/Instability> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                               owl:hasValue <http://sweetontology.net/statePhysical/Plasma>
+                             ] ;
+             rdfs:label "tearing mode"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Turbulence
-sophfi:Turbulence rdf:type owl:Class ;
-                  rdfs:subClassOf sophfd:FluidPhenomena ,
-                                  sophsyc:Fluctuation ;
-                  rdfs:label "turbulence"@en .
+:Turbulence rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/FluidPhenomena> ,
+                            <http://sweetontology.net/phenSystemComplexity/Fluctuation> ;
+            rdfs:label "turbulence"@en ;
+            skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-19T16:11:35.193"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q190132> ;
+          rdfs:comment "motion characterized by chaotic changes in pressure and flow velocity"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/Wake
-sophfi:Wake rdf:type owl:Class ;
-            rdfs:subClassOf sophfi:Turbulence ;
-            rdfs:label "wake"@en .
+:Wake rdf:type owl:Class ;
+      rdfs:subClassOf :Turbulence ;
+      rdfs:label "wake"@en ;
+      skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-19T16:11:35.263"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1362362> ;
+          rdfs:comment "region of recirculating flow immediately behind a moving or stationary solid body"@en .
 
 
 ###  http://sweetontology.net/phenFluidInstability/ZombieTurbulence
-sophfi:ZombieTurbulence rdf:type owl:Class ;
-                        rdfs:subClassOf sophfi:Turbulence ,
-                                        sophsy:Perturbation ;
-                        rdfs:label "zombie turbulence"@en .
+:ZombieTurbulence rdf:type owl:Class ;
+                  rdfs:subClassOf :Turbulence ,
+                                  <http://sweetontology.net/phenSystem/Perturbation> ;
+                  rdfs:label "zombie turbulence"@en .
 
 
 ###  http://sweetontology.net/phenSystem/Perturbation
-sophsy:Perturbation rdf:type owl:Class .
+<http://sweetontology.net/phenSystem/Perturbation> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenSystemComplexity/Fluctuation
-sophsyc:Fluctuation rdf:type owl:Class .
+<http://sweetontology.net/phenSystemComplexity/Fluctuation> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propTemperatureGradient/TemperatureGradient
-soproptg:TemperatureGradient rdf:type owl:Class .
+<http://sweetontology.net/propTemperatureGradient/TemperatureGradient> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/stateSystem/Instability
-sostsy:Instability rdf:type owl:Class .
+<http://sweetontology.net/stateSystem/Instability> rdf:type owl:Class .
 
 
 #################################################################
@@ -203,11 +241,11 @@ sostsy:Instability rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/statePhysical/Plasma
-sostp:Plasma rdf:type owl:NamedIndividual .
+<http://sweetontology.net/statePhysical/Plasma> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Superadiabatic
-sostth:Superadiabatic rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateThermodynamic/Superadiabatic> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

@@ -1,23 +1,15 @@
 @prefix : <http://sweetontology.net/reprSciFunction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropche: <http://sweetontology.net/propChemical/> .
-@prefix soprope: <http://sweetontology.net/propEnergy/> .
-@prefix sorepmf: <http://sweetontology.net/reprMathFunction/> .
-@prefix sopropm: <http://sweetontology.net/propMass/> .
-@prefix sopropp: <http://sweetontology.net/propPressure/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sopropsm: <http://sweetontology.net/propSpaceMultidimensional/> .
-@prefix sopropt: <http://sweetontology.net/propTemperature/> .
-@prefix sopropst: <http://sweetontology.net/propSpaceThickness/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sorepsf: <http://sweetontology.net/reprSciFunction/> .
-@base <http://sweetontology.net/reprSciFunction> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/reprSciFunction/> .
 
 <http://sweetontology.net/reprSciFunction> rdf:type owl:Ontology ;
+                                            owl:versionIRI <http://sweetontology.net/reprSciFunction/3.6.0> ;
                                             owl:imports <http://sweetontology.net/propChemical> ,
                                                         <http://sweetontology.net/propEnergy> ,
                                                         <http://sweetontology.net/propMass> ,
@@ -27,16 +19,16 @@
                                                         <http://sweetontology.net/propTemperature> ,
                                                         <http://sweetontology.net/relaPhysical> ,
                                                         <http://sweetontology.net/reprMathFunction> ;
-                                            rdfs:label "SWEET Ontology Representation Scientific Function" ;
                                             dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                            owl:versionInfo "3.5.0" .
+                                            rdfs:label "SWEET Ontology Representation Scientific Function" ;
+                                            owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaPhysical/hasConstantQuantity
-sorelph:hasConstantQuantity rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/hasConstantQuantity> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -44,123 +36,159 @@ sorelph:hasConstantQuantity rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propChemical/Salinity
-sopropche:Salinity rdf:type owl:Class .
+<http://sweetontology.net/propChemical/Salinity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propEnergy/Entropy
-soprope:Entropy rdf:type owl:Class .
+<http://sweetontology.net/propEnergy/Entropy> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/Density
-sopropm:Density rdf:type owl:Class .
+<http://sweetontology.net/propMass/Density> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propPressure/Pressure
-sopropp:Pressure rdf:type owl:Class .
+<http://sweetontology.net/propPressure/Pressure> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceMultidimensional/Volume
-sopropsm:Volume rdf:type owl:Class .
+<http://sweetontology.net/propSpaceMultidimensional/Volume> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceThickness/Thickness
-sopropst:Thickness rdf:type owl:Class .
+<http://sweetontology.net/propSpaceThickness/Thickness> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propTemperature/Temperature
-sopropt:Temperature rdf:type owl:Class .
+<http://sweetontology.net/propTemperature/Temperature> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciFunction/AdiabaticInvariant
-sorepsf:AdiabaticInvariant rdf:type owl:Class ;
-                         rdfs:subClassOf sorepsf:Invariant ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelph:hasConstantQuantity ;
-                                           owl:allValuesFrom soprope:Entropy
-                                         ] ;
-                         rdfs:label "adiabatic invariant"@en .
+:AdiabaticInvariant rdf:type owl:Class ;
+                    rdfs:subClassOf :Invariant ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                                      owl:allValuesFrom <http://sweetontology.net/propEnergy/Entropy>
+                                    ] ;
+                    rdfs:label "adiabatic invariant"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Invariant
-sorepsf:Invariant rdf:type owl:Class ;
-                rdfs:subClassOf sorepmf:Function ;
-                rdfs:label "invariant"@en .
+:Invariant rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/reprMathFunction/Function> ;
+           rdfs:label "invariant"@en ;
+           skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-19T16:53:37.897"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q188211> ;
+          rdfs:comment "property of mathematical objects that remains unchanged for transformations applied to the objects"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isentrope
-sorepsf:Isentrope rdf:type owl:Class ;
-                rdfs:subClassOf sorepsf:Isopleth ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelph:hasConstantQuantity ;
-                                  owl:allValuesFrom soprope:Entropy
-                                ] ;
-                rdfs:label "isentrope"@en .
+:Isentrope rdf:type owl:Class ;
+           rdfs:subClassOf :Isopleth ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                             owl:allValuesFrom <http://sweetontology.net/propEnergy/Entropy>
+                           ] ;
+           rdfs:label "isentrope"@en ;
+           skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T16:53:37.968"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q19934078> ;
+          rdfs:comment "line of same entropy"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isobar
-sorepsf:Isobar rdf:type owl:Class ;
-             rdfs:subClassOf sorepsf:Isopleth ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelph:hasConstantQuantity ;
-                               owl:allValuesFrom sopropp:Pressure
-                             ] ;
-             rdfs:label "isobar"@en .
+:Isobar rdf:type owl:Class ;
+        rdfs:subClassOf :Isopleth ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                          owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure>
+                        ] ;
+        rdfs:label "isobar"@en ;
+        skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T16:53:38.128"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q431672> ;
+          rdfs:comment "line of equal or constant pressure on a graph, plot, or map"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isochore
-sorepsf:Isochore rdf:type owl:Class ;
-               rdfs:subClassOf sorepsf:Isopleth ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelph:hasConstantQuantity ;
-                                 owl:allValuesFrom sopropsm:Volume
-                               ] ;
-               rdfs:label "isochore"@en .
+:Isochore rdf:type owl:Class ;
+          rdfs:subClassOf :Isopleth ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                            owl:allValuesFrom <http://sweetontology.net/propSpaceMultidimensional/Volume>
+                          ] ;
+          rdfs:label "isochore"@en ;
+          skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-19T16:53:38.207"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q520659> ;
+          rdfs:comment "In genetics, an isochore is a large region of DNA (greater than 300 kb) with a high degree uniformity in guanine (G) and cytosine (C): G-C and C-G (collectively GC content)."@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isohaline
-sorepsf:Isohaline rdf:type owl:Class ;
-                rdfs:subClassOf sorepsf:Isopleth ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelph:hasConstantQuantity ;
-                                  owl:allValuesFrom sopropche:Salinity
-                                ] ;
-                rdfs:label "isohaline"@en .
+:Isohaline rdf:type owl:Class ;
+           rdfs:subClassOf :Isopleth ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                             owl:allValuesFrom <http://sweetontology.net/propChemical/Salinity>
+                           ] ;
+           rdfs:label "isohaline"@en ;
+           skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-19T16:53:38.324"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q51880081> ;
+           rdfs:comment "line of constant salinity"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isopleth
-sorepsf:Isopleth rdf:type owl:Class ;
-               rdfs:subClassOf sorepsf:Invariant ;
-               rdfs:label "isopleth"@en .
+:Isopleth rdf:type owl:Class ;
+          rdfs:subClassOf :Invariant ;
+          rdfs:label "isopleth"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isotere
-sorepsf:Isotere rdf:type owl:Class ;
-              rdfs:subClassOf sorepsf:Isopleth ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelph:hasConstantQuantity ;
-                                owl:allValuesFrom sopropm:Density
-                              ] ;
-              rdfs:label "isotere"@en .
+:Isotere rdf:type owl:Class ;
+         rdfs:subClassOf :Isopleth ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                           owl:allValuesFrom <http://sweetontology.net/propMass/Density>
+                         ] ;
+         rdfs:label "isotere"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/Isotherm
-sorepsf:Isotherm rdf:type owl:Class ;
-               rdfs:subClassOf sorepsf:Isopleth ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelph:hasConstantQuantity ;
-                                 owl:allValuesFrom sopropt:Temperature
-                               ] ;
-               rdfs:label "isotherm"@en .
+:Isotherm rdf:type owl:Class ;
+          rdfs:subClassOf :Isopleth ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                            owl:allValuesFrom <http://sweetontology.net/propTemperature/Temperature>
+                          ] ;
+          rdfs:label "isotherm"@en ;
+          skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-19T16:53:38.548"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q486921> ;
+           rdfs:comment "thermodynamic process in which the temperature remains constant"@en .
 
 
 ###  http://sweetontology.net/reprSciFunction/ThicknessLine
-sorepsf:ThicknessLine rdf:type owl:Class ;
-                    rdfs:subClassOf sorepsf:Isopleth ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelph:hasConstantQuantity ;
-                                      owl:allValuesFrom sopropst:Thickness
-                                    ] ;
-                    rdfs:label "thickness line"@en .
+:ThicknessLine rdf:type owl:Class ;
+               rdfs:subClassOf :Isopleth ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaPhysical/hasConstantQuantity> ;
+                                 owl:allValuesFrom <http://sweetontology.net/propSpaceThickness/Thickness>
+                               ] ;
+               rdfs:label "thickness line"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

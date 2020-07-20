@@ -1,38 +1,58 @@
 @prefix : <http://sweetontology.net/humanJurisdiction/> .
-@prefix sohu: <http://sweetontology.net/human/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix sohuj: <http://sweetontology.net/humanJurisdiction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sorep: <http://sweetontology.net/repr/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorelh: <http://sweetontology.net/relaHuman/> .
-@prefix sorepsg: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@base <http://sweetontology.net/humanJurisdiction> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/humanJurisdiction/> .
 
 <http://sweetontology.net/humanJurisdiction> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://sweetontology.net/humanJurisdiction/3.6.0> ;
                                               owl:imports <http://sweetontology.net/human> ,
                                                           <http://sweetontology.net/relaHuman> ,
                                                           <http://sweetontology.net/relaSpace> ,
                                                           <http://sweetontology.net/repr> ,
                                                           <http://sweetontology.net/reprSpaceGeometry> ;
-                                              rdfs:label "SWEET Ontology Human Jurisdiction" ;
                                               dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                              owl:versionInfo "3.5.0" .
+                                              rdfs:label "SWEET Ontology Human Jurisdiction" ;
+                                              owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaHuman/hasJurisdiction
-sorelh:hasJurisdiction rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaHuman/hasJurisdiction> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/inside
-sorelsp:inside rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/inside> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -40,262 +60,400 @@ sorelsp:inside rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/human/HumanActivity
-sohu:HumanActivity rdf:type owl:Class .
+<http://sweetontology.net/human/HumanActivity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/humanJurisdiction/AdministrativeRegion
-sohuj:AdministrativeRegion rdf:type owl:Class ;
-                         rdfs:subClassOf sohuj:Jurisdiction ,
-                                         sorepsg:Region ;
-                         rdfs:label "administrative region"@en .
+:AdministrativeRegion rdf:type owl:Class ;
+                      rdfs:subClassOf :Jurisdiction ,
+                                      <http://sweetontology.net/reprSpaceGeometry/Region> ;
+                      rdfs:label "administrative region"@en ;
+                      skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-19T15:54:12.043"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3455524> ;
+          rdfs:comment "term for certain administrative divisions in some countries"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/CSA
-sohuj:CSA rdf:type owl:Class ;
-        owl:equivalentClass sohuj:CombinedStatisticalArea ;
-        rdfs:label "csa"@en .
+:CSA rdf:type owl:Class ;
+     owl:equivalentClass :CombinedStatisticalArea ;
+     rdfs:label "csa"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/City
-sohuj:City rdf:type owl:Class ;
-         rdfs:subClassOf sohuj:AdministrativeRegion ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty sorelsp:inside ;
-                           owl:allValuesFrom sohuj:State
-                         ] ;
-         rdfs:label "city"@en .
+:City rdf:type owl:Class ;
+      rdfs:subClassOf :AdministrativeRegion ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                        owl:allValuesFrom :State
+                      ] ;
+      rdfs:label "city"@en ;
+      skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-19T15:54:12.262"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q21583365> ;
+          rdfs:comment "urban municipality of Estonia (may include rural settlements)"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Civil
-sohuj:Civil rdf:type owl:Class ;
-          owl:equivalentClass sohuj:Civilian ;
-          rdfs:subClassOf sohuj:Jurisdiction ;
-          owl:disjointWith sohuj:Military ;
-          rdfs:label "civil"@en .
+:Civil rdf:type owl:Class ;
+       owl:equivalentClass :Civilian ;
+       rdfs:subClassOf :Jurisdiction ;
+       owl:disjointWith :Military ;
+       rdfs:label "civil"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Civilian
-sohuj:Civilian rdf:type owl:Class ;
-             rdfs:label "civilian"@en .
+:Civilian rdf:type owl:Class ;
+          rdfs:label "civilian"@en ;
+          skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T15:54:12.595"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q206887> ;
+          rdfs:comment "person who is not a legitimate member of the military"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/CombinedStatisticalArea
-sohuj:CombinedStatisticalArea rdf:type owl:Class ;
-                            rdfs:subClassOf sohuj:MetropolitanArea ;
-                            rdfs:label "combined statistical area"@en .
+:CombinedStatisticalArea rdf:type owl:Class ;
+                         rdfs:subClassOf :MetropolitanArea ;
+                         rdfs:label "combined statistical area"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Continent
-sohuj:Continent rdf:type owl:Class ;
-              rdfs:subClassOf sohuj:AdministrativeRegion ;
-              rdfs:label "continent"@en .
+:Continent rdf:type owl:Class ;
+           rdfs:subClassOf :AdministrativeRegion ;
+           rdfs:label "continent"@en ;
+           skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T15:54:12.815"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P30> ;
+          rdfs:comment "continent of which the subject is a part"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Country
-sohuj:Country rdf:type owl:Class ;
-            rdfs:subClassOf sohuj:AdministrativeRegion ;
-            rdfs:label "country"@en .
+:Country rdf:type owl:Class ;
+         rdfs:subClassOf :AdministrativeRegion ;
+         rdfs:label "country"@en ;
+         skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T15:54:12.909"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P17> ;
+          rdfs:comment "sovereign state of this item (not to be used for human beings)"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/County
-sohuj:County rdf:type owl:Class ;
-           rdfs:subClassOf sohuj:AdministrativeRegion ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelsp:inside ;
-                             owl:allValuesFrom sohuj:State
-                           ] ;
-           rdfs:label "county"@en .
+:County rdf:type owl:Class ;
+        rdfs:subClassOf :AdministrativeRegion ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                          owl:allValuesFrom :State
+                        ] ;
+        rdfs:label "county"@en ;
+        skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-19T15:54:12.994"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q28575> ;
+          rdfs:comment "geographical and administrative region in some countries"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Enforcement
-sohuj:Enforcement rdf:type owl:Class ;
-                rdfs:subClassOf sohuj:GovtActivity ;
-                rdfs:label "enforcement"@en .
+:Enforcement rdf:type owl:Class ;
+             rdfs:subClassOf :GovtActivity ;
+             rdfs:label "enforcement"@en ;
+             skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-19T15:54:13.064"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q4202277> ;
+          rdfs:comment "process of ensuring compliance with laws, regulations, rules, standards, or social norms"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Federal
-sohuj:Federal rdf:type owl:Class ;
-            owl:equivalentClass sohuj:FederalGoverningBody ;
-            rdfs:label "federal"@en .
+:Federal rdf:type owl:Class ;
+         owl:equivalentClass :FederalGoverningBody ;
+         rdfs:label "federal"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/FederalGoverningBody
-sohuj:FederalGoverningBody rdf:type owl:Class ;
-                         rdfs:subClassOf sohuj:GoverningBody ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelh:hasJurisdiction ;
-                                           owl:allValuesFrom sohuj:Country
-                                         ] ;
-                         rdfs:label "federal governing body"@en .
+:FederalGoverningBody rdf:type owl:Class ;
+                      rdfs:subClassOf :GoverningBody ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/relaHuman/hasJurisdiction> ;
+                                        owl:allValuesFrom :Country
+                                      ] ;
+                      rdfs:label "federal governing body"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/GoverningBody
-sohuj:GoverningBody rdf:type owl:Class ;
-                  rdfs:subClassOf sohu:HumanActivity ;
-                  rdfs:label "governing body"@en .
+:GoverningBody rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+               rdfs:label "governing body"@en ;
+               skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T15:54:13.419"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q5588651> ;
+           rdfs:comment "group of people that has the authority to exercise governance over an organization or political entity"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/GoverningBodyProduct
-sohuj:GoverningBodyProduct rdf:type owl:Class ;
-                         rdfs:subClassOf sohu:HumanActivity ;
-                         rdfs:label "governing body product"@en .
+:GoverningBodyProduct rdf:type owl:Class ;
+                      rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+                      rdfs:label "governing body product"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Government
-sohuj:Government rdf:type owl:Class ;
-               rdfs:subClassOf sohu:HumanActivity ;
-               rdfs:label "government"@en .
+:Government rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+            rdfs:label "government"@en ;
+            skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-19T15:54:13.615"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7188> ;
+           rdfs:comment "system or group of people governing an organized community, often a state"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/GovtActivity
-sohuj:GovtActivity rdf:type owl:Class ;
-                 rdfs:subClassOf sohu:HumanActivity ;
-                 rdfs:label "govt activity"@en .
+:GovtActivity rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+              rdfs:label "govt activity"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/HumanLaw
-sohuj:HumanLaw rdf:type owl:Class ;
-             rdfs:subClassOf sohuj:GoverningBodyProduct ,
-                             sorep:Knowledge ;
-             rdfs:label "human law"@en .
+:HumanLaw rdf:type owl:Class ;
+          rdfs:subClassOf :GoverningBodyProduct ,
+                          <http://sweetontology.net/repr/Knowledge> ;
+          rdfs:label "human law"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Jurisdiction
-sohuj:Jurisdiction rdf:type owl:Class ;
-                 rdfs:subClassOf sohu:HumanActivity ;
-                 rdfs:label "jurisdiction"@en .
+:Jurisdiction rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+              rdfs:label "jurisdiction"@en ;
+              skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-19T15:54:13.884"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q471855> ;
+           rdfs:comment "practical authority granted to a formally constituted legal body or to a political leader to deal with legal matters"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/MSA
-sohuj:MSA rdf:type owl:Class ;
-        owl:equivalentClass sohuj:MetropolitanStatisticalArea ;
-        rdfs:label "msa"@en .
+:MSA rdf:type owl:Class ;
+     owl:equivalentClass :MetropolitanStatisticalArea ;
+     rdfs:label "msa"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/MetropolitanArea
-sohuj:MetropolitanArea rdf:type owl:Class ;
-                     rdfs:subClassOf sohuj:AdministrativeRegion ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelsp:inside ;
-                                       owl:allValuesFrom sohuj:Country
-                                     ] ;
-                     rdfs:label "metropolitan area"@en .
+:MetropolitanArea rdf:type owl:Class ;
+                  rdfs:subClassOf :AdministrativeRegion ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                                    owl:allValuesFrom :Country
+                                  ] ;
+                  rdfs:label "metropolitan area"@en ;
+                  skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-19T15:54:14.028"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1907114> ;
+           rdfs:comment "region consisting of a densely populated urban core and its less-populated but economically-linked surroundings"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/MetropolitanStatisticalArea
-sohuj:MetropolitanStatisticalArea rdf:type owl:Class ;
-                                rdfs:subClassOf sohuj:MetropolitanArea ;
-                                rdfs:label "metropolitan statistical area"@en .
+:MetropolitanStatisticalArea rdf:type owl:Class ;
+                             rdfs:subClassOf :MetropolitanArea ;
+                             rdfs:label "metropolitan statistical area"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Military
-sohuj:Military rdf:type owl:Class ;
-             rdfs:subClassOf sohuj:Jurisdiction ;
-             rdfs:label "military"@en .
+:Military rdf:type owl:Class ;
+          rdfs:subClassOf :Jurisdiction ;
+          rdfs:label "military"@en ;
+          skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-19T15:54:14.227"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q8473> ;
+           rdfs:comment "organized body primarily tasked with preparing for and conducting war"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Penalty
-sohuj:Penalty rdf:type owl:Class ;
-            rdfs:subClassOf sohuj:Enforcement ;
-            rdfs:label "penalty"@en .
+:Penalty rdf:type owl:Class ;
+         rdfs:subClassOf :Enforcement ;
+         rdfs:label "penalty"@en ;
+         skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-19T15:54:14.321"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P1596> ;
+           rdfs:comment "penalty passed at a trial"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Permit
-sohuj:Permit rdf:type owl:Class ;
-           rdfs:subClassOf sohuj:GovtActivity ;
-           rdfs:label "permit"@en .
+:Permit rdf:type owl:Class ;
+        rdfs:subClassOf :GovtActivity ;
+        rdfs:label "permit"@en ;
+        skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-19T15:54:14.393"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3312801> ;
+           rdfs:comment "cancellation of obstacles to business"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Policy
-sohuj:Policy rdf:type owl:Class ;
-           rdfs:subClassOf sohuj:GoverningBodyProduct ;
-           rdfs:label "policy"@en .
+:Policy rdf:type owl:Class ;
+        rdfs:subClassOf :GoverningBodyProduct ;
+        rdfs:label "policy"@en ;
+        skos:definition _:genid19 .
+
+_:genid19 dcterms:created "2020-07-19T15:54:14.524"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1156854> ;
+           rdfs:comment "principle or protocol to guide decisions and achieve rational outcomes"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Province
-sohuj:Province rdf:type owl:Class ;
-             rdfs:subClassOf sohuj:AdministrativeRegion ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelsp:inside ;
-                               owl:allValuesFrom sohuj:Country
-                             ] ;
-             rdfs:label "province"@en .
+:Province rdf:type owl:Class ;
+          rdfs:subClassOf :AdministrativeRegion ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                            owl:allValuesFrom :Country
+                          ] ;
+          rdfs:label "province"@en ;
+          skos:definition _:genid21 .
+
+_:genid21 dcterms:created "2020-07-19T15:54:14.605"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q34876> ;
+           rdfs:comment "first-level administrative division in several countries"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Regulation
-sohuj:Regulation rdf:type owl:Class ;
-               rdfs:subClassOf sohuj:HumanLaw ;
-               rdfs:label "regulation"@en .
+:Regulation rdf:type owl:Class ;
+            rdfs:subClassOf :HumanLaw ;
+            rdfs:label "regulation"@en ;
+            skos:definition _:genid22 .
+
+_:genid22 dcterms:created "2020-07-19T15:54:14.784"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q428148> ;
+           rdfs:comment "general term for rules or controls, including delegated legislation and self-regulation"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/SAR
-sohuj:SAR rdf:type owl:Class ;
-        owl:equivalentClass sohuj:SpecialAdministrationRegion ;
-        rdfs:label "sar"@en .
+:SAR rdf:type owl:Class ;
+     owl:equivalentClass :SpecialAdministrationRegion ;
+     rdfs:label "sar"@en ;
+     skos:definition _:genid23 .
+
+_:genid23 dcterms:created "2020-07-19T15:54:14.867"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7421257> ;
+           rdfs:comment "Unix command to collect, report or save system activity information"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/SMSA
-sohuj:SMSA rdf:type owl:Class ;
-         owl:equivalentClass sohuj:StandardMetropolitanStatisticalArea ;
-         rdfs:label "smsa"@en .
+:SMSA rdf:type owl:Class ;
+      owl:equivalentClass :StandardMetropolitanStatisticalArea ;
+      rdfs:label "smsa"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/SpecialAdministrationRegion
-sohuj:SpecialAdministrationRegion rdf:type owl:Class ;
-                                rdfs:subClassOf sohuj:AdministrativeRegion ,
-                                                [ rdf:type owl:Restriction ;
-                                                  owl:onProperty sorelsp:inside ;
-                                                  owl:allValuesFrom sohuj:Country
-                                                ] ;
-                                rdfs:label "special administration region"@en .
+:SpecialAdministrationRegion rdf:type owl:Class ;
+                             rdfs:subClassOf :AdministrativeRegion ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                                               owl:allValuesFrom :Country
+                                             ] ;
+                             rdfs:label "special administration region"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Standard
-sohuj:Standard rdf:type owl:Class ;
-             rdfs:subClassOf sohuj:GoverningBodyProduct ;
-             rdfs:label "standard"@en .
+:Standard rdf:type owl:Class ;
+          rdfs:subClassOf :GoverningBodyProduct ;
+          rdfs:label "standard"@en ;
+          skos:definition _:genid25 .
+
+_:genid25 dcterms:created "2020-07-19T15:54:15.132"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1271511> ;
+           rdfs:comment "embodiment of a unit of measurement"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/StandardMetropolitanStatisticalArea
-sohuj:StandardMetropolitanStatisticalArea rdf:type owl:Class ;
-                                        rdfs:subClassOf sohuj:MetropolitanArea ;
-                                        rdfs:label "standard metropolitan statistical area"@en .
+:StandardMetropolitanStatisticalArea rdf:type owl:Class ;
+                                     rdfs:subClassOf :MetropolitanArea ;
+                                     rdfs:label "standard metropolitan statistical area"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/StandardsBody
-sohuj:StandardsBody rdf:type owl:Class ;
-                  rdfs:subClassOf sohuj:GoverningBody ;
-                  rdfs:label "standards body"@en .
+:StandardsBody rdf:type owl:Class ;
+               rdfs:subClassOf :GoverningBody ;
+               rdfs:label "standards body"@en ;
+               skos:definition _:genid26 .
+
+_:genid26 dcterms:created "2020-07-19T15:54:15.285"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P1462> ;
+           rdfs:comment "organisation that published or maintains the standard governing an item"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/State
-sohuj:State rdf:type owl:Class ;
-          rdfs:subClassOf sohuj:AdministrativeRegion ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty sorelsp:inside ;
-                            owl:allValuesFrom sohuj:Country
-                          ] ;
-          rdfs:label "state"@en .
+:State rdf:type owl:Class ;
+       rdfs:subClassOf :AdministrativeRegion ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSpace/inside> ;
+                         owl:allValuesFrom :Country
+                       ] ;
+       rdfs:label "state"@en ;
+       skos:definition _:genid28 .
+
+_:genid28 dcterms:created "2020-07-19T15:54:15.365"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7275> ;
+           rdfs:comment "organised community living under a system of government; either a sovereign state, constituent state, or federated state"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/Treaty
-sohuj:Treaty rdf:type owl:Class ;
-           rdfs:subClassOf sohuj:HumanLaw ;
-           rdfs:label "treaty"@en .
+:Treaty rdf:type owl:Class ;
+        rdfs:subClassOf :HumanLaw ;
+        rdfs:label "treaty"@en ;
+        skos:definition _:genid29 .
+
+_:genid29 dcterms:created "2020-07-19T15:54:15.440"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q131569> ;
+           rdfs:comment "express agreement under international law entered into by actors in international law"@en .
 
 
 ###  http://sweetontology.net/humanJurisdiction/UrbanArea
-sohuj:UrbanArea rdf:type owl:Class ;
-              rdfs:subClassOf sohuj:AdministrativeRegion ;
-              rdfs:label "urban area"@en .
+:UrbanArea rdf:type owl:Class ;
+           rdfs:subClassOf :AdministrativeRegion ;
+           rdfs:label "urban area"@en ;
+           skos:definition _:genid30 .
+
+_:genid30 dcterms:created "2020-07-19T15:54:15.533"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q702492> ;
+           rdfs:comment "human settlement with high population density and infrastructure of built environment (Use Q2983893 \"urban district\" for a neighbourhood within a larger urban area; use Q1907114 \"metropolitan area\" for a wider area)"@en .
 
 
 ###  http://sweetontology.net/repr/Knowledge
-sorep:Knowledge rdf:type owl:Class .
+<http://sweetontology.net/repr/Knowledge> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Region
-sorepsg:Region rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Region> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

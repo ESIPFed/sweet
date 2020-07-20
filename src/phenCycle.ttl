@@ -1,23 +1,15 @@
 @prefix : <http://sweetontology.net/phenCycle/> .
-@prefix sophcy: <http://sweetontology.net/phenCycle/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sostss: <http://sweetontology.net/stateSpaceScale/> .
-@prefix sophst: <http://sweetontology.net/phenStar/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sosttf: <http://sweetontology.net/stateTimeFrequency/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix sorelt: <http://sweetontology.net/relaTime/> .
-@prefix sorea: <http://sweetontology.net/realm/> .
-@base <http://sweetontology.net/phenCycle> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenCycle/> .
 
 <http://sweetontology.net/phenCycle> rdf:type owl:Ontology ;
+                                      owl:versionIRI <http://sweetontology.net/phenCycle/3.6.0> ;
                                       owl:imports <http://sweetontology.net/phenStar> ,
                                                   <http://sweetontology.net/phenSystem> ,
                                                   <http://sweetontology.net/realm> ,
@@ -27,32 +19,56 @@
                                                   <http://sweetontology.net/relaTime> ,
                                                   <http://sweetontology.net/stateSpaceScale> ,
                                                   <http://sweetontology.net/stateTimeFrequency> ;
-                                      rdfs:label "SWEET Ontology Phenomena Cycle" ;
                                       dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                      owl:versionInfo "3.5.0" .
+                                      rdfs:label "SWEET Ontology Phenomena Cycle" ;
+                                      owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasRealm
-sorel:hasRealm rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasAstronomicalBody
-sorelph:hasAstronomicalBody rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/hasAstronomicalBody> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasSpatialScale
-sorelsp:hasSpatialScale rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasSpatialScale> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaTime/hasFrequency
-sorelt:hasFrequency rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaTime/hasFrequency> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -60,204 +76,222 @@ sorelt:hasFrequency rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenCycle/AnnualCycle
-sophcy:AnnualCycle rdf:type owl:Class ;
-                rdfs:subClassOf sophcy:GlobalCycle ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelt:hasFrequency ;
-                                  owl:hasValue sosttf:Annual
-                                ] ;
-                rdfs:label "annual cycle"@en .
+:AnnualCycle rdf:type owl:Class ;
+             rdfs:subClassOf :GlobalCycle ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
+                               owl:hasValue <http://sweetontology.net/stateTimeFrequency/Annual>
+                             ] ;
+             rdfs:label "annual cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycle/AntarcticOscillation
-sophcy:AntarcticOscillation rdf:type owl:Class ;
-                         rdfs:subClassOf sophcy:EarthOscillation ;
-                         rdfs:label "antarctic oscillation"@en .
+:AntarcticOscillation rdf:type owl:Class ;
+                      rdfs:subClassOf :EarthOscillation ;
+                      rdfs:label "antarctic oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/ArcticOscillation
-sophcy:ArcticOscillation rdf:type owl:Class ;
-                      rdfs:subClassOf sophcy:EarthOscillation ;
-                      rdfs:label "arctic oscillation"@en .
+:ArcticOscillation rdf:type owl:Class ;
+                   rdfs:subClassOf :EarthOscillation ;
+                   rdfs:label "arctic oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/BodyTide
-sophcy:BodyTide rdf:type owl:Class ;
-             rdfs:subClassOf sophcy:Tide ;
-             rdfs:label "body tide"@en .
+:BodyTide rdf:type owl:Class ;
+          rdfs:subClassOf :Tide ;
+          rdfs:label "body tide"@en .
 
 
 ###  http://sweetontology.net/phenCycle/ChandlerWobble
-sophcy:ChandlerWobble rdf:type owl:Class ;
-                   rdfs:subClassOf sophcy:EarthOscillation ;
-                   rdfs:label "chandler wobble"@en .
+:ChandlerWobble rdf:type owl:Class ;
+                rdfs:subClassOf :EarthOscillation ;
+                rdfs:label "chandler wobble"@en .
 
 
 ###  http://sweetontology.net/phenCycle/DiurnalCycle
-sophcy:DiurnalCycle rdf:type owl:Class ;
-                 rdfs:subClassOf sophcy:GlobalCycle ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelt:hasFrequency ;
-                                   owl:hasValue sosttf:Daily
-                                 ] ;
-                 rdfs:label "diurnal cycle"@en .
+:DiurnalCycle rdf:type owl:Class ;
+              rdfs:subClassOf :GlobalCycle ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
+                                owl:hasValue <http://sweetontology.net/stateTimeFrequency/Daily>
+                              ] ;
+              rdfs:label "diurnal cycle"@en ;
+              skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-19T16:09:09.828"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1469559> ;
+          rdfs:comment "pattern that recurs every 24 hours as a result of one full rotation of the Earth with respect to the Sun"@en .
 
 
 ###  http://sweetontology.net/phenCycle/ENSO
-sophcy:ENSO rdf:type owl:Class ;
-         owl:equivalentClass sophcy:ElNinoSouthernOscillation ,
-                             sophcy:SouthernOscillation ;
-         rdfs:label "enso"@en .
+:ENSO rdf:type owl:Class ;
+      owl:equivalentClass :ElNinoSouthernOscillation ,
+                          :SouthernOscillation ;
+      rdfs:label "enso"@en .
 
 
 ###  http://sweetontology.net/phenCycle/EarthOscillation
-sophcy:EarthOscillation rdf:type owl:Class ;
-                     rdfs:subClassOf sophcy:PlanetaryOscillation ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelph:hasAstronomicalBody ;
-                                       owl:hasValue sorea:Earth
-                                     ] ;
-                     rdfs:label "earth oscillation"@en .
+:EarthOscillation rdf:type owl:Class ;
+                  rdfs:subClassOf :PlanetaryOscillation ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/relaPhysical/hasAstronomicalBody> ;
+                                    owl:hasValue <http://sweetontology.net/realm/Earth>
+                                  ] ;
+                  rdfs:label "earth oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/ElNinoSouthernOscillation
-sophcy:ElNinoSouthernOscillation rdf:type owl:Class ;
-                              rdfs:subClassOf sophcy:EarthOscillation ,
-                                              [ rdf:type owl:Restriction ;
-                                                owl:onProperty sorel:hasRealm ;
-                                                owl:allValuesFrom sorea:Ocean
-                                              ] ;
-                              rdfs:label "el nino southern oscillation"@en .
+:ElNinoSouthernOscillation rdf:type owl:Class ;
+                           rdfs:subClassOf :EarthOscillation ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                             owl:allValuesFrom <http://sweetontology.net/realm/Ocean>
+                                           ] ;
+                           rdfs:label "el nino southern oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/GlobalCycle
-sophcy:GlobalCycle rdf:type owl:Class ;
-                rdfs:subClassOf sophsy:Oscillation ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsp:hasSpatialScale ;
-                                  owl:hasValue sostss:Global
-                                ] ;
-                rdfs:label "global cycle"@en .
+:GlobalCycle rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/phenSystem/Oscillation> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
+                               owl:hasValue <http://sweetontology.net/stateSpaceScale/Global>
+                             ] ;
+             rdfs:label "global cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycle/IceAgeCycle
-sophcy:IceAgeCycle rdf:type owl:Class ;
-                rdfs:subClassOf sophcy:EarthOscillation ;
-                rdfs:label "ice age cycle"@en .
+:IceAgeCycle rdf:type owl:Class ;
+             rdfs:subClassOf :EarthOscillation ;
+             rdfs:label "ice age cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycle/MaddenJulianOscillation
-sophcy:MaddenJulianOscillation rdf:type owl:Class ;
-                            rdfs:subClassOf sophcy:EarthOscillation ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorelt:hasFrequency ;
-                                              owl:hasValue sosttf:Decadal
-                                            ] ;
-                            rdfs:label "madden julian oscillation"@en .
+:MaddenJulianOscillation rdf:type owl:Class ;
+                         rdfs:subClassOf :EarthOscillation ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
+                                           owl:hasValue <http://sweetontology.net/stateTimeFrequency/Decadal>
+                                         ] ;
+                         rdfs:label "madden julian oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/MilankovitchCycle
-sophcy:MilankovitchCycle rdf:type owl:Class ;
-                      rdfs:subClassOf sophcy:EarthOscillation ;
-                      rdfs:label "milankovitch cycle"@en .
+:MilankovitchCycle rdf:type owl:Class ;
+                   rdfs:subClassOf :EarthOscillation ;
+                   rdfs:label "milankovitch cycle"@en .
 
 
 ###  http://sweetontology.net/phenCycle/NAO
-sophcy:NAO rdf:type owl:Class ;
-        owl:equivalentClass sophcy:NorthAtlanticOscillation ;
-        rdfs:label "nao"@en .
+:NAO rdf:type owl:Class ;
+     owl:equivalentClass :NorthAtlanticOscillation ;
+     rdfs:label "nao"@en .
 
 
 ###  http://sweetontology.net/phenCycle/NorthAtlanticOscillation
-sophcy:NorthAtlanticOscillation rdf:type owl:Class ;
-                             rdfs:subClassOf sophcy:EarthOscillation ;
-                             rdfs:label "north atlantic oscillation"@en .
+:NorthAtlanticOscillation rdf:type owl:Class ;
+                          rdfs:subClassOf :EarthOscillation ;
+                          rdfs:label "north atlantic oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/PDO
-sophcy:PDO rdf:type owl:Class ;
-        owl:equivalentClass sophcy:PacificDecadalOscillation ;
-        rdfs:label "pdo"@en .
+:PDO rdf:type owl:Class ;
+     owl:equivalentClass :PacificDecadalOscillation ;
+     rdfs:label "pdo"@en .
 
 
 ###  http://sweetontology.net/phenCycle/PacificDecadalOscillation
-sophcy:PacificDecadalOscillation rdf:type owl:Class ;
-                              rdfs:subClassOf sophcy:EarthOscillation ;
-                              rdfs:label "pacific decadal oscillation"@en .
+:PacificDecadalOscillation rdf:type owl:Class ;
+                           rdfs:subClassOf :EarthOscillation ;
+                           rdfs:label "pacific decadal oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/PacificNorthAmericanPattern
-sophcy:PacificNorthAmericanPattern rdf:type owl:Class ;
-                                rdfs:subClassOf sophcy:EarthOscillation ;
-                                rdfs:label "pacific north american pattern"@en .
+:PacificNorthAmericanPattern rdf:type owl:Class ;
+                             rdfs:subClassOf :EarthOscillation ;
+                             rdfs:label "pacific north american pattern"@en .
 
 
 ###  http://sweetontology.net/phenCycle/PlanetaryOscillation
-sophcy:PlanetaryOscillation rdf:type owl:Class ;
-                         rdfs:subClassOf sophcy:GlobalCycle ;
-                         rdfs:label "planetary oscillation"@en .
+:PlanetaryOscillation rdf:type owl:Class ;
+                      rdfs:subClassOf :GlobalCycle ;
+                      rdfs:label "planetary oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/PolarWander
-sophcy:PolarWander rdf:type owl:Class ;
-                rdfs:subClassOf sophcy:EarthOscillation ;
-                rdfs:label "polar wander"@en .
+:PolarWander rdf:type owl:Class ;
+             rdfs:subClassOf :EarthOscillation ;
+             rdfs:label "polar wander"@en .
 
 
 ###  http://sweetontology.net/phenCycle/PoleTide
-sophcy:PoleTide rdf:type owl:Class ;
-             rdfs:subClassOf sophcy:Tide ;
-             rdfs:label "pole tide"@en .
+:PoleTide rdf:type owl:Class ;
+          rdfs:subClassOf :Tide ;
+          rdfs:label "pole tide"@en .
 
 
 ###  http://sweetontology.net/phenCycle/QBO
-sophcy:QBO rdf:type owl:Class ;
-        owl:equivalentClass sophcy:QuasiBiennialOscillation ;
-        rdfs:label "qbo"@en .
+:QBO rdf:type owl:Class ;
+     owl:equivalentClass :QuasiBiennialOscillation ;
+     rdfs:label "qbo"@en .
 
 
 ###  http://sweetontology.net/phenCycle/QuasiBiennialOscillation
-sophcy:QuasiBiennialOscillation rdf:type owl:Class ;
-                             rdfs:subClassOf sophcy:EarthOscillation ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty sorelt:hasFrequency ;
-                                               owl:hasValue sosttf:Biannual
-                                             ] ;
-                             rdfs:label "quasi biennial oscillation"@en .
+:QuasiBiennialOscillation rdf:type owl:Class ;
+                          rdfs:subClassOf :EarthOscillation ,
+                                          [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://sweetontology.net/relaTime/hasFrequency> ;
+                                            owl:hasValue <http://sweetontology.net/stateTimeFrequency/Biannual>
+                                          ] ;
+                          rdfs:label "quasi biennial oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/SolarCycle
-sophcy:SolarCycle rdf:type owl:Class ;
-               rdfs:subClassOf sophcy:GlobalCycle ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorel:hasPhenomena ;
-                                 owl:allValuesFrom sophst:SolarActivity
-                               ] ;
-               rdfs:label "solar cycle"@en .
+:SolarCycle rdf:type owl:Class ;
+            rdfs:subClassOf :GlobalCycle ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                              owl:allValuesFrom <http://sweetontology.net/phenStar/SolarActivity>
+                            ] ;
+            rdfs:label "solar cycle"@en ;
+            skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-19T16:09:11.675"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q49385> ;
+           rdfs:comment "periodic change in the Sun's activity"@en .
 
 
 ###  http://sweetontology.net/phenCycle/SouthernOscillation
-sophcy:SouthernOscillation rdf:type owl:Class ;
-                        rdfs:subClassOf sophcy:EarthOscillation ;
-                        rdfs:label "southern oscillation"@en .
+:SouthernOscillation rdf:type owl:Class ;
+                     rdfs:subClassOf :EarthOscillation ;
+                     rdfs:label "southern oscillation"@en .
 
 
 ###  http://sweetontology.net/phenCycle/Tide
-sophcy:Tide rdf:type owl:Class ;
-         rdfs:subClassOf sophcy:PlanetaryOscillation ;
-         rdfs:label "tide"@en .
+:Tide rdf:type owl:Class ;
+      rdfs:subClassOf :PlanetaryOscillation ;
+      rdfs:label "tide"@en ;
+      skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T16:09:11.857"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q23384> ;
+           rdfs:comment "rise and fall of sea levels caused by the combined effects of the gravitational forces exerted by the Moon and the Sun and the rotation of the Earth"@en .
 
 
 ###  http://sweetontology.net/phenStar/SolarActivity
-sophst:SolarActivity rdf:type owl:Class .
+<http://sweetontology.net/phenStar/SolarActivity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenSystem/Oscillation
-sophsy:Oscillation rdf:type owl:Class .
+<http://sweetontology.net/phenSystem/Oscillation> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/Ocean
-sorea:Ocean rdf:type owl:Class .
+<http://sweetontology.net/realm/Ocean> rdf:type owl:Class .
 
 
 #################################################################
@@ -265,27 +299,27 @@ sorea:Ocean rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/realm/Earth
-sorea:Earth rdf:type owl:NamedIndividual .
+<http://sweetontology.net/realm/Earth> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateSpaceScale/Global
-sostss:Global rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateSpaceScale/Global> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateTimeFrequency/Annual
-sosttf:Annual rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateTimeFrequency/Annual> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateTimeFrequency/Biannual
-sosttf:Biannual rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateTimeFrequency/Biannual> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateTimeFrequency/Daily
-sosttf:Daily rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateTimeFrequency/Daily> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateTimeFrequency/Decadal
-sosttf:Decadal rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateTimeFrequency/Decadal> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

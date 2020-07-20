@@ -1,34 +1,54 @@
 @prefix : <http://sweetontology.net/humanEnvirConservation/> .
-@prefix sohuc: <http://sweetontology.net/humanCommerce/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sohuecons: <http://sweetontology.net/humanEnvirConservation/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sohu: <http://sweetontology.net/human/> .
-@prefix sorea: <http://sweetontology.net/realm/> .
-@base <http://sweetontology.net/humanEnvirConservation> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/humanEnvirConservation/> .
 
 <http://sweetontology.net/humanEnvirConservation> rdf:type owl:Ontology ;
+                                                   owl:versionIRI <http://sweetontology.net/humanEnvirConservation/3.6.0> ;
                                                    owl:imports <http://sweetontology.net/human> ,
                                                                <http://sweetontology.net/humanCommerce> ,
                                                                <http://sweetontology.net/prop> ,
                                                                <http://sweetontology.net/realm> ,
                                                                <http://sweetontology.net/rela> ;
-                                                   rdfs:label "SWEET Ontology Human Environmental Conservation" ;
                                                    dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                                   owl:versionInfo "3.5.0" .
+                                                   rdfs:label "SWEET Ontology Human Environmental Conservation" ;
+                                                   owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasRealm
-sorel:hasRealm rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasRealm> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -36,78 +56,108 @@ sorel:hasRealm rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/human/HumanActivity
-sohu:HumanActivity rdf:type owl:Class .
+<http://sweetontology.net/human/HumanActivity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/humanCommerce/Management
-sohuc:Management rdf:type owl:Class .
+<http://sweetontology.net/humanCommerce/Management> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/Conservation
-sohuecons:Conservation rdf:type owl:Class ;
-                  rdfs:subClassOf sohuc:Management ;
-                  rdfs:label "conservation"@en .
+:Conservation rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/humanCommerce/Management> ;
+              rdfs:label "conservation"@en ;
+              skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-19T15:53:12.681"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q217102> ;
+          rdfs:comment "care of tangible cultural heritage"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/HabitatManagement
-sohuecons:HabitatManagement rdf:type owl:Class ;
-                       rdfs:subClassOf sohuecons:LandManagement ;
-                       rdfs:label "habitat management"@en .
+:HabitatManagement rdf:type owl:Class ;
+                   rdfs:subClassOf :LandManagement ;
+                   rdfs:label "habitat management"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/LandManagement
-sohuecons:LandManagement rdf:type owl:Class ;
-                    rdfs:subClassOf sohuc:Management ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorel:hasRealm ;
-                                      owl:someValuesFrom sorea:Land
-                                    ] ;
-                    rdfs:label "land management"@en .
+:LandManagement rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/humanCommerce/Management> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                  owl:someValuesFrom <http://sweetontology.net/realm/Land>
+                                ] ;
+                rdfs:label "land management"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/LandPreservation
-sohuecons:LandPreservation rdf:type owl:Class ;
-                      rdfs:subClassOf sohuecons:LandManagement ;
-                      rdfs:label "land preservation"@en .
+:LandPreservation rdf:type owl:Class ;
+                  rdfs:subClassOf :LandManagement ;
+                  rdfs:label "land preservation"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/LandTenure
-sohuecons:LandTenure rdf:type owl:Class ;
-                rdfs:subClassOf sohuecons:LandManagement ;
-                rdfs:label "land tenure"@en .
+:LandTenure rdf:type owl:Class ;
+            rdfs:subClassOf :LandManagement ;
+            rdfs:label "land tenure"@en ;
+            skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-19T15:53:13.050"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q66493932> ;
+          rdfs:comment "legal regime in which land is owned by an individual, who is said to \"hold\" the land"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/Protection
-sohuecons:Protection rdf:type owl:Class ;
-                rdfs:subClassOf sohuecons:Sustainability ,
-                                soprop:Role ;
-                rdfs:label "protection"@en .
+:Protection rdf:type owl:Class ;
+            rdfs:subClassOf :Sustainability ,
+                            <http://sweetontology.net/prop/Role> ;
+            rdfs:label "protection"@en ;
+            skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T15:53:13.323"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q2251595> ;
+          rdfs:comment "action or precaution against a threat against an uncertainty or possible unpleasant events"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/Stewardship
-sohuecons:Stewardship rdf:type owl:Class ;
-                 rdfs:subClassOf sohuc:Management ;
-                 rdfs:label "stewardship"@en .
+:Stewardship rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/humanCommerce/Management> ;
+             rdfs:label "stewardship"@en ;
+             skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T15:53:13.503"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1543547> ;
+          rdfs:comment "planning and management of resources and processes"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/Sustainability
-sohuecons:Sustainability rdf:type owl:Class ;
-                    owl:equivalentClass sohuecons:Sustainable ;
-                    rdfs:label "sustainability"@en .
+:Sustainability rdf:type owl:Class ;
+                owl:equivalentClass :Sustainable ;
+                rdfs:label "sustainability"@en ;
+                skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T15:53:13.601"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q219416> ;
+          rdfs:comment "ability of human activity to coexist with the biosphere in a steady state"@en .
 
 
 ###  http://sweetontology.net/humanEnvirConservation/Sustainable
-sohuecons:Sustainable rdf:type owl:Class ;
-                 rdfs:subClassOf sohu:HumanActivity ;
-                 rdfs:label "sustainable"@en .
+:Sustainable rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/human/HumanActivity> ;
+             rdfs:label "sustainable"@en .
 
 
 ###  http://sweetontology.net/prop/Role
-soprop:Role rdf:type owl:Class .
+<http://sweetontology.net/prop/Role> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realm/Land
-sorea:Land rdf:type owl:Class .
+<http://sweetontology.net/realm/Land> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

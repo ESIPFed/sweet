@@ -1,27 +1,15 @@
 @prefix : <http://sweetontology.net/realmBiolBiome/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soman: <http://sweetontology.net/matrAnimal/> .
-@prefix somab: <http://sweetontology.net/matrBiomass/> .
-@prefix soma: <http://sweetontology.net/matr/> .
-@prefix sohuc: <http://sweetontology.net/humanCommerce/> .
-@prefix sorepsc: <http://sweetontology.net/reprSciComponent/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix soreacz: <http://sweetontology.net/realmClimateZone/> .
-@prefix soreabb: <http://sweetontology.net/realmBiolBiome/> .
-@prefix sorelcl: <http://sweetontology.net/relaClimate/> .
-@prefix sorelh: <http://sweetontology.net/relaHuman/> .
-@prefix somapl: <http://sweetontology.net/matrPlant/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@prefix sostb: <http://sweetontology.net/stateBiological/> .
-@prefix sorea: <http://sweetontology.net/realm/> .
-@base <http://sweetontology.net/realmBiolBiome> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/realmBiolBiome/> .
 
 <http://sweetontology.net/realmBiolBiome> rdf:type owl:Ontology ;
+                                           owl:versionIRI <http://sweetontology.net/realmBiolBiome/3.6.0> ;
                                            owl:imports <http://sweetontology.net/humanCommerce> ,
                                                        <http://sweetontology.net/matr> ,
                                                        <http://sweetontology.net/matrAnimal> ,
@@ -35,24 +23,24 @@
                                                        <http://sweetontology.net/relaSci> ,
                                                        <http://sweetontology.net/reprSciComponent> ,
                                                        <http://sweetontology.net/stateBiological> ;
-                                           rdfs:label "SWEET Ontology Realm Biologic Biome" ;
                                            dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                           owl:versionInfo "3.5.0" .
+                                           rdfs:label "SWEET Ontology Realm Biologic Biome" ;
+                                           owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaClimate/hasClimateZone
-sorelcl:hasClimateZone rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaClimate/hasClimateZone> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaHuman/hasLandUse
-sorelh:hasLandUse rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaHuman/hasLandUse> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasSpecies
-sorelsc:hasSpecies rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasSpecies> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -60,274 +48,382 @@ sorelsc:hasSpecies rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/realmBiolBiome/Anthromes
-soreabb:Anthromes rdf:type owl:Class ;
-                rdfs:subClassOf soreabb:TerrestrialBiome ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelh:hasLandUse ;
-                                  owl:hasValue sostb:Anthropogenic
-                                ] ;
-                rdfs:label "anthromes"@en .
+:Anthromes rdf:type owl:Class ;
+           rdfs:subClassOf :TerrestrialBiome ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaHuman/hasLandUse> ;
+                             owl:hasValue <http://sweetontology.net/stateBiological/Anthropogenic>
+                           ] ;
+           rdfs:label "anthromes"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/AquaticEcosystem
-soreabb:AquaticEcosystem rdf:type owl:Class ;
-                       rdfs:subClassOf soreabb:Ecosystem ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorel:hasRealm ;
-                                         owl:allValuesFrom sorea:Hydrosphere
-                                       ] ;
-                       rdfs:label "aquatic ecosystem"@en .
+:AquaticEcosystem rdf:type owl:Class ;
+                  rdfs:subClassOf :Ecosystem ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                    owl:allValuesFrom <http://sweetontology.net/realm/Hydrosphere>
+                                  ] ;
+                  rdfs:label "aquatic ecosystem"@en ;
+                  skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-19T16:34:29.089"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3289906> ;
+          rdfs:comment "ecosystem in a body of water"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Barren
-soreabb:Barren rdf:type owl:Class ;
-             rdfs:subClassOf soreabb:Wildlands ;
-             rdfs:label "barren"@en .
+:Barren rdf:type owl:Class ;
+        rdfs:subClassOf :Wildlands ;
+        rdfs:label "barren"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Biome
-soreabb:Biome rdf:type owl:Class ;
-            rdfs:subClassOf sorepsc:Environment ;
-            rdfs:label "biome"@en .
+:Biome rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/reprSciComponent/Environment> ;
+       rdfs:label "biome"@en ;
+       skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-19T16:34:29.260"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q101998> ;
+          rdfs:comment "distinct biological communities that have formed in response to a shared physical climate"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Biota
-soreabb:Biota rdf:type owl:Class ;
-            rdfs:subClassOf soreabb:TerrestrialBiome ;
-            rdfs:label "biota"@en .
+:Biota rdf:type owl:Class ;
+       rdfs:subClassOf :TerrestrialBiome ;
+       rdfs:label "biota"@en ;
+       skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T16:34:29.335"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q845214> ;
+          rdfs:comment "plant and animal life of a region"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/BorealForest
-soreabb:BorealForest rdf:type owl:Class ;
-                   rdfs:subClassOf soreabb:Taiga ;
-                   rdfs:label "boreal forest"@en .
+:BorealForest rdf:type owl:Class ;
+              rdfs:subClassOf :Taiga ;
+              rdfs:label "boreal forest"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/CaveEcosystem
-soreabb:CaveEcosystem rdf:type owl:Class ;
-                    rdfs:subClassOf soreabb:TerrestrialEcosystem ;
-                    rdfs:label "cave ecosystem"@en .
+:CaveEcosystem rdf:type owl:Class ;
+               rdfs:subClassOf :TerrestrialEcosystem ;
+               rdfs:label "cave ecosystem"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/CoralReef
-soreabb:CoralReef rdf:type owl:Class ;
-                rdfs:subClassOf soreabb:MarineEcosystem ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsc:hasSpecies ;
-                                  owl:allValuesFrom soman:Coral
-                                ] ;
-                rdfs:label "coral reef"@en .
+:CoralReef rdf:type owl:Class ;
+           rdfs:subClassOf :MarineEcosystem ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                             owl:allValuesFrom <http://sweetontology.net/matrAnimal/Coral>
+                           ] ;
+           rdfs:label "coral reef"@en ;
+           skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-19T16:34:29.572"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q11292> ;
+          rdfs:comment "ridge of rock in the sea formed by the growth and deposit of coral"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Croplands
-soreabb:Croplands rdf:type owl:Class ;
-                rdfs:subClassOf soreabb:TerrestrialBiome ;
-                rdfs:label "croplands"@en .
+:Croplands rdf:type owl:Class ;
+           rdfs:subClassOf :TerrestrialBiome ;
+           rdfs:label "croplands"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/DenseSettlements
-soreabb:DenseSettlements rdf:type owl:Class ;
-                       rdfs:subClassOf soreabb:TerrestrialBiome ;
-                       rdfs:label "dense settlements"@en .
+:DenseSettlements rdf:type owl:Class ;
+                  rdfs:subClassOf :TerrestrialBiome ;
+                  rdfs:label "dense settlements"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Ecosystem
-soreabb:Ecosystem rdf:type owl:Class ;
-                rdfs:subClassOf sorepsc:Environment ;
-                rdfs:label "ecosystem"@en .
+:Ecosystem rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/reprSciComponent/Environment> ;
+           rdfs:label "ecosystem"@en ;
+           skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-19T16:34:29.780"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q37813> ;
+          rdfs:comment "community of living organisms together with the nonliving components of their environment, interacting as a system"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/EmergentLayer
-soreabb:EmergentLayer rdf:type owl:Class ;
-                    rdfs:subClassOf soreabb:TerrestrialEcosystem ;
-                    rdfs:label "emergent layer"@en .
+:EmergentLayer rdf:type owl:Class ;
+               rdfs:subClassOf :TerrestrialEcosystem ;
+               rdfs:label "emergent layer"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Fishery
-soreabb:Fishery rdf:type owl:Class ;
-              rdfs:subClassOf soreabb:AquaticEcosystem ;
-              rdfs:label "fishery"@en .
+:Fishery rdf:type owl:Class ;
+         rdfs:subClassOf :AquaticEcosystem ;
+         rdfs:label "fishery"@en ;
+         skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-19T16:34:29.945"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q180538> ;
+          rdfs:comment "entity engaged in raising or harvesting fish which is determined by some authority to be a fishery"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Forest
-soreabb:Forest rdf:type owl:Class ;
-             rdfs:subClassOf soreabb:TerrestrialEcosystem ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelsc:hasSpecies ;
-                               owl:allValuesFrom somapl:Vegetation
-                             ] ;
-             rdfs:label "forest"@en .
+:Forest rdf:type owl:Class ;
+        rdfs:subClassOf :TerrestrialEcosystem ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                          owl:allValuesFrom <http://sweetontology.net/matrPlant/Vegetation>
+                        ] ;
+        rdfs:label "forest"@en ;
+        skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T16:34:30.034"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q4421> ;
+           rdfs:comment "dense collection of trees covering a relatively large area"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Forested
-soreabb:Forested rdf:type owl:Class ;
-               rdfs:subClassOf soreabb:TerrestrialBiome ;
-               rdfs:label "forested"@en .
+:Forested rdf:type owl:Class ;
+          rdfs:subClassOf :TerrestrialBiome ;
+          rdfs:label "forested"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/FreshwaterEcosystem
-soreabb:FreshwaterEcosystem rdf:type owl:Class ;
-                          rdfs:subClassOf soreabb:AquaticEcosystem ;
-                          owl:disjointWith soreabb:MarineEcosystem ;
-                          rdfs:label "freshwater ecosystem"@en .
+:FreshwaterEcosystem rdf:type owl:Class ;
+                     rdfs:subClassOf :AquaticEcosystem ;
+                     owl:disjointWith :MarineEcosystem ;
+                     rdfs:label "freshwater ecosystem"@en ;
+                     skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-19T16:34:30.210"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q2890135> ;
+           rdfs:comment "subset of Earth's aquatic ecosystems"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Grassland
-soreabb:Grassland rdf:type owl:Class ;
-                rdfs:subClassOf soreabb:TerrestrialEcosystem ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsc:hasSpecies ;
-                                  owl:allValuesFrom somapl:Grass
-                                ] ;
-                rdfs:label "grassland"@en .
+:Grassland rdf:type owl:Class ;
+           rdfs:subClassOf :TerrestrialEcosystem ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                             owl:allValuesFrom <http://sweetontology.net/matrPlant/Grass>
+                           ] ;
+           rdfs:label "grassland"@en ;
+           skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-19T16:34:30.328"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1006733> ;
+           rdfs:comment "Area with vegetation dominated by grasses"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/MarineEcosystem
-soreabb:MarineEcosystem rdf:type owl:Class ;
-                      rdfs:subClassOf soreabb:AquaticEcosystem ;
-                      rdfs:label "marine ecosystem"@en .
+:MarineEcosystem rdf:type owl:Class ;
+                 rdfs:subClassOf :AquaticEcosystem ;
+                 rdfs:label "marine ecosystem"@en ;
+                 skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-19T16:34:30.784"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3304561> ;
+           rdfs:comment "among the largest of Earth's aquatic ecosystems"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Montane
-soreabb:Montane rdf:type owl:Class ;
-              rdfs:subClassOf soreabb:TerrestrialEcosystem ;
-              rdfs:label "montane"@en .
+:Montane rdf:type owl:Class ;
+         rdfs:subClassOf :TerrestrialEcosystem ;
+         rdfs:label "montane"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Pasture
-soreabb:Pasture rdf:type owl:Class ;
-              rdfs:subClassOf soreabb:TerrestrialEcosystem ;
-              rdfs:label "pasture"@en .
+:Pasture rdf:type owl:Class ;
+         rdfs:subClassOf :TerrestrialEcosystem ;
+         rdfs:label "pasture"@en ;
+         skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-19T16:34:30.973"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q30121> ;
+           rdfs:comment "land used for grazing"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Rangelands
-soreabb:Rangelands rdf:type owl:Class ;
-                 rdfs:subClassOf soreabb:TerrestrialBiome ;
-                 rdfs:label "rangelands"@en .
+:Rangelands rdf:type owl:Class ;
+            rdfs:subClassOf :TerrestrialBiome ;
+            rdfs:label "rangelands"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Savanna
-soreabb:Savanna rdf:type owl:Class ;
-              rdfs:subClassOf soreabb:TerrestrialEcosystem ;
-              rdfs:label "savanna"@en .
+:Savanna rdf:type owl:Class ;
+         rdfs:subClassOf :TerrestrialEcosystem ;
+         rdfs:label "savanna"@en ;
+         skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-19T16:34:31.119"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q42320> ;
+           rdfs:comment "mixed woodland-grassland ecosystem"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Scrubland
-soreabb:Scrubland rdf:type owl:Class ;
-                rdfs:subClassOf soreabb:TerrestrialEcosystem ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsc:hasSpecies ;
-                                  owl:allValuesFrom somapl:Scrub
-                                ] ;
-                rdfs:label "scrubland"@en .
+:Scrubland rdf:type owl:Class ;
+           rdfs:subClassOf :TerrestrialEcosystem ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasSpecies> ;
+                             owl:allValuesFrom <http://sweetontology.net/matrPlant/Scrub>
+                           ] ;
+           rdfs:label "scrubland"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/SeaGrass
-soreabb:SeaGrass rdf:type owl:Class ;
-               rdfs:subClassOf soreabb:AquaticEcosystem ;
-               rdfs:label "sea grass"@en .
+:SeaGrass rdf:type owl:Class ;
+          rdfs:subClassOf :AquaticEcosystem ;
+          rdfs:label "sea grass"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/SparseTrees
-soreabb:SparseTrees rdf:type owl:Class ;
-                  rdfs:subClassOf soreabb:Wildlands ;
-                  rdfs:label "sparse trees"@en .
+:SparseTrees rdf:type owl:Class ;
+             rdfs:subClassOf :Wildlands ;
+             rdfs:label "sparse trees"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Steppe
-soreabb:Steppe rdf:type owl:Class ;
-             rdfs:subClassOf soreabb:Grassland ;
-             rdfs:label "steppe"@en .
+:Steppe rdf:type owl:Class ;
+        rdfs:subClassOf :Grassland ;
+        rdfs:label "steppe"@en ;
+        skos:definition _:genid19 .
+
+_:genid19 dcterms:created "2020-07-19T16:34:31.445"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q123991> ;
+           rdfs:comment "ecoregion in the montane grasslands and shrublands"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Taiga
-soreabb:Taiga rdf:type owl:Class ;
-            rdfs:subClassOf soreabb:Forest ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelcl:hasClimateZone ;
-                              owl:hasValue soreacz:Cfc
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelcl:hasClimateZone ;
-                              owl:hasValue soreacz:Dfb
-                            ] ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelcl:hasClimateZone ;
-                              owl:hasValue soreacz:Dfc
-                            ] ;
-            rdfs:label "taiga"@en .
+:Taiga rdf:type owl:Class ;
+       rdfs:subClassOf :Forest ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaClimate/hasClimateZone> ;
+                         owl:hasValue <http://sweetontology.net/realmClimateZone/Cfc>
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaClimate/hasClimateZone> ;
+                         owl:hasValue <http://sweetontology.net/realmClimateZone/Dfb>
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaClimate/hasClimateZone> ;
+                         owl:hasValue <http://sweetontology.net/realmClimateZone/Dfc>
+                       ] ;
+       rdfs:label "taiga"@en ;
+       skos:definition _:genid23 .
+
+_:genid23 dcterms:created "2020-07-19T16:34:31.519"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q69564> ;
+           rdfs:comment "the world's largest land biome, characterized by coniferous forests"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/TemperateForest
-soreabb:TemperateForest rdf:type owl:Class ;
-                      rdfs:subClassOf soreabb:Forest ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelcl:hasClimateZone ;
-                                        owl:allValuesFrom soreacz:C
-                                      ] ;
-                      rdfs:label "temperate forest"@en .
+:TemperateForest rdf:type owl:Class ;
+                 rdfs:subClassOf :Forest ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaClimate/hasClimateZone> ;
+                                   owl:allValuesFrom <http://sweetontology.net/realmClimateZone/C>
+                                 ] ;
+                 rdfs:label "temperate forest"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Terrain
-soreabb:Terrain rdf:type owl:Class ;
-              rdfs:subClassOf soreabb:TerrestrialBiome ;
-              rdfs:label "terrain"@en .
+:Terrain rdf:type owl:Class ;
+         rdfs:subClassOf :TerrestrialBiome ;
+         rdfs:label "terrain"@en ;
+         skos:definition _:genid25 .
+
+_:genid25 dcterms:created "2020-07-19T16:34:31.659"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q186131> ;
+           rdfs:comment "vertical and horizontal dimension of land surface"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/TerrestrialBiome
-soreabb:TerrestrialBiome rdf:type owl:Class ;
-                       rdfs:subClassOf soreabb:Biome ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorel:hasRealm ;
-                                         owl:allValuesFrom sorea:Land
-                                       ] ;
-                       rdfs:label "terrestrial biome"@en .
+:TerrestrialBiome rdf:type owl:Class ;
+                  rdfs:subClassOf :Biome ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                    owl:allValuesFrom <http://sweetontology.net/realm/Land>
+                                  ] ;
+                  rdfs:label "terrestrial biome"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/TerrestrialEcosystem
-soreabb:TerrestrialEcosystem rdf:type owl:Class ;
-                           rdfs:subClassOf soreabb:Ecosystem ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorel:hasRealm ;
-                                             owl:allValuesFrom sorea:Land
-                                           ] ;
-                           rdfs:label "terrestrial ecosystem"@en .
+:TerrestrialEcosystem rdf:type owl:Class ;
+                      rdfs:subClassOf :Ecosystem ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                        owl:allValuesFrom <http://sweetontology.net/realm/Land>
+                                      ] ;
+                      rdfs:label "terrestrial ecosystem"@en ;
+                      skos:definition _:genid28 .
+
+_:genid28 dcterms:created "2020-07-19T16:34:31.806"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3718755> ;
+           rdfs:comment "ecosystem found only on landforms"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/TropicalForest
-soreabb:TropicalForest rdf:type owl:Class ;
-                     rdfs:subClassOf soreabb:Forest ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelcl:hasClimateZone ;
-                                       owl:hasValue soreacz:TropicalRainForestClimate
-                                     ] ;
-                     rdfs:label "tropical forest"@en .
+:TropicalForest rdf:type owl:Class ;
+                rdfs:subClassOf :Forest ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaClimate/hasClimateZone> ;
+                                  owl:hasValue <http://sweetontology.net/realmClimateZone/TropicalRainForestClimate>
+                                ] ;
+                rdfs:label "tropical forest"@en ;
+                skos:definition _:genid30 .
+
+_:genid30 dcterms:created "2020-07-19T16:34:31.902"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q199403> ;
+           rdfs:comment "specific ecosystem"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Villages
-soreabb:Villages rdf:type owl:Class ;
-               rdfs:subClassOf soreabb:TerrestrialBiome ;
-               rdfs:label "villages"@en .
+:Villages rdf:type owl:Class ;
+          rdfs:subClassOf :TerrestrialBiome ;
+          rdfs:label "villages"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Wildlands
-soreabb:Wildlands rdf:type owl:Class ;
-                rdfs:subClassOf soreabb:TerrestrialBiome ;
-                rdfs:label "wildlands"@en .
+:Wildlands rdf:type owl:Class ;
+           rdfs:subClassOf :TerrestrialBiome ;
+           rdfs:label "wildlands"@en .
 
 
 ###  http://sweetontology.net/realmBiolBiome/Woodland
-soreabb:Woodland rdf:type owl:Class ;
-               rdfs:subClassOf soreabb:Forest ;
-               rdfs:label "woodland"@en .
+:Woodland rdf:type owl:Class ;
+          rdfs:subClassOf :Forest ;
+          rdfs:label "woodland"@en ;
+          skos:definition _:genid31 .
+
+_:genid31 dcterms:created "2020-07-19T16:34:32.112"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3241565> ;
+           rdfs:comment "low-density forest forming open habitats with plenty of sunlight and limited shade"@en .
 
 
 ###  http://sweetontology.net/realmClimateZone/C
-soreacz:C rdf:type owl:Class .
+<http://sweetontology.net/realmClimateZone/C> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSciComponent/Environment
-sorepsc:Environment rdf:type owl:Class .
+<http://sweetontology.net/reprSciComponent/Environment> rdf:type owl:Class .
 
 
 #################################################################
@@ -335,23 +431,23 @@ sorepsc:Environment rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/realmClimateZone/Cfc
-soreacz:Cfc rdf:type owl:NamedIndividual .
+<http://sweetontology.net/realmClimateZone/Cfc> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/realmClimateZone/Dfb
-soreacz:Dfb rdf:type owl:NamedIndividual .
+<http://sweetontology.net/realmClimateZone/Dfb> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/realmClimateZone/Dfc
-soreacz:Dfc rdf:type owl:NamedIndividual .
+<http://sweetontology.net/realmClimateZone/Dfc> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/realmClimateZone/TropicalRainForestClimate
-soreacz:TropicalRainForestClimate rdf:type owl:NamedIndividual .
+<http://sweetontology.net/realmClimateZone/TropicalRainForestClimate> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateBiological/Anthropogenic
-sostb:Anthropogenic rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateBiological/Anthropogenic> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

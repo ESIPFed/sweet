@@ -1,22 +1,15 @@
 @prefix : <http://sweetontology.net/phenReaction/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sostri: <http://sweetontology.net/stateRoleImpact/> .
-@prefix somais: <http://sweetontology.net/matrIsotope/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sophr: <http://sweetontology.net/phenReaction/> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sostro: <http://sweetontology.net/stateRole/> .
-@prefix soprocc: <http://sweetontology.net/procChemical/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sophwn: <http://sweetontology.net/phenWaveNoise/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/phenReaction> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenReaction/> .
 
 <http://sweetontology.net/phenReaction> rdf:type owl:Ontology ;
+                                         owl:versionIRI <http://sweetontology.net/phenReaction/3.6.0> ;
                                          owl:imports <http://sweetontology.net/matrIsotope> ,
                                                      <http://sweetontology.net/phenWaveNoise> ,
                                                      <http://sweetontology.net/procChemical> ,
@@ -25,24 +18,24 @@
                                                      <http://sweetontology.net/relaSci> ,
                                                      <http://sweetontology.net/stateRole> ,
                                                      <http://sweetontology.net/stateRoleImpact> ;
-                                         rdfs:label "SWEET Ontology Phenomena Reaction" ;
                                          dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                         owl:versionInfo "3.5.0" .
+                                         rdfs:label "SWEET Ontology Phenomena Reaction" ;
+                                         owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-sorelch:hasSubstance rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasImpact
-sorelsc:hasImpact rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasImpact> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -50,137 +43,197 @@ sorelsc:hasImpact rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenReaction/Activation
-sophr:Activation rdf:type owl:Class ;
-                rdfs:subClassOf soprocc:ChemicalReaction ;
-                rdfs:label "activation"@en .
+:Activation rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ;
+            rdfs:label "activation"@en ;
+            skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-19T16:16:31.142"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q4661718> ;
+          rdfs:comment "(bio-)chemical term"@en .
 
 
 ###  http://sweetontology.net/phenReaction/BiochemicalRelease
-sophr:BiochemicalRelease rdf:type owl:Class ;
-                        rdfs:subClassOf sophr:Release ;
-                        rdfs:label "biochemical release"@en .
+:BiochemicalRelease rdf:type owl:Class ;
+                    rdfs:subClassOf :Release ;
+                    rdfs:label "biochemical release"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Emission
-sophr:Emission rdf:type owl:Class ;
-              rdfs:subClassOf soprocc:ChemicalReaction ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorel:hasRole ;
-                                owl:hasValue sostro:ByProduct
-                              ] ;
-              rdfs:label "emission"@en .
+:Emission rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/rela/hasRole> ;
+                            owl:hasValue <http://sweetontology.net/stateRole/ByProduct>
+                          ] ;
+          rdfs:label "emission"@en ;
+          skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-19T16:16:31.318"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1474477> ;
+          rdfs:comment "radiation or radio signal produced or emitted by a radio transmitting station"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Eruption
-sophr:Eruption rdf:type owl:Class ;
-              rdfs:subClassOf sophr:Release ;
-              rdfs:label "eruption"@en .
+:Eruption rdf:type owl:Class ;
+          rdfs:subClassOf :Release ;
+          rdfs:label "eruption"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Explosion
-sophr:Explosion rdf:type owl:Class ;
-               rdfs:subClassOf soprocc:ChemicalReaction ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorel:hasPhenomena ;
-                                 owl:allValuesFrom sophwn:Noise
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelsc:hasImpact ;
-                                 owl:hasValue sostri:Hazard
-                               ] ;
-               rdfs:label "explosion"@en .
+:Explosion rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                             owl:allValuesFrom <http://sweetontology.net/phenWaveNoise/Noise>
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                             owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                           ] ;
+           rdfs:label "explosion"@en ;
+           skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T16:16:31.521"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q179057> ;
+          rdfs:comment "sudden release of energy through high temperatures and gas expansion"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Fire
-sophr:Fire rdf:type owl:Class ;
-          rdfs:subClassOf soprocc:ChemicalReaction ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty sorelsc:hasImpact ;
-                            owl:hasValue sostri:Hazard
-                          ] ;
-          rdfs:label "fire"@en .
+:Fire rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                        owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                      ] ;
+      rdfs:label "fire"@en ;
+      skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-19T16:16:31.603"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3196> ;
+          rdfs:comment "rapid oxidation of a material"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Flare
-sophr:Flare rdf:type owl:Class ;
-           owl:equivalentClass sophr:Flaring ;
-           rdfs:subClassOf soprocc:ChemicalReaction ;
-           rdfs:label "flare"@en .
+:Flare rdf:type owl:Class ;
+       owl:equivalentClass :Flaring ;
+       rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ;
+       rdfs:label "flare"@en ;
+       skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-19T16:16:32.066"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q628261> ;
+          rdfs:comment "pyrotechnic, produces intense light or heat without an explosion"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Flaring
-sophr:Flaring rdf:type owl:Class ;
-             rdfs:label "flaring"@en .
+:Flaring rdf:type owl:Class ;
+         rdfs:label "flaring"@en .
 
 
 ###  http://sweetontology.net/phenReaction/FluidLeak
-sophr:FluidLeak rdf:type owl:Class ;
-               rdfs:subClassOf sophr:Leak ;
-               rdfs:label "fluid leak"@en .
+:FluidLeak rdf:type owl:Class ;
+           rdfs:subClassOf :Leak ;
+           rdfs:label "fluid leak"@en .
 
 
 ###  http://sweetontology.net/phenReaction/GasFlare
-sophr:GasFlare rdf:type owl:Class ;
-              rdfs:subClassOf soprocc:ChemicalReaction ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelsc:hasImpact ;
-                                owl:hasValue sostri:Hazard
-                              ] ;
-              rdfs:label "gas flare"@en .
+:GasFlare rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/procChemical/ChemicalReaction> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSci/hasImpact> ;
+                            owl:hasValue <http://sweetontology.net/stateRoleImpact/Hazard>
+                          ] ;
+          rdfs:label "gas flare"@en ;
+          skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T16:16:32.306"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q319873> ;
+           rdfs:comment "gas combustion device"@en .
 
 
 ###  http://sweetontology.net/phenReaction/GasLeak
-sophr:GasLeak rdf:type owl:Class ;
-             rdfs:subClassOf sophr:Leak ;
-             rdfs:label "gas leak"@en .
+:GasLeak rdf:type owl:Class ;
+         rdfs:subClassOf :Leak ;
+         rdfs:label "gas leak"@en ;
+         skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-19T16:16:32.411"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q5526351> ;
+           rdfs:comment "unintended escape of gas from a pipeline or other containment"@en .
 
 
 ###  http://sweetontology.net/phenReaction/IndustrialEmission
-sophr:IndustrialEmission rdf:type owl:Class ;
-                        rdfs:subClassOf sophr:Emission ;
-                        rdfs:label "industrial emission"@en .
+:IndustrialEmission rdf:type owl:Class ;
+                    rdfs:subClassOf :Emission ;
+                    rdfs:label "industrial emission"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Leach
-sophr:Leach rdf:type owl:Class ;
-           rdfs:subClassOf sophr:Release ;
-           rdfs:label "leach"@en .
+:Leach rdf:type owl:Class ;
+       rdfs:subClassOf :Release ;
+       rdfs:label "leach"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Leak
-sophr:Leak rdf:type owl:Class ;
-          rdfs:subClassOf sophr:Release ;
-          rdfs:label "leak"@en .
+:Leak rdf:type owl:Class ;
+      rdfs:subClassOf :Release ;
+      rdfs:label "leak"@en ;
+      skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-19T16:16:32.658"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1349983> ;
+           rdfs:comment "process of fluid escaping containment"@en .
 
 
 ###  http://sweetontology.net/phenReaction/RadioactivityRelease
-sophr:RadioactivityRelease rdf:type owl:Class ;
-                          rdfs:subClassOf sophr:Release ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorelch:hasSubstance ;
-                                            owl:allValuesFrom somais:RadioactiveSubstance
-                                          ] ;
-                          rdfs:label "radioactivity release"@en .
+:RadioactivityRelease rdf:type owl:Class ;
+                      rdfs:subClassOf :Release ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                        owl:allValuesFrom <http://sweetontology.net/matrIsotope/RadioactiveSubstance>
+                                      ] ;
+                      rdfs:label "radioactivity release"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Release
-sophr:Release rdf:type owl:Class ;
-             rdfs:subClassOf sophr:Emission ;
-             rdfs:label "release"@en .
+:Release rdf:type owl:Class ;
+         rdfs:subClassOf :Emission ;
+         rdfs:label "release"@en ;
+         skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-19T16:16:32.798"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1286737> ;
+           rdfs:comment "new book or record"@en .
 
 
 ###  http://sweetontology.net/phenReaction/Wildfire
-sophr:Wildfire rdf:type owl:Class ;
-              rdfs:subClassOf sophr:Fire ;
-              rdfs:label "wildfire"@en .
+:Wildfire rdf:type owl:Class ;
+          rdfs:subClassOf :Fire ;
+          rdfs:label "wildfire"@en ;
+          skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-19T16:16:32.895"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q169950> ;
+           rdfs:comment "uncontrolled fire in an area of combustible vegetation that occurs in the countryside or a wilderness area"@en .
 
 
 ###  http://sweetontology.net/phenWaveNoise/Noise
-sophwn:Noise rdf:type owl:Class .
+<http://sweetontology.net/phenWaveNoise/Noise> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procChemical/ChemicalReaction
-soprocc:ChemicalReaction rdf:type owl:Class .
+<http://sweetontology.net/procChemical/ChemicalReaction> rdf:type owl:Class .
 
 
 #################################################################
@@ -188,11 +241,11 @@ soprocc:ChemicalReaction rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/stateRole/ByProduct
-sostro:ByProduct rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateRole/ByProduct> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateRoleImpact/Hazard
-sostri:Hazard rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateRoleImpact/Hazard> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

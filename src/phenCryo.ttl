@@ -1,191 +1,212 @@
 @prefix : <http://sweetontology.net/phenCryo/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sophcr: <http://sweetontology.net/phenCryo/> .
-@prefix soprocsc: <http://sweetontology.net/procStateChange/> .
-@base <http://sweetontology.net/phenCryo> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenCryo/> .
 
 <http://sweetontology.net/phenCryo> rdf:type owl:Ontology ;
+                                     owl:versionIRI <http://sweetontology.net/phenCryo/3.6.0> ;
                                      owl:imports <http://sweetontology.net/phenSystem> ,
                                                  <http://sweetontology.net/procPhysical> ,
                                                  <http://sweetontology.net/procStateChange> ;
-                                     rdfs:label "SWEET Ontology Phenomena Cryosphere" ;
                                      dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                     owl:versionInfo "3.5.0" .
+                                     rdfs:label "SWEET Ontology Phenomena Cryosphere" ;
+                                     owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2004/02/skos/core#note
+skos:note rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/phenCryo/Accumulation
-sophcr:Accumulation rdf:type owl:Class ;
-                   rdfs:subClassOf sophcr:GlacialProcess ,
-                                   sophsy:Accumulation ;
-                   rdfs:label "accumulation"@en .
+:Accumulation rdf:type owl:Class ;
+              rdfs:subClassOf :GlacialProcess ,
+                              <http://sweetontology.net/phenSystem/Accumulation> ;
+              rdfs:label "accumulation"@en .
 
 
 ###  http://sweetontology.net/phenCryo/Calving
-sophcr:Calving rdf:type owl:Class ;
-              owl:equivalentClass sophcr:IceCalving ;
-              rdfs:subClassOf sophcr:GlacialProcess ,
-                              soprocsc:Melting ;
-              rdfs:label "calving"@en .
+:Calving rdf:type owl:Class ;
+         owl:equivalentClass :IceCalving ;
+         rdfs:subClassOf :GlacialProcess ,
+                         <http://sweetontology.net/procStateChange/Melting> ;
+         rdfs:label "calving"@en .
+
 
 ###  http://sweetontology.net/phenCryo/Englacial
-sophcr:Englacial rdf:type owl:Class ;
-                owl:equivalentClass sophcr:EnglacialProcess ;
-                rdfs:label "englacial"@en ;
-                rdfs:comment "This class is deprecated in favor of the URI EnglacialProcess"@en ;
-                owl:deprecated "true"^^xsd:boolean .
+:Englacial rdf:type owl:Class ;
+           owl:equivalentClass :EnglacialProcess ;
+           rdfs:comment "This class is deprecated in favor of the URI EnglacialProcess"@en ;
+           rdfs:label "englacial"@en ;
+           owl:deprecated "true"^^xsd:boolean .
+
 
 ###  http://sweetontology.net/phenCryo/EnglacialProcess
-sophcr:EnglacialProcess rdf:type owl:Class ;
-                rdfs:subClassOf sophcr:GlacialProcess ;
-                rdfs:label "englacial process"@en ;
-                skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001622>;
-                skos:definition  [
-                  rdfs:comment  "A positional quality inhering in a bearer by virtue of the bearer being located within a glacier or ice sheet, between their summer surface or bed."@en ;
-                  dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                  dcterms:created "2020-04-09T10:12:52-08:00Z"^^xsd:dateTimeStamp ;
-                  dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-                  prov:wasDerivedFrom <http://purl.obolibrary.org/obo/ENVO_01001622> ;
-                ] .
+:EnglacialProcess rdf:type owl:Class ;
+                  rdfs:subClassOf :GlacialProcess ;
+                  rdfs:label "englacial process"@en ;
+                  skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001622> ;
+                  skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-04-09T10:12:52-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "A positional quality inhering in a bearer by virtue of the bearer being located within a glacier or ice sheet, between their summer surface or bed."@en ;
+          <http://www.w3.org/ns/prov#wasDerivedFrom> <http://purl.obolibrary.org/obo/ENVO_01001622> .
 
 
 ###  http://sweetontology.net/phenCryo/Glacial
-sophcr:Glacial rdf:type owl:Class ;
-              owl:equivalentClass sophcr:Glaciation ;
-              rdfs:label "glacial"@en ;
-              skos:definition  [
-                rdfs:comment  "An environmental process which involves glaciers or ice sheets."@en ;
-                dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                dcterms:created "2020-04-09T10:14:10-08:00Z"^^xsd:dateTimeStamp ;
-                dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-              ] .
+:Glacial rdf:type owl:Class ;
+         owl:equivalentClass :Glaciation ;
+         rdfs:label "glacial"@en ;
+         skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-04-09T10:14:10-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "An environmental process which involves glaciers or ice sheets."@en .
 
 
 ###  http://sweetontology.net/phenCryo/GlacialProcess
-sophcr:GlacialProcess rdf:type owl:Class ;
-                     rdfs:subClassOf soprocp:PhysicalProcess ;
-                     rdfs:label "glacial process"@en ;
-                     skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001655> ;
-                     skos:definition  [
-                       rdfs:comment  "An environmental process which involves glaciers or ice sheets."@en ;
-                       dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                       dcterms:created "2020-04-09T10:15:23-08:00Z"^^xsd:dateTimeStamp ;
-                       dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-                       prov:wasDerivedFrom <http://purl.obolibrary.org/obo/ENVO_01001655> ;
-                     ] .
+:GlacialProcess rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
+                owl:disjointWith :Periglacial ,
+                                 :Periglaciation ;
+                rdfs:label "glacial process"@en ;
+                skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001655> ;
+                skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-04-09T10:15:23-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "An environmental process which involves glaciers or ice sheets."@en ;
+          <http://www.w3.org/ns/prov#wasDerivedFrom> <http://purl.obolibrary.org/obo/ENVO_01001655> .
 
 
 ###  http://sweetontology.net/phenCryo/Glaciation
-sophcr:Glaciation rdf:type owl:Class ;
-                 rdfs:subClassOf sophcr:Accumulation ;
-                 owl:disjointWith sophcr:GlacierRetreat ;
-                 rdfs:label "glaciation"@en ;
-                 rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
-                 skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_03000029> ;
-                 skos:definition  [
-                   rdfs:comment  "The process of glacier ice gain."@en ;
-                   dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                   dcterms:created "2020-04-09T10:17:32-08:00Z"^^xsd:dateTimeStamp ;
-                   dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-                   prov:wasDerivedFrom <http://purl.obolibrary.org/obo/ENVO_03000029> ;
-                 ] .
+:Glaciation rdf:type owl:Class ;
+            rdfs:subClassOf :Accumulation ;
+            owl:disjointWith :GlacierRetreat ;
+            rdfs:label "glaciation"@en ;
+            rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
+            skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_03000029> ;
+            skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-04-09T10:17:32-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "The process of glacier ice gain."@en ;
+          <http://www.w3.org/ns/prov#wasDerivedFrom> <http://purl.obolibrary.org/obo/ENVO_03000029> .
 
 
 ###  http://sweetontology.net/phenCryo/GlacierRetreat
-sophcr:GlacierRetreat rdf:type owl:Class ;
-                     rdfs:subClassOf sophcr:GlacialProcess ,
-                                     sophsy:Retreat,
-                                     soprocsc:Melting ;
-                     rdfs:label "glacier retreat"@en ;
-                     rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
-                     skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001656> ;
-                     skos:definition  [
-                       rdfs:comment  "The process of glacier ice loss."@en ;
-                       dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                       dcterms:created "2020-04-09T10:20:12-08:00Z"^^xsd:dateTimeStamp ;
-                       dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-                       prov:wasDerivedFrom <http://purl.obolibrary.org/obo/ENVO_01001656> ;
-                     ] .
+:GlacierRetreat rdf:type owl:Class ;
+                rdfs:subClassOf :GlacialProcess ,
+                                <http://sweetontology.net/phenSystem/Retreat> ,
+                                <http://sweetontology.net/procStateChange/Melting> ;
+                rdfs:label "glacier retreat"@en ;
+                rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
+                skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001656> ;
+                skos:definition _:genid5 ,
+                                _:genid6 .
+
+_:genid5 dcterms:created "2020-04-09T10:20:12-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "The process of glacier ice loss."@en ;
+          <http://www.w3.org/ns/prov#wasDerivedFrom> <http://purl.obolibrary.org/obo/ENVO_01001656> .
+
+_:genid6 dcterms:created "2020-07-19T16:08:50.229"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q94706497> ;
+          rdfs:comment "shrinking of a glacier"@en .
 
 
 ###  http://sweetontology.net/phenCryo/IceCalving
-sophcr:IceCalving rdf:type owl:Class ;
-                 rdfs:label "ice calving"@en .
+:IceCalving rdf:type owl:Class ;
+            rdfs:label "ice calving"@en ;
+            skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-19T16:08:50.301"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q868757> ;
+          rdfs:comment "breaking of ice chunks from the edge of a glacier"@en .
 
 
 ###  http://sweetontology.net/phenCryo/Periglacial
-sophcr:Periglacial rdf:type owl:Class ;
-                  rdfs:subClassOf sophcr:PhysicalProcess ;
-                  owl:disjointWith sophcr:GlacialProcess ;
-                  rdfs:label "periglacial"@en ;
-                  skos:note "Subclass relation changed from Glacial Process to Physical Process because Periglacial involves frost action not associated with glacial processes"@en ;
-                  rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
-                  skos:definition  [
-                    rdfs:comment  "A frost action process which occurs in cold environments which are not part of a glacier."@en ;
-                    rdfs:comment "The conditions, processes and landforms associated with cold, nonglacial environments."@en;
-                    dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                    dcterms:created "2020-04-09T10:24:28-08:00Z"^^xsd:dateTimeStamp ;
-                    dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-                  ] .
+:Periglacial rdf:type owl:Class ;
+             rdfs:subClassOf :PhysicalProcess ;
+             rdfs:label "periglacial"@en ;
+             rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
+             skos:definition _:genid8 ;
+             skos:note "Subclass relation changed from Glacial Process to Physical Process because Periglacial involves frost action not associated with glacial processes"@en .
+
+_:genid8 dcterms:created "2020-04-09T10:24:28-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "A frost action process which occurs in cold environments which are not part of a glacier."@en ,
+                       "The conditions, processes and landforms associated with cold, nonglacial environments."@en .
 
 
 ###  http://sweetontology.net/phenCryo/Periglaciation
-sophcr:Periglaciation rdf:type owl:Class ;
-                     rdfs:subClassOf soprocp:PhysicalProcess ;
-                     owl:disjointWith sophcr:GlacialProcess ;
-                     rdfs:label "obsolete periglaciation"@en ;
-                     rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
-                     skos:note "This is not a term found in any community thesaurus or dictionary i.e. GCMD, etc, or community of practice. Should be depricated in a future version of sweet. We consider it to be synonymous with glaciation in the ENVO crossreference"@en ;
-                     skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001659> ;
-                     skos:definition  [
-                       rdfs:comment  "Processes associated with cold, nonglacial environments"@en ;
-                       dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
-                       dcterms:created "2020-04-09T10:28:56-08:00Z"^^xsd:dateTimeStamp ;
-                       dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
-                     ] ;
-                     owl:deprecated "true"^^xsd:boolean .
+:Periglaciation rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
+                rdfs:label "obsolete periglaciation"@en ;
+                rdfs:seeAlso <https://github.com/ESIPFed/sweet/issues/185> ;
+                owl:deprecated "true"^^xsd:boolean ;
+                skos:closeMatch <http://purl.obolibrary.org/obo/ENVO_01001659> ;
+                skos:definition _:genid9 ;
+                skos:note "This is not a term found in any community thesaurus or dictionary i.e. GCMD, etc, or community of practice. Should be depricated in a future version of sweet. We consider it to be synonymous with glaciation in the ENVO crossreference"@en .
 
+_:genid9 dcterms:created "2020-04-09T10:28:56-08:00Z"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-4091-6059> ;
+          dcterms:source <https://orcid.org/0000-0003-4808-4736> ;
+          rdfs:comment "Processes associated with cold, nonglacial environments"@en .
+
+
+###  http://sweetontology.net/phenCryo/PhysicalProcess
+:PhysicalProcess rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/phenCryo/Proglacial
-sophcr:Proglacial rdf:type owl:Class ;
-                 rdfs:subClassOf sophcr:GlacialProcess ;
-                 rdfs:label "proglacial"@en .
+:Proglacial rdf:type owl:Class ;
+            rdfs:subClassOf :GlacialProcess ;
+            rdfs:label "proglacial"@en .
 
 
 ###  http://sweetontology.net/phenCryo/Subglacial
-sophcr:Subglacial rdf:type owl:Class ;
-                 rdfs:subClassOf sophcr:GlacialProcess ;
-                 rdfs:label "subglacial"@en .
+:Subglacial rdf:type owl:Class ;
+            rdfs:subClassOf :GlacialProcess ;
+            rdfs:label "subglacial"@en .
 
 
 ###  http://sweetontology.net/phenCryo/Supraglacial
-sophcr:Supraglacial rdf:type owl:Class ;
-                   rdfs:subClassOf sophcr:GlacialProcess ;
-                   rdfs:label "supraglacial"@en .
+:Supraglacial rdf:type owl:Class ;
+              rdfs:subClassOf :GlacialProcess ;
+              rdfs:label "supraglacial"@en .
 
 
 ###  http://sweetontology.net/phenSystem/Accumulation
-sophsy:Accumulation rdf:type owl:Class .
+<http://sweetontology.net/phenSystem/Accumulation> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/PhysicalProcess
-soprocp:PhysicalProcess rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/PhysicalProcess> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procStateChange/Melting
-soprocsc:Melting rdf:type owl:Class .
+<http://sweetontology.net/procStateChange/Melting> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

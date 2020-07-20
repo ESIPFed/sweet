@@ -1,25 +1,15 @@
 @prefix : <http://sweetontology.net/phenOceanDynamics/> .
-@prefix sophm: <http://sweetontology.net/phenMixing/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopho: <http://sweetontology.net/phenOcean/> .
-@prefix sophod: <http://sweetontology.net/phenOceanDynamics/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorepsd: <http://sweetontology.net/reprSpaceDirection/> .
-@prefix sophgs: <http://sweetontology.net/phenGeolSeismicity/> .
-@prefix sophfd: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix sophoc: <http://sweetontology.net/phenOceanCoastal/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sostss: <http://sweetontology.net/stateSpaceScale/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix sostth: <http://sweetontology.net/stateThermodynamic/> .
-@base <http://sweetontology.net/phenOceanDynamics> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenOceanDynamics/> .
 
 <http://sweetontology.net/phenOceanDynamics> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://sweetontology.net/phenOceanDynamics/3.6.0> ;
                                               owl:imports <http://sweetontology.net/phenFluidDynamics> ,
                                                           <http://sweetontology.net/phenGeolSeismicity> ,
                                                           <http://sweetontology.net/phenMixing> ,
@@ -31,20 +21,44 @@
                                                           <http://sweetontology.net/reprSpaceDirection> ,
                                                           <http://sweetontology.net/stateSpaceScale> ,
                                                           <http://sweetontology.net/stateThermodynamic> ;
-                                              rdfs:label "SWEET Ontology Phenomena Ocean Dynamics" ;
                                               dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                              owl:versionInfo "3.5.0" .
+                                              rdfs:label "SWEET Ontology Phenomena Ocean Dynamics" ;
+                                              owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaPhysical/hasTemperatureRange
-sorelph:hasTemperatureRange rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/hasTemperatureRange> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/hasDirection
-sorelsp:hasDirection rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/hasDirection> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -52,193 +66,247 @@ sorelsp:hasDirection rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenOceanDynamics/BoundaryCurrent
-sophod:BoundaryCurrent rdf:type owl:Class ;
-                     rdfs:subClassOf sophod:OceanCurrent ;
-                     rdfs:label "boundary current"@en .
+:BoundaryCurrent rdf:type owl:Class ;
+                 rdfs:subClassOf :OceanCurrent ;
+                 rdfs:label "boundary current"@en ;
+                 skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-19T16:15:50.153"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q3273117> ;
+          rdfs:comment "ocean current with dynamics determined by the presence of a coastline"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/CircumpolarCurrent
-sophod:CircumpolarCurrent rdf:type owl:Class ;
-                        rdfs:subClassOf sophod:OceanCurrent ;
-                        rdfs:label "circumpolar current"@en .
+:CircumpolarCurrent rdf:type owl:Class ;
+                    rdfs:subClassOf :OceanCurrent ;
+                    rdfs:label "circumpolar current"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/ColdCoreCell
-sophod:ColdCoreCell rdf:type owl:Class ;
-                  rdfs:subClassOf sophod:OceanGyre ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelph:hasTemperatureRange ;
-                                    owl:hasValue sostth:Cool
-                                  ] ;
-                  rdfs:label "cold core cell"@en .
+:ColdCoreCell rdf:type owl:Class ;
+              rdfs:subClassOf :OceanGyre ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaPhysical/hasTemperatureRange> ;
+                                owl:hasValue <http://sweetontology.net/stateThermodynamic/Cool>
+                              ] ;
+              rdfs:label "cold core cell"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/Downwelling
-sophod:Downwelling rdf:type owl:Class ;
-                 rdfs:subClassOf sophod:OceanCirculation ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsp:hasDirection ;
-                                   owl:hasValue sorepsd:Down
-                                 ] ;
-                 rdfs:label "downwelling"@en .
+:Downwelling rdf:type owl:Class ;
+             rdfs:subClassOf :OceanCirculation ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
+                               owl:hasValue <http://sweetontology.net/reprSpaceDirection/Down>
+                             ] ;
+             rdfs:label "downwelling"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/EasternBoundaryCurrent
-sophod:EasternBoundaryCurrent rdf:type owl:Class ;
-                            rdfs:subClassOf sophod:BoundaryCurrent ;
-                            rdfs:label "eastern boundary current"@en .
+:EasternBoundaryCurrent rdf:type owl:Class ;
+                        rdfs:subClassOf :BoundaryCurrent ;
+                        rdfs:label "eastern boundary current"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/LangmuirCirculation
-sophod:LangmuirCirculation rdf:type owl:Class ;
-                         rdfs:subClassOf sophod:OceanCirculation ;
-                         rdfs:label "langmuir circulation"@en .
+:LangmuirCirculation rdf:type owl:Class ;
+                     rdfs:subClassOf :OceanCirculation ;
+                     rdfs:label "langmuir circulation"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/LittoralCurrent
-sophod:LittoralCurrent rdf:type owl:Class ;
-                     owl:equivalentClass sophod:LongshoreCurrent ;
-                     rdfs:label "littoral current"@en .
+:LittoralCurrent rdf:type owl:Class ;
+                 owl:equivalentClass :LongshoreCurrent ;
+                 rdfs:label "littoral current"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/LongshoreCurrent
-sophod:LongshoreCurrent rdf:type owl:Class ;
-                      rdfs:subClassOf sophod:OceanCurrent ;
-                      rdfs:label "longshore current"@en .
+:LongshoreCurrent rdf:type owl:Class ;
+                  rdfs:subClassOf :OceanCurrent ;
+                  rdfs:label "longshore current"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/LoopCurrent
-sophod:LoopCurrent rdf:type owl:Class ;
-                 rdfs:subClassOf sophod:OceanCurrent ;
-                 rdfs:label "loop current"@en .
+:LoopCurrent rdf:type owl:Class ;
+             rdfs:subClassOf :OceanCurrent ;
+             rdfs:label "loop current"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/MesoscaleEddy
-sophod:MesoscaleEddy rdf:type owl:Class ;
-                   owl:equivalentClass sophod:ModeEddy ;
-                   rdfs:subClassOf sophfd:Eddy ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelsp:hasSpatialScale ;
-                                     owl:hasValue sostss:Mesoscale
-                                   ] ;
-                   rdfs:label "mesoscale eddy"@en .
+:MesoscaleEddy rdf:type owl:Class ;
+               owl:equivalentClass :ModeEddy ;
+               rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Eddy> ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaSpace/hasSpatialScale> ;
+                                 owl:hasValue <http://sweetontology.net/stateSpaceScale/Mesoscale>
+                               ] ;
+               rdfs:label "mesoscale eddy"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/ModeEddy
-sophod:ModeEddy rdf:type owl:Class ;
-              rdfs:label "mode eddy"@en .
+:ModeEddy rdf:type owl:Class ;
+          rdfs:label "mode eddy"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/OceanCirculation
-sophod:OceanCirculation rdf:type owl:Class ;
-                      rdfs:subClassOf sophfd:Circulation ,
-                                      sopho:OceanPhenomena ;
-                      rdfs:label "ocean circulation"@en .
+:OceanCirculation rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Circulation> ,
+                                  <http://sweetontology.net/phenOcean/OceanPhenomena> ;
+                  rdfs:label "ocean circulation"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/OceanConveyorBelt
-sophod:OceanConveyorBelt rdf:type owl:Class ;
-                       rdfs:subClassOf sophod:OceanCirculation ;
-                       rdfs:label "ocean conveyor belt"@en .
+:OceanConveyorBelt rdf:type owl:Class ;
+                   rdfs:subClassOf :OceanCirculation ;
+                   rdfs:label "ocean conveyor belt"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/OceanCurrent
-sophod:OceanCurrent rdf:type owl:Class ;
-                  rdfs:subClassOf sophod:OceanCirculation ;
-                  rdfs:label "ocean current"@en .
+:OceanCurrent rdf:type owl:Class ;
+              rdfs:subClassOf :OceanCirculation ;
+              rdfs:label "ocean current"@en ;
+              skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-19T16:15:51.291"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q129558> ;
+          rdfs:comment "continuous, directed movement of ocean water"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/OceanGyre
-sophod:OceanGyre rdf:type owl:Class ;
-               rdfs:subClassOf sophfd:Gyre ,
-                               sopho:OceanPhenomena ;
-               rdfs:label "ocean gyre"@en .
+:OceanGyre rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/phenFluidDynamics/Gyre> ,
+                           <http://sweetontology.net/phenOcean/OceanPhenomena> ;
+           rdfs:label "ocean gyre"@en ;
+           skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-19T16:15:51.367"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1250263> ;
+          rdfs:comment "large system of rotating ocean currents"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/OceanMixing
-sophod:OceanMixing rdf:type owl:Class ;
-                 rdfs:subClassOf sophm:Mixing ,
-                                 sopho:OceanPhenomena ;
-                 rdfs:label "ocean mixing"@en .
+:OceanMixing rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/phenMixing/Mixing> ,
+                             <http://sweetontology.net/phenOcean/OceanPhenomena> ;
+             rdfs:label "ocean mixing"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/SecondaryCirculation
-sophod:SecondaryCirculation rdf:type owl:Class ;
-                          rdfs:subClassOf sophod:OceanCirculation ;
-                          rdfs:label "secondary circulation"@en .
+:SecondaryCirculation rdf:type owl:Class ;
+                      rdfs:subClassOf :OceanCirculation ;
+                      rdfs:label "secondary circulation"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/ThermohalineCirculation
-sophod:ThermohalineCirculation rdf:type owl:Class ;
-                             rdfs:subClassOf sophod:OceanCirculation ;
-                             rdfs:label "thermohaline circulation"@en .
+:ThermohalineCirculation rdf:type owl:Class ;
+                         rdfs:subClassOf :OceanCirculation ;
+                         rdfs:label "thermohaline circulation"@en ;
+                         skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-19T16:15:51.607"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q463223> ;
+          rdfs:comment "part of the large-scale ocean circulation that is driven by global density gradients created by surface heat and freshwater fluxes"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/TidalCurrent
-sophod:TidalCurrent rdf:type owl:Class ;
-                  rdfs:subClassOf sophod:OceanCurrent ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorel:hasPhenomena ;
-                                    owl:allValuesFrom sophoc:OceanTide
-                                  ] ;
-                  rdfs:label "tidal current"@en .
+:TidalCurrent rdf:type owl:Class ;
+              rdfs:subClassOf :OceanCurrent ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                owl:allValuesFrom <http://sweetontology.net/phenOceanCoastal/OceanTide>
+                              ] ;
+              rdfs:label "tidal current"@en ;
+              skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-19T16:15:51.677"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q12882653> ;
+          rdfs:comment "oscillating currents produced by tides"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/TidalWave
-sophod:TidalWave rdf:type owl:Class ;
-               owl:equivalentClass sophod:Tsunami ;
-               rdfs:label "tidal wave"@en .
+:TidalWave rdf:type owl:Class ;
+           owl:equivalentClass :Tsunami ;
+           rdfs:label "tidal wave"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/Tsunami
-sophod:Tsunami rdf:type owl:Class ;
-             rdfs:subClassOf sophgs:SeismicWave ,
-                             sopho:OceanPhenomena ;
-             rdfs:label "tsunami"@en .
+:Tsunami rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/phenGeolSeismicity/SeismicWave> ,
+                         <http://sweetontology.net/phenOcean/OceanPhenomena> ;
+         rdfs:label "tsunami"@en ;
+         skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-19T16:15:52.065"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q8070> ;
+           rdfs:comment "series of water waves caused by the displacement of a large volume of a body of water"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/TurbidityCurrent
-sophod:TurbidityCurrent rdf:type owl:Class ;
-                      rdfs:subClassOf sophod:OceanCurrent ;
-                      rdfs:label "turbidity current"@en .
+:TurbidityCurrent rdf:type owl:Class ;
+                  rdfs:subClassOf :OceanCurrent ;
+                  rdfs:label "turbidity current"@en ;
+                  skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-19T16:15:52.310"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1756774> ;
+           rdfs:comment "underwater current of usually rapidly moving, sediment-laden water moving down a slope"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/Upwelling
-sophod:Upwelling rdf:type owl:Class ;
-               rdfs:subClassOf sophod:OceanCirculation ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelsp:hasDirection ;
-                                 owl:hasValue sorepsd:Up
-                               ] ;
-               rdfs:label "upwelling"@en .
+:Upwelling rdf:type owl:Class ;
+           rdfs:subClassOf :OceanCirculation ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSpace/hasDirection> ;
+                             owl:hasValue <http://sweetontology.net/reprSpaceDirection/Up>
+                           ] ;
+           rdfs:label "upwelling"@en ;
+           skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-19T16:15:52.378"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q215915> ;
+           rdfs:comment "replacement by deep water moving upwards of surface water driven offshore by wind"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/WarmCoreCell
-sophod:WarmCoreCell rdf:type owl:Class ;
-                  rdfs:subClassOf sophod:OceanGyre ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelph:hasTemperatureRange ;
-                                    owl:hasValue sostth:Warm
-                                  ] ;
-                  rdfs:label "warm core cell"@en .
+:WarmCoreCell rdf:type owl:Class ;
+              rdfs:subClassOf :OceanGyre ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaPhysical/hasTemperatureRange> ;
+                                owl:hasValue <http://sweetontology.net/stateThermodynamic/Warm>
+                              ] ;
+              rdfs:label "warm core cell"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/WesternBoundaryCurrent
-sophod:WesternBoundaryCurrent rdf:type owl:Class ;
-                            rdfs:subClassOf sophod:BoundaryCurrent ;
-                            rdfs:label "western boundary current"@en .
+:WesternBoundaryCurrent rdf:type owl:Class ;
+                        rdfs:subClassOf :BoundaryCurrent ;
+                        rdfs:label "western boundary current"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/WesternIntensification
-sophod:WesternIntensification rdf:type owl:Class ;
-                            rdfs:subClassOf sophod:BoundaryCurrent ;
-                            rdfs:label "western intensification"@en .
+:WesternIntensification rdf:type owl:Class ;
+                        rdfs:subClassOf :BoundaryCurrent ;
+                        rdfs:label "western intensification"@en ;
+                        skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-19T16:15:52.644"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q38178614> ;
+           rdfs:comment "intensification of the western arm of an oceanic current, particularly a large gyre in an ocean basin"@en .
 
 
 ###  http://sweetontology.net/phenOceanDynamics/WindDrivenCirculation
-sophod:WindDrivenCirculation rdf:type owl:Class ;
-                           rdfs:subClassOf sophod:OceanCirculation ;
-                           rdfs:label "wind driven circulation"@en .
+:WindDrivenCirculation rdf:type owl:Class ;
+                       rdfs:subClassOf :OceanCirculation ;
+                       rdfs:label "wind driven circulation"@en .
 
 
 #################################################################
@@ -246,23 +314,23 @@ sophod:WindDrivenCirculation rdf:type owl:Class ;
 #################################################################
 
 ###  http://sweetontology.net/reprSpaceDirection/Down
-sorepsd:Down rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSpaceDirection/Down> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSpaceDirection/Up
-sorepsd:Up rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSpaceDirection/Up> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateSpaceScale/Mesoscale
-sostss:Mesoscale rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateSpaceScale/Mesoscale> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Cool
-sostth:Cool rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateThermodynamic/Cool> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/stateThermodynamic/Warm
-sostth:Warm rdf:type owl:NamedIndividual .
+<http://sweetontology.net/stateThermodynamic/Warm> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/
