@@ -1,27 +1,15 @@
 @prefix : <http://sweetontology.net/propEnergy/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soprope: <http://sweetontology.net/propEnergy/> .
-@prefix sopropm: <http://sweetontology.net/propMass/> .
-@prefix sopropsm: <http://sweetontology.net/propSpaceMultidimensional/> .
-@prefix sorepmo: <http://sweetontology.net/reprMathOperation/> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorept: <http://sweetontology.net/reprTime/> .
-@prefix sorelm: <http://sweetontology.net/relaMath/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@prefix soprocsc: <http://sweetontology.net/procStateChange/> .
-@base <http://sweetontology.net/propEnergy> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/propEnergy/> .
 
 <http://sweetontology.net/propEnergy> rdf:type owl:Ontology ;
+                                       owl:versionIRI <http://sweetontology.net/propEnergy/3.6.0> ;
                                        owl:imports <http://sweetontology.net/procPhysical> ,
                                                    <http://sweetontology.net/procStateChange> ,
                                                    <http://sweetontology.net/prop> ,
@@ -35,36 +23,60 @@
                                                    <http://sweetontology.net/reprMathOperation> ,
                                                    <http://sweetontology.net/reprSciUnits> ,
                                                    <http://sweetontology.net/reprTime> ;
-                                       rdfs:label "SWEET Ontology Property Energy" ;
                                        dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                       owl:versionInfo "3.5.0" .
+                                       rdfs:label "SWEET Ontology Property Energy" ;
+                                       owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasProcess
-sorel:hasProcess rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasProcess> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasProperty
-sorel:hasProperty rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasProperty> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasFirstOperand
-sorelm:hasFirstOperand rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasFirstOperand> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaMath/hasSecondOperand
-sorelm:hasSecondOperand rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaMath/hasSecondOperand> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasStateChange
-sorelph:hasStateChange rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/hasStateChange> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -72,335 +84,443 @@ sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propEnergy/AvailablePotentialEnergy
-soprope:AvailablePotentialEnergy rdf:type owl:Class ;
-                              rdfs:subClassOf soprope:PotentialEnergy ;
-                              rdfs:label "available potential energy"@en .
+:AvailablePotentialEnergy rdf:type owl:Class ;
+                          rdfs:subClassOf :PotentialEnergy ;
+                          rdfs:label "available potential energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/BindingEnergy
-soprope:BindingEnergy rdf:type owl:Class ;
-                   rdfs:subClassOf soprope:ChemicalEnergy ,
-                                   soprope:PotentialEnergy ;
-                   rdfs:label "binding energy"@en .
+:BindingEnergy rdf:type owl:Class ;
+               rdfs:subClassOf :ChemicalEnergy ,
+                               :PotentialEnergy ;
+               rdfs:label "binding energy"@en ;
+               skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-20T17:35:59.585"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P2154> ;
+          rdfs:comment "energy required to disassemble a whole system into separate parts"@en .
 
 
 ###  http://sweetontology.net/propEnergy/ChemicalEnergy
-soprope:ChemicalEnergy rdf:type owl:Class ;
-                    rdfs:subClassOf soprop:ChemicalProperty ,
-                                    soprope:Energy ;
-                    rdfs:label "chemical energy"@en .
+:ChemicalEnergy rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/prop/ChemicalProperty> ,
+                                :Energy ;
+                rdfs:label "chemical energy"@en ;
+                skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-20T17:35:59.662"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q582668> ;
+          rdfs:comment "potential of a chemical substance to undergo a transformation through a chemical reaction to transform other chemical substances"@en .
 
 
 ###  http://sweetontology.net/propEnergy/ConvectiveInhibition
-soprope:ConvectiveInhibition rdf:type owl:Class ;
-                          rdfs:subClassOf soprope:Energy ;
-                          rdfs:label "convective inhibition"@en .
+:ConvectiveInhibition rdf:type owl:Class ;
+                      rdfs:subClassOf :Energy ;
+                      rdfs:label "convective inhibition"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Energy
-soprope:Energy rdf:type owl:Class ;
-            rdfs:subClassOf sopropq:ExtensiveProperty ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorelsc:hasDefaultUnit ;
-                              owl:hasValue sorepsu:joule
-                            ] ;
-            rdfs:label "energy"@en .
+:Energy rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/propQuantity/ExtensiveProperty> ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                          owl:hasValue <http://sweetontology.net/reprSciUnits/joule>
+                        ] ;
+        rdfs:label "energy"@en ;
+        skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-20T17:35:59.806"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q11379> ;
+          rdfs:comment "quantitative physical property transferred to objects to perform heating or work on them"@en .
 
 
 ###  http://sweetontology.net/propEnergy/EnergyBudget
-soprope:EnergyBudget rdf:type owl:Class ;
-                  rdfs:subClassOf sopropq:Budget ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorel:hasProperty ;
-                                    owl:allValuesFrom soprope:Energy
-                                  ] ;
-                  rdfs:label "energy budget"@en .
+:EnergyBudget rdf:type owl:Class ;
+              rdfs:subClassOf <http://sweetontology.net/propQuantity/Budget> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/rela/hasProperty> ;
+                                owl:allValuesFrom :Energy
+                              ] ;
+              rdfs:label "energy budget"@en .
 
 
 ###  http://sweetontology.net/propEnergy/EnergyDensity
-soprope:EnergyDensity rdf:type owl:Class ;
-                   rdfs:subClassOf sopropq:IntensiveProperty ,
-                                   sorepmo:Ratio ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelm:hasFirstOperand ;
-                                     owl:allValuesFrom soprope:Energy
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelm:hasSecondOperand ;
-                                     owl:allValuesFrom sopropsm:Area
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelsc:hasDefaultUnit ;
-                                     owl:hasValue sorepsu:joulePerMeterSquared
-                                   ] ;
-                   rdfs:label "energy density"@en .
+:EnergyDensity rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/propQuantity/IntensiveProperty> ,
+                               <http://sweetontology.net/reprMathOperation/Ratio> ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
+                                 owl:allValuesFrom :Energy
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
+                                 owl:allValuesFrom <http://sweetontology.net/propSpaceMultidimensional/Area>
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                 owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerMeterSquared>
+                               ] ;
+               rdfs:label "energy density"@en ;
+               skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-20T17:35:59.943"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q828402> ;
+          rdfs:comment "physical quantity representing the energy per volume"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Enthalpy
-soprope:Enthalpy rdf:type owl:Class ;
-              rdfs:subClassOf soprope:ChemicalEnergy ;
-              rdfs:label "enthalpy"@en .
+:Enthalpy rdf:type owl:Class ;
+          rdfs:subClassOf :ChemicalEnergy ;
+          rdfs:label "enthalpy"@en ;
+          skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-20T17:36:00.009"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q161064> ;
+           rdfs:comment "measure of energy in a thermodynamic system; thermodynamic quantity equivalent to the total heat content of a system"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Entropy
-soprope:Entropy rdf:type owl:Class ;
-             rdfs:subClassOf soprope:Energy ;
-             rdfs:label "entropy"@en .
+:Entropy rdf:type owl:Class ;
+         rdfs:subClassOf :Energy ;
+         rdfs:label "entropy"@en ;
+         skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-20T17:36:00.071"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q45003> ;
+           rdfs:comment "physical property of the state of a system, measure of disorder"@en .
 
 
 ###  http://sweetontology.net/propEnergy/EvaporativeAvailablePotentialEnergy
-soprope:EvaporativeAvailablePotentialEnergy rdf:type owl:Class ;
-                                         rdfs:subClassOf soprope:AvailablePotentialEnergy ,
-                                                         [ rdf:type owl:Restriction ;
-                                                           owl:onProperty sorelph:hasStateChange ;
-                                                           owl:allValuesFrom soprocsc:Evaporation
-                                                         ] ;
-                                         rdfs:label "evaporative available potential energy"@en .
+:EvaporativeAvailablePotentialEnergy rdf:type owl:Class ;
+                                     rdfs:subClassOf :AvailablePotentialEnergy ,
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty <http://sweetontology.net/relaPhysical/hasStateChange> ;
+                                                       owl:allValuesFrom <http://sweetontology.net/procStateChange/Evaporation>
+                                                     ] ;
+                                     rdfs:label "evaporative available potential energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Geopotential
-soprope:Geopotential rdf:type owl:Class ;
-                  rdfs:subClassOf soprope:GravitationalPotential ;
-                  rdfs:label "geopotential"@en .
+:Geopotential rdf:type owl:Class ;
+              rdfs:subClassOf :GravitationalPotential ;
+              rdfs:label "geopotential"@en .
 
 
 ###  http://sweetontology.net/propEnergy/GibbsFreeEnergy
-soprope:GibbsFreeEnergy rdf:type owl:Class ;
-                     rdfs:subClassOf soprope:ChemicalEnergy ;
-                     rdfs:label "gibbs free energy"@en .
+:GibbsFreeEnergy rdf:type owl:Class ;
+                 rdfs:subClassOf :ChemicalEnergy ;
+                 rdfs:label "gibbs free energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/GravitationalPotential
-soprope:GravitationalPotential rdf:type owl:Class ;
-                            rdfs:subClassOf sopropq:ScalarPotential ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorel:hasProcess ;
-                                              owl:allValuesFrom soprocp:Gravity
-                                            ] ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorelsc:hasDefaultUnit ;
-                                              owl:hasValue sorepsu:meterSquaredPerSecondSquared
-                                            ] ;
-                            rdfs:label "gravitational potential"@en .
+:GravitationalPotential rdf:type owl:Class ;
+                        rdfs:subClassOf <http://sweetontology.net/propQuantity/ScalarPotential> ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                          owl:allValuesFrom <http://sweetontology.net/procPhysical/Gravity>
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                          owl:hasValue <http://sweetontology.net/reprSciUnits/meterSquaredPerSecondSquared>
+                                        ] ;
+                        rdfs:label "gravitational potential"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Hamiltonian
-soprope:Hamiltonian rdf:type owl:Class ;
-                 rdfs:subClassOf soprope:Energy ;
-                 rdfs:label "hamiltonian"@en .
+:Hamiltonian rdf:type owl:Class ;
+             rdfs:subClassOf :Energy ;
+             rdfs:label "hamiltonian"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Heat
-soprope:Heat rdf:type owl:Class ;
-          owl:equivalentClass soprope:HeatEnergy ,
-                              soprope:ThermalEnergy ;
-          rdfs:subClassOf soprope:Energy ,
-                          sopropq:ThermodynamicQuantity ;
-          rdfs:label "heat"@en .
+:Heat rdf:type owl:Class ;
+      owl:equivalentClass :HeatEnergy ,
+                          :ThermalEnergy ;
+      rdfs:subClassOf :Energy ,
+                      <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ;
+      rdfs:label "heat"@en ;
+      skos:definition _:genid15 .
+
+_:genid15 dcterms:created "2020-07-20T17:36:00.495"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q44432> ;
+           rdfs:comment "energy transfer process, or its amount (and direction), that is associated with a temperature difference"@en .
 
 
 ###  http://sweetontology.net/propEnergy/HeatBudget
-soprope:HeatBudget rdf:type owl:Class ;
-                rdfs:subClassOf soprope:EnergyBudget ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorel:hasProperty ;
-                                  owl:allValuesFrom soprope:Heat
-                                ] ;
-                rdfs:label "heat budget"@en .
+:HeatBudget rdf:type owl:Class ;
+            rdfs:subClassOf :EnergyBudget ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/rela/hasProperty> ;
+                              owl:allValuesFrom :Heat
+                            ] ;
+            rdfs:label "heat budget"@en .
 
 
 ###  http://sweetontology.net/propEnergy/HeatEnergy
-soprope:HeatEnergy rdf:type owl:Class ;
-                rdfs:label "heat energy"@en .
+:HeatEnergy rdf:type owl:Class ;
+            rdfs:label "heat energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/InternalEnergy
-soprope:InternalEnergy rdf:type owl:Class ;
-                    rdfs:subClassOf soprope:Energy ;
-                    rdfs:label "internal energy"@en .
+:InternalEnergy rdf:type owl:Class ;
+                rdfs:subClassOf :Energy ;
+                rdfs:label "internal energy"@en ;
+                skos:definition _:genid17 .
+
+_:genid17 dcterms:created "2020-07-20T17:36:00.704"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q180241> ;
+           rdfs:comment "energy contained in a system, excluding energy due to its position as a body in external force fields or its overall motion"@en .
 
 
 ###  http://sweetontology.net/propEnergy/IonizationEnergy
-soprope:IonizationEnergy rdf:type owl:Class ;
-                      owl:equivalentClass soprope:IonizationPotential ;
-                      rdfs:subClassOf soprope:ChemicalEnergy ,
-                                      soprope:PotentialEnergy ;
-                      rdfs:label "ionization energy"@en .
+:IonizationEnergy rdf:type owl:Class ;
+                  owl:equivalentClass :IonizationPotential ;
+                  rdfs:subClassOf :ChemicalEnergy ,
+                                  :PotentialEnergy ;
+                  rdfs:label "ionization energy"@en ;
+                  skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-20T17:36:00.779"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2260> ;
+           rdfs:comment "minimum amount of energy required to remove an electron from an atom, ion or molecule in the gaseous state"@en .
 
 
 ###  http://sweetontology.net/propEnergy/IonizationPotential
-soprope:IonizationPotential rdf:type owl:Class ;
-                         rdfs:label "ionization potential"@en .
+:IonizationPotential rdf:type owl:Class ;
+                     rdfs:label "ionization potential"@en .
 
 
 ###  http://sweetontology.net/propEnergy/KineticEnergy
-soprope:KineticEnergy rdf:type owl:Class ;
-                   rdfs:subClassOf soprop:MotionProperty ,
-                                   soprope:Energy ;
-                   rdfs:label "kinetic energy"@en .
+:KineticEnergy rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/prop/MotionProperty> ,
+                               :Energy ;
+               rdfs:label "kinetic energy"@en ;
+               skos:definition _:genid19 .
+
+_:genid19 dcterms:created "2020-07-20T17:36:00.921"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q46276> ;
+           rdfs:comment "energy of a moving physical body"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Lagrangian
-soprope:Lagrangian rdf:type owl:Class ;
-                rdfs:subClassOf soprope:Energy ;
-                rdfs:label "lagrangian"@en .
+:Lagrangian rdf:type owl:Class ;
+            rdfs:subClassOf :Energy ;
+            rdfs:label "lagrangian"@en .
 
 
 ###  http://sweetontology.net/propEnergy/LatentHeat
-soprope:LatentHeat rdf:type owl:Class ;
-                rdfs:subClassOf soprope:Heat ;
-                rdfs:label "latent heat"@en .
+:LatentHeat rdf:type owl:Class ;
+            rdfs:subClassOf :Heat ;
+            rdfs:label "latent heat"@en ;
+            skos:definition _:genid20 .
+
+_:genid20 dcterms:created "2020-07-20T17:36:01.070"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q207721> ;
+           rdfs:comment "thermodynamic phase transition energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Luminosity
-soprope:Luminosity rdf:type owl:Class ;
-                rdfs:subClassOf soprope:Power ,
-                                sopropq:ElectromagneticRadiationQuantity ;
-                rdfs:label "luminosity"@en .
+:Luminosity rdf:type owl:Class ;
+            rdfs:subClassOf :Power ,
+                            <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> ;
+            rdfs:label "luminosity"@en ;
+            skos:definition _:genid21 .
+
+_:genid21 dcterms:created "2020-07-20T17:36:01.138"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2060> ;
+           rdfs:comment "total amount of energy emitted by an astronomical object per unit time"@en .
 
 
 ###  http://sweetontology.net/propEnergy/MatricPotential
-soprope:MatricPotential rdf:type owl:Class ;
-                     rdfs:subClassOf soprope:Energy ,
-                                     sopropm:ConsistenceProperty ;
-                     rdfs:label "matric potential"@en .
+:MatricPotential rdf:type owl:Class ;
+                 rdfs:subClassOf :Energy ,
+                                 <http://sweetontology.net/propMass/ConsistenceProperty> ;
+                 rdfs:label "matric potential"@en .
 
 
 ###  http://sweetontology.net/propEnergy/PotentialEnergy
-soprope:PotentialEnergy rdf:type owl:Class ;
-                     rdfs:subClassOf soprope:Energy ;
-                     rdfs:label "potential energy"@en .
+:PotentialEnergy rdf:type owl:Class ;
+                 rdfs:subClassOf :Energy ;
+                 rdfs:label "potential energy"@en ;
+                 skos:definition _:genid22 .
+
+_:genid22 dcterms:created "2020-07-20T17:36:01.272"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q155640> ;
+           rdfs:comment "potential energy of a body"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Power
-soprope:Power rdf:type owl:Class ;
-           rdfs:subClassOf sopropq:ExtensiveProperty ,
-                           sorepmo:Ratio ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelm:hasFirstOperand ;
-                             owl:allValuesFrom soprope:Energy
-                           ] ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelm:hasSecondOperand ;
-                             owl:allValuesFrom sorept:Time
-                           ] ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorelsc:hasDefaultUnit ;
-                             owl:hasValue sorepsu:watt
-                           ] ;
-           rdfs:label "power"@en .
+:Power rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/propQuantity/ExtensiveProperty> ,
+                       <http://sweetontology.net/reprMathOperation/Ratio> ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
+                         owl:allValuesFrom :Energy
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
+                         owl:allValuesFrom <http://sweetontology.net/reprTime/Time>
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                         owl:hasValue <http://sweetontology.net/reprSciUnits/watt>
+                       ] ;
+       rdfs:label "power"@en ;
+       skos:definition _:genid26 .
+
+_:genid26 dcterms:created "2020-07-20T17:36:01.363"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q25107> ;
+           rdfs:comment "ability to influence the behavior of others"@en .
 
 
 ###  http://sweetontology.net/propEnergy/RadiantEnergy
-soprope:RadiantEnergy rdf:type owl:Class ;
-                   rdfs:subClassOf soprope:Energy ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorel:hasProcess ;
-                                     owl:allValuesFrom soprocp:Radiation
-                                   ] ;
-                   rdfs:label "radiant energy"@en .
+:RadiantEnergy rdf:type owl:Class ;
+               rdfs:subClassOf :Energy ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                 owl:allValuesFrom <http://sweetontology.net/procPhysical/Radiation>
+                               ] ;
+               rdfs:label "radiant energy"@en ;
+               skos:definition _:genid28 .
+
+_:genid28 dcterms:created "2020-07-20T17:36:01.433"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1259526> ;
+           rdfs:comment "energy carried by electromagnetic radiation or gravitational radiation"@en .
 
 
 ###  http://sweetontology.net/propEnergy/SensibleHeat
-soprope:SensibleHeat rdf:type owl:Class ;
-                  rdfs:subClassOf soprope:Heat ;
-                  rdfs:label "sensible heat"@en .
+:SensibleHeat rdf:type owl:Class ;
+              rdfs:subClassOf :Heat ;
+              rdfs:label "sensible heat"@en .
 
 
 ###  http://sweetontology.net/propEnergy/SpecificEnergy
-soprope:SpecificEnergy rdf:type owl:Class ;
-                    rdfs:subClassOf sopropq:IntensiveProperty ,
-                                    sorepmo:Ratio ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelm:hasFirstOperand ;
-                                      owl:allValuesFrom soprope:Energy
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelm:hasSecondOperand ;
-                                      owl:allValuesFrom sopropm:Mass
-                                    ] ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorelsc:hasDefaultUnit ;
-                                      owl:hasValue sorepsu:joulePerKilogram
-                                    ] ;
-                    rdfs:label "specific energy"@en .
+:SpecificEnergy rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/propQuantity/IntensiveProperty> ,
+                                <http://sweetontology.net/reprMathOperation/Ratio> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
+                                  owl:allValuesFrom :Energy
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaMath/hasSecondOperand> ;
+                                  owl:allValuesFrom <http://sweetontology.net/propMass/Mass>
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                  owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerKilogram>
+                                ] ;
+                rdfs:label "specific energy"@en ;
+                skos:definition _:genid32 .
+
+_:genid32 dcterms:created "2020-07-20T17:36:01.579"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q3023293> ;
+           rdfs:comment "physical quantity representing the energy per mass"@en .
 
 
 ###  http://sweetontology.net/propEnergy/SpecificPotentialEnergy
-soprope:SpecificPotentialEnergy rdf:type owl:Class ;
-                             rdfs:subClassOf soprope:SpecificEnergy ,
-                                             [ rdf:type owl:Restriction ;
-                                               owl:onProperty sorelm:hasFirstOperand ;
-                                               owl:allValuesFrom soprope:PotentialEnergy
-                                             ] ;
-                             rdfs:label "specific potential energy"@en .
+:SpecificPotentialEnergy rdf:type owl:Class ;
+                         rdfs:subClassOf :SpecificEnergy ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty <http://sweetontology.net/relaMath/hasFirstOperand> ;
+                                           owl:allValuesFrom :PotentialEnergy
+                                         ] ;
+                         rdfs:label "specific potential energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/ThermalEnergy
-soprope:ThermalEnergy rdf:type owl:Class ;
-                   rdfs:label "thermal energy"@en .
+:ThermalEnergy rdf:type owl:Class ;
+               rdfs:label "thermal energy"@en ;
+               skos:definition _:genid34 .
+
+_:genid34 dcterms:created "2020-07-20T17:36:01.723"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q209233> ;
+           rdfs:comment "internal energy present in a system due to its temperature"@en .
 
 
 ###  http://sweetontology.net/propEnergy/ThermochemicalEnergy
-soprope:ThermochemicalEnergy rdf:type owl:Class ;
-                          rdfs:subClassOf soprope:ChemicalEnergy ;
-                          rdfs:label "thermochemical energy"@en .
+:ThermochemicalEnergy rdf:type owl:Class ;
+                      rdfs:subClassOf :ChemicalEnergy ;
+                      rdfs:label "thermochemical energy"@en .
 
 
 ###  http://sweetontology.net/propEnergy/TotalSoilWaterPotential
-soprope:TotalSoilWaterPotential rdf:type owl:Class ;
-                             rdfs:subClassOf soprop:HydrogeologicalProperty ;
-                             rdfs:label "total soil water potential"@en .
+:TotalSoilWaterPotential rdf:type owl:Class ;
+                         rdfs:subClassOf <http://sweetontology.net/prop/HydrogeologicalProperty> ;
+                         rdfs:label "total soil water potential"@en .
 
 
 ###  http://sweetontology.net/propEnergy/Work
-soprope:Work rdf:type owl:Class ;
-          rdfs:subClassOf soprope:Energy ;
-          rdfs:label "work"@en .
+:Work rdf:type owl:Class ;
+      rdfs:subClassOf :Energy ;
+      rdfs:label "work"@en ;
+      skos:definition _:genid35 .
+
+_:genid35 dcterms:created "2020-07-20T17:36:01.954"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q16532276> ;
+           rdfs:comment "an activity done by a person to earn a living"@en .
 
 
 ###  http://sweetontology.net/propMass/ConsistenceProperty
-sopropm:ConsistenceProperty rdf:type owl:Class .
+<http://sweetontology.net/propMass/ConsistenceProperty> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propMass/Mass
-sopropm:Mass rdf:type owl:Class .
+<http://sweetontology.net/propMass/Mass> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/Budget
-sopropq:Budget rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/Budget> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity
-sopropq:ElectromagneticRadiationQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ExtensiveProperty
-sopropq:ExtensiveProperty rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ExtensiveProperty> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/IntensiveProperty
-sopropq:IntensiveProperty rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/IntensiveProperty> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ScalarPotential
-sopropq:ScalarPotential rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ScalarPotential> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
-sopropq:ThermodynamicQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ThermodynamicQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propSpaceMultidimensional/Area
-sopropsm:Area rdf:type owl:Class .
+<http://sweetontology.net/propSpaceMultidimensional/Area> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprMathOperation/Ratio
-sorepmo:Ratio rdf:type owl:Class .
+<http://sweetontology.net/reprMathOperation/Ratio> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprTime/Time
-sorept:Time rdf:type owl:Class .
+<http://sweetontology.net/reprTime/Time> rdf:type owl:Class .
 
 
 #################################################################
@@ -408,23 +528,23 @@ sorept:Time rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/joule
-sorepsu:joule rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joule> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerKilogram
-sorepsu:joulePerKilogram rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerKilogram> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerMeterSquared
-sorepsu:joulePerMeterSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerMeterSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquaredPerSecondSquared
-sorepsu:meterSquaredPerSecondSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/meterSquaredPerSecondSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/watt
-sorepsu:watt rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/watt> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

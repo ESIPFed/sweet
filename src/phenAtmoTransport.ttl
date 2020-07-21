@@ -1,23 +1,15 @@
 @prefix : <http://sweetontology.net/phenAtmoTransport/> .
-@prefix sophatmofo: <http://sweetontology.net/phenAtmoFog/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix sophsy: <http://sweetontology.net/phenSystem/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sophatmot: <http://sweetontology.net/phenAtmoTransport/> .
-@prefix soreaabl: <http://sweetontology.net/realmAtmoBoundaryLayer/> .
-@prefix soma: <http://sweetontology.net/matr/> .
-@prefix soph: <http://sweetontology.net/phen/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sophft: <http://sweetontology.net/phenFluidTransport/> .
-@prefix sostc: <http://sweetontology.net/stateChemical/> .
-@base <http://sweetontology.net/phenAtmoTransport> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenAtmoTransport/> .
 
 <http://sweetontology.net/phenAtmoTransport> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://sweetontology.net/phenAtmoTransport/3.6.0> ;
                                               owl:imports <http://sweetontology.net/matr> ,
                                                           <http://sweetontology.net/phen> ,
                                                           <http://sweetontology.net/phenAtmoFog> ,
@@ -27,86 +19,104 @@
                                                           <http://sweetontology.net/rela> ,
                                                           <http://sweetontology.net/relaChemical> ,
                                                           <http://sweetontology.net/stateChemical> ;
-                                              rdfs:label "SWEET Ontology Phenomena Atmosphere Transport" ;
                                               dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                              owl:versionInfo "3.5.0" .
+                                              rdfs:label "SWEET Ontology Phenomena Atmosphere Transport" ;
+                                              owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/phenAtmoTransport/AcidFog
-sophatmot:AcidFog rdf:type owl:Class ;
-             owl:equivalentClass sophatmot:AcidHaze ;
-             rdfs:subClassOf sophatmofo:Fog ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty sorelch:hasSubstance ;
-                               owl:hasValue sostc:Acid
-                             ] ;
-             rdfs:label "acid fog"@en .
+:AcidFog rdf:type owl:Class ;
+         owl:equivalentClass :AcidHaze ;
+         rdfs:subClassOf <http://sweetontology.net/phenAtmoFog/Fog> ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                           owl:hasValue <http://sweetontology.net/stateChemical/Acid>
+                         ] ;
+         rdfs:label "acid fog"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/AcidHaze
-sophatmot:AcidHaze rdf:type owl:Class ;
-              rdfs:label "acid haze"@en .
+:AcidHaze rdf:type owl:Class ;
+          rdfs:label "acid haze"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/AcidRain
-sophatmot:AcidRain rdf:type owl:Class ;
-              rdfs:subClassOf sophatmot:WetDeposition ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelch:hasSubstance ;
-                                owl:hasValue sostc:Acid
-                              ] ;
-              rdfs:label "acid rain"@en .
+:AcidRain rdf:type owl:Class ;
+          rdfs:subClassOf :WetDeposition ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                            owl:hasValue <http://sweetontology.net/stateChemical/Acid>
+                          ] ;
+          rdfs:label "acid rain"@en ;
+          skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-20T17:19:12.522"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q40178> ;
+          rdfs:comment "rain that is unusually acidic"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/MixedLayerVenting
-sophatmot:MixedLayerVenting rdf:type owl:Class ;
-                       rdfs:subClassOf sophsy:Removal ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorel:hasPhenomena ;
-                                         owl:allValuesFrom soreaabl:MixedLayer
-                                       ] ;
-                       rdfs:label "mixed layer venting"@en .
+:MixedLayerVenting rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/phenSystem/Removal> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                     owl:allValuesFrom <http://sweetontology.net/realmAtmoBoundaryLayer/MixedLayer>
+                                   ] ;
+                   rdfs:label "mixed layer venting"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/NucleationScavenging
-sophatmot:NucleationScavenging rdf:type owl:Class ;
-                          rdfs:subClassOf sophatmot:ScavengingByPrecipitation ;
-                          rdfs:label "nucleation scavenging"@en .
+:NucleationScavenging rdf:type owl:Class ;
+                      rdfs:subClassOf :ScavengingByPrecipitation ;
+                      rdfs:label "nucleation scavenging"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/Rainout
-sophatmot:Rainout rdf:type owl:Class ;
-             owl:equivalentClass sophatmot:Washout ;
-             rdfs:subClassOf sophatmot:ScavengingByPrecipitation ;
-             rdfs:label "rainout"@en .
+:Rainout rdf:type owl:Class ;
+         owl:equivalentClass :Washout ;
+         rdfs:subClassOf :ScavengingByPrecipitation ;
+         rdfs:label "rainout"@en ;
+         skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-20T17:19:12.823"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q7284937> ;
+          rdfs:comment "process of precipitation causing the removal of radioactive particles from the atmosphere onto the ground"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/ScavengingByPrecipitation
-sophatmot:ScavengingByPrecipitation rdf:type owl:Class ;
-                               rdfs:subClassOf sophatmot:WetDeposition ;
-                               rdfs:label "scavenging by precipitation"@en .
+:ScavengingByPrecipitation rdf:type owl:Class ;
+                           rdfs:subClassOf :WetDeposition ;
+                           rdfs:label "scavenging by precipitation"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/Washout
-sophatmot:Washout rdf:type owl:Class ;
-             rdfs:label "washout"@en .
+:Washout rdf:type owl:Class ;
+         rdfs:label "washout"@en ;
+         skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-20T17:19:13.023"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q4896442> ;
+          rdfs:comment "sudden erosion (usually by water) of either natural terrain or man-made objects (such as roads and railroads)"@en .
 
 
 ###  http://sweetontology.net/phenAtmoTransport/WetDeposition
-sophatmot:WetDeposition rdf:type owl:Class ;
-                   rdfs:subClassOf soph:AtmosphereLandExchange ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorel:hasPhenomena ;
-                                     owl:allValuesFrom soph:Precipitation
-                                   ] ;
-                   rdfs:label "wet deposition"@en .
+:WetDeposition rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/phen/AtmosphereLandExchange> ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                 owl:allValuesFrom <http://sweetontology.net/phen/Precipitation>
+                               ] ;
+               rdfs:label "wet deposition"@en .
 
 
 ###  http://sweetontology.net/phenSystem/Removal
-sophsy:Removal rdf:type owl:Class .
+<http://sweetontology.net/phenSystem/Removal> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

@@ -1,30 +1,52 @@
 @prefix : <http://sweetontology.net/reprDataService/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sohu: <http://sweetontology.net/human/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorepmso: <http://sweetontology.net/reprMathSolution/> .
-@prefix sorepds: <http://sweetontology.net/reprDataService/> .
-@prefix sorelpr: <http://sweetontology.net/relaProvenance/> .
-@base <http://sweetontology.net/reprDataService> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/reprDataService/> .
 
 <http://sweetontology.net/reprDataService> rdf:type owl:Ontology ;
+                                            owl:versionIRI <http://sweetontology.net/reprDataService/3.6.0> ;
                                             owl:imports <http://sweetontology.net/human> ,
                                                         <http://sweetontology.net/relaProvenance> ,
                                                         <http://sweetontology.net/reprMathSolution> ;
-                                            rdfs:label "SWEET Ontology Representation Data Service" ;
                                             dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                            owl:versionInfo "3.5.0" .
+                                            rdfs:label "SWEET Ontology Representation Data Service" ;
+                                            owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaProvenance/hasDataService
-sorelpr:hasDataService rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaProvenance/hasDataService> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -32,105 +54,129 @@ sorelpr:hasDataService rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/human/Service
-sohu:Service rdf:type owl:Class .
+<http://sweetontology.net/human/Service> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprDataService/Access
-sorepds:Access rdf:type owl:Class ;
-              owl:equivalentClass sorepds:Accessing ;
-              rdfs:subClassOf sorepds:DataService ;
-              rdfs:label "access"@en .
+:Access rdf:type owl:Class ;
+        owl:equivalentClass :Accessing ;
+        rdfs:subClassOf :DataService ;
+        rdfs:label "access"@en ;
+        skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-20T17:59:13.275"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q29466124> ;
+          rdfs:comment "system call of the Linux kernel"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Accessing
-sorepds:Accessing rdf:type owl:Class ;
-                 rdfs:label "accessing"@en .
+:Accessing rdf:type owl:Class ;
+           rdfs:label "accessing"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Compression
-sorepds:Compression rdf:type owl:Class ;
-                   rdfs:subClassOf sorepds:DataService ;
-                   rdfs:label "compression"@en .
+:Compression rdf:type owl:Class ;
+             rdfs:subClassOf :DataService ;
+             rdfs:label "compression"@en ;
+             skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-20T17:59:13.425"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q2712821> ;
+          rdfs:comment "application of inward (\"pushing\") forces to a material or structure"@en .
 
 
 ###  http://sweetontology.net/reprDataService/CompressionMethod
-sorepds:CompressionMethod rdf:type owl:Class ;
-                         rdfs:subClassOf sorepmso:Algorithm ,
-                                         [ rdf:type owl:Restriction ;
-                                           owl:onProperty sorelpr:hasDataService ;
-                                           owl:allValuesFrom sorepds:Compression
-                                         ] ;
-                         rdfs:label "compression method"@en .
+:CompressionMethod rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/reprMathSolution/Algorithm> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaProvenance/hasDataService> ;
+                                     owl:allValuesFrom :Compression
+                                   ] ;
+                   rdfs:label "compression method"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DataService
-sorepds:DataService rdf:type owl:Class ;
-                   rdfs:subClassOf sohu:Service ;
-                   rdfs:label "data service"@en .
+:DataService rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/human/Service> ;
+             rdfs:label "data service"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DataSynchronization
-sorepds:DataSynchronization rdf:type owl:Class ;
-                           rdfs:subClassOf sorepds:DataService ;
-                           rdfs:label "data synchronization"@en .
+:DataSynchronization rdf:type owl:Class ;
+                     rdfs:subClassOf :DataService ;
+                     rdfs:label "data synchronization"@en ;
+                     skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-20T17:59:13.759"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1172333> ;
+          rdfs:comment "consistency among data from a source to a target data storage and vice versa"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Discover
-sorepds:Discover rdf:type owl:Class ;
-                owl:equivalentClass sorepds:Discovery ,
-                                    sorepds:DiscoveryService ;
-                rdfs:subClassOf sorepds:DataService ;
-                rdfs:label "discover"@en .
+:Discover rdf:type owl:Class ;
+          owl:equivalentClass :Discovery ,
+                              :DiscoveryService ;
+          rdfs:subClassOf :DataService ;
+          rdfs:label "discover"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Discovery
-sorepds:Discovery rdf:type owl:Class ;
-                 rdfs:label "discovery"@en .
+:Discovery rdf:type owl:Class ;
+           rdfs:label "discovery"@en ;
+           skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-20T17:59:13.929"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q753297> ;
+          rdfs:comment "act of detecting something new"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DiscoveryService
-sorepds:DiscoveryService rdf:type owl:Class ;
-                        rdfs:label "discovery service"@en .
+:DiscoveryService rdf:type owl:Class ;
+                  rdfs:label "discovery service"@en .
 
 
 ###  http://sweetontology.net/reprDataService/FormatConversion
-sorepds:FormatConversion rdf:type owl:Class ;
-                        owl:equivalentClass sorepds:Reformat ;
-                        rdfs:label "format conversion"@en .
+:FormatConversion rdf:type owl:Class ;
+                  owl:equivalentClass :Reformat ;
+                  rdfs:label "format conversion"@en .
 
 
 ###  http://sweetontology.net/reprDataService/InterfaceProtocol
-sorepds:InterfaceProtocol rdf:type owl:Class ;
-                         rdfs:subClassOf sorepds:DataService ;
-                         rdfs:label "interface protocol"@en .
+:InterfaceProtocol rdf:type owl:Class ;
+                   rdfs:subClassOf :DataService ;
+                   rdfs:label "interface protocol"@en .
 
 
 ###  http://sweetontology.net/reprDataService/PostProcessing
-sorepds:PostProcessing rdf:type owl:Class ;
-                      rdfs:subClassOf sorepds:DataService ;
-                      rdfs:label "post processing"@en .
+:PostProcessing rdf:type owl:Class ;
+                rdfs:subClassOf :DataService ;
+                rdfs:label "post processing"@en .
 
 
 ###  http://sweetontology.net/reprDataService/PreProcessing
-sorepds:PreProcessing rdf:type owl:Class ;
-                     rdfs:subClassOf sorepds:DataService ;
-                     rdfs:label "pre processing"@en .
+:PreProcessing rdf:type owl:Class ;
+               rdfs:subClassOf :DataService ;
+               rdfs:label "pre processing"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Reformat
-sorepds:Reformat rdf:type owl:Class ;
-                owl:equivalentClass sorepds:Reformatting ;
-                rdfs:subClassOf sorepds:DataService ;
-                rdfs:label "reformat"@en .
+:Reformat rdf:type owl:Class ;
+          owl:equivalentClass :Reformatting ;
+          rdfs:subClassOf :DataService ;
+          rdfs:label "reformat"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Reformatting
-sorepds:Reformatting rdf:type owl:Class ;
-                    rdfs:label "reformatting"@en .
+:Reformatting rdf:type owl:Class ;
+              rdfs:label "reformatting"@en .
 
 
 ###  http://sweetontology.net/reprMathSolution/Algorithm
-sorepmso:Algorithm rdf:type owl:Class .
+<http://sweetontology.net/reprMathSolution/Algorithm> rdf:type owl:Class .
 
 
 #################################################################
@@ -138,34 +184,34 @@ sorepmso:Algorithm rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprDataService/Bzip2
-sorepds:Bzip2 rdf:type owl:NamedIndividual ,
-                      sorepds:CompressionMethod ;
-             rdfs:label "bzip2"@en .
+:Bzip2 rdf:type owl:NamedIndividual ,
+                :CompressionMethod ;
+       rdfs:label "bzip2"@en .
 
 
 ###  http://sweetontology.net/reprDataService/DODS
-sorepds:DODS rdf:type owl:NamedIndividual ,
-                     sorepds:InterfaceProtocol ;
-            owl:sameAs sorepds:OPeNDAP ;
-            rdfs:label "dods"@en .
+:DODS rdf:type owl:NamedIndividual ,
+               :InterfaceProtocol ;
+      owl:sameAs :OPeNDAP ;
+      rdfs:label "dods"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Gzip
-sorepds:Gzip rdf:type owl:NamedIndividual ,
-                     sorepds:CompressionMethod ;
-            rdfs:label "gzip"@en .
+:Gzip rdf:type owl:NamedIndividual ,
+               :CompressionMethod ;
+      rdfs:label "gzip"@en .
 
 
 ###  http://sweetontology.net/reprDataService/OPeNDAP
-sorepds:OPeNDAP rdf:type owl:NamedIndividual ,
-                        sorepds:InterfaceProtocol ;
-               rdfs:label "opendap"@en .
+:OPeNDAP rdf:type owl:NamedIndividual ,
+                  :InterfaceProtocol ;
+         rdfs:label "opendap"@en .
 
 
 ###  http://sweetontology.net/reprDataService/Z
-sorepds:Z rdf:type owl:NamedIndividual ,
-                  sorepds:CompressionMethod ;
-         rdfs:label "z"@en .
+:Z rdf:type owl:NamedIndividual ,
+            :CompressionMethod ;
+   rdfs:label "z"@en .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

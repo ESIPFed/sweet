@@ -1,27 +1,15 @@
 @prefix : <http://sweetontology.net/propSpaceThickness/> .
-@prefix sopropsh: <http://sweetontology.net/propSpaceHeight/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropfu: <http://sweetontology.net/propFunction/> .
-@prefix sopropp: <http://sweetontology.net/propPressure/> .
-@prefix soprop: <http://sweetontology.net/prop/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorepts: <http://sweetontology.net/reprTimeSeason/> .
-@prefix sopropst: <http://sweetontology.net/propSpaceThickness/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorelt: <http://sweetontology.net/relaTime/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix somaw: <http://sweetontology.net/matrWater/> .
-@prefix sostp: <http://sweetontology.net/statePhysical/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propSpaceThickness> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/propSpaceThickness/> .
 
 <http://sweetontology.net/propSpaceThickness> rdf:type owl:Ontology ;
+                                               owl:versionIRI <http://sweetontology.net/propSpaceThickness/3.6.0> ;
                                                owl:imports <http://sweetontology.net/matrWater> ,
                                                            <http://sweetontology.net/prop> ,
                                                            <http://sweetontology.net/propFunction> ,
@@ -35,240 +23,318 @@
                                                            <http://sweetontology.net/reprSciUnits> ,
                                                            <http://sweetontology.net/reprTimeSeason> ,
                                                            <http://sweetontology.net/statePhysical> ;
-                                               rdfs:label "SWEET Ontology Property Space Thickness" ;
                                                dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                               owl:versionInfo "3.5.0" .
+                                               rdfs:label "SWEET Ontology Property Space Thickness" ;
+                                               owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/propSpaceThickness/AverageAnnualPrecipitation
-sopropst:AverageAnnualPrecipitation rdf:type owl:Class ;
-                                rdfs:subClassOf sopropfu:AnnualAverage ,
-                                                sopropst:Precipitation ;
-                                rdfs:label "average annual precipitation"@en .
+:AverageAnnualPrecipitation rdf:type owl:Class ;
+                            rdfs:subClassOf <http://sweetontology.net/propFunction/AnnualAverage> ,
+                                            :Precipitation ;
+                            rdfs:label "average annual precipitation"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/AverageDrySeasonPrecipitation
-sopropst:AverageDrySeasonPrecipitation rdf:type owl:Class ;
-                                   rdfs:subClassOf sopropfu:AnnualAverage ,
-                                                   sopropst:Precipitation ,
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty sorelt:hasTime ;
-                                                     owl:someValuesFrom sorepts:DrySeason
-                                                   ] ;
-                                   rdfs:label "average dry season precipitation"@en .
+:AverageDrySeasonPrecipitation rdf:type owl:Class ;
+                               rdfs:subClassOf <http://sweetontology.net/propFunction/AnnualAverage> ,
+                                               :Precipitation ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://sweetontology.net/relaTime/hasTime> ;
+                                                 owl:someValuesFrom <http://sweetontology.net/reprTimeSeason/DrySeason>
+                                               ] ;
+                               rdfs:label "average dry season precipitation"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/AverageMonthlyPrecipitation
-sopropst:AverageMonthlyPrecipitation rdf:type owl:Class ;
-                                 rdfs:subClassOf sopropfu:MonthlyAverage ,
-                                                 sopropst:Precipitation ;
-                                 rdfs:label "average monthly precipitation"@en .
+:AverageMonthlyPrecipitation rdf:type owl:Class ;
+                             rdfs:subClassOf <http://sweetontology.net/propFunction/MonthlyAverage> ,
+                                             :Precipitation ;
+                             rdfs:label "average monthly precipitation"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/EquivalentThickness
-sopropst:EquivalentThickness rdf:type owl:Class ;
-                         rdfs:subClassOf sopropst:Thickness ;
-                         rdfs:label "equivalent thickness"@en .
+:EquivalentThickness rdf:type owl:Class ;
+                     rdfs:subClassOf :Thickness ;
+                     rdfs:label "equivalent thickness"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/Evapotranspiration
-sopropst:Evapotranspiration rdf:type owl:Class ;
-                        rdfs:subClassOf sopropst:Thickness ;
-                        rdfs:label "evapotranspiration"@en .
+:Evapotranspiration rdf:type owl:Class ;
+                    rdfs:subClassOf :Thickness ;
+                    rdfs:label "evapotranspiration"@en ;
+                    skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-20T17:41:56.553"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q828158> ;
+          rdfs:comment "biophysicogeochemical process"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/FluidHead
-sopropst:FluidHead rdf:type owl:Class ;
-               rdfs:subClassOf soprop:FluidProperty ,
-                               sopropst:Thickness ;
-               rdfs:label "fluid head"@en .
+:FluidHead rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/prop/FluidProperty> ,
+                           :Thickness ;
+           rdfs:label "fluid head"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/GaugeHeight
-sopropst:GaugeHeight rdf:type owl:Class ;
-                 rdfs:subClassOf sopropst:WaterHeight ;
-                 rdfs:label "gauge height"@en .
+:GaugeHeight rdf:type owl:Class ;
+             rdfs:subClassOf :WaterHeight ;
+             rdfs:label "gauge height"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/HalfPotentialEvapotranspiration
-sopropst:HalfPotentialEvapotranspiration rdf:type owl:Class ;
-                                     rdfs:subClassOf sopropst:Evapotranspiration ;
-                                     rdfs:label "half potential evapotranspiration"@en .
+:HalfPotentialEvapotranspiration rdf:type owl:Class ;
+                                 rdfs:subClassOf :Evapotranspiration ;
+                                 rdfs:label "half potential evapotranspiration"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/HydraulicHead
-sopropst:HydraulicHead rdf:type owl:Class ;
-                   rdfs:subClassOf sopropst:FluidHead ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorel:hasState ;
-                                     owl:hasValue sostp:Liquid
-                                   ] ;
-                   rdfs:label "hydraulic head"@en .
+:HydraulicHead rdf:type owl:Class ;
+               rdfs:subClassOf :FluidHead ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                 owl:hasValue <http://sweetontology.net/statePhysical/Liquid>
+                               ] ;
+               rdfs:label "hydraulic head"@en ;
+               skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-20T17:41:56.848"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P4441> ;
+          rdfs:comment "hydraulic head of a dam or hydroelectric power station"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/LWE
-sopropst:LWE rdf:type owl:Class ;
-         owl:equivalentClass sopropst:LiquidWaterEquivalent ;
-         rdfs:label "lwe"@en .
+:LWE rdf:type owl:Class ;
+     owl:equivalentClass :LiquidWaterEquivalent ;
+     rdfs:label "lwe"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/LakeStage
-sopropst:LakeStage rdf:type owl:Class ;
-               rdfs:subClassOf sopropst:StageHeight ;
-               rdfs:label "lake stage"@en .
+:LakeStage rdf:type owl:Class ;
+           rdfs:subClassOf :StageHeight ;
+           rdfs:label "lake stage"@en ;
+           skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-20T17:41:56.990"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q35012916> ;
+          rdfs:comment "theatre stage on a lake or river"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/LiquidWaterEquivalent
-sopropst:LiquidWaterEquivalent rdf:type owl:Class ;
-                           rdfs:subClassOf sopropst:WaterContent ;
-                           rdfs:label "liquid water equivalent"@en .
+:LiquidWaterEquivalent rdf:type owl:Class ;
+                       rdfs:subClassOf :WaterContent ;
+                       rdfs:label "liquid water equivalent"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/OpticalDepth
-sopropst:OpticalDepth rdf:type owl:Class ;
-                  owl:equivalentClass sopropst:OpticalThickness ;
-                  rdfs:subClassOf sopropq:RadiationMediumInteractionQuantity ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:dimensionlessUnit
-                                  ] ;
-                  rdfs:label "optical depth"@en .
+:OpticalDepth rdf:type owl:Class ;
+              owl:equivalentClass :OpticalThickness ;
+              rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                owl:hasValue <http://sweetontology.net/reprSciUnits/dimensionlessUnit>
+                              ] ;
+              rdfs:label "optical depth"@en ;
+              skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-20T17:41:57.177"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q890809> ;
+          rdfs:comment "natural logarithm of the ratio of incident to transmitted radiant power through a material; the absorbance × ln(10)"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/OpticalThickness
-sopropst:OpticalThickness rdf:type owl:Class ;
-                      rdfs:label "optical thickness"@en .
+:OpticalThickness rdf:type owl:Class ;
+                  rdfs:label "optical thickness"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/PotentialEvapotranspiration
-sopropst:PotentialEvapotranspiration rdf:type owl:Class ;
-                                 rdfs:subClassOf sopropst:Evapotranspiration ;
-                                 rdfs:label "potential evapotranspiration"@en .
+:PotentialEvapotranspiration rdf:type owl:Class ;
+                             rdfs:subClassOf :Evapotranspiration ;
+                             rdfs:label "potential evapotranspiration"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/PrecipitableWater
-sopropst:PrecipitableWater rdf:type owl:Class ;
-                       rdfs:subClassOf sopropst:WaterContent ;
-                       rdfs:label "precipitable water"@en .
+:PrecipitableWater rdf:type owl:Class ;
+                   rdfs:subClassOf :WaterContent ;
+                   rdfs:label "precipitable water"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/Precipitation
-sopropst:Precipitation rdf:type owl:Class ;
-                   rdfs:subClassOf sopropst:WaterContent ;
-                   rdfs:label "precipitation"@en .
+:Precipitation rdf:type owl:Class ;
+               rdfs:subClassOf :WaterContent ;
+               rdfs:label "precipitation"@en ;
+               skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-20T17:41:57.474"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q113796> ;
+          rdfs:comment "creation of a solid from a solution"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/PrecipitationRange
-sopropst:PrecipitationRange rdf:type owl:Class ;
-                        rdfs:subClassOf sopropsh:HeightRange ,
-                                        sopropst:Precipitation ;
-                        rdfs:label "precipitation range"@en .
+:PrecipitationRange rdf:type owl:Class ;
+                    rdfs:subClassOf <http://sweetontology.net/propSpaceHeight/HeightRange> ,
+                                    :Precipitation ;
+                    rdfs:label "precipitation range"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/PrecipitationRange_cm
-sopropst:PrecipitationRange_cm rdf:type owl:Class ;
-                           rdfs:subClassOf sopropst:PrecipitationRange ,
-                                           [ rdf:type owl:Restriction ;
-                                             owl:onProperty sorelsc:hasUnit ;
-                                             owl:hasValue sorepsu:centimeter
-                                           ] ;
-                           rdfs:label "precipitation range cm"@en .
+:PrecipitationRange_cm rdf:type owl:Class ;
+                       rdfs:subClassOf :PrecipitationRange ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
+                                         owl:hasValue <http://sweetontology.net/reprSciUnits/centimeter>
+                                       ] ;
+                       rdfs:label "precipitation range cm"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/PressureThickness
-sopropst:PressureThickness rdf:type owl:Class ;
-                       rdfs:subClassOf sopropst:Thickness ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorel:hasProcess ;
-                                         owl:allValuesFrom sopropp:Pressure
-                                       ] ;
-                       rdfs:label "pressure thickness"@en .
+:PressureThickness rdf:type owl:Class ;
+                   rdfs:subClassOf :Thickness ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                                     owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure>
+                                   ] ;
+                   rdfs:label "pressure thickness"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/SWE
-sopropst:SWE rdf:type owl:Class ;
-         owl:equivalentClass sopropst:SnowWaterEquivalent ;
-         rdfs:label "swe"@en .
+:SWE rdf:type owl:Class ;
+     owl:equivalentClass :SnowWaterEquivalent ;
+     rdfs:label "swe"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/SnowCover
-sopropst:SnowCover rdf:type owl:Class ;
-               rdfs:subClassOf sopropst:Thickness ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelch:hasSubstance ;
-                                 owl:allValuesFrom somaw:Snow
-                               ] ;
-               rdfs:label "snow cover"@en .
+:SnowCover rdf:type owl:Class ;
+           rdfs:subClassOf :Thickness ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                             owl:allValuesFrom <http://sweetontology.net/matrWater/Snow>
+                           ] ;
+           rdfs:label "snow cover"@en ;
+           skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-20T17:41:57.830"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q75078907> ;
+           rdfs:comment "coverage of snow"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/SnowWaterEquivalent
-sopropst:SnowWaterEquivalent rdf:type owl:Class ;
-                         rdfs:subClassOf sopropst:LiquidWaterEquivalent ;
-                         rdfs:label "snow water equivalent"@en .
+:SnowWaterEquivalent rdf:type owl:Class ;
+                     rdfs:subClassOf :LiquidWaterEquivalent ;
+                     rdfs:label "snow water equivalent"@en ;
+                     skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-20T17:41:57.900"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q12090078> ;
+           rdfs:comment "depth of water that would result if the snow mass melted completely"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/Snowpack
-sopropst:Snowpack rdf:type owl:Class ;
-              rdfs:subClassOf sopropst:SnowCover ;
-              rdfs:label "snowpack"@en .
+:Snowpack rdf:type owl:Class ;
+          rdfs:subClassOf :SnowCover ;
+          rdfs:label "snowpack"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/StageHeight
-sopropst:StageHeight rdf:type owl:Class ;
-                 rdfs:subClassOf sopropst:WaterHeight ;
-                 rdfs:label "stage height"@en .
+:StageHeight rdf:type owl:Class ;
+             rdfs:subClassOf :WaterHeight ;
+             rdfs:label "stage height"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/StaticHead
-sopropst:StaticHead rdf:type owl:Class ;
-                rdfs:subClassOf sopropst:FluidHead ;
-                rdfs:label "static head"@en .
+:StaticHead rdf:type owl:Class ;
+            rdfs:subClassOf :FluidHead ;
+            rdfs:label "static head"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/StreamStage
-sopropst:StreamStage rdf:type owl:Class ;
-                 rdfs:subClassOf sopropst:StageHeight ;
-                 rdfs:label "stream stage"@en .
+:StreamStage rdf:type owl:Class ;
+             rdfs:subClassOf :StageHeight ;
+             rdfs:label "stream stage"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/Thickness
-sopropst:Thickness rdf:type owl:Class ;
-               rdfs:subClassOf sopropq:PhysicalQuantity ,
-                               sopropsh:VerticalExtent ;
-               rdfs:label "thickness"@en .
+:Thickness rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> ,
+                           <http://sweetontology.net/propSpaceHeight/VerticalExtent> ;
+           rdfs:label "thickness"@en ;
+           skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-20T17:41:58.241"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P2610> ;
+           rdfs:comment "extent from one surface to the opposite"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/TotalHead
-sopropst:TotalHead rdf:type owl:Class ;
-               rdfs:subClassOf sopropst:FluidHead ;
-               rdfs:label "total head"@en .
+:TotalHead rdf:type owl:Class ;
+           rdfs:subClassOf :FluidHead ;
+           rdfs:label "total head"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/WaterContent
-sopropst:WaterContent rdf:type owl:Class ;
-                  rdfs:subClassOf sopropst:Thickness ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelch:hasChemical ;
-                                    owl:allValuesFrom somaw:LiquidWater
-                                  ] ;
-                  rdfs:label "water content"@en .
+:WaterContent rdf:type owl:Class ;
+              rdfs:subClassOf :Thickness ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaChemical/hasChemical> ;
+                                owl:allValuesFrom <http://sweetontology.net/matrWater/LiquidWater>
+                              ] ;
+              rdfs:label "water content"@en ;
+              skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-20T17:41:58.365"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q373499> ;
+           rdfs:comment "quantity of water contained in a material"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/WaterHeight
-sopropst:WaterHeight rdf:type owl:Class ;
-                 rdfs:subClassOf sopropst:Thickness ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelch:hasSubstance ;
-                                   owl:allValuesFrom somaw:LiquidWater
-                                 ] ;
-                 rdfs:label "water height"@en .
+:WaterHeight rdf:type owl:Class ;
+             rdfs:subClassOf :Thickness ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                               owl:allValuesFrom <http://sweetontology.net/matrWater/LiquidWater>
+                             ] ;
+             rdfs:label "water height"@en .
 
 
 ###  http://sweetontology.net/reprTimeSeason/DrySeason
-sorepts:DrySeason rdf:type owl:Class .
+<http://sweetontology.net/reprTimeSeason/DrySeason> rdf:type owl:Class .
 
 
 #################################################################
@@ -276,19 +342,19 @@ sorepts:DrySeason rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/propSpaceThickness/AnnualHalfPotentialEvapotranspiration
-sopropst:AnnualHalfPotentialEvapotranspiration rdf:type owl:NamedIndividual ,
-                                                    sopropst:HalfPotentialEvapotranspiration ;
-                                           rdfs:label "annual half potential evapotranspiration"@en .
+:AnnualHalfPotentialEvapotranspiration rdf:type owl:NamedIndividual ,
+                                                :HalfPotentialEvapotranspiration ;
+                                       rdfs:label "annual half potential evapotranspiration"@en .
 
 
 ###  http://sweetontology.net/propSpaceThickness/AnnualPotentialEvapotranspiration
-sopropst:AnnualPotentialEvapotranspiration rdf:type owl:NamedIndividual ,
-                                                sopropst:PotentialEvapotranspiration ;
-                                       rdfs:label "annual potential evapotranspiration"@en .
+:AnnualPotentialEvapotranspiration rdf:type owl:NamedIndividual ,
+                                            :PotentialEvapotranspiration ;
+                                   rdfs:label "annual potential evapotranspiration"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/dimensionlessUnit
-sorepsu:dimensionlessUnit rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/dimensionlessUnit> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

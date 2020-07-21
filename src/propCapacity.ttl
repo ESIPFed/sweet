@@ -1,32 +1,29 @@
 @prefix : <http://sweetontology.net/propCapacity/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropcap: <http://sweetontology.net/propCapacity/> .
-@prefix sopropm: <http://sweetontology.net/propMass/> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propCapacity> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/propCapacity/> .
 
 <http://sweetontology.net/propCapacity> rdf:type owl:Ontology ;
+                                         owl:versionIRI <http://sweetontology.net/propCapacity/3.6.0> ;
                                          owl:imports <http://sweetontology.net/propMass> ,
                                                      <http://sweetontology.net/propQuantity> ,
                                                      <http://sweetontology.net/relaSci> ,
                                                      <http://sweetontology.net/reprSciUnits> ;
-                                         rdfs:label "SWEET Ontology Property Capacity" ;
                                          dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                         owl:versionInfo "3.5.0" .
+                                         rdfs:label "SWEET Ontology Property Capacity" ;
+                                         owl:versionInfo "3.6.0" .
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -34,115 +31,145 @@ sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propCapacity/Capacity
-sopropcap:Capacity rdf:type owl:Class ;
-              rdfs:subClassOf sopropq:PhysicalQuantity ;
-              rdfs:label "capacity"@en .
+:Capacity rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/propQuantity/PhysicalQuantity> ;
+          rdfs:label "capacity"@en ;
+          skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-20T17:33:04.954"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q584804> ;
+          rdfs:comment "the quality of natural and juridical persons necessary for their actions to have legal effect"@en .
 
 
 ###  http://sweetontology.net/propCapacity/CoefficientOfHeatTransfer
-sopropcap:CoefficientOfHeatTransfer rdf:type owl:Class ;
-                               rdfs:subClassOf sopropm:MaterialProperty ,
-                                               sopropq:ThermodynamicQuantity ,
-                                               [ rdf:type owl:Restriction ;
-                                                 owl:onProperty sorelsc:hasDefaultUnit ;
-                                                 owl:hasValue sorepsu:wattPerMeterSquaredPerKelvin
-                                               ] ;
-                               rdfs:label "coefficient of heat transfer"@en .
+:CoefficientOfHeatTransfer rdf:type owl:Class ;
+                           rdfs:subClassOf <http://sweetontology.net/propMass/MaterialProperty> ,
+                                           <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                             owl:hasValue <http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerKelvin>
+                                           ] ;
+                           rdfs:label "coefficient of heat transfer"@en .
 
 
 ###  http://sweetontology.net/propCapacity/CoefficientOfThermalExpansion
-sopropcap:CoefficientOfThermalExpansion rdf:type owl:Class ;
-                                   owl:equivalentClass sopropcap:ThermalExpansionCoefficient ;
-                                   rdfs:subClassOf sopropm:MaterialProperty ,
-                                                   sopropq:ThermodynamicQuantity ,
-                                                   [ rdf:type owl:Restriction ;
-                                                     owl:onProperty sorelsc:hasDefaultUnit ;
-                                                     owl:hasValue sorepsu:perKelvin
-                                                   ] ;
-                                   rdfs:label "coefficient of thermal expansion"@en .
+:CoefficientOfThermalExpansion rdf:type owl:Class ;
+                               owl:equivalentClass :ThermalExpansionCoefficient ;
+                               rdfs:subClassOf <http://sweetontology.net/propMass/MaterialProperty> ,
+                                               <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                                 owl:hasValue <http://sweetontology.net/reprSciUnits/perKelvin>
+                                               ] ;
+                               rdfs:label "coefficient of thermal expansion"@en ;
+                               skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-20T17:33:05.156"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q45760> ;
+          rdfs:comment "material property which describes how the size of an object changes with a change in temperature"@en .
 
 
 ###  http://sweetontology.net/propCapacity/HeatCapacity
-sopropcap:HeatCapacity rdf:type owl:Class ;
-                  rdfs:subClassOf sopropcap:Capacity ,
-                                  sopropq:ThermodynamicQuantity ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:joulePerKelvin
-                                  ] ;
-                  rdfs:label "heat capacity"@en .
+:HeatCapacity rdf:type owl:Class ;
+              rdfs:subClassOf :Capacity ,
+                              <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerKelvin>
+                              ] ;
+              rdfs:label "heat capacity"@en ;
+              skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-20T17:33:05.243"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/P2056> ;
+          rdfs:comment "specific heat capacity of a substance, with phase of matter and temperature as qualifiers"@en .
 
 
 ###  http://sweetontology.net/propCapacity/LinearThermalExpansion
-sopropcap:LinearThermalExpansion rdf:type owl:Class ;
-                            rdfs:subClassOf sopropq:ThermodynamicQuantity ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorelsc:hasDefaultUnit ;
-                                              owl:hasValue sorepsu:meterPerKelvin
-                                            ] ;
-                            rdfs:label "linear thermal expansion"@en .
+:LinearThermalExpansion rdf:type owl:Class ;
+                        rdfs:subClassOf <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                          owl:hasValue <http://sweetontology.net/reprSciUnits/meterPerKelvin>
+                                        ] ;
+                        rdfs:label "linear thermal expansion"@en .
 
 
 ###  http://sweetontology.net/propCapacity/MolarHeatCapacity
-sopropcap:MolarHeatCapacity rdf:type owl:Class ;
-                       rdfs:subClassOf sopropcap:Capacity ,
-                                       sopropq:ThermodynamicQuantity ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorelsc:hasDefaultUnit ;
-                                         owl:hasValue sorepsu:joulePerMolePerKelvin
-                                       ] ;
-                       rdfs:label "molar heat capacity"@en .
+:MolarHeatCapacity rdf:type owl:Class ;
+                   rdfs:subClassOf :Capacity ,
+                                   <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                     owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerMolePerKelvin>
+                                   ] ;
+                   rdfs:label "molar heat capacity"@en ;
+                   skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-20T17:33:05.440"^^xsd:dateTime ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q2937190> ;
+          rdfs:comment "intensive quantity, heat capacity per amount of substance"@en .
 
 
 ###  http://sweetontology.net/propCapacity/SpecificHeat
-sopropcap:SpecificHeat rdf:type owl:Class ;
-                  owl:equivalentClass sopropcap:SpecificHeatCapacity ;
-                  rdfs:subClassOf sopropcap:Capacity ,
-                                  sopropq:ThermodynamicQuantity ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:joulePerKilogramPerKelvin
-                                  ] ;
-                  rdfs:label "specific heat"@en .
+:SpecificHeat rdf:type owl:Class ;
+              owl:equivalentClass :SpecificHeatCapacity ;
+              rdfs:subClassOf :Capacity ,
+                              <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerKilogramPerKelvin>
+                              ] ;
+              rdfs:label "specific heat"@en .
 
 
 ###  http://sweetontology.net/propCapacity/SpecificHeatCapacity
-sopropcap:SpecificHeatCapacity rdf:type owl:Class ;
-                          rdfs:label "specific heat capacity"@en .
+:SpecificHeatCapacity rdf:type owl:Class ;
+                      rdfs:label "specific heat capacity"@en ;
+                      skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-20T17:33:05.586"^^xsd:dateTime ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q487756> ;
+           rdfs:comment "intensive quantity, heat capacity per mass"@en .
 
 
 ###  http://sweetontology.net/propCapacity/ThermalExpansionCoefficient
-sopropcap:ThermalExpansionCoefficient rdf:type owl:Class ;
-                                 rdfs:label "thermal expansion coefficient"@en .
+:ThermalExpansionCoefficient rdf:type owl:Class ;
+                             rdfs:label "thermal expansion coefficient"@en .
 
 
 ###  http://sweetontology.net/propCapacity/VolumetricHeatCapacity
-sopropcap:VolumetricHeatCapacity rdf:type owl:Class ;
-                            rdfs:subClassOf sopropcap:Capacity ,
-                                            sopropq:ThermodynamicQuantity ,
-                                            [ rdf:type owl:Restriction ;
-                                              owl:onProperty sorelsc:hasDefaultUnit ;
-                                              owl:hasValue sorepsu:joulePerMeterCubedPerKelvin
-                                            ] ;
-                            rdfs:label "volumetric heat capacity"@en .
+:VolumetricHeatCapacity rdf:type owl:Class ;
+                        rdfs:subClassOf :Capacity ,
+                                        <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                          owl:hasValue <http://sweetontology.net/reprSciUnits/joulePerMeterCubedPerKelvin>
+                                        ] ;
+                        rdfs:label "volumetric heat capacity"@en .
 
 
 ###  http://sweetontology.net/propCapacity/VolumetricThermalExpansion
-sopropcap:VolumetricThermalExpansion rdf:type owl:Class ;
-                                rdfs:subClassOf sopropcap:CoefficientOfThermalExpansion ;
-                                rdfs:label "volumetric thermal expansion"@en .
+:VolumetricThermalExpansion rdf:type owl:Class ;
+                            rdfs:subClassOf :CoefficientOfThermalExpansion ;
+                            rdfs:label "volumetric thermal expansion"@en .
 
 
 ###  http://sweetontology.net/propMass/MaterialProperty
-sopropm:MaterialProperty rdf:type owl:Class .
+<http://sweetontology.net/propMass/MaterialProperty> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalQuantity
-sopropq:PhysicalQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/PhysicalQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
-sopropq:ThermodynamicQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ThermodynamicQuantity> rdf:type owl:Class .
 
 
 #################################################################
@@ -150,31 +177,31 @@ sopropq:ThermodynamicQuantity rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/reprSciUnits/joulePerKelvin
-sorepsu:joulePerKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerKelvin> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerKilogramPerKelvin
-sorepsu:joulePerKilogramPerKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerKilogramPerKelvin> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerMeterCubedPerKelvin
-sorepsu:joulePerMeterCubedPerKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerMeterCubedPerKelvin> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/joulePerMolePerKelvin
-sorepsu:joulePerMolePerKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/joulePerMolePerKelvin> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterPerKelvin
-sorepsu:meterPerKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/meterPerKelvin> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/perKelvin
-sorepsu:perKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/perKelvin> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerKelvin
-sorepsu:wattPerMeterSquaredPerKelvin rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerKelvin> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/
