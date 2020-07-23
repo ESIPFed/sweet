@@ -1,134 +1,178 @@
 @prefix : <http://sweetontology.net/phenOceanCoastal/> .
-@prefix sophcy: <http://sweetontology.net/phenCycle/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopho: <http://sweetontology.net/phenOcean/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sophw: <http://sweetontology.net/phenWave/> .
-@prefix sophoc: <http://sweetontology.net/phenOceanCoastal/> .
-@prefix sorealc: <http://sweetontology.net/realmLandCoastal/> .
-@base <http://sweetontology.net/phenOceanCoastal> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenOceanCoastal/> .
 
 <http://sweetontology.net/phenOceanCoastal> rdf:type owl:Ontology ;
+                                             owl:versionIRI <http://sweetontology.net/phenOceanCoastal/3.6.0> ;
                                              owl:imports <http://sweetontology.net/phenCycle> ,
                                                          <http://sweetontology.net/phenOcean> ,
                                                          <http://sweetontology.net/phenWave> ,
                                                          <http://sweetontology.net/realmLandCoastal> ,
                                                          <http://sweetontology.net/rela> ;
-                                             rdfs:label "SWEET Ontology Phenomena Ocean Coastal" ;
                                              dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                             owl:versionInfo "3.5.0" .
+                                             rdfs:label "SWEET Ontology Phenomena Ocean Coastal" ;
+                                             owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Classes
 #################################################################
 
 ###  http://sweetontology.net/phenOceanCoastal/Attrition
-sophoc:Attrition rdf:type owl:Class ;
-                rdfs:subClassOf sophoc:CoastalPhenomena ;
-                rdfs:label "attrition"@en .
+:Attrition rdf:type owl:Class ;
+           rdfs:subClassOf :CoastalPhenomena ;
+           rdfs:label "attrition"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/Backwash
-sophoc:Backwash rdf:type owl:Class ;
-               rdfs:subClassOf sophoc:CoastalPhenomena ;
-               rdfs:label "backwash"@en .
+:Backwash rdf:type owl:Class ;
+          rdfs:subClassOf :CoastalPhenomena ;
+          rdfs:label "backwash"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/BeachDepletion
-sophoc:BeachDepletion rdf:type owl:Class ;
-                     rdfs:subClassOf sophoc:CoastalPhenomena ;
-                     rdfs:label "beach depletion"@en .
+:BeachDepletion rdf:type owl:Class ;
+                rdfs:subClassOf :CoastalPhenomena ;
+                rdfs:label "beach depletion"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/Breaker
-sophoc:Breaker rdf:type owl:Class ;
-              rdfs:subClassOf sophoc:BreakingWave ;
-              rdfs:label "breaker"@en .
+:Breaker rdf:type owl:Class ;
+         rdfs:subClassOf :BreakingWave ;
+         rdfs:label "breaker"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/BreakingWave
-sophoc:BreakingWave rdf:type owl:Class ;
-                   rdfs:subClassOf sophoc:CoastalPhenomena ;
-                   rdfs:label "breaking wave"@en .
+:BreakingWave rdf:type owl:Class ;
+              rdfs:subClassOf :CoastalPhenomena ;
+              rdfs:label "breaking wave"@en ;
+              skos:definition _:genid1 .
+
+_:genid1 dcterms:created "2020-07-23T08:31:42.208-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q661247> ;
+          rdfs:comment "wave that becomes unstable as a consequence of excessive steepness"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/CoastalPhenomena
-sophoc:CoastalPhenomena rdf:type owl:Class ;
-                       rdfs:subClassOf sopho:OceanPhenomena ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty sorel:hasRealm ;
-                                         owl:allValuesFrom sorealc:CoastalRegion
-                                       ] ;
-                       rdfs:label "coastal phenomena"@en .
+:CoastalPhenomena rdf:type owl:Class ;
+                  rdfs:subClassOf <http://sweetontology.net/phenOcean/OceanPhenomena> ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty <http://sweetontology.net/rela/hasRealm> ;
+                                    owl:allValuesFrom <http://sweetontology.net/realmLandCoastal/CoastalRegion>
+                                  ] ;
+                  rdfs:label "coastal phenomena"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/LittoralDrift
-sophoc:LittoralDrift rdf:type owl:Class ;
-                    owl:equivalentClass sophoc:LongshoreDrift ;
-                    rdfs:subClassOf sophoc:CoastalPhenomena ;
-                    rdfs:label "littoral drift"@en .
+:LittoralDrift rdf:type owl:Class ;
+               owl:equivalentClass :LongshoreDrift ;
+               rdfs:subClassOf :CoastalPhenomena ;
+               rdfs:label "littoral drift"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/LongshoreDrift
-sophoc:LongshoreDrift rdf:type owl:Class ;
-                     rdfs:label "longshore drift"@en .
+:LongshoreDrift rdf:type owl:Class ;
+                rdfs:label "longshore drift"@en ;
+                skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-23T08:31:42.52-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q1938255> ;
+          rdfs:comment "geological process by which sediments move along a beach shore"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/OceanTide
-sophoc:OceanTide rdf:type owl:Class ;
-                rdfs:subClassOf sophcy:Tide ,
-                                sophoc:CoastalPhenomena ;
-                rdfs:label "ocean tide"@en .
+:OceanTide rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/phenCycle/Tide> ,
+                           :CoastalPhenomena ;
+           rdfs:label "ocean tide"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/PlungingBreaker
-sophoc:PlungingBreaker rdf:type owl:Class ;
-                      rdfs:subClassOf sophoc:Breaker ;
-                      rdfs:label "plunging breaker"@en .
+:PlungingBreaker rdf:type owl:Class ;
+                 rdfs:subClassOf :Breaker ;
+                 rdfs:label "plunging breaker"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/SpillingBreaker
-sophoc:SpillingBreaker rdf:type owl:Class ;
-                      rdfs:subClassOf sophoc:Breaker ;
-                      rdfs:label "spilling breaker"@en .
+:SpillingBreaker rdf:type owl:Class ;
+                 rdfs:subClassOf :Breaker ;
+                 rdfs:label "spilling breaker"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/StormSurge
-sophoc:StormSurge rdf:type owl:Class ;
-                 rdfs:subClassOf sophoc:CoastalPhenomena ;
-                 rdfs:label "storm surge"@en .
+:StormSurge rdf:type owl:Class ;
+            rdfs:subClassOf :CoastalPhenomena ;
+            rdfs:label "storm surge"@en ;
+            skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-23T08:31:43.147-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q121742> ;
+          rdfs:comment "offshore rise of water associated with a low pressure weather system"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/SurfBeat
-sophoc:SurfBeat rdf:type owl:Class ;
-               rdfs:subClassOf sophoc:CoastalPhenomena ;
-               rdfs:label "surf beat"@en .
+:SurfBeat rdf:type owl:Class ;
+          rdfs:subClassOf :CoastalPhenomena ;
+          rdfs:label "surf beat"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/SurgingBreaker
-sophoc:SurgingBreaker rdf:type owl:Class ;
-                     rdfs:subClassOf sophoc:Breaker ;
-                     rdfs:label "surging breaker"@en .
+:SurgingBreaker rdf:type owl:Class ;
+                rdfs:subClassOf :Breaker ;
+                rdfs:label "surging breaker"@en .
 
 
 ###  http://sweetontology.net/phenOceanCoastal/Swell
-sophoc:Swell rdf:type owl:Class ;
-            rdfs:subClassOf sophoc:CoastalPhenomena ,
-                            sophw:GravityWave ;
-            rdfs:label "swell"@en .
+:Swell rdf:type owl:Class ;
+       rdfs:subClassOf :CoastalPhenomena ,
+                       <http://sweetontology.net/phenWave/GravityWave> ;
+       rdfs:label "swell"@en ;
+       skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-23T08:31:43.653-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q185411> ;
+          rdfs:comment "series of waves generated by distant weather systems"@en .
 
 
 ###  http://sweetontology.net/phenWave/GravityWave
-sophw:GravityWave rdf:type owl:Class .
+<http://sweetontology.net/phenWave/GravityWave> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/realmLandCoastal/CoastalRegion
-sorealc:CoastalRegion rdf:type owl:Class .
+<http://sweetontology.net/realmLandCoastal/CoastalRegion> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

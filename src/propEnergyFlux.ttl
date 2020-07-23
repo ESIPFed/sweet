@@ -1,23 +1,15 @@
 @prefix : <http://sweetontology.net/propEnergyFlux/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sopropq: <http://sweetontology.net/propQuantity/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorep: <http://sweetontology.net/repr/> .
-@prefix sophgs: <http://sweetontology.net/phenGeolSeismicity/> .
-@prefix sophst: <http://sweetontology.net/phenStar/> .
-@prefix sopropef: <http://sweetontology.net/propEnergyFlux/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix sorepsu: <http://sweetontology.net/reprSciUnits/> .
-@prefix soprope: <http://sweetontology.net/propEnergy/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/propEnergyFlux> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/propEnergyFlux/> .
 
 <http://sweetontology.net/propEnergyFlux> rdf:type owl:Ontology ;
+                                           owl:versionIRI <http://sweetontology.net/propEnergyFlux/3.6.0> ;
                                            owl:imports <http://sweetontology.net/phenGeolSeismicity> ,
                                                        <http://sweetontology.net/phenStar> ,
                                                        <http://sweetontology.net/propEnergy> ,
@@ -27,32 +19,56 @@
                                                        <http://sweetontology.net/relaSci> ,
                                                        <http://sweetontology.net/repr> ,
                                                        <http://sweetontology.net/reprSciUnits> ;
-                                           rdfs:label "SWEET Ontology Property Energy Flux" ;
                                            dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                           owl:versionInfo "3.5.0" .
+                                           rdfs:label "SWEET Ontology Property Energy Flux" ;
+                                           owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/transportOf
-sorelph:transportOf rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/transportOf> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasDefaultUnit
-sorelsc:hasDefaultUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasDefaultUnit> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasSource
-sorelsc:hasSource rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasSource> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasUnit
-sorelsc:hasUnit rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasUnit> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -60,271 +76,361 @@ sorelsc:hasUnit rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/propEnergyFlux/AbsorbedSolarRadiation
-sopropef:AbsorbedSolarRadiation rdf:type owl:Class ;
-                             rdfs:subClassOf sopropef:SolarRadiation ;
-                             rdfs:label "absorbed solar radiation"@en .
+:AbsorbedSolarRadiation rdf:type owl:Class ;
+                        rdfs:subClassOf :SolarRadiation ;
+                        rdfs:label "absorbed solar radiation"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/AbsorptionCoefficient
-sopropef:AbsorptionCoefficient rdf:type owl:Class ;
-                            owl:equivalentClass sopropef:Opacity ;
-                            rdfs:label "absorption coefficient"@en .
+:AbsorptionCoefficient rdf:type owl:Class ;
+                       owl:equivalentClass :Opacity ;
+                       rdfs:label "absorption coefficient"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Brightness
-sopropef:Brightness rdf:type owl:Class ;
-                 owl:equivalentClass sopropef:SpecificIntensity ;
-                 rdfs:subClassOf sopropef:Luminance ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsc:hasDefaultUnit ;
-                                   owl:hasValue sorepsu:wattPerMeterSquaredPerSteradianPerWavelength
-                                 ] ;
-                 rdfs:label "brightness"@en .
+:Brightness rdf:type owl:Class ;
+            owl:equivalentClass :SpecificIntensity ;
+            rdfs:subClassOf :Luminance ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                              owl:hasValue <http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradianPerWavelength>
+                            ] ;
+            rdfs:label "brightness"@en ;
+            skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-23T08:41:45.456-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q221656> ;
+          rdfs:comment "perception of light level"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/BulkHeatFlux
-sopropef:BulkHeatFlux rdf:type owl:Class ;
-                   rdfs:subClassOf sopropef:ThermalFlux ;
-                   rdfs:label "bulk heat flux"@en .
+:BulkHeatFlux rdf:type owl:Class ;
+              rdfs:subClassOf :ThermalFlux ;
+              rdfs:label "bulk heat flux"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/CloudForcing
-sopropef:CloudForcing rdf:type owl:Class ;
-                   rdfs:subClassOf sopropef:RadiativeForcing ;
-                   rdfs:label "cloud forcing"@en .
+:CloudForcing rdf:type owl:Class ;
+              rdfs:subClassOf :RadiativeForcing ;
+              rdfs:label "cloud forcing"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/EarthquakeScale
-sopropef:EarthquakeScale rdf:type owl:Class ;
-                      rdfs:subClassOf sorep:LogarithmicScale ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorel:hasPhenomena ;
-                                        owl:allValuesFrom sophgs:Earthquake
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty sorelsc:hasUnit ;
-                                        owl:hasValue sorepsu:db
-                                      ] ;
-                      rdfs:label "earthquake scale"@en .
+:EarthquakeScale rdf:type owl:Class ;
+                 rdfs:subClassOf <http://sweetontology.net/repr/LogarithmicScale> ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                   owl:allValuesFrom <http://sweetontology.net/phenGeolSeismicity/Earthquake>
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
+                                   owl:hasValue <http://sweetontology.net/reprSciUnits/db>
+                                 ] ;
+                 rdfs:label "earthquake scale"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/EnergyFlux
-sopropef:EnergyFlux rdf:type owl:Class ;
-                 rdfs:subClassOf sopropq:Flux ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelph:transportOf ;
-                                   owl:someValuesFrom soprope:Energy
-                                 ] ;
-                 rdfs:label "energy flux"@en .
+:EnergyFlux rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/propQuantity/Flux> ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty <http://sweetontology.net/relaPhysical/transportOf> ;
+                              owl:someValuesFrom <http://sweetontology.net/propEnergy/Energy>
+                            ] ;
+            rdfs:label "energy flux"@en ;
+            skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-23T08:41:46.301-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q5377054> ;
+          rdfs:comment "rate of transfer of energy through a surface"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/EnergyFlux_Wm2
-sopropef:EnergyFlux_Wm2 rdf:type owl:Class ;
-                     rdfs:subClassOf sopropef:EnergyFlux ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelsc:hasUnit ;
-                                       owl:hasValue sorepsu:wattPerMeterSquared
-                                     ] ;
-                     rdfs:label "energy flux wm2"@en .
+:EnergyFlux_Wm2 rdf:type owl:Class ;
+                rdfs:subClassOf :EnergyFlux ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/relaSci/hasUnit> ;
+                                  owl:hasValue <http://sweetontology.net/reprSciUnits/wattPerMeterSquared>
+                                ] ;
+                rdfs:label "energy flux wm2"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/FluxDensity
-sopropef:FluxDensity rdf:type owl:Class ;
-                  owl:equivalentClass sopropef:Intensity ;
-                  rdfs:subClassOf sopropq:Flux ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:wattPerMeterSquared
-                                  ] ;
-                  rdfs:label "flux density"@en .
+:FluxDensity rdf:type owl:Class ;
+             owl:equivalentClass :Intensity ;
+             rdfs:subClassOf <http://sweetontology.net/propQuantity/Flux> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                               owl:hasValue <http://sweetontology.net/reprSciUnits/wattPerMeterSquared>
+                             ] ;
+             rdfs:label "flux density"@en ;
+             skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-23T08:41:46.654-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q51720768> ;
+          rdfs:comment "amount of a physical field passing through a point at a time"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/HeatFlow
-sopropef:HeatFlow rdf:type owl:Class ;
-               owl:equivalentClass sopropef:ThermalFlux ;
-               rdfs:label "heat flow"@en .
+:HeatFlow rdf:type owl:Class ;
+          owl:equivalentClass :ThermalFlux ;
+          rdfs:label "heat flow"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/HeatFlux
-sopropef:HeatFlux rdf:type owl:Class ;
-               owl:equivalentClass sopropef:ThermalFlux ;
-               rdfs:label "heat flux"@en .
+:HeatFlux rdf:type owl:Class ;
+          owl:equivalentClass :ThermalFlux ;
+          rdfs:label "heat flux"@en ;
+          skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-23T08:41:46.991-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1478382> ;
+           rdfs:comment "flow of energy per area and time"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Illuminance
-sopropef:Illuminance rdf:type owl:Class ;
-                  rdfs:subClassOf sopropef:EnergyFlux ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelsc:hasDefaultUnit ;
-                                    owl:hasValue sorepsu:lux
-                                  ] ;
-                  rdfs:label "illuminance"@en .
+:Illuminance rdf:type owl:Class ;
+             rdfs:subClassOf :EnergyFlux ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                               owl:hasValue <http://sweetontology.net/reprSciUnits/lux>
+                             ] ;
+             rdfs:label "illuminance"@en ;
+             skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-23T08:41:47.088-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q194411> ;
+           rdfs:comment "luminous flux incident on a surface per area"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Insolation
-sopropef:Insolation rdf:type owl:Class ;
-                 rdfs:subClassOf sopropef:SolarRadiation ;
-                 rdfs:label "insolation"@en .
+:Insolation rdf:type owl:Class ;
+            rdfs:subClassOf :SolarRadiation ;
+            rdfs:label "insolation"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Intensity
-sopropef:Intensity rdf:type owl:Class ;
-                rdfs:label "intensity"@en .
+:Intensity rdf:type owl:Class ;
+           rdfs:label "intensity"@en ;
+           skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-23T08:41:47.355-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1061524> ;
+           rdfs:comment "power transferred per unit area, where the area is measured on the plane perpendicular to the direction of propagation of the energy"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Irradiance
-sopropef:Irradiance rdf:type owl:Class ;
-                 rdfs:subClassOf sopropef:FluxDensity ,
-                                 sopropq:ElectromagneticRadiationQuantity ;
-                 rdfs:label "irradiance"@en .
+:Irradiance rdf:type owl:Class ;
+            rdfs:subClassOf :FluxDensity ,
+                            <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> ;
+            rdfs:label "irradiance"@en ;
+            skos:definition _:genid14 .
+
+_:genid14 dcterms:created "2020-07-23T08:41:47.44-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q830654> ;
+           rdfs:comment "physical quantity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Luminance
-sopropef:Luminance rdf:type owl:Class ;
-                rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorelsc:hasDefaultUnit ;
-                                  owl:hasValue sorepsu:candelaPerMeterSquared
-                                ] ;
-                rdfs:label "luminance"@en .
+:Luminance rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                             owl:hasValue <http://sweetontology.net/reprSciUnits/candelaPerMeterSquared>
+                           ] ;
+           rdfs:label "luminance"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/LuminousFlux
-sopropef:LuminousFlux rdf:type owl:Class ;
-                   rdfs:subClassOf sopropef:EnergyFlux ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorelsc:hasDefaultUnit ;
-                                     owl:hasValue sorepsu:lumen
-                                   ] ;
-                   rdfs:label "luminous flux"@en .
+:LuminousFlux rdf:type owl:Class ;
+              rdfs:subClassOf :EnergyFlux ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                owl:hasValue <http://sweetontology.net/reprSciUnits/lumen>
+                              ] ;
+              rdfs:label "luminous flux"@en ;
+              skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-23T08:41:47.743-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q107780> ;
+           rdfs:comment "physical quantity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/LuminousIntensity
-sopropef:LuminousIntensity rdf:type owl:Class ;
-                        rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty sorelsc:hasDefaultUnit ;
-                                          owl:hasValue sorepsu:candela
-                                        ] ;
-                        rdfs:label "luminous intensity"@en .
+:LuminousIntensity rdf:type owl:Class ;
+                   rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                                     owl:hasValue <http://sweetontology.net/reprSciUnits/candela>
+                                   ] ;
+                   rdfs:label "luminous intensity"@en ;
+                   skos:definition _:genid20 .
+
+_:genid20 dcterms:created "2020-07-23T08:41:47.934-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/P3041> ;
+           rdfs:comment "measure of the emitted light intensity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Opacity
-sopropef:Opacity rdf:type owl:Class ;
-              rdfs:subClassOf sopropq:RadiationMediumInteractionQuantity ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelsc:hasDefaultUnit ;
-                                owl:hasValue sorepsu:meterSquaredPerKilogram
-                              ] ;
-              rdfs:label "opacity"@en .
+:Opacity rdf:type owl:Class ;
+         rdfs:subClassOf <http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                           owl:hasValue <http://sweetontology.net/reprSciUnits/meterSquaredPerKilogram>
+                         ] ;
+         rdfs:label "opacity"@en ;
+         skos:definition _:genid22 .
+
+_:genid22 dcterms:created "2020-07-23T08:41:48.081-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q691914> ;
+           rdfs:comment "property of an object or substance that is impervious to light"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/PoyntingVector
-sopropef:PoyntingVector rdf:type owl:Class ;
-                     rdfs:subClassOf sopropef:FluxDensity ;
-                     rdfs:label "poynting vector"@en .
+:PoyntingVector rdf:type owl:Class ;
+                rdfs:subClassOf :FluxDensity ;
+                rdfs:label "poynting vector"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/Radiance
-sopropef:Radiance rdf:type owl:Class ;
-               rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty sorelsc:hasDefaultUnit ;
-                                 owl:hasValue sorepsu:wattPerMeterSquaredPerSteradian
-                               ] ;
-               rdfs:label "radiance"@en .
+:Radiance rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty <http://sweetontology.net/relaSci/hasDefaultUnit> ;
+                            owl:hasValue <http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradian>
+                          ] ;
+          rdfs:label "radiance"@en ;
+          skos:definition _:genid24 .
+
+_:genid24 dcterms:created "2020-07-23T08:41:48.458-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1411145> ;
+           rdfs:comment "physical quantity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/RadiantFlux
-sopropef:RadiantFlux rdf:type owl:Class ;
-                  rdfs:subClassOf sopropef:RadiativeForcing ;
-                  rdfs:label "radiant flux"@en .
+:RadiantFlux rdf:type owl:Class ;
+             rdfs:subClassOf :RadiativeForcing ;
+             rdfs:label "radiant flux"@en ;
+             skos:definition _:genid25 .
+
+_:genid25 dcterms:created "2020-07-23T08:41:48.688-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1253356> ;
+           rdfs:comment "physical quantity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/RadiativeFlux
-sopropef:RadiativeFlux rdf:type owl:Class ;
-                    rdfs:subClassOf sopropef:EnergyFlux ,
-                                    sopropef:RadiativeForcing ;
-                    rdfs:label "radiative flux"@en .
+:RadiativeFlux rdf:type owl:Class ;
+               rdfs:subClassOf :EnergyFlux ,
+                               :RadiativeForcing ;
+               rdfs:label "radiative flux"@en ;
+               skos:definition _:genid26 .
+
+_:genid26 dcterms:created "2020-07-23T08:41:48.767-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q7280375> ;
+           rdfs:comment "amount of power radiated through a given area"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/RadiativeForcing
-sopropef:RadiativeForcing rdf:type owl:Class ;
-                       rdfs:subClassOf sopropef:FluxDensity ,
-                                       sopropef:RadiantFlux ;
-                       rdfs:label "radiative forcing"@en .
+:RadiativeForcing rdf:type owl:Class ;
+                  rdfs:subClassOf :FluxDensity ,
+                                  :RadiantFlux ;
+                  rdfs:label "radiative forcing"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/RichterScale
-sopropef:RichterScale rdf:type owl:Class ;
-                   rdfs:subClassOf sopropef:EarthquakeScale ;
-                   rdfs:label "richter scale"@en .
+:RichterScale rdf:type owl:Class ;
+              rdfs:subClassOf :EarthquakeScale ;
+              rdfs:label "richter scale"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SolarFlux
-sopropef:SolarFlux rdf:type owl:Class ;
-                rdfs:subClassOf sopropef:RadiativeFlux ;
-                rdfs:label "solar flux"@en .
+:SolarFlux rdf:type owl:Class ;
+           rdfs:subClassOf :RadiativeFlux ;
+           rdfs:label "solar flux"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SolarForcing
-sopropef:SolarForcing rdf:type owl:Class ;
-                   rdfs:subClassOf sopropef:RadiativeForcing ;
-                   rdfs:label "solar forcing"@en .
+:SolarForcing rdf:type owl:Class ;
+              rdfs:subClassOf :RadiativeForcing ;
+              rdfs:label "solar forcing"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SolarRadiation
-sopropef:SolarRadiation rdf:type owl:Class ;
-                     rdfs:subClassOf sopropq:ElectromagneticRadiationQuantity ;
-                     rdfs:label "solar radiation"@en .
+:SolarRadiation rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> ;
+                rdfs:label "solar radiation"@en ;
+                skos:definition _:genid27 .
+
+_:genid27 dcterms:created "2020-07-23T08:41:49.498-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q17996169> ;
+           rdfs:comment "electromagnetic radiation received from the Sun"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SpecificIntensity
-sopropef:SpecificIntensity rdf:type owl:Class ;
-                        rdfs:label "specific intensity"@en .
+:SpecificIntensity rdf:type owl:Class ;
+                   rdfs:label "specific intensity"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SpectralRadiance
-sopropef:SpectralRadiance rdf:type owl:Class ;
-                       rdfs:subClassOf sopropef:Radiance ;
-                       rdfs:label "spectral radiance"@en .
+:SpectralRadiance rdf:type owl:Class ;
+                  rdfs:subClassOf :Radiance ;
+                  rdfs:label "spectral radiance"@en ;
+                  skos:definition _:genid28 .
+
+_:genid28 dcterms:created "2020-07-23T08:41:50.01-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q27649052> ;
+           rdfs:comment "radiance of a surface per wavelength"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/TerrestrialRadiation
-sopropef:TerrestrialRadiation rdf:type owl:Class ;
-                           rdfs:subClassOf sopropef:RadiativeFlux ;
-                           rdfs:label "terrestrial radiation"@en .
+:TerrestrialRadiation rdf:type owl:Class ;
+                      rdfs:subClassOf :RadiativeFlux ;
+                      rdfs:label "terrestrial radiation"@en .
 
 
 ###  http://sweetontology.net/propEnergyFlux/ThermalFlux
-sopropef:ThermalFlux rdf:type owl:Class ;
-                  rdfs:subClassOf sopropef:EnergyFlux ,
-                                  sopropq:ThermodynamicQuantity ;
-                  rdfs:label "thermal flux"@en .
+:ThermalFlux rdf:type owl:Class ;
+             rdfs:subClassOf :EnergyFlux ,
+                             <http://sweetontology.net/propQuantity/ThermodynamicQuantity> ;
+             rdfs:label "thermal flux"@en .
 
 
 ###  http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity
-sopropq:ElectromagneticRadiationQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ElectromagneticRadiationQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/Flux
-sopropq:Flux rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/Flux> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/PhysicalConstant
-sopropq:PhysicalConstant rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/PhysicalConstant> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity
-sopropq:RadiationMediumInteractionQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/RadiationMediumInteractionQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propQuantity/ThermodynamicQuantity
-sopropq:ThermodynamicQuantity rdf:type owl:Class .
+<http://sweetontology.net/propQuantity/ThermodynamicQuantity> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/repr/LogarithmicScale
-sorep:LogarithmicScale rdf:type owl:Class .
+<http://sweetontology.net/repr/LogarithmicScale> rdf:type owl:Class .
 
 
 #################################################################
@@ -332,51 +438,51 @@ sorep:LogarithmicScale rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/phenStar/Sun
-sophst:Sun rdf:type owl:NamedIndividual .
+<http://sweetontology.net/phenStar/Sun> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/propEnergyFlux/SolarConstant
-sopropef:SolarConstant rdf:type owl:NamedIndividual ,
-                             sopropef:RadiativeFlux ,
-                             sopropq:PhysicalConstant ;
-                    sorelsc:hasSource sophst:Sun ;
-                    rdfs:label "solar constant"@en .
+:SolarConstant rdf:type owl:NamedIndividual ,
+                        :RadiativeFlux ,
+                        <http://sweetontology.net/propQuantity/PhysicalConstant> ;
+               <http://sweetontology.net/relaSci/hasSource> <http://sweetontology.net/phenStar/Sun> ;
+               rdfs:label "solar constant"@en .
 
 
 ###  http://sweetontology.net/reprSciUnits/candela
-sorepsu:candela rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/candela> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/candelaPerMeterSquared
-sorepsu:candelaPerMeterSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/candelaPerMeterSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/db
-sorepsu:db rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/db> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/lumen
-sorepsu:lumen rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/lumen> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/lux
-sorepsu:lux rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/lux> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/meterSquaredPerKilogram
-sorepsu:meterSquaredPerKilogram rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/meterSquaredPerKilogram> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquared
-sorepsu:wattPerMeterSquared rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/wattPerMeterSquared> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradian
-sorepsu:wattPerMeterSquaredPerSteradian rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradian> rdf:type owl:NamedIndividual .
 
 
 ###  http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradianPerWavelength
-sorepsu:wattPerMeterSquaredPerSteradianPerWavelength rdf:type owl:NamedIndividual .
+<http://sweetontology.net/reprSciUnits/wattPerMeterSquaredPerSteradianPerWavelength> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

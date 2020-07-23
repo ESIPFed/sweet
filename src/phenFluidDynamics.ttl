@@ -1,22 +1,15 @@
 @prefix : <http://sweetontology.net/phenFluidDynamics/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix sophfd: <http://sweetontology.net/phenFluidDynamics/> .
-@prefix sorepsg: <http://sweetontology.net/reprSpaceGeometry/> .
-@prefix soph: <http://sweetontology.net/phen/> .
-@prefix sopropp: <http://sweetontology.net/propPressure/> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelsp: <http://sweetontology.net/relaSpace/> .
-@prefix sostp: <http://sweetontology.net/statePhysical/> .
-@prefix sorelsc: <http://sweetontology.net/relaSci/> .
-@base <http://sweetontology.net/phenFluidDynamics> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenFluidDynamics/> .
 
 <http://sweetontology.net/phenFluidDynamics> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://sweetontology.net/phenFluidDynamics/3.6.0> ;
                                               owl:imports <http://sweetontology.net/phen> ,
                                                           <http://sweetontology.net/procPhysical> ,
                                                           <http://sweetontology.net/propPressure> ,
@@ -25,28 +18,52 @@
                                                           <http://sweetontology.net/relaSpace> ,
                                                           <http://sweetontology.net/reprSpaceGeometry> ,
                                                           <http://sweetontology.net/statePhysical> ;
-                                              rdfs:label "SWEET Ontology Phenomena Fluid Dynamics" ;
                                               dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                              owl:versionInfo "3.5.0" .
+                                              rdfs:label "SWEET Ontology Phenomena Fluid Dynamics" ;
+                                              owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/rela/hasProcess
-sorel:hasProcess rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasProcess> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSci/hasQuantity
-sorelsc:hasQuantity rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSci/hasQuantity> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaSpace/clusterOf
-sorelsp:clusterOf rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaSpace/clusterOf> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -54,236 +71,326 @@ sorelsp:clusterOf rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenFluidDynamics/Anticyclone
-sophfd:Anticyclone rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:Cell ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorel:hasState ;
-                                   owl:someValuesFrom sophfd:HighPressure
-                                 ] ;
-                 rdfs:label "anticyclone"@en .
+:Anticyclone rdf:type owl:Class ;
+             rdfs:subClassOf :Cell ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                               owl:someValuesFrom :HighPressure
+                             ] ;
+             rdfs:label "anticyclone"@en ;
+             skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-23T08:26:55.096-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q177414> ;
+          rdfs:comment "opposite to a cyclone"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/BoundaryLayer
-sophfd:BoundaryLayer rdf:type owl:Class ;
-                   rdfs:subClassOf sorepsg:Region ;
-                   rdfs:label "boundary layer"@en .
+:BoundaryLayer rdf:type owl:Class ;
+               rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Region> ;
+               rdfs:label "boundary layer"@en ;
+               skos:definition _:genid3 .
+
+_:genid3 dcterms:created "2020-07-23T08:26:55.273-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q752193> ;
+          rdfs:comment "layer of fluid in the immediate vicinity of a bounding surface"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Capillary
-sophfd:Capillary rdf:type owl:Class ;
-               owl:equivalentClass sophfd:CapillaryAction ;
-               rdfs:label "capillary"@en .
+:Capillary rdf:type owl:Class ;
+           owl:equivalentClass :CapillaryAction ;
+           rdfs:label "capillary"@en ;
+           skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-23T08:26:55.485-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q103142> ;
+          rdfs:comment "smallest type of blood vessel"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/CapillaryAction
-sophfd:CapillaryAction rdf:type owl:Class ;
-                     rdfs:subClassOf sophfd:FluidPhenomena ;
-                     rdfs:label "capillary action"@en .
+:CapillaryAction rdf:type owl:Class ;
+                 rdfs:subClassOf :FluidPhenomena ;
+                 rdfs:label "capillary action"@en ;
+                 skos:definition _:genid5 .
+
+_:genid5 dcterms:created "2020-07-23T08:26:55.66-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q188603> ;
+          rdfs:comment "ability of a liquid to flow in narrow spaces"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Cell
-sophfd:Cell rdf:type owl:Class ;
-          rdfs:subClassOf soph:Phenomena ,
-                          [ rdf:type owl:Restriction ;
-                            owl:onProperty sorel:hasProcess ;
-                            owl:someValuesFrom soprocp:Rotation
-                          ] ;
-          rdfs:label "cell"@en .
+:Cell rdf:type owl:Class ;
+      rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                        owl:someValuesFrom <http://sweetontology.net/procPhysical/Rotation>
+                      ] ;
+      rdfs:label "cell"@en ;
+      skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-23T08:26:55.771-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q7868> ;
+          rdfs:comment "the basic structural and functional unit of all organisms"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/CellCluster
-sophfd:CellCluster rdf:type owl:Class ;
-                 rdfs:subClassOf sorepsg:Cluster ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelsp:clusterOf ;
-                                   owl:allValuesFrom sophfd:Cell
-                                 ] ;
-                 rdfs:label "cell cluster"@en .
+:CellCluster rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Cluster> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/relaSpace/clusterOf> ;
+                               owl:allValuesFrom :Cell
+                             ] ;
+             rdfs:label "cell cluster"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Circulation
-sophfd:Circulation rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:Flow ;
-                 rdfs:label "circulation"@en .
+:Circulation rdf:type owl:Class ;
+             rdfs:subClassOf :Flow ;
+             rdfs:label "circulation"@en ;
+             skos:definition _:genid9 .
+
+_:genid9 dcterms:created "2020-07-23T08:26:56.041-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q5121687> ;
+          rdfs:comment "way people move through and interact with a building"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Cyclone
-sophfd:Cyclone rdf:type owl:Class ;
-             rdfs:subClassOf sophfd:LowPressure ;
-             rdfs:label "cyclone"@en .
+:Cyclone rdf:type owl:Class ;
+         rdfs:subClassOf :LowPressure ;
+         rdfs:label "cyclone"@en ;
+         skos:definition _:genid10 .
+
+_:genid10 dcterms:created "2020-07-23T08:26:56.208-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q79602> ;
+           rdfs:comment "large scale air mass that rotates around a strong center of low pressure"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Depression
-sophfd:Depression rdf:type owl:Class ;
-                rdfs:subClassOf sophfd:LowPressure ,
-                                sorepsg:Depression ;
-                rdfs:label "depression"@en .
+:Depression rdf:type owl:Class ;
+            rdfs:subClassOf :LowPressure ,
+                            <http://sweetontology.net/reprSpaceGeometry/Depression> ;
+            rdfs:label "depression"@en ;
+            skos:definition _:genid11 .
+
+_:genid11 dcterms:created "2020-07-23T08:26:56.398-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q190429> ;
+           rdfs:comment "landform sunken or depressed below the surrounding area"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Eddy
-sophfd:Eddy rdf:type owl:Class ;
-          rdfs:subClassOf sophfd:FluidPhenomena ;
-          rdfs:label "eddy"@en .
+:Eddy rdf:type owl:Class ;
+      rdfs:subClassOf :FluidPhenomena ;
+      rdfs:label "eddy"@en ;
+      skos:definition _:genid12 .
+
+_:genid12 dcterms:created "2020-07-23T08:26:56.661-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q994122> ;
+           rdfs:comment "swirling of a fluid and the reverse current created when the fluid is in a turbulent flow regime"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Flow
-sophfd:Flow rdf:type owl:Class ;
-          rdfs:subClassOf sophfd:FluidPhenomena ,
-                          soprocp:Motion ;
-          rdfs:label "flow"@en .
+:Flow rdf:type owl:Class ;
+      rdfs:subClassOf :FluidPhenomena ,
+                      <http://sweetontology.net/procPhysical/Motion> ;
+      rdfs:label "flow"@en ;
+      skos:definition _:genid13 .
+
+_:genid13 dcterms:created "2020-07-23T08:26:56.876-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1434290> ;
+           rdfs:comment "mathematical formalization of the motion of particles in a fluid"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/FluidPhenomena
-sophfd:FluidPhenomena rdf:type owl:Class ;
-                    rdfs:subClassOf soph:Phenomena ,
-                                    [ rdf:type owl:Restriction ;
-                                      owl:onProperty sorel:hasState ;
-                                      owl:hasValue sostp:Fluid
-                                    ] ;
-                    rdfs:label "fluid phenomena"@en .
+:FluidPhenomena rdf:type owl:Class ;
+                rdfs:subClassOf <http://sweetontology.net/phen/Phenomena> ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                                  owl:hasValue <http://sweetontology.net/statePhysical/Fluid>
+                                ] ;
+                rdfs:label "fluid phenomena"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Gyre
-sophfd:Gyre rdf:type owl:Class ;
-          rdfs:subClassOf sophfd:Cell ;
-          rdfs:label "gyre"@en .
+:Gyre rdf:type owl:Class ;
+      rdfs:subClassOf :Cell ;
+      rdfs:label "gyre"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/HighPressure
-sophfd:HighPressure rdf:type owl:Class ;
-                  owl:equivalentClass sophfd:Ridge ;
-                  rdfs:subClassOf sopropp:Pressure ;
-                  rdfs:label "high pressure"@en .
+:HighPressure rdf:type owl:Class ;
+              owl:equivalentClass :Ridge ;
+              rdfs:subClassOf <http://sweetontology.net/propPressure/Pressure> ;
+              rdfs:label "high pressure"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Jet
-sophfd:Jet rdf:type owl:Class ;
-         rdfs:subClassOf sophfd:Flow ,
-                         [ rdf:type owl:Restriction ;
-                           owl:onProperty sorelsc:hasQuantity ;
-                           owl:allValuesFrom sopropp:Pressure
-                         ] ;
-         rdfs:label "jet"@en .
+:Jet rdf:type owl:Class ;
+     rdfs:subClassOf :Flow ,
+                     [ rdf:type owl:Restriction ;
+                       owl:onProperty <http://sweetontology.net/relaSci/hasQuantity> ;
+                       owl:allValuesFrom <http://sweetontology.net/propPressure/Pressure>
+                     ] ;
+     rdfs:label "jet"@en ;
+     skos:definition _:genid16 .
+
+_:genid16 dcterms:created "2020-07-23T08:26:57.493-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q543694> ;
+           rdfs:comment "mineraloid and minor gemstone"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/LaminarBoundaryLayer
-sophfd:LaminarBoundaryLayer rdf:type owl:Class ;
-                          rdfs:subClassOf sophfd:BoundaryLayer ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty sorel:hasPhenomena ;
-                                            owl:allValuesFrom sophfd:LaminarFlow
-                                          ] ;
-                          rdfs:label "laminar boundary layer"@en .
+:LaminarBoundaryLayer rdf:type owl:Class ;
+                      rdfs:subClassOf :BoundaryLayer ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                                        owl:allValuesFrom :LaminarFlow
+                                      ] ;
+                      rdfs:label "laminar boundary layer"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/LaminarFlow
-sophfd:LaminarFlow rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:Flow ;
-                 rdfs:label "laminar flow"@en .
+:LaminarFlow rdf:type owl:Class ;
+             rdfs:subClassOf :Flow ;
+             rdfs:label "laminar flow"@en ;
+             skos:definition _:genid18 .
+
+_:genid18 dcterms:created "2020-07-23T08:26:57.862-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q189452> ;
+           rdfs:comment "flow where fluid particles follow smooth paths in layers"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/LaminarSublayer
-sophfd:LaminarSublayer rdf:type owl:Class ;
-                     rdfs:subClassOf sophfd:LaminarBoundaryLayer ;
-                     rdfs:label "laminar sublayer"@en .
+:LaminarSublayer rdf:type owl:Class ;
+                 rdfs:subClassOf :LaminarBoundaryLayer ;
+                 rdfs:label "laminar sublayer"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/LowPressure
-sophfd:LowPressure rdf:type owl:Class ;
-                 rdfs:subClassOf sopropp:Pressure ;
-                 rdfs:label "low pressure"@en .
+:LowPressure rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/propPressure/Pressure> ;
+             rdfs:label "low pressure"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Overturning
-sophfd:Overturning rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:Circulation ;
-                 rdfs:label "overturning"@en .
+:Overturning rdf:type owl:Class ;
+             rdfs:subClassOf :Circulation ;
+             rdfs:label "overturning"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/PointVortex
-sophfd:PointVortex rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:Vortex ;
-                 rdfs:label "point vortex"@en .
+:PointVortex rdf:type owl:Class ;
+             rdfs:subClassOf :Vortex ;
+             rdfs:label "point vortex"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Recirculation
-sophfd:Recirculation rdf:type owl:Class ;
-                   rdfs:subClassOf sophfd:Circulation ;
-                   rdfs:label "recirculation"@en .
+:Recirculation rdf:type owl:Class ;
+               rdfs:subClassOf :Circulation ;
+               rdfs:label "recirculation"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Ridge
-sophfd:Ridge rdf:type owl:Class ;
-           rdfs:subClassOf sorepsg:Ridge ,
-                           [ rdf:type owl:Restriction ;
-                             owl:onProperty sorel:hasState ;
-                             owl:someValuesFrom sophfd:HighPressure
-                           ] ;
-           rdfs:label "ridge"@en .
+:Ridge rdf:type owl:Class ;
+       rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Ridge> ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                         owl:someValuesFrom :HighPressure
+                       ] ;
+       rdfs:label "ridge"@en ;
+       skos:definition _:genid20 .
+
+_:genid20 dcterms:created "2020-07-23T08:26:58.832-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q740445> ;
+           rdfs:comment "geological feature consisting of a chain of mountains or hills that form a continuous elevated crest for some distance"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/StationaryEddy
-sophfd:StationaryEddy rdf:type owl:Class ;
-                    rdfs:subClassOf sophfd:Eddy ;
-                    rdfs:label "stationary eddy"@en .
+:StationaryEddy rdf:type owl:Class ;
+                rdfs:subClassOf :Eddy ;
+                rdfs:label "stationary eddy"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Trough
-sophfd:Trough rdf:type owl:Class ;
-            rdfs:subClassOf sorepsg:Trough ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorel:hasState ;
-                              owl:someValuesFrom sophfd:LowPressure
-                            ] ;
-            rdfs:label "trough"@en .
+:Trough rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/reprSpaceGeometry/Trough> ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/rela/hasState> ;
+                          owl:someValuesFrom :LowPressure
+                        ] ;
+        rdfs:label "trough"@en ;
+        skos:definition _:genid22 .
+
+_:genid22 dcterms:created "2020-07-23T08:26:59.194-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q1068705> ;
+           rdfs:comment "feature in geology"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/ViscousFlow
-sophfd:ViscousFlow rdf:type owl:Class ;
-                 rdfs:subClassOf sophfd:Flow ;
-                 rdfs:label "viscous flow"@en .
+:ViscousFlow rdf:type owl:Class ;
+             rdfs:subClassOf :Flow ;
+             rdfs:label "viscous flow"@en .
 
 
 ###  http://sweetontology.net/phenFluidDynamics/Vortex
-sophfd:Vortex rdf:type owl:Class ;
-            rdfs:subClassOf sophfd:Flow ,
-                            [ rdf:type owl:Restriction ;
-                              owl:onProperty sorel:hasProcess ;
-                              owl:allValuesFrom soprocp:Rotation
-                            ] ;
-            rdfs:label "vortex"@en .
+:Vortex rdf:type owl:Class ;
+        rdfs:subClassOf :Flow ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty <http://sweetontology.net/rela/hasProcess> ;
+                          owl:allValuesFrom <http://sweetontology.net/procPhysical/Rotation>
+                        ] ;
+        rdfs:label "vortex"@en ;
+        skos:definition _:genid24 .
+
+_:genid24 dcterms:created "2020-07-23T08:26:59.369-07:00"^^xsd:dateTimeStamp ;
+           dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+           dcterms:source <http://www.wikidata.org/entity/Q732722> ;
+           rdfs:comment "term in fluid dynamics"@en .
 
 
 ###  http://sweetontology.net/procPhysical/Motion
-soprocp:Motion rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Motion> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procPhysical/Rotation
-soprocp:Rotation rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/Rotation> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/propPressure/Pressure
-sopropp:Pressure rdf:type owl:Class .
+<http://sweetontology.net/propPressure/Pressure> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Cluster
-sorepsg:Cluster rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Cluster> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Depression
-sorepsg:Depression rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Depression> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Region
-sorepsg:Region rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Region> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Ridge
-sorepsg:Ridge rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Ridge> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/reprSpaceGeometry/Trough
-sorepsg:Trough rdf:type owl:Class .
+<http://sweetontology.net/reprSpaceGeometry/Trough> rdf:type owl:Class .
 
 
 #################################################################
@@ -291,7 +398,7 @@ sorepsg:Trough rdf:type owl:Class .
 #################################################################
 
 ###  http://sweetontology.net/statePhysical/Fluid
-sostp:Fluid rdf:type owl:NamedIndividual .
+<http://sweetontology.net/statePhysical/Fluid> rdf:type owl:NamedIndividual .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/

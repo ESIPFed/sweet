@@ -1,21 +1,15 @@
 @prefix : <http://sweetontology.net/phenMixing/> .
-@prefix sophm: <http://sweetontology.net/phenMixing/> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix somas: <http://sweetontology.net/matrSediment/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix soph: <http://sweetontology.net/phen/> .
-@prefix soprocp: <http://sweetontology.net/procPhysical/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix sorelch: <http://sweetontology.net/relaChemical/> .
-@prefix sorelph: <http://sweetontology.net/relaPhysical/> .
-@prefix soprocsc: <http://sweetontology.net/procStateChange/> .
-@base <http://sweetontology.net/phenMixing> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://sweetontology.net/phenMixing/> .
 
 <http://sweetontology.net/phenMixing> rdf:type owl:Ontology ;
+                                       owl:versionIRI <http://sweetontology.net/phenMixing/3.6.0> ;
                                        owl:imports <http://sweetontology.net/matrSediment> ,
                                                    <http://sweetontology.net/phen> ,
                                                    <http://sweetontology.net/procPhysical> ,
@@ -23,24 +17,48 @@
                                                    <http://sweetontology.net/rela> ,
                                                    <http://sweetontology.net/relaChemical> ,
                                                    <http://sweetontology.net/relaPhysical> ;
-                                       rdfs:label "SWEET Ontology Phenomena Mixing" ;
                                        dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-                                       owl:versionInfo "3.5.0" .
+                                       rdfs:label "SWEET Ontology Phenomena Mixing" ;
+                                       owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  http://sweetontology.net/rela/hasPhenomena
-sorel:hasPhenomena rdf:type owl:ObjectProperty .
+<http://sweetontology.net/rela/hasPhenomena> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaChemical/hasSubstance
-sorelch:hasSubstance rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaChemical/hasSubstance> rdf:type owl:ObjectProperty .
 
 
 ###  http://sweetontology.net/relaPhysical/hasStateChange
-sorelph:hasStateChange rdf:type owl:ObjectProperty .
+<http://sweetontology.net/relaPhysical/hasStateChange> rdf:type owl:ObjectProperty .
 
 
 #################################################################
@@ -48,102 +66,132 @@ sorelph:hasStateChange rdf:type owl:ObjectProperty .
 #################################################################
 
 ###  http://sweetontology.net/phenMixing/Aeration
-sophm:Aeration rdf:type owl:Class ;
-             rdfs:subClassOf sophm:Mixing ;
-             rdfs:label "aeration"@en .
+:Aeration rdf:type owl:Class ;
+          rdfs:subClassOf :Mixing ;
+          rdfs:label "aeration"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Bioturbation
-sophm:Bioturbation rdf:type owl:Class ;
-                 rdfs:subClassOf sophm:Mixing ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty sorelch:hasSubstance ;
-                                   owl:allValuesFrom somas:Sediment
-                                 ] ;
-                 rdfs:label "bioturbation"@en .
+:Bioturbation rdf:type owl:Class ;
+              rdfs:subClassOf :Mixing ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty <http://sweetontology.net/relaChemical/hasSubstance> ;
+                                owl:allValuesFrom <http://sweetontology.net/matrSediment/Sediment>
+                              ] ;
+              rdfs:label "bioturbation"@en ;
+              skos:definition _:genid2 .
+
+_:genid2 dcterms:created "2020-07-23T08:31:02.615-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q864907> ;
+          rdfs:comment "reworking of soils and sediments by animals or plants"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Cryoturbation
-sophm:Cryoturbation rdf:type owl:Class ;
-                  rdfs:subClassOf sophm:Mixing ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelph:hasStateChange ;
-                                    owl:allValuesFrom soprocsc:Freezing
-                                  ] ;
-                  rdfs:label "cryoturbation"@en .
+:Cryoturbation rdf:type owl:Class ;
+               rdfs:subClassOf :Mixing ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty <http://sweetontology.net/relaPhysical/hasStateChange> ;
+                                 owl:allValuesFrom <http://sweetontology.net/procStateChange/Freezing>
+                               ] ;
+               rdfs:label "cryoturbation"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Diffuse
-sophm:Diffuse rdf:type owl:Class ;
-            owl:equivalentClass sophm:Diffusion ;
-            rdfs:label "diffuse"@en .
+:Diffuse rdf:type owl:Class ;
+         owl:equivalentClass :Diffusion ;
+         rdfs:label "diffuse"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Diffusion
-sophm:Diffusion rdf:type owl:Class ;
-              rdfs:subClassOf soprocp:PhysicalProcess ;
-              rdfs:label "diffusion"@en .
+:Diffusion rdf:type owl:Class ;
+           rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ;
+           rdfs:label "diffusion"@en ;
+           skos:definition _:genid4 .
+
+_:genid4 dcterms:created "2020-07-23T08:31:03.061-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q163214> ;
+          rdfs:comment "net movement of molecules or atoms from a region of high concentration (or high chemical potential) to a region of low concentration (or low chemical potential)"@en .
 
 
 ###  http://sweetontology.net/phenMixing/EddyDiffusion
-sophm:EddyDiffusion rdf:type owl:Class ;
-                  rdfs:subClassOf sophm:Diffusion ;
-                  rdfs:label "eddy diffusion"@en .
+:EddyDiffusion rdf:type owl:Class ;
+               rdfs:subClassOf :Diffusion ;
+               rdfs:label "eddy diffusion"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Entrainment
-sophm:Entrainment rdf:type owl:Class ;
-                rdfs:subClassOf soprocp:PhysicalProcess ,
-                                [ rdf:type owl:Restriction ;
-                                  owl:onProperty sorel:hasPhenomena ;
-                                  owl:allValuesFrom sophm:Mixing
-                                ] ;
-                rdfs:label "entrainment"@en .
+:Entrainment rdf:type owl:Class ;
+             rdfs:subClassOf <http://sweetontology.net/procPhysical/PhysicalProcess> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty <http://sweetontology.net/rela/hasPhenomena> ;
+                               owl:allValuesFrom :Mixing
+                             ] ;
+             rdfs:label "entrainment"@en ;
+             skos:definition _:genid6 .
+
+_:genid6 dcterms:created "2020-07-23T08:31:03.342-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q15733549> ;
+          rdfs:comment "process by which surface sediment is incorporated into a fluid flow (air, water or even ice)"@en .
 
 
 ###  http://sweetontology.net/phenMixing/FickianDiffusion
-sophm:FickianDiffusion rdf:type owl:Class ;
-                     rdfs:subClassOf sophm:Diffusion ;
-                     rdfs:label "fickian diffusion"@en .
+:FickianDiffusion rdf:type owl:Class ;
+                  rdfs:subClassOf :Diffusion ;
+                  rdfs:label "fickian diffusion"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Mix
-sophm:Mix rdf:type owl:Class ;
-        owl:equivalentClass sophm:Mixing ;
-        rdfs:label "mix"@en .
+:Mix rdf:type owl:Class ;
+     owl:equivalentClass :Mixing ;
+     rdfs:label "mix"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Mixing
-sophm:Mixing rdf:type owl:Class ;
-           rdfs:subClassOf soph:DynamicalPhenomena ;
-           owl:disjointWith sophm:Separation ;
-           rdfs:label "mixing"@en .
+:Mixing rdf:type owl:Class ;
+        rdfs:subClassOf <http://sweetontology.net/phen/DynamicalPhenomena> ;
+        owl:disjointWith :Separation ;
+        rdfs:label "mixing"@en ;
+        skos:definition _:genid7 .
+
+_:genid7 dcterms:created "2020-07-23T08:31:03.803-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q4350572> ;
+          rdfs:comment "mathematical description of thermodynamic mixing"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Separation
-sophm:Separation rdf:type owl:Class ;
-               rdfs:subClassOf soph:DynamicalPhenomena ;
-               rdfs:label "separation"@en .
+:Separation rdf:type owl:Class ;
+            rdfs:subClassOf <http://sweetontology.net/phen/DynamicalPhenomena> ;
+            rdfs:label "separation"@en ;
+            skos:definition _:genid8 .
+
+_:genid8 dcterms:created "2020-07-23T08:31:03.896-07:00"^^xsd:dateTimeStamp ;
+          dcterms:creator <https://orcid.org/0000-0003-2185-928X> ;
+          dcterms:source <http://www.wikidata.org/entity/Q20598> ;
+          rdfs:comment "redistribution of land"@en .
 
 
 ###  http://sweetontology.net/phenMixing/Settling
-sophm:Settling rdf:type owl:Class ;
-             rdfs:subClassOf soph:DynamicalPhenomena ;
-             rdfs:label "settling"@en .
+:Settling rdf:type owl:Class ;
+          rdfs:subClassOf <http://sweetontology.net/phen/DynamicalPhenomena> ;
+          rdfs:label "settling"@en .
 
 
 ###  http://sweetontology.net/phenMixing/TurbulentDiffusion
-sophm:TurbulentDiffusion rdf:type owl:Class ;
-                       rdfs:subClassOf sophm:Diffusion ;
-                       rdfs:label "turbulent diffusion"@en .
+:TurbulentDiffusion rdf:type owl:Class ;
+                    rdfs:subClassOf :Diffusion ;
+                    rdfs:label "turbulent diffusion"@en .
 
 
 ###  http://sweetontology.net/procPhysical/PhysicalProcess
-soprocp:PhysicalProcess rdf:type owl:Class .
+<http://sweetontology.net/procPhysical/PhysicalProcess> rdf:type owl:Class .
 
 
 ###  http://sweetontology.net/procStateChange/Freezing
-soprocsc:Freezing rdf:type owl:Class .
+<http://sweetontology.net/procStateChange/Freezing> rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 5.1.15.2020-07-08T08:07:50Z) https://github.com/owlcs/owlapi/
