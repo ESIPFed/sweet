@@ -32,7 +32,7 @@ Details of how HTTP requests against http://sweetontology.net are processed can 
 See the relevant [wiki documentation](https://github.com/ESIPFed/sweet/wiki/SWEET-IRI-Patterns-for-Ontologies-and-their-Terms).
 
 # Community
-SWEET is governed by the [ESIP Semantic Technologies Committee](http://wiki.esipfed.org/index.php/Semantic_Technologies) (STC) meaning that all proposed changes are evaluated by a number of subject matter experts. If you would like to learn more about SWEET, or are interested in joining the community, please join our community mailing [list](http://lists.esipfed.org/mailman/listinfo/esip-semanticweb).
+SWEET is governed by the [ESIP Semantic Technologies Committee](http://wiki.esipfed.org/index.php/Semantic_Technologies) (STC) meaning that all proposed changes are evaluated by a number of subject matter experts. If you would like to learn more about SWEET, or are interested in joining the community, please join our [community mailing list](https://lists.esipfed.org/mailman/listinfo/esip-semantictech).
 
 # Recognition of SWEET Contributors
 [Ensure you are recognized for your contributions](https://github.com/ESIPFed/sweet/wiki/Recognition-of-SWEET-Contributors).
