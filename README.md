@@ -23,7 +23,7 @@ Official repository for Semantic Web for Earth and Environmental Terminology (SW
 </table>
 
 # What is SWEET?
-SWEET is a highly modular ontology suite with ~6000 concepts in ~200 separate ontologies covering Earth system science. SWEET is a mid-level ontology and consists of nine top-level concepts that can be used as a foundation for domain-specific ontologies that extend these top-level SWEET components. SWEET’s own domain-specific ontologies, which extend the upper level ontologies, can provide users interested in further developing a particular domain with a solid set of concepts to get started. SWEET ontologies are written in [W3C Turtle](https://www.w3.org/TR/turtle/); the Terse RDF Triple Language and are publicly available under the [Apache License v2.0](https://www.apache.org/licenses/LICENSE-2.0).
+SWEET is a highly modular ontology suite with ~6000 concepts in ~200 separate ontologies covering Earth system science. SWEET is a mid-level ontology and consists of nine top-level concepts that can be used as a foundation for domain-specific ontologies that extend these top-level SWEET components. SWEET’s own domain-specific ontologies, which extend the upper level ontologies, can provide users interested in further developing a particular domain with a solid set of concepts to get started. SWEET ontologies are written in [W3C Turtle](https://www.w3.org/TR/turtle/); the Terse RDF Triple Language.
 
 # SWEET as Linked Data
 Details of how HTTP requests against http://sweetontology.net are processed can be found [here](https://github.com/ESIPFed/sweet/wiki/sweetontology.net).
