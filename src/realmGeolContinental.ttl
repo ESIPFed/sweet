@@ -1,21 +1,26 @@
 @prefix : <http://sweetontology.net/realmGeolContinental/> .
 @prefix matrRockIgneous: <http://sweetontology.net/matrRockIgneous/> .
+@prefix biblio: <http://purl.org/net/biblio#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix sorealt: <http://sweetontology.net/realmLandTectonic/> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sdo: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix soma: <http://sweetontology.net/matr/> .
 @prefix soreagcont: <http://sweetontology.net/realmGeolContinental/> .
 @prefix soreag: <http://sweetontology.net/realmGeol/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sohur: <http://sweetontology.net/humanResearch/> .
 @prefix sorel: <http://sweetontology.net/rela/> .
 @prefix sostrg: <http://sweetontology.net/stateRoleGeographic/> .
 @prefix soreagb: <http://sweetontology.net/realmGeolBasin/> .
 @prefix sorelch: <http://sweetontology.net/relaChemical/> .
 @prefix sorelph: <http://sweetontology.net/relaPhysical/> .
 @prefix sorelsc: <http://sweetontology.net/relaSci/> .
+@prefix wiki: <https://www.wikidata.org/wiki/> .
 @base <http://sweetontology.net/realmGeolContinental> .
 
 <http://sweetontology.net/realmGeolContinental> rdf:type owl:Ontology ;
@@ -127,12 +132,18 @@ soreagcont:Craton rdf:type owl:Class ;
                               owl:onProperty sorelph:hasPlanetaryStructure ;
                               owl:allValuesFrom soreagcont:Shield
                             ] ;
-            rdfs:label "craton"@en .
+            dcterms:contributor <http://linked.data.gov.au/org/gsq> ;
+            dcterms:source <http://www.glossaryofgeology.org> ;
+            skos:definition "A craton is part of Earth's continental crust that has attained stability and has been little deformed for a prolonged period. Cratons include shield areas, where Precambrian rocks are exposed, and platform areas, where Precambrian rocks are overlain by a thin layer of Phanerozoic strata. (Neuendorf et al., 2011)"@en ;                            
+            skos:prefLabel "craton"@en .
 
 
 ###  http://sweetontology.net/realmGeolContinental/Shield
 soreagcont:Shield rdf:type owl:Class ;
             rdfs:subClassOf soreag:GeologicProvince ;
+            dcterms:contributor <http://linked.data.gov.au/org/gsq> ;
+            dcterms:source <http://www.glossaryofgeology.org> ;
+            skos:definition "A large area of exposed basement rock in a craton, commonly with a very gently convex surface, surrounded by sediment covered platforms. The rocks of virtually all shield areas are Precambrian. (Neuendorf et al., 2011)"@en ;
             rdfs:label "shield"@en .
 
 
@@ -145,6 +156,21 @@ soreagcont:StableContinent rdf:type owl:Class ;
                                      ] ;
                      rdfs:label "stable continent"@en .
 
+###  http://sweetontology.net/realmGeolContinental/Supercraton
+soreagcont:Supercraton rdf:type owl:Class ;
+                     rdfs:subClassOf soreag:GeologicProvince ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty sorel:hasPart ;
+                                       owl:allValuesFrom soreagcont:Craton
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty sorel:hasPart ;
+                                       owl:minCardinality "2"^^xsd:int
+                                     ] ;
+                     dcterms:source <http://doi.org/10.22459/SN.08.2012> ;
+                     rdfs:subClassOf soreag:GeologicProvince ;
+                     skos:definition "A large, ancestral (largely Archean) landmass consisting of two or more cratons. (Blewett, 2012)"@en ;
+                     skos:prefLabel "supercraton"@en .
 
 ###  http://sweetontology.net/realmGeolContinental/Supercontinent
 soreagcont:Supercontinent rdf:type owl:Class ;
@@ -171,5 +197,29 @@ sorealt:Rift rdf:type owl:Class .
 ###  http://sweetontology.net/stateRoleGeographic/Margin
 sostrg:Margin rdf:type owl:Class .
 
+<http://doi.org/10.22459/SN.08.2012> 
+  rdf:type sohur:Publication , owl:NamedIndividual ;
+  dcterms:creator "Richard S. Blewett" ;
+  dcterms:date "2012"^^xsd:gYear ;
+  dcterms:identifier "ISBN: 9781921862823" ;
+  dcterms:publisher "ANU Press" ;
+  dcterms:title "Shaping a Nation: A Geology of Australia" ;
+  dcterms:type biblio:Book ;
+  dcterms:type wiki:Q571 .
+
+<http://www.glossaryofgeology.org> 
+  rdf:type sohur:Publication , owl:NamedIndividual ;
+  dcterms:creator (
+      "Klaus K.E. Neuendorf"
+      "James P. Mehl Jr."
+      "Julia A. Jackson"
+    ) ;
+  dcterms:date "2011"^^xsd:gYear ;
+  dcterms:identifier "ISBN: 978-0-922152-92-6" ;
+  dcterms:publisher "American Geosciences Institute, Alexandria, Virginia USA" ;
+  dcterms:title "Glossary of Geology (Fifth Edition Revised)" ;
+  dcterms:type biblio:Book ;
+  dcterms:type wiki:Q571 ;
+.
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
