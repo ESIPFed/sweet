@@ -47,18 +47,18 @@ The sweetall.ttl ontology imports all the other sweet components via URL. If you
 
 # License/Copyright
 SWEET is available under the [CC0 1.0 Universal Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/).
-<p xmlns:dct="http://purl.org/dc/terms/">
+<p xmlns:dcterms="http://purl.org/dc/terms/">
   <a rel="license"
      href="http://creativecommons.org/publicdomain/zero/1.0/">
     <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
   </a>
   <br />
   To the extent possible under law,
-  <a rel="dct:publisher"
+  <a rel="dcterms:publisher"
      href="https://github.com/ESIPFed/sweet">
-    <span property="dct:title">SWEET Ontology Developers</span></a>
+    <span property="dcterms:title">SWEET Ontology Developers</span></a>
   have waived all copyright and related or neighboring rights to the
-  <span property="dct:title">Semantic Web for Earth and Environmental Terminology (SWEET) Ontology Suite</span>.
+  <span property="dcterms:title">Semantic Web for Earth and Environmental Terminology (SWEET) Ontology Suite</span>.
 </p>
 A copy of the CC0-1.0 ships with this repository.
 
