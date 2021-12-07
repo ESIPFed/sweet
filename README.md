@@ -12,7 +12,7 @@ Official repository for Semantic Web for Earth and Environmental Terminology (SW
     <tr>
       <td><a href="http://sweetontology.net/sweetAll">View in pyLODE</a></td>
       <td><a href="http://www.visualdataweb.de/webvowl/#iri=https://raw.githubusercontent.com/ESIPFed/sweet/master/src/sweetAll.ttl">View in WebVowl</a></td>
-      <td><a href="http://cor.esipfed.org/ont?iri=http://sweetontology.net/sweetAll">View in ESIP COR</a></td>
+      <td><a href="http://cor.esipfed.org/ont#/so/sweetontology">View in ESIP COR</a></td>
     </tr>
     <tr>
       <td><a href="https://github.com/ESIPFed/sweet/blob/master/src/sweetAll.ttl">View in GitHub</a></td>
