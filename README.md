@@ -7,6 +7,9 @@
 # Introduction
 Official repository for Semantic Web for Earth and Environmental Terminology (SWEET) Ontologies.
 
+## Accessing SWEET (base ontology)
+This table provides links to access the base SWEET ontology, which contains import directives to bring in all the other ontologies. 
+If you want to browse the entire content SWEET, see the next section below.
 <table>
   <tbody>
     <tr>
@@ -18,6 +21,19 @@ Official repository for Semantic Web for Earth and Environmental Terminology (SW
       <td><a href="https://github.com/ESIPFed/sweet/blob/master/src/sweetAll.ttl">View in GitHub</a></td>
       <td><a href="https://raw.githubusercontent.com/ESIPFed/sweet/master/src/sweetAll.ttl">View raw RDF</a></td>
       <td><a href="http://cor.esipfed.org/ont/api/v0/ont?format=rdf&iri=http://sweetontology.net/sweetAll">Download RDF</a></td>
+    </tr>
+  </tbody>
+</table>
+
+## Accessing SWEET (all content)
+To View all SWEET content, you either need to open the base ontology in an ontology tool like Protégé or TopBraid, or you can view the contents in an ontology browser like BioPortal. Links for the latter are provided in the following table.
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="https://bioportal.bioontology.org/ontologies/SWEET">SWEET in BioPortal</a></td>
+      <td><a href="https://bioportal.bioontology.org/ontologies/SWEET/?p=classes&conceptid=root">View all classes</a></td>
+      <td><a href="https://data.bioontology.org/ontologies/SWEET/download?apikey=8b5b7825-538d-40e0-9e9e-5ab9274a9aeb&download_format=rdf">Download RDF</a></td>
     </tr>
   </tbody>
 </table>
