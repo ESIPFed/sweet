@@ -26,7 +26,12 @@ If you want to browse the entire content SWEET, see the next section below.
 </table>
 
 ## Accessing SWEET (all content)
-To View all SWEET content, you either need to open the base ontology in an ontology tool like Protégé or TopBraid, or you can view the contents in an ontology browser like BioPortal. Links for the latter are provided in the following table.
+To View all SWEET content, you either need to open the base ontology in an ontology tool like Protégé or TopBraid, 
+or you can view the contents in an ontology browser like BioPortal. Links for the latter are provided in the following table.
+
+Unfortunately, as of March 2022 there is a 'middleware service bug' (we think in CloudFlare, the ESIP service provider)
+that prevents tools using Java 8 from performing the necessary uploads of the subsidiary ontologies of SWEET. 
+Since Protégé uses Java 8 (for at least a few more months), it will not automatically load all the SWEET ontologies.
 
 <table>
   <tbody>
