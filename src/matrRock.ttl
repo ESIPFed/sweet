@@ -1,16 +1,17 @@
-@prefix : <http://sweetontology.net/matrRock/> .
+@prefix : <http://sweetontology.net/matrRock#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix soma: <http://sweetontology.net/matr/> .
 @prefix sophg: <http://sweetontology.net/phenGeol/> .
-@prefix somarock: <http://sweetontology.net/matrRock/> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sostp: <http://sweetontology.net/statePhysical/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix sorelch: <http://sweetontology.net/relaChemical/> .
 @prefix sorelpr: <http://sweetontology.net/relaProvenance/> .
-@prefix sostp: <http://sweetontology.net/statePhysical/> .
+@prefix somarock: <http://sweetontology.net/matrRock/> .
 @base <http://sweetontology.net/matrRock> .
 
 <http://sweetontology.net/matrRock> rdf:type owl:Ontology ;
@@ -19,9 +20,25 @@
                                                  <http://sweetontology.net/relaChemical> ,
                                                  <http://sweetontology.net/relaProvenance> ,
                                                  <http://sweetontology.net/statePhysical> ;
-                                     rdfs:label "SWEET Ontology Material Rock" ;
                                      dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+                                     rdfs:label "SWEET Ontology Material Rock" ;
                                      owl:versionInfo "3.6.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/source
+dcterms:source rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#scopeNote
+skos:scopeNote rdf:type owl:AnnotationProperty .
+
 
 #################################################################
 #    Object Properties
@@ -49,123 +66,153 @@ soma:SolidSubstance rdf:type owl:Class .
 
 ###  http://sweetontology.net/matrRock/Breccia
 somarock:Breccia rdf:type owl:Class ;
-             rdfs:subClassOf somarock:Rock ;
-             rdfs:label "breccia"@en .
+                 rdfs:subClassOf somarock:Rock ;
+                 rdfs:label "breccia"@en .
 
 
 ###  http://sweetontology.net/matrRock/Chondrite
 somarock:Chondrite rdf:type owl:Class ;
-               rdfs:subClassOf somarock:Meteorite ;
-               rdfs:label "chondrite"@en .
+                   rdfs:subClassOf somarock:Meteorite ;
+                   rdfs:label "chondrite"@en .
 
 
 ###  http://sweetontology.net/matrRock/Fossil
 somarock:Fossil rdf:type owl:Class ;
-            rdfs:subClassOf sostp:SubstanceForm ;
-            rdfs:label "fossil"@en .
+                rdfs:subClassOf sostp:SubstanceForm ;
+                rdfs:label "fossil"@en .
 
 
 ###  http://sweetontology.net/matrRock/HeterogenousRock
 somarock:HeterogenousRock rdf:type owl:Class ;
-                      rdfs:subClassOf somarock:SedimentaryRock ;
-                      rdfs:label "heterogenous rock"@en .
+                          rdfs:subClassOf somarock:SedimentaryRock ;
+                          rdfs:label "heterogenous rock"@en .
 
 
 ###  http://sweetontology.net/matrRock/Macrofossil
 somarock:Macrofossil rdf:type owl:Class ;
-                 rdfs:subClassOf somarock:Fossil ;
-                 rdfs:label "macrofossil"@en .
+                     rdfs:subClassOf somarock:Fossil ;
+                     rdfs:label "macrofossil"@en .
 
 
 ###  http://sweetontology.net/matrRock/Melange
 somarock:Melange rdf:type owl:Class ;
-             rdfs:subClassOf somarock:Rock ;
-             rdfs:label "melange"@en .
+                 rdfs:subClassOf somarock:Rock ;
+                 rdfs:label "melange"@en .
 
 
 ###  http://sweetontology.net/matrRock/MetamorphicRock
 somarock:MetamorphicRock rdf:type owl:Class ;
-                     rdfs:subClassOf somarock:Rock ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelpr:hasGenesis ;
-                                       owl:allValuesFrom sophg:Metamorphic
-                                     ] ;
-                     rdfs:label "metamorphic rock"@en .
+                         rdfs:subClassOf somarock:Rock ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty sorelpr:hasGenesis ;
+                                           owl:allValuesFrom sophg:Metamorphic
+                                         ] ;
+                         rdfs:label "metamorphic rock"@en ;
+                         skos:scopeNote "A rock derived from pre-existing rocks by mineralogical, chemical, and/or structural changes, essentially in the solid state, in response to marked changes in temperature, pressure, shearing stress, and chemical environment, generally at depth in the earth's crust."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource somarock:MetamorphicRock ;
+   owl:annotatedProperty skos:scopeNote ;
+   owl:annotatedTarget "A rock derived from pre-existing rocks by mineralogical, chemical, and/or structural changes, essentially in the solid state, in response to marked changes in temperature, pressure, shearing stress, and chemical environment, generally at depth in the earth's crust."@en ;
+   dcterms:creator <brandon> ;
+   dcterms:source <https://apps.usgs.gov/thesaurus/term-simple.php?thcode=4&code=5> ,
+                  "USGS Lithology terms"@en
+ ] .
 
 
 ###  http://sweetontology.net/matrRock/Meteor
 somarock:Meteor rdf:type owl:Class ;
-            rdfs:subClassOf somarock:Rock ;
-            rdfs:label "meteor"@en .
+                rdfs:subClassOf somarock:Rock ;
+                rdfs:label "meteor"@en .
 
 
 ###  http://sweetontology.net/matrRock/Meteorite
 somarock:Meteorite rdf:type owl:Class ;
-               rdfs:subClassOf somarock:Meteor ;
-               rdfs:label "meteorite"@en .
+                   rdfs:subClassOf somarock:Meteor ;
+                   rdfs:label "meteorite"@en .
 
 
 ###  http://sweetontology.net/matrRock/Microfossil
 somarock:Microfossil rdf:type owl:Class ;
-                 rdfs:subClassOf somarock:Fossil ;
-                 rdfs:label "microfossil"@en .
+                     rdfs:subClassOf somarock:Fossil ;
+                     rdfs:label "microfossil"@en .
 
 
 ###  http://sweetontology.net/matrRock/Molasse
 somarock:Molasse rdf:type owl:Class ;
-             rdfs:subClassOf sophg:Sedimentary ;
-             rdfs:label "molasse"@en .
+                 rdfs:subClassOf sophg:Sedimentary ;
+                 rdfs:label "molasse"@en .
 
 
 ###  http://sweetontology.net/matrRock/Regolith
 somarock:Regolith rdf:type owl:Class ;
-              rdfs:subClassOf soma:Mixture ;
-              owl:disjointWith somarock:Rock ;
-              rdfs:label "regolith"@en .
+                  rdfs:subClassOf soma:Mixture ;
+                  owl:disjointWith somarock:Rock ;
+                  rdfs:label "regolith"@en .
 
 
 ###  http://sweetontology.net/matrRock/Rock
 somarock:Rock rdf:type owl:Class ;
-          rdfs:subClassOf soma:Mixture ,
-                          soma:SolidSubstance ;
-          rdfs:label "rock"@en .
+              rdfs:subClassOf soma:Mixture ,
+                              soma:SolidSubstance ;
+              rdfs:label "rock"@en .
 
 
 ###  http://sweetontology.net/matrRock/RockBody
 somarock:RockBody rdf:type owl:Class ;
-              rdfs:subClassOf soma:Mixture ,
-                              soma:SolidSubstance ,
-                              [ rdf:type owl:Restriction ;
-                                owl:onProperty sorelch:hasSubstance ;
-                                owl:allValuesFrom somarock:Rock
-                              ] ;
-              rdfs:label "rock body"@en .
+                  rdfs:subClassOf soma:Mixture ,
+                                  soma:SolidSubstance ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sorelch:hasSubstance ;
+                                    owl:allValuesFrom somarock:Rock
+                                  ] ;
+                  rdfs:label "rock body"@en .
 
 
 ###  http://sweetontology.net/matrRock/SedimentaryRock
 somarock:SedimentaryRock rdf:type owl:Class ;
-                     rdfs:subClassOf somarock:Rock ,
-                                     [ rdf:type owl:Restriction ;
-                                       owl:onProperty sorelpr:hasGenesis ;
-                                       owl:allValuesFrom sophg:Sedimentary
-                                     ] ;
-                     rdfs:label "sedimentary rock"@en .
+                         rdfs:subClassOf somarock:Rock ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty sorelpr:hasGenesis ;
+                                           owl:allValuesFrom sophg:Sedimentary
+                                         ] ;
+                         rdfs:label "sedimentary rock"@en ;
+                         skos:scopeNote "A rock resulting from the consolidation of loose sediment that has accumulated in layers..."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource somarock:SedimentaryRock ;
+   owl:annotatedProperty skos:scopeNote ;
+   owl:annotatedTarget "A rock resulting from the consolidation of loose sediment that has accumulated in layers..."@en ;
+   dcterms:creator <brandon> ;
+   dcterms:source <https://apps.usgs.gov/thesaurus/term-simple.php?thcode=4&code=2> ,
+                  "USGS Lithology terms"@en
+ ] .
 
 
 ###  http://sweetontology.net/matrRock/Serpentinite
 somarock:Serpentinite rdf:type owl:Class ;
-                  rdfs:subClassOf somarock:MetamorphicRock ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorelpr:hasGenesis ;
-                                    owl:allValuesFrom somarock:Serpentinization
-                                  ] ;
-                  rdfs:label "serpentinite"@en .
+                      rdfs:subClassOf somarock:MetamorphicRock ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty sorelpr:hasGenesis ;
+                                        owl:allValuesFrom somarock:Serpentinization
+                                      ] ;
+                      rdfs:label "serpentinite"@en ;
+                      skos:scopeNote "A rock consisting almost wholly of serpentine-group minerals derived from the hydration of ferromagnesian silicate minerals such as olivine and pyroxene."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource somarock:Serpentinite ;
+   owl:annotatedProperty skos:scopeNote ;
+   owl:annotatedTarget "A rock consisting almost wholly of serpentine-group minerals derived from the hydration of ferromagnesian silicate minerals such as olivine and pyroxene."@en ;
+   dcterms:creator <brandon> ;
+   dcterms:source <https://apps.usgs.gov/thesaurus/term-simple.php?thcode=4&code=5.14> ,
+                  "USGS Lithology terms"@en
+ ] .
 
 
 ###  http://sweetontology.net/matrRock/Serpentinization
 somarock:Serpentinization rdf:type owl:Class ;
-                      rdfs:subClassOf sophg:Metamorphic ;
-                      rdfs:label "serpentinization"@en .
+                          rdfs:subClassOf sophg:Metamorphic ;
+                          rdfs:label "serpentinization"@en .
 
 
 ###  http://sweetontology.net/phenGeol/Metamorphic
@@ -180,4 +227,4 @@ sophg:Sedimentary rdf:type owl:Class .
 sostp:SubstanceForm rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
