@@ -1,17 +1,18 @@
 @prefix : <http://sweetontology.net/matrNaturalResource/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix somac: <http://sweetontology.net/matrCompound/> .
-@prefix somanr: <http://sweetontology.net/matrNaturalResource/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sorel: <http://sweetontology.net/rela/> .
-@prefix soreahb: <http://sweetontology.net/realmHydroBody/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix somac: <http://sweetontology.net/matrCompound/> .
 @prefix sorea: <http://sweetontology.net/realm/> .
+@prefix sorel: <http://sweetontology.net/rela/> .
 @prefix sostp: <http://sweetontology.net/statePhysical/> .
-@base <http://sweetontology.net/matrNaturalResource> .
+@prefix somanr: <http://sweetontology.net/matrNaturalResource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix soreahb: <http://sweetontology.net/realmHydroBody/> .
+@base <http://sweetontology.net/matrNaturalResource/> .
 
 <http://sweetontology.net/matrNaturalResource> rdf:type owl:Ontology ;
                                                 owl:imports <http://sweetontology.net/matrCompound> ,
@@ -19,8 +20,8 @@
                                                             <http://sweetontology.net/realmHydroBody> ,
                                                             <http://sweetontology.net/rela> ,
                                                             <http://sweetontology.net/statePhysical> ;
-                                                rdfs:label "SWEET Ontology Material Natural Resource" ;
                                                 dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+                                                rdfs:label "SWEET Ontology Material Natural Resource" ;
                                                 owl:versionInfo "3.6.0" .
 
 #################################################################
@@ -37,126 +38,146 @@ sorel:hasRealm rdf:type owl:ObjectProperty .
 
 ###  http://sweetontology.net/matrNaturalResource/Anthracite
 somanr:Anthracite rdf:type owl:Class ;
-                rdfs:subClassOf somanr:Coal ;
-                rdfs:label "anthracite"@en .
+                  rdfs:subClassOf somanr:Coal ;
+                  rdfs:label "anthracite"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Bituminous
 somanr:Bituminous rdf:type owl:Class ;
-                rdfs:subClassOf somanr:Coal ;
-                rdfs:label "bituminous"@en .
+                  rdfs:subClassOf somanr:Coal ;
+                  rdfs:label "bituminous"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Coal
 somanr:Coal rdf:type owl:Class ;
-          rdfs:subClassOf somanr:FossilFuel ;
-          rdfs:label "coal"@en .
+            rdfs:subClassOf somanr:FossilFuel ;
+            rdfs:label "coal"@en ;
+            skos:scopeNote "A readily combustible rock containing more than 50% by weight and more than 70% by volume carbonaceous material, formed by compaction and induration of variously altered plant remains..."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource somanr:Coal ;
+   owl:annotatedProperty skos:scopeNote ;
+   owl:annotatedTarget "A readily combustible rock containing more than 50% by weight and more than 70% by volume carbonaceous material, formed by compaction and induration of variously altered plant remains..."@en ;
+   dcterms:creator <brandon> ;
+   dcterms:source <https://apps.usgs.gov/thesaurus/term-simple.php?thcode=4&code=2.7> ,
+                  "USGS Lithology terms--https://apps.usgs.gov/thesaurus/thesaurus-full.php?thcode=4--https://apps.usgs.gov/thesaurus/"@en
+ ] .
 
 
 ###  http://sweetontology.net/matrNaturalResource/CoralDeposit
 somanr:CoralDeposit rdf:type owl:Class ;
-                  rdfs:subClassOf somanr:Deposit ,
-                                  somanr:NaturalResource ;
-                  rdfs:label "coral deposit"@en .
+                    rdfs:subClassOf somanr:Deposit ,
+                                    somanr:NaturalResource ;
+                    rdfs:label "coral deposit"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/CrudeOil
 somanr:CrudeOil rdf:type owl:Class ;
-              owl:equivalentClass somanr:Petroleum ;
-              rdfs:label "crude oil"@en .
+                owl:equivalentClass somanr:Petroleum ;
+                rdfs:label "crude oil"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Deposit
 somanr:Deposit rdf:type owl:Class ;
-             rdfs:subClassOf sostp:SubstanceForm ;
-             rdfs:label "deposit"@en .
+               rdfs:subClassOf sostp:SubstanceForm ;
+               rdfs:label "deposit"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/FiniteResource
 somanr:FiniteResource rdf:type owl:Class ;
-                    rdfs:subClassOf somanr:NaturalResource ;
-                    owl:disjointWith somanr:RenewableResource ;
-                    rdfs:label "finite resource"@en .
+                      rdfs:subClassOf somanr:NaturalResource ;
+                      owl:disjointWith somanr:RenewableResource ;
+                      rdfs:label "finite resource"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/FossilFuel
 somanr:FossilFuel rdf:type owl:Class ;
-                rdfs:subClassOf somanr:NaturalResource ;
-                rdfs:label "fossil fuel"@en .
+                  rdfs:subClassOf somanr:NaturalResource ;
+                  rdfs:label "fossil fuel"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/LandResource
 somanr:LandResource rdf:type owl:Class ;
-                  rdfs:subClassOf somanr:NaturalResource ,
-                                  [ rdf:type owl:Restriction ;
-                                    owl:onProperty sorel:hasRealm ;
-                                    owl:someValuesFrom sorea:Land
-                                  ] ;
-                  rdfs:label "land resource"@en .
+                    rdfs:subClassOf somanr:NaturalResource ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty sorel:hasRealm ;
+                                      owl:someValuesFrom sorea:Land
+                                    ] ;
+                    rdfs:label "land resource"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Lignite
 somanr:Lignite rdf:type owl:Class ;
-             rdfs:subClassOf somanr:Coal ;
-             rdfs:label "lignite"@en .
+               rdfs:subClassOf somanr:Coal ;
+               rdfs:label "lignite"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/NaturalGas
 somanr:NaturalGas rdf:type owl:Class ;
-                rdfs:subClassOf somanr:FossilFuel ;
-                rdfs:label "natural gas"@en .
+                  rdfs:subClassOf somanr:FossilFuel ;
+                  rdfs:label "natural gas"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/NaturalResource
 somanr:NaturalResource rdf:type owl:Class ;
-                     rdfs:subClassOf somac:Compound ;
-                     rdfs:label "natural resource"@en .
+                       rdfs:subClassOf somac:Compound ;
+                       rdfs:label "natural resource"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Oil
 somanr:Oil rdf:type owl:Class ;
-         rdfs:subClassOf somanr:FossilFuel ;
-         rdfs:label "oil"@en .
+           rdfs:subClassOf somanr:FossilFuel ;
+           rdfs:label "oil"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/OilShale
 somanr:OilShale rdf:type owl:Class ;
-              rdfs:subClassOf somanr:Oil ;
-              rdfs:label "oil shale"@en .
+                rdfs:subClassOf somanr:Oil ;
+                rdfs:label "oil shale"@en ;
+                skos:scopeNote "A kerogen-bearing, finely laminated brown or black sedimentary rock that will yield liquid or gaseous hydrocarbon on distillation."@en .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource somanr:OilShale ;
+   owl:annotatedProperty skos:scopeNote ;
+   owl:annotatedTarget "A kerogen-bearing, finely laminated brown or black sedimentary rock that will yield liquid or gaseous hydrocarbon on distillation."@en ;
+   dcterms:creator <https://orcid.org/0000-0002-0337-8610> ;
+   dcterms:source <https://apps.usgs.gov/thesaurus/term-simple.php?thcode=4&code=2.1.1.2.2> ,
+                  "USGS Lithology terms--https://apps.usgs.gov/thesaurus/thesaurus-full.php?thcode=4--https://apps.usgs.gov/thesaurus/"@en
+ ] .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Ore
 somanr:Ore rdf:type owl:Class ;
-         rdfs:subClassOf somanr:NaturalResource ;
-         rdfs:label "ore"@en .
+           rdfs:subClassOf somanr:NaturalResource ;
+           rdfs:label "ore"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/Petroleum
 somanr:Petroleum rdf:type owl:Class ;
-               rdfs:subClassOf somanr:Oil ;
-               rdfs:label "petroleum"@en .
+                 rdfs:subClassOf somanr:Oil ;
+                 rdfs:label "petroleum"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/RenewableResource
 somanr:RenewableResource rdf:type owl:Class ;
-                       rdfs:subClassOf somanr:NaturalResource ;
-                       rdfs:label "renewable resource"@en .
+                         rdfs:subClassOf somanr:NaturalResource ;
+                         rdfs:label "renewable resource"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/SubBituminous
 somanr:SubBituminous rdf:type owl:Class ;
-                   rdfs:subClassOf somanr:Coal ;
-                   rdfs:label "sub bituminous"@en .
+                     rdfs:subClassOf somanr:Coal ;
+                     rdfs:label "sub bituminous"@en .
 
 
 ###  http://sweetontology.net/matrNaturalResource/WaterResource
 somanr:WaterResource rdf:type owl:Class ;
-                   rdfs:subClassOf somanr:NaturalResource ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty sorel:hasRealm ;
-                                     owl:someValuesFrom soreahb:BodyOfWater
-                                   ] ;
-                   rdfs:label "water resource"@en .
+                     rdfs:subClassOf somanr:NaturalResource ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty sorel:hasRealm ;
+                                       owl:someValuesFrom soreahb:BodyOfWater
+                                     ] ;
+                     rdfs:label "water resource"@en .
 
 
 ###  http://sweetontology.net/realm/Land
@@ -171,4 +192,4 @@ soreahb:BodyOfWater rdf:type owl:Class .
 sostp:SubstanceForm rdf:type owl:Class .
 
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
