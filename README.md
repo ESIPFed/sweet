@@ -2,7 +2,7 @@
 
 [![Chat on Slack](https://img.shields.io/badge/chat-on%20slack-ff69b4.svg)](https://esip-all.slack.com/) on channel #sweetontology 
 
-<img src="https://www.esipfed.org/wp-content/uploads/2016/12/ESIP-final-logo.png" align="right" width="300" />
+<img src="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/full_width/public/thumbnails/image/esip-logo_0.png" align="right" width="300" />
 
 # Introduction
 Official repository for Semantic Web for Earth and Environmental Terminology (SWEET) Ontologies.
